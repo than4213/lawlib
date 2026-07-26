@@ -1,4 +1,4 @@
-# Findings from Phase 1 extraction (M1–M5)
+# Findings from Phase 1 extraction (M1–M6)
 
 Things learned *about PolicyEngine US* (and about translating law) while
 building the verified twin — recorded per design §1a: findings, not
@@ -69,3 +69,31 @@ more than $1e-6 — pure float32 arithmetic noise, maximum $0.015875
 (`eitc_reduction`) — every one within the dollar-level agreement bound.
 The exact-rational twin and the float32 original disagree *only* where
 IEEE 754 does; that residue is now measured, not anecdotal.
+
+## 7. M6 cliff scan: the encoded EITC has no unexplained cliffs — and no statutory table either
+
+The scanner (`pe2lean-scan`) swept earned income $0–$60,000 through the
+exact-ℚ engine for all 100 (filing status × children 0–3 × year
+2021–2025) cells, detecting every point where the exact slope changes.
+Result ([m6-scan-report.md](m6-scan-report.md)): **437 breakpoints, every
+one classified to a statutory phase boundary (phase-in end, phase-out
+start, phase-out end) within $2; zero unexplained kinks; zero
+discontinuities.** As encoded, EITC is exactly the statutory trapezoid in
+every cell — the empirical form of the continuity/piecewise-linearity
+theorems Phase 2 will prove symbolically, now grid-verified.
+
+The absence of one structure is itself the finding: **26 U.S.C. §32(f)
+requires the credit to be "determined under tables" — the IRS EITC
+tables bucket earned income into $50 brackets, so the *legal* credit is
+a step function.** PolicyEngine implements the smooth §32(a)–(b) formula:
+the scan shows no $50-periodic staircase anywhere, and (finding 1) the
+chain applies no rounding at all. Consequence: for nearly every filer
+inside a phase region, PolicyEngine's EITC differs from the
+table-determined credit an actual return would claim — by up to roughly
+half a bracket times the phase rate (≈ $11 at the 45% phase-in;
+≈ $5 on phase-out), plus reporting fractional cents no tax form
+contains. Verification against the published Rev. Proc. tables and a
+mirror of the table semantics in Lawlib (with the smooth-vs-table delta
+as a provable bound) is queued for Phase 2. This is Lawlib's first
+finding candidate: not a bug in an implementation, but a measurable gap
+between the shipped model and §32(f)'s procedural text.
