@@ -35,7 +35,4 @@ def roundUSD (x : USD) : USD :=
 def boolToRat (b : Bool) : Rat :=
   if b then 1 else 0
 
-instance : Min Rat := ⟨fun a b => if a ≤ b then a else b⟩
-instance : Max Rat := ⟨fun a b => if a ≤ b then b else a⟩
-
 end Lawlib

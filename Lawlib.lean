@@ -7,3 +7,4 @@ import Lawlib.Core.Json
 import Lawlib.Gen
 import Lawlib.Gen.Irs.EicTable2023
 import Lawlib.Verify.EicTable2023
+import Lawlib.Theorems.Eitc2023
