@@ -7,35 +7,35 @@ import Lawlib.Core.Date
 import Lawlib.Core.ExtRat
 import Lawlib.Core.Scale
 
-namespace Lawlib.Gen.Gov.Irs.Credits.Eitc.Params
+namespace Lawlib.Gen.Params
 open Lawlib
 
 /-- The US limits EITC eligibility for filers without children to those below this age.
     `gov/irs/credits/eitc/eligibility/age/max.yaml` (policyengine-us).
     * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
     * 26 U.S. Code § 32(n)(2) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#n_2 -/
-def eligibility.age.max : DatedParam ExtRat :=
+def gov.irs.credits.eitc.eligibility.age.max : DatedParam ExtRat :=
   ⟨(⟨2013, 1, 1⟩, .fin 64), [(⟨2021, 1, 1⟩, .posInf), (⟨2022, 1, 1⟩, .fin 64)]⟩
 
 /-- The US limits EITC eligibility for non-student filers without children to those this age or older.
     `gov/irs/credits/eitc/eligibility/age/min.yaml` (policyengine-us).
     * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
     * 26 U.S. Code § 32(n)(1)(A) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#n_1_A -/
-def eligibility.age.min : DatedParam Rat :=
+def gov.irs.credits.eitc.eligibility.age.min : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 25), [(⟨2021, 1, 1⟩, 19), (⟨2022, 1, 1⟩, 25)]⟩
 
 /-- The US limits EITC eligibility for students without children to those this age or older.
     `gov/irs/credits/eitc/eligibility/age/min_student.yaml` (policyengine-us).
     * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
     * 26 U.S. Code § 32(n)(1)(B)(2) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#n_1_A -/
-def eligibility.age.min_student : DatedParam Rat :=
+def gov.irs.credits.eitc.eligibility.age.min_student : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 25), [(⟨2021, 1, 1⟩, 24), (⟨2022, 1, 1⟩, 25)]⟩
 
 /-- The US makes married filing separate filers eligible for the EITC when this is true.
     `gov/irs/credits/eitc/eligibility/separate_filer.yaml` (policyengine-us).
     * 26 U.S. Code § 32(d) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#d
     * American Rescue Plan Act Sec. 9623: https://www.congress.gov/bill/117th-congress/house-bill/1319/text -/
-def eligibility.separate_filer : DatedParam Bool :=
+def gov.irs.credits.eitc.eligibility.separate_filer : DatedParam Bool :=
   ⟨(⟨2013, 1, 1⟩, false), [(⟨2021, 1, 1⟩, true)]⟩
 
 /-- The maximum EITC amount.
@@ -53,7 +53,7 @@ def eligibility.separate_filer : DatedParam Bool :=
     * 2017 IRS data release: https://www.irs.gov/pub/irs-drop/rp-16-55.pdf#page=11
     * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
     * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def max : Scale :=
+def gov.irs.credits.eitc.max : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2017, 1, 1⟩, 510), [(⟨2018, 1, 1⟩, 519), (⟨2019, 1, 1⟩, 529), (⟨2020, 1, 1⟩, 538), (⟨2021, 1, 1⟩, 1502), (⟨2022, 1, 1⟩, 560), (⟨2023, 1, 1⟩, 600), (⟨2024, 1, 1⟩, 632), (⟨2025, 1, 1⟩, 649), (⟨2026, 1, 1⟩, 664)]⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 1, 1⟩, 3400), [(⟨2018, 1, 1⟩, 3461), (⟨2019, 1, 1⟩, 3526), (⟨2020, 1, 1⟩, 3584), (⟨2021, 1, 1⟩, 3618), (⟨2022, 1, 1⟩, 3733), (⟨2023, 1, 1⟩, 3995), (⟨2024, 1, 1⟩, 4213), (⟨2025, 1, 1⟩, 4328), (⟨2026, 1, 1⟩, 4427)]⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 1, 1⟩, 5616), [(⟨2018, 1, 1⟩, 5716), (⟨2019, 1, 1⟩, 5828), (⟨2020, 1, 1⟩, 5920), (⟨2021, 1, 1⟩, 5980), (⟨2022, 1, 1⟩, 6164), (⟨2023, 1, 1⟩, 6604), (⟨2024, 1, 1⟩, 6960), (⟨2025, 1, 1⟩, 7152), (⟨2026, 1, 1⟩, 7316)]⟩⟩,
@@ -62,7 +62,7 @@ def max : Scale :=
 /-- Earned income credit phase-in rate.
     `gov/irs/credits/eitc/phase_in_rate.yaml` (policyengine-us).
     * 26 U.S. Code § 32 - Earned income: https://www.law.cornell.edu/uscode/text/26/32#b_1 -/
-def phase_in_rate : Scale :=
+def gov.irs.credits.eitc.phase_in_rate : Scale :=
   ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 153 2000), [(⟨2021, 1, 1⟩, mkRat 153 1000), (⟨2022, 1, 1⟩, mkRat 153 2000)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 1), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 17 50), []⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 2 5), []⟩⟩,
@@ -81,7 +81,7 @@ def phase_in_rate : Scale :=
     * EITC Parameters | TPC: https://www.taxpolicycenter.org/statistics/eitc-parameters
     * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
     * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def phase_out.joint_bonus : Scale :=
+def gov.irs.credits.eitc.phase_out.joint_bonus : Scale :=
   ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2002, 1, 1⟩, 1000), [(⟨2005, 1, 1⟩, 2000), (⟨2008, 1, 1⟩, 3000), (⟨2009, 1, 1⟩, 5000), (⟨2010, 1, 1⟩, 5010), (⟨2011, 1, 1⟩, 5080), (⟨2012, 1, 1⟩, 5210), (⟨2013, 1, 1⟩, 5340), (⟨2014, 1, 1⟩, 5430), (⟨2015, 1, 1⟩, 5520), (⟨2016, 1, 1⟩, 5550), (⟨2017, 1, 1⟩, 5590), (⟨2018, 1, 1⟩, 5690), (⟨2019, 1, 1⟩, 5800), (⟨2020, 1, 1⟩, 5890), (⟨2021, 1, 1⟩, 5940), (⟨2022, 1, 1⟩, 6130), (⟨2023, 1, 1⟩, 6570), (⟨2024, 1, 1⟩, 6920), (⟨2025, 1, 1⟩, 7110), (⟨2026, 1, 1⟩, 7280), (⟨2027, 1, 1⟩, 7410), (⟨2028, 1, 1⟩, 7570), (⟨2029, 1, 1⟩, 7710), (⟨2030, 1, 1⟩, 7870), (⟨2031, 1, 1⟩, 8020), (⟨2032, 1, 1⟩, 8180), (⟨2033, 1, 1⟩, 8340), (⟨2034, 1, 1⟩, 8510), (⟨2035, 1, 1⟩, 8670)]⟩⟩,
     ⟨⟨(⟨2013, 1, 1⟩, 1), []⟩, ⟨(⟨2002, 1, 1⟩, 1000), [(⟨2005, 1, 1⟩, 2000), (⟨2008, 1, 1⟩, 3000), (⟨2009, 1, 1⟩, 5000), (⟨2010, 1, 1⟩, 5010), (⟨2011, 1, 1⟩, 5080), (⟨2012, 1, 1⟩, 5210), (⟨2013, 1, 1⟩, 5340), (⟨2014, 1, 1⟩, 5430), (⟨2015, 1, 1⟩, 5520), (⟨2016, 1, 1⟩, 5550), (⟨2017, 1, 1⟩, 5590), (⟨2018, 1, 1⟩, 5700), (⟨2019, 1, 1⟩, 5790), (⟨2020, 1, 1⟩, 5890), (⟨2021, 1, 1⟩, 5950), (⟨2022, 1, 1⟩, 6130), (⟨2023, 1, 1⟩, 6560), (⟨2024, 1, 1⟩, 6920), (⟨2025, 1, 1⟩, 7120), (⟨2026, 1, 1⟩, 7270), (⟨2027, 1, 1⟩, 7420), (⟨2028, 1, 1⟩, 7570), (⟨2029, 1, 1⟩, 7720), (⟨2030, 1, 1⟩, 7870), (⟨2031, 1, 1⟩, 8020), (⟨2032, 1, 1⟩, 8180), (⟨2033, 1, 1⟩, 8340), (⟨2034, 1, 1⟩, 8510), (⟨2035, 1, 1⟩, 8680)]⟩⟩]⟩
 
@@ -95,13 +95,13 @@ def phase_out.joint_bonus : Scale :=
     * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
     * 26 U.S. Code § 32 - Earned income (i)(1): https://www.law.cornell.edu/uscode/text/26/32#i_1
     * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10 -/
-def phase_out.max_investment_income : DatedParam USD :=
+def gov.irs.credits.eitc.phase_out.max_investment_income : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 3300), [(⟨2014, 1, 1⟩, 3350), (⟨2015, 1, 1⟩, 3400), (⟨2017, 1, 1⟩, 3450), (⟨2018, 1, 1⟩, 3500), (⟨2019, 1, 1⟩, 3600), (⟨2020, 1, 1⟩, 3650), (⟨2021, 1, 1⟩, 10000), (⟨2022, 1, 1⟩, 10300), (⟨2023, 1, 1⟩, 11000), (⟨2024, 1, 1⟩, 11600), (⟨2025, 1, 1⟩, 11950), (⟨2026, 1, 1⟩, 12200)]⟩
 
 /-- Earned income credit phase-out rate.
     `gov/irs/credits/eitc/phase_out/rate.yaml` (policyengine-us).
     * 26 U.S. Code § 32 - Earned income: https://www.law.cornell.edu/uscode/text/26/32#b_1 -/
-def phase_out.rate : Scale :=
+def gov.irs.credits.eitc.phase_out.rate : Scale :=
   ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 153 2000), [(⟨2021, 1, 1⟩, mkRat 153 1000), (⟨2022, 1, 1⟩, mkRat 153 2000)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 1), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 799 5000), []⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 1053 5000), []⟩⟩,
@@ -121,10 +121,28 @@ def phase_out.rate : Scale :=
     * 2017 IRS data release: https://www.irs.gov/pub/irs-drop/rp-16-55.pdf#page=11
     * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
     * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def phase_out.start : Scale :=
+def gov.irs.credits.eitc.phase_out.start : Scale :=
   ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨2017, 1, 1⟩, 8340), [(⟨2018, 1, 1⟩, 8510), (⟨2019, 1, 1⟩, 8650), (⟨2020, 1, 1⟩, 8790), (⟨2021, 1, 1⟩, 11610), (⟨2022, 1, 1⟩, 9160), (⟨2023, 1, 1⟩, 9800), (⟨2024, 1, 1⟩, 10330), (⟨2025, 1, 1⟩, 10620), (⟨2026, 1, 1⟩, 10860), (⟨2027, 1, 1⟩, 11070), (⟨2028, 1, 1⟩, 11290), (⟨2029, 1, 1⟩, 11520), (⟨2030, 1, 1⟩, 11740), (⟨2031, 1, 1⟩, 11980), (⟨2032, 1, 1⟩, 12210), (⟨2033, 1, 1⟩, 12460), (⟨2034, 1, 1⟩, 12700), (⟨2035, 1, 1⟩, 12960)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩]⟩
 
-end Lawlib.Gen.Gov.Irs.Credits.Eitc.Params
+/-- The IRS permits filers to claim dependents who are non-students if they are younger than this age at the end of the year.
+    `gov/irs/dependent/ineligible_age/non_student.yaml` (policyengine-us).
+    * 26 U.S. Code § 152 - Dependent defined: https://www.law.cornell.edu/uscode/text/26/152#c_3_A_i -/
+def gov.irs.dependent.ineligible_age.non_student : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 19), []⟩
+
+/-- The IRS permits filers to claim dependents who are full-time students if they are younger than this age at the end of the year.
+    `gov/irs/dependent/ineligible_age/student.yaml` (policyengine-us).
+    * 26 U.S. Code § 152 - Dependent defined: https://www.law.cornell.edu/uscode/text/26/152#c_3_A_ii -/
+def gov.irs.dependent.ineligible_age.student : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 24), []⟩
+
+/-- Employer share of self-employment tax that can be deducted from net earnings.
+    `gov/irs/ald/self_employment_tax/percent_deductible.yaml` (policyengine-us).
+    * 26 U.S. Code § 1402 - Definitions: https://www.law.cornell.edu/uscode/text/26/1402#a_12_B -/
+def gov.irs.ald.self_employment_tax.percent_deductible : DatedParam Rate :=
+  ⟨(⟨0, 1, 1⟩, mkRat 1 2), []⟩
+
+end Lawlib.Gen.Params

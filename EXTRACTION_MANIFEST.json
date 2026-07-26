@@ -4,54 +4,69 @@
   "pe2lean_version": "0.1.0",
   "parameters": [
     {
-      "path": "eligibility.age.max",
+      "path": "gov.irs.credits.eitc.eligibility.age.max",
       "source": "gov/irs/credits/eitc/eligibility/age/max.yaml",
       "sha256": "1d9d5bcb9063779d93b08cf6de1ef48ff99a3464e1032ccce64b7edf29494a77"
     },
     {
-      "path": "eligibility.age.min",
+      "path": "gov.irs.credits.eitc.eligibility.age.min",
       "source": "gov/irs/credits/eitc/eligibility/age/min.yaml",
       "sha256": "a4ae682f2ea1b5e73982098fe24990c03dbb9dac35a06141cf75f48dc0437394"
     },
     {
-      "path": "eligibility.age.min_student",
+      "path": "gov.irs.credits.eitc.eligibility.age.min_student",
       "source": "gov/irs/credits/eitc/eligibility/age/min_student.yaml",
       "sha256": "ebd9f288bcf27fd4aeb3ea4b994342de2ba92ec32b2047a67b08a81aa3d19abe"
     },
     {
-      "path": "eligibility.separate_filer",
+      "path": "gov.irs.credits.eitc.eligibility.separate_filer",
       "source": "gov/irs/credits/eitc/eligibility/separate_filer.yaml",
       "sha256": "e4a3e2ed55d3af0298b1381be1562897645297f44551de25678bd824a9654f86"
     },
     {
-      "path": "max",
+      "path": "gov.irs.credits.eitc.max",
       "source": "gov/irs/credits/eitc/max.yaml",
       "sha256": "c857d1a9e8fd3f16d1ce8f2d93411004fb772123a3ca9df569c6c74293447b61"
     },
     {
-      "path": "phase_in_rate",
+      "path": "gov.irs.credits.eitc.phase_in_rate",
       "source": "gov/irs/credits/eitc/phase_in_rate.yaml",
       "sha256": "17be4c4dda2b77ec7d32d82465c2a2af5ece86dfc925ac88c9501f56a82903d5"
     },
     {
-      "path": "phase_out.joint_bonus",
+      "path": "gov.irs.credits.eitc.phase_out.joint_bonus",
       "source": "gov/irs/credits/eitc/phase_out/joint_bonus.yaml",
       "sha256": "e18d135c7ee4e1e8e6b6c97b70f6ff30454aeaf1169ea31913f3289cf5fbeae6"
     },
     {
-      "path": "phase_out.max_investment_income",
+      "path": "gov.irs.credits.eitc.phase_out.max_investment_income",
       "source": "gov/irs/credits/eitc/phase_out/max_investment_income.yaml",
       "sha256": "13c9dd1083f46c47f5c5ae35dc92094ac519beba89cc4712e32ce69226120d69"
     },
     {
-      "path": "phase_out.rate",
+      "path": "gov.irs.credits.eitc.phase_out.rate",
       "source": "gov/irs/credits/eitc/phase_out/rate.yaml",
       "sha256": "e7b7cd87572fab9eaef930c3160e4775702577105dfeae42b71bcf1b9337506b"
     },
     {
-      "path": "phase_out.start",
+      "path": "gov.irs.credits.eitc.phase_out.start",
       "source": "gov/irs/credits/eitc/phase_out/start.yaml",
       "sha256": "8585e317dbec27a4d0aa95bab8ecbfedbce89736d39a9645de46f973dfe1f7bd"
+    },
+    {
+      "path": "gov.irs.dependent.ineligible_age.non_student",
+      "source": "gov/irs/dependent/ineligible_age/non_student.yaml",
+      "sha256": "31879705c67d88ceca72fe9a6a7beb57211ddb9246063c74701cbb5fd6b7999d"
+    },
+    {
+      "path": "gov.irs.dependent.ineligible_age.student",
+      "source": "gov/irs/dependent/ineligible_age/student.yaml",
+      "sha256": "9979cf2a691121b0be9eb9aa6172057b5aafb30ab8d906689280861bd1b1612c"
+    },
+    {
+      "path": "gov.irs.ald.self_employment_tax.percent_deductible",
+      "source": "gov/irs/ald/self_employment_tax/percent_deductible.yaml",
+      "sha256": "894fa5faf630d98ca1c426e86b6b836ea711769bb6ce5d7abcc848c60db1fa23"
     }
   ],
   "law_date_coverage": [
@@ -60,6 +75,97 @@
   ],
   "variables": [
     {
+      "name": "is_tax_unit_dependent",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_dependent.py",
+      "sha256": "1d6d43e3ee4217d321256f906150500f422296c0f07a56d5e489b3fb165ce310"
+    },
+    {
+      "name": "meets_eitc_identification_requirements",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/meets_eitc_identification_requirements.py",
+      "sha256": "4b0aa51cad111c4d497914320ffceff3ad22998a84690e52655df52bb3062403"
+    },
+    {
+      "name": "is_tax_unit_head_or_spouse",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_head_or_spouse.py",
+      "sha256": "21273467ec604eac8ad8d97ecf34430b6466339345f3b15513becd1fbe8063f6"
+    },
+    {
+      "name": "self_employment_tax_ald_person",
+      "entity": "person",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald_person.py",
+      "sha256": "5112bf8bb3c82ff2126fe5219bf01f0d6a71c25e82ed4112aee69591f1a88519"
+    },
+    {
+      "name": "tax_unit_is_joint",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/tax_unit/tax_unit_is_joint.py",
+      "sha256": "875e49add12246c07919ed0ff6b0b5220da1eb5925e74b4b9292ca27f3471d85"
+    },
+    {
+      "name": "is_in_k12_school",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/household/demographic/person/is_in_k12_school.py",
+      "sha256": "0a689dba4c9f6d04c97f01a96a3d75dadf4e2dfe9b6c41639b4576934d5f877b"
+    },
+    {
+      "name": "long_term_capital_gains",
+      "entity": "person",
+      "value_type": "float",
+      "source": "policyengine_us/variables/household/income/person/capital_gains/long_term_capital_gains.py",
+      "sha256": "074c8ace22b4ef50741c562c8f362760b8f5b2e877d9b5b0f05322e21fdfccfa"
+    },
+    {
+      "name": "filer_meets_eitc_identification_requirements",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/filer_meets_eitc_identification_requirements.py",
+      "sha256": "c0a3dfd839fb6a2c27d6f65e016c11e2995d46a740d8268e70dab59c8f94ed23"
+    },
+    {
+      "name": "eitc_earned_income",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py",
+      "sha256": "ae0a2d46d725bd16f5db39e3246aac2f7e933ff06b933c284fddf59488dc2c16"
+    },
+    {
+      "name": "is_full_time_student",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/household/demographic/person/is_full_time_student.py",
+      "sha256": "ab744e09443c14e599b77b74affd6c8763f8950c3c35e11efe536b4400dd2b74"
+    },
+    {
+      "name": "net_capital_gains",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/household/income/tax_unit/net_capital_gains.py",
+      "sha256": "bdb60ce4980cbba91a27f4bcab9969ee550840a407016c1d4a639cf3ad558f39"
+    },
+    {
+      "name": "is_qualifying_child_dependent",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py",
+      "sha256": "3c4d044fe50c58740ea0802d3e8c4073a67518be28d49613de42bce83c86dab4"
+    },
+    {
+      "name": "eitc_relevant_investment_income",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_relevant_investment_income.py",
+      "sha256": "b10ed67fcaa2779f8b3a409f82f22c3d34bb1ec6a045cd3daa35bd0c35d9bb1f"
+    },
+    {
       "name": "eitc_child_count",
       "entity": "tax_unit",
       "value_type": "int",
@@ -67,11 +173,11 @@
       "sha256": "83b3737f82d737335a338948d2d474d0d64c04a2c170bd631d37cc196490fcaf"
     },
     {
-      "name": "eitc_phase_in_rate",
+      "name": "eitc_investment_income_eligible",
       "entity": "tax_unit",
-      "value_type": "float",
-      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_in_rate.py",
-      "sha256": "e9648ce0e80dbea178de5101c581a5726ec01ca43b05298f2bf72278ae509241"
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_investment_income_eligible.py",
+      "sha256": "64eda48965f1a814ea8cacf5317365e814fdee7dbe35abcd8d2877d02a911d07"
     },
     {
       "name": "eitc_maximum",
@@ -79,6 +185,20 @@
       "value_type": "float",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py",
       "sha256": "0ba6adbed7776312f5441d1d721bbb6b8621be19a8fb77fef79e3783128c1537"
+    },
+    {
+      "name": "eitc_demographic_eligible",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_demographic_eligible.py",
+      "sha256": "e45ea5e12dc5bc7c874b3880de58258f2fa2e151be92dcffe9c98560600bbae8"
+    },
+    {
+      "name": "eitc_phase_in_rate",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_in_rate.py",
+      "sha256": "e9648ce0e80dbea178de5101c581a5726ec01ca43b05298f2bf72278ae509241"
     },
     {
       "name": "eitc_phase_out_rate",
@@ -93,6 +213,13 @@
       "value_type": "float",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_start.py",
       "sha256": "ec3c2b7fa6a7c7d004249ec98e266a2b0ad17eccc3e4f1a8b41bb42659cb4926"
+    },
+    {
+      "name": "eitc_eligible",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_eligible.py",
+      "sha256": "1f466b730cd5f0b8f08ddfd970d913a66f76ac07e2c0e3019c14ad98a02940a4"
     },
     {
       "name": "eitc_phased_in",
@@ -116,66 +243,192 @@
       "sha256": "5f5384842f733e95e82e3b0671a272150f7f47b999737607a7f40036791c80fb"
     }
   ],
+  "root_variable": "eitc",
   "input_boundary": [
     {
       "name": "adjusted_gross_income",
       "entity": "tax_unit",
-      "value_type": "float"
+      "value_type": "float",
+      "kind": "pruned",
+      "note": "AGI machinery out of Phase-1 subtree scope"
     },
     {
-      "name": "eitc_earned_income",
-      "entity": "tax_unit",
-      "value_type": "float"
+      "name": "age",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "input",
+      "note": ""
     },
     {
-      "name": "eitc_eligible",
+      "name": "capital_gains_behavioral_response",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "rejected",
+      "note": "attribute 'simulation' on value expression"
+    },
+    {
+      "name": "employment_income",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "pruned",
+      "note": "behavioral-response chain (gov/simulation) out of scope"
+    },
+    {
+      "name": "farm_operations_income",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "filing_status",
       "entity": "tax_unit",
-      "value_type": "bool"
+      "value_type": "Enum",
+      "kind": "rejected",
+      "note": "unrecognized call select",
+      "enum": "FilingStatus",
+      "members": [
+        "SINGLE",
+        "JOINT",
+        "SEPARATE",
+        "HEAD_OF_HOUSEHOLD",
+        "SURVIVING_SPOUSE"
+      ],
+      "default": "SINGLE"
+    },
+    {
+      "name": "is_full_time_college_student",
+      "entity": "person",
+      "value_type": "bool",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "is_permanently_and_totally_disabled",
       "entity": "person",
-      "value_type": "bool"
+      "value_type": "bool",
+      "kind": "input",
+      "note": ""
     },
     {
-      "name": "is_qualifying_child_dependent",
+      "name": "is_tax_unit_head",
       "entity": "person",
-      "value_type": "bool"
+      "value_type": "bool",
+      "kind": "rejected",
+      "note": "attribute 'tax_unit' on value expression"
     },
     {
-      "name": "is_tax_unit_dependent",
+      "name": "is_tax_unit_spouse",
       "entity": "person",
-      "value_type": "bool"
+      "value_type": "bool",
+      "kind": "rejected",
+      "note": "attribute 'tax_unit' on value expression"
     },
     {
-      "name": "meets_eitc_identification_requirements",
+      "name": "long_term_capital_gains_before_response",
       "entity": "person",
-      "value_type": "bool"
+      "value_type": "float",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "loss_limited_net_capital_gains",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "kind": "pruned",
+      "note": "capital-loss limitation chain out of scope"
+    },
+    {
+      "name": "net_investment_income",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "kind": "pruned",
+      "note": "adds via parameter path \u2014 resolve when AGI subtree lands"
+    },
+    {
+      "name": "partnership_self_employment_net_earnings",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "self_employment_income",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "pruned",
+      "note": "behavioral-response chain out of scope"
+    },
+    {
+      "name": "self_employment_tax",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "rejected",
+      "note": "parameter 'gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax' outside emitted subtrees"
+    },
+    {
+      "name": "short_term_capital_gains",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "ssn_card_type",
+      "entity": "person",
+      "value_type": "Enum",
+      "kind": "input",
+      "note": "",
+      "enum": "SSNCardType",
+      "members": [
+        "CITIZEN",
+        "NON_CITIZEN_VALID_EAD",
+        "OTHER_NON_CITIZEN",
+        "NONE"
+      ],
+      "default": "CITIZEN"
+    },
+    {
+      "name": "sstb_self_employment_income",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "pruned",
+      "note": "behavioral-response chain out of scope"
     },
     {
       "name": "takes_up_eitc",
       "entity": "tax_unit",
-      "value_type": "bool"
+      "value_type": "bool",
+      "kind": "pruned",
+      "note": "stochastic takeup \u2014 input by design"
     },
     {
-      "name": "tax_unit_is_joint",
-      "entity": "tax_unit",
-      "value_type": "bool"
+      "name": "tax_exempt_interest_income",
+      "entity": "person",
+      "value_type": "float",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "tax_unit_is_required_to_file",
       "entity": "tax_unit",
-      "value_type": "bool"
+      "value_type": "bool",
+      "kind": "rejected",
+      "note": "parameter 'gov.irs.income.exemption.suspended' outside emitted subtrees"
     },
     {
       "name": "would_file_if_eligible_for_refundable_credit",
       "entity": "tax_unit",
-      "value_type": "bool"
+      "value_type": "bool",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "would_file_taxes_voluntarily",
       "entity": "tax_unit",
-      "value_type": "bool"
+      "value_type": "bool",
+      "kind": "input",
+      "note": ""
     }
   ]
 }
