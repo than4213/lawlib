@@ -31,4 +31,11 @@ numeric accident. -/
 def roundUSD (x : USD) : USD :=
   (ratFloor (x + 1/2) : Int)
 
+/-- NumPy bool-as-number coercion (`is_joint * bonus`): `true → 1`. -/
+def boolToRat (b : Bool) : Rat :=
+  if b then 1 else 0
+
+instance : Min Rat := ⟨fun a b => if a ≤ b then a else b⟩
+instance : Max Rat := ⟨fun a b => if a ≤ b then b else a⟩
+
 end Lawlib

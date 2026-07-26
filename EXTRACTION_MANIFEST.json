@@ -58,5 +58,124 @@
     "0000-01-01",
     "2035-01-01"
   ],
-  "variables": []
+  "variables": [
+    {
+      "name": "eitc_child_count",
+      "entity": "tax_unit",
+      "value_type": "int",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_child_count.py",
+      "sha256": "83b3737f82d737335a338948d2d474d0d64c04a2c170bd631d37cc196490fcaf"
+    },
+    {
+      "name": "eitc_phase_in_rate",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_in_rate.py",
+      "sha256": "e9648ce0e80dbea178de5101c581a5726ec01ca43b05298f2bf72278ae509241"
+    },
+    {
+      "name": "eitc_maximum",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py",
+      "sha256": "0ba6adbed7776312f5441d1d721bbb6b8621be19a8fb77fef79e3783128c1537"
+    },
+    {
+      "name": "eitc_phase_out_rate",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_rate.py",
+      "sha256": "2414cf862309b3c2d06520358891bc6066c9ac7b62f33474279355d4f44a1bcc"
+    },
+    {
+      "name": "eitc_phase_out_start",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_start.py",
+      "sha256": "ec3c2b7fa6a7c7d004249ec98e266a2b0ad17eccc3e4f1a8b41bb42659cb4926"
+    },
+    {
+      "name": "eitc_phased_in",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phased_in.py",
+      "sha256": "e849bc48a5f57640730705a23e66d2c7992cbeb6801215c1e32c34c4c9b43894"
+    },
+    {
+      "name": "eitc_reduction",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_reduction.py",
+      "sha256": "d8ed0efccd4a02b080b102bb025457cbd9a4c2ec36383f5aedc5df2a08c27b7b"
+    },
+    {
+      "name": "eitc",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc.py",
+      "sha256": "5f5384842f733e95e82e3b0671a272150f7f47b999737607a7f40036791c80fb"
+    }
+  ],
+  "input_boundary": [
+    {
+      "name": "adjusted_gross_income",
+      "entity": "tax_unit",
+      "value_type": "float"
+    },
+    {
+      "name": "eitc_earned_income",
+      "entity": "tax_unit",
+      "value_type": "float"
+    },
+    {
+      "name": "eitc_eligible",
+      "entity": "tax_unit",
+      "value_type": "bool"
+    },
+    {
+      "name": "is_permanently_and_totally_disabled",
+      "entity": "person",
+      "value_type": "bool"
+    },
+    {
+      "name": "is_qualifying_child_dependent",
+      "entity": "person",
+      "value_type": "bool"
+    },
+    {
+      "name": "is_tax_unit_dependent",
+      "entity": "person",
+      "value_type": "bool"
+    },
+    {
+      "name": "meets_eitc_identification_requirements",
+      "entity": "person",
+      "value_type": "bool"
+    },
+    {
+      "name": "takes_up_eitc",
+      "entity": "tax_unit",
+      "value_type": "bool"
+    },
+    {
+      "name": "tax_unit_is_joint",
+      "entity": "tax_unit",
+      "value_type": "bool"
+    },
+    {
+      "name": "tax_unit_is_required_to_file",
+      "entity": "tax_unit",
+      "value_type": "bool"
+    },
+    {
+      "name": "would_file_if_eligible_for_refundable_credit",
+      "entity": "tax_unit",
+      "value_type": "bool"
+    },
+    {
+      "name": "would_file_taxes_voluntarily",
+      "entity": "tax_unit",
+      "value_type": "bool"
+    }
+  ]
 }

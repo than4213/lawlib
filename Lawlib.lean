@@ -3,4 +3,5 @@ import Lawlib.Core.Date
 import Lawlib.Core.Entity
 import Lawlib.Core.ExtRat
 import Lawlib.Core.Scale
+import Lawlib.Core.Json
 import Lawlib.Gen
