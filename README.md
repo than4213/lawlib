@@ -46,6 +46,22 @@ echo '{"date":"2023-01-01","tax_unit":{...}}' | ./.lake/build/bin/lawlib
 | `rejection_report.md` | what the extractor refused to translate, and why — a deliverable, not a failure |
 | `docs/` | design, handoff, findings |
 
+## Machine-checked results
+
+[`Lawlib/Verify/EicTable2023.lean`](Lawlib/Verify/EicTable2023.lean)
+proves (by `native_decide` over the table data extracted from the 2023
+Form 1040 instructions):
+
+- the 2023 IRS EIC table is exactly reproduced by a five-line generator:
+  bracket-midpoint evaluation of the phase formula, **phase-out anchored
+  at the IRS-internal *unrounded* completed-phaseout amounts**, rounded
+  half up, with the plateau maximum for kink-straddling brackets;
+- PolicyEngine's smooth formula never differs from the legal (table)
+  credit by more than **$11.50** — and that bound is sharp;
+- at bracket midpoints the gap is at most $5.297.
+
+See [docs/findings-m5.md](docs/findings-m5.md) for the full findings.
+
 ## Why
 
 Deep embeddings of law (Catala, s(CASP)) can be *reasoned about* but cover

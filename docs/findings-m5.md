@@ -123,6 +123,14 @@ exact-rational engine (`pe2lean-tablecheck`). Results:
   eligibility cut exactly at E — a real $50-scale cliff the smooth
   formula does not have.
 
+**Update — now machine-checked:** `Lawlib/Verify/EicTable2023.lean`
+states the generator model in Lean (rates/thresholds referenced from the
+extracted parameters) and proves by `native_decide` that it reproduces
+every parsed table cell, that the PE-vs-table gap is ≤ $11.50 everywhere
+(sharp at $50 earned income, three children), and ≤ $5.297 at bracket
+midpoints. The finding is no longer an empirical comparison; it is a
+theorem about committed data.
+
 Consequences for PolicyEngine fidelity, now exact rather than
 estimated: PE differs from the legal credit by up to ~$11.25 in
 phase-in and ~$5.27 in phase-out from midpoint quantization, plus a

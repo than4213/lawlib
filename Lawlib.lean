@@ -5,3 +5,5 @@ import Lawlib.Core.ExtRat
 import Lawlib.Core.Scale
 import Lawlib.Core.Json
 import Lawlib.Gen
+import Lawlib.Gen.Irs.EicTable2023
+import Lawlib.Verify.EicTable2023
