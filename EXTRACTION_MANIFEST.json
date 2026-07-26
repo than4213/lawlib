@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "pe_us_version": "1.783.0",
+  "pe2lean_version": "0.1.0",
+  "parameters": [
+    {
+      "path": "eligibility.age.max",
+      "source": "gov/irs/credits/eitc/eligibility/age/max.yaml",
+      "sha256": "1d9d5bcb9063779d93b08cf6de1ef48ff99a3464e1032ccce64b7edf29494a77"
+    },
+    {
+      "path": "eligibility.age.min",
+      "source": "gov/irs/credits/eitc/eligibility/age/min.yaml",
+      "sha256": "a4ae682f2ea1b5e73982098fe24990c03dbb9dac35a06141cf75f48dc0437394"
+    },
+    {
+      "path": "eligibility.age.min_student",
+      "source": "gov/irs/credits/eitc/eligibility/age/min_student.yaml",
+      "sha256": "ebd9f288bcf27fd4aeb3ea4b994342de2ba92ec32b2047a67b08a81aa3d19abe"
+    },
+    {
+      "path": "eligibility.separate_filer",
+      "source": "gov/irs/credits/eitc/eligibility/separate_filer.yaml",
+      "sha256": "e4a3e2ed55d3af0298b1381be1562897645297f44551de25678bd824a9654f86"
+    },
+    {
+      "path": "max",
+      "source": "gov/irs/credits/eitc/max.yaml",
+      "sha256": "c857d1a9e8fd3f16d1ce8f2d93411004fb772123a3ca9df569c6c74293447b61"
+    },
+    {
+      "path": "phase_in_rate",
+      "source": "gov/irs/credits/eitc/phase_in_rate.yaml",
+      "sha256": "17be4c4dda2b77ec7d32d82465c2a2af5ece86dfc925ac88c9501f56a82903d5"
+    },
+    {
+      "path": "phase_out.joint_bonus",
+      "source": "gov/irs/credits/eitc/phase_out/joint_bonus.yaml",
+      "sha256": "e18d135c7ee4e1e8e6b6c97b70f6ff30454aeaf1169ea31913f3289cf5fbeae6"
+    },
+    {
+      "path": "phase_out.max_investment_income",
+      "source": "gov/irs/credits/eitc/phase_out/max_investment_income.yaml",
+      "sha256": "13c9dd1083f46c47f5c5ae35dc92094ac519beba89cc4712e32ce69226120d69"
+    },
+    {
+      "path": "phase_out.rate",
+      "source": "gov/irs/credits/eitc/phase_out/rate.yaml",
+      "sha256": "e7b7cd87572fab9eaef930c3160e4775702577105dfeae42b71bcf1b9337506b"
+    },
+    {
+      "path": "phase_out.start",
+      "source": "gov/irs/credits/eitc/phase_out/start.yaml",
+      "sha256": "8585e317dbec27a4d0aa95bab8ecbfedbce89736d39a9645de46f973dfe1f7bd"
+    }
+  ],
+  "law_date_coverage": [
+    "0000-01-01",
+    "2035-01-01"
+  ],
+  "variables": []
+}
