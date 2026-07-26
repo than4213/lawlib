@@ -23,12 +23,15 @@ line. A single line is the M3-era single-household mode. -/
 def main : IO Unit := do
   let input ← (← IO.getStdin).readToEnd
   let stdout ← IO.getStdout
+  let mut lineNo := 0
   for line in input.splitOn "\n" do
+    lineNo := lineNo + 1
     let line := line.trim
     if line.isEmpty then
       continue
     match processLine line with
     | .ok j => stdout.putStrLn j.compress
     | .error e => do
-      (← IO.getStderr).putStrLn s!"lawlib: bad input: {e}"
+      (← IO.getStderr).putStrLn
+        s!"lawlib: bad input at line {lineNo} (length {line.length}): {e}; head: {line.take 120}"
       IO.Process.exit 1

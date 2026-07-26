@@ -13,14 +13,14 @@ open Lawlib.Gen.Gov.Irs.Credits.Eitc
 def evalJson (t : TaxUnit) (d : Date) : Lean.Json :=
   Lean.Json.mkObj
     [ ("tax_unit_is_joint", Lean.toJson (tax_unit_is_joint t d)),
-    ("filer_meets_eitc_identification_requirements", Lean.toJson (filer_meets_eitc_identification_requirements t d)),
     ("eitc_earned_income", Lean.toJson (eitc_earned_income t d)),
+    ("filer_meets_eitc_identification_requirements", Lean.toJson (filer_meets_eitc_identification_requirements t d)),
     ("net_capital_gains", Lean.toJson (net_capital_gains t d)),
     ("eitc_relevant_investment_income", Lean.toJson (eitc_relevant_investment_income t d)),
     ("eitc_child_count", Lean.toJson (eitc_child_count t d)),
     ("eitc_investment_income_eligible", Lean.toJson (eitc_investment_income_eligible t d)),
-    ("eitc_maximum", Lean.toJson (eitc_maximum t d)),
     ("eitc_demographic_eligible", Lean.toJson (eitc_demographic_eligible t d)),
+    ("eitc_maximum", Lean.toJson (eitc_maximum t d)),
     ("eitc_phase_in_rate", Lean.toJson (eitc_phase_in_rate t d)),
     ("eitc_phase_out_rate", Lean.toJson (eitc_phase_out_rate t d)),
     ("eitc_phase_out_start", Lean.toJson (eitc_phase_out_start t d)),

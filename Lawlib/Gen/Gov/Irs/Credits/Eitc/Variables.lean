@@ -16,20 +16,30 @@ open Lawlib Lawlib.Gen
 -- generated defs bind (t, p, d) uniformly whether or not used
 set_option linter.unusedVariables false
 
+/-- `policyengine_us/variables/household/demographic/person/is_in_k12_school.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_in_k12_school (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (decide (p.age ≥ 5) && decide (p.age ≤ 17))
+
 /-- `policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_dependent.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_tax_unit_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((!p.is_tax_unit_head) && (!p.is_tax_unit_spouse))
 
-/-- `policyengine_us/variables/gov/irs/credits/earned_income/meets_eitc_identification_requirements.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def meets_eitc_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((p.ssn_card_type == SSNCardType.CITIZEN) || (p.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD))
-
 /-- `policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_head_or_spouse.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_tax_unit_head_or_spouse (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (p.is_tax_unit_head || p.is_tax_unit_spouse)
+
+/-- `policyengine_us/variables/household/income/person/capital_gains/long_term_capital_gains.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def long_term_capital_gains (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (p.long_term_capital_gains_before_response + p.capital_gains_behavioral_response)
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/meets_eitc_identification_requirements.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def meets_eitc_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((p.ssn_card_type == SSNCardType.CITIZEN) || (p.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD))
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -41,25 +51,15 @@ def self_employment_tax_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :
 def tax_unit_is_joint (t : TaxUnit) (d : Date) : Bool :=
   (t.filing_status == FilingStatus.JOINT)
 
-/-- `policyengine_us/variables/household/demographic/person/is_in_k12_school.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_in_k12_school (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide (p.age ≥ 5) && decide (p.age ≤ 17))
-
-/-- `policyengine_us/variables/household/income/person/capital_gains/long_term_capital_gains.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def long_term_capital_gains (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (p.long_term_capital_gains_before_response + p.capital_gains_behavioral_response)
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_earned_income (t : TaxUnit) (d : Date) : Rat :=
+  (max 0 ((((((sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.employment_income) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.self_employment_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.sstb_self_employment_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.farm_operations_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.partnership_self_employment_net_earnings)) - (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else (self_employment_tax_ald_person t p d))))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/filer_meets_eitc_identification_requirements.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def filer_meets_eitc_identification_requirements (t : TaxUnit) (d : Date) : Bool :=
   decide ((sumBy t.members fun p => boolToRat ((is_tax_unit_head_or_spouse t p d) && (!(meets_eitc_identification_requirements t p d)))) = 0)
-
-/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def eitc_earned_income (t : TaxUnit) (d : Date) : Rat :=
-  (max 0 ((((((sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.employment_income) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.self_employment_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.sstb_self_employment_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.farm_operations_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.partnership_self_employment_net_earnings)) - (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else (self_employment_tax_ald_person t p d))))
 
 /-- `policyengine_us/variables/household/demographic/person/is_full_time_student.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -71,15 +71,15 @@ def is_full_time_student (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def net_capital_gains (t : TaxUnit) (d : Date) : Rat :=
   ((sumBy t.members fun p => (long_term_capital_gains t p d)) + (sumBy t.members fun p => p.short_term_capital_gains))
 
-/-- `policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_qualifying_child_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (is_tax_unit_dependent t p d) then decide (p.age < (if (is_full_time_student t p d) then (Params.gov.irs.dependent.ineligible_age.student.atDate d) else (Params.gov.irs.dependent.ineligible_age.non_student.atDate d))) else false)
-
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_relevant_investment_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def eitc_relevant_investment_income (t : TaxUnit) (d : Date) : Rat :=
   (((t.net_investment_income + (sumBy t.members fun p => p.tax_exempt_interest_income)) - t.loss_limited_net_capital_gains) + (max 0 (net_capital_gains t d)))
+
+/-- `policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_qualifying_child_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if (is_tax_unit_dependent t p d) then decide (p.age < (if (is_full_time_student t p d) then (Params.gov.irs.dependent.ineligible_age.student.atDate d) else (Params.gov.irs.dependent.ineligible_age.non_student.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_child_count.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
@@ -91,15 +91,15 @@ def eitc_child_count (t : TaxUnit) (d : Date) : Rat :=
 def eitc_investment_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   decide ((eitc_relevant_investment_income t d) ≤ (Params.gov.irs.credits.eitc.phase_out.max_investment_income.atDate d))
 
-/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def eitc_maximum (t : TaxUnit) (d : Date) : Rat :=
-  (Params.gov.irs.credits.eitc.max.atDate d (eitc_child_count t d))
-
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_demographic_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def eitc_demographic_eligible (t : TaxUnit) (d : Date) : Bool :=
   (decide ((eitc_child_count t d) > 0) || (anyBy t.members fun p => ((decide (p.age ≥ (if (is_full_time_student t p d) then (Params.gov.irs.credits.eitc.eligibility.age.min_student.atDate d) else (Params.gov.irs.credits.eitc.eligibility.age.min.atDate d))) && ExtRat.leCap p.age (Params.gov.irs.credits.eitc.eligibility.age.max.atDate d)) && (!(is_tax_unit_dependent t p d)))))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_maximum (t : TaxUnit) (d : Date) : Rat :=
+  (Params.gov.irs.credits.eitc.max.atDate d (eitc_child_count t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_in_rate.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

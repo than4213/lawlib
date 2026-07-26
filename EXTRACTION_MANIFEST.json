@@ -75,6 +75,13 @@
   ],
   "variables": [
     {
+      "name": "is_in_k12_school",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/household/demographic/person/is_in_k12_school.py",
+      "sha256": "0a689dba4c9f6d04c97f01a96a3d75dadf4e2dfe9b6c41639b4576934d5f877b"
+    },
+    {
       "name": "is_tax_unit_dependent",
       "entity": "person",
       "value_type": "bool",
@@ -82,18 +89,25 @@
       "sha256": "1d6d43e3ee4217d321256f906150500f422296c0f07a56d5e489b3fb165ce310"
     },
     {
-      "name": "meets_eitc_identification_requirements",
-      "entity": "person",
-      "value_type": "bool",
-      "source": "policyengine_us/variables/gov/irs/credits/earned_income/meets_eitc_identification_requirements.py",
-      "sha256": "4b0aa51cad111c4d497914320ffceff3ad22998a84690e52655df52bb3062403"
-    },
-    {
       "name": "is_tax_unit_head_or_spouse",
       "entity": "person",
       "value_type": "bool",
       "source": "policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_head_or_spouse.py",
       "sha256": "21273467ec604eac8ad8d97ecf34430b6466339345f3b15513becd1fbe8063f6"
+    },
+    {
+      "name": "long_term_capital_gains",
+      "entity": "person",
+      "value_type": "float",
+      "source": "policyengine_us/variables/household/income/person/capital_gains/long_term_capital_gains.py",
+      "sha256": "074c8ace22b4ef50741c562c8f362760b8f5b2e877d9b5b0f05322e21fdfccfa"
+    },
+    {
+      "name": "meets_eitc_identification_requirements",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/meets_eitc_identification_requirements.py",
+      "sha256": "4b0aa51cad111c4d497914320ffceff3ad22998a84690e52655df52bb3062403"
     },
     {
       "name": "self_employment_tax_ald_person",
@@ -110,18 +124,11 @@
       "sha256": "875e49add12246c07919ed0ff6b0b5220da1eb5925e74b4b9292ca27f3471d85"
     },
     {
-      "name": "is_in_k12_school",
-      "entity": "person",
-      "value_type": "bool",
-      "source": "policyengine_us/variables/household/demographic/person/is_in_k12_school.py",
-      "sha256": "0a689dba4c9f6d04c97f01a96a3d75dadf4e2dfe9b6c41639b4576934d5f877b"
-    },
-    {
-      "name": "long_term_capital_gains",
-      "entity": "person",
+      "name": "eitc_earned_income",
+      "entity": "tax_unit",
       "value_type": "float",
-      "source": "policyengine_us/variables/household/income/person/capital_gains/long_term_capital_gains.py",
-      "sha256": "074c8ace22b4ef50741c562c8f362760b8f5b2e877d9b5b0f05322e21fdfccfa"
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py",
+      "sha256": "ae0a2d46d725bd16f5db39e3246aac2f7e933ff06b933c284fddf59488dc2c16"
     },
     {
       "name": "filer_meets_eitc_identification_requirements",
@@ -129,13 +136,6 @@
       "value_type": "bool",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/filer_meets_eitc_identification_requirements.py",
       "sha256": "c0a3dfd839fb6a2c27d6f65e016c11e2995d46a740d8268e70dab59c8f94ed23"
-    },
-    {
-      "name": "eitc_earned_income",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py",
-      "sha256": "ae0a2d46d725bd16f5db39e3246aac2f7e933ff06b933c284fddf59488dc2c16"
     },
     {
       "name": "is_full_time_student",
@@ -152,18 +152,18 @@
       "sha256": "bdb60ce4980cbba91a27f4bcab9969ee550840a407016c1d4a639cf3ad558f39"
     },
     {
-      "name": "is_qualifying_child_dependent",
-      "entity": "person",
-      "value_type": "bool",
-      "source": "policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py",
-      "sha256": "3c4d044fe50c58740ea0802d3e8c4073a67518be28d49613de42bce83c86dab4"
-    },
-    {
       "name": "eitc_relevant_investment_income",
       "entity": "tax_unit",
       "value_type": "float",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_relevant_investment_income.py",
       "sha256": "b10ed67fcaa2779f8b3a409f82f22c3d34bb1ec6a045cd3daa35bd0c35d9bb1f"
+    },
+    {
+      "name": "is_qualifying_child_dependent",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py",
+      "sha256": "3c4d044fe50c58740ea0802d3e8c4073a67518be28d49613de42bce83c86dab4"
     },
     {
       "name": "eitc_child_count",
@@ -180,18 +180,18 @@
       "sha256": "64eda48965f1a814ea8cacf5317365e814fdee7dbe35abcd8d2877d02a911d07"
     },
     {
-      "name": "eitc_maximum",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py",
-      "sha256": "0ba6adbed7776312f5441d1d721bbb6b8621be19a8fb77fef79e3783128c1537"
-    },
-    {
       "name": "eitc_demographic_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_demographic_eligible.py",
       "sha256": "e45ea5e12dc5bc7c874b3880de58258f2fa2e151be92dcffe9c98560600bbae8"
+    },
+    {
+      "name": "eitc_maximum",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py",
+      "sha256": "0ba6adbed7776312f5441d1d721bbb6b8621be19a8fb77fef79e3783128c1537"
     },
     {
       "name": "eitc_phase_in_rate",
