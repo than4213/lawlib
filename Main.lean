@@ -12,15 +12,23 @@ open Lean Lawlib Lawlib.Gen
 def results (t : TaxUnit) (d : Date) : Json :=
   evalJson t d
 
+def processLine (line : String) : Except String Json := do
+  let j ← Json.parse line
+  let d ← fromJson? (α := Date) (← j.getObjVal? "date")
+  let t ← fromJson? (α := TaxUnit) (← j.getObjVal? "tax_unit")
+  pure (results t d)
+
+/-- JSONL: one household per input line, one result object per output
+line. A single line is the M3-era single-household mode. -/
 def main : IO Unit := do
   let input ← (← IO.getStdin).readToEnd
-  let out : Except String Json := do
-    let j ← Json.parse input
-    let d ← fromJson? (α := Date) (← j.getObjVal? "date")
-    let t ← fromJson? (α := TaxUnit) (← j.getObjVal? "tax_unit")
-    pure (results t d)
-  match out with
-  | .ok j => IO.println j.compress
-  | .error e => do
-    (← IO.getStderr).putStrLn s!"lawlib: bad input: {e}"
-    IO.Process.exit 1
+  let stdout ← IO.getStdout
+  for line in input.splitOn "\n" do
+    let line := line.trim
+    if line.isEmpty then
+      continue
+    match processLine line with
+    | .ok j => stdout.putStrLn j.compress
+    | .error e => do
+      (← IO.getStderr).putStrLn s!"lawlib: bad input: {e}"
+      IO.Process.exit 1

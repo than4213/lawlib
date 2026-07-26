@@ -1,0 +1,56 @@
+# CI per design §7: build must be `lake build`-only for consumers;
+# extraction is re-run and diffed byte-for-byte (determinism + the
+# never-hand-edit rule); differential suite 10k on push, 100k nightly.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *"   # nightly 100k
+
+env:
+  # Bumping either pin is a deliberate PR (design §6.3).
+  PE2LEAN_REF: v0.1.0
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  build-and-verify:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+      - name: Build evaluator binary
+        run: lake build lawlib
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install pinned extractor
+        run: pip install "pe2lean @ git+https://github.com/than4213/pe2lean.git@${{ env.PE2LEAN_REF }}"
+      - name: Determinism check (re-extract must be byte-identical)
+        run: |
+          pe2lean extract --lawlib .
+          git diff --exit-code
+      - name: Parameter spot-check
+        run: pe2lean-spot --lawlib .
+      - name: Differential test (10k households)
+        run: pe2lean-diff 10000 --lawlib .
+
+  nightly-acceptance:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+      - name: Build evaluator binary
+        run: lake build lawlib
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install pinned extractor
+        run: pip install "pe2lean @ git+https://github.com/than4213/pe2lean.git@${{ env.PE2LEAN_REF }}"
+      - name: Differential acceptance (100k households, 2021-2025)
+        run: pe2lean-diff 100000 --lawlib .
