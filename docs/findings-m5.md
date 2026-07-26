@@ -92,8 +92,44 @@ inside a phase region, PolicyEngine's EITC differs from the
 table-determined credit an actual return would claim — by up to roughly
 half a bracket times the phase rate (≈ $11 at the 45% phase-in;
 ≈ $5 on phase-out), plus reporting fractional cents no tax form
-contains. Verification against the published Rev. Proc. tables and a
-mirror of the table semantics in Lawlib (with the smooth-vs-table delta
-as a provable bound) is queued for Phase 2. This is Lawlib's first
-finding candidate: not a bug in an implementation, but a measurable gap
-between the shipped model and §32(f)'s procedural text.
+contains. **Verified against the actual IRS table — see finding 8.**
+
+## 8. VERIFIED: the 2023 IRS EIC table, fully reverse-engineered — and the exact PE-vs-law gap
+
+We parsed all 1,265 $50-bracket rows (10,120 cells) of the 2023 EIC
+table from the Form 1040 instructions PDF and compared them against the
+exact-rational engine (`pe2lean-tablecheck`). Results:
+
+* **Finding 7 confirmed.** The table equals the phase formula evaluated
+  at the *bracket midpoint*, rounded half-up: 6,684 of 7,467 nonzero
+  cells match exactly under PolicyEngine's semantics; all 2,653
+  no-credit cells agree.
+* **The IRS anchors phase-out at the END, not the start.** The 780
+  cells that differ (by exactly $1, 778 of them in phase-out) are all
+  explained by one convention: the table computes phase-out credit as
+  `rate × (E − midpoint)` where `E` is the completed-phaseout amount —
+  not `max − rate × (midpoint − start)` as PolicyEngine does. Fitting E
+  per column against every phase-out cell pins it to ±$0.05 and shows
+  the generator uses the IRS-internal *unrounded* value (e.g. single/3
+  children: implied E ∈ [$56,837.77, $56,837.82); the Rev. Proc.
+  publishes $56,838). With that one number per column, **the
+  end-anchored midpoint model explains all 10,120 cells**, given two
+  boundary conventions:
+* **Kink-straddling brackets get the full plateau maximum**
+  (taxpayer-favorable): e.g. single/1 child at $21,550–21,600 (contains
+  the $21,560 phase-out start) pays the full $3,995 where the formula
+  gives $3,992.60.
+* **End-straddling brackets are split** into special partial rows with
+  eligibility cut exactly at E — a real $50-scale cliff the smooth
+  formula does not have.
+
+Consequences for PolicyEngine fidelity, now exact rather than
+estimated: PE differs from the legal credit by up to ~$11.25 in
+phase-in and ~$5.27 in phase-out from midpoint quantization, plus a
+systematic ~$0–1 shift throughout phase-out from start-anchoring vs the
+IRS's end-anchoring, plus the boundary-bracket conventions. Phase 2 can
+now mirror the *exact* table semantics in Lean (the generator is fully
+specified above) and prove the PE-vs-table delta bound as a theorem.
+Verification scope: tax year 2023, Single and MFJ column groups (the
+single-group column also covers HoH/QSS by the table's own header);
+2 of 1,267 rows are footnoted split rows the parser skips.
