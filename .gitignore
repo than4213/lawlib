@@ -1,0 +1,21 @@
+# OS files
+.DS_Store
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Lean build artifacts
+.lean
+.lake/
+*.olean
+
+# Editor files
+.vscode/
+.idea/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Nested pe2lean repo (independent git repo, see docs/design.md §1.1)
+pe2lean/

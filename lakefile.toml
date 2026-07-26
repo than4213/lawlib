@@ -1,0 +1,10 @@
+name = "lawlib"
+version = "0.1.0"
+defaultTargets = ["Lawlib"]
+
+[[lean_lib]]
+name = "Lawlib"
+
+[[lean_exe]]
+name = "lawlib"
+root = "Main"
