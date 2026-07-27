@@ -131,6 +131,20 @@ every parsed table cell, that the PE-vs-table gap is ≤ $11.50 everywhere
 midpoints. The finding is no longer an empirical comparison; it is a
 theorem about committed data.
 
+## 10. The CTC cliff atlas — and the continuity contrast
+
+The extractor's second credit (§24, four new idioms including the
+§24(b) `ceil` staircase) enabled the sharpest structural contrast in
+the library (`Lawlib/Theorems/Ctc2023.lean`, `native_decide`): **the
+EITC is proven continuous — no cliffs at any rational income — while
+the CTC's cliffs are proven and completely enumerated**: exactly 40
+drops of exactly $50 at exactly $200,000 + $1,000k for the single
+1-child cell (80 at $400,000 + $1,000k for joint 2-child), flat at
+every other whole-dollar step, credit exhausted exactly at the
+staircase end. One tax code, two credits, opposite smoothness — both
+machine-checked. Differential validation: 1,000 households × 29
+variables across both chains, zero mismatches.
+
 ## 9. First cross-encoding divergence: the statutory formula vs the administered maximum
 
 An independent Catala encoding of §32(a)–(b)
