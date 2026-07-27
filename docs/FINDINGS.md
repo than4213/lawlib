@@ -1,0 +1,32 @@
+# The findings list
+
+Informal running index of everything Lawlib has found so far — one line
+each, newest last, to be extended before going public. Details in
+[findings-m5.md](findings-m5.md) (§ numbers), tiers in
+[CLAIMS.md](CLAIMS.md).
+
+| # | Finding | Tier | Where |
+|---|---|---|---|
+| 1 | PolicyEngine computes money in float32; measured residue vs exact arithmetic up to ~1.6¢; EITC chain applies no rounding at all (fractional-cent credits) | T2 | §1, §6 |
+| 2 | `defined_for` eligibility masks are invisible dependency edges — naive closure walks miss whole subtrees; caught paying credits to ineligible households | T2 | §2 |
+| 3 | `adds` lists mean different things on group vs person variables (aggregate vs elementwise) | T2 | §3 |
+| 4 | Parameter files mix enacted law with pre-materialized inflation projections through 2035 | T3 | §4 |
+| 5 | The translatable fragment is real: EITC-proper translates completely; ~20 idioms cover two credits + SNAP | T3 | §5 |
+| 6 | M5 acceptance: 100k households × 5 years, zero mismatches | T2 | §6 |
+| 7 | The legal EITC is a step function (§32(f) tables), not the smooth formula everyone models | T1 | §7 |
+| 8 | The 2023 EIC table reverse-engineered exactly: midpoint evaluation, half-up rounding, phase-out anchored at IRS-internal **unrounded** completed-phaseout endpoints (recovered to ±5¢); PE-vs-table gap ≤ $11.50, sharp | T1 | §8 |
+| 9 | The statute's arithmetic disagrees with administered practice: §32(a)(2)(A) literal cap $599.76/$7,429.50 vs the rounded $600/$7,430 in Rev. Proc., tables, and PE — found by independent Catala encoding, divergence proven exactly 24¢/50¢ | T1 (gap) / T5 (legal reading) | §9 |
+| 10 | Continuity contrast: EITC proven continuous (no cliffs, any income); CTC's 40+80 statutory $50 cliffs proven and completely enumerated | T0/T1 | §10 |
+| 11 | PolicyEngine's period coercion of set inputs is path-dependent: `calculate_divide` (÷12), silent uprating fallback (stale values × SOI calibration ratios), auto-carry-over with source-commented period-sort hazards (H1/H2) | T4 (source-located) | §11 |
+| 12 | `Simulation.__init__` silently moves income inputs onto `_before_lsr` counterparts, overwriting caller-set values and deleting sources | T4 (source-located) | §12 |
+
+## Internal lessons (about building verified twins, not about PE)
+
+- Byte-exact CI determinism checks catch real bugs fast (our own
+  `PYTHONHASHSEED`-dependent topological sort, on day one; the stale
+  extractor pin on the CTC push).
+- Never parse pretty-printed IR when a machine-generated backend
+  exists (Catala lcalc vs OCaml output).
+- Don't claim derivable values (chisel-claims lesson): keep the claim
+  set a minimal generating set or risk manufacturing spurious
+  inconsistencies.

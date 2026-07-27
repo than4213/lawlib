@@ -186,6 +186,22 @@ question (one function): how policyengine-us's situation parser slots
 year- vs month-keyed inputs, which selects among these paths. Tier:
 T4→root-cause-in-progress (docs/CLAIMS.md).
 
+## 12. PolicyEngine silently rewrites income inputs at Simulation construction
+
+The definitive resolution of most of §11's mystery, found in
+`policyengine_us/system.py` `Simulation.__init__`: on construction, any
+set value of `employment_income`, `self_employment_income`,
+`sstb_self_employment_income`, `weekly_hours_worked`, or
+`long_term_capital_gains` is **moved onto its `_before_lsr` /
+`_before_response` counterpart — overwriting anything the caller set
+there, then deleting the source**. A caller who sets both members of a
+pair (as our harness did) gets their target value silently replaced;
+the deleted source is then recomputed as `before_lsr + response`. The
+residue of §11 (the uprating fallback scaling stale periods by SOI
+calibration ratios) fills any period gaps this rewrite leaves. Tier T4
+→ source-located; harness convention adopted on `snap-wip`
+(set sources only, mirror into targets).
+
 ## 9. First cross-encoding divergence: the statutory formula vs the administered maximum
 
 An independent Catala encoding of §32(a)–(b)
