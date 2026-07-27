@@ -1,12 +1,13 @@
 # pe2lean rejection report
 
-policyengine-us 1.783.0, root `eitc`.
-24 translated, 24 boundary inputs, 6 rejections.
+policyengine-us 1.783.0, roots ['eitc', 'ctc'].
+44 translated, 25 boundary inputs, 7 rejections.
 
 ## Rejections
 
 - **tax_unit_is_required_to_file** (`policyengine_us/variables/gov/irs/tax_unit_is_required_to_file.py:4`): parameter 'gov.irs.income.exemption.suspended' outside emitted subtrees
 - **filing_status** (`policyengine_us/variables/household/demographic/tax_unit/filing_status.py:7`): unrecognized call select
+- **has_tin** (`policyengine_us/variables/household/demographic/person/has_tin.py:2`): attribute 'simulation' on value expression
 - **is_tax_unit_head** (`policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_head.py:5`): attribute 'tax_unit' on value expression
 - **is_tax_unit_spouse** (`policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_spouse.py:3`): attribute 'tax_unit' on value expression
 - **self_employment_tax** (`policyengine_us/variables/gov/irs/tax/self_employment/self_employment_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax' outside emitted subtrees

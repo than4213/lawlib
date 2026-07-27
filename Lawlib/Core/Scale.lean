@@ -36,6 +36,14 @@ def atDate (s : Scale) (d : Date) (x : Rat) : Rat :=
   s.brackets.foldl (init := 0) fun acc b =>
     if b.threshold.atDate d ≤ x then b.amount.atDate d else acc
 
+/-- Last bracket's threshold at date `d` (PolicyEngine's
+`scale.thresholds[-1]` idiom, e.g. the CTC child age limit). `0` for an
+empty scale. -/
+def lastThreshold (s : Scale) (d : Date) : Rat :=
+  match s.brackets.getLast? with
+  | some b => b.threshold.atDate d
+  | none => 0
+
 end Scale
 
 end Lawlib

@@ -127,6 +127,163 @@ def gov.irs.credits.eitc.phase_out.start : Scale :=
     ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩]⟩
 
+/-- The IRS requires at least one filer with a valid SSN, and any co-filer with an SSN or ITIN, to claim the child portion of the Child Tax Credit if this is true.
+    `gov/irs/credits/ctc/adult_ssn_requirement_applies.yaml` (policyengine-us).
+    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def gov.irs.credits.ctc.adult_ssn_requirement_applies : DatedParam Bool :=
+  ⟨(⟨2018, 1, 1⟩, false), [(⟨2025, 1, 1⟩, true)]⟩
+
+/-- Maximum value of the CTC for adult dependents.
+    `gov/irs/credits/ctc/amount/adult_dependent.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(h)(4)(a): https://www.law.cornell.edu/uscode/text/26/24#h_4_A
+    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def gov.irs.credits.ctc.amount.adult_dependent : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, 500)]⟩
+
+/-- The IRS provided a higher maximum Child Tax Credit of this amount, depending on the child's age, under the American Rescue Plan Act.
+    `gov/irs/credits/ctc/amount/arpa.yaml` (policyengine-us). -/
+def gov.irs.credits.ctc.amount.arpa : Scale :=
+  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2013, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 3600), (⟨2022, 1, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨2013, 1, 1⟩, 6), []⟩, ⟨(⟨2013, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 3000), (⟨2022, 1, 1⟩, 0)]⟩⟩]⟩
+
+/-- The IRS caps the American Rescue Plan Act Child Tax Credit expansion by this percentage of the difference in phase-out thresholds between base and ARPA.
+    `gov/irs/credits/ctc/amount/arpa_expansion_cap_percent_of_threshold_diff.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(i)(4)(C)(i)(II): https://www.law.cornell.edu/uscode/text/26/24#i_4_C_i_II -/
+def gov.irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff : DatedParam Rate :=
+  ⟨(⟨0, 1, 1⟩, mkRat 1 20), []⟩
+
+/-- The IRS provides a maximum Child Tax Credit of this amount, depending on the child's age.
+    `gov/irs/credits/ctc/amount/base.yaml` (policyengine-us). -/
+def gov.irs.credits.ctc.amount.base : Scale :=
+  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2013, 1, 1⟩, 1000), [(⟨2018, 1, 1⟩, 2000), (⟨2025, 1, 1⟩, 2200), (⟨2027, 1, 1⟩, 2300), (⟨2029, 1, 1⟩, 2400), (⟨2031, 1, 1⟩, 2500), (⟨2033, 1, 1⟩, 2600), (⟨2035, 1, 1⟩, 2700)]⟩⟩,
+    ⟨⟨(⟨2013, 1, 1⟩, 17), [(⟨2021, 1, 1⟩, 18), (⟨2022, 1, 1⟩, 17)]⟩, ⟨(⟨2013, 1, 1⟩, 0), []⟩⟩]⟩
+
+/-- The IRS requires a Social Security Number for qualifying children for the Child Tax Credit if this is true.
+    `gov/irs/credits/ctc/child_ssn_requirement_applies.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(h)(7): https://www.law.cornell.edu/uscode/text/26/24#h_7
+    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def gov.irs.credits.ctc.child_ssn_requirement_applies : DatedParam Bool :=
+  ⟨(⟨2018, 1, 1⟩, true), []⟩
+
+/-- The IRS limits the child tax credit to filers with one of these SSN Card types.
+    `gov/irs/credits/ctc/eligible_ssn_card_type.yaml` (policyengine-us).
+    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def gov.irs.credits.ctc.eligible_ssn_card_type : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["CITIZEN", "NON_CITIZEN_VALID_EAD"]), []⟩
+
+/-- The IRS reduces the Child Tax Credit by this amount for each increment by which one's income exceeds the phase-out thresholds.
+    `gov/irs/credits/ctc/phase_out/amount.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(b)(1): https://www.law.cornell.edu/uscode/text/26/24#b_1 -/
+def gov.irs.credits.ctc.phase_out.amount : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 50), []⟩
+
+/-- The IRS reduces the American Rescue Plan Act Child Tax Credit expansion by this amount for each increment by which one's income exceeds the phase-out thresholds.
+    `gov/irs/credits/ctc/phase_out/arpa/amount.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(i)(4)(A): https://www.law.cornell.edu/uscode/text/26/24#i_4_A -/
+def gov.irs.credits.ctc.phase_out.arpa.amount : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 50), []⟩
+
+/-- The IRS adds a second phase-out when this is in effect.
+    `gov/irs/credits/ctc/phase_out/arpa/in_effect.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(i)(4): https://www.law.cornell.edu/uscode/text/26/24#i_4 -/
+def gov.irs.credits.ctc.phase_out.arpa.in_effect : DatedParam Bool :=
+  ⟨(⟨0, 1, 1⟩, false), [(⟨2021, 1, 1⟩, true), (⟨2022, 1, 1⟩, false)]⟩
+
+/-- The IRS reduces the Child Tax Credit by a certain amount for each of this increment by which one's income exceeds the phase-out thresholds.
+    `gov/irs/credits/ctc/phase_out/arpa/increment.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(b)(1): https://www.law.cornell.edu/uscode/text/26/24#b_1 -/
+def gov.irs.credits.ctc.phase_out.arpa.increment : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 1000), []⟩
+
+/-- Child tax credit phase-out MAGI start for the ARPA CTC expansion
+    `gov/irs/credits/ctc/phase_out/arpa/threshold.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(i)(4)(B): https://www.law.cornell.edu/uscode/text/26/24#i_4_B -/
+def gov.irs.credits.ctc.phase_out.arpa.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 112500), []⟩
+def gov.irs.credits.ctc.phase_out.arpa.threshold.JOINT : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 150000), []⟩
+def gov.irs.credits.ctc.phase_out.arpa.threshold.SEPARATE : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 75000), []⟩
+def gov.irs.credits.ctc.phase_out.arpa.threshold.SINGLE : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 75000), []⟩
+def gov.irs.credits.ctc.phase_out.arpa.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 150000), []⟩
+
+/-- The IRS reduces the American Rescue Plan Act Child Tax Credit expansion by a certain amount for each of this increment by which one's income exceeds the phase-out thresholds.
+    `gov/irs/credits/ctc/phase_out/increment.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(i)(4)(A): https://www.law.cornell.edu/uscode/text/26/24#i_4_A -/
+def gov.irs.credits.ctc.phase_out.increment : DatedParam USD :=
+  ⟨(⟨0, 1, 1⟩, 1000), []⟩
+
+/-- The IRS phases out the Child Tax Credit for filers with MAGI above these thresholds.
+    `gov/irs/credits/ctc/phase_out/threshold.yaml` (policyengine-us).
+    * U.S.C 26 U.S. Code § 24(b)(2): https://www.law.cornell.edu/uscode/text/26/24#b_2
+    * U.S.C 26 U.S. Code § 24(h)(3): https://www.law.cornell.edu/uscode/text/26/24#h_3
+    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def gov.irs.credits.ctc.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 75000), [(⟨2018, 1, 1⟩, 200000)]⟩
+def gov.irs.credits.ctc.phase_out.threshold.JOINT : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 110000), [(⟨2018, 1, 1⟩, 400000)]⟩
+def gov.irs.credits.ctc.phase_out.threshold.SEPARATE : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 55000), [(⟨2018, 1, 1⟩, 200000)]⟩
+def gov.irs.credits.ctc.phase_out.threshold.SINGLE : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 75000), [(⟨2018, 1, 1⟩, 200000)]⟩
+def gov.irs.credits.ctc.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 75000), [(⟨2018, 1, 1⟩, 400000)]⟩
+
+/-- The IRS makes the Child Tax Credit fully refundable if this is true.
+    `gov/irs/credits/ctc/refundable/fully_refundable.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(i)(1): https://www.law.cornell.edu/uscode/text/26/24#i_1 -/
+def gov.irs.credits.ctc.refundable.fully_refundable : DatedParam Bool :=
+  ⟨(⟨2013, 1, 1⟩, false), [(⟨2021, 1, 1⟩, true), (⟨2022, 1, 1⟩, false)]⟩
+
+/-- Maximum refundable amount of the CTC for qualifying children.
+    `gov/irs/credits/ctc/refundable/individual_max.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(h)(5)(A) - Child tax credit refundable portion: https://www.law.cornell.edu/uscode/text/26/24#h_5_A
+    * 26 U.S. Code § 24(i)(1) - Inflation adjustment for refundable amount: https://www.law.cornell.edu/uscode/text/26/24#i_1
+    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=13
+    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=8
+    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=9
+    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=9
+    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=9
+    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=9
+    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
+    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=12 -/
+def gov.irs.credits.ctc.refundable.individual_max : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 1000), [(⟨2018, 1, 1⟩, 1400), (⟨2022, 1, 1⟩, 1500), (⟨2023, 1, 1⟩, 1600), (⟨2024, 1, 1⟩, 1700), (⟨2025, 1, 1⟩, 1700), (⟨2026, 1, 1⟩, 1700), (⟨2027, 1, 1⟩, 1800), (⟨2029, 1, 1⟩, 1900), (⟨2032, 1, 1⟩, 2000), (⟨2034, 1, 1⟩, 2100)]⟩
+
+/-- Minimum number of qualifying children to increase the refundable Child Tax Credit by Social Security taxes minus the Earned Income Tax Credit.
+    `gov/irs/credits/ctc/refundable/phase_in/min_children_for_ss_taxes_minus_eitc.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(d)(1)(B)(i): https://www.law.cornell.edu/uscode/text/26/24#d_1_B_ii -/
+def gov.irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 3), []⟩
+
+/-- Additional Child Tax Credit rate
+    `gov/irs/credits/ctc/refundable/phase_in/rate.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(d)(1)(B)(i): https://www.law.cornell.edu/uscode/text/26/24#d_1_B_i -/
+def gov.irs.credits.ctc.refundable.phase_in.rate : DatedParam Rate :=
+  ⟨(⟨2013, 1, 1⟩, mkRat 3 20), []⟩
+
+/-- Additional Child Tax Credit income threshold
+    `gov/irs/credits/ctc/refundable/phase_in/threshold.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(d)(1)(B)(i): https://www.law.cornell.edu/uscode/text/26/24#d_1_B_i
+    * 26 U.S. Code § 24(h)(6): https://www.law.cornell.edu/uscode/text/26/24#h_6
+    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def gov.irs.credits.ctc.refundable.phase_in.threshold : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 3000), [(⟨2018, 1, 1⟩, 2500)]⟩
+
+/-- The IRS defines social security taxes under the Child Tax Credit to include the following variables.
+    `gov/irs/credits/ctc/refundable/social_security/add.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(d)(2)(A): https://www.law.cornell.edu/uscode/text/26/24#d_2_A -/
+def gov.irs.credits.ctc.refundable.social_security.add : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["employee_social_security_tax", "employee_medicare_tax", "unreported_payroll_tax", "self_employment_tax_ald", "additional_medicare_tax"]), []⟩
+
+/-- The IRS defines social security taxes under the Child Tax Credit to exclude the following variables.
+    `gov/irs/credits/ctc/refundable/social_security/subtract.yaml` (policyengine-us).
+    * 26 U.S. Code § 24(d)(2)(B): https://www.law.cornell.edu/uscode/text/26/24#d_2_B -/
+def gov.irs.credits.ctc.refundable.social_security.subtract : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["excess_payroll_tax_withheld"]), []⟩
+
 /-- The IRS permits filers to claim dependents who are non-students if they are younger than this age at the end of the year.
     `gov/irs/dependent/ineligible_age/non_student.yaml` (policyengine-us).
     * 26 U.S. Code § 152 - Dependent defined: https://www.law.cornell.edu/uscode/text/26/152#c_3_A_i -/

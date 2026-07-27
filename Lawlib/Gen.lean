@@ -2,5 +2,5 @@
 import Lawlib.Gen.Params
 import Lawlib.Gen.Enums
 import Lawlib.Gen.Entities
-import Lawlib.Gen.Gov.Irs.Credits.Eitc.Variables
+import Lawlib.Gen.Vars
 import Lawlib.Gen.Eval

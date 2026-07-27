@@ -32,6 +32,14 @@ instance : Lean.ToJson FilingStatus where
     | .HEAD_OF_HOUSEHOLD => Lean.Json.str "HEAD_OF_HOUSEHOLD"
     | .SURVIVING_SPOUSE => Lean.Json.str "SURVIVING_SPOUSE"
 
+/-- PolicyEngine's `decode_to_str` view. -/
+def FilingStatus.asStr : FilingStatus → String
+  | .SINGLE => "SINGLE"
+  | .JOINT => "JOINT"
+  | .SEPARATE => "SEPARATE"
+  | .HEAD_OF_HOUSEHOLD => "HEAD_OF_HOUSEHOLD"
+  | .SURVIVING_SPOUSE => "SURVIVING_SPOUSE"
+
 inductive SSNCardType where
   | CITIZEN
   | NON_CITIZEN_VALID_EAD
@@ -54,5 +62,12 @@ instance : Lean.ToJson SSNCardType where
     | .NON_CITIZEN_VALID_EAD => Lean.Json.str "NON_CITIZEN_VALID_EAD"
     | .OTHER_NON_CITIZEN => Lean.Json.str "OTHER_NON_CITIZEN"
     | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def SSNCardType.asStr : SSNCardType → String
+  | .CITIZEN => "CITIZEN"
+  | .NON_CITIZEN_VALID_EAD => "NON_CITIZEN_VALID_EAD"
+  | .OTHER_NON_CITIZEN => "OTHER_NON_CITIZEN"
+  | .NONE => "NONE"
 
 end Lawlib.Gen

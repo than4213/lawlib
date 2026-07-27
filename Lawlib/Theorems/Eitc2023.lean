@@ -31,7 +31,7 @@ abstractly, and instantiated per cell:
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Verify Lawlib.Gen Lawlib.Gen.Gov.Irs.Credits.Eitc
+open Lawlib Lawlib.Verify Lawlib.Gen Lawlib.Gen.Vars
 
 /-! ## The statutory trapezoid, abstractly -/
 

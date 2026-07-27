@@ -16,6 +16,7 @@ structure Person where
   capital_gains_behavioral_response : Rat := 0
   employment_income : Rat := 0
   farm_operations_income : Rat := 0
+  has_tin : Bool := false
   is_full_time_college_student : Bool := false
   is_permanently_and_totally_disabled : Bool := false
   is_tax_unit_head : Bool := false

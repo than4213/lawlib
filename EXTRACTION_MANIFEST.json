@@ -54,6 +54,111 @@
       "sha256": "8585e317dbec27a4d0aa95bab8ecbfedbce89736d39a9645de46f973dfe1f7bd"
     },
     {
+      "path": "gov.irs.credits.ctc.adult_ssn_requirement_applies",
+      "source": "gov/irs/credits/ctc/adult_ssn_requirement_applies.yaml",
+      "sha256": "545c16e102a56aaa29864e2f780844743a35604f8b2abbf2209780c104c8ef59"
+    },
+    {
+      "path": "gov.irs.credits.ctc.amount.adult_dependent",
+      "source": "gov/irs/credits/ctc/amount/adult_dependent.yaml",
+      "sha256": "4c04bde627fbce1f908b4d6ef6217ed161c13e0e0071c5848d882bc5b0578a0a"
+    },
+    {
+      "path": "gov.irs.credits.ctc.amount.arpa",
+      "source": "gov/irs/credits/ctc/amount/arpa.yaml",
+      "sha256": "850b7339cbe63f4eb2424bc899a9b51fd4bb1712ad430647eb895073510bd568"
+    },
+    {
+      "path": "gov.irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff",
+      "source": "gov/irs/credits/ctc/amount/arpa_expansion_cap_percent_of_threshold_diff.yaml",
+      "sha256": "2712c480977d9c578a37758a1443dd50001f7cd10790139e9d10e8207b083fd0"
+    },
+    {
+      "path": "gov.irs.credits.ctc.amount.base",
+      "source": "gov/irs/credits/ctc/amount/base.yaml",
+      "sha256": "12db4b004598330000d0cd88aa52ce7f8f3caecd39bcf59f16d99c9443f25df8"
+    },
+    {
+      "path": "gov.irs.credits.ctc.child_ssn_requirement_applies",
+      "source": "gov/irs/credits/ctc/child_ssn_requirement_applies.yaml",
+      "sha256": "f40da724de103e4bbcc7f58a344691808dde1c23a6b97dd22ea4df1db6ff517e"
+    },
+    {
+      "path": "gov.irs.credits.ctc.eligible_ssn_card_type",
+      "source": "gov/irs/credits/ctc/eligible_ssn_card_type.yaml",
+      "sha256": "d302bfe5421b8cb5ca379c6d343b90fbbf3a05240877d8d75870c4db1c5ec86d"
+    },
+    {
+      "path": "gov.irs.credits.ctc.phase_out.amount",
+      "source": "gov/irs/credits/ctc/phase_out/amount.yaml",
+      "sha256": "a72de8cbf333a787313f64ee9cbd204080aa3266ff50262eb877611db9c5a9b0"
+    },
+    {
+      "path": "gov.irs.credits.ctc.phase_out.arpa.amount",
+      "source": "gov/irs/credits/ctc/phase_out/arpa/amount.yaml",
+      "sha256": "a3ed2eeb9e698b1806c0fb3a4cc68319fb3f0b63c9d351b4cd7ad7f7b467f14a"
+    },
+    {
+      "path": "gov.irs.credits.ctc.phase_out.arpa.in_effect",
+      "source": "gov/irs/credits/ctc/phase_out/arpa/in_effect.yaml",
+      "sha256": "a2444a657b61f7c42f375943bf41a5448b96627e96f98e88745210781dd4e98f"
+    },
+    {
+      "path": "gov.irs.credits.ctc.phase_out.arpa.increment",
+      "source": "gov/irs/credits/ctc/phase_out/arpa/increment.yaml",
+      "sha256": "2ccf86385c737f4103edae5330ed7b828691fc7ac4d8a6be9ffecf2c7492d88d"
+    },
+    {
+      "path": "gov.irs.credits.ctc.phase_out.arpa.threshold",
+      "source": "gov/irs/credits/ctc/phase_out/arpa/threshold.yaml",
+      "sha256": "d254f5448beff2cf0f3c224eac9edd9593c30c1ba207ed6c02a48b7caae6efa8"
+    },
+    {
+      "path": "gov.irs.credits.ctc.phase_out.increment",
+      "source": "gov/irs/credits/ctc/phase_out/increment.yaml",
+      "sha256": "bf6477036f7460fb28500dd175f9d8cbf70ab8f17024e4a4cd562b9fc2730038"
+    },
+    {
+      "path": "gov.irs.credits.ctc.phase_out.threshold",
+      "source": "gov/irs/credits/ctc/phase_out/threshold.yaml",
+      "sha256": "852ad8acddbc35066fb2091571d7d02afbf7331f9e18ba776893d970a1fde0c8"
+    },
+    {
+      "path": "gov.irs.credits.ctc.refundable.fully_refundable",
+      "source": "gov/irs/credits/ctc/refundable/fully_refundable.yaml",
+      "sha256": "ad3fc989446babae2a0c72a7cc25edc25212dfe5fdf8419e147653cc16ff4b76"
+    },
+    {
+      "path": "gov.irs.credits.ctc.refundable.individual_max",
+      "source": "gov/irs/credits/ctc/refundable/individual_max.yaml",
+      "sha256": "9190fc8850959581f55b7dad2000eba539bb538cb86c49e65d8d35d071bcad5e"
+    },
+    {
+      "path": "gov.irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc",
+      "source": "gov/irs/credits/ctc/refundable/phase_in/min_children_for_ss_taxes_minus_eitc.yaml",
+      "sha256": "f03f36c1f3cd71c406caff58d9cbf5260cfec3a6eb2db30b56d3b2dd87d43574"
+    },
+    {
+      "path": "gov.irs.credits.ctc.refundable.phase_in.rate",
+      "source": "gov/irs/credits/ctc/refundable/phase_in/rate.yaml",
+      "sha256": "14ed188cf97ffc8771b0693694d3319aec5e6c433ec2ddc6f0e0f35aeba4cca2"
+    },
+    {
+      "path": "gov.irs.credits.ctc.refundable.phase_in.threshold",
+      "source": "gov/irs/credits/ctc/refundable/phase_in/threshold.yaml",
+      "sha256": "9adfdf97d6cdb9f7ad5a87cfab78e57d7c605c816c891f69a186bc8471428467"
+    },
+    {
+      "path": "gov.irs.credits.ctc.refundable.social_security.add",
+      "source": "gov/irs/credits/ctc/refundable/social_security/add.yaml",
+      "sha256": "24701c2f75fdeb8755812a8b29d010b25618186111f06edb6165d2baec19d808"
+    },
+    {
+      "path": "gov.irs.credits.ctc.refundable.social_security.subtract",
+      "source": "gov/irs/credits/ctc/refundable/social_security/subtract.yaml",
+      "sha256": "7a8121732687cedf14b5e8b8d9776eb26a8cc81b6f27fc541fe2bd7968f625f5"
+    },
+    {
       "path": "gov.irs.dependent.ineligible_age.non_student",
       "source": "gov/irs/dependent/ineligible_age/non_student.yaml",
       "sha256": "31879705c67d88ceca72fe9a6a7beb57211ddb9246063c74701cbb5fd6b7999d"
@@ -74,6 +179,20 @@
     "2035-01-01"
   ],
   "variables": [
+    {
+      "name": "ctc_arpa_phase_out_threshold",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_threshold.py",
+      "sha256": "b22e712747fba587cf338c3f71ce75dfc3429d78ea99c163d929504f5c4ae1df"
+    },
+    {
+      "name": "ctc_phase_out_threshold",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/ctc_phase_out_threshold.py",
+      "sha256": "d30ee4b4698919760ed3d2c67d16b5e4d18a770a320c3bb67a6cadcc4215d639"
+    },
     {
       "name": "is_in_k12_school",
       "entity": "person",
@@ -103,6 +222,20 @@
       "sha256": "074c8ace22b4ef50741c562c8f362760b8f5b2e877d9b5b0f05322e21fdfccfa"
     },
     {
+      "name": "meets_ctc_child_identification_requirements",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/meets_ctc_child_identification_requirements.py",
+      "sha256": "d76ec87bf391fd6467e2c7b042616754253ebbfc975493a3e676febf0c68aeac"
+    },
+    {
+      "name": "meets_ctc_identification_requirements",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/meets_ctc_identification_requirements.py",
+      "sha256": "757e89dc20308a508b6aeb46f37d6289a7ee2838bb167fc0d1220717916445d4"
+    },
+    {
       "name": "meets_eitc_identification_requirements",
       "entity": "person",
       "value_type": "bool",
@@ -124,11 +257,39 @@
       "sha256": "875e49add12246c07919ed0ff6b0b5220da1eb5925e74b4b9292ca27f3471d85"
     },
     {
+      "name": "ctc_arpa_uncapped_phase_out",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_uncapped_phase_out.py",
+      "sha256": "e66241228e9f3e7de3a73ad19c61035120269b8c9372cfa953895a8acfde1f7e"
+    },
+    {
+      "name": "ctc_phase_out",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/ctc_phase_out.py",
+      "sha256": "acd50168d0abf2819ae628d5ffd4536e812589dae387e18ff308ea9288ee6112"
+    },
+    {
+      "name": "ctc_qualifying_child",
+      "entity": "person",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_qualifying_child.py",
+      "sha256": "9240580aff0a68ad5d75759332256c137517d488f0002dd5601f19013819ccac"
+    },
+    {
       "name": "eitc_earned_income",
       "entity": "tax_unit",
       "value_type": "float",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py",
       "sha256": "ae0a2d46d725bd16f5db39e3246aac2f7e933ff06b933c284fddf59488dc2c16"
+    },
+    {
+      "name": "filer_meets_ctc_identification_requirements",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/filer_meets_ctc_identification_requirements.py",
+      "sha256": "a922aa74eefc07425371b885d7cd5ff641bb267c8d3bc08194fda1e64678ba11"
     },
     {
       "name": "filer_meets_eitc_identification_requirements",
@@ -152,6 +313,13 @@
       "sha256": "bdb60ce4980cbba91a27f4bcab9969ee550840a407016c1d4a639cf3ad558f39"
     },
     {
+      "name": "ctc_child_individual_maximum_arpa",
+      "entity": "person",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_child_individual_maximum_arpa.py",
+      "sha256": "5840e396d6f9ef7f7a3c007d8d5198c41fdfe42d5d606cabf76ab7107e5edb8e"
+    },
+    {
       "name": "eitc_relevant_investment_income",
       "entity": "tax_unit",
       "value_type": "float",
@@ -159,11 +327,25 @@
       "sha256": "b10ed67fcaa2779f8b3a409f82f22c3d34bb1ec6a045cd3daa35bd0c35d9bb1f"
     },
     {
+      "name": "filer_meets_child_ctc_identification_requirements",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/filer_meets_child_ctc_identification_requirements.py",
+      "sha256": "1cad753421203ee7ce44b591212a591e6ab829a7f014a38896fe5294e525dc14"
+    },
+    {
       "name": "is_qualifying_child_dependent",
       "entity": "person",
       "value_type": "bool",
       "source": "policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py",
       "sha256": "3c4d044fe50c58740ea0802d3e8c4073a67518be28d49613de42bce83c86dab4"
+    },
+    {
+      "name": "ctc_child_individual_maximum",
+      "entity": "person",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_child_individual_maximum.py",
+      "sha256": "e31d52f0ecc2ee3b7aec8be24987df1212d380595c7d228738ba4aa37ff3ca17"
     },
     {
       "name": "eitc_child_count",
@@ -178,6 +360,20 @@
       "value_type": "bool",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_investment_income_eligible.py",
       "sha256": "64eda48965f1a814ea8cacf5317365e814fdee7dbe35abcd8d2877d02a911d07"
+    },
+    {
+      "name": "ctc_adult_individual_maximum",
+      "entity": "person",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_adult_individual_maximum.py",
+      "sha256": "5bfec07172d89f8e3ed480d0d68db24f412cb8e38ee112f5ff681fb71972e52f"
+    },
+    {
+      "name": "ctc_arpa_max_addition",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_max_addition.py",
+      "sha256": "5d43edb9405d784f7391dc9d3171f885a54b6a63b68c6c172e860541e38a91c5"
     },
     {
       "name": "eitc_demographic_eligible",
@@ -215,6 +411,20 @@
       "sha256": "ec3c2b7fa6a7c7d004249ec98e266a2b0ad17eccc3e4f1a8b41bb42659cb4926"
     },
     {
+      "name": "ctc_arpa_phase_out_cap",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_cap.py",
+      "sha256": "e4c9a30150b352fbfedf00a76040f83e2ededfba3d726e8924928f99c4d9e948"
+    },
+    {
+      "name": "ctc_individual_maximum",
+      "entity": "person",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_individual_maximum.py",
+      "sha256": "26cce698dfc91493d681eb66e5879ec338dcfc779b9eebb2ce32b81de49f241f"
+    },
+    {
       "name": "eitc_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -236,14 +446,52 @@
       "sha256": "d8ed0efccd4a02b080b102bb025457cbd9a4c2ec36383f5aedc5df2a08c27b7b"
     },
     {
+      "name": "ctc_arpa_phase_out",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out.py",
+      "sha256": "32ad1e9ab3fd1c5bbf7bff80e40fdfc91ee81f5d1da0fe18c2f95a57788f9fd2"
+    },
+    {
+      "name": "ctc_maximum",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum.py",
+      "sha256": "88a83a9c7834036f65f3605854e9be56bd3ae45cb1c2081c94fa9bb08e916e81"
+    },
+    {
       "name": "eitc",
       "entity": "tax_unit",
       "value_type": "float",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc.py",
       "sha256": "5f5384842f733e95e82e3b0671a272150f7f47b999737607a7f40036791c80fb"
+    },
+    {
+      "name": "ctc_arpa_addition",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_addition.py",
+      "sha256": "73a4716f8926fc37f517e6b760ee952431e5a20b92e10f2295b1575f7dbc43cc"
+    },
+    {
+      "name": "ctc_maximum_with_arpa_addition",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum_with_arpa_addition.py",
+      "sha256": "886b92ca6e7c675d4feb638cd21b251424eac7d9f7e42d9c1f82eecc2bc4b53b"
+    },
+    {
+      "name": "ctc",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/ctc.py",
+      "sha256": "fded0e29b77d90037881d864c3e981fdff1421c82902f60d39908498c74ebe05"
     }
   ],
-  "root_variable": "eitc",
+  "root_variables": [
+    "eitc",
+    "ctc"
+  ],
   "input_boundary": [
     {
       "name": "adjusted_gross_income",
@@ -295,6 +543,13 @@
         "SURVIVING_SPOUSE"
       ],
       "default": "SINGLE"
+    },
+    {
+      "name": "has_tin",
+      "entity": "person",
+      "value_type": "bool",
+      "kind": "rejected",
+      "note": "attribute 'simulation' on value expression"
     },
     {
       "name": "is_full_time_college_student",

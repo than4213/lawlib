@@ -31,6 +31,11 @@ numeric accident. -/
 def roundUSD (x : USD) : USD :=
   (ratFloor (x + 1/2) : Int)
 
+/-- Ceiling of a rational as an integer: `⌈x⌉` (§24(b)'s "or fraction
+thereof" staircase needs it). -/
+def ratCeil (x : Rat) : Int :=
+  -(ratFloor (-x))
+
 /-- NumPy bool-as-number coercion (`is_joint * bonus`): `true → 1`. -/
 def boolToRat (b : Bool) : Rat :=
   if b then 1 else 0
