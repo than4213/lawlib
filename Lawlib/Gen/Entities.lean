@@ -13,22 +13,41 @@ namespace Lawlib.Gen
 
 structure Person where
   age : Rat := 0
+  ca_snap_immigration_status_eligible : Bool := false
   capital_gains_behavioral_response : Rat := 0
   employment_income : Rat := 0
   farm_operations_income : Rat := 0
   has_tin : Bool := false
+  immigration_status : ImmigrationStatus := .CITIZEN
+  is_disabled : Bool := false
+  is_federal_work_study_participant : Bool := false
   is_full_time_college_student : Bool := false
+  is_part_time_college_student : Bool := false
   is_permanently_and_totally_disabled : Bool := false
+  is_snap_abawd_hr1_in_effect : Bool := false
+  is_snap_employment_training_student : Bool := false
+  is_snap_work_incentive_student : Bool := false
   is_tax_unit_head : Bool := false
   is_tax_unit_spouse : Bool := false
+  is_usda_disabled : Bool := false
+  is_usda_elderly : Bool := false
   long_term_capital_gains_before_response : Rat := 0
+  meets_snap_abawd_work_requirements : Bool := false
+  meets_snap_general_work_requirements : Bool := false
+  meets_snap_parent_exception : Bool := false
   partnership_self_employment_net_earnings : Rat := 0
   self_employment_income : Rat := 0
   self_employment_tax : Rat := 0
   short_term_capital_gains : Rat := 0
+  snap_earned_income_person : Rat := 0
+  snap_excluded_child_earner : Bool := false
+  snap_gross_self_employment_income_person : Rat := 0
+  snap_income_counted_share : Rat := 0
   ssn_card_type : SSNCardType := .CITIZEN
   sstb_self_employment_income : Rat := 0
+  tanf_person : Rat := 0
   tax_exempt_interest_income : Rat := 0
+  weekly_hours_worked_before_lsr : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit where
@@ -41,6 +60,21 @@ structure TaxUnit where
   tax_unit_is_required_to_file : Bool := false
   would_file_if_eligible_for_refundable_credit : Bool := false
   would_file_taxes_voluntarily : Bool := false
+  dc_snap_temporary_local_benefit : Rat := 0
+  meets_snap_categorical_eligibility : Bool := false
+  receives_tanf : Bool := false
+  snap_assets : Rat := 0
+  snap_child_support_gross_income_deduction : Rat := 0
+  snap_deductions : Rat := 0
+  snap_emergency_allotment : Rat := 0
+  snap_expected_contribution : Rat := 0
+  snap_fpg : Rat := 0
+  snap_gross_test_income : Rat := 0
+  snap_max_allotment : Rat := 0
+  snap_min_allotment : Rat := 0
+  snap_self_employment_expense_deduction : Rat := 0
+  snap_unearned_income : Rat := 0
+  takes_up_snap_if_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 end Lawlib.Gen

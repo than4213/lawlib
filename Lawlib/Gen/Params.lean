@@ -302,4 +302,2823 @@ def gov.irs.dependent.ineligible_age.student : DatedParam Rat :=
 def gov.irs.ald.self_employment_tax.percent_deductible : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, mkRat 1 2), []⟩
 
+/-- Abolish SNAP payments.
+    `gov/usda/snap/abolish_snap.yaml` (policyengine-us). -/
+def gov.usda.snap.abolish_snap : DatedParam Bool :=
+  ⟨(⟨0, 1, 1⟩, false), []⟩
+
+/-- Maximum value of SNAP-visible assets for households without elderly or disabled members
+    `gov/usda/snap/asset_test/limit.yaml` (policyengine-us). -/
+def gov.usda.snap.asset_test.limit.standard : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 2250), [(⟨2021, 10, 1⟩, 2500), (⟨2022, 10, 1⟩, 2750), (⟨2024, 10, 1⟩, 3000)]⟩
+
+/-- Maximum value of SNAP-visible assets for households with elderly or disabled members
+    `gov/usda/snap/asset_test/limit.yaml` (policyengine-us). -/
+def gov.usda.snap.asset_test.limit.elderly_disabled : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 3250), [(⟨2017, 10, 1⟩, 3500), (⟨2021, 10, 1⟩, 3750), (⟨2022, 10, 1⟩, 4250), (⟨2024, 10, 1⟩, 4500)]⟩
+
+/-- Countable liquid resources for SNAP asset limits per 7 CFR 273.8(c)(1).
+    `gov/usda/snap/asset_test/sources.yaml` (policyengine-us).
+    * 7 CFR 273.8(c)(1) - Liquid resources: https://www.law.cornell.edu/cfr/text/7/273.8#c_1 -/
+def gov.usda.snap.asset_test.sources : DatedParam (List String) :=
+  ⟨(⟨2009, 1, 1⟩, ["bank_account_assets", "stock_assets", "bond_assets"]), []⟩
+
+/-- Program participation that qualify families for SNAP via categorical eligibility.
+    `gov/usda/snap/categorical_eligibility.yaml` (policyengine-us).
+    * United States Code, Title 7, Subsection 2014(a): https://www.law.cornell.edu/uscode/text/7/2014#a
+    * 42 U.S. Code Part A—Block Grants to States for Temporary Assistance for Needy Families: https://www.law.cornell.edu/uscode/text/42/chapter-7/subchapter-IV/part-A
+    * 7 CFR 273.2(j)(2) Categorical eligibility for certain recipients: https://www.law.cornell.edu/cfr/text/7/273.2#j_2 -/
+def gov.usda.snap.categorical_eligibility : DatedParam (List String) :=
+  ⟨(⟨2009, 1, 1⟩, ["ssi", "is_tanf_non_cash_eligible", "tanf"]), []⟩
+
+/-- The Department of Agriculture limits Supplemental Nutrition Assistance Program eligibility to these immigration statuses.
+    `gov/usda/snap/eligibility/eligible_immigration_statuses.yaml` (policyengine-us).
+    * 7 USC 2015(f) - Eligibility disqualifications: https://www.law.cornell.edu/uscode/text/7/2015#f
+    * 8 USC 1612 - Limited eligibility of qualified aliens for certain Federal programs: https://www.law.cornell.edu/uscode/text/8/1612
+    * USDA FNS - SNAP Implementation of OBBB - Alien SNAP Eligibility: https://www.fns.usda.gov/snap/obbb-alien-eligibility -/
+def gov.usda.snap.eligibility.eligible_immigration_statuses : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["CITIZEN", "LEGAL_PERMANENT_RESIDENT", "REFUGEE", "ASYLEE", "DEPORTATION_WITHHELD", "CUBAN_HAITIAN_ENTRANT", "CONDITIONAL_ENTRANT", "PAROLED_ONE_YEAR"]), [(⟨2025, 7, 1⟩, ["CITIZEN", "LEGAL_PERMANENT_RESIDENT", "CUBAN_HAITIAN_ENTRANT"])]⟩
+
+/-- The federal government allows states to apply for SNAP emergency allotments when this is true.
+    `gov/usda/snap/emergency_allotment/allowed.yaml` (policyengine-us). -/
+def gov.usda.snap.emergency_allotment.allowed : DatedParam Bool :=
+  ⟨(⟨0, 1, 1⟩, false), [(⟨2020, 3, 1⟩, true), (⟨2023, 3, 1⟩, false)]⟩
+
+/-- States have secured SNAP emergency allotment approval from the USDA in these periods.
+    `gov/usda/snap/emergency_allotment/in_effect.yaml` (policyengine-us).
+    * SNAP COVID-19 Emergency Allotments Guidance: https://www.fns.usda.gov/snap/covid-19-emergency-allotments-guidance
+    * SNAP Screener: SNAP Emergency Allotments & Maximum Benefit Amounts: https://www.snapscreener.com/blog/emergency-allotments -/
+def gov.usda.snap.emergency_allotment.in_effect.AK : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2022, 9, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.AL : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.AR : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 7, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.AZ : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2022, 4, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.CA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.CO : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.CT : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.DC : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.DE : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.FL : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 8, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.GA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2022, 7, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.GU : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.HI : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.IA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2022, 3, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.ID : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 4, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.IL : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.IN : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2022, 6, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.KS : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.KY : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2022, 5, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.LA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.MA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.MD : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.ME : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.MI : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.MN : DatedParam Bool :=
+  ⟨(⟨2020, 4, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.MO : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 9, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.MS : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 12, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.MT : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 8, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.NC : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.ND : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 6, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.NE : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 8, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.NH : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.NJ : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.NM : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.NV : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2022, 9, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.NY : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.OH : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.OK : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.OR : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.PA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.RI : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.SC : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.SD : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 8, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.TN : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 12, 1⟩, false)]⟩
+def gov.usda.snap.emergency_allotment.in_effect.TX : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.UT : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.VA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.VI : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.VT : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.WA : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.WI : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.WV : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), []⟩
+def gov.usda.snap.emergency_allotment.in_effect.WY : DatedParam Bool :=
+  ⟨(⟨2020, 3, 1⟩, true), [(⟨2021, 5, 1⟩, false)]⟩
+
+/-- States provide SNAP emergency allotments of at least this amount.
+    `gov/usda/snap/emergency_allotment/minimum.yaml` (policyengine-us).
+    * USDA: Supplemental Nutrition Assistance Program (SNAP) - Emergency Allotments: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-covid-emergency-allotments-phase-3-guidance.pdf#page=3 -/
+def gov.usda.snap.emergency_allotment.minimum : DatedParam USD :=
+  ⟨(⟨2020, 1, 1⟩, 95), []⟩
+
+/-- Expected food contribution per dollar of earnings (i.e., marginal tax rate)
+    `gov/usda/snap/expected_contribution.yaml` (policyengine-us).
+    * 7 U.S. Code § 2017 - Value of allotment: https://www.law.cornell.edu/uscode/text/7/2017#a -/
+def gov.usda.snap.expected_contribution : DatedParam Rate :=
+  ⟨(⟨2005, 1, 1⟩, mkRat 3 10), []⟩
+
+/-- The Department of Agriculture excludes earned income of a household member who is an elementary or secondary school student and younger than this age, under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/child_income_exclusion_age.yaml` (policyengine-us).
+    * 7 U.S. Code § 2014 - Eligible households (d)(7): https://www.law.cornell.edu/uscode/text/7/2014#d_7 -/
+def gov.usda.snap.income.child_income_exclusion_age : DatedParam Rat :=
+  ⟨(⟨2014, 1, 1⟩, 17), []⟩
+
+/-- Deductions available for SNAP calculation
+    `gov/usda/snap/income/deductions/allowed.yaml` (policyengine-us).
+    * United States Code, Title 7, Subsection 2014(e): https://www.law.cornell.edu/uscode/text/7/2014#e -/
+def gov.usda.snap.income.deductions.allowed : DatedParam (List String) :=
+  ⟨(⟨2008, 1, 1⟩, ["snap_standard_deduction", "snap_earned_income_deduction", "snap_dependent_care_deduction", "snap_child_support_deduction", "snap_excess_medical_expense_deduction", "snap_excess_shelter_expense_deduction"]), []⟩
+
+/-- Whether legally mandated child support payments can be deducted from gross income for SNAP.
+    `gov/usda/snap/income/deductions/child_support.yaml` (policyengine-us).
+    * SNAP Screener SNAP Eligibility Parameters: https://www.snapscreener.com/?p=table -/
+def gov.usda.snap.income.deductions.child_support.AK : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.AL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.AR : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.AZ : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.CA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.CO : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false), (⟨2022, 11, 30⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.CT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.DC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.DE : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.FL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.GA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.GU : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.HI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.IA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.ID : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.IL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.IN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.KS : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.KY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.LA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.MA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.MD : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.ME : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.MI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.MN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.MO : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.MS : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.MT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.NC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.ND : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.NE : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.NH : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.NJ : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.NM : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.NV : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.NY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.OH : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.OK : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.OR : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.PA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.RI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.SC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.SD : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.TN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.TX : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.UT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.VA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.VI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.VT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.WA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.child_support.WI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.WV : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.child_support.WY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+
+/-- Share of earned income that can be deducted from gross income for SNAP
+    `gov/usda/snap/income/deductions/earned_income.yaml` (policyengine-us).
+    * 7 U.S. Code § 2014(e)(2)(B): https://www.law.cornell.edu/uscode/text/7/2014#e_2_B -/
+def gov.usda.snap.income.deductions.earned_income : DatedParam Rate :=
+  ⟨(⟨2005, 1, 1⟩, mkRat 1 5), []⟩
+
+/-- Monthly medical expenses disregarded for claiming SNAP excess medical expense deduction
+    `gov/usda/snap/income/deductions/excess_medical_expense/disregard.yaml` (policyengine-us).
+    * United States Code, Title 7, Subsection 2014(e) - Eligible households: https://www.law.cornell.edu/uscode/text/7/2014#e_5 -/
+def gov.usda.snap.income.deductions.excess_medical_expense.disregard : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 35), []⟩
+
+/-- SNAP standard medical deduction (SMD) for households with medical expenses exceeding the threshold.
+    `gov/usda/snap/income/deductions/excess_medical_expense/standard.yaml` (policyengine-us).
+    * SNAP Screener Eligibility Parameters: https://www.snapscreener.com/?p=table
+    * Food Research & Action Center, The SNAP Standard Medical Deduction for Older Adults and People With Disabilities: https://frac.org/wp-content/uploads/SNAP-SMD-National-Report-1.pdf#page=7 -/
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.AK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 175)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 138)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 145)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 120), (⟨2024, 10, 1⟩, 150)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2022, 10, 1⟩, 165)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 150), (⟨2023, 10, 1⟩, 136)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 110), (⟨2023, 10, 1⟩, 125)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 144)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 200), (⟨2023, 10, 1⟩, 185)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 140), (⟨2023, 10, 1⟩, 175)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 161)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 155)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 165)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 170), (⟨2023, 10, 1⟩, 135)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 165), (⟨2023, 10, 1⟩, 200)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 115)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.NY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 170)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 141), (⟨2023, 10, 1⟩, 183)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 170), (⟨2023, 10, 1⟩, 175)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 165), (⟨2023, 10, 1⟩, 180)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 137), (⟨2023, 10, 1⟩, 135)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 200)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 138), (⟨2023, 10, 1⟩, 156)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.excess_medical_expense.standard.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2021, 10, 1⟩, 0), (⟨2023, 1, 1⟩, 138)]⟩
+
+/-- The USDA allows an excess shelter deduction of up to this amount when computing SNAP benefits.
+    `gov/usda/snap/income/deductions/excess_shelter_expense/cap.yaml` (policyengine-us).
+    * 7 U.S. Code § 2014(e)(6)(B): https://www.law.cornell.edu/uscode/text/7/2014#e_6_B
+    * SNAP FY2022 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY22-Maximum-Allotments-Deductions.pdf#page=2
+    * SNAP FY2021 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY21-Maximum-Allotments-Deductions.pdf#page=2
+    * USDA Cost of Living Adjustments: https://www.fns.usda.gov/snap/allotment/COLA
+    * SNAP FY2024 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY24-Maximum-Allotments-and-Deductions.pdf#page=2
+    * SNAP FY2025 Cost-of-Living Adjustments: https://www.fns.usda.gov/snap/fy-2025-cola
+    * SNAP FY2026 Cost-of-Living Adjustments: https://www.fns.usda.gov/snap/allotment/cola/fy26 -/
+def gov.usda.snap.income.deductions.excess_shelter_expense.cap.AK_RURAL_1 : DatedParam USD :=
+  ⟨(⟨1996, 8, 22⟩, 429), [(⟨1997, 1, 1⟩, 434), (⟨1998, 10, 1⟩, 478), (⟨1999, 10, 1⟩, 483), (⟨2000, 10, 1⟩, 543), (⟨2015, 10, 1⟩, 805), (⟨2016, 10, 1⟩, 826), (⟨2017, 10, 1⟩, 854), (⟨2018, 10, 1⟩, 881), (⟨2019, 10, 1⟩, 908), (⟨2020, 10, 1⟩, 936), (⟨2021, 10, 1⟩, 954), (⟨2022, 10, 1⟩, 996), (⟨2023, 10, 1⟩, 1073), (⟨2024, 10, 1⟩, 1137), (⟨2025, 10, 1⟩, 1189)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.cap.AK_RURAL_2 : DatedParam USD :=
+  ⟨(⟨1996, 8, 22⟩, 429), [(⟨1997, 1, 1⟩, 434), (⟨1998, 10, 1⟩, 478), (⟨1999, 10, 1⟩, 483), (⟨2000, 10, 1⟩, 543), (⟨2015, 10, 1⟩, 805), (⟨2016, 10, 1⟩, 826), (⟨2017, 10, 1⟩, 854), (⟨2018, 10, 1⟩, 881), (⟨2019, 10, 1⟩, 908), (⟨2020, 10, 1⟩, 936), (⟨2021, 10, 1⟩, 954), (⟨2022, 10, 1⟩, 996), (⟨2023, 10, 1⟩, 1073), (⟨2024, 10, 1⟩, 1137), (⟨2025, 10, 1⟩, 1189)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.cap.AK_URBAN : DatedParam USD :=
+  ⟨(⟨1996, 8, 22⟩, 429), [(⟨1997, 1, 1⟩, 434), (⟨1998, 10, 1⟩, 478), (⟨1999, 10, 1⟩, 483), (⟨2000, 10, 1⟩, 543), (⟨2015, 10, 1⟩, 805), (⟨2016, 10, 1⟩, 826), (⟨2017, 10, 1⟩, 854), (⟨2018, 10, 1⟩, 881), (⟨2019, 10, 1⟩, 908), (⟨2020, 10, 1⟩, 936), (⟨2021, 10, 1⟩, 954), (⟨2022, 10, 1⟩, 996), (⟨2023, 10, 1⟩, 1073), (⟨2024, 10, 1⟩, 1137), (⟨2025, 10, 1⟩, 1189)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.cap.CONTIGUOUS_US : DatedParam USD :=
+  ⟨(⟨1996, 8, 22⟩, 247), [(⟨1997, 1, 1⟩, 250), (⟨1998, 10, 1⟩, 275), (⟨1999, 10, 1⟩, 280), (⟨2000, 10, 1⟩, 340), (⟨2015, 10, 1⟩, 504), (⟨2016, 10, 1⟩, 517), (⟨2017, 10, 1⟩, 535), (⟨2018, 10, 1⟩, 552), (⟨2019, 10, 1⟩, 569), (⟨2020, 10, 1⟩, 586), (⟨2021, 10, 1⟩, 597), (⟨2022, 10, 1⟩, 624), (⟨2023, 10, 1⟩, 672), (⟨2024, 10, 1⟩, 712), (⟨2025, 10, 1⟩, 744)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.cap.GU : DatedParam USD :=
+  ⟨(⟨1996, 8, 22⟩, 300), [(⟨1997, 1, 1⟩, 304), (⟨1998, 10, 1⟩, 334), (⟨1999, 10, 1⟩, 339), (⟨2000, 10, 1⟩, 399), (⟨2015, 10, 1⟩, 592), (⟨2016, 10, 1⟩, 607), (⟨2017, 10, 1⟩, 627), (⟨2018, 10, 1⟩, 647), (⟨2019, 10, 1⟩, 667), (⟨2020, 10, 1⟩, 688), (⟨2021, 10, 1⟩, 701), (⟨2022, 10, 1⟩, 732), (⟨2023, 10, 1⟩, 789), (⟨2024, 10, 1⟩, 835), (⟨2025, 10, 1⟩, 873)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.cap.HI : DatedParam USD :=
+  ⟨(⟨1996, 8, 22⟩, 353), [(⟨1997, 1, 1⟩, 357), (⟨1998, 10, 1⟩, 393), (⟨1999, 10, 1⟩, 398), (⟨2000, 10, 1⟩, 458), (⟨2015, 10, 1⟩, 679), (⟨2016, 10, 1⟩, 697), (⟨2017, 10, 1⟩, 720), (⟨2018, 10, 1⟩, 743), (⟨2019, 10, 1⟩, 766), (⟨2020, 10, 1⟩, 790), (⟨2021, 10, 1⟩, 805), (⟨2022, 10, 1⟩, 840), (⟨2023, 10, 1⟩, 905), (⟨2024, 10, 1⟩, 959), (⟨2025, 10, 1⟩, 1003)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.cap.VI : DatedParam USD :=
+  ⟨(⟨1996, 8, 22⟩, 182), [(⟨1997, 1, 1⟩, 184), (⟨1998, 10, 1⟩, 203), (⟨1999, 10, 1⟩, 208), (⟨2000, 10, 1⟩, 268), (⟨2015, 10, 1⟩, 397), (⟨2016, 10, 1⟩, 408), (⟨2017, 10, 1⟩, 421), (⟨2018, 10, 1⟩, 435), (⟨2019, 10, 1⟩, 448), (⟨2020, 10, 1⟩, 462), (⟨2021, 10, 1⟩, 471), (⟨2022, 10, 1⟩, 492), (⟨2023, 10, 1⟩, 529), (⟨2024, 10, 1⟩, 561), (⟨2025, 10, 1⟩, 586)]⟩
+
+/-- Whether elderly and disabled people are exempt from the SNAP shelter deduction cap
+    `gov/usda/snap/income/deductions/excess_shelter_expense/elderly_or_disabled_exempt.yaml` (policyengine-us).
+    * 7 U.S. Code § 2014(e)(6)(B): https://www.law.cornell.edu/uscode/text/7/2014#e_6_B -/
+def gov.usda.snap.income.deductions.excess_shelter_expense.elderly_or_disabled_exempt : DatedParam Bool :=
+  ⟨(⟨2018, 1, 1⟩, true), []⟩
+
+/-- Whether homeless households can choose to receive a standard shelter deduction.
+    `gov/usda/snap/income/deductions/excess_shelter_expense/homeless/available.yaml` (policyengine-us).
+    * SNAP State Options Report, 12th Report (April 2016): https://www.fns.usda.gov/sites/default/files/snap/12-State_Options.pdf#page=11
+    * SNAP State Options Report, 13th Report (August 2017): https://www.fns.usda.gov/sites/default/files/snap/13-State_Options-revised.pdf#page=14
+    * SNAP State Options Report, 14th Report (May 2018): https://www.fns.usda.gov/sites/default/files/snap/14-State-Options.pdf#page=19
+    * SNAP – Questions and Answers Related to Food and Nutrition Services Policy Memos Regarding Title IV Provisions of the Agriculture Improvement Act of 2018: https://www.fns.usda.gov/snap/simplified-homeless-housing-cost-deduction-questions-and-answers -/
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.AK : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.AL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.AR : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.AZ : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.CA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2016, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.CO : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true), (⟨2022, 11, 30⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.CT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.DC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.DE : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.FL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.GA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.GU : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.HI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2017, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.IA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.ID : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.IL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.IN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.KS : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.KY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.LA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.MA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.MD : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.ME : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.MI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.MN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.MO : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.MS : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.MT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.NC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.ND : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.NE : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2016, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.NH : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.NJ : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.NM : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.NV : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.NY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.OH : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.OK : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.OR : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.PA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.RI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.SC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.SD : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.TN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.TX : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.UT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.VA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.VI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.VT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.WA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.WI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.WV : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2015, 10, 1⟩, true), (⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available.WY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2018, 10, 1⟩, true)]⟩
+
+/-- SNAP homeless shelter deduction amount.
+    `gov/usda/snap/income/deductions/excess_shelter_expense/homeless/deduction.yaml` (policyengine-us).
+    * 7 U.S. Code § 2014(e)(6)(D)(i): https://www.law.cornell.edu/uscode/text/7/2014#e_6_D_i
+    * SNAP FY2016 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/snap/FY16-Maximun-Allotments-Deductions.pdf#page=1
+    * SNAP FY2017 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/snap/FY17-Maximun-Allotments-Deductions.pdf#page=1
+    * SNAP FY2018 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/snap/FY18-Maximum-Allotments-Deductions.pdf#page=2
+    * SNAP FY2019 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY19-Maximum-Allotments-Deductions.pdf#page=2
+    * SNAP FY2020 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf#page=2
+    * SNAP FY2021 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY21-Maximum-Allotments-Deductions.pdf#page=2
+    * SNAP FY2022 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY22-Maximum-Allotments-Deductions.pdf#page=2
+    * SNAP FY2023 Cost-of-Living Adjustments: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy-2023-cola-adjustments.pdf#page=5
+    * SNAP FY2024 Cost-of-Living Adjustments: https://www.fns.usda.gov/snap/fy-2024-cola
+    * SNAP FY2025 Cost-of-Living Adjustments: https://www.fns.usda.gov/snap/fy-2025-cola
+    * SNAP FY2026 Cost-of-Living Adjustments: https://www.fns.usda.gov/snap/allotment/cola/fy26 -/
+def gov.usda.snap.income.deductions.excess_shelter_expense.homeless.deduction : DatedParam USD :=
+  ⟨(⟨2015, 10, 1⟩, 143), [(⟨2018, 10, 1⟩, mkRat 2951 20), (⟨2019, 10, 1⟩, mkRat 7603 50), (⟨2020, 10, 1⟩, mkRat 7837 50), (⟨2021, 10, 1⟩, mkRat 15973 100), (⟨2022, 10, 1⟩, mkRat 16681 100), (⟨2023, 10, 1⟩, mkRat 8983 50), (⟨2024, 10, 1⟩, mkRat 1903 10), (⟨2025, 10, 1⟩, mkRat 19899 100)]⟩
+
+/-- Share of income disregarded for SNAP shelter deduction
+    `gov/usda/snap/income/deductions/excess_shelter_expense/income_share_disregard.yaml` (policyengine-us).
+    * 7 U.S. Code § 2014(e)(6)(A): https://www.law.cornell.edu/uscode/text/7/2014#e_6_A -/
+def gov.usda.snap.income.deductions.excess_shelter_expense.income_share_disregard : DatedParam Rate :=
+  ⟨(⟨2018, 1, 1⟩, mkRat 1 2), []⟩
+
+/-- Whether states allow to deduct actual self employment expenses in addition to the flat percentage deduction on gross self-employment income, under the SNAP program.
+    `gov/usda/snap/income/deductions/self_employment/expense_based_deduction_applies.yaml` (policyengine-us).
+    * 7 CFR § 273.11(b)(3) - Self-employment income, cost of doing business: https://www.law.cornell.edu/cfr/text/7/273.11#b_3
+    * USDA FNS SNAP State Options Report, 13th Edition (Oct 2016) - Simplified Self-Employment Determination: https://fns-prod.azureedge.us/sites/default/files/snap/13-State_Options-revised.pdf
+    * USDA FNS SNAP State Options Report, 16th Edition (June 2024) - Treatment of Self-Employment Income: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-16th-state-options-report-june24.pdf#page=10 -/
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.AK : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.AL : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.AR : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.AZ : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.CA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.CO : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.CT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.DC : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.DE : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.FL : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.GA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.GU : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.HI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.IA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.ID : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.IL : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.IN : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.KS : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.KY : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.LA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.MA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.MD : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.ME : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.MI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.MN : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.MO : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.MS : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.MT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.NC : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.ND : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.NE : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.NH : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.NJ : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.NM : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.NV : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.NY : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.OH : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.OK : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.OR : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.PA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.RI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.SC : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.SD : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.TN : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.TX : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.UT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.VA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.VI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.VT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.WA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.WI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.WV : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies.WY : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+
+/-- States deduct the following percentage of self-employment income for SNAP under the simplified self-employment deduction.
+    `gov/usda/snap/income/deductions/self_employment/rate.yaml` (policyengine-us).
+    * SNAP Screener SNAP Self-Employment Simplified Deductions by State: https://www.snapscreener.com/blog/self-employment
+    * Benefits Data Trust Streamlining SNAP for the Gig Economy: https://assets-global.website-files.com/63345e33f3c909d27d0e558b/634eb3c77156ee846ee68852_streamlining-snap-gig-economy.pdf
+    * Delaware DEPARTMENT OF health and social services,  Division of Social Services: https://regulations.delaware.gov/register/august2005/proposed/9%20DE%20Reg%20168%2008-01-05.htm
+    * USDA FNS SNAP State Options Report (10th Edition, August 2012), p. 16: https://www.fns.usda.gov/sites/default/files/snap/10-State_Options.pdf#page=16
+    * Iowa HHS Employees' Manual Title 7 Chapter I - SNAP Specific Households: https://hhs.iowa.gov/media/4001/download -/
+def gov.usda.snap.income.deductions.self_employment.rate.AK : DatedParam Rat :=
+  ⟨(⟨1997, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.AL : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.AR : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.AZ : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.CA : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.CO : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.CT : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.DC : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.DE : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 43 100), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.FL : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.GA : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.GU : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.HI : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.IA : DatedParam Rat :=
+  ⟨(⟨2012, 8, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.ID : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.IL : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.IN : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.KS : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 4), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.KY : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.LA : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.MA : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.MD : DatedParam Rat :=
+  ⟨(⟨2010, 1, 1⟩, mkRat 3 10), [(⟨2016, 10, 1⟩, mkRat 1 2)]⟩
+def gov.usda.snap.income.deductions.self_employment.rate.ME : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.MI : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.MN : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.MO : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.MS : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.MT : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.NC : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.ND : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.NE : DatedParam Rat :=
+  ⟨(⟨2016, 10, 1⟩, mkRat 49 100), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.NH : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.NJ : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.NM : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.NV : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.NY : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.OH : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.OK : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.OR : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.PA : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.RI : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.SC : DatedParam Rat :=
+  ⟨(⟨2005, 10, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.SD : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 11 20), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.TN : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.TX : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.UT : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 2 5), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.VA : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.VI : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.VT : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.WA : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 2), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.WI : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.WV : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, 0), []⟩
+def gov.usda.snap.income.deductions.self_employment.rate.WY : DatedParam Rat :=
+  ⟨(⟨2021, 10, 1⟩, mkRat 1 4), []⟩
+
+/-- The USDA deducts this amount from net income when computing SNAP benefits.
+    `gov/usda/snap/income/deductions/standard.yaml` (policyengine-us).
+    * Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2024 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY24-Maximum-Allotments-and-Deductions.pdf#page=2
+    * SNAP FY2022 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY22-Maximum-Allotments-Deductions.pdf#page=2
+    * SNAP FY2021 Maximum Allotments and Deductions: https://fns-prod.azureedge.us/sites/default/files/media/file/FY21-Maximum-Allotments-Deductions.pdf#page=2
+    * USDA Cost of Living Adjustments: https://www.fns.usda.gov/snap/allotment/COLA
+    * SNAP FY2025 Cost-of-Living Adjustments: https://www.fns.usda.gov/snap/fy-2025-cola
+    * SNAP FY2026 Cost-of-Living Adjustments: https://www.fns.usda.gov/snap/allotment/cola/fy26 -/
+def gov.usda.snap.income.deductions.standard.AK : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 265), [(⟨2016, 10, 1⟩, 268), (⟨2017, 10, 1⟩, 273), (⟨2018, 10, 1⟩, 281), (⟨2019, 10, 1⟩, 286), (⟨2020, 10, 1⟩, 286), (⟨2021, 10, 1⟩, 303), (⟨2022, 10, 1⟩, 330), (⟨2023, 10, 1⟩, 338), (⟨2024, 10, 1⟩, 348), (⟨2025, 10, 1⟩, 358)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 265), [(⟨2016, 10, 1⟩, 268), (⟨2017, 10, 1⟩, 273), (⟨2018, 10, 1⟩, 281), (⟨2019, 10, 1⟩, 286), (⟨2020, 10, 1⟩, 286), (⟨2021, 10, 1⟩, 303), (⟨2022, 10, 1⟩, 330), (⟨2023, 10, 1⟩, 338), (⟨2024, 10, 1⟩, 348), (⟨2025, 10, 1⟩, 358)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 265), [(⟨2016, 10, 1⟩, 268), (⟨2017, 10, 1⟩, 273), (⟨2018, 10, 1⟩, 281), (⟨2019, 10, 1⟩, 286), (⟨2020, 10, 1⟩, 286), (⟨2021, 10, 1⟩, 303), (⟨2022, 10, 1⟩, 330), (⟨2023, 10, 1⟩, 338), (⟨2024, 10, 1⟩, 348), (⟨2025, 10, 1⟩, 358)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 265), [(⟨2016, 10, 1⟩, 268), (⟨2017, 10, 1⟩, 273), (⟨2018, 10, 1⟩, 281), (⟨2019, 10, 1⟩, 286), (⟨2020, 10, 1⟩, 286), (⟨2021, 10, 1⟩, 303), (⟨2022, 10, 1⟩, 330), (⟨2023, 10, 1⟩, 338), (⟨2024, 10, 1⟩, 348), (⟨2025, 10, 1⟩, 358)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 265), [(⟨2016, 10, 1⟩, 268), (⟨2017, 10, 1⟩, 273), (⟨2018, 10, 1⟩, 281), (⟨2019, 10, 1⟩, 286), (⟨2020, 10, 1⟩, 286), (⟨2021, 10, 1⟩, 303), (⟨2022, 10, 1⟩, 330), (⟨2023, 10, 1⟩, 338), (⟨2024, 10, 1⟩, 348), (⟨2025, 10, 1⟩, 358)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 282), [(⟨2016, 10, 1⟩, 282), (⟨2017, 10, 1⟩, 285), (⟨2018, 10, 1⟩, 292), (⟨2019, 10, 1⟩, 300), (⟨2020, 10, 1⟩, 304), (⟨2021, 10, 1⟩, 308), (⟨2022, 10, 1⟩, 330), (⟨2023, 10, 1⟩, 349), (⟨2024, 10, 1⟩, 364), (⟨2025, 10, 1⟩, 374)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.standard.CONTIGUOUS_US : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 155), [(⟨2016, 10, 1⟩, 157), (⟨2017, 10, 1⟩, 160), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 167), (⟨2021, 10, 1⟩, 177), (⟨2022, 10, 1⟩, 193), (⟨2023, 10, 1⟩, 198), (⟨2024, 10, 1⟩, 204), (⟨2025, 10, 1⟩, 209)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 155), [(⟨2016, 10, 1⟩, 157), (⟨2017, 10, 1⟩, 160), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 167), (⟨2021, 10, 1⟩, 177), (⟨2022, 10, 1⟩, 193), (⟨2023, 10, 1⟩, 198), (⟨2024, 10, 1⟩, 204), (⟨2025, 10, 1⟩, 209)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 155), [(⟨2016, 10, 1⟩, 157), (⟨2017, 10, 1⟩, 160), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 167), (⟨2021, 10, 1⟩, 177), (⟨2022, 10, 1⟩, 193), (⟨2023, 10, 1⟩, 198), (⟨2024, 10, 1⟩, 204), (⟨2025, 10, 1⟩, 209)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 168), [(⟨2016, 10, 1⟩, 168), (⟨2017, 10, 1⟩, 170), (⟨2018, 10, 1⟩, 174), (⟨2019, 10, 1⟩, 178), (⟨2020, 10, 1⟩, 181), (⟨2021, 10, 1⟩, 184), (⟨2022, 10, 1⟩, 193), (⟨2023, 10, 1⟩, 208), (⟨2024, 10, 1⟩, 217), (⟨2025, 10, 1⟩, 223)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 197), [(⟨2016, 10, 1⟩, 197), (⟨2017, 10, 1⟩, 199), (⟨2018, 10, 1⟩, 204), (⟨2019, 10, 1⟩, 209), (⟨2020, 10, 1⟩, 212), (⟨2021, 10, 1⟩, 215), (⟨2022, 10, 1⟩, 225), (⟨2023, 10, 1⟩, 244), (⟨2024, 10, 1⟩, 254), (⟨2025, 10, 1⟩, 261)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 226), [(⟨2016, 10, 1⟩, 226), (⟨2017, 10, 1⟩, 228), (⟨2018, 10, 1⟩, 234), (⟨2019, 10, 1⟩, 240), (⟨2020, 10, 1⟩, 243), (⟨2021, 10, 1⟩, 246), (⟨2022, 10, 1⟩, 258), (⟨2023, 10, 1⟩, 279), (⟨2024, 10, 1⟩, 291), (⟨2025, 10, 1⟩, 299)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.standard.GU : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 312), [(⟨2016, 10, 1⟩, 315), (⟨2017, 10, 1⟩, 321), (⟨2018, 10, 1⟩, 331), (⟨2019, 10, 1⟩, 336), (⟨2020, 10, 1⟩, 336), (⟨2021, 10, 1⟩, 356), (⟨2022, 10, 1⟩, 387), (⟨2023, 10, 1⟩, 397), (⟨2024, 10, 1⟩, 409), (⟨2025, 10, 1⟩, 420)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 312), [(⟨2016, 10, 1⟩, 315), (⟨2017, 10, 1⟩, 321), (⟨2018, 10, 1⟩, 331), (⟨2019, 10, 1⟩, 336), (⟨2020, 10, 1⟩, 336), (⟨2021, 10, 1⟩, 356), (⟨2022, 10, 1⟩, 387), (⟨2023, 10, 1⟩, 397), (⟨2024, 10, 1⟩, 409), (⟨2025, 10, 1⟩, 420)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 312), [(⟨2016, 10, 1⟩, 315), (⟨2017, 10, 1⟩, 321), (⟨2018, 10, 1⟩, 331), (⟨2019, 10, 1⟩, 336), (⟨2020, 10, 1⟩, 336), (⟨2021, 10, 1⟩, 356), (⟨2022, 10, 1⟩, 387), (⟨2023, 10, 1⟩, 397), (⟨2024, 10, 1⟩, 409), (⟨2025, 10, 1⟩, 420)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 336), [(⟨2016, 10, 1⟩, 337), (⟨2017, 10, 1⟩, 341), (⟨2018, 10, 1⟩, 348), (⟨2019, 10, 1⟩, 357), (⟨2020, 10, 1⟩, 363), (⟨2021, 10, 1⟩, 367), (⟨2022, 10, 1⟩, 387), (⟨2023, 10, 1⟩, 416), (⟨2024, 10, 1⟩, 432), (⟨2025, 10, 1⟩, 445)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 394), [(⟨2016, 10, 1⟩, 394), (⟨2017, 10, 1⟩, 399), (⟨2018, 10, 1⟩, 408), (⟨2019, 10, 1⟩, 418), (⟨2020, 10, 1⟩, 425), (⟨2021, 10, 1⟩, 430), (⟨2022, 10, 1⟩, 450), (⟨2023, 10, 1⟩, 487), (⟨2024, 10, 1⟩, 507), (⟨2025, 10, 1⟩, 522)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 451), [(⟨2016, 10, 1⟩, 451), (⟨2017, 10, 1⟩, 457), (⟨2018, 10, 1⟩, 467), (⟨2019, 10, 1⟩, 479), (⟨2020, 10, 1⟩, 487), (⟨2021, 10, 1⟩, 493), (⟨2022, 10, 1⟩, 515), (⟨2023, 10, 1⟩, 558), (⟨2024, 10, 1⟩, 581), (⟨2025, 10, 1⟩, 598)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.standard.HI : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 219), [(⟨2016, 10, 1⟩, 221), (⟨2017, 10, 1⟩, 225), (⟨2018, 10, 1⟩, 232), (⟨2019, 10, 1⟩, 236), (⟨2020, 10, 1⟩, 236), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 272), (⟨2023, 10, 1⟩, 279), (⟨2024, 10, 1⟩, 287), (⟨2025, 10, 1⟩, 295)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 219), [(⟨2016, 10, 1⟩, 221), (⟨2017, 10, 1⟩, 225), (⟨2018, 10, 1⟩, 232), (⟨2019, 10, 1⟩, 236), (⟨2020, 10, 1⟩, 236), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 272), (⟨2023, 10, 1⟩, 279), (⟨2024, 10, 1⟩, 287), (⟨2025, 10, 1⟩, 295)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 219), [(⟨2016, 10, 1⟩, 221), (⟨2017, 10, 1⟩, 225), (⟨2018, 10, 1⟩, 232), (⟨2019, 10, 1⟩, 236), (⟨2020, 10, 1⟩, 236), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 272), (⟨2023, 10, 1⟩, 279), (⟨2024, 10, 1⟩, 287), (⟨2025, 10, 1⟩, 295)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 219), [(⟨2016, 10, 1⟩, 221), (⟨2017, 10, 1⟩, 225), (⟨2018, 10, 1⟩, 232), (⟨2019, 10, 1⟩, 236), (⟨2020, 10, 1⟩, 236), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 272), (⟨2023, 10, 1⟩, 279), (⟨2024, 10, 1⟩, 287), (⟨2025, 10, 1⟩, 295)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 226), [(⟨2016, 10, 1⟩, 227), (⟨2017, 10, 1⟩, 229), (⟨2018, 10, 1⟩, 234), (⟨2019, 10, 1⟩, 240), (⟨2020, 10, 1⟩, 244), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 272), (⟨2023, 10, 1⟩, 280), (⟨2024, 10, 1⟩, 292), (⟨2025, 10, 1⟩, 300)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 259), [(⟨2016, 10, 1⟩, 260), (⟨2017, 10, 1⟩, 263), (⟨2018, 10, 1⟩, 269), (⟨2019, 10, 1⟩, 275), (⟨2020, 10, 1⟩, 280), (⟨2021, 10, 1⟩, 283), (⟨2022, 10, 1⟩, 296), (⟨2023, 10, 1⟩, 321), (⟨2024, 10, 1⟩, 335), (⟨2025, 10, 1⟩, 344)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.standard.VI : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 137), [(⟨2016, 10, 1⟩, 138), (⟨2017, 10, 1⟩, 141), (⟨2018, 10, 1⟩, 145), (⟨2019, 10, 1⟩, 147), (⟨2020, 10, 1⟩, 147), (⟨2021, 10, 1⟩, 156), (⟨2022, 10, 1⟩, 170), (⟨2023, 10, 1⟩, 174), (⟨2024, 10, 1⟩, 180), (⟨2025, 10, 1⟩, 184)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 137), [(⟨2016, 10, 1⟩, 138), (⟨2017, 10, 1⟩, 141), (⟨2018, 10, 1⟩, 145), (⟨2019, 10, 1⟩, 147), (⟨2020, 10, 1⟩, 147), (⟨2021, 10, 1⟩, 156), (⟨2022, 10, 1⟩, 170), (⟨2023, 10, 1⟩, 174), (⟨2024, 10, 1⟩, 180), (⟨2025, 10, 1⟩, 184)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 139), [(⟨2016, 10, 1⟩, 140), (⟨2017, 10, 1⟩, 141), (⟨2018, 10, 1⟩, 145), (⟨2019, 10, 1⟩, 148), (⟨2020, 10, 1⟩, 150), (⟨2021, 10, 1⟩, 156), (⟨2022, 10, 1⟩, 170), (⟨2023, 10, 1⟩, 174), (⟨2024, 10, 1⟩, 180), (⟨2025, 10, 1⟩, 185)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 168), [(⟨2016, 10, 1⟩, 168), (⟨2017, 10, 1⟩, 170), (⟨2018, 10, 1⟩, 174), (⟨2019, 10, 1⟩, 178), (⟨2020, 10, 1⟩, 181), (⟨2021, 10, 1⟩, 184), (⟨2022, 10, 1⟩, 192), (⟨2023, 10, 1⟩, 208), (⟨2024, 10, 1⟩, 217), (⟨2025, 10, 1⟩, 223)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 197), [(⟨2016, 10, 1⟩, 197), (⟨2017, 10, 1⟩, 199), (⟨2018, 10, 1⟩, 204), (⟨2019, 10, 1⟩, 209), (⟨2020, 10, 1⟩, 212), (⟨2021, 10, 1⟩, 215), (⟨2022, 10, 1⟩, 225), (⟨2023, 10, 1⟩, 244), (⟨2024, 10, 1⟩, 254), (⟨2025, 10, 1⟩, 261)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 226), [(⟨2016, 10, 1⟩, 226), (⟨2017, 10, 1⟩, 228), (⟨2018, 10, 1⟩, 234), (⟨2019, 10, 1⟩, 240), (⟨2020, 10, 1⟩, 243), (⟨2021, 10, 1⟩, 246), (⟨2022, 10, 1⟩, 258), (⟨2023, 10, 1⟩, 279), (⟨2024, 10, 1⟩, 291), (⟨2025, 10, 1⟩, 299)]⟩⟩]⟩
+
+/-- The following states always use the Standard Utility Allowance under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/always_standard.yaml` (policyengine-us).
+    * 7 CFR § 273.9(d)(6)(iii)(E) - Standard utility allowances: https://www.ecfr.gov/current/title-7/subtitle-B/chapter-II/subchapter-C/part-273/subpart-D/section-273.9#p-273.9(d)(6)(iii)
+    * Agricultural Act of 2014 (Pub. L. 113-79) § 4006(b) - Minimum LIHEAP benefit for SUA eligibility: https://www.congress.gov/113/plaws/publ79/PLAW-113publ79.pdf#page=139
+    * LIHEAP Clearinghouse - A New Framework for Heat and Eat (2014): https://liheapch.acf.gov/sites/default/files/webfiles/docs/HeatEat.pdf
+    * Maryland DHS Action Transmittal AT 26-08 - H.R. 1 (2025) Treatment of Energy Assistance Payments (supersedes IM 25-15 Heat and Eat, effective April 1, 2025): https://dhs.maryland.gov/documents/FIA/Action%20Transmittals-AT%20-%20Information%20Memo-IM/AT-IM2026/26-08%20AT%20H.R.%201%202025%20Treatment%20of%20Energy%20Assistance%20Payments%20combined.pdf
+    * Michigan DHHS Bridges Policy Bulletin BPB 2017-016 - FAP LIHEAP Payments (effective August 1, 2017): https://mdhhs-pres-prod.michigan.gov/olmweb/EX/BP/Public/BPB/2017-016.pdf
+    * Michigan DHHS Bridges Eligibility Manual BEM 554 - FAP Allowable Expenses and Expense Budgeting: https://mdhhs-pres-prod.michigan.gov/olmweb/EX/BP/Public/BEM/554.pdf#page=24
+    * Maine 10-144 C.M.R. Ch. 301 § 555-5 - Food Supplement Program Deductions: https://www.law.cornell.edu/regulations/maine/10-144-C-M-R-ch-301-SS-555-5 -/
+def gov.usda.snap.income.deductions.utility.always_standard.AK : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.AL : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.AR : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.AZ : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.CA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.CO : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), [(⟨2024, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.always_standard.CT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.DC : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.DE : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.FL : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.GA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.GU : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.HI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.IA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.ID : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.IL : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.IN : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.KS : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.KY : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.LA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.MA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.MD : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), [(⟨2025, 4, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.always_standard.ME : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.MI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), [(⟨2017, 8, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.always_standard.MN : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.MO : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.MS : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.MT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.NC : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.ND : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.NE : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.NH : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.NJ : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.NM : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.NV : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.NY : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.OH : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.OK : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.OR : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.PA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.RI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.SC : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.SD : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.TN : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.TX : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.UT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.VA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.VI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.VT : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.WA : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, true), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.WI : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.WV : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+def gov.usda.snap.income.deductions.utility.always_standard.WY : DatedParam Bool :=
+  ⟨(⟨2015, 10, 1⟩, false), []⟩
+
+/-- Whether households without heating/cooling expenses and at least two other utilities are given the Limited Utility Allowance.
+    `gov/usda/snap/income/deductions/utility/limited/active.yaml` (policyengine-us).
+    * USDA | Food and Nutrition Service | SNAP | Standard Utility Allowances: https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx -/
+def gov.usda.snap.income.deductions.utility.limited.active.AK_C : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AK_N : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AK_NW : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AK_SC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AK_SE : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AK_SW : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AR : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.AZ : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.CA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.CO : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.CT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.DC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.DE : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.FL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.GA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.GU : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.HI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.IA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.ID : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.IL : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.IN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 5, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.KS : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.KY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.LA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.MA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.MD : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2020, 1, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.ME : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.MI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.MN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.MO : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.MS : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.MT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.ND : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NE : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NH : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NJ : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NM : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NV : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NY_NAS : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NY_NYC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.NY_ONY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.OH : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.OK : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.OR : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.PA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.RI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.SC : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.SD : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.TN : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.TX : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.UT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.VA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.VI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, false)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.VT : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.WA : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.WI : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.WV : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+def gov.usda.snap.income.deductions.utility.limited.active.WY : DatedParam Bool :=
+  ⟨(⟨2010, 1, 1⟩, false), [(⟨2021, 10, 1⟩, true)]⟩
+
+/-- The USDA provides this amount as the household-size-varying limited utility allowance under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/limited/by_household_size/amount.yaml` (policyengine-us).
+    * SNAP Screener Compiled State SNAP Data: https://www.snapscreener.com/data
+    * USDA FNS SUA Table FY2024: https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.limited.by_household_size.amount.AZ : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2022, 10, 1⟩, 143), [(⟨2023, 10, 1⟩, 150), (⟨2024, 10, 1⟩, 145), (⟨2025, 10, 1⟩, 149)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2022, 10, 1⟩, 143), [(⟨2023, 10, 1⟩, 150), (⟨2024, 10, 1⟩, 145), (⟨2025, 10, 1⟩, 149)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2022, 10, 1⟩, 143), [(⟨2023, 10, 1⟩, 150), (⟨2024, 10, 1⟩, 145), (⟨2025, 10, 1⟩, 149)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2022, 10, 1⟩, 192), [(⟨2023, 10, 1⟩, 202), (⟨2024, 10, 1⟩, 196), (⟨2025, 10, 1⟩, 201)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2022, 10, 1⟩, 192), [(⟨2023, 10, 1⟩, 202), (⟨2024, 10, 1⟩, 196), (⟨2025, 10, 1⟩, 201)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2022, 10, 1⟩, 192), [(⟨2023, 10, 1⟩, 202), (⟨2024, 10, 1⟩, 196), (⟨2025, 10, 1⟩, 201)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2022, 10, 1⟩, 192), [(⟨2023, 10, 1⟩, 202), (⟨2024, 10, 1⟩, 196), (⟨2025, 10, 1⟩, 201)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2022, 10, 1⟩, 192), [(⟨2023, 10, 1⟩, 202), (⟨2024, 10, 1⟩, 196), (⟨2025, 10, 1⟩, 201)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2022, 10, 1⟩, 192), [(⟨2023, 10, 1⟩, 202), (⟨2024, 10, 1⟩, 196), (⟨2025, 10, 1⟩, 201)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2022, 10, 1⟩, 192), [(⟨2023, 10, 1⟩, 202), (⟨2024, 10, 1⟩, 196), (⟨2025, 10, 1⟩, 201)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.limited.by_household_size.amount.NC : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 276), [(⟨2018, 10, 1⟩, 246), (⟨2019, 10, 1⟩, 254), (⟨2020, 10, 1⟩, 263), (⟨2021, 10, 1⟩, 331), (⟨2022, 10, 1⟩, 339), (⟨2023, 10, 1⟩, 371), (⟨2024, 10, 1⟩, 382), (⟨2025, 10, 1⟩, 392)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 303), [(⟨2018, 10, 1⟩, 270), (⟨2019, 10, 1⟩, 282), (⟨2020, 10, 1⟩, 289), (⟨2021, 10, 1⟩, 364), (⟨2022, 10, 1⟩, 372), (⟨2023, 10, 1⟩, 408), (⟨2024, 10, 1⟩, 420), (⟨2025, 10, 1⟩, 431)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 333), [(⟨2018, 10, 1⟩, 297), (⟨2019, 10, 1⟩, 310), (⟨2020, 10, 1⟩, 318), (⟨2021, 10, 1⟩, 400), (⟨2022, 10, 1⟩, 409), (⟨2023, 10, 1⟩, 448), (⟨2024, 10, 1⟩, 462), (⟨2025, 10, 1⟩, 474)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 363), [(⟨2018, 10, 1⟩, 324), (⟨2019, 10, 1⟩, 338), (⟨2020, 10, 1⟩, 347), (⟨2021, 10, 1⟩, 475), (⟨2022, 10, 1⟩, 446), (⟨2023, 10, 1⟩, 488), (⟨2024, 10, 1⟩, 504), (⟨2025, 10, 1⟩, 518)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 396), [(⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 368), (⟨2020, 10, 1⟩, 378), (⟨2021, 10, 1⟩, 475), (⟨2022, 10, 1⟩, 486), (⟨2023, 10, 1⟩, 532), (⟨2024, 10, 1⟩, 549), (⟨2025, 10, 1⟩, 564)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 396), [(⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 368), (⟨2020, 10, 1⟩, 378), (⟨2021, 10, 1⟩, 475), (⟨2022, 10, 1⟩, 486), (⟨2023, 10, 1⟩, 532), (⟨2024, 10, 1⟩, 549), (⟨2025, 10, 1⟩, 564)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 396), [(⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 368), (⟨2020, 10, 1⟩, 378), (⟨2021, 10, 1⟩, 475), (⟨2022, 10, 1⟩, 486), (⟨2023, 10, 1⟩, 532), (⟨2024, 10, 1⟩, 549), (⟨2025, 10, 1⟩, 564)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 396), [(⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 368), (⟨2020, 10, 1⟩, 378), (⟨2021, 10, 1⟩, 475), (⟨2022, 10, 1⟩, 486), (⟨2023, 10, 1⟩, 532), (⟨2024, 10, 1⟩, 549), (⟨2025, 10, 1⟩, 564)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 396), [(⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 368), (⟨2020, 10, 1⟩, 378), (⟨2021, 10, 1⟩, 475), (⟨2022, 10, 1⟩, 486), (⟨2023, 10, 1⟩, 532), (⟨2024, 10, 1⟩, 549), (⟨2025, 10, 1⟩, 564)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 396), [(⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 368), (⟨2020, 10, 1⟩, 378), (⟨2021, 10, 1⟩, 475), (⟨2022, 10, 1⟩, 486), (⟨2023, 10, 1⟩, 532), (⟨2024, 10, 1⟩, 549), (⟨2025, 10, 1⟩, 564)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.limited.by_household_size.amount.TN : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 133), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2022, 10, 1⟩, 169), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩⟩]⟩
+
+/-- The USDA uses this list of states that vary their limited utility allowance by household size under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/limited/by_household_size/states.yaml` (policyengine-us).
+    * SNAP Screener Compiled State SNAP Data: https://www.snapscreener.com/data
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.limited.by_household_size.states : DatedParam (List String) :=
+  ⟨(⟨2017, 10, 1⟩, ["NC", "TN"]), [(⟨2022, 10, 1⟩, ["AZ", "NC", "TN"])]⟩
+
+/-- A household is eligible for the Limited Utility Allowance if it does not have separate heating and cooling costs, but does have at least two other utilities. Also known as the 'basic' utility allowance.
+    `gov/usda/snap/income/deductions/utility/limited/main.yaml` (policyengine-us).
+    * USDA | Food and Nutrition Service | SNAP | Standard Utility Allowances: https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
+    * SNAP Screener | SNAP Eligibility Parameters: https://www.snapscreener.com/?p=table
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.limited.main.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 347), (⟨2018, 10, 1⟩, 357), (⟨2019, 10, 1⟩, 371), (⟨2020, 10, 1⟩, 381), (⟨2021, 10, 1⟩, 389), (⟨2022, 10, 1⟩, 413), (⟨2023, 10, 1⟩, 434), (⟨2024, 10, 1⟩, 454), (⟨2025, 10, 1⟩, 466)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2022, 10, 1⟩, 245), (⟨2023, 10, 1⟩, 263), (⟨2024, 10, 1⟩, 267), (⟨2025, 10, 1⟩, 274)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 41), (⟨2021, 10, 1⟩, 0), (⟨2022, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 150), (⟨2024, 10, 1⟩, 145), (⟨2025, 10, 1⟩, 149)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 126), (⟨2018, 10, 1⟩, 130), (⟨2019, 10, 1⟩, 135), (⟨2020, 10, 1⟩, 139), (⟨2021, 10, 1⟩, 144), (⟨2022, 10, 1⟩, 150), (⟨2023, 10, 1⟩, 158), (⟨2024, 10, 1⟩, 166), (⟨2025, 10, 1⟩, 170)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 298), (⟨2018, 10, 1⟩, 354), (⟨2019, 10, 1⟩, 310), (⟨2020, 10, 1⟩, 310), (⟨2021, 10, 1⟩, 314), (⟨2022, 10, 1⟩, 338), (⟨2023, 10, 1⟩, 356), (⟨2024, 10, 1⟩, 367), (⟨2025, 10, 1⟩, 377)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 320), (⟨2018, 10, 1⟩, 324), (⟨2019, 10, 1⟩, 324), (⟨2020, 10, 1⟩, 324), (⟨2021, 10, 1⟩, 345), (⟨2022, 10, 1⟩, 408), (⟨2023, 10, 1⟩, 402), (⟨2024, 10, 1⟩, 419), (⟨2025, 10, 1⟩, 430)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 270), (⟨2018, 10, 1⟩, 276), (⟨2019, 10, 1⟩, 292), (⟨2020, 10, 1⟩, 281), (⟨2021, 10, 1⟩, 292), (⟨2022, 10, 1⟩, 338), (⟨2023, 10, 1⟩, 323), (⟨2024, 10, 1⟩, 339), (⟨2025, 10, 1⟩, 348)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 281), (⟨2018, 10, 1⟩, 289), (⟨2019, 10, 1⟩, 301), (⟨2020, 10, 1⟩, 282), (⟨2021, 10, 1⟩, 294), (⟨2022, 10, 1⟩, 374), (⟨2023, 10, 1⟩, 367), (⟨2024, 10, 1⟩, 359), (⟨2025, 10, 1⟩, 369)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 280), (⟨2018, 10, 1⟩, 290), (⟨2019, 10, 1⟩, 291), (⟨2020, 10, 1⟩, 293), (⟨2021, 10, 1⟩, 298), (⟨2022, 10, 1⟩, 303), (⟨2023, 10, 1⟩, 340), (⟨2024, 10, 1⟩, 339), (⟨2025, 10, 1⟩, 348)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 306), (⟨2018, 10, 1⟩, 323), (⟨2019, 10, 1⟩, 329), (⟨2020, 10, 1⟩, 323), (⟨2021, 10, 1⟩, 302), (⟨2022, 10, 1⟩, 335), (⟨2023, 10, 1⟩, 349), (⟨2025, 10, 1⟩, 358)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 249), (⟨2018, 10, 1⟩, 287), (⟨2019, 10, 1⟩, 301), (⟨2020, 10, 1⟩, 316), (⟨2021, 10, 1⟩, 270), (⟨2022, 10, 1⟩, 274), (⟨2023, 10, 1⟩, 277), (⟨2024, 10, 1⟩, 284), (⟨2025, 10, 1⟩, 292)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 223), (⟨2018, 10, 1⟩, 303), (⟨2019, 10, 1⟩, 286), (⟨2020, 10, 1⟩, 292), (⟨2021, 10, 1⟩, 299), (⟨2022, 10, 1⟩, 297), (⟨2023, 10, 1⟩, 301), (⟨2024, 10, 1⟩, 305), (⟨2025, 10, 1⟩, 313)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 306), (⟨2018, 10, 1⟩, 319), (⟨2019, 10, 1⟩, 328), (⟨2020, 10, 1⟩, 356), (⟨2021, 10, 1⟩, 341), (⟨2022, 10, 1⟩, 412), (⟨2023, 10, 1⟩, 386), (⟨2024, 10, 1⟩, 445), (⟨2025, 10, 1⟩, 457)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 5, 1⟩, 244), (⟨2018, 5, 1⟩, 253), (⟨2019, 5, 1⟩, 251), (⟨2020, 3, 1⟩, 250), (⟨2021, 5, 1⟩, 259), (⟨2022, 5, 1⟩, 266), (⟨2023, 5, 1⟩, 276), (⟨2025, 10, 1⟩, 283)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 246), (⟨2018, 10, 1⟩, 243), (⟨2019, 10, 1⟩, 247), (⟨2020, 10, 1⟩, 246), (⟨2021, 10, 1⟩, 286), (⟨2022, 10, 1⟩, 306), (⟨2023, 10, 1⟩, 327), (⟨2024, 10, 1⟩, 336), (⟨2025, 10, 1⟩, 345)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 272), (⟨2018, 10, 1⟩, 274), (⟨2019, 10, 1⟩, 279), (⟨2020, 10, 1⟩, 281), (⟨2021, 10, 1⟩, 281), (⟨2022, 10, 1⟩, 294), (⟨2023, 10, 1⟩, 395), (⟨2024, 10, 1⟩, 322), (⟨2025, 10, 1⟩, 331)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 190), (⟨2018, 10, 1⟩, 196), (⟨2019, 10, 1⟩, 193), (⟨2020, 10, 1⟩, 193), (⟨2021, 10, 1⟩, 203), (⟨2022, 10, 1⟩, 227), (⟨2023, 10, 1⟩, 230), (⟨2024, 10, 1⟩, 251), (⟨2025, 10, 1⟩, 258)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 392), (⟨2018, 10, 1⟩, 396), (⟨2019, 10, 1⟩, 396), (⟨2020, 10, 1⟩, 396), (⟨2021, 10, 1⟩, 421), (⟨2022, 3, 1⟩, 437), (⟨2022, 10, 1⟩, 525), (⟨2023, 10, 1⟩, 520), (⟨2024, 10, 1⟩, 542), (⟨2025, 10, 1⟩, 556)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 254), (⟨2018, 1, 1⟩, 257), (⟨2019, 1, 1⟩, 247), (⟨2019, 10, 1⟩, 247), (⟨2020, 1, 1⟩, 240), (⟨2021, 1, 1⟩, 238), (⟨2022, 1, 1⟩, 264), (⟨2023, 1, 1⟩, 309), (⟨2024, 1, 1⟩, 337), (⟨2025, 1, 1⟩, 341), (⟨2025, 10, 1⟩, 350)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 229), (⟨2018, 10, 1⟩, 231), (⟨2019, 10, 1⟩, 264), (⟨2020, 10, 1⟩, 264), (⟨2021, 10, 1⟩, 285), (⟨2022, 3, 1⟩, 299), (⟨2022, 10, 1⟩, 363), (⟨2023, 10, 1⟩, 341), (⟨2024, 10, 1⟩, 353), (⟨2025, 10, 1⟩, 598)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 296), (⟨2018, 10, 1⟩, 303), (⟨2019, 10, 1⟩, 311), (⟨2020, 10, 1⟩, 319), (⟨2021, 10, 1⟩, 327), (⟨2022, 10, 1⟩, 347), (⟨2023, 10, 1⟩, 351), (⟨2024, 10, 1⟩, 363), (⟨2025, 10, 1⟩, 373)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 204), (⟨2018, 10, 1⟩, 206), (⟨2019, 10, 1⟩, 207), (⟨2020, 10, 1⟩, 203), (⟨2021, 10, 1⟩, 206), (⟨2022, 10, 1⟩, 221), (⟨2023, 10, 1⟩, 191), (⟨2024, 10, 1⟩, 222), (⟨2025, 10, 1⟩, 228)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 192), (⟨2018, 10, 1⟩, 196), (⟨2019, 10, 1⟩, 198), (⟨2020, 10, 1⟩, 203), (⟨2021, 10, 1⟩, 214), (⟨2022, 10, 1⟩, 229), (⟨2023, 10, 1⟩, 244), (⟨2024, 10, 1⟩, 260), (⟨2025, 10, 1⟩, 267)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 276), (⟨2018, 10, 1⟩, 246), (⟨2019, 10, 1⟩, 254), (⟨2020, 10, 1⟩, 263), (⟨2021, 10, 1⟩, 331), (⟨2023, 10, 1⟩, 371), (⟨2024, 10, 1⟩, 382), (⟨2025, 10, 1⟩, 392)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 230), (⟨2018, 10, 1⟩, 232), (⟨2019, 10, 1⟩, 233), (⟨2020, 10, 1⟩, 238), (⟨2021, 10, 1⟩, 242), (⟨2022, 10, 1⟩, 253), (⟨2023, 10, 1⟩, 270), (⟨2024, 10, 1⟩, 279), (⟨2025, 10, 1⟩, 286)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 245), (⟨2018, 10, 1⟩, 251), (⟨2019, 10, 1⟩, 256), (⟨2020, 10, 1⟩, 257), (⟨2021, 10, 1⟩, 267), (⟨2022, 10, 1⟩, 299), (⟨2023, 10, 1⟩, 303), (⟨2024, 10, 1⟩, 313), (⟨2025, 10, 1⟩, 321)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 251), (⟨2018, 10, 1⟩, 264), (⟨2019, 10, 1⟩, 262), (⟨2020, 10, 1⟩, 256), (⟨2021, 6, 1⟩, 257), (⟨2021, 10, 1⟩, 277), (⟨2022, 10, 1⟩, 353), (⟨2023, 10, 1⟩, 350), (⟨2024, 10, 1⟩, 363), (⟨2025, 10, 1⟩, 373)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 302), (⟨2018, 10, 1⟩, 316), (⟨2019, 10, 1⟩, 330), (⟨2020, 10, 1⟩, 338), (⟨2021, 10, 1⟩, 339), (⟨2022, 10, 1⟩, 464), (⟨2023, 10, 1⟩, 464), (⟨2024, 10, 1⟩, 492), (⟨2025, 10, 1⟩, 505)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 127), (⟨2018, 10, 1⟩, 139), (⟨2019, 10, 1⟩, 138), (⟨2020, 10, 1⟩, 140), (⟨2021, 10, 1⟩, 135), (⟨2022, 10, 1⟩, 120), (⟨2023, 10, 1⟩, 215), (⟨2024, 10, 1⟩, 281), (⟨2025, 10, 1⟩, 289)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 236), (⟨2018, 10, 1⟩, 252), (⟨2019, 10, 1⟩, 246), (⟨2020, 10, 1⟩, 233), (⟨2021, 10, 1⟩, 249), (⟨2022, 10, 1⟩, 322), (⟨2023, 10, 1⟩, 350), (⟨2024, 10, 1⟩, 352), (⟨2025, 10, 1⟩, 361)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 289), (⟨2018, 10, 1⟩, 292), (⟨2019, 10, 1⟩, 292), (⟨2020, 10, 1⟩, 292), (⟨2021, 10, 1⟩, 311), (⟨2022, 10, 1⟩, 336), (⟨2023, 10, 1⟩, 363), (⟨2024, 10, 1⟩, 378), (⟨2025, 10, 1⟩, 388)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 313), (⟨2018, 10, 1⟩, 316), (⟨2019, 10, 1⟩, 316), (⟨2020, 10, 1⟩, 316), (⟨2021, 10, 1⟩, 336), (⟨2022, 10, 1⟩, 395), (⟨2023, 10, 1⟩, 391), (⟨2024, 10, 1⟩, 408), (⟨2025, 10, 1⟩, 419)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 265), (⟨2018, 10, 1⟩, 268), (⟨2019, 10, 1⟩, 268), (⟨2020, 10, 1⟩, 268), (⟨2021, 10, 1⟩, 285), (⟨2022, 10, 1⟩, 335), (⟨2023, 10, 1⟩, 332), (⟨2024, 10, 1⟩, 346), (⟨2025, 10, 1⟩, 355)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 342), (⟨2018, 10, 1⟩, 351), (⟨2019, 10, 1⟩, 355), (⟨2020, 10, 1⟩, 362), (⟨2021, 10, 1⟩, 377), (⟨2022, 10, 1⟩, 410), (⟨2023, 10, 1⟩, 453), (⟨2024, 10, 1⟩, 466), (⟨2025, 10, 1⟩, 479)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 284), (⟨2018, 10, 1⟩, 311), (⟨2019, 10, 1⟩, 305), (⟨2020, 10, 1⟩, 293), (⟨2021, 10, 1⟩, 292), (⟨2022, 10, 1⟩, 336), (⟨2023, 10, 1⟩, 334), (⟨2024, 10, 1⟩, 345), (⟨2025, 10, 1⟩, 354)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 344), (⟨2018, 10, 1⟩, 328), (⟨2019, 10, 1⟩, 337), (⟨2020, 10, 1⟩, 341), (⟨2021, 10, 1⟩, 353), (⟨2022, 10, 1⟩, 355), (⟨2023, 10, 1⟩, 370), (⟨2024, 10, 1⟩, 393), (⟨2025, 10, 1⟩, 404)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 299), (⟨2018, 10, 1⟩, 308), (⟨2019, 10, 1⟩, 308), (⟨2020, 10, 1⟩, 308), (⟨2021, 10, 1⟩, 317), (⟨2022, 10, 1⟩, 358), (⟨2023, 10, 1⟩, 401), (⟨2024, 10, 1⟩, 402), (⟨2025, 10, 1⟩, 488)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 220), (⟨2018, 10, 1⟩, 230), (⟨2019, 10, 1⟩, 212), (⟨2020, 10, 1⟩, 215), (⟨2021, 10, 1⟩, 216), (⟨2022, 10, 1⟩, 235), (⟨2023, 10, 1⟩, 247), (⟨2024, 10, 1⟩, 258), (⟨2025, 10, 1⟩, 265)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 201), (⟨2018, 10, 1⟩, 206), (⟨2019, 10, 1⟩, 210), (⟨2020, 10, 1⟩, 211), (⟨2021, 10, 1⟩, 220), (⟨2022, 10, 1⟩, 238), (⟨2023, 10, 1⟩, 250), (⟨2024, 10, 1⟩, 258), (⟨2025, 10, 1⟩, 265)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 133), (⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 136), (⟨2020, 10, 1⟩, 136), (⟨2021, 10, 1⟩, 136), (⟨2023, 10, 1⟩, 164), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 316), (⟨2018, 10, 1⟩, 316), (⟨2019, 10, 1⟩, 324), (⟨2020, 10, 1⟩, 331), (⟨2021, 10, 1⟩, 345), (⟨2022, 10, 1⟩, 372), (⟨2023, 10, 1⟩, 391), (⟨2024, 10, 1⟩, 390), (⟨2025, 10, 1⟩, 400)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 285), (⟨2018, 10, 1⟩, 283), (⟨2019, 10, 1⟩, 290), (⟨2020, 10, 1⟩, 310), (⟨2021, 10, 1⟩, 274), (⟨2022, 10, 1⟩, 285), (⟨2023, 10, 1⟩, 382), (⟨2024, 10, 1⟩, 420), (⟨2025, 10, 1⟩, 431)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 232), (⟨2018, 10, 1⟩, 235), (⟨2019, 10, 1⟩, 235), (⟨2020, 10, 1⟩, 235), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 294), (⟨2023, 10, 1⟩, 291), (⟨2024, 10, 1⟩, 303), (⟨2025, 10, 1⟩, 311)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 328), (⟨2018, 10, 1⟩, 336), (⟨2019, 10, 1⟩, 343), (⟨2020, 10, 1⟩, 352), (⟨2021, 10, 1⟩, 361), (⟨2022, 10, 1⟩, 365), (⟨2023, 10, 1⟩, 383), (⟨2024, 10, 1⟩, 396), (⟨2025, 10, 1⟩, 406)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 338), (⟨2018, 10, 1⟩, 308), (⟨2019, 10, 1⟩, 318), (⟨2020, 10, 1⟩, 320), (⟨2021, 10, 1⟩, 317), (⟨2022, 10, 1⟩, 322), (⟨2023, 10, 1⟩, 347), (⟨2024, 10, 1⟩, 375), (⟨2025, 10, 1⟩, 385)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 287), (⟨2018, 10, 1⟩, 275), (⟨2019, 10, 1⟩, 267), (⟨2020, 10, 1⟩, 281), (⟨2021, 10, 1⟩, 280), (⟨2022, 10, 1⟩, 266), (⟨2023, 10, 1⟩, 305), (⟨2024, 10, 1⟩, 321), (⟨2025, 10, 1⟩, 330)]⟩
+def gov.usda.snap.income.deductions.utility.limited.main.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 262), (⟨2018, 10, 1⟩, 266), (⟨2019, 10, 1⟩, 270), (⟨2020, 10, 1⟩, 281), (⟨2021, 10, 1⟩, 291), (⟨2022, 10, 1⟩, 309), (⟨2023, 10, 1⟩, 317), (⟨2024, 10, 1⟩, 330), (⟨2025, 10, 1⟩, 340)]⟩
+
+/-- The USDA provides this amount as the household-size-varying individual electricity utility allowance under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/single/by_household_size/electricity.yaml` (policyengine-us).
+    * USDA SNAP utility allowances by state spreadsheet (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA SNAP utility allowances by state spreadsheet (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.by_household_size.electricity.GU : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 108), [(⟨2018, 10, 1⟩, 133), (⟨2019, 10, 1⟩, 97), (⟨2020, 10, 1⟩, 133), (⟨2021, 10, 1⟩, 133), (⟨2022, 10, 1⟩, 162), (⟨2023, 10, 1⟩, 173), (⟨2024, 10, 1⟩, 188), (⟨2025, 10, 1⟩, 193)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 124), [(⟨2018, 10, 1⟩, 153), (⟨2019, 10, 1⟩, 111), (⟨2020, 10, 1⟩, 153), (⟨2021, 10, 1⟩, 153), (⟨2022, 10, 1⟩, 186), (⟨2023, 10, 1⟩, 194), (⟨2024, 10, 1⟩, 218), (⟨2025, 10, 1⟩, 224)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 124), [(⟨2018, 10, 1⟩, 153), (⟨2019, 10, 1⟩, 111), (⟨2020, 10, 1⟩, 153), (⟨2021, 10, 1⟩, 153), (⟨2022, 10, 1⟩, 186), (⟨2023, 10, 1⟩, 199), (⟨2024, 10, 1⟩, 218), (⟨2025, 10, 1⟩, 224)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 147), [(⟨2018, 10, 1⟩, 183), (⟨2019, 10, 1⟩, 111), (⟨2020, 10, 1⟩, 163), (⟨2021, 10, 1⟩, 183), (⟨2022, 10, 1⟩, 222), (⟨2023, 10, 1⟩, 238), (⟨2024, 10, 1⟩, 260), (⟨2025, 10, 1⟩, 267)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 167), [(⟨2018, 10, 1⟩, 207), (⟨2019, 10, 1⟩, 132), (⟨2020, 10, 1⟩, 207), (⟨2021, 10, 1⟩, 207), (⟨2022, 10, 1⟩, 252), (⟨2023, 10, 1⟩, 270), (⟨2024, 10, 1⟩, 296), (⟨2025, 10, 1⟩, 304)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 191), [(⟨2018, 10, 1⟩, 237), (⟨2019, 10, 1⟩, 149), (⟨2020, 10, 1⟩, 237), (⟨2021, 10, 1⟩, 237), (⟨2022, 10, 1⟩, 289), (⟨2023, 10, 1⟩, 309), (⟨2024, 10, 1⟩, 338), (⟨2025, 10, 1⟩, 347)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 216), [(⟨2018, 10, 1⟩, 269), (⟨2019, 10, 1⟩, 171), (⟨2020, 10, 1⟩, 269), (⟨2021, 10, 1⟩, 269), (⟨2022, 10, 1⟩, 328), (⟨2023, 10, 1⟩, 351), (⟨2024, 10, 1⟩, 384), (⟨2025, 10, 1⟩, 394)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 226), [(⟨2018, 10, 1⟩, 281), (⟨2019, 10, 1⟩, 194), (⟨2020, 10, 1⟩, 281), (⟨2021, 10, 1⟩, 281), (⟨2022, 10, 1⟩, 343), (⟨2023, 10, 1⟩, 368), (⟨2024, 10, 1⟩, 402), (⟨2025, 10, 1⟩, 413)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 242), [(⟨2018, 10, 1⟩, 301), (⟨2019, 10, 1⟩, 202), (⟨2020, 10, 1⟩, 301), (⟨2021, 10, 1⟩, 301), (⟨2022, 10, 1⟩, 367), (⟨2023, 10, 1⟩, 393), (⟨2024, 10, 1⟩, 430), (⟨2025, 10, 1⟩, 442)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 248), [(⟨2018, 10, 1⟩, 309), (⟨2019, 10, 1⟩, 222), (⟨2020, 10, 1⟩, 309), (⟨2021, 10, 1⟩, 309), (⟨2022, 10, 1⟩, 377), (⟨2023, 10, 1⟩, 393), (⟨2024, 10, 1⟩, 430), (⟨2025, 10, 1⟩, 442)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.single.by_household_size.electricity.HI : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 174), [(⟨2018, 10, 1⟩, 193), (⟨2019, 10, 1⟩, 233), (⟨2020, 10, 1⟩, 220), (⟨2021, 10, 1⟩, 230), (⟨2022, 10, 1⟩, 298), (⟨2023, 10, 1⟩, 300), (⟨2024, 10, 1⟩, 291), (⟨2025, 10, 1⟩, 299)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 190), [(⟨2018, 10, 1⟩, 209), (⟨2019, 10, 1⟩, 254), (⟨2020, 10, 1⟩, 240), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 324), (⟨2023, 10, 1⟩, 326), (⟨2024, 10, 1⟩, 315), (⟨2025, 10, 1⟩, 324)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 217), [(⟨2018, 10, 1⟩, 240), (⟨2019, 10, 1⟩, 293), (⟨2020, 10, 1⟩, 276), (⟨2021, 10, 1⟩, 288), (⟨2022, 10, 1⟩, 377), (⟨2023, 10, 1⟩, 378), (⟨2024, 10, 1⟩, 366), (⟨2025, 10, 1⟩, 376)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 268), [(⟨2018, 10, 1⟩, 297), (⟨2019, 10, 1⟩, 364), (⟨2020, 10, 1⟩, 342), (⟨2021, 10, 1⟩, 358), (⟨2022, 10, 1⟩, 471), (⟨2023, 10, 1⟩, 473), (⟨2024, 10, 1⟩, 457), (⟨2025, 10, 1⟩, 469)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 268), [(⟨2018, 10, 1⟩, 297), (⟨2019, 10, 1⟩, 364), (⟨2020, 10, 1⟩, 342), (⟨2021, 10, 1⟩, 358), (⟨2022, 10, 1⟩, 471), (⟨2023, 10, 1⟩, 473), (⟨2024, 10, 1⟩, 457), (⟨2025, 10, 1⟩, 469)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 315), [(⟨2018, 10, 1⟩, 349), (⟨2019, 10, 1⟩, 428), (⟨2020, 10, 1⟩, 402), (⟨2021, 10, 1⟩, 422), (⟨2022, 10, 1⟩, 556), (⟨2023, 10, 1⟩, 559), (⟨2024, 10, 1⟩, 539), (⟨2025, 10, 1⟩, 554)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩]⟩
+
+/-- The USDA provides this amount as the household-size-varying individual gas and fuel utility allowance under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/single/by_household_size/gas_and_fuel.yaml` (policyengine-us).
+    * USDA SNAP utility allowances by state spreadsheet (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA SNAP utility allowances by state spreadsheet (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.by_household_size.gas_and_fuel.GU : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 30), [(⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2022, 10, 1⟩, 38), (⟨2023, 10, 1⟩, 36), (⟨2024, 10, 1⟩, 36), (⟨2025, 10, 1⟩, 37)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 30), [(⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2022, 10, 1⟩, 38), (⟨2023, 10, 1⟩, 36), (⟨2024, 10, 1⟩, 36), (⟨2025, 10, 1⟩, 37)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 30), [(⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2022, 10, 1⟩, 38), (⟨2023, 10, 1⟩, 36), (⟨2024, 10, 1⟩, 36), (⟨2025, 10, 1⟩, 37)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 60), [(⟨2018, 10, 1⟩, 60), (⟨2019, 10, 1⟩, 60), (⟨2020, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 77), (⟨2023, 10, 1⟩, 72), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 74)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 60), [(⟨2018, 10, 1⟩, 60), (⟨2019, 10, 1⟩, 60), (⟨2020, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 77), (⟨2023, 10, 1⟩, 72), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 74)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 60), [(⟨2018, 10, 1⟩, 60), (⟨2019, 10, 1⟩, 60), (⟨2020, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 77), (⟨2023, 10, 1⟩, 72), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 74)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 90), (⟨2020, 10, 1⟩, 90), (⟨2022, 10, 1⟩, 115), (⟨2023, 10, 1⟩, 108), (⟨2024, 10, 1⟩, 108), (⟨2025, 10, 1⟩, 111)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 90), (⟨2020, 10, 1⟩, 90), (⟨2022, 10, 1⟩, 115), (⟨2023, 10, 1⟩, 108), (⟨2024, 10, 1⟩, 108), (⟨2025, 10, 1⟩, 111)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 90), (⟨2020, 10, 1⟩, 90), (⟨2022, 10, 1⟩, 115), (⟨2023, 10, 1⟩, 108), (⟨2024, 10, 1⟩, 108), (⟨2025, 10, 1⟩, 111)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 90), (⟨2020, 10, 1⟩, 90), (⟨2022, 10, 1⟩, 115), (⟨2023, 10, 1⟩, 108), (⟨2024, 10, 1⟩, 108), (⟨2025, 10, 1⟩, 111)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.single.by_household_size.gas_and_fuel.HI : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 174), [(⟨2018, 10, 1⟩, 193), (⟨2019, 10, 1⟩, 233), (⟨2020, 10, 1⟩, 220), (⟨2021, 10, 1⟩, 230), (⟨2022, 10, 1⟩, 298), (⟨2023, 10, 1⟩, 300), (⟨2024, 10, 1⟩, 291), (⟨2025, 10, 1⟩, 299)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 190), [(⟨2018, 10, 1⟩, 209), (⟨2019, 10, 1⟩, 254), (⟨2020, 10, 1⟩, 240), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 324), (⟨2023, 10, 1⟩, 326), (⟨2024, 10, 1⟩, 315), (⟨2025, 10, 1⟩, 324)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 217), [(⟨2018, 10, 1⟩, 240), (⟨2019, 10, 1⟩, 293), (⟨2020, 10, 1⟩, 276), (⟨2021, 10, 1⟩, 288), (⟨2022, 10, 1⟩, 377), (⟨2023, 10, 1⟩, 378), (⟨2024, 10, 1⟩, 366), (⟨2025, 10, 1⟩, 376)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 268), [(⟨2018, 10, 1⟩, 297), (⟨2019, 10, 1⟩, 364), (⟨2020, 10, 1⟩, 342), (⟨2021, 10, 1⟩, 358), (⟨2022, 10, 1⟩, 471), (⟨2023, 10, 1⟩, 473), (⟨2024, 10, 1⟩, 457), (⟨2025, 10, 1⟩, 469)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 268), [(⟨2018, 10, 1⟩, 297), (⟨2019, 10, 1⟩, 364), (⟨2020, 10, 1⟩, 342), (⟨2021, 10, 1⟩, 358), (⟨2022, 10, 1⟩, 471), (⟨2023, 10, 1⟩, 473), (⟨2024, 10, 1⟩, 457), (⟨2025, 10, 1⟩, 469)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 315), [(⟨2018, 10, 1⟩, 349), (⟨2019, 10, 1⟩, 428), (⟨2020, 10, 1⟩, 402), (⟨2021, 10, 1⟩, 422), (⟨2022, 10, 1⟩, 556), (⟨2023, 10, 1⟩, 559), (⟨2024, 10, 1⟩, 539), (⟨2025, 10, 1⟩, 554)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 394), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 455), (⟨2021, 10, 1⟩, 477), (⟨2022, 10, 1⟩, 629), (⟨2023, 10, 1⟩, 632), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩⟩]⟩
+
+/-- The USDA uses this list of states that vary their individual utility allowances by household size under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/single/by_household_size/states.yaml` (policyengine-us).
+    * USDA SNAP utility allowances by state spreadsheet (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA SNAP utility allowances by state spreadsheet (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177 -/
+def gov.usda.snap.income.deductions.utility.single.by_household_size.states : DatedParam (List String) :=
+  ⟨(⟨2017, 10, 1⟩, ["GU", "HI"]), []⟩
+
+/-- The USDA provides this amount as the household-size-varying individual water utility allowance under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/single/by_household_size/water.yaml` (policyengine-us).
+    * USDA SNAP utility allowances by state spreadsheet (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA SNAP utility allowances by state spreadsheet (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.by_household_size.water.GU : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 37), [(⟨2018, 10, 1⟩, 38), (⟨2019, 10, 1⟩, 36), (⟨2020, 10, 1⟩, 38), (⟨2023, 10, 1⟩, 38), (⟨2024, 10, 1⟩, 38), (⟨2025, 10, 1⟩, 39)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 49), [(⟨2018, 10, 1⟩, 50), (⟨2019, 10, 1⟩, 47), (⟨2020, 10, 1⟩, 50), (⟨2023, 10, 1⟩, 50), (⟨2024, 10, 1⟩, 50), (⟨2025, 10, 1⟩, 51)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 49), [(⟨2018, 10, 1⟩, 50), (⟨2019, 10, 1⟩, 47), (⟨2020, 10, 1⟩, 50), (⟨2023, 10, 1⟩, 50), (⟨2024, 10, 1⟩, 50), (⟨2025, 10, 1⟩, 51)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 67), [(⟨2018, 10, 1⟩, 69), (⟨2019, 10, 1⟩, 65), (⟨2020, 10, 1⟩, 69), (⟨2023, 10, 1⟩, 69), (⟨2024, 10, 1⟩, 69), (⟨2025, 10, 1⟩, 71)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 82), [(⟨2018, 10, 1⟩, 85), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 85), (⟨2023, 10, 1⟩, 85), (⟨2024, 10, 1⟩, 85), (⟨2025, 10, 1⟩, 87)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 107), [(⟨2018, 10, 1⟩, 111), (⟨2019, 10, 1⟩, 103), (⟨2020, 10, 1⟩, 111), (⟨2023, 10, 1⟩, 111), (⟨2024, 10, 1⟩, 111), (⟨2025, 10, 1⟩, 114)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 131), [(⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 126), (⟨2020, 10, 1⟩, 136), (⟨2023, 10, 1⟩, 136), (⟨2024, 10, 1⟩, 136), (⟨2025, 10, 1⟩, 140)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 144), [(⟨2018, 10, 1⟩, 150), (⟨2019, 10, 1⟩, 138), (⟨2020, 10, 1⟩, 150), (⟨2023, 10, 1⟩, 150), (⟨2024, 10, 1⟩, 150), (⟨2025, 10, 1⟩, 154)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 165), [(⟨2018, 10, 1⟩, 171), (⟨2019, 10, 1⟩, 157), (⟨2020, 10, 1⟩, 171), (⟨2023, 10, 1⟩, 171), (⟨2024, 10, 1⟩, 171), (⟨2025, 10, 1⟩, 176)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 172), [(⟨2018, 10, 1⟩, 178), (⟨2019, 10, 1⟩, 162), (⟨2020, 10, 1⟩, 171), (⟨2023, 10, 1⟩, 171), (⟨2024, 10, 1⟩, 171), (⟨2025, 10, 1⟩, 176)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.single.by_household_size.water.HI : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 45), [(⟨2018, 10, 1⟩, 45), (⟨2019, 10, 1⟩, 46), (⟨2020, 10, 1⟩, 46), (⟨2021, 10, 1⟩, 46), (⟨2022, 10, 1⟩, 54), (⟨2023, 10, 1⟩, 57), (⟨2024, 10, 1⟩, 65), (⟨2025, 10, 1⟩, 67)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 50), [(⟨2018, 10, 1⟩, 50), (⟨2019, 10, 1⟩, 51), (⟨2020, 10, 1⟩, 51), (⟨2021, 10, 1⟩, 51), (⟨2022, 10, 1⟩, 60), (⟨2023, 10, 1⟩, 64), (⟨2024, 10, 1⟩, 73), (⟨2025, 10, 1⟩, 75)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 55), [(⟨2018, 10, 1⟩, 55), (⟨2019, 10, 1⟩, 57), (⟨2020, 10, 1⟩, 57), (⟨2021, 10, 1⟩, 57), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 70), (⟨2024, 10, 1⟩, 81), (⟨2025, 10, 1⟩, 83)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 65), [(⟨2018, 10, 1⟩, 65), (⟨2019, 10, 1⟩, 67), (⟨2020, 10, 1⟩, 67), (⟨2021, 10, 1⟩, 67), (⟨2022, 10, 1⟩, 78), (⟨2023, 10, 1⟩, 83), (⟨2024, 10, 1⟩, 95), (⟨2025, 10, 1⟩, 98)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 65), [(⟨2018, 10, 1⟩, 65), (⟨2019, 10, 1⟩, 67), (⟨2020, 10, 1⟩, 67), (⟨2021, 10, 1⟩, 67), (⟨2022, 10, 1⟩, 78), (⟨2023, 10, 1⟩, 83), (⟨2024, 10, 1⟩, 95), (⟨2025, 10, 1⟩, 98)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 75), [(⟨2018, 10, 1⟩, 75), (⟨2019, 10, 1⟩, 77), (⟨2020, 10, 1⟩, 77), (⟨2021, 10, 1⟩, 77), (⟨2022, 10, 1⟩, 90), (⟨2023, 10, 1⟩, 95), (⟨2024, 10, 1⟩, 109), (⟨2025, 10, 1⟩, 112)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 92), (⟨2020, 10, 1⟩, 92), (⟨2021, 10, 1⟩, 92), (⟨2022, 10, 1⟩, 108), (⟨2023, 10, 1⟩, 114), (⟨2024, 10, 1⟩, 131), (⟨2025, 10, 1⟩, 135)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 92), (⟨2020, 10, 1⟩, 92), (⟨2021, 10, 1⟩, 92), (⟨2022, 10, 1⟩, 108), (⟨2023, 10, 1⟩, 114), (⟨2024, 10, 1⟩, 131), (⟨2025, 10, 1⟩, 135)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 92), (⟨2020, 10, 1⟩, 92), (⟨2021, 10, 1⟩, 92), (⟨2022, 10, 1⟩, 108), (⟨2023, 10, 1⟩, 114), (⟨2024, 10, 1⟩, 131), (⟨2025, 10, 1⟩, 135)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 90), [(⟨2018, 10, 1⟩, 90), (⟨2019, 10, 1⟩, 92), (⟨2020, 10, 1⟩, 92), (⟨2021, 10, 1⟩, 92), (⟨2022, 10, 1⟩, 108), (⟨2023, 10, 1⟩, 114), (⟨2024, 10, 1⟩, 131), (⟨2025, 10, 1⟩, 135)]⟩⟩]⟩
+
+/-- Utility allowance for households whose utility expenses are only electricity-related (or, if the state does not have a defined limited utility allowance, households with electricity expenses but not heating/cooling expenses).
+    `gov/usda/snap/income/deductions/utility/single/electricity.yaml` (policyengine-us).
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.electricity.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 100), (⟨2018, 10, 1⟩, 107), (⟨2019, 10, 1⟩, 108), (⟨2020, 10, 1⟩, 100), (⟨2021, 10, 1⟩, 110), (⟨2022, 10, 1⟩, 110), (⟨2023, 10, 1⟩, 131), (⟨2024, 10, 1⟩, 130), (⟨2025, 10, 1⟩, 134)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 134), (⟨2018, 10, 1⟩, 136), (⟨2019, 10, 1⟩, 140), (⟨2020, 10, 1⟩, 149), (⟨2021, 10, 1⟩, 139), (⟨2022, 10, 1⟩, 149), (⟨2023, 10, 1⟩, 171), (⟨2024, 10, 1⟩, 166), (⟨2025, 10, 1⟩, 170)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 151), (⟨2018, 10, 1⟩, 149), (⟨2019, 10, 1⟩, 161), (⟨2020, 10, 1⟩, 188), (⟨2021, 10, 1⟩, 158), (⟨2022, 10, 1⟩, 163), (⟨2023, 10, 1⟩, 161), (⟨2024, 10, 1⟩, 154), (⟨2025, 10, 1⟩, 158)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 129), (⟨2018, 10, 1⟩, 128), (⟨2019, 10, 1⟩, 132), (⟨2020, 10, 1⟩, 145), (⟨2021, 10, 1⟩, 138), (⟨2022, 10, 1⟩, 135), (⟨2023, 10, 1⟩, 107), (⟨2024, 10, 1⟩, 106), (⟨2025, 10, 1⟩, 109)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 78), (⟨2018, 10, 1⟩, 79), (⟨2019, 10, 1⟩, 80), (⟨2020, 10, 1⟩, 88), (⟨2021, 10, 1⟩, 85), (⟨2022, 10, 1⟩, 83), (⟨2023, 10, 1⟩, 69), (⟨2024, 10, 1⟩, 70), (⟨2025, 10, 1⟩, 72)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 171), (⟨2018, 10, 1⟩, 169), (⟨2019, 10, 1⟩, 175), (⟨2020, 10, 1⟩, 218), (⟨2021, 10, 1⟩, 175), (⟨2022, 10, 1⟩, 175), (⟨2023, 10, 1⟩, 165), (⟨2024, 10, 1⟩, 165), (⟨2025, 10, 1⟩, 169)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 58), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 64), (⟨2023, 10, 1⟩, 67), (⟨2024, 10, 1⟩, 69), (⟨2025, 10, 1⟩, 71)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 67), (⟨2018, 10, 1⟩, 69), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 71), (⟨2021, 10, 1⟩, 73), (⟨2022, 10, 1⟩, 79), (⟨2023, 10, 1⟩, 84), (⟨2024, 10, 1⟩, 88), (⟨2025, 10, 1⟩, 90)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 78), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 70), (⟨2021, 10, 1⟩, 75), (⟨2023, 10, 1⟩, 82), (⟨2024, 10, 1⟩, 99), (⟨2025, 10, 1⟩, 102)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 108), (⟨2018, 10, 1⟩, 133), (⟨2019, 10, 1⟩, 97), (⟨2020, 10, 1⟩, 133), (⟨2021, 10, 1⟩, 133), (⟨2022, 10, 1⟩, 162), (⟨2023, 10, 1⟩, 173), (⟨2024, 10, 1⟩, 188), (⟨2025, 10, 1⟩, 193)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 174), (⟨2018, 10, 1⟩, 193), (⟨2019, 10, 1⟩, 233), (⟨2020, 10, 1⟩, 220), (⟨2021, 10, 1⟩, 230), (⟨2022, 10, 1⟩, 298), (⟨2023, 10, 1⟩, 300), (⟨2024, 10, 1⟩, 291), (⟨2025, 10, 1⟩, 299)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 91), (⟨2018, 10, 1⟩, 134), (⟨2019, 10, 1⟩, 127), (⟨2020, 10, 1⟩, 128), (⟨2021, 10, 1⟩, 135), (⟨2022, 10, 1⟩, 134), (⟨2023, 10, 1⟩, 129), (⟨2025, 10, 1⟩, 132)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 70), (⟨2018, 10, 1⟩, 72), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 81), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 62), (⟨2024, 10, 1⟩, 76), (⟨2025, 10, 1⟩, 78)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 5, 1⟩, 56), (⟨2019, 5, 1⟩, 55), (⟨2020, 3, 1⟩, 55), (⟨2021, 5, 1⟩, 57), (⟨2022, 5, 1⟩, 59), (⟨2023, 5, 1⟩, 60), (⟨2025, 10, 1⟩, 62)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2019, 1, 1⟩, 0), (⟨2021, 1, 1⟩, 0), (⟨2023, 1, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 133), (⟨2018, 10, 1⟩, 135), (⟨2019, 10, 1⟩, 126), (⟨2020, 10, 1⟩, 126), (⟨2021, 10, 1⟩, 150), (⟨2022, 10, 1⟩, 153), (⟨2023, 10, 1⟩, 157), (⟨2024, 10, 1⟩, 176), (⟨2025, 10, 1⟩, 181)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 172), (⟨2019, 10, 1⟩, 143), (⟨2020, 10, 1⟩, 154), (⟨2021, 10, 1⟩, 149), (⟨2022, 10, 1⟩, 185), (⟨2023, 10, 1⟩, 213), (⟨2024, 10, 1⟩, 229), (⟨2025, 10, 1⟩, 235)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 122), (⟨2018, 10, 1⟩, 125), (⟨2019, 10, 1⟩, 128), (⟨2020, 10, 1⟩, 131), (⟨2021, 10, 1⟩, 134), (⟨2022, 10, 1⟩, 142), (⟨2023, 10, 1⟩, 153), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 159), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 171), (⟨2021, 10, 1⟩, 180), (⟨2022, 10, 1⟩, 196), (⟨2023, 10, 1⟩, 105), (⟨2024, 10, 1⟩, 113), (⟨2025, 10, 1⟩, 116)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 197), (⟨2018, 10, 1⟩, 200), (⟨2019, 10, 1⟩, 200), (⟨2020, 10, 1⟩, 204), (⟨2021, 10, 1⟩, 208), (⟨2022, 10, 1⟩, 220), (⟨2023, 10, 1⟩, 118), (⟨2024, 10, 1⟩, 123), (⟨2025, 10, 1⟩, 126)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 50), (⟨2018, 10, 1⟩, 51), (⟨2019, 10, 1⟩, 52), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 54), (⟨2022, 10, 1⟩, 58), (⟨2023, 10, 1⟩, 60), (⟨2024, 10, 1⟩, 62), (⟨2025, 10, 1⟩, 63)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 147), (⟨2018, 10, 1⟩, 155), (⟨2019, 10, 1⟩, 154), (⟨2020, 10, 1⟩, 150), (⟨2021, 10, 1⟩, 162), (⟨2022, 10, 1⟩, 206), (⟨2023, 10, 1⟩, 204), (⟨2024, 10, 1⟩, 211), (⟨2025, 10, 1⟩, 217)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 55), (⟨2018, 10, 1⟩, 56), (⟨2019, 10, 1⟩, 56), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 56), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 81), (⟨2024, 10, 1⟩, 75), (⟨2025, 10, 1⟩, 76)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 76), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 80), (⟨2021, 10, 1⟩, 84), (⟨2022, 10, 1⟩, 92), (⟨2023, 10, 1⟩, 102), (⟨2024, 10, 1⟩, 105), (⟨2025, 10, 1⟩, 108)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 65), (⟨2019, 10, 1⟩, 54), (⟨2020, 10, 1⟩, 55), (⟨2021, 10, 1⟩, 57), (⟨2023, 10, 1⟩, 59), (⟨2024, 10, 1⟩, 63), (⟨2025, 10, 1⟩, 65)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 59), (⟨2021, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 70), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 128)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 83), (⟨2018, 10, 1⟩, 85), (⟨2019, 10, 1⟩, 87), (⟨2020, 10, 1⟩, 87), (⟨2021, 10, 1⟩, 91), (⟨2022, 10, 1⟩, 98), (⟨2023, 10, 1⟩, 103), (⟨2024, 10, 1⟩, 106), (⟨2025, 10, 1⟩, 109)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 167), (⟨2018, 10, 1⟩, 130), (⟨2019, 10, 1⟩, 141), (⟨2020, 10, 1⟩, 141), (⟨2021, 10, 1⟩, 140), (⟨2023, 10, 1⟩, 144), (⟨2024, 10, 1⟩, 151), (⟨2025, 10, 1⟩, 155)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 74), (⟨2018, 10, 1⟩, 74), (⟨2019, 10, 1⟩, 73), (⟨2020, 10, 1⟩, 76), (⟨2021, 10, 1⟩, 77), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 79), (⟨2024, 10, 1⟩, 86), (⟨2025, 10, 1⟩, 88)]⟩
+def gov.usda.snap.income.deductions.utility.single.electricity.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+
+/-- Utility allowance for households whose utility expenses are only gas and fuel-related (or, if the state does not have a defined limited utility allowance, households with gas and fuel expenses but not heating/cooling expenses).
+    `gov/usda/snap/income/deductions/utility/single/gas_and_fuel.yaml` (policyengine-us).
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 106), (⟨2018, 10, 1⟩, 118), (⟨2019, 10, 1⟩, 116), (⟨2020, 10, 1⟩, 120), (⟨2021, 10, 1⟩, 114), (⟨2022, 10, 1⟩, 119), (⟨2023, 10, 1⟩, 330), (⟨2024, 10, 1⟩, 302), (⟨2025, 10, 1⟩, 310)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 258), (⟨2018, 10, 1⟩, 281), (⟨2019, 10, 1⟩, 271), (⟨2020, 10, 1⟩, 295), (⟨2021, 10, 1⟩, 265), (⟨2022, 10, 1⟩, 324), (⟨2023, 10, 1⟩, 481), (⟨2024, 10, 1⟩, 479), (⟨2025, 10, 1⟩, 492)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 507), (⟨2018, 10, 1⟩, 487), (⟨2019, 10, 1⟩, 502), (⟨2020, 10, 1⟩, 512), (⟨2021, 10, 1⟩, 496), (⟨2022, 10, 1⟩, 520), (⟨2023, 10, 1⟩, 736), (⟨2024, 10, 1⟩, 741), (⟨2025, 10, 1⟩, 761)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 132), (⟨2018, 10, 1⟩, 144), (⟨2019, 10, 1⟩, 151), (⟨2020, 10, 1⟩, 170), (⟨2021, 10, 1⟩, 138), (⟨2022, 10, 1⟩, 168), (⟨2023, 10, 1⟩, 317), (⟨2024, 10, 1⟩, 300), (⟨2025, 10, 1⟩, 308)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 116), (⟨2018, 10, 1⟩, 121), (⟨2019, 10, 1⟩, 138), (⟨2020, 10, 1⟩, 151), (⟨2021, 10, 1⟩, 113), (⟨2022, 10, 1⟩, 157), (⟨2023, 10, 1⟩, 237), (⟨2024, 10, 1⟩, 238), (⟨2025, 10, 1⟩, 244)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 402), (⟨2018, 10, 1⟩, 400), (⟨2019, 10, 1⟩, 436), (⟨2020, 10, 1⟩, 438), (⟨2021, 10, 1⟩, 399), (⟨2022, 10, 1⟩, 430), (⟨2023, 10, 1⟩, 652), (⟨2024, 10, 1⟩, 658), (⟨2025, 10, 1⟩, 676)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 58), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 64), (⟨2023, 10, 1⟩, 67), (⟨2024, 10, 1⟩, 69), (⟨2025, 10, 1⟩, 71)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 67), (⟨2018, 10, 1⟩, 69), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 71), (⟨2021, 10, 1⟩, 73), (⟨2022, 10, 1⟩, 79), (⟨2023, 10, 1⟩, 84), (⟨2024, 10, 1⟩, 88), (⟨2025, 10, 1⟩, 90)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 78), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 70), (⟨2021, 10, 1⟩, 75), (⟨2023, 10, 1⟩, 82), (⟨2024, 10, 1⟩, 99), (⟨2025, 10, 1⟩, 102)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 30), (⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2021, 10, 1⟩, 30), (⟨2023, 10, 1⟩, 36), (⟨2025, 10, 1⟩, 37)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 174), (⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2022, 10, 1⟩, 298), (⟨2023, 10, 1⟩, 300), (⟨2024, 10, 1⟩, 291), (⟨2025, 10, 1⟩, 299)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 91), (⟨2018, 10, 1⟩, 134), (⟨2019, 10, 1⟩, 127), (⟨2020, 10, 1⟩, 128), (⟨2021, 10, 1⟩, 135), (⟨2022, 10, 1⟩, 134), (⟨2023, 10, 1⟩, 129), (⟨2025, 10, 1⟩, 132)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 70), (⟨2018, 10, 1⟩, 72), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 81), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 62), (⟨2024, 10, 1⟩, 76), (⟨2025, 10, 1⟩, 78)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 5, 1⟩, 56), (⟨2019, 5, 1⟩, 55), (⟨2020, 3, 1⟩, 55), (⟨2021, 5, 1⟩, 57), (⟨2022, 5, 1⟩, 59), (⟨2023, 5, 1⟩, 60), (⟨2025, 10, 1⟩, 62)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2019, 1, 1⟩, 0), (⟨2021, 1, 1⟩, 0), (⟨2023, 1, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 38), (⟨2018, 10, 1⟩, 44), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 36), (⟨2021, 10, 1⟩, 31), (⟨2022, 10, 1⟩, 32), (⟨2023, 10, 1⟩, 34), (⟨2024, 10, 1⟩, 32), (⟨2025, 10, 1⟩, 33)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 122), (⟨2018, 10, 1⟩, 125), (⟨2019, 10, 1⟩, 128), (⟨2020, 10, 1⟩, 131), (⟨2021, 10, 1⟩, 134), (⟨2022, 10, 1⟩, 142), (⟨2023, 10, 1⟩, 153), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 159), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 171), (⟨2021, 10, 1⟩, 180), (⟨2022, 10, 1⟩, 196), (⟨2023, 10, 1⟩, 105), (⟨2024, 10, 1⟩, 113), (⟨2025, 10, 1⟩, 116)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 197), (⟨2018, 10, 1⟩, 200), (⟨2019, 10, 1⟩, 200), (⟨2020, 10, 1⟩, 204), (⟨2021, 10, 1⟩, 208), (⟨2022, 10, 1⟩, 220), (⟨2023, 10, 1⟩, 118), (⟨2024, 10, 1⟩, 123), (⟨2025, 10, 1⟩, 126)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 50), (⟨2018, 10, 1⟩, 51), (⟨2019, 10, 1⟩, 52), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 54), (⟨2022, 10, 1⟩, 58), (⟨2023, 10, 1⟩, 60), (⟨2024, 10, 1⟩, 62), (⟨2025, 10, 1⟩, 63)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2022, 10, 1⟩, 50), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 55), (⟨2018, 10, 1⟩, 56), (⟨2019, 10, 1⟩, 56), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 56), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 81), (⟨2024, 10, 1⟩, 75), (⟨2025, 10, 1⟩, 76)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 76), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 80), (⟨2021, 10, 1⟩, 84), (⟨2022, 10, 1⟩, 92), (⟨2023, 10, 1⟩, 102), (⟨2024, 10, 1⟩, 105), (⟨2025, 10, 1⟩, 108)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 65), (⟨2019, 10, 1⟩, 54), (⟨2020, 10, 1⟩, 55), (⟨2021, 10, 1⟩, 57), (⟨2023, 10, 1⟩, 59), (⟨2024, 10, 1⟩, 63), (⟨2025, 10, 1⟩, 65)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 59), (⟨2021, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 70), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 128)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 83), (⟨2018, 10, 1⟩, 85), (⟨2019, 10, 1⟩, 87), (⟨2020, 10, 1⟩, 87), (⟨2021, 10, 1⟩, 91), (⟨2022, 10, 1⟩, 98), (⟨2023, 10, 1⟩, 103), (⟨2024, 10, 1⟩, 106), (⟨2025, 10, 1⟩, 109)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 34), (⟨2018, 10, 1⟩, 36), (⟨2019, 10, 1⟩, 36), (⟨2020, 10, 1⟩, 37), (⟨2021, 10, 1⟩, 37), (⟨2022, 10, 1⟩, 38), (⟨2023, 10, 1⟩, 42), (⟨2024, 10, 1⟩, 47), (⟨2025, 10, 1⟩, 48)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 74), (⟨2018, 10, 1⟩, 74), (⟨2019, 10, 1⟩, 73), (⟨2020, 10, 1⟩, 76), (⟨2021, 10, 1⟩, 77), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 79), (⟨2024, 10, 1⟩, 86), (⟨2025, 10, 1⟩, 88)]⟩
+def gov.usda.snap.income.deductions.utility.single.gas_and_fuel.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+
+/-- Utility allowance for households whose utility expenses are only phone-related (or, if the state does not have a defined limited utility allowance, households with phone expenses but not heating/cooling expenses).
+    `gov/usda/snap/income/deductions/utility/single/phone.yaml` (policyengine-us).
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.phone.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 40), (⟨2018, 10, 1⟩, 40), (⟨2019, 10, 1⟩, 34), (⟨2020, 10, 1⟩, 34), (⟨2021, 10, 1⟩, 15), (⟨2023, 10, 1⟩, 25), (⟨2024, 10, 1⟩, 25), (⟨2025, 10, 1⟩, 26)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 31), (⟨2018, 10, 1⟩, 31), (⟨2019, 10, 1⟩, 24), (⟨2020, 10, 1⟩, 24), (⟨2021, 10, 1⟩, 18), (⟨2023, 10, 1⟩, 34), (⟨2024, 10, 1⟩, 34), (⟨2025, 10, 1⟩, 35)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 38), (⟨2018, 10, 1⟩, 38), (⟨2019, 10, 1⟩, 31), (⟨2020, 10, 1⟩, 31), (⟨2021, 10, 1⟩, 31), (⟨2023, 10, 1⟩, 36), (⟨2024, 10, 1⟩, 36), (⟨2025, 10, 1⟩, 37)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 31), (⟨2018, 10, 1⟩, 31), (⟨2019, 10, 1⟩, 23), (⟨2020, 10, 1⟩, 23), (⟨2021, 10, 1⟩, 20), (⟨2023, 10, 1⟩, 26), (⟨2024, 10, 1⟩, 26), (⟨2025, 10, 1⟩, 27)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 28), (⟨2018, 10, 1⟩, 28), (⟨2019, 10, 1⟩, 21), (⟨2020, 10, 1⟩, 21), (⟨2021, 10, 1⟩, 17), (⟨2023, 10, 1⟩, 35), (⟨2024, 10, 1⟩, 35), (⟨2025, 10, 1⟩, 36)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 35), (⟨2018, 10, 1⟩, 35), (⟨2019, 10, 1⟩, 20), (⟨2020, 10, 1⟩, 20), (⟨2021, 10, 1⟩, 15), (⟨2023, 10, 1⟩, 35), (⟨2024, 10, 1⟩, 35), (⟨2025, 10, 1⟩, 36)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 38), (⟨2018, 10, 1⟩, 39), (⟨2019, 10, 1⟩, 41), (⟨2020, 10, 1⟩, 41), (⟨2021, 10, 1⟩, 46), (⟨2022, 10, 1⟩, 50), (⟨2023, 10, 1⟩, 52), (⟨2025, 10, 1⟩, 53)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 25), (⟨2018, 10, 1⟩, 25), (⟨2019, 10, 1⟩, 25), (⟨2020, 10, 1⟩, 50), (⟨2021, 10, 1⟩, 50), (⟨2023, 10, 1⟩, 50), (⟨2025, 10, 1⟩, 51)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 32), (⟨2018, 10, 1⟩, 36), (⟨2019, 10, 1⟩, 36), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 44), (⟨2022, 10, 1⟩, 47), (⟨2023, 10, 1⟩, 47), (⟨2024, 10, 1⟩, 43), (⟨2025, 10, 1⟩, 44)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 18), (⟨2018, 10, 1⟩, 18), (⟨2019, 10, 1⟩, 18), (⟨2020, 10, 1⟩, 18), (⟨2021, 10, 1⟩, 19), (⟨2022, 10, 1⟩, 18), (⟨2023, 10, 1⟩, 19), (⟨2025, 10, 1⟩, 20)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 76), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 79), (⟨2021, 10, 1⟩, 80), (⟨2022, 10, 1⟩, 86), (⟨2023, 10, 1⟩, 91), (⟨2024, 10, 1⟩, 94), (⟨2025, 10, 1⟩, 97)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 27), (⟨2018, 10, 1⟩, 27), (⟨2019, 10, 1⟩, 27), (⟨2020, 10, 1⟩, 27), (⟨2021, 10, 1⟩, 29), (⟨2022, 10, 1⟩, 34), (⟨2023, 10, 1⟩, 34), (⟨2024, 10, 1⟩, 35), (⟨2025, 10, 1⟩, 36)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 69), (⟨2018, 10, 1⟩, 69), (⟨2019, 10, 1⟩, 69), (⟨2020, 10, 1⟩, 69), (⟨2021, 10, 1⟩, 72), (⟨2023, 10, 1⟩, 72), (⟨2024, 10, 1⟩, 74), (⟨2025, 10, 1⟩, 76)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 35), (⟨2018, 10, 1⟩, 37), (⟨2019, 10, 1⟩, 37), (⟨2020, 10, 1⟩, 36), (⟨2021, 10, 1⟩, 36), (⟨2022, 10, 1⟩, 34), (⟨2023, 10, 1⟩, 39), (⟨2024, 10, 1⟩, 23), (⟨2025, 10, 1⟩, 24)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 45), (⟨2018, 10, 1⟩, 52), (⟨2019, 10, 1⟩, 50), (⟨2020, 10, 1⟩, 48), (⟨2021, 10, 1⟩, 52), (⟨2022, 10, 1⟩, 44), (⟨2023, 10, 1⟩, 49), (⟨2024, 10, 1⟩, 55), (⟨2025, 10, 1⟩, 56)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 37), (⟨2018, 10, 1⟩, 41), (⟨2019, 10, 1⟩, 43), (⟨2020, 10, 1⟩, 47), (⟨2021, 10, 1⟩, 41), (⟨2022, 10, 1⟩, 46), (⟨2023, 10, 1⟩, 42), (⟨2024, 10, 1⟩, 46), (⟨2025, 10, 1⟩, 47)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 27), (⟨2018, 10, 1⟩, 27), (⟨2019, 10, 1⟩, 28), (⟨2020, 10, 1⟩, 28), (⟨2021, 10, 1⟩, 28), (⟨2023, 10, 1⟩, 28), (⟨2025, 10, 1⟩, 29)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 26), (⟨2018, 10, 1⟩, 27), (⟨2019, 10, 1⟩, 27), (⟨2020, 10, 1⟩, 30), (⟨2021, 10, 1⟩, 36), (⟨2022, 10, 1⟩, 39), (⟨2023, 10, 1⟩, 40), (⟨2024, 10, 1⟩, 42), (⟨2025, 10, 1⟩, 43)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 29), (⟨2018, 10, 1⟩, 28), (⟨2019, 10, 1⟩, 28), (⟨2020, 10, 1⟩, 29), (⟨2021, 10, 1⟩, 30), (⟨2022, 10, 1⟩, 32), (⟨2023, 10, 1⟩, 33), (⟨2024, 10, 1⟩, 35), (⟨2025, 10, 1⟩, 36)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 41), (⟨2018, 10, 1⟩, 35), (⟨2019, 10, 1⟩, 31), (⟨2020, 10, 1⟩, 37), (⟨2021, 10, 1⟩, 29), (⟨2023, 10, 1⟩, 42), (⟨2024, 10, 1⟩, 47), (⟨2025, 10, 1⟩, 48)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 28), (⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 31), (⟨2021, 10, 1⟩, 44), (⟨2022, 10, 1⟩, 81), (⟨2023, 10, 1⟩, 75), (⟨2024, 10, 1⟩, 65), (⟨2025, 10, 1⟩, 67)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 5, 1⟩, 29), (⟨2018, 5, 1⟩, 31), (⟨2019, 5, 1⟩, 30), (⟨2020, 3, 1⟩, 31), (⟨2021, 5, 1⟩, 32), (⟨2023, 5, 1⟩, 35), (⟨2025, 10, 1⟩, 36)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 39), (⟨2018, 10, 1⟩, 36), (⟨2019, 10, 1⟩, 35), (⟨2020, 10, 1⟩, 35), (⟨2021, 10, 1⟩, 37), (⟨2022, 10, 1⟩, 40), (⟨2023, 10, 1⟩, 42), (⟨2024, 10, 1⟩, 43), (⟨2025, 10, 1⟩, 44)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 36), (⟨2018, 10, 1⟩, 38), (⟨2019, 10, 1⟩, 38), (⟨2020, 10, 1⟩, 45), (⟨2021, 10, 1⟩, 45), (⟨2022, 10, 1⟩, 48), (⟨2023, 10, 1⟩, 66), (⟨2024, 10, 1⟩, 62), (⟨2025, 10, 1⟩, 64)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 49), (⟨2018, 10, 1⟩, 43), (⟨2019, 10, 1⟩, 41), (⟨2020, 10, 1⟩, 46), (⟨2021, 10, 1⟩, 67), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 74), (⟨2025, 10, 1⟩, 76)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 45), (⟨2018, 10, 1⟩, 45), (⟨2019, 10, 1⟩, 45), (⟨2020, 10, 1⟩, 45), (⟨2021, 10, 1⟩, 48), (⟨2022, 3, 1⟩, 50), (⟨2022, 10, 1⟩, 60), (⟨2023, 10, 1⟩, 59), (⟨2024, 10, 1⟩, 62), (⟨2025, 10, 1⟩, 64)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 40), (⟨2019, 1, 1⟩, 40), (⟨2021, 1, 1⟩, 40), (⟨2023, 1, 1⟩, 40), (⟨2025, 10, 1⟩, 40)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 45), (⟨2018, 10, 1⟩, 45), (⟨2019, 10, 1⟩, 45), (⟨2020, 10, 1⟩, 45), (⟨2021, 10, 1⟩, 49), (⟨2022, 3, 1⟩, 51), (⟨2022, 10, 1⟩, 62), (⟨2023, 10, 1⟩, 58), (⟨2024, 10, 1⟩, 60), (⟨2025, 10, 1⟩, 114)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 32), (⟨2018, 10, 1⟩, 31), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 29), (⟨2021, 10, 1⟩, 30), (⟨2023, 10, 1⟩, 31), (⟨2024, 10, 1⟩, 30), (⟨2025, 10, 1⟩, 31)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 41), (⟨2018, 10, 1⟩, 47), (⟨2019, 10, 1⟩, 49), (⟨2020, 10, 1⟩, 56), (⟨2021, 10, 1⟩, 56), (⟨2022, 10, 1⟩, 55), (⟨2023, 10, 1⟩, 54), (⟨2024, 10, 1⟩, 60), (⟨2025, 10, 1⟩, 62)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 60), (⟨2018, 10, 1⟩, 61), (⟨2019, 10, 1⟩, 63), (⟨2020, 10, 1⟩, 65), (⟨2021, 10, 1⟩, 67), (⟨2022, 10, 1⟩, 71), (⟨2023, 10, 1⟩, 76), (⟨2024, 10, 1⟩, 79), (⟨2025, 10, 1⟩, 81)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 30), (⟨2018, 10, 1⟩, 31), (⟨2019, 10, 1⟩, 33), (⟨2020, 10, 1⟩, 34), (⟨2021, 10, 1⟩, 34), (⟨2022, 10, 1⟩, 49), (⟨2023, 10, 1⟩, 45), (⟨2024, 10, 1⟩, 49), (⟨2025, 10, 1⟩, 50)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 33), (⟨2018, 10, 1⟩, 32), (⟨2019, 10, 1⟩, 31), (⟨2020, 10, 1⟩, 32), (⟨2021, 10, 1⟩, 33), (⟨2023, 10, 1⟩, 34), (⟨2024, 10, 1⟩, 33), (⟨2025, 10, 1⟩, 34)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 35), (⟨2018, 10, 1⟩, 38), (⟨2019, 10, 1⟩, 38), (⟨2020, 10, 1⟩, 31), (⟨2021, 10, 1⟩, 29), (⟨2022, 10, 1⟩, 40), (⟨2023, 10, 1⟩, 41), (⟨2024, 10, 1⟩, 41), (⟨2025, 10, 1⟩, 42)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 33), (⟨2018, 10, 1⟩, 32), (⟨2019, 10, 1⟩, 32), (⟨2020, 10, 1⟩, 32), (⟨2021, 10, 1⟩, 34), (⟨2023, 10, 1⟩, 34), (⟨2025, 10, 1⟩, 35)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 45), (⟨2018, 10, 1⟩, 48), (⟨2019, 10, 1⟩, 46), (⟨2020, 10, 1⟩, 46), (⟨2021, 10, 1⟩, 47), (⟨2022, 10, 1⟩, 50), (⟨2023, 10, 1⟩, 52), (⟨2024, 10, 1⟩, 53), (⟨2025, 10, 1⟩, 54)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 27), (⟨2018, 10, 1⟩, 29), (⟨2019, 10, 1⟩, 28), (⟨2020, 10, 1⟩, 27), (⟨2021, 10, 1⟩, 29), (⟨2022, 10, 1⟩, 37), (⟨2023, 10, 1⟩, 37), (⟨2024, 10, 1⟩, 38), (⟨2025, 10, 1⟩, 39)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 29), (⟨2018, 10, 1⟩, 29), (⟨2019, 10, 1⟩, 29), (⟨2020, 10, 1⟩, 29), (⟨2021, 10, 1⟩, 31), (⟨2022, 10, 1⟩, 32), (⟨2023, 10, 1⟩, 32), (⟨2025, 10, 1⟩, 33)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 42), (⟨2018, 10, 1⟩, 52), (⟨2019, 10, 1⟩, 44), (⟨2020, 10, 1⟩, 48), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 46), (⟨2023, 10, 1⟩, 46), (⟨2024, 10, 1⟩, 50), (⟨2025, 10, 1⟩, 51)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 17), (⟨2018, 10, 1⟩, 29), (⟨2019, 10, 1⟩, 25), (⟨2020, 10, 1⟩, 25), (⟨2021, 10, 1⟩, 25), (⟨2022, 10, 1⟩, 27), (⟨2023, 10, 1⟩, 27), (⟨2024, 10, 1⟩, 51), (⟨2025, 10, 1⟩, 52)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 30), (⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2021, 10, 1⟩, 31), (⟨2023, 10, 1⟩, 31), (⟨2024, 10, 1⟩, 31), (⟨2025, 10, 1⟩, 32)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 30), (⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2021, 10, 1⟩, 31), (⟨2023, 10, 1⟩, 31), (⟨2024, 10, 1⟩, 31), (⟨2025, 10, 1⟩, 32)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 30), (⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2021, 10, 1⟩, 31), (⟨2023, 10, 1⟩, 31), (⟨2024, 10, 1⟩, 31), (⟨2025, 10, 1⟩, 32)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 39), (⟨2018, 10, 1⟩, 39), (⟨2019, 10, 1⟩, 38), (⟨2020, 10, 1⟩, 40), (⟨2021, 10, 1⟩, 42), (⟨2022, 10, 1⟩, 43), (⟨2023, 10, 1⟩, 45), (⟨2025, 10, 1⟩, 46)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 48), (⟨2018, 10, 1⟩, 48), (⟨2019, 10, 1⟩, 48), (⟨2020, 10, 1⟩, 48), (⟨2021, 10, 1⟩, 48), (⟨2023, 10, 1⟩, 48), (⟨2025, 10, 1⟩, 49)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 64), (⟨2018, 10, 1⟩, 53), (⟨2019, 10, 1⟩, 68), (⟨2020, 10, 1⟩, 68), (⟨2021, 10, 1⟩, 70), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 76), (⟨2024, 10, 1⟩, 79), (⟨2025, 10, 1⟩, 81)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 33), (⟨2018, 10, 1⟩, 33), (⟨2019, 10, 1⟩, 33), (⟨2020, 10, 1⟩, 33), (⟨2021, 10, 1⟩, 34), (⟨2023, 10, 1⟩, 34), (⟨2025, 10, 1⟩, 107)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 23), (⟨2018, 10, 1⟩, 23), (⟨2019, 10, 1⟩, 23), (⟨2020, 10, 1⟩, 23), (⟨2021, 10, 1⟩, 24), (⟨2022, 10, 1⟩, 25), (⟨2023, 10, 1⟩, 25), (⟨2024, 10, 1⟩, 26), (⟨2025, 10, 1⟩, 27)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 25), (⟨2018, 10, 1⟩, 25), (⟨2019, 10, 1⟩, 25), (⟨2020, 10, 1⟩, 25), (⟨2021, 10, 1⟩, 26), (⟨2023, 10, 1⟩, 27), (⟨2024, 10, 1⟩, 26), (⟨2025, 10, 1⟩, 27)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 48), (⟨2018, 10, 1⟩, 49), (⟨2019, 10, 1⟩, 48), (⟨2020, 10, 1⟩, 48), (⟨2021, 10, 1⟩, 50), (⟨2022, 10, 1⟩, 54), (⟨2023, 10, 1⟩, 57), (⟨2024, 10, 1⟩, 59), (⟨2025, 10, 1⟩, 61)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 27), (⟨2018, 10, 1⟩, 28), (⟨2019, 10, 1⟩, 28), (⟨2020, 10, 1⟩, 28), (⟨2021, 10, 1⟩, 28), (⟨2022, 10, 1⟩, 35), (⟨2023, 10, 1⟩, 35), (⟨2025, 10, 1⟩, 36)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 37), (⟨2018, 10, 1⟩, 38), (⟨2019, 10, 1⟩, 38), (⟨2020, 10, 1⟩, 38), (⟨2021, 10, 1⟩, 38), (⟨2023, 10, 1⟩, 60), (⟨2024, 10, 1⟩, 61), (⟨2025, 10, 1⟩, 62)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 65), (⟨2018, 10, 1⟩, 64), (⟨2019, 10, 1⟩, 71), (⟨2020, 10, 1⟩, 74), (⟨2021, 10, 1⟩, 54), (⟨2022, 10, 1⟩, 61), (⟨2023, 10, 1⟩, 55), (⟨2024, 10, 1⟩, 57), (⟨2025, 10, 1⟩, 59)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 59), (⟨2018, 10, 1⟩, 61), (⟨2019, 10, 1⟩, 61), (⟨2020, 10, 1⟩, 61), (⟨2021, 10, 1⟩, 61), (⟨2022, 10, 1⟩, 52), (⟨2023, 10, 1⟩, 51), (⟨2024, 10, 1⟩, 52), (⟨2025, 10, 1⟩, 53)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 32), (⟨2018, 10, 1⟩, 32), (⟨2019, 10, 1⟩, 32), (⟨2020, 10, 1⟩, 36), (⟨2021, 10, 1⟩, 36), (⟨2022, 10, 1⟩, 37), (⟨2023, 10, 1⟩, 33), (⟨2025, 10, 1⟩, 34)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 36), (⟨2018, 10, 1⟩, 36), (⟨2019, 10, 1⟩, 36), (⟨2020, 10, 1⟩, 36), (⟨2021, 10, 1⟩, 36), (⟨2023, 10, 1⟩, 36), (⟨2025, 10, 1⟩, 37)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 57), (⟨2018, 10, 1⟩, 58), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 59), (⟨2021, 10, 1⟩, 59), (⟨2023, 10, 1⟩, 58), (⟨2024, 10, 1⟩, 56), (⟨2025, 10, 1⟩, 58)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 31), (⟨2018, 10, 1⟩, 33), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 29), (⟨2021, 10, 1⟩, 29), (⟨2023, 10, 1⟩, 30), (⟨2025, 10, 1⟩, 31)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 74), (⟨2018, 10, 1⟩, 74), (⟨2019, 10, 1⟩, 73), (⟨2020, 10, 1⟩, 76), (⟨2021, 10, 1⟩, 77), (⟨2022, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.phone.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 53), (⟨2018, 10, 1⟩, 53), (⟨2019, 10, 1⟩, 52), (⟨2020, 10, 1⟩, 53), (⟨2021, 10, 1⟩, 55), (⟨2023, 10, 1⟩, 56), (⟨2024, 10, 1⟩, 55), (⟨2025, 10, 1⟩, 57)]⟩
+
+/-- Utility allowance for households whose utility expenses are only sewage-related (or, if the state does not have a defined limited utility allowance, households with sewage expenses but not heating/cooling expenses).
+    `gov/usda/snap/income/deductions/utility/single/sewage.yaml` (policyengine-us).
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.sewage.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 43), (⟨2018, 10, 1⟩, 43), (⟨2019, 10, 1⟩, 53), (⟨2020, 10, 1⟩, 53), (⟨2021, 10, 1⟩, 55), (⟨2022, 10, 1⟩, 55), (⟨2023, 10, 1⟩, 59), (⟨2024, 10, 1⟩, 59), (⟨2025, 10, 1⟩, 61)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 60), (⟨2018, 10, 1⟩, 60), (⟨2019, 10, 1⟩, 39), (⟨2020, 10, 1⟩, 39), (⟨2021, 10, 1⟩, 37), (⟨2022, 10, 1⟩, 37), (⟨2023, 10, 1⟩, 44), (⟨2024, 10, 1⟩, 44), (⟨2025, 10, 1⟩, 45)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 58), (⟨2018, 10, 1⟩, 58), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 58), (⟨2021, 10, 1⟩, 51), (⟨2022, 10, 1⟩, 51), (⟨2023, 10, 1⟩, 49), (⟨2024, 10, 1⟩, 47), (⟨2025, 10, 1⟩, 48)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 47), (⟨2018, 10, 1⟩, 47), (⟨2019, 10, 1⟩, 71), (⟨2020, 10, 1⟩, 71), (⟨2021, 10, 1⟩, 63), (⟨2022, 10, 1⟩, 63), (⟨2023, 10, 1⟩, 63), (⟨2024, 10, 1⟩, 63), (⟨2025, 10, 1⟩, 65)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 66), (⟨2018, 10, 1⟩, 66), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 74), (⟨2021, 10, 1⟩, 68), (⟨2022, 10, 1⟩, 68), (⟨2023, 10, 1⟩, 78), (⟨2024, 10, 1⟩, 79), (⟨2025, 10, 1⟩, 81)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 79), (⟨2018, 10, 1⟩, 79), (⟨2019, 10, 1⟩, 62), (⟨2020, 10, 1⟩, 62), (⟨2021, 10, 1⟩, 49), (⟨2022, 10, 1⟩, 49), (⟨2023, 10, 1⟩, 52), (⟨2024, 10, 1⟩, 53), (⟨2025, 10, 1⟩, 54)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 58), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 64), (⟨2023, 10, 1⟩, 67), (⟨2024, 10, 1⟩, 69), (⟨2025, 10, 1⟩, 71)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 67), (⟨2018, 10, 1⟩, 69), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 71), (⟨2021, 10, 1⟩, 73), (⟨2022, 10, 1⟩, 79), (⟨2023, 10, 1⟩, 84), (⟨2024, 10, 1⟩, 88), (⟨2025, 10, 1⟩, 90)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 78), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 70), (⟨2021, 10, 1⟩, 75), (⟨2023, 10, 1⟩, 82), (⟨2024, 10, 1⟩, 99), (⟨2025, 10, 1⟩, 102)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 28), (⟨2018, 10, 1⟩, 28), (⟨2019, 10, 1⟩, 27), (⟨2020, 10, 1⟩, 26), (⟨2021, 10, 1⟩, 28), (⟨2023, 10, 1⟩, 28), (⟨2025, 10, 1⟩, 29)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 88), (⟨2018, 10, 1⟩, 88), (⟨2019, 10, 1⟩, 91), (⟨2020, 10, 1⟩, 92), (⟨2021, 10, 1⟩, 94), (⟨2022, 10, 1⟩, 95), (⟨2023, 10, 1⟩, 95), (⟨2024, 10, 1⟩, 97), (⟨2025, 10, 1⟩, 100)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 91), (⟨2018, 10, 1⟩, 134), (⟨2019, 10, 1⟩, 127), (⟨2020, 10, 1⟩, 128), (⟨2021, 10, 1⟩, 135), (⟨2022, 10, 1⟩, 134), (⟨2023, 10, 1⟩, 129), (⟨2025, 10, 1⟩, 132)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 70), (⟨2018, 10, 1⟩, 72), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 81), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 62), (⟨2024, 10, 1⟩, 76), (⟨2025, 10, 1⟩, 78)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 5, 1⟩, 56), (⟨2019, 5, 1⟩, 55), (⟨2020, 3, 1⟩, 55), (⟨2021, 5, 1⟩, 57), (⟨2022, 5, 1⟩, 59), (⟨2023, 5, 1⟩, 60), (⟨2025, 10, 1⟩, 62)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2019, 1, 1⟩, 0), (⟨2021, 1, 1⟩, 0), (⟨2023, 1, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 88), (⟨2018, 10, 1⟩, 91), (⟨2019, 10, 1⟩, 94), (⟨2020, 10, 1⟩, 97), (⟨2021, 10, 1⟩, 100), (⟨2022, 10, 1⟩, 104), (⟨2023, 10, 1⟩, 109), (⟨2024, 10, 1⟩, 115), (⟨2025, 10, 1⟩, 119)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 122), (⟨2018, 10, 1⟩, 125), (⟨2019, 10, 1⟩, 128), (⟨2020, 10, 1⟩, 131), (⟨2021, 10, 1⟩, 134), (⟨2022, 10, 1⟩, 142), (⟨2023, 10, 1⟩, 153), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 159), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 171), (⟨2021, 10, 1⟩, 180), (⟨2022, 10, 1⟩, 196), (⟨2023, 10, 1⟩, 105), (⟨2024, 10, 1⟩, 113), (⟨2025, 10, 1⟩, 116)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 197), (⟨2018, 10, 1⟩, 200), (⟨2019, 10, 1⟩, 200), (⟨2020, 10, 1⟩, 204), (⟨2021, 10, 1⟩, 208), (⟨2022, 10, 1⟩, 220), (⟨2023, 10, 1⟩, 118), (⟨2024, 10, 1⟩, 123), (⟨2025, 10, 1⟩, 126)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 50), (⟨2018, 10, 1⟩, 51), (⟨2019, 10, 1⟩, 52), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 54), (⟨2022, 10, 1⟩, 58), (⟨2023, 10, 1⟩, 60), (⟨2024, 10, 1⟩, 62), (⟨2025, 10, 1⟩, 63)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 55), (⟨2018, 10, 1⟩, 56), (⟨2019, 10, 1⟩, 56), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 56), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 81), (⟨2024, 10, 1⟩, 75), (⟨2025, 10, 1⟩, 76)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 76), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 80), (⟨2021, 10, 1⟩, 84), (⟨2022, 10, 1⟩, 92), (⟨2023, 10, 1⟩, 102), (⟨2024, 10, 1⟩, 105), (⟨2025, 10, 1⟩, 108)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 65), (⟨2019, 10, 1⟩, 54), (⟨2020, 10, 1⟩, 55), (⟨2021, 10, 1⟩, 57), (⟨2023, 10, 1⟩, 59), (⟨2024, 10, 1⟩, 63), (⟨2025, 10, 1⟩, 65)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 59), (⟨2021, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 70), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 128)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 83), (⟨2018, 10, 1⟩, 85), (⟨2019, 10, 1⟩, 87), (⟨2020, 10, 1⟩, 87), (⟨2021, 10, 1⟩, 91), (⟨2022, 10, 1⟩, 98), (⟨2023, 10, 1⟩, 103), (⟨2024, 10, 1⟩, 106), (⟨2025, 10, 1⟩, 109)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 84), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 87), (⟨2020, 10, 1⟩, 90), (⟨2021, 10, 1⟩, 93), (⟨2022, 10, 1⟩, 96), (⟨2023, 10, 1⟩, 99), (⟨2024, 10, 1⟩, 103), (⟨2025, 10, 1⟩, 106)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 74), (⟨2018, 10, 1⟩, 74), (⟨2019, 10, 1⟩, 73), (⟨2020, 10, 1⟩, 76), (⟨2021, 10, 1⟩, 77), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 79), (⟨2024, 10, 1⟩, 86), (⟨2025, 10, 1⟩, 88)]⟩
+def gov.usda.snap.income.deductions.utility.single.sewage.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+
+/-- Utility allowance for households whose utility expenses are only trash-related (or, if the state does not have a defined limited utility allowance, households with trash expenses but not heating/cooling expenses).
+    `gov/usda/snap/income/deductions/utility/single/trash.yaml` (policyengine-us).
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.trash.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 32), (⟨2018, 10, 1⟩, 32), (⟨2019, 10, 1⟩, 39), (⟨2020, 10, 1⟩, 39), (⟨2021, 10, 1⟩, 30), (⟨2022, 10, 1⟩, 30), (⟨2023, 10, 1⟩, 36), (⟨2024, 10, 1⟩, 36), (⟨2025, 10, 1⟩, 37)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 30), (⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 84), (⟨2020, 10, 1⟩, 84), (⟨2021, 10, 1⟩, 33), (⟨2022, 10, 1⟩, 33), (⟨2023, 10, 1⟩, 38), (⟨2024, 10, 1⟩, 37), (⟨2025, 10, 1⟩, 38)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 33), (⟨2018, 10, 1⟩, 33), (⟨2019, 10, 1⟩, 23), (⟨2020, 10, 1⟩, 23), (⟨2021, 10, 1⟩, 40), (⟨2022, 10, 1⟩, 40), (⟨2023, 10, 1⟩, 39), (⟨2024, 10, 1⟩, 39), (⟨2025, 10, 1⟩, 40)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 51), (⟨2018, 10, 1⟩, 51), (⟨2019, 10, 1⟩, 47), (⟨2020, 10, 1⟩, 47), (⟨2021, 10, 1⟩, 41), (⟨2022, 10, 1⟩, 41), (⟨2023, 10, 1⟩, 39), (⟨2024, 10, 1⟩, 39), (⟨2025, 10, 1⟩, 40)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 25), (⟨2018, 10, 1⟩, 25), (⟨2019, 10, 1⟩, 27), (⟨2020, 10, 1⟩, 27), (⟨2021, 10, 1⟩, 24), (⟨2022, 10, 1⟩, 24), (⟨2023, 10, 1⟩, 32), (⟨2024, 10, 1⟩, 33), (⟨2025, 10, 1⟩, 34)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 17), (⟨2018, 10, 1⟩, 17), (⟨2019, 10, 1⟩, 13), (⟨2020, 10, 1⟩, 13), (⟨2021, 10, 1⟩, 12), (⟨2022, 10, 1⟩, 12), (⟨2023, 10, 1⟩, 17), (⟨2024, 10, 1⟩, 17), (⟨2025, 10, 1⟩, 17)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 58), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 64), (⟨2023, 10, 1⟩, 67), (⟨2024, 10, 1⟩, 69), (⟨2025, 10, 1⟩, 71)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 67), (⟨2018, 10, 1⟩, 69), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 71), (⟨2021, 10, 1⟩, 73), (⟨2022, 10, 1⟩, 79), (⟨2023, 10, 1⟩, 84), (⟨2024, 10, 1⟩, 88), (⟨2025, 10, 1⟩, 90)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 78), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 70), (⟨2021, 10, 1⟩, 75), (⟨2023, 10, 1⟩, 82), (⟨2024, 10, 1⟩, 99), (⟨2025, 10, 1⟩, 102)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 30), (⟨2018, 10, 1⟩, 30), (⟨2019, 10, 1⟩, 30), (⟨2020, 10, 1⟩, 30), (⟨2021, 10, 1⟩, 30), (⟨2023, 10, 1⟩, 30), (⟨2025, 10, 1⟩, 31)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 88), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 94), (⟨2022, 10, 1⟩, 95), (⟨2023, 10, 1⟩, 95), (⟨2024, 10, 1⟩, 97), (⟨2025, 10, 1⟩, 100)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 91), (⟨2018, 10, 1⟩, 134), (⟨2019, 10, 1⟩, 127), (⟨2020, 10, 1⟩, 128), (⟨2021, 10, 1⟩, 135), (⟨2022, 10, 1⟩, 134), (⟨2023, 10, 1⟩, 129), (⟨2025, 10, 1⟩, 132)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 70), (⟨2018, 10, 1⟩, 72), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 81), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 62), (⟨2024, 10, 1⟩, 76), (⟨2025, 10, 1⟩, 78)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 5, 1⟩, 56), (⟨2019, 5, 1⟩, 55), (⟨2020, 3, 1⟩, 55), (⟨2021, 5, 1⟩, 57), (⟨2022, 5, 1⟩, 59), (⟨2023, 5, 1⟩, 60), (⟨2025, 10, 1⟩, 62)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2019, 1, 1⟩, 0), (⟨2021, 1, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 20), (⟨2018, 10, 1⟩, 19), (⟨2019, 10, 1⟩, 22), (⟨2020, 10, 1⟩, 23), (⟨2021, 10, 1⟩, 21), (⟨2022, 10, 1⟩, 25), (⟨2023, 10, 1⟩, 37), (⟨2024, 10, 1⟩, 29), (⟨2025, 10, 1⟩, 30)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 122), (⟨2018, 10, 1⟩, 125), (⟨2019, 10, 1⟩, 128), (⟨2020, 10, 1⟩, 131), (⟨2021, 10, 1⟩, 134), (⟨2022, 10, 1⟩, 142), (⟨2023, 10, 1⟩, 153), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 159), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 171), (⟨2021, 10, 1⟩, 180), (⟨2022, 10, 1⟩, 196), (⟨2023, 10, 1⟩, 105), (⟨2024, 10, 1⟩, 113), (⟨2025, 10, 1⟩, 116)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 197), (⟨2018, 10, 1⟩, 200), (⟨2019, 10, 1⟩, 200), (⟨2020, 10, 1⟩, 204), (⟨2021, 10, 1⟩, 208), (⟨2022, 10, 1⟩, 220), (⟨2023, 10, 1⟩, 118), (⟨2024, 10, 1⟩, 123), (⟨2025, 10, 1⟩, 126)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 50), (⟨2018, 10, 1⟩, 51), (⟨2019, 10, 1⟩, 52), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 54), (⟨2022, 10, 1⟩, 58), (⟨2023, 10, 1⟩, 60), (⟨2024, 10, 1⟩, 62), (⟨2025, 10, 1⟩, 63)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 55), (⟨2018, 10, 1⟩, 56), (⟨2019, 10, 1⟩, 56), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 56), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 81), (⟨2024, 10, 1⟩, 75), (⟨2025, 10, 1⟩, 76)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 76), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 80), (⟨2021, 10, 1⟩, 84), (⟨2022, 10, 1⟩, 92), (⟨2023, 10, 1⟩, 102), (⟨2024, 10, 1⟩, 105), (⟨2025, 10, 1⟩, 108)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 65), (⟨2019, 10, 1⟩, 54), (⟨2020, 10, 1⟩, 55), (⟨2021, 10, 1⟩, 57), (⟨2023, 10, 1⟩, 59), (⟨2024, 10, 1⟩, 63), (⟨2025, 10, 1⟩, 65)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 59), (⟨2021, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 70), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 128)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 83), (⟨2018, 10, 1⟩, 85), (⟨2019, 10, 1⟩, 87), (⟨2020, 10, 1⟩, 87), (⟨2021, 10, 1⟩, 91), (⟨2022, 10, 1⟩, 98), (⟨2023, 10, 1⟩, 103), (⟨2024, 10, 1⟩, 106), (⟨2025, 10, 1⟩, 109)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 22), (⟨2018, 10, 1⟩, 23), (⟨2019, 10, 1⟩, 22), (⟨2020, 10, 1⟩, 23), (⟨2021, 10, 1⟩, 24), (⟨2022, 10, 1⟩, 25), (⟨2023, 10, 1⟩, 26), (⟨2024, 10, 1⟩, 27), (⟨2025, 10, 1⟩, 28)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 74), (⟨2018, 10, 1⟩, 74), (⟨2019, 10, 1⟩, 73), (⟨2020, 10, 1⟩, 76), (⟨2021, 10, 1⟩, 77), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 79), (⟨2024, 10, 1⟩, 86), (⟨2025, 10, 1⟩, 88)]⟩
+def gov.usda.snap.income.deductions.utility.single.trash.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+
+/-- Utility cost types which entitle the payer to a specific utility allowance.
+    `gov/usda/snap/income/deductions/utility/single/utility_types.yaml` (policyengine-us). -/
+def gov.usda.snap.income.deductions.utility.single.utility_types : DatedParam (List String) :=
+  ⟨(⟨2010, 1, 1⟩, ["electricity_expense", "gas_and_fuel_expense", "water_expense", "sewage_expense", "phone_expense", "trash_expense"]), []⟩
+
+/-- Utility allowance for households whose utility expenses are only water-related (or, if the state does not have a defined limited utility allowance, households with water expenses but not heating/cooling expenses).
+    `gov/usda/snap/income/deductions/utility/single/water.yaml` (policyengine-us).
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.single.water.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 50), (⟨2018, 10, 1⟩, 50), (⟨2019, 10, 1⟩, 51), (⟨2020, 10, 1⟩, 51), (⟨2021, 10, 1⟩, 56), (⟨2022, 10, 1⟩, 56), (⟨2023, 10, 1⟩, 57), (⟨2024, 10, 1⟩, 57), (⟨2025, 10, 1⟩, 59)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 51), (⟨2018, 10, 1⟩, 51), (⟨2019, 10, 1⟩, 33), (⟨2020, 10, 1⟩, 33), (⟨2021, 10, 1⟩, 37), (⟨2022, 10, 1⟩, 37), (⟨2023, 10, 1⟩, 43), (⟨2024, 10, 1⟩, 43), (⟨2025, 10, 1⟩, 44)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 61), (⟨2018, 10, 1⟩, 61), (⟨2019, 10, 1⟩, 68), (⟨2020, 10, 1⟩, 68), (⟨2021, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 60), (⟨2023, 10, 1⟩, 61), (⟨2024, 10, 1⟩, 61), (⟨2025, 10, 1⟩, 63)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 44), (⟨2018, 10, 1⟩, 44), (⟨2019, 10, 1⟩, 55), (⟨2020, 10, 1⟩, 55), (⟨2021, 10, 1⟩, 40), (⟨2022, 10, 1⟩, 40), (⟨2023, 10, 1⟩, 40), (⟨2024, 10, 1⟩, 41), (⟨2025, 10, 1⟩, 42)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 41), (⟨2018, 10, 1⟩, 41), (⟨2019, 10, 1⟩, 46), (⟨2020, 10, 1⟩, 46), (⟨2021, 10, 1⟩, 42), (⟨2022, 10, 1⟩, 42), (⟨2023, 10, 1⟩, 49), (⟨2024, 10, 1⟩, 48), (⟨2025, 10, 1⟩, 49)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 63), (⟨2018, 10, 1⟩, 63), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 58), (⟨2021, 10, 1⟩, 91), (⟨2022, 10, 1⟩, 91), (⟨2023, 10, 1⟩, 105), (⟨2024, 10, 1⟩, 108), (⟨2025, 10, 1⟩, 111)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 58), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 64), (⟨2023, 10, 1⟩, 67), (⟨2024, 10, 1⟩, 69), (⟨2025, 10, 1⟩, 71)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 67), (⟨2018, 10, 1⟩, 69), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 71), (⟨2021, 10, 1⟩, 73), (⟨2022, 10, 1⟩, 79), (⟨2023, 10, 1⟩, 84), (⟨2024, 10, 1⟩, 88), (⟨2025, 10, 1⟩, 90)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 78), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 70), (⟨2021, 10, 1⟩, 75), (⟨2023, 10, 1⟩, 82), (⟨2024, 10, 1⟩, 99), (⟨2025, 10, 1⟩, 102)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 37), (⟨2018, 10, 1⟩, 38), (⟨2019, 10, 1⟩, 36), (⟨2020, 10, 1⟩, 38), (⟨2021, 10, 1⟩, 38), (⟨2023, 10, 1⟩, 38), (⟨2025, 10, 1⟩, 39)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 45), (⟨2018, 10, 1⟩, 45), (⟨2019, 10, 1⟩, 46), (⟨2020, 10, 1⟩, 46), (⟨2021, 10, 1⟩, 46), (⟨2022, 10, 1⟩, 54), (⟨2023, 10, 1⟩, 57), (⟨2024, 10, 1⟩, 65), (⟨2025, 10, 1⟩, 67)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 91), (⟨2018, 10, 1⟩, 134), (⟨2019, 10, 1⟩, 127), (⟨2020, 10, 1⟩, 128), (⟨2021, 10, 1⟩, 135), (⟨2022, 10, 1⟩, 134), (⟨2023, 10, 1⟩, 129), (⟨2025, 10, 1⟩, 132)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 70), (⟨2018, 10, 1⟩, 72), (⟨2019, 10, 1⟩, 74), (⟨2020, 10, 1⟩, 81), (⟨2021, 10, 1⟩, 59), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 62), (⟨2024, 10, 1⟩, 76), (⟨2025, 10, 1⟩, 78)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 5, 1⟩, 56), (⟨2019, 5, 1⟩, 55), (⟨2020, 3, 1⟩, 55), (⟨2021, 5, 1⟩, 57), (⟨2022, 5, 1⟩, 59), (⟨2023, 5, 1⟩, 60), (⟨2025, 10, 1⟩, 62)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2019, 1, 1⟩, 0), (⟨2021, 1, 1⟩, 0), (⟨2023, 1, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 88), (⟨2018, 10, 1⟩, 91), (⟨2019, 10, 1⟩, 94), (⟨2020, 10, 1⟩, 97), (⟨2021, 10, 1⟩, 100), (⟨2022, 10, 1⟩, 104), (⟨2023, 10, 1⟩, 109), (⟨2024, 10, 1⟩, 115), (⟨2025, 10, 1⟩, 119)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 122), (⟨2018, 10, 1⟩, 125), (⟨2019, 10, 1⟩, 128), (⟨2020, 10, 1⟩, 131), (⟨2021, 10, 1⟩, 134), (⟨2022, 10, 1⟩, 142), (⟨2023, 10, 1⟩, 153), (⟨2024, 10, 1⟩, 158), (⟨2025, 10, 1⟩, 162)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 159), (⟨2018, 10, 1⟩, 164), (⟨2019, 10, 1⟩, 167), (⟨2020, 10, 1⟩, 171), (⟨2021, 10, 1⟩, 180), (⟨2022, 10, 1⟩, 196), (⟨2023, 10, 1⟩, 105), (⟨2024, 10, 1⟩, 113), (⟨2025, 10, 1⟩, 116)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 197), (⟨2018, 10, 1⟩, 200), (⟨2019, 10, 1⟩, 200), (⟨2020, 10, 1⟩, 204), (⟨2021, 10, 1⟩, 208), (⟨2022, 10, 1⟩, 220), (⟨2023, 10, 1⟩, 118), (⟨2024, 10, 1⟩, 123), (⟨2025, 10, 1⟩, 126)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 50), (⟨2018, 10, 1⟩, 51), (⟨2019, 10, 1⟩, 52), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 54), (⟨2022, 10, 1⟩, 58), (⟨2023, 10, 1⟩, 60), (⟨2024, 10, 1⟩, 62), (⟨2025, 10, 1⟩, 63)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 55), (⟨2018, 10, 1⟩, 56), (⟨2019, 10, 1⟩, 56), (⟨2020, 10, 1⟩, 52), (⟨2021, 10, 1⟩, 56), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 81), (⟨2024, 10, 1⟩, 75), (⟨2025, 10, 1⟩, 76)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 76), (⟨2018, 10, 1⟩, 78), (⟨2019, 10, 1⟩, 79), (⟨2020, 10, 1⟩, 80), (⟨2021, 10, 1⟩, 84), (⟨2022, 10, 1⟩, 92), (⟨2023, 10, 1⟩, 102), (⟨2024, 10, 1⟩, 105), (⟨2025, 10, 1⟩, 108)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 65), (⟨2019, 10, 1⟩, 54), (⟨2020, 10, 1⟩, 55), (⟨2021, 10, 1⟩, 57), (⟨2023, 10, 1⟩, 59), (⟨2024, 10, 1⟩, 63), (⟨2025, 10, 1⟩, 65)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 56), (⟨2018, 10, 1⟩, 57), (⟨2019, 10, 1⟩, 58), (⟨2020, 10, 1⟩, 59), (⟨2021, 10, 1⟩, 60), (⟨2022, 10, 1⟩, 66), (⟨2023, 10, 1⟩, 70), (⟨2024, 10, 1⟩, 72), (⟨2025, 10, 1⟩, 128)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 83), (⟨2018, 10, 1⟩, 85), (⟨2019, 10, 1⟩, 87), (⟨2020, 10, 1⟩, 87), (⟨2021, 10, 1⟩, 91), (⟨2022, 10, 1⟩, 98), (⟨2023, 10, 1⟩, 103), (⟨2024, 10, 1⟩, 106), (⟨2025, 10, 1⟩, 109)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 84), (⟨2018, 10, 1⟩, 86), (⟨2019, 10, 1⟩, 87), (⟨2020, 10, 1⟩, 90), (⟨2021, 10, 1⟩, 93), (⟨2022, 10, 1⟩, 96), (⟨2023, 10, 1⟩, 99), (⟨2024, 10, 1⟩, 103), (⟨2025, 10, 1⟩, 106)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 74), (⟨2018, 10, 1⟩, 74), (⟨2019, 10, 1⟩, 73), (⟨2020, 10, 1⟩, 76), (⟨2021, 10, 1⟩, 77), (⟨2022, 10, 1⟩, 74), (⟨2023, 10, 1⟩, 79), (⟨2024, 10, 1⟩, 86), (⟨2025, 10, 1⟩, 88)]⟩
+def gov.usda.snap.income.deductions.utility.single.water.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2018, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+
+/-- The USDA provides this amount as the household-size-varying standard utility allowance under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/standard/by_household_size/amount.yaml` (policyengine-us).
+    * SNAP Screener Compiled State SNAP Data: https://www.snapscreener.com/data
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.standard.by_household_size.amount.AZ : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 274), [(⟨2018, 10, 1⟩, 278), (⟨2019, 10, 1⟩, 289), (⟨2020, 10, 1⟩, 295), (⟨2021, 10, 1⟩, 288), (⟨2022, 10, 1⟩, 325), (⟨2023, 10, 1⟩, 318), (⟨2024, 10, 1⟩, 314), (⟨2025, 10, 1⟩, 323)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 274), [(⟨2018, 10, 1⟩, 278), (⟨2019, 10, 1⟩, 289), (⟨2020, 10, 1⟩, 295), (⟨2021, 10, 1⟩, 288), (⟨2022, 10, 1⟩, 325), (⟨2023, 10, 1⟩, 318), (⟨2024, 10, 1⟩, 314), (⟨2025, 10, 1⟩, 323)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 274), [(⟨2018, 10, 1⟩, 278), (⟨2019, 10, 1⟩, 289), (⟨2020, 10, 1⟩, 295), (⟨2021, 10, 1⟩, 288), (⟨2022, 10, 1⟩, 325), (⟨2023, 10, 1⟩, 318), (⟨2024, 10, 1⟩, 314), (⟨2025, 10, 1⟩, 323)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 370), [(⟨2018, 10, 1⟩, 375), (⟨2019, 10, 1⟩, 390), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 431), (⟨2024, 10, 1⟩, 426), (⟨2025, 10, 1⟩, 438)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 370), [(⟨2018, 10, 1⟩, 375), (⟨2019, 10, 1⟩, 390), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 431), (⟨2024, 10, 1⟩, 426), (⟨2025, 10, 1⟩, 438)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 370), [(⟨2018, 10, 1⟩, 375), (⟨2019, 10, 1⟩, 390), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 431), (⟨2024, 10, 1⟩, 426), (⟨2025, 10, 1⟩, 438)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 370), [(⟨2018, 10, 1⟩, 375), (⟨2019, 10, 1⟩, 390), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 431), (⟨2024, 10, 1⟩, 426), (⟨2025, 10, 1⟩, 438)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 370), [(⟨2018, 10, 1⟩, 375), (⟨2019, 10, 1⟩, 390), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 431), (⟨2024, 10, 1⟩, 426), (⟨2025, 10, 1⟩, 438)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 370), [(⟨2018, 10, 1⟩, 375), (⟨2019, 10, 1⟩, 390), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 431), (⟨2024, 10, 1⟩, 426), (⟨2025, 10, 1⟩, 438)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 370), [(⟨2018, 10, 1⟩, 375), (⟨2019, 10, 1⟩, 390), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 431), (⟨2024, 10, 1⟩, 426), (⟨2025, 10, 1⟩, 438)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.standard.by_household_size.amount.NC : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 400), [(⟨2018, 10, 1⟩, 437), (⟨2019, 10, 1⟩, 434), (⟨2020, 10, 1⟩, 440), (⟨2021, 10, 1⟩, 550), (⟨2022, 10, 1⟩, 557), (⟨2023, 10, 1⟩, 585), (⟨2024, 10, 1⟩, 620), (⟨2025, 10, 1⟩, 637)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 440), [(⟨2018, 10, 1⟩, 480), (⟨2019, 10, 1⟩, 482), (⟨2020, 10, 1⟩, 483), (⟨2021, 10, 1⟩, 610), (⟨2022, 10, 1⟩, 612), (⟨2023, 10, 1⟩, 643), (⟨2024, 10, 1⟩, 681), (⟨2025, 10, 1⟩, 699)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 484), [(⟨2018, 10, 1⟩, 528), (⟨2019, 10, 1⟩, 530), (⟨2020, 10, 1⟩, 531), (⟨2021, 10, 1⟩, 670), (⟨2022, 10, 1⟩, 672), (⟨2023, 10, 1⟩, 707), (⟨2024, 10, 1⟩, 748), (⟨2025, 10, 1⟩, 768)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 528), [(⟨2018, 10, 1⟩, 576), (⟨2019, 10, 1⟩, 578), (⟨2020, 10, 1⟩, 579), (⟨2021, 10, 1⟩, 730), (⟨2022, 10, 1⟩, 732), (⟨2023, 10, 1⟩, 770), (⟨2024, 10, 1⟩, 815), (⟨2025, 10, 1⟩, 837)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 576), [(⟨2018, 10, 1⟩, 626), (⟨2019, 10, 1⟩, 628), (⟨2020, 10, 1⟩, 631), (⟨2021, 10, 1⟩, 796), (⟨2022, 10, 1⟩, 798), (⟨2023, 10, 1⟩, 839), (⟨2024, 10, 1⟩, 888), (⟨2025, 10, 1⟩, 912)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 576), [(⟨2018, 10, 1⟩, 626), (⟨2019, 10, 1⟩, 628), (⟨2020, 10, 1⟩, 631), (⟨2021, 10, 1⟩, 796), (⟨2022, 10, 1⟩, 798), (⟨2023, 10, 1⟩, 839), (⟨2024, 10, 1⟩, 888), (⟨2025, 10, 1⟩, 912)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 576), [(⟨2018, 10, 1⟩, 626), (⟨2019, 10, 1⟩, 628), (⟨2020, 10, 1⟩, 631), (⟨2021, 10, 1⟩, 796), (⟨2022, 10, 1⟩, 798), (⟨2023, 10, 1⟩, 839), (⟨2024, 10, 1⟩, 888), (⟨2025, 10, 1⟩, 912)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 576), [(⟨2018, 10, 1⟩, 626), (⟨2019, 10, 1⟩, 628), (⟨2020, 10, 1⟩, 631), (⟨2021, 10, 1⟩, 796), (⟨2022, 10, 1⟩, 798), (⟨2023, 10, 1⟩, 839), (⟨2024, 10, 1⟩, 888), (⟨2025, 10, 1⟩, 912)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 576), [(⟨2018, 10, 1⟩, 626), (⟨2019, 10, 1⟩, 628), (⟨2020, 10, 1⟩, 631), (⟨2021, 10, 1⟩, 796), (⟨2022, 10, 1⟩, 798), (⟨2023, 10, 1⟩, 839), (⟨2024, 10, 1⟩, 888), (⟨2025, 10, 1⟩, 912)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 576), [(⟨2018, 10, 1⟩, 626), (⟨2019, 10, 1⟩, 628), (⟨2020, 10, 1⟩, 631), (⟨2021, 10, 1⟩, 796), (⟨2022, 10, 1⟩, 798), (⟨2023, 10, 1⟩, 839), (⟨2024, 10, 1⟩, 888), (⟨2025, 10, 1⟩, 912)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.standard.by_household_size.amount.TN : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 311), [(⟨2018, 10, 1⟩, 317), (⟨2019, 10, 1⟩, 317), (⟨2020, 10, 1⟩, 317), (⟨2021, 10, 1⟩, 320), (⟨2022, 10, 1⟩, 403), (⟨2023, 10, 1⟩, 430), (⟨2024, 10, 1⟩, 439), (⟨2025, 10, 1⟩, 451)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 322), [(⟨2018, 10, 1⟩, 328), (⟨2019, 10, 1⟩, 328), (⟨2020, 10, 1⟩, 328), (⟨2021, 10, 1⟩, 331), (⟨2022, 10, 1⟩, 417), (⟨2023, 10, 1⟩, 445), (⟨2024, 10, 1⟩, 454), (⟨2025, 10, 1⟩, 466)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 334), [(⟨2018, 10, 1⟩, 341), (⟨2019, 10, 1⟩, 341), (⟨2020, 10, 1⟩, 341), (⟨2021, 10, 1⟩, 344), (⟨2022, 10, 1⟩, 433), (⟨2023, 10, 1⟩, 462), (⟨2024, 10, 1⟩, 472), (⟨2025, 10, 1⟩, 485)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 346), [(⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 353), (⟨2020, 10, 1⟩, 353), (⟨2021, 10, 1⟩, 357), (⟨2022, 10, 1⟩, 450), (⟨2023, 10, 1⟩, 480), (⟨2024, 10, 1⟩, 490), (⟨2025, 10, 1⟩, 503)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 357), [(⟨2018, 10, 1⟩, 364), (⟨2019, 10, 1⟩, 364), (⟨2020, 10, 1⟩, 364), (⟨2021, 10, 1⟩, 368), (⟨2022, 10, 1⟩, 464), (⟨2023, 10, 1⟩, 495), (⟨2024, 10, 1⟩, 505), (⟨2025, 10, 1⟩, 519)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 369), [(⟨2018, 10, 1⟩, 376), (⟨2019, 10, 1⟩, 376), (⟨2020, 10, 1⟩, 376), (⟨2021, 10, 1⟩, 380), (⟨2022, 10, 1⟩, 479), (⟨2023, 10, 1⟩, 511), (⟨2024, 10, 1⟩, 522), (⟨2025, 10, 1⟩, 536)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 379), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 387), (⟨2020, 10, 1⟩, 387), (⟨2021, 10, 1⟩, 391), (⟨2022, 10, 1⟩, 493), (⟨2023, 10, 1⟩, 526), (⟨2024, 10, 1⟩, 537), (⟨2025, 10, 1⟩, 551)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 391), [(⟨2018, 10, 1⟩, 399), (⟨2019, 10, 1⟩, 399), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 403), (⟨2022, 10, 1⟩, 508), (⟨2023, 10, 1⟩, 542), (⟨2024, 10, 1⟩, 553), (⟨2025, 10, 1⟩, 568)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 405), [(⟨2018, 10, 1⟩, 413), (⟨2019, 10, 1⟩, 413), (⟨2020, 10, 1⟩, 413), (⟨2021, 10, 1⟩, 417), (⟨2022, 10, 1⟩, 525), (⟨2023, 10, 1⟩, 560), (⟨2024, 10, 1⟩, 572), (⟨2025, 10, 1⟩, 587)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 415), [(⟨2018, 10, 1⟩, 423), (⟨2019, 10, 1⟩, 423), (⟨2020, 10, 1⟩, 423), (⟨2021, 10, 1⟩, 427), (⟨2022, 10, 1⟩, 538), (⟨2023, 10, 1⟩, 574), (⟨2024, 10, 1⟩, 586), (⟨2025, 10, 1⟩, 602)]⟩⟩]⟩
+def gov.usda.snap.income.deductions.utility.standard.by_household_size.amount.VA : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 10, 1⟩, 306), [(⟨2018, 10, 1⟩, 311), (⟨2019, 10, 1⟩, 303), (⟨2020, 10, 1⟩, 302), (⟨2021, 10, 1⟩, 322), (⟨2022, 10, 1⟩, 374), (⟨2023, 10, 1⟩, 414), (⟨2024, 10, 1⟩, 369), (⟨2025, 10, 1⟩, 375)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 10, 1⟩, 306), [(⟨2018, 10, 1⟩, 311), (⟨2019, 10, 1⟩, 303), (⟨2020, 10, 1⟩, 302), (⟨2021, 10, 1⟩, 322), (⟨2022, 10, 1⟩, 374), (⟨2023, 10, 1⟩, 414), (⟨2024, 10, 1⟩, 369), (⟨2025, 10, 1⟩, 375)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 10, 1⟩, 306), [(⟨2018, 10, 1⟩, 311), (⟨2019, 10, 1⟩, 303), (⟨2020, 10, 1⟩, 302), (⟨2021, 10, 1⟩, 322), (⟨2022, 10, 1⟩, 374), (⟨2023, 10, 1⟩, 414), (⟨2024, 10, 1⟩, 369), (⟨2025, 10, 1⟩, 375)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2017, 10, 1⟩, 381), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 379), (⟨2020, 10, 1⟩, 377), (⟨2021, 10, 1⟩, 402), (⟨2022, 10, 1⟩, 473), (⟨2023, 10, 1⟩, 524), (⟨2024, 10, 1⟩, 467), (⟨2025, 10, 1⟩, 476)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2017, 10, 1⟩, 381), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 379), (⟨2020, 10, 1⟩, 377), (⟨2021, 10, 1⟩, 402), (⟨2022, 10, 1⟩, 473), (⟨2023, 10, 1⟩, 524), (⟨2024, 10, 1⟩, 467), (⟨2025, 10, 1⟩, 476)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2017, 10, 1⟩, 381), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 379), (⟨2020, 10, 1⟩, 377), (⟨2021, 10, 1⟩, 402), (⟨2022, 10, 1⟩, 473), (⟨2023, 10, 1⟩, 524), (⟨2024, 10, 1⟩, 467), (⟨2025, 10, 1⟩, 476)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2017, 10, 1⟩, 381), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 379), (⟨2020, 10, 1⟩, 377), (⟨2021, 10, 1⟩, 402), (⟨2022, 10, 1⟩, 473), (⟨2023, 10, 1⟩, 524), (⟨2024, 10, 1⟩, 467), (⟨2025, 10, 1⟩, 476)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2017, 10, 1⟩, 381), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 379), (⟨2020, 10, 1⟩, 377), (⟨2021, 10, 1⟩, 402), (⟨2022, 10, 1⟩, 473), (⟨2023, 10, 1⟩, 524), (⟨2024, 10, 1⟩, 467), (⟨2025, 10, 1⟩, 476)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 9), []⟩, ⟨(⟨2017, 10, 1⟩, 381), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 379), (⟨2020, 10, 1⟩, 377), (⟨2021, 10, 1⟩, 402), (⟨2022, 10, 1⟩, 473), (⟨2023, 10, 1⟩, 524), (⟨2024, 10, 1⟩, 467), (⟨2025, 10, 1⟩, 476)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 10), []⟩, ⟨(⟨2017, 10, 1⟩, 381), [(⟨2018, 10, 1⟩, 387), (⟨2019, 10, 1⟩, 379), (⟨2020, 10, 1⟩, 377), (⟨2021, 10, 1⟩, 402), (⟨2022, 10, 1⟩, 473), (⟨2023, 10, 1⟩, 524), (⟨2024, 10, 1⟩, 467), (⟨2025, 10, 1⟩, 476)]⟩⟩]⟩
+
+/-- The USDA uses this list of states that vary their standard utility allowance by household size under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/income/deductions/utility/standard/by_household_size/states.yaml` (policyengine-us).
+    * SNAP Screener Compiled State SNAP Data: https://www.snapscreener.com/data
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.standard.by_household_size.states : DatedParam (List String) :=
+  ⟨(⟨2017, 10, 1⟩, ["AZ", "NC", "TN", "VA"]), []⟩
+
+/-- A household is eligible for the Standard Utility Allowance if it has separate heating and cooling costs.
+    `gov/usda/snap/income/deductions/utility/standard/main.yaml` (policyengine-us).
+    * USDA | Food and Nutrition Service | SNAP | Standard Utility Allowances: https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
+    * SNAP Screener | SNAP Eligibility Parameters: https://www.snapscreener.com/?p=table
+    * USDA utility allowances by state spreadsheet (FY2019): https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024): https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    * USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025): https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+    * FY 2018 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
+    * FY 2019 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+    * FY 2020 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+    * FY 2021 SNAP QC Technical Documentation, Table F.7: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138 -/
+def gov.usda.snap.income.deductions.utility.standard.main.AK_C : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 371), (⟨2018, 10, 1⟩, 390), (⟨2019, 10, 1⟩, 401), (⟨2020, 10, 1⟩, 397), (⟨2021, 10, 1⟩, 380), (⟨2022, 10, 1⟩, 385), (⟨2023, 10, 1⟩, 638), (⟨2024, 10, 1⟩, 609), (⟨2025, 10, 1⟩, 625)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AK_N : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 564), (⟨2018, 10, 1⟩, 589), (⟨2019, 10, 1⟩, 591), (⟨2020, 10, 1⟩, 324), (⟨2021, 10, 1⟩, 529), (⟨2022, 10, 1⟩, 598), (⟨2023, 10, 1⟩, 811), (⟨2024, 10, 1⟩, 803), (⟨2025, 10, 1⟩, 825)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AK_NW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 846), (⟨2018, 10, 1⟩, 826), (⟨2019, 10, 1⟩, 843), (⟨2020, 10, 1⟩, 850), (⟨2021, 10, 1⟩, 836), (⟨2022, 10, 1⟩, 865), (⟨2023, 10, 1⟩, 1082), (⟨2024, 10, 1⟩, 1078), (⟨2025, 10, 1⟩, 1107)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AK_SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 434), (⟨2018, 10, 1⟩, 445), (⟨2019, 10, 1⟩, 479), (⟨2020, 10, 1⟩, 511), (⟨2021, 10, 1⟩, 440), (⟨2022, 10, 1⟩, 467), (⟨2023, 10, 1⟩, 592), (⟨2024, 10, 1⟩, 575), (⟨2025, 10, 1⟩, 591)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AK_SE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 355), (⟨2018, 10, 1⟩, 360), (⟨2019, 10, 1⟩, 386), (⟨2020, 10, 1⟩, 407), (⟨2021, 10, 1⟩, 349), (⟨2022, 10, 1⟩, 391), (⟨2023, 10, 1⟩, 500), (⟨2024, 10, 1⟩, 503), (⟨2025, 10, 1⟩, 517)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AK_SW : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 767), (⟨2018, 10, 1⟩, 763), (⟨2019, 10, 1⟩, 794), (⟨2020, 10, 1⟩, 809), (⟨2021, 10, 1⟩, 741), (⟨2022, 10, 1⟩, 772), (⟨2023, 10, 1⟩, 1026), (⟨2024, 10, 1⟩, 1036), (⟨2025, 10, 1⟩, 1064)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 352), (⟨2018, 10, 1⟩, 374), (⟨2019, 10, 1⟩, 384), (⟨2020, 10, 1⟩, 393), (⟨2021, 10, 1⟩, 431), (⟨2022, 10, 1⟩, 571), (⟨2023, 10, 1⟩, 601), (⟨2024, 10, 1⟩, 616), (⟨2025, 10, 1⟩, 633)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 278), (⟨2018, 10, 1⟩, 284), (⟨2019, 10, 1⟩, 296), (⟨2020, 10, 1⟩, 283), (⟨2021, 10, 1⟩, 283), (⟨2022, 10, 1⟩, 306), (⟨2023, 10, 1⟩, 329), (⟨2024, 10, 1⟩, 333), (⟨2025, 10, 1⟩, 342)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.AZ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 274), (⟨2018, 10, 1⟩, 278), (⟨2019, 10, 1⟩, 289), (⟨2020, 10, 1⟩, 295), (⟨2021, 10, 1⟩, 294), (⟨2022, 10, 1⟩, 325), (⟨2023, 10, 1⟩, 318), (⟨2024, 10, 1⟩, 314), (⟨2025, 10, 1⟩, 323)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.CA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 397), (⟨2018, 10, 1⟩, 415), (⟨2019, 10, 1⟩, 432), (⟨2020, 10, 1⟩, 438), (⟨2021, 10, 1⟩, 487), (⟨2022, 10, 1⟩, 560), (⟨2023, 10, 1⟩, 596), (⟨2024, 10, 1⟩, 645), (⟨2025, 10, 1⟩, 663)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.CO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 469), (⟨2018, 10, 1⟩, 476), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 486), (⟨2021, 10, 1⟩, 493), (⟨2022, 10, 1⟩, 531), (⟨2023, 10, 1⟩, 560), (⟨2024, 10, 1⟩, 578), (⟨2025, 10, 1⟩, 594)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.CT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 728), (⟨2018, 10, 1⟩, 736), (⟨2019, 10, 1⟩, 736), (⟨2020, 10, 1⟩, 736), (⟨2021, 10, 1⟩, 783), (⟨2022, 10, 1⟩, 921), (⟨2023, 10, 1⟩, 912), (⟨2024, 10, 1⟩, 950), (⟨2025, 10, 1⟩, 976)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.DC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 325), (⟨2018, 10, 1⟩, 331), (⟨2019, 10, 1⟩, 327), (⟨2020, 10, 1⟩, 310), (⟨2021, 10, 1⟩, 322), (⟨2022, 10, 1⟩, 345), (⟨2023, 10, 1⟩, 360), (⟨2024, 10, 1⟩, 374), (⟨2025, 10, 1⟩, 384)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.DE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 406), (⟨2018, 10, 1⟩, 417), (⟨2019, 10, 1⟩, 434), (⟨2020, 10, 1⟩, 407), (⟨2021, 10, 1⟩, 425), (⟨2022, 10, 1⟩, 545), (⟨2023, 10, 1⟩, 534), (⟨2024, 10, 1⟩, 529), (⟨2025, 10, 1⟩, 543)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.FL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 347), (⟨2018, 10, 1⟩, 359), (⟨2019, 10, 1⟩, 361), (⟨2020, 10, 1⟩, 370), (⟨2021, 10, 1⟩, 366), (⟨2022, 10, 1⟩, 376), (⟨2023, 10, 1⟩, 426), (⟨2024, 10, 1⟩, 419), (⟨2025, 10, 1⟩, 430)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.GA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 354), (⟨2018, 10, 1⟩, 377), (⟨2019, 10, 1⟩, 378), (⟨2020, 10, 1⟩, 367), (⟨2021, 10, 1⟩, 339), (⟨2022, 10, 1⟩, 379), (⟨2023, 10, 1⟩, 412), (⟨2024, 10, 1⟩, 394), (⟨2025, 10, 1⟩, 405)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.GU : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2022, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.HI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2022, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.IA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 348), (⟨2018, 10, 1⟩, 449), (⟨2019, 10, 1⟩, 485), (⟨2020, 10, 1⟩, 496), (⟨2021, 10, 1⟩, 494), (⟨2022, 10, 1⟩, 517), (⟨2023, 10, 1⟩, 530), (⟨2024, 10, 1⟩, 539), (⟨2025, 10, 1⟩, 554)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.ID : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 279), (⟨2018, 10, 1⟩, 368), (⟨2019, 10, 1⟩, 344), (⟨2020, 10, 1⟩, 352), (⟨2021, 10, 1⟩, 361), (⟨2022, 10, 1⟩, 364), (⟨2023, 10, 1⟩, 376), (⟨2024, 10, 1⟩, 379), (⟨2025, 10, 1⟩, 389)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.IL : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 394), (⟨2018, 10, 1⟩, 466), (⟨2019, 10, 1⟩, 478), (⟨2020, 10, 1⟩, 496), (⟨2021, 10, 1⟩, 529), (⟨2022, 10, 1⟩, 626), (⟨2023, 10, 1⟩, 577), (⟨2024, 10, 1⟩, 532), (⟨2025, 10, 1⟩, 546)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.IN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 5, 1⟩, 400), (⟨2018, 5, 1⟩, 421), (⟨2019, 5, 1⟩, 419), (⟨2020, 3, 1⟩, 412), (⟨2021, 5, 1⟩, 417), (⟨2022, 5, 1⟩, 447), (⟨2023, 5, 1⟩, 502), (⟨2025, 10, 1⟩, 486)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.KS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 391), (⟨2018, 10, 1⟩, 357), (⟨2019, 10, 1⟩, 364), (⟨2020, 10, 1⟩, 355), (⟨2021, 10, 1⟩, 392), (⟨2022, 10, 1⟩, 442), (⟨2023, 10, 1⟩, 462), (⟨2024, 10, 1⟩, 456), (⟨2025, 10, 1⟩, 469)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.KY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 318), (⟨2018, 10, 1⟩, 321), (⟨2019, 10, 1⟩, 328), (⟨2020, 10, 1⟩, 329), (⟨2021, 10, 1⟩, 325), (⟨2022, 10, 1⟩, 347), (⟨2023, 10, 1⟩, 452), (⟨2024, 10, 1⟩, 378), (⟨2025, 10, 1⟩, 388)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.LA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 346), (⟨2018, 10, 1⟩, 356), (⟨2019, 10, 1⟩, 350), (⟨2020, 10, 1⟩, 350), (⟨2021, 10, 1⟩, 370), (⟨2022, 10, 1⟩, 414), (⟨2023, 4, 1⟩, 410), (⟨2023, 10, 1⟩, 414), (⟨2024, 10, 1⟩, 453), (⟨2025, 10, 1⟩, 465)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.MA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 636), (⟨2018, 10, 1⟩, 643), (⟨2019, 10, 1⟩, 646), (⟨2020, 10, 1⟩, 646), (⟨2021, 10, 1⟩, 688), (⟨2022, 3, 1⟩, 714), (⟨2022, 10, 1⟩, 860), (⟨2023, 10, 1⟩, 852), (⟨2024, 10, 1⟩, 890), (⟨2025, 10, 1⟩, 914)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.MD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 416), (⟨2018, 1, 1⟩, 420), (⟨2019, 1, 1⟩, 404), (⟨2019, 10, 1⟩, 404), (⟨2020, 1, 1⟩, 392), (⟨2021, 1, 1⟩, 388), (⟨2022, 1, 1⟩, 431), (⟨2023, 1, 1⟩, 505), (⟨2024, 1, 1⟩, 551), (⟨2025, 1, 1⟩, 557), (⟨2025, 10, 1⟩, 572)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.ME : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 692), (⟨2018, 10, 1⟩, 699), (⟨2019, 10, 1⟩, 782), (⟨2020, 10, 1⟩, 782), (⟨2021, 10, 1⟩, 844), (⟨2022, 3, 1⟩, 886), (⟨2022, 10, 1⟩, 1075), (⟨2023, 10, 1⟩, 1011), (⟨2024, 10, 1⟩, 1047), (⟨2025, 10, 1⟩, 1096)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.MI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 537), (⟨2018, 10, 1⟩, 543), (⟨2019, 10, 1⟩, 518), (⟨2020, 10, 1⟩, 537), (⟨2021, 10, 1⟩, 559), (⟨2022, 10, 1⟩, 620), (⟨2023, 3, 1⟩, 624), (⟨2023, 10, 1⟩, 686), (⟨2024, 10, 1⟩, 664), (⟨2025, 10, 1⟩, 682)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.MN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 556), (⟨2018, 10, 1⟩, 493), (⟨2019, 10, 1⟩, 490), (⟨2020, 10, 1⟩, 496), (⟨2021, 10, 1⟩, 488), (⟨2022, 10, 1⟩, 586), (⟨2023, 10, 1⟩, 651), (⟨2024, 10, 1⟩, 649), (⟨2025, 10, 1⟩, 667)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.MO : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 371), (⟨2018, 10, 1⟩, 380), (⟨2019, 10, 1⟩, 394), (⟨2020, 10, 1⟩, 404), (⟨2021, 10, 1⟩, 415), (⟨2022, 10, 1⟩, 441), (⟨2023, 10, 1⟩, 475), (⟨2024, 10, 1⟩, 495), (⟨2025, 10, 1⟩, 508)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.MS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 270), (⟨2018, 10, 1⟩, 278), (⟨2019, 10, 1⟩, 286), (⟨2020, 10, 1⟩, 277), (⟨2021, 10, 1⟩, 277), (⟨2022, 10, 1⟩, 301), (⟨2023, 10, 1⟩, 287), (⟨2024, 10, 1⟩, 300), (⟨2025, 10, 1⟩, 308)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.MT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 534), (⟨2018, 10, 1⟩, 545), (⟨2019, 10, 1⟩, 546), (⟨2020, 10, 1⟩, 563), (⟨2021, 10, 1⟩, 600), (⟨2022, 10, 1⟩, 669), (⟨2023, 10, 1⟩, 723), (⟨2024, 10, 1⟩, 778), (⟨2025, 10, 1⟩, 799)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 400), (⟨2018, 10, 1⟩, 437), (⟨2019, 10, 1⟩, 434), (⟨2020, 10, 1⟩, 440), (⟨2021, 10, 1⟩, 550), (⟨2022, 10, 1⟩, 557), (⟨2023, 10, 1⟩, 585), (⟨2024, 10, 1⟩, 620), (⟨2025, 10, 1⟩, 637)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.ND : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 610), (⟨2018, 10, 1⟩, 615), (⟨2019, 10, 1⟩, 611), (⟨2020, 10, 1⟩, 616), (⟨2021, 10, 1⟩, 645), (⟨2022, 10, 1⟩, 711), (⟨2023, 10, 1⟩, 735), (⟨2024, 10, 1⟩, 765), (⟨2025, 10, 1⟩, 772)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NE : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 469), (⟨2018, 10, 1⟩, 481), (⟨2019, 10, 1⟩, 490), (⟨2020, 10, 1⟩, 491), (⟨2021, 10, 1⟩, 511), (⟨2022, 10, 1⟩, 553), (⟨2023, 10, 1⟩, 580), (⟨2024, 10, 1⟩, 599), (⟨2025, 10, 1⟩, 615)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 689), (⟨2018, 10, 1⟩, 724), (⟨2019, 10, 1⟩, 718), (⟨2020, 10, 1⟩, 701), (⟨2021, 6, 1⟩, 702), (⟨2021, 10, 1⟩, 757), (⟨2022, 10, 1⟩, 965), (⟨2023, 10, 1⟩, 956), (⟨2024, 10, 1⟩, 991), (⟨2025, 10, 1⟩, 1018)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NJ : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 514), (⟨2018, 10, 1⟩, 542), (⟨2019, 10, 1⟩, 548), (⟨2020, 10, 1⟩, 548), (⟨2021, 10, 1⟩, 583), (⟨2022, 10, 1⟩, 730), (⟨2023, 10, 1⟩, 850), (⟨2024, 10, 1⟩, 878), (⟨2025, 10, 1⟩, 977)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NM : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 320), (⟨2018, 10, 1⟩, 344), (⟨2019, 10, 1⟩, 340), (⟨2020, 10, 1⟩, 348), (⟨2021, 10, 1⟩, 385), (⟨2022, 10, 1⟩, 388), (⟨2023, 10, 1⟩, 417), (⟨2024, 10, 1⟩, 408), (⟨2025, 10, 1⟩, 419)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 266), (⟨2018, 10, 1⟩, 285), (⟨2019, 10, 1⟩, 280), (⟨2020, 10, 1⟩, 275), (⟨2021, 10, 1⟩, 284), (⟨2022, 10, 1⟩, 370), (⟨2023, 10, 1⟩, 412), (⟨2024, 10, 1⟩, 434), (⟨2025, 10, 1⟩, 446)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NY_NAS : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 736), (⟨2018, 10, 1⟩, 744), (⟨2019, 10, 1⟩, 744), (⟨2020, 10, 1⟩, 744), (⟨2021, 10, 1⟩, 792), (⟨2022, 10, 1⟩, 932), (⟨2023, 10, 1⟩, 923), (⟨2024, 10, 1⟩, 962), (⟨2025, 10, 1⟩, 988)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NY_NYC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 791), (⟨2018, 10, 1⟩, 800), (⟨2019, 10, 1⟩, 800), (⟨2020, 10, 1⟩, 801), (⟨2021, 10, 1⟩, 852), (⟨2022, 10, 1⟩, 1002), (⟨2023, 10, 1⟩, 992), (⟨2024, 10, 1⟩, 1034), (⟨2025, 10, 1⟩, 1062)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.NY_ONY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 654), (⟨2018, 10, 1⟩, 661), (⟨2019, 10, 1⟩, 661), (⟨2020, 10, 1⟩, 661), (⟨2021, 10, 1⟩, 703), (⟨2022, 10, 1⟩, 827), (⟨2023, 10, 1⟩, 819), (⟨2024, 10, 1⟩, 854), (⟨2025, 10, 1⟩, 877)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.OH : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 530), (⟨2018, 10, 1⟩, 544), (⟨2019, 10, 1⟩, 548), (⟨2020, 10, 1⟩, 555), (⟨2021, 10, 1⟩, 580), (⟨2022, 10, 1⟩, 646), (⟨2023, 10, 1⟩, 724), (⟨2024, 10, 1⟩, 746), (⟨2025, 10, 1⟩, 766)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.OK : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 330), (⟨2018, 10, 1⟩, 362), (⟨2019, 10, 1⟩, 355), (⟨2020, 10, 1⟩, 341), (⟨2021, 10, 1⟩, 340), (⟨2022, 10, 1⟩, 391), (⟨2023, 10, 1⟩, 388), (⟨2024, 10, 1⟩, 401), (⟨2025, 10, 1⟩, 412)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.OR : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 454), (⟨2018, 10, 1⟩, 436), (⟨2019, 10, 1⟩, 444), (⟨2020, 10, 1⟩, 442), (⟨2021, 10, 1⟩, 450), (⟨2022, 10, 1⟩, 452), (⟨2023, 10, 1⟩, 469), (⟨2024, 10, 1⟩, 502), (⟨2025, 10, 1⟩, 515)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.PA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 580), (⟨2018, 10, 1⟩, 588), (⟨2019, 10, 1⟩, 594), (⟨2020, 10, 1⟩, 594), (⟨2021, 10, 1⟩, 612), (⟨2022, 10, 1⟩, 681), (⟨2023, 3, 1⟩, 679), (⟨2023, 10, 1⟩, 750), (⟨2024, 10, 1⟩, 758), (⟨2025, 10, 1⟩, 857)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.RI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 628), (⟨2018, 10, 1⟩, 635), (⟨2019, 10, 1⟩, 636), (⟨2020, 10, 1⟩, 636), (⟨2021, 10, 1⟩, 676), (⟨2022, 10, 1⟩, 797), (⟨2023, 5, 1⟩, 800), (⟨2023, 10, 1⟩, 787), (⟨2024, 10, 1⟩, 822), (⟨2025, 10, 1⟩, 844)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.SC : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 302), (⟨2018, 10, 1⟩, 302), (⟨2019, 10, 1⟩, 298), (⟨2020, 10, 1⟩, 302), (⟨2021, 10, 1⟩, 313), (⟨2022, 10, 1⟩, 342), (⟨2023, 10, 1⟩, 369), (⟨2024, 10, 1⟩, 378), (⟨2025, 10, 1⟩, 388)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.SD : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 721), (⟨2018, 10, 1⟩, 732), (⟨2019, 10, 1⟩, 750), (⟨2020, 10, 1⟩, 752), (⟨2021, 10, 1⟩, 784), (⟨2022, 10, 1⟩, 850), (⟨2023, 10, 1⟩, 892), (⟨2024, 10, 1⟩, 922), (⟨2025, 10, 1⟩, 947)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.TN : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 311), (⟨2018, 10, 1⟩, 317), (⟨2019, 10, 1⟩, 317), (⟨2020, 10, 1⟩, 317), (⟨2021, 10, 1⟩, 320), (⟨2022, 10, 1⟩, 403), (⟨2023, 10, 1⟩, 430), (⟨2024, 10, 1⟩, 439), (⟨2025, 10, 1⟩, 451)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.TX : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 342), (⟨2018, 10, 1⟩, 357), (⟨2019, 10, 1⟩, 355), (⟨2020, 10, 1⟩, 360), (⟨2021, 10, 1⟩, 367), (⟨2022, 10, 1⟩, 408), (⟨2023, 10, 1⟩, 424), (⟨2024, 10, 1⟩, 434), (⟨2025, 10, 1⟩, 445)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.UT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 365), (⟨2018, 10, 1⟩, 360), (⟨2019, 10, 1⟩, 364), (⟨2020, 10, 1⟩, 386), (⟨2021, 10, 1⟩, 376), (⟨2022, 10, 1⟩, 400), (⟨2023, 10, 1⟩, 503), (⟨2024, 10, 1⟩, 500), (⟨2025, 10, 1⟩, 514)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.VA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 306), (⟨2018, 10, 1⟩, 311), (⟨2019, 10, 1⟩, 303), (⟨2020, 10, 1⟩, 302), (⟨2021, 10, 1⟩, 322), (⟨2022, 10, 1⟩, 374), (⟨2023, 10, 1⟩, 414), (⟨2024, 10, 1⟩, 369), (⟨2025, 10, 1⟩, 375)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.VI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0), (⟨2021, 10, 1⟩, 0), (⟨2022, 10, 1⟩, 0), (⟨2023, 10, 1⟩, 0), (⟨2024, 10, 1⟩, 0), (⟨2025, 10, 1⟩, 0)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.VT : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 808), (⟨2018, 10, 1⟩, 822), (⟨2019, 10, 1⟩, 822), (⟨2020, 10, 1⟩, 822), (⟨2021, 10, 1⟩, 875), (⟨2022, 10, 1⟩, 1030), (⟨2023, 10, 1⟩, 1020), (⟨2024, 10, 1⟩, 1067), (⟨2025, 10, 1⟩, 1096)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.WA : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 421), (⟨2018, 10, 1⟩, 430), (⟨2019, 10, 1⟩, 437), (⟨2020, 10, 1⟩, 449), (⟨2021, 10, 1⟩, 458), (⟨2022, 10, 1⟩, 462), (⟨2023, 10, 1⟩, 483), (⟨2024, 10, 1⟩, 502), (⟨2025, 10, 1⟩, 515)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.WI : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 448), (⟨2018, 10, 1⟩, 452), (⟨2019, 10, 1⟩, 456), (⟨2020, 10, 1⟩, 462), (⟨2021, 10, 1⟩, 462), (⟨2022, 10, 1⟩, 471), (⟨2023, 10, 1⟩, 502), (⟨2024, 10, 1⟩, 538), (⟨2025, 10, 1⟩, 553)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.WV : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 462), (⟨2018, 10, 1⟩, 421), (⟨2019, 10, 1⟩, 412), (⟨2020, 10, 1⟩, 428), (⟨2021, 10, 1⟩, 436), (⟨2022, 10, 1⟩, 435), (⟨2023, 10, 1⟩, 496), (⟨2024, 10, 1⟩, 504), (⟨2025, 10, 1⟩, 518)]⟩
+def gov.usda.snap.income.deductions.utility.standard.main.WY : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 0), [(⟨2017, 10, 1⟩, 386), (⟨2018, 10, 1⟩, 393), (⟨2019, 10, 1⟩, 397), (⟨2020, 10, 1⟩, 399), (⟨2021, 10, 1⟩, 417), (⟨2022, 10, 1⟩, 456), (⟨2023, 10, 1⟩, 478), (⟨2024, 10, 1⟩, 497), (⟨2025, 10, 1⟩, 510)]⟩
+
+/-- These states count all rather than all but a prorated share of the income of household members who are ineligible for the Supplemental Nutrition Assistance Program based on certain immigration statuses.
+    `gov/usda/snap/income/ineligible_members/count_all_income_states.yaml` (policyengine-us).
+    * 7 CFR 273.11(c)(3)(i): https://www.law.cornell.edu/cfr/text/7/273.11#c_3_i
+    * SNAP State Options Report, 16th Edition: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-16th-state-options-report-june24.pdf#page=15 -/
+def gov.usda.snap.income.ineligible_members.count_all_income_states : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["AZ", "GU", "ID", "IN", "KS", "ME", "MA", "TN", "UT"]), []⟩
+
+/-- These states count all of the income of household members who are ineligible for the Supplemental Nutrition Assistance Program based on certain immigration statuses under the gross income test, while counting all but a prorated share under the net income test.
+    `gov/usda/snap/income/ineligible_members/gross_test_full_count_states.yaml` (policyengine-us).
+    * 7 CFR 273.11(c)(3)(i): https://www.law.cornell.edu/cfr/text/7/273.11#c_3_i
+    * SNAP State Options Report, 16th Edition: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-16th-state-options-report-june24.pdf#page=15 -/
+def gov.usda.snap.income.ineligible_members.gross_test_full_count_states : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["AR", "HI", "KY", "NC"]), []⟩
+
+/-- The Department of Agriculture grants states discretion over counting the income of household members who are ineligible for the Supplemental Nutrition Assistance Program due to these immigration statuses.
+    `gov/usda/snap/income/ineligible_members/pre_prwora_statuses.yaml` (policyengine-us).
+    * 7 CFR 273.11(c)(3)(i): https://www.law.cornell.edu/cfr/text/7/273.11#c_3_i
+    * 7 USC 2015(f) - Aliens: https://www.law.cornell.edu/uscode/text/7/2015#f
+    * SNAP State Options Report, 16th Edition: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-16th-state-options-report-june24.pdf#page=15 -/
+def gov.usda.snap.income.ineligible_members.pre_prwora_statuses : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["UNDOCUMENTED", "DACA", "TPS", "CONDITIONAL_ENTRANT"]), []⟩
+
+/-- SNAP gross income limit as a percentage of the poverty line.
+    `gov/usda/snap/income/limit/gross.yaml` (policyengine-us).
+    * 7 CFR § 273.9 - Income and deductions.: https://www.law.cornell.edu/cfr/text/7/273.9#a_1 -/
+def gov.usda.snap.income.limit.gross : DatedParam Rate :=
+  ⟨(⟨2005, 1, 1⟩, mkRat 13 10), []⟩
+
+/-- SNAP standard net income limit as a percentage of the poverty line.
+    `gov/usda/snap/income/limit/net.yaml` (policyengine-us).
+    * 7 CFR § 273.9 - Income and deductions.: https://www.law.cornell.edu/cfr/text/7/273.9#a_2 -/
+def gov.usda.snap.income.limit.net : DatedParam Rate :=
+  ⟨(⟨2005, 1, 1⟩, 1), []⟩
+
+/-- Person-level income sources that count as earned income for SNAP
+    `gov/usda/snap/income/sources/earned.yaml` (policyengine-us).
+    * 7 CFR 273.9(b)(1): https://www.law.cornell.edu/cfr/text/7/273.9#b_1 -/
+def gov.usda.snap.income.sources.earned : DatedParam (List String) :=
+  ⟨(⟨2009, 1, 1⟩, ["employment_income"]), []⟩
+
+/-- Person-level income sources that count as unearned income for SNAP
+    `gov/usda/snap/income/sources/unearned.yaml` (policyengine-us).
+    * 7 CFR 273.9(b)(2): https://www.law.cornell.edu/cfr/text/7/273.9#b_2 -/
+def gov.usda.snap.income.sources.unearned : DatedParam (List String) :=
+  ⟨(⟨2009, 1, 1⟩, ["ssi", "general_assistance", "pension_income", "veterans_benefits", "unemployment_compensation", "disability_benefits", "workers_compensation", "social_security", "survivor_benefits", "retirement_distributions", "rental_income", "child_support_received", "alimony_income", "dividend_income", "interest_income", "financial_assistance", "miscellaneous_income"]), []⟩
+
+/-- SPM unit-level income sources that count as unearned income for SNAP
+    `gov/usda/snap/income/sources/unearned_spm_unit.yaml` (policyengine-us).
+    * 7 CFR 273.9(b)(2): https://www.law.cornell.edu/cfr/text/7/273.9#b_2 -/
+def gov.usda.snap.income.sources.unearned_spm_unit : DatedParam (List String) :=
+  ⟨(⟨2009, 1, 1⟩, ["tanf"]), []⟩
+
+/-- Maximum SNAP allotment by SNAP region and household size.
+    `gov/usda/snap/max_allotment.yaml` (policyengine-us). -/
+def gov.usda.snap.max_allotment.main.AK_RURAL_1 : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 0), [(⟨2016, 10, 1⟩, 0), (⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 302), [(⟨2016, 10, 1⟩, 302), (⟨2017, 10, 1⟩, 293), (⟨2018, 10, 1⟩, 295), (⟨2019, 10, 1⟩, 304), (⟨2020, 10, 1⟩, 320), (⟨2021, 1, 1⟩, 368), (⟨2021, 10, 1⟩, 411), (⟨2022, 10, 1⟩, 448), (⟨2023, 10, 1⟩, 477), (⟨2024, 10, 1⟩, 481), (⟨2025, 10, 1⟩, 491)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 554), [(⟨2016, 10, 1⟩, 554), (⟨2017, 10, 1⟩, 538), (⟨2018, 10, 1⟩, 542), (⟨2019, 10, 1⟩, 558), (⟨2020, 10, 1⟩, 587), (⟨2021, 1, 1⟩, 675), (⟨2021, 10, 1⟩, 753), (⟨2022, 10, 1⟩, 822), (⟨2023, 10, 1⟩, 875), (⟨2024, 10, 1⟩, 882), (⟨2025, 10, 1⟩, 901)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 794), [(⟨2016, 10, 1⟩, 794), (⟨2017, 10, 1⟩, 771), (⟨2018, 10, 1⟩, 776), (⟨2019, 10, 1⟩, 799), (⟨2020, 10, 1⟩, 841), (⟨2021, 1, 1⟩, 967), (⟨2021, 10, 1⟩, 1079), (⟨2022, 10, 1⟩, 1177), (⟨2023, 10, 1⟩, 1253), (⟨2024, 10, 1⟩, 1263), (⟨2025, 10, 1⟩, 1295)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 1008), [(⟨2016, 10, 1⟩, 1008), (⟨2017, 10, 1⟩, 979), (⟨2018, 10, 1⟩, 986), (⟨2019, 10, 1⟩, 1015), (⟨2020, 10, 1⟩, 1068), (⟨2021, 1, 1⟩, 1228), (⟨2021, 10, 1⟩, 1370), (⟨2022, 10, 1⟩, 1494), (⟨2023, 10, 1⟩, 1591), (⟨2024, 10, 1⟩, 1604), (⟨2025, 10, 1⟩, 1639)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 1197), [(⟨2016, 10, 1⟩, 1197), (⟨2017, 10, 1⟩, 1162), (⟨2018, 10, 1⟩, 1171), (⟨2019, 10, 1⟩, 1205), (⟨2020, 10, 1⟩, 1268), (⟨2021, 1, 1⟩, 1459), (⟨2021, 10, 1⟩, 1627), (⟨2022, 10, 1⟩, 1774), (⟨2023, 10, 1⟩, 1890), (⟨2024, 10, 1⟩, 1905), (⟨2025, 10, 1⟩, 1950)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 1437), [(⟨2016, 10, 1⟩, 1437), (⟨2017, 10, 1⟩, 1395), (⟨2018, 10, 1⟩, 1405), (⟨2019, 10, 1⟩, 1447), (⟨2020, 10, 1⟩, 1522), (⟨2021, 1, 1⟩, 1751), (⟨2021, 10, 1⟩, 1952), (⟨2022, 10, 1⟩, 2129), (⟨2023, 10, 1⟩, 2268), (⟨2024, 10, 1⟩, 2287), (⟨2025, 10, 1⟩, 2344)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2015, 10, 1⟩, 1588), [(⟨2016, 10, 1⟩, 1588), (⟨2017, 10, 1⟩, 1542), (⟨2018, 10, 1⟩, 1553), (⟨2019, 10, 1⟩, 1599), (⟨2020, 10, 1⟩, 1682), (⟨2021, 1, 1⟩, 1935), (⟨2021, 10, 1⟩, 2158), (⟨2022, 10, 1⟩, 2354), (⟨2023, 10, 1⟩, 2506), (⟨2024, 10, 1⟩, 2527), (⟨2025, 10, 1⟩, 2590)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2015, 10, 1⟩, 1815), [(⟨2016, 10, 1⟩, 1815), (⟨2017, 10, 1⟩, 1762), (⟨2018, 10, 1⟩, 1775), (⟨2019, 10, 1⟩, 1827), (⟨2020, 10, 1⟩, 1923), (⟨2021, 1, 1⟩, 2211), (⟨2021, 10, 1⟩, 2466), (⟨2022, 10, 1⟩, 2690), (⟨2023, 10, 1⟩, 2865), (⟨2024, 10, 1⟩, 2888), (⟨2025, 10, 1⟩, 2950)]⟩⟩]⟩
+def gov.usda.snap.max_allotment.main.AK_RURAL_2 : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 0), [(⟨2016, 10, 1⟩, 0), (⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 368), [(⟨2016, 10, 1⟩, 368), (⟨2017, 10, 1⟩, 357), (⟨2018, 10, 1⟩, 360), (⟨2019, 10, 1⟩, 370), (⟨2020, 10, 1⟩, 390), (⟨2021, 1, 1⟩, 448), (⟨2021, 10, 1⟩, 500), (⟨2022, 10, 1⟩, 545), (⟨2023, 10, 1⟩, 581), (⟨2024, 10, 1⟩, 586), (⟨2025, 10, 1⟩, 598)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 675), [(⟨2016, 10, 1⟩, 675), (⟨2017, 10, 1⟩, 655), (⟨2018, 10, 1⟩, 660), (⟨2019, 10, 1⟩, 679), (⟨2020, 10, 1⟩, 715), (⟨2021, 1, 1⟩, 822), (⟨2021, 10, 1⟩, 917), (⟨2022, 10, 1⟩, 1000), (⟨2023, 10, 1⟩, 1065), (⟨2024, 10, 1⟩, 1074), (⟨2025, 10, 1⟩, 1097)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 966), [(⟨2016, 10, 1⟩, 966), (⟨2017, 10, 1⟩, 938), (⟨2018, 10, 1⟩, 945), (⟨2019, 10, 1⟩, 973), (⟨2020, 10, 1⟩, 1024), (⟨2021, 1, 1⟩, 1177), (⟨2021, 10, 1⟩, 1313), (⟨2022, 10, 1⟩, 1432), (⟨2023, 10, 1⟩, 1525), (⟨2024, 10, 1⟩, 1538), (⟨2025, 10, 1⟩, 1576)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 1227), [(⟨2016, 10, 1⟩, 1227), (⟨2017, 10, 1⟩, 1191), (⟨2018, 10, 1⟩, 1200), (⟨2019, 10, 1⟩, 1235), (⟨2020, 10, 1⟩, 1300), (⟨2021, 1, 1⟩, 1495), (⟨2021, 10, 1⟩, 1667), (⟨2022, 10, 1⟩, 1819), (⟨2023, 10, 1⟩, 1937), (⟨2024, 10, 1⟩, 1953), (⟨2025, 10, 1⟩, 1995)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 1457), [(⟨2016, 10, 1⟩, 1457), (⟨2017, 10, 1⟩, 1415), (⟨2018, 10, 1⟩, 1425), (⟨2019, 10, 1⟩, 1467), (⟨2020, 10, 1⟩, 1544), (⟨2021, 1, 1⟩, 1776), (⟨2021, 10, 1⟩, 1980), (⟨2022, 10, 1⟩, 2160), (⟨2023, 10, 1⟩, 2300), (⟨2024, 10, 1⟩, 2319), (⟨2025, 10, 1⟩, 2374)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 1749), [(⟨2016, 10, 1⟩, 1749), (⟨2017, 10, 1⟩, 1698), (⟨2018, 10, 1⟩, 1711), (⟨2019, 10, 1⟩, 1761), (⟨2020, 10, 1⟩, 1853), (⟨2021, 1, 1⟩, 2131), (⟨2021, 10, 1⟩, 2376), (⟨2022, 10, 1⟩, 2592), (⟨2023, 10, 1⟩, 2760), (⟨2024, 10, 1⟩, 2783), (⟨2025, 10, 1⟩, 2853)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2015, 10, 1⟩, 1933), [(⟨2016, 10, 1⟩, 1933), (⟨2017, 10, 1⟩, 1876), (⟨2018, 10, 1⟩, 1891), (⟨2019, 10, 1⟩, 1946), (⟨2020, 10, 1⟩, 2048), (⟨2021, 1, 1⟩, 2355), (⟨2021, 10, 1⟩, 2626), (⟨2022, 10, 1⟩, 2865), (⟨2023, 10, 1⟩, 3051), (⟨2024, 10, 1⟩, 3076), (⟨2025, 10, 1⟩, 3152)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2015, 10, 1⟩, 2209), [(⟨2016, 10, 1⟩, 2209), (⟨2017, 10, 1⟩, 2145), (⟨2018, 10, 1⟩, 2161), (⟨2019, 10, 1⟩, 2224), (⟨2020, 10, 1⟩, 2340), (⟨2021, 1, 1⟩, 2692), (⟨2021, 10, 1⟩, 3002), (⟨2022, 10, 1⟩, 3274), (⟨2023, 10, 1⟩, 3487), (⟨2024, 10, 1⟩, 3516), (⟨2025, 10, 1⟩, 3591)]⟩⟩]⟩
+def gov.usda.snap.max_allotment.main.AK_URBAN : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 0), [(⟨2016, 10, 1⟩, 0), (⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 237), [(⟨2016, 10, 1⟩, 237), (⟨2017, 10, 1⟩, 230), (⟨2018, 10, 1⟩, 232), (⟨2019, 10, 1⟩, 238), (⟨2020, 10, 1⟩, 251), (⟨2021, 1, 1⟩, 289), (⟨2021, 10, 1⟩, 322), (⟨2022, 10, 1⟩, 351), (⟨2023, 10, 1⟩, 374), (⟨2024, 10, 1⟩, 377), (⟨2025, 10, 1⟩, 385)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 435), [(⟨2016, 10, 1⟩, 435), (⟨2017, 10, 1⟩, 422), (⟨2018, 10, 1⟩, 425), (⟨2019, 10, 1⟩, 437), (⟨2020, 10, 1⟩, 460), (⟨2021, 1, 1⟩, 530), (⟨2021, 10, 1⟩, 591), (⟨2022, 10, 1⟩, 644), (⟨2023, 10, 1⟩, 686), (⟨2024, 10, 1⟩, 692), (⟨2025, 10, 1⟩, 707)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 622), [(⟨2016, 10, 1⟩, 622), (⟨2017, 10, 1⟩, 604), (⟨2018, 10, 1⟩, 609), (⟨2019, 10, 1⟩, 627), (⟨2020, 10, 1⟩, 659), (⟨2021, 1, 1⟩, 758), (⟨2021, 10, 1⟩, 846), (⟨2022, 10, 1⟩, 923), (⟨2023, 10, 1⟩, 983), (⟨2024, 10, 1⟩, 991), (⟨2025, 10, 1⟩, 1015)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 790), [(⟨2016, 10, 1⟩, 790), (⟨2017, 10, 1⟩, 767), (⟨2018, 10, 1⟩, 773), (⟨2019, 10, 1⟩, 796), (⟨2020, 10, 1⟩, 837), (⟨2021, 1, 1⟩, 963), (⟨2021, 10, 1⟩, 1074), (⟨2022, 10, 1⟩, 1172), (⟨2023, 10, 1⟩, 1248), (⟨2024, 10, 1⟩, 1258), (⟨2025, 10, 1⟩, 1285)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 939), [(⟨2016, 10, 1⟩, 939), (⟨2017, 10, 1⟩, 911), (⟨2018, 10, 1⟩, 918), (⟨2019, 10, 1⟩, 945), (⟨2020, 10, 1⟩, 995), (⟨2021, 1, 1⟩, 1114), (⟨2021, 10, 1⟩, 1276), (⟨2022, 10, 1⟩, 1391), (⟨2023, 10, 1⟩, 1482), (⟨2024, 10, 1⟩, 1494), (⟨2025, 10, 1⟩, 1529)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 1127), [(⟨2016, 10, 1⟩, 1127), (⟨2017, 10, 1⟩, 1094), (⟨2018, 10, 1⟩, 1102), (⟨2019, 10, 1⟩, 1134), (⟨2020, 10, 1⟩, 1194), (⟨2021, 1, 1⟩, 1373), (⟨2021, 10, 1⟩, 1531), (⟨2022, 10, 1⟩, 1670), (⟨2023, 10, 1⟩, 1778), (⟨2024, 10, 1⟩, 1793), (⟨2025, 10, 1⟩, 1838)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2015, 10, 1⟩, 1245), [(⟨2016, 10, 1⟩, 1245), (⟨2017, 10, 1⟩, 1209), (⟨2018, 10, 1⟩, 1218), (⟨2019, 10, 1⟩, 1254), (⟨2020, 10, 1⟩, 1319), (⟨2021, 1, 1⟩, 1517), (⟨2021, 10, 1⟩, 1692), (⟨2022, 10, 1⟩, 1846), (⟨2023, 10, 1⟩, 1966), (⟨2024, 10, 1⟩, 1982), (⟨2025, 10, 1⟩, 2031)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2015, 10, 1⟩, 1423), [(⟨2016, 10, 1⟩, 1423), (⟨2017, 10, 1⟩, 1382), (⟨2018, 10, 1⟩, 1392), (⟨2019, 10, 1⟩, 1433), (⟨2020, 10, 1⟩, 1508), (⟨2021, 1, 1⟩, 1734), (⟨2021, 10, 1⟩, 1934), (⟨2022, 10, 1⟩, 2109), (⟨2023, 10, 1⟩, 2246), (⟨2024, 10, 1⟩, 2265), (⟨2025, 10, 1⟩, 2314)]⟩⟩]⟩
+def gov.usda.snap.max_allotment.main.CONTIGUOUS_US : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 0), [(⟨2016, 10, 1⟩, 0), (⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 194), [(⟨2016, 10, 1⟩, 194), (⟨2017, 10, 1⟩, 192), (⟨2018, 10, 1⟩, 192), (⟨2019, 10, 1⟩, 194), (⟨2020, 10, 1⟩, 204), (⟨2021, 1, 1⟩, 234), (⟨2021, 10, 1⟩, 250), (⟨2022, 10, 1⟩, 281), (⟨2023, 10, 1⟩, 291), (⟨2024, 10, 1⟩, 292), (⟨2025, 10, 1⟩, 298)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 357), [(⟨2016, 10, 1⟩, 357), (⟨2017, 10, 1⟩, 352), (⟨2018, 10, 1⟩, 353), (⟨2019, 10, 1⟩, 355), (⟨2020, 10, 1⟩, 374), (⟨2021, 1, 1⟩, 430), (⟨2021, 10, 1⟩, 459), (⟨2022, 10, 1⟩, 516), (⟨2023, 10, 1⟩, 535), (⟨2024, 10, 1⟩, 536), (⟨2025, 10, 1⟩, 546)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 511), [(⟨2016, 10, 1⟩, 511), (⟨2017, 10, 1⟩, 504), (⟨2018, 10, 1⟩, 505), (⟨2019, 10, 1⟩, 509), (⟨2020, 10, 1⟩, 535), (⟨2021, 1, 1⟩, 616), (⟨2021, 10, 1⟩, 658), (⟨2022, 10, 1⟩, 740), (⟨2023, 10, 1⟩, 766), (⟨2024, 10, 1⟩, 768), (⟨2025, 10, 1⟩, 785)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 649), [(⟨2016, 10, 1⟩, 649), (⟨2017, 10, 1⟩, 640), (⟨2018, 10, 1⟩, 642), (⟨2019, 10, 1⟩, 646), (⟨2020, 10, 1⟩, 680), (⟨2021, 1, 1⟩, 782), (⟨2021, 10, 1⟩, 835), (⟨2022, 10, 1⟩, 939), (⟨2023, 10, 1⟩, 973), (⟨2024, 10, 1⟩, 975), (⟨2025, 10, 1⟩, 994)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 771), [(⟨2016, 10, 1⟩, 771), (⟨2017, 10, 1⟩, 760), (⟨2018, 10, 1⟩, 762), (⟨2019, 10, 1⟩, 768), (⟨2020, 10, 1⟩, 807), (⟨2021, 1, 1⟩, 929), (⟨2021, 10, 1⟩, 992), (⟨2022, 10, 1⟩, 1116), (⟨2023, 10, 1⟩, 1155), (⟨2024, 10, 1⟩, 1158), (⟨2025, 10, 1⟩, 1183)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 925), [(⟨2016, 10, 1⟩, 925), (⟨2017, 10, 1⟩, 913), (⟨2018, 10, 1⟩, 914), (⟨2019, 10, 1⟩, 921), (⟨2020, 10, 1⟩, 969), (⟨2021, 1, 1⟩, 1114), (⟨2021, 10, 1⟩, 1190), (⟨2022, 10, 1⟩, 1339), (⟨2023, 10, 1⟩, 1386), (⟨2024, 10, 1⟩, 1390), (⟨2025, 10, 1⟩, 1421)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2015, 10, 1⟩, 1022), [(⟨2016, 10, 1⟩, 1022), (⟨2017, 10, 1⟩, 1009), (⟨2018, 10, 1⟩, 1011), (⟨2019, 10, 1⟩, 1018), (⟨2020, 10, 1⟩, 1071), (⟨2021, 1, 1⟩, 1232), (⟨2021, 10, 1⟩, 1316), (⟨2022, 10, 1⟩, 1480), (⟨2023, 10, 1⟩, 1532), (⟨2024, 10, 1⟩, 1536), (⟨2025, 10, 1⟩, 1571)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2015, 10, 1⟩, 1169), [(⟨2016, 10, 1⟩, 1169), (⟨2017, 10, 1⟩, 1153), (⟨2018, 10, 1⟩, 1155), (⟨2019, 10, 1⟩, 1164), (⟨2020, 10, 1⟩, 1224), (⟨2021, 1, 1⟩, 1408), (⟨2021, 10, 1⟩, 1504), (⟨2022, 10, 1⟩, 1691), (⟨2023, 10, 1⟩, 1751), (⟨2024, 10, 1⟩, 1756), (⟨2025, 10, 1⟩, 1789)]⟩⟩]⟩
+def gov.usda.snap.max_allotment.main.GU : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 0), [(⟨2016, 10, 1⟩, 0), (⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 287), [(⟨2016, 10, 1⟩, 287), (⟨2017, 10, 1⟩, 283), (⟨2018, 10, 1⟩, 283), (⟨2019, 10, 1⟩, 285), (⟨2020, 10, 1⟩, 300), (⟨2021, 1, 1⟩, 345), (⟨2021, 10, 1⟩, 369), (⟨2022, 10, 1⟩, 415), (⟨2023, 10, 1⟩, 430), (⟨2024, 10, 1⟩, 431), (⟨2025, 10, 1⟩, 439)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 526), [(⟨2016, 10, 1⟩, 526), (⟨2017, 10, 1⟩, 519), (⟨2018, 10, 1⟩, 520), (⟨2019, 10, 1⟩, 524), (⟨2020, 10, 1⟩, 551), (⟨2021, 1, 1⟩, 634), (⟨2021, 10, 1⟩, 677), (⟨2022, 10, 1⟩, 761), (⟨2023, 10, 1⟩, 788), (⟨2024, 10, 1⟩, 790), (⟨2025, 10, 1⟩, 806)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 753), [(⟨2016, 10, 1⟩, 753), (⟨2017, 10, 1⟩, 743), (⟨2018, 10, 1⟩, 745), (⟨2019, 10, 1⟩, 750), (⟨2020, 10, 1⟩, 789), (⟨2021, 1, 1⟩, 908), (⟨2021, 10, 1⟩, 969), (⟨2022, 10, 1⟩, 1090), (⟨2023, 10, 1⟩, 1129), (⟨2024, 10, 1⟩, 1132), (⟨2025, 10, 1⟩, 1157)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 957), [(⟨2016, 10, 1⟩, 957), (⟨2017, 10, 1⟩, 944), (⟨2018, 10, 1⟩, 946), (⟨2019, 10, 1⟩, 953), (⟨2020, 10, 1⟩, 1002), (⟨2021, 1, 1⟩, 1153), (⟨2021, 10, 1⟩, 1231), (⟨2022, 10, 1⟩, 1385), (⟨2023, 10, 1⟩, 1434), (⟨2024, 10, 1⟩, 1437), (⟨2025, 10, 1⟩, 1465)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 1136), [(⟨2016, 10, 1⟩, 1136), (⟨2017, 10, 1⟩, 1121), (⟨2018, 10, 1⟩, 1123), (⟨2019, 10, 1⟩, 1131), (⟨2020, 10, 1⟩, 1190), (⟨2021, 1, 1⟩, 1369), (⟨2021, 10, 1⟩, 1462), (⟨2022, 10, 1⟩, 1644), (⟨2023, 10, 1⟩, 1703), (⟨2024, 10, 1⟩, 1707), (⟨2025, 10, 1⟩, 1743)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 1364), [(⟨2016, 10, 1⟩, 1364), (⟨2017, 10, 1⟩, 1345), (⟨2018, 10, 1⟩, 1348), (⟨2019, 10, 1⟩, 1358), (⟨2020, 10, 1⟩, 1428), (⟨2021, 1, 1⟩, 1643), (⟨2021, 10, 1⟩, 1754), (⟨2022, 10, 1⟩, 1973), (⟨2023, 10, 1⟩, 2044), (⟨2024, 10, 1⟩, 2049), (⟨2025, 10, 1⟩, 2095)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2015, 10, 1⟩, 1507), [(⟨2016, 10, 1⟩, 1507), (⟨2017, 10, 1⟩, 1487), (⟨2018, 10, 1⟩, 1490), (⟨2019, 10, 1⟩, 1501), (⟨2020, 10, 1⟩, 1579), (⟨2021, 1, 1⟩, 1816), (⟨2021, 10, 1⟩, 1939), (⟨2022, 10, 1⟩, 2181), (⟨2023, 10, 1⟩, 2259), (⟨2024, 10, 1⟩, 2264), (⟨2025, 10, 1⟩, 2315)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2015, 10, 1⟩, 1723), [(⟨2016, 10, 1⟩, 1723), (⟨2017, 10, 1⟩, 1699), (⟨2018, 10, 1⟩, 1703), (⟨2019, 10, 1⟩, 1715), (⟨2020, 10, 1⟩, 1804), (⟨2021, 1, 1⟩, 2075), (⟨2021, 10, 1⟩, 2216), (⟨2022, 10, 1⟩, 2493), (⟨2023, 10, 1⟩, 2581), (⟨2024, 10, 1⟩, 2588), (⟨2025, 10, 1⟩, 2637)]⟩⟩]⟩
+def gov.usda.snap.max_allotment.main.HI : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 0), [(⟨2016, 10, 1⟩, 0), (⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 343), [(⟨2016, 10, 1⟩, 354), (⟨2017, 10, 1⟩, 358), (⟨2018, 10, 1⟩, 358), (⟨2019, 10, 1⟩, 356), (⟨2020, 10, 1⟩, 375), (⟨2021, 1, 1⟩, 432), (⟨2021, 10, 1⟩, 472), (⟨2022, 10, 1⟩, 538), (⟨2023, 10, 1⟩, 527), (⟨2024, 10, 1⟩, 517), (⟨2025, 10, 1⟩, 506)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 630), [(⟨2016, 10, 1⟩, 650), (⟨2017, 10, 1⟩, 657), (⟨2018, 10, 1⟩, 656), (⟨2019, 10, 1⟩, 654), (⟨2020, 10, 1⟩, 688), (⟨2021, 1, 1⟩, 792), (⟨2021, 10, 1⟩, 865), (⟨2022, 10, 1⟩, 987), (⟨2023, 10, 1⟩, 967), (⟨2024, 10, 1⟩, 948), (⟨2025, 10, 1⟩, 929)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 902), [(⟨2016, 10, 1⟩, 931), (⟨2017, 10, 1⟩, 941), (⟨2018, 10, 1⟩, 940), (⟨2019, 10, 1⟩, 936), (⟨2020, 10, 1⟩, 986), (⟨2021, 1, 1⟩, 1134), (⟨2021, 10, 1⟩, 1239), (⟨2022, 10, 1⟩, 1413), (⟨2023, 10, 1⟩, 1385), (⟨2024, 10, 1⟩, 1357), (⟨2025, 10, 1⟩, 1334)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 1146), [(⟨2016, 10, 1⟩, 1182), (⟨2017, 10, 1⟩, 1195), (⟨2018, 10, 1⟩, 1193), (⟨2019, 10, 1⟩, 1189), (⟨2020, 10, 1⟩, 1252), (⟨2021, 1, 1⟩, 1440), (⟨2021, 10, 1⟩, 1573), (⟨2022, 10, 1⟩, 1794), (⟨2023, 10, 1⟩, 1759), (⟨2024, 10, 1⟩, 1723), (⟨2025, 10, 1⟩, 1689)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 1361), [(⟨2016, 10, 1⟩, 1404), (⟨2017, 10, 1⟩, 1419), (⟨2018, 10, 1⟩, 1417), (⟨2019, 10, 1⟩, 1412), (⟨2020, 10, 1⟩, 1487), (⟨2021, 1, 1⟩, 1710), (⟨2021, 10, 1⟩, 1868), (⟨2022, 10, 1⟩, 2131), (⟨2023, 10, 1⟩, 2088), (⟨2024, 10, 1⟩, 2046), (⟨2025, 10, 1⟩, 2010)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 1633), [(⟨2016, 10, 1⟩, 1685), (⟨2017, 10, 1⟩, 1703), (⟨2018, 10, 1⟩, 1701), (⟨2019, 10, 1⟩, 1695), (⟨2020, 10, 1⟩, 1784), (⟨2021, 1, 1⟩, 2052), (⟨2021, 10, 1⟩, 2242), (⟨2022, 10, 1⟩, 2557), (⟨2023, 10, 1⟩, 2506), (⟨2024, 10, 1⟩, 2456), (⟨2025, 10, 1⟩, 2415)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2015, 10, 1⟩, 1805), [(⟨2016, 10, 1⟩, 1862), (⟨2017, 10, 1⟩, 1883), (⟨2018, 10, 1⟩, 1880), (⟨2019, 10, 1⟩, 1873), (⟨2020, 10, 1⟩, 1972), (⟨2021, 1, 1⟩, 2268), (⟨2021, 10, 1⟩, 2478), (⟨2022, 10, 1⟩, 2826), (⟨2023, 10, 1⟩, 2770), (⟨2024, 10, 1⟩, 2714), (⟨2025, 10, 1⟩, 2668)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2015, 10, 1⟩, 2063), [(⟨2016, 10, 1⟩, 2128), (⟨2017, 10, 1⟩, 2152), (⟨2018, 10, 1⟩, 2148), (⟨2019, 10, 1⟩, 2141), (⟨2020, 10, 1⟩, 2254), (⟨2021, 1, 1⟩, 2592), (⟨2021, 10, 1⟩, 2832), (⟨2022, 10, 1⟩, 3230), (⟨2023, 10, 1⟩, 3166), (⟨2024, 10, 1⟩, 3102), (⟨2025, 10, 1⟩, 3040)]⟩⟩]⟩
+def gov.usda.snap.max_allotment.main.VI : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 0), [(⟨2016, 10, 1⟩, 0), (⟨2017, 10, 1⟩, 0), (⟨2018, 10, 1⟩, 0), (⟨2019, 10, 1⟩, 0), (⟨2020, 10, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 10, 1⟩, 250), [(⟨2016, 10, 1⟩, 250), (⟨2017, 10, 1⟩, 247), (⟨2018, 10, 1⟩, 247), (⟨2019, 10, 1⟩, 249), (⟨2020, 10, 1⟩, 262), (⟨2021, 1, 1⟩, 301), (⟨2021, 10, 1⟩, 322), (⟨2022, 10, 1⟩, 362), (⟨2023, 10, 1⟩, 375), (⟨2024, 10, 1⟩, 376), (⟨2025, 10, 1⟩, 383)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2015, 10, 1⟩, 459), [(⟨2016, 10, 1⟩, 459), (⟨2017, 10, 1⟩, 453), (⟨2018, 10, 1⟩, 454), (⟨2019, 10, 1⟩, 457), (⟨2020, 10, 1⟩, 481), (⟨2021, 1, 1⟩, 553), (⟨2021, 10, 1⟩, 590), (⟨2022, 10, 1⟩, 664), (⟨2023, 10, 1⟩, 688), (⟨2024, 10, 1⟩, 689), (⟨2025, 10, 1⟩, 703)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2015, 10, 1⟩, 657), [(⟨2016, 10, 1⟩, 657), (⟨2017, 10, 1⟩, 648), (⟨2018, 10, 1⟩, 650), (⟨2019, 10, 1⟩, 654), (⟨2020, 10, 1⟩, 688), (⟨2021, 1, 1⟩, 792), (⟨2021, 10, 1⟩, 845), (⟨2022, 10, 1⟩, 951), (⟨2023, 10, 1⟩, 985), (⟨2024, 10, 1⟩, 987), (⟨2025, 10, 1⟩, 1009)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 10, 1⟩, 835), [(⟨2016, 10, 1⟩, 835), (⟨2017, 10, 1⟩, 823), (⟨2018, 10, 1⟩, 825), (⟨2019, 10, 1⟩, 831), (⟨2020, 10, 1⟩, 874), (⟨2021, 1, 1⟩, 1005), (⟨2021, 10, 1⟩, 1074), (⟨2022, 10, 1⟩, 1208), (⟨2023, 10, 1⟩, 1251), (⟨2024, 10, 1⟩, 1254), (⟨2025, 10, 1⟩, 1278)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 5), []⟩, ⟨(⟨2015, 10, 1⟩, 991), [(⟨2016, 10, 1⟩, 991), (⟨2017, 10, 1⟩, 978), (⟨2018, 10, 1⟩, 980), (⟨2019, 10, 1⟩, 987), (⟨2020, 10, 1⟩, 1038), (⟨2021, 1, 1⟩, 1194), (⟨2021, 10, 1⟩, 1275), (⟨2022, 10, 1⟩, 1434), (⟨2023, 10, 1⟩, 1485), (⟨2024, 10, 1⟩, 1489), (⟨2025, 10, 1⟩, 1521)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 6), []⟩, ⟨(⟨2015, 10, 1⟩, 1189), [(⟨2016, 10, 1⟩, 1189), (⟨2017, 10, 1⟩, 1173), (⟨2018, 10, 1⟩, 1176), (⟨2019, 10, 1⟩, 1184), (⟨2020, 10, 1⟩, 1246), (⟨2021, 1, 1⟩, 1433), (⟨2021, 10, 1⟩, 1530), (⟨2022, 10, 1⟩, 1721), (⟨2023, 10, 1⟩, 1782), (⟨2024, 10, 1⟩, 1787), (⟨2025, 10, 1⟩, 1827)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 7), []⟩, ⟨(⟨2015, 10, 1⟩, 1315), [(⟨2016, 10, 1⟩, 1315), (⟨2017, 10, 1⟩, 1297), (⟨2018, 10, 1⟩, 1300), (⟨2019, 10, 1⟩, 1309), (⟨2020, 10, 1⟩, 1377), (⟨2021, 1, 1⟩, 1584), (⟨2021, 10, 1⟩, 1691), (⟨2022, 10, 1⟩, 1903), (⟨2023, 10, 1⟩, 1970), (⟨2024, 10, 1⟩, 1975), (⟨2025, 10, 1⟩, 2019)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 8), []⟩, ⟨(⟨2015, 10, 1⟩, 1503), [(⟨2016, 10, 1⟩, 1503), (⟨2017, 10, 1⟩, 1482), (⟨2018, 10, 1⟩, 1485), (⟨2019, 10, 1⟩, 1496), (⟨2020, 10, 1⟩, 1574), (⟨2021, 1, 1⟩, 1810), (⟨2021, 10, 1⟩, 1933), (⟨2022, 10, 1⟩, 2174), (⟨2023, 10, 1⟩, 2252), (⟨2024, 10, 1⟩, 2257), (⟨2025, 10, 1⟩, 2300)]⟩⟩]⟩
+
+/-- `gov/usda/snap/max_allotment.yaml` (policyengine-us). -/
+def gov.usda.snap.max_allotment.additional.AK_RURAL_1 : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 227), [(⟨2016, 10, 1⟩, 227), (⟨2017, 10, 1⟩, 220), (⟨2018, 10, 1⟩, 222), (⟨2019, 10, 1⟩, 228), (⟨2020, 10, 1⟩, 240), (⟨2021, 1, 1⟩, 276), (⟨2021, 10, 1⟩, 308), (⟨2022, 10, 1⟩, 336), (⟨2023, 10, 1⟩, 358), (⟨2024, 10, 1⟩, 361), (⟨2025, 10, 1⟩, 360)]⟩
+def gov.usda.snap.max_allotment.additional.AK_RURAL_2 : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 276), [(⟨2016, 10, 1⟩, 276), (⟨2017, 10, 1⟩, 268), (⟨2018, 10, 1⟩, 270), (⟨2019, 10, 1⟩, 278), (⟨2020, 10, 1⟩, 293), (⟨2021, 1, 1⟩, 337), (⟨2021, 10, 1⟩, 375), (⟨2022, 10, 1⟩, 409), (⟨2023, 10, 1⟩, 436), (⟨2024, 10, 1⟩, 440), (⟨2025, 10, 1⟩, 438)]⟩
+def gov.usda.snap.max_allotment.additional.AK_URBAN : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 178), [(⟨2016, 10, 1⟩, 178), (⟨2017, 10, 1⟩, 173), (⟨2018, 10, 1⟩, 174), (⟨2019, 10, 1⟩, 179), (⟨2020, 10, 1⟩, 189), (⟨2021, 1, 1⟩, 217), (⟨2021, 10, 1⟩, 242), (⟨2022, 10, 1⟩, 264), (⟨2023, 10, 1⟩, 281), (⟨2024, 10, 1⟩, 283), (⟨2025, 10, 1⟩, 282)]⟩
+def gov.usda.snap.max_allotment.additional.CONTIGUOUS_US : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 146), [(⟨2016, 10, 1⟩, 146), (⟨2017, 10, 1⟩, 144), (⟨2018, 10, 1⟩, 144), (⟨2019, 10, 1⟩, 146), (⟨2020, 10, 1⟩, 153), (⟨2021, 1, 1⟩, 176), (⟨2021, 10, 1⟩, 188), (⟨2022, 10, 1⟩, 211), (⟨2023, 10, 1⟩, 219), (⟨2024, 10, 1⟩, 220), (⟨2025, 10, 1⟩, 218)]⟩
+def gov.usda.snap.max_allotment.additional.GU : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 215), [(⟨2016, 10, 1⟩, 215), (⟨2017, 10, 1⟩, 212), (⟨2018, 10, 1⟩, 213), (⟨2019, 10, 1⟩, 214), (⟨2020, 10, 1⟩, 226), (⟨2021, 1, 1⟩, 259), (⟨2021, 10, 1⟩, 277), (⟨2022, 10, 1⟩, 312), (⟨2023, 10, 1⟩, 323), (⟨2024, 10, 1⟩, 324), (⟨2025, 10, 1⟩, 322)]⟩
+def gov.usda.snap.max_allotment.additional.HI : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 258), [(⟨2016, 10, 1⟩, 266), (⟨2017, 10, 1⟩, 269), (⟨2018, 10, 1⟩, 269), (⟨2019, 10, 1⟩, 268), (⟨2020, 10, 1⟩, 282), (⟨2021, 1, 1⟩, 324), (⟨2021, 10, 1⟩, 354), (⟨2022, 10, 1⟩, 404), (⟨2023, 10, 1⟩, 396), (⟨2024, 10, 1⟩, 388), (⟨2025, 10, 1⟩, 371)]⟩
+def gov.usda.snap.max_allotment.additional.VI : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 188), [(⟨2016, 10, 1⟩, 188), (⟨2017, 10, 1⟩, 185), (⟨2018, 10, 1⟩, 186), (⟨2019, 10, 1⟩, 187), (⟨2020, 10, 1⟩, 197), (⟨2021, 1, 1⟩, 226), (⟨2021, 10, 1⟩, 242), (⟨2022, 10, 1⟩, 272), (⟨2023, 10, 1⟩, 282), (⟨2024, 10, 1⟩, 282), (⟨2025, 10, 1⟩, 281)]⟩
+
+/-- Maximum household size for SNAP minimum allotments
+    `gov/usda/snap/min_allotment/maximum_household_size.yaml` (policyengine-us).
+    * 7 CFR § 273.10 - Determining household eligibility and benefit levels.: https://www.law.cornell.edu/cfr/text/7/273.10#e_2_ii_C -/
+def gov.usda.snap.min_allotment.maximum_household_size : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 2), []⟩
+
+/-- Minimum SNAP allotment as a fraction of maximum allotment
+    `gov/usda/snap/min_allotment/rate.yaml` (policyengine-us).
+    * 7 CFR § 273.10 - Determining household eligibility and benefit levels.: https://www.law.cornell.edu/cfr/text/7/273.10#e_2_ii_C -/
+def gov.usda.snap.min_allotment.rate : DatedParam Rate :=
+  ⟨(⟨2015, 10, 1⟩, mkRat 2 25), []⟩
+
+/-- In calculating a SNAP minimum allotment, the household size to look up the relevant maximum allotment
+    `gov/usda/snap/min_allotment/relevant_max_allotment_household_size.yaml` (policyengine-us).
+    * 7 CFR § 273.10 - Determining household eligibility and benefit levels.: https://www.law.cornell.edu/cfr/text/7/273.10#e_2_ii_C -/
+def gov.usda.snap.min_allotment.relevant_max_allotment_household_size : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 1), []⟩
+
+/-- The United States includes students in the Supplemental Nutrition Assistance Program unit if their age falls into the following range.
+    `gov/usda/snap/student/age_threshold.yaml` (policyengine-us).
+    * 7 U.S. Code § 2015 - Eligibility disqualifications (e)(1): https://www.law.cornell.edu/uscode/text/7/2015 -/
+def gov.usda.snap.student.age_threshold : Scale :=
+  ⟨[⟨⟨(⟨2018, 1, 1⟩, 0), []⟩, ⟨(⟨2018, 1, 1⟩, 1), []⟩⟩,
+    ⟨⟨(⟨2018, 1, 1⟩, 18), []⟩, ⟨(⟨2018, 1, 1⟩, 0), []⟩⟩,
+    ⟨⟨(⟨2018, 1, 1⟩, 50), []⟩, ⟨(⟨2018, 1, 1⟩, 1), []⟩⟩]⟩
+
+/-- The Department of Agriculture provides the Supplemental Nutrition Assistance Program to students if they are single parents caring for a child below this age.
+    `gov/usda/snap/student/child_age_limit/single_parent.yaml` (policyengine-us).
+    * 7 U.S. Code § 2015 - Eligibility disqualifications (e)(8): https://www.law.cornell.edu/uscode/text/7/2015#e -/
+def gov.usda.snap.student.child_age_limit.single_parent : DatedParam Rat :=
+  ⟨(⟨2005, 1, 1⟩, 12), []⟩
+
+/-- The Department of Agriculture provides the Supplemental Nutrition Assistance Program to students if they are parents in two-parent households caring for a child below this age.
+    `gov/usda/snap/student/child_age_limit/two_parent.yaml` (policyengine-us).
+    * 7 U.S. Code § 2015 - Eligibility disqualifications (e)(5)(A): https://www.law.cornell.edu/uscode/text/7/2015#e -/
+def gov.usda.snap.student.child_age_limit.two_parent : DatedParam Rat :=
+  ⟨(⟨2005, 1, 1⟩, 6), []⟩
+
+/-- The United States includes students who work more than this number of weekly hours in the Supplemental Nutrition Assistance Program unit.
+    `gov/usda/snap/student/working_hours_threshold.yaml` (policyengine-us).
+    * 7 U.S. Code § 2015 - Eligibility disqualifications (e)(4): https://www.law.cornell.edu/uscode/text/7/2015 -/
+def gov.usda.snap.student.working_hours_threshold : DatedParam Rat :=
+  ⟨(⟨2005, 1, 1⟩, 20), []⟩
+
+/-- The US sets SNAP benefits at the Thrifty Food Plan each year, updating in October. This approximates that uprating via CPI-U.
+    `gov/usda/snap/uprating.yaml` (policyengine-us).
+    * 7 U.S. Code § 2012(u)(4): https://www.law.cornell.edu/uscode/text/7/2012#u_4
+    * BLS Consumer Price Index for All Urban Consumers (CPI-U), all items, U.S. city average, not seasonally adjusted (CUUR0000SA0): https://data.bls.gov/timeseries/CUUR0000SA0
+    * CBO Economic Projections, February 2024.: https://www.cbo.gov/publication/59710 -/
+def gov.usda.snap.uprating : DatedParam USD :=
+  ⟨(⟨2020, 10, 1⟩, mkRat 257797 1000), [(⟨2021, 10, 1⟩, mkRat 33962 125), (⟨2022, 10, 1⟩, mkRat 296311 1000), (⟨2023, 10, 1⟩, mkRat 305109 1000), (⟨2024, 10, 1⟩, mkRat 12567 40), (⟨2025, 10, 1⟩, mkRat 322561 1000), (⟨2026, 10, 1⟩, mkRat 41744 125), (⟨2027, 10, 1⟩, mkRat 671 2), (⟨2028, 10, 1⟩, mkRat 3427 10), (⟨2029, 10, 1⟩, mkRat 3503 10), (⟨2030, 10, 1⟩, mkRat 3581 10), (⟨2031, 10, 1⟩, mkRat 3661 10), (⟨2032, 10, 1⟩, mkRat 3743 10), (⟨2033, 10, 1⟩, mkRat 3827 10), (⟨2034, 10, 1⟩, mkRat 3913 10)]⟩
+
+/-- The Department of Agriculture considers individuals who do not have any dependents under this age to be Able-Bodied Adult Without Dependents (ABAWD) under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/work_requirements/abawd/age_threshold/dependent.yaml` (policyengine-us).
+    * 7 CFR § 273.1 - Household concept (b)(iii): https://www.law.cornell.edu/cfr/text/7/273.1#b_iii
+    * SNAP Work Requirements: https://www.fns.usda.gov/snap/work-requirements
+    * Public Law 119-21, Section 10102(a) - Modifications to SNAP ABAWD Requirements: https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81
+    * 7 U.S.C. 2015(o)(3) - ABAWD Time Limit Exceptions: https://www.law.cornell.edu/uscode/text/7/2015#o_3 -/
+def gov.usda.snap.work_requirements.abawd.age_threshold.dependent : DatedParam Rat :=
+  ⟨(⟨1997, 3, 1⟩, 18), [(⟨2025, 7, 4⟩, 14)]⟩
+
+/-- The Department of Agriculture exempts applicants who are within these age brackets from the Able-Bodied Adult Without Dependents (ABAWD) work requirements under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/work_requirements/abawd/age_threshold/exempted.yaml` (policyengine-us).
+    * 7 C.F.R. § 273.24 Time limit for able-bodied adults (c)(1): https://www.law.cornell.edu/cfr/text/7/273.24#c_1
+    * SNAP Work Requirements: https://www.fns.usda.gov/snap/work-requirements
+    * Fiscal Responsibility Act of 2023, Section 311 - ABAWD Age Phase-In: https://www.fns.usda.gov/snap/provisions-fiscal-responsibility-act-2023
+    * Public Law 119-21, Section 10102(a) - Modifications to SNAP ABAWD Requirements: https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81
+    * 7 U.S.C. 2015(o)(3) - ABAWD Time Limit Exceptions: https://www.law.cornell.edu/uscode/text/7/2015#o_3 -/
+def gov.usda.snap.work_requirements.abawd.age_threshold.exempted : Scale :=
+  ⟨[⟨⟨(⟨1997, 3, 1⟩, 0), []⟩, ⟨(⟨1997, 3, 1⟩, 1), []⟩⟩,
+    ⟨⟨(⟨1997, 3, 1⟩, 18), []⟩, ⟨(⟨1997, 3, 1⟩, 0), []⟩⟩,
+    ⟨⟨(⟨1997, 3, 1⟩, 50), [(⟨2023, 9, 1⟩, 51), (⟨2023, 10, 1⟩, 53), (⟨2024, 10, 1⟩, 55), (⟨2025, 7, 4⟩, 65)]⟩, ⟨(⟨1997, 3, 1⟩, 1), []⟩⟩]⟩
+
+/-- The Department of Agriculture exempts individuals at or below this age who were in foster care under State responsibility on their 18th birthday from the Able-Bodied Adult Without Dependents (ABAWD) work requirements under the Supplemental Nutrition Assistance Program, before Public Law 119-21 removed this exception effective 2025-07-04.
+    `gov/usda/snap/work_requirements/abawd/age_threshold/former_foster_care.yaml` (policyengine-us).
+    * 7 CFR § 273.24 - Time limit for able-bodied adults (c)(9): https://www.law.cornell.edu/cfr/text/7/273.24#c_9
+    * Fiscal Responsibility Act of 2023, Section 311 - SNAP provisions: https://www.fns.usda.gov/snap/provisions-fiscal-responsibility-act-2023
+    * FNS ABAWD Exceptions Implementation Memorandum (October 3, 2025): https://www.fns.usda.gov/snap/obbb-abawd-exemptions-implementation -/
+def gov.usda.snap.work_requirements.abawd.age_threshold.former_foster_care : DatedParam Rat :=
+  ⟨(⟨2023, 9, 1⟩, 24), []⟩
+
+/-- States may exempt individuals from the Able-Bodied Adult Without Dependents (ABAWD) time limit up to this monthly average share of covered individuals under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/work_requirements/abawd/discretionary_exemption_rate.yaml` (policyengine-us).
+    * 7 U.S.C. 2015(o)(6) - Exemptions from the ABAWD time limit: https://www.law.cornell.edu/uscode/text/7/2015#o_6
+    * 7 C.F.R. § 273.24(g) - Discretionary exemptions: https://www.law.cornell.edu/cfr/text/7/273.24#g
+    * Fiscal Responsibility Act of 2023 (P.L. 118-5), Section 312: https://www.congress.gov/118/plaws/publ5/PLAW-118publ5.pdf
+    * Agriculture Improvement Act of 2018 (P.L. 115-334), Section 4005: https://www.congress.gov/115/plaws/publ334/PLAW-115publ334.pdf
+    * Balanced Budget Act of 1997 (P.L. 105-33), Section 1001: https://www.congress.gov/105/plaws/publ33/PLAW-105publ33.pdf -/
+def gov.usda.snap.work_requirements.abawd.discretionary_exemption_rate : DatedParam Rate :=
+  ⟨(⟨1997, 10, 1⟩, mkRat 3 20), [(⟨2019, 10, 1⟩, mkRat 3 25), (⟨2023, 10, 1⟩, mkRat 2 25)]⟩
+
+/-- The HR1 changes to Able-Bodied Adult Without Dependents (ABAWD) work requirements under the Supplemental Nutrition Assistance Program are in effect when this is true, including the higher exempted age threshold, the lower dependent child age threshold, the removal of the exemptions for homeless individuals and veterans, and the addition of the exemptions for Indians, Urban Indians, and California Indians.
+    `gov/usda/snap/work_requirements/abawd/in_effect.yaml` (policyengine-us).
+    * Public Law 119-21, Section 10102(a) - Modifications to SNAP ABAWD Requirements: https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81
+    * 7 U.S.C. 2015(o)(3) - ABAWD Time Limit Exceptions: https://www.law.cornell.edu/uscode/text/7/2015#o_3 -/
+def gov.usda.snap.work_requirements.abawd.in_effect : DatedParam Bool :=
+  ⟨(⟨0, 1, 1⟩, false), [(⟨2025, 7, 4⟩, true)]⟩
+
+/-- The Department of Agriculture waives the Able-Bodied Adult Without Dependents (ABAWD) time limit under the Supplemental Nutrition Assistance Program for residents of areas with these county FIPS codes.
+    `gov/usda/snap/work_requirements/abawd/waived_county_fips.yaml` (policyengine-us).
+    * 7 U.S.C. 2015(o)(4) - ABAWD Time Limit Waivers: https://www.law.cornell.edu/uscode/text/7/2015#o_4
+    * 7 CFR 273.24(f) - Waivers: https://www.law.cornell.edu/cfr/text/7/273.24#f
+    * USDA FNS Alaska FY 2025 ABAWD Waiver Response (September 20, 2024): https://www.fna.usda.gov/sites/default/files/resource-files/ak-abawd-response-fy2025.pdf
+    * Public Law 119-21, Section 10102 - Modifications to SNAP ABAWD Requirements: https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81
+    * USDA FNS ABAWD Waivers Implementation Memorandum (October 3, 2025): https://www.fns.usda.gov/snap/obbb-ABAWD-Waivers-Implementation-Memo
+    * State of Alaska Department of Health, H.R. 1 - AK Impacts (good faith exemption waiver, November 1, 2025 - October 31, 2026): https://health.alaska.gov/en/education/hr-1-ak-impacts/ -/
+def gov.usda.snap.work_requirements.abawd.waived_county_fips : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, []), [(⟨2024, 11, 1⟩, ["02013", "02016", "02050", "02060", "02063", "02066", "02068", "02070", "02090", "02100", "02105", "02110", "02122", "02130", "02150", "02158", "02164", "02170", "02180", "02185", "02188", "02195", "02198", "02220", "02230", "02240", "02275", "02282", "02290"]), (⟨2026, 11, 1⟩, [])]⟩
+
+/-- The Department of Agriculture limits the Supplemental Nutrition Assistance Program to individuals working more than this number of hours per week, unless exempt.
+    `gov/usda/snap/work_requirements/abawd/weekly_hours_threshold.yaml` (policyengine-us).
+    * 7 C.F.R. § 273.24 Time limit for able-bodied adults (a)(1)(i): https://www.law.cornell.edu/cfr/text/7/273.24#a_1_i -/
+def gov.usda.snap.work_requirements.abawd.weekly_hours_threshold : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 20), []⟩
+
+/-- The Department of Agriculture exempts individuals caring for a dependent child under this age from the general work requirements under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/work_requirements/general/age_threshold/caring_dependent_child.yaml` (policyengine-us).
+    * 7 C.F.R. § 273.7 Work provisions (b)(1)(iv): https://www.law.cornell.edu/cfr/text/7/273.7#b_1_iv -/
+def gov.usda.snap.work_requirements.general.age_threshold.caring_dependent_child : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 6), []⟩
+
+/-- The Department of Agriculture exempts individuals within these age brackets from the general work requirements under the Supplemental Nutrition Assistance Program.
+    `gov/usda/snap/work_requirements/general/age_threshold/exempted.yaml` (policyengine-us).
+    * 7 C.F.R. § 273.7 Work provisions (b)(1)(i): https://www.law.cornell.edu/cfr/text/7/273.7#b_1_i
+    * SNAP Work Requirements: https://www.fns.usda.gov/snap/work-requirements -/
+def gov.usda.snap.work_requirements.general.age_threshold.exempted : Scale :=
+  ⟨[⟨⟨(⟨2015, 10, 1⟩, 0), []⟩, ⟨(⟨2015, 10, 1⟩, 1), []⟩⟩,
+    ⟨⟨(⟨2015, 10, 1⟩, 16), []⟩, ⟨(⟨2015, 10, 1⟩, 0), []⟩⟩,
+    ⟨⟨(⟨2015, 10, 1⟩, 60), []⟩, ⟨(⟨2015, 10, 1⟩, 1), []⟩⟩]⟩
+
+/-- The Department of Agriculture limits the Supplemental Nutrition Assistance Program to individuals working more than this number of weekly hours from the general work requirements.
+    `gov/usda/snap/work_requirements/general/weekly_hours_threshold.yaml` (policyengine-us).
+    * 7 C.F.R. § 273.7 Work provisions (b)(1)(vii): https://www.law.cornell.edu/cfr/text/7/273.7#b_1_vii -/
+def gov.usda.snap.work_requirements.general.weekly_hours_threshold : DatedParam Rat :=
+  ⟨(⟨2015, 10, 1⟩, 30), []⟩
+
+/-- Abolish SSI payments.
+    `gov/ssa/ssi/abolish_ssi.yaml` (policyengine-us). -/
+def gov.ssa.ssi.abolish_ssi : DatedParam Bool :=
+  ⟨(⟨0, 1, 1⟩, false), []⟩
+
+/-- Monthly maximum Federal SSI payment amounts for an eligible individual with an eligible spouse.
+    `gov/ssa/ssi/amount/couple.yaml` (policyengine-us).
+    * SSI Federal Payment Amounts: https://www.ssa.gov/oact/cola/SSIamts.html -/
+def gov.ssa.ssi.amount.couple : DatedParam USD :=
+  ⟨(⟨1975, 1, 1⟩, mkRat 1183 5), [(⟨1976, 1, 1⟩, mkRat 1259 5), (⟨1977, 1, 1⟩, mkRat 2667 10), (⟨1978, 1, 1⟩, mkRat 2841 10), (⟨1979, 1, 1⟩, mkRat 3123 10), (⟨1980, 1, 1⟩, 357), (⟨1981, 1, 1⟩, 397), (⟨1982, 1, 1⟩, mkRat 2132 5), (⟨1983, 1, 1⟩, mkRat 2282 5), (⟨1984, 1, 1⟩, 472), (⟨1985, 1, 1⟩, 488), (⟨1986, 1, 1⟩, 504), (⟨1987, 1, 1⟩, 510), (⟨1988, 1, 1⟩, 532), (⟨1989, 1, 1⟩, 553), (⟨1990, 1, 1⟩, 579), (⟨1991, 1, 1⟩, 610), (⟨1992, 1, 1⟩, 633), (⟨1993, 1, 1⟩, 652), (⟨1994, 1, 1⟩, 669), (⟨1995, 1, 1⟩, 687), (⟨1996, 1, 1⟩, 705), (⟨1997, 1, 1⟩, 726), (⟨1998, 1, 1⟩, 741), (⟨1999, 1, 1⟩, 751), (⟨2000, 1, 1⟩, 769), (⟨2001, 1, 1⟩, 796), (⟨2002, 1, 1⟩, 817), (⟨2003, 1, 1⟩, 829), (⟨2004, 1, 1⟩, 846), (⟨2005, 1, 1⟩, 869), (⟨2006, 1, 1⟩, 904), (⟨2007, 1, 1⟩, 934), (⟨2008, 1, 1⟩, 956), (⟨2009, 1, 1⟩, 1011), (⟨2010, 1, 1⟩, 1011), (⟨2011, 1, 1⟩, 1011), (⟨2012, 1, 1⟩, 1048), (⟨2013, 1, 1⟩, 1066), (⟨2014, 1, 1⟩, 1082), (⟨2015, 1, 1⟩, 1100), (⟨2016, 1, 1⟩, 1100), (⟨2017, 1, 1⟩, 1103), (⟨2018, 1, 1⟩, 1125), (⟨2019, 1, 1⟩, 1157), (⟨2020, 1, 1⟩, 1175), (⟨2021, 1, 1⟩, 1191), (⟨2022, 1, 1⟩, 1261), (⟨2023, 1, 1⟩, 1371), (⟨2024, 1, 1⟩, 1415), (⟨2025, 1, 1⟩, 1450), (⟨2026, 1, 1⟩, 1491)]⟩
+
+/-- Monthly maximum Federal SSI payment amounts for an eligible individual.
+    `gov/ssa/ssi/amount/individual.yaml` (policyengine-us).
+    * SSI Federal Payment Amounts: https://www.ssa.gov/oact/cola/SSIamts.html -/
+def gov.ssa.ssi.amount.individual : DatedParam USD :=
+  ⟨(⟨1975, 1, 1⟩, mkRat 1577 10), [(⟨1976, 1, 1⟩, mkRat 839 5), (⟨1977, 1, 1⟩, mkRat 889 5), (⟨1978, 1, 1⟩, mkRat 947 5), (⟨1979, 1, 1⟩, mkRat 1041 5), (⟨1980, 1, 1⟩, 238), (⟨1981, 1, 1⟩, mkRat 2647 10), (⟨1982, 1, 1⟩, mkRat 2843 10), (⟨1983, 1, 1⟩, mkRat 3043 10), (⟨1984, 1, 1⟩, 314), (⟨1985, 1, 1⟩, 325), (⟨1986, 1, 1⟩, 336), (⟨1987, 1, 1⟩, 340), (⟨1988, 1, 1⟩, 354), (⟨1989, 1, 1⟩, 368), (⟨1990, 1, 1⟩, 386), (⟨1991, 1, 1⟩, 407), (⟨1992, 1, 1⟩, 422), (⟨1993, 1, 1⟩, 434), (⟨1994, 1, 1⟩, 446), (⟨1995, 1, 1⟩, 458), (⟨1996, 1, 1⟩, 470), (⟨1997, 1, 1⟩, 484), (⟨1998, 1, 1⟩, 494), (⟨1999, 1, 1⟩, 500), (⟨2000, 1, 1⟩, 513), (⟨2001, 1, 1⟩, 531), (⟨2002, 1, 1⟩, 545), (⟨2003, 1, 1⟩, 552), (⟨2004, 1, 1⟩, 564), (⟨2005, 1, 1⟩, 579), (⟨2006, 1, 1⟩, 603), (⟨2007, 1, 1⟩, 623), (⟨2008, 1, 1⟩, 637), (⟨2009, 1, 1⟩, 674), (⟨2010, 1, 1⟩, 674), (⟨2011, 1, 1⟩, 674), (⟨2012, 1, 1⟩, 698), (⟨2013, 1, 1⟩, 710), (⟨2014, 1, 1⟩, 721), (⟨2015, 1, 1⟩, 733), (⟨2016, 1, 1⟩, 733), (⟨2017, 1, 1⟩, 735), (⟨2018, 1, 1⟩, 750), (⟨2019, 1, 1⟩, 771), (⟨2020, 1, 1⟩, 783), (⟨2021, 1, 1⟩, 794), (⟨2022, 1, 1⟩, 841), (⟨2023, 1, 1⟩, 914), (⟨2024, 1, 1⟩, 943), (⟨2025, 1, 1⟩, 967), (⟨2026, 1, 1⟩, 994)]⟩
+
+/-- The Social Security Administration provides this reduced Supplemental Security Income amount for an eligible couple both residing in a Medicaid-funded institution.
+    `gov/ssa/ssi/amount/institutional/couple.yaml` (policyengine-us).
+    * 42 USC 1382(e)(1)(B): https://www.law.cornell.edu/uscode/text/42/1382
+    * HHSC MEPD Handbook Section H-6000 - Co-Payment for SSI Cases: https://www.hhs.texas.gov/handbooks/medicaid-elderly-people-disabilities-handbook/h-6000-co-payment-ssi-cases -/
+def gov.ssa.ssi.amount.institutional.couple : DatedParam USD :=
+  ⟨(⟨1988, 7, 1⟩, 60), []⟩
+
+/-- The Social Security Administration provides this reduced Supplemental Security Income amount for an eligible individual residing in a Medicaid-funded institution.
+    `gov/ssa/ssi/amount/institutional/individual.yaml` (policyengine-us).
+    * 42 USC 1382(e)(1)(B): https://www.law.cornell.edu/uscode/text/42/1382
+    * HHSC MEPD Handbook Section H-6000 - Co-Payment for SSI Cases: https://www.hhs.texas.gov/handbooks/medicaid-elderly-people-disabilities-handbook/h-6000-co-payment-ssi-cases -/
+def gov.ssa.ssi.amount.institutional.individual : DatedParam USD :=
+  ⟨(⟨1988, 7, 1⟩, 30), []⟩
+
+/-- SSA sets this amount as the monthly federal SSI payment for an eligible individual residing in a medical treatment facility where Medicaid pays more than half the cost of care.
+    `gov/ssa/ssi/amount/medical_facility.yaml` (policyengine-us).
+    * 42 U.S.C. § 1382(e)(1)(A) - Amount of benefits for individuals in medical treatment facilities: https://www.law.cornell.edu/uscode/text/42/1382#e_1_A
+    * 20 CFR § 416.414 - Amount of benefits; eligible individual or eligible couple in a medical treatment facility: https://www.law.cornell.edu/cfr/text/20/416.414 -/
+def gov.ssa.ssi.amount.medical_facility : DatedParam USD :=
+  ⟨(⟨1975, 1, 1⟩, 25), [(⟨1988, 7, 1⟩, 30)]⟩
+
+/-- SSA reduces this share of the federal benefit rate for SSI recipients living in another person's household under the one-third reduction rule.
+    `gov/ssa/ssi/amount/one_third_reduction_rate.yaml` (policyengine-us).
+    * 42 U.S.C. § 1382a(a)(2)(A)(i) - One-third reduction in lieu of counting in-kind support and maintenance: https://www.law.cornell.edu/uscode/text/42/1382a#a_2_A_i
+    * 20 CFR § 416.1131 - The one-third reduction rule: https://www.law.cornell.edu/cfr/text/20/416.1131 -/
+def gov.ssa.ssi.amount.one_third_reduction_rate : DatedParam Rate :=
+  ⟨(⟨1975, 1, 1⟩, mkRat 333333333 1000000000), []⟩
+
+/-- Age to qualify for Supplemental Security Income.
+    `gov/ssa/ssi/eligibility/aged_threshold.yaml` (policyengine-us).
+    * 20 CFR § 416.202(a)(1): https://www.law.cornell.edu/cfr/text/20/416.202#a_1 -/
+def gov.ssa.ssi.eligibility.aged_threshold : DatedParam Rat :=
+  ⟨(⟨1975, 1, 1⟩, 65), []⟩
+
+/-- The US counts these asset types as countable resources for SSI eligibility. Excludes home, one vehicle, household goods, burial plots, and retirement accounts.
+    `gov/ssa/ssi/eligibility/resources/countable.yaml` (policyengine-us).
+    * SSA POMS SI 01140.200 - Checking and Savings Accounts: https://secure.ssa.gov/poms.nsf/lnx/0501140200
+    * SSA POMS SI 01140.220 - Stocks: https://secure.ssa.gov/poms.nsf/lnx/0501140220
+    * SSA POMS SI 01140.240 - U.S. Savings Bonds: https://secure.ssa.gov/poms.nsf/lnx/0501140240
+    * SSA POMS SI 01140.250 - Municipal, Corporate and Government Bonds: https://secure.ssa.gov/poms.nsf/lnx/0501140250 -/
+def gov.ssa.ssi.eligibility.resources.countable : DatedParam (List String) :=
+  ⟨(⟨1975, 1, 1⟩, ["bank_account_assets", "stock_assets", "bond_assets"]), []⟩
+
+/-- SSI resource limit for couples.
+    `gov/ssa/ssi/eligibility/resources/limit/couple.yaml` (policyengine-us).
+    * 20 CFR § 416.1205 - Limitation on resources.: https://www.law.cornell.edu/cfr/text/20/416.1205#c -/
+def gov.ssa.ssi.eligibility.resources.limit.couple : DatedParam USD :=
+  ⟨(⟨1985, 1, 1⟩, 2400), [(⟨1986, 1, 1⟩, 2550), (⟨1987, 1, 1⟩, 2700), (⟨1988, 1, 1⟩, 2850), (⟨1989, 1, 1⟩, 3000)]⟩
+
+/-- SSI resource limit for individuals.
+    `gov/ssa/ssi/eligibility/resources/limit/individual.yaml` (policyengine-us).
+    * 20 CFR § 416.1205 - Limitation on resources.: https://www.law.cornell.edu/cfr/text/20/416.1205#c -/
+def gov.ssa.ssi.eligibility.resources.limit.individual : DatedParam USD :=
+  ⟨(⟨1985, 1, 1⟩, 1600), [(⟨1986, 1, 1⟩, 1700), (⟨1987, 1, 1⟩, 1800), (⟨1988, 1, 1⟩, 1900), (⟨1989, 1, 1⟩, 2000)]⟩
+
+/-- The US considers these statuses as qualified noncitizens for Supplemental Security Income.
+    `gov/ssa/ssi/eligibility/status/qualified_noncitizen_status.yaml` (policyengine-us).
+    * SI 00502.100 - Basic SSI Noncitizen Eligibility Requirements: https://secure.ssa.gov/poms.nsf/lnx/0500502100 -/
+def gov.ssa.ssi.eligibility.status.qualified_noncitizen_status : DatedParam (List String) :=
+  ⟨(⟨1975, 1, 1⟩, ["LEGAL_PERMANENT_RESIDENT", "REFUGEE", "ASYLEE", "DEPORTATION_WITHHELD", "CUBAN_HAITIAN_ENTRANT", "CONDITIONAL_ENTRANT", "PAROLED_ONE_YEAR"]), []⟩
+
+/-- The Social Security Administration limits the blind or disabled Supplemental Security Income amount to student filers below this age limit.
+    `gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/age_limit.yaml` (policyengine-us).
+    * 20 CFR § 416.1112 - Earned income we do not count.: https://www.law.cornell.edu/cfr/text/20/416.1112#c_3
+    * 2011 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI11/Exclusions.html#39619
+    * 2012 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/OACT/ssir/SSI12/V_B_Exclusions.html#39619
+    * 2013 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI13/V_B_Exclusions.html#39619
+    * 2014 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI14/V_B_Exclusions.html#39619
+    * 2015 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI15/V_B_Exclusions.html#39619
+    * 2016 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI16/V_B_Exclusions.html#39619
+    * 2017 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI17/V_B_Exclusions.html#39619
+    * 2018 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI18/V_B_Exclusions.html#39619
+    * 2019 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI19/V_B_Exclusions.html#39619
+    * 2020 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI20/V_B_Exclusions.html#39619
+    * 2021 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI21/V_B_Exclusions.html#39619
+    * 2022 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI22/V_B_Exclusions.html#39619
+    * 2023 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI23/V_B_Exclusions.html#39619
+    * 2024 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/OACT/ssir/SSI24/V_E_WorkIncentives.html -/
+def gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.age_limit : DatedParam Rat :=
+  ⟨(⟨1974, 1, 1⟩, 22), []⟩
+
+/-- The Social Security Administration excludes the following earned income amount for blind or disabled student filers under the Supplemental Security Income.
+    `gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/amount.yaml` (policyengine-us).
+    * 20 CFR § 416.1112 - Earned income we do not count.: https://www.law.cornell.edu/cfr/text/20/416.1112#c_3
+    * 2011 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI11/Exclusions.html#39619
+    * 2012 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/OACT/ssir/SSI12/V_B_Exclusions.html#39619
+    * 2013 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI13/V_B_Exclusions.html#39619
+    * 2014 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI14/V_B_Exclusions.html#39619
+    * 2015 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI15/V_B_Exclusions.html#39619
+    * 2016 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI16/V_B_Exclusions.html#39619
+    * 2017 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI17/V_B_Exclusions.html#39619
+    * 2018 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI18/V_B_Exclusions.html#39619
+    * 2019 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI19/V_B_Exclusions.html#39619
+    * 2020 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI20/V_B_Exclusions.html#39619
+    * 2021 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI21/V_B_Exclusions.html#39619
+    * 2022 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI22/V_B_Exclusions.html#39619
+    * 2023 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI23/V_B_Exclusions.html#39619
+    * 2024 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/OACT/ssir/SSI24/V_E_WorkIncentives.html
+    * Student Earned Income Exclusion for SSI: https://www.ssa.gov/oact/cola/studentEIE.html -/
+def gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.amount : DatedParam USD :=
+  ⟨(⟨1974, 1, 1⟩, 400), [(⟨2001, 1, 1⟩, 1290), (⟨2002, 1, 1⟩, 1320), (⟨2003, 1, 1⟩, 1340), (⟨2004, 1, 1⟩, 1370), (⟨2005, 1, 1⟩, 1410), (⟨2006, 1, 1⟩, 1460), (⟨2007, 1, 1⟩, 1510), (⟨2008, 1, 1⟩, 1550), (⟨2009, 1, 1⟩, 1640), (⟨2012, 1, 1⟩, 1700), (⟨2013, 1, 1⟩, 1730), (⟨2014, 1, 1⟩, 1750), (⟨2015, 1, 1⟩, 1780), (⟨2017, 1, 1⟩, 1790), (⟨2018, 1, 1⟩, 1820), (⟨2019, 1, 1⟩, 1870), (⟨2020, 1, 1⟩, 1900), (⟨2021, 1, 1⟩, 1930), (⟨2022, 1, 1⟩, 2040), (⟨2023, 1, 1⟩, 2220), (⟨2024, 1, 1⟩, 2290), (⟨2025, 1, 1⟩, 2350), (⟨2026, 1, 1⟩, 2410)]⟩
+
+/-- The Social Security Administration caps the annual earned income exclusion for blind or disabled students receiving Supplemental Security Income at this amount.
+    `gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/cap.yaml` (policyengine-us).
+    * 20 CFR § 416.1112 - Earned income we do not count.: https://www.law.cornell.edu/cfr/text/20/416.1112#c_3
+    * 2011 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI11/Exclusions.html#39619
+    * 2012 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/OACT/ssir/SSI12/V_B_Exclusions.html#39619
+    * 2013 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI13/V_B_Exclusions.html#39619
+    * 2014 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI14/V_B_Exclusions.html#39619
+    * 2015 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI15/V_B_Exclusions.html#39619
+    * 2016 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI16/V_B_Exclusions.html#39619
+    * 2017 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI17/V_B_Exclusions.html#39619
+    * 2018 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI18/V_B_Exclusions.html#39619
+    * 2019 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI19/V_B_Exclusions.html#39619
+    * 2020 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI20/V_B_Exclusions.html#39619
+    * 2021 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI21/V_B_Exclusions.html#39619
+    * 2022 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI22/V_B_Exclusions.html#39619
+    * 2023 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/oact/ssir/SSI23/V_B_Exclusions.html#39619
+    * 2024 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS: https://www.ssa.gov/OACT/ssir/SSI24/V_E_WorkIncentives.html
+    * Student Earned Income Exclusion for SSI: https://www.ssa.gov/oact/cola/studentEIE.html -/
+def gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.cap : DatedParam USD :=
+  ⟨(⟨1974, 1, 1⟩, 1620), [(⟨2001, 1, 1⟩, 5200), (⟨2002, 1, 1⟩, 5340), (⟨2003, 1, 1⟩, 5410), (⟨2004, 1, 1⟩, 5520), (⟨2005, 1, 1⟩, 5670), (⟨2006, 1, 1⟩, 5910), (⟨2007, 1, 1⟩, 6100), (⟨2008, 1, 1⟩, 6240), (⟨2009, 1, 1⟩, 6600), (⟨2012, 1, 1⟩, 6840), (⟨2013, 1, 1⟩, 6960), (⟨2014, 1, 1⟩, 7060), (⟨2015, 1, 1⟩, 7180), (⟨2017, 1, 1⟩, 7200), (⟨2018, 1, 1⟩, 7350), (⟨2019, 1, 1⟩, 7550), (⟨2020, 1, 1⟩, 7670), (⟨2021, 1, 1⟩, 7770), (⟨2022, 1, 1⟩, 8230), (⟨2023, 1, 1⟩, 8950), (⟨2024, 1, 1⟩, 9230), (⟨2025, 1, 1⟩, 9460), (⟨2026, 1, 1⟩, 9730)]⟩
+
+/-- Flat amount of earned income excluded from SSI countable income.
+    `gov/ssa/ssi/income/exclusions/earned.yaml` (policyengine-us).
+    * 20 CFR § 416.1112 - Earned income we do not count.: https://www.law.cornell.edu/cfr/text/20/416.1112#c_5 -/
+def gov.ssa.ssi.income.exclusions.earned : DatedParam USD :=
+  ⟨(⟨1975, 1, 1⟩, 65), []⟩
+
+/-- Share of earned income above the flat exclusion that is excluded from SSI countable income.
+    `gov/ssa/ssi/income/exclusions/earned_share.yaml` (policyengine-us).
+    * 20 CFR § 416.1112 - Earned income we do not count.: https://www.law.cornell.edu/cfr/text/20/416.1112#c_7 -/
+def gov.ssa.ssi.income.exclusions.earned_share : DatedParam Rate :=
+  ⟨(⟨1975, 1, 1⟩, mkRat 1 2), []⟩
+
+/-- Flat amount of income excluded from SSI countable income.
+    `gov/ssa/ssi/income/exclusions/general.yaml` (policyengine-us).
+    * 20 CFR § 416.1112 - Earned income we do not count.: https://www.law.cornell.edu/cfr/text/20/416.1112#c_4 -/
+def gov.ssa.ssi.income.exclusions.general : DatedParam USD :=
+  ⟨(⟨1975, 1, 1⟩, 20), []⟩
+
+/-- SSA uses this indicator to determine whether food counts in SSI in-kind support and maintenance calculations.
+    `gov/ssa/ssi/income/ism/food_counts.yaml` (policyengine-us).
+    * 20 CFR § 416.1130 - Introduction to in-kind support and maintenance (as amended): https://www.law.cornell.edu/cfr/text/20/416.1130
+    * 89 FR 21199 - Omitting Food from In-Kind Support and Maintenance Calculations: https://www.federalregister.gov/documents/2024/03/27/2024-06464/omitting-food-from-in-kind-support-and-maintenance-calculations -/
+def gov.ssa.ssi.income.ism.food_counts : DatedParam Bool :=
+  ⟨(⟨1975, 1, 1⟩, true), [(⟨2024, 10, 1⟩, false)]⟩
+
+/-- SSA uses this share of the federal benefit rate in calculating the presumed maximum value of in-kind support and maintenance.
+    `gov/ssa/ssi/income/ism/pmv_fbr_fraction.yaml` (policyengine-us).
+    * 20 CFR § 416.1140 - The presumed value rule: https://www.law.cornell.edu/cfr/text/20/416.1140
+    * POMS SI 00835.300 - Presumed Maximum Value (PMV) Rule: https://secure.ssa.gov/apps10/poms.nsf/lnx/0500835300 -/
+def gov.ssa.ssi.income.ism.pmv_fbr_fraction : DatedParam Rate :=
+  ⟨(⟨1975, 1, 1⟩, mkRat 333333333 1000000000), []⟩
+
+/-- The US counts these income sources as unearned income for Supplemental Security Income.
+    `gov/ssa/ssi/income/sources/earned.yaml` (policyengine-us).
+    * 20 CFR § 416.1110 - What is earned income.: https://www.law.cornell.edu/cfr/text/20/416.1110 -/
+def gov.ssa.ssi.income.sources.earned : DatedParam (List String) :=
+  ⟨(⟨1975, 1, 1⟩, ["employment_income", "self_employment_income", "sstb_self_employment_income"]), []⟩
+
+/-- The US provides SSI to legal permanent residents with this minimum number of qualifying quarters of earnings.
+    `gov/ssa/ssi/income/sources/qualifying_quarters_threshold.yaml` (policyengine-us).
+    * SI 00502.135 - Lawfully Admitted for Permanent Residence (LAPR) with 40 Qualifying Quarters of Earnings: https://secure.ssa.gov/poms.nsf/lnx/0500502135 -/
+def gov.ssa.ssi.income.sources.qualifying_quarters_threshold : DatedParam Rat :=
+  ⟨(⟨1975, 1, 1⟩, 40), []⟩
+
+/-- The US counts these income sources as unearned income for Supplemental Security Income.
+    `gov/ssa/ssi/income/sources/unearned.yaml` (policyengine-us).
+    * United States Code of Federal Regulations, Title 20, Subsection 416.1121: https://www.law.cornell.edu/cfr/text/20/416.1121 -/
+def gov.ssa.ssi.income.sources.unearned : DatedParam (List String) :=
+  ⟨(⟨1975, 1, 1⟩, ["pension_income", "social_security", "disability_benefits", "veterans_benefits", "survivor_benefits", "workers_compensation", "unemployment_compensation", "retirement_distributions", "gi_cash_assistance", "alimony_income", "child_support_received", "financial_assistance", "dividend_income", "interest_income", "rental_income"]), []⟩
+
 end Lawlib.Gen.Params

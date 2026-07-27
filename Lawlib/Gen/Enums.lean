@@ -40,6 +40,64 @@ def FilingStatus.asStr : FilingStatus → String
   | .HEAD_OF_HOUSEHOLD => "HEAD_OF_HOUSEHOLD"
   | .SURVIVING_SPOUSE => "SURVIVING_SPOUSE"
 
+inductive ImmigrationStatus where
+  | CITIZEN
+  | LEGAL_PERMANENT_RESIDENT
+  | REFUGEE
+  | ASYLEE
+  | DEPORTATION_WITHHELD
+  | CUBAN_HAITIAN_ENTRANT
+  | CONDITIONAL_ENTRANT
+  | PAROLED_ONE_YEAR
+  | UNDOCUMENTED
+  | DACA
+  | TPS
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson ImmigrationStatus where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "CITIZEN" => pure .CITIZEN
+    | "LEGAL_PERMANENT_RESIDENT" => pure .LEGAL_PERMANENT_RESIDENT
+    | "REFUGEE" => pure .REFUGEE
+    | "ASYLEE" => pure .ASYLEE
+    | "DEPORTATION_WITHHELD" => pure .DEPORTATION_WITHHELD
+    | "CUBAN_HAITIAN_ENTRANT" => pure .CUBAN_HAITIAN_ENTRANT
+    | "CONDITIONAL_ENTRANT" => pure .CONDITIONAL_ENTRANT
+    | "PAROLED_ONE_YEAR" => pure .PAROLED_ONE_YEAR
+    | "UNDOCUMENTED" => pure .UNDOCUMENTED
+    | "DACA" => pure .DACA
+    | "TPS" => pure .TPS
+    | s => throw s!"unknown ImmigrationStatus: {s}"
+
+instance : Lean.ToJson ImmigrationStatus where
+  toJson x := match x with
+    | .CITIZEN => Lean.Json.str "CITIZEN"
+    | .LEGAL_PERMANENT_RESIDENT => Lean.Json.str "LEGAL_PERMANENT_RESIDENT"
+    | .REFUGEE => Lean.Json.str "REFUGEE"
+    | .ASYLEE => Lean.Json.str "ASYLEE"
+    | .DEPORTATION_WITHHELD => Lean.Json.str "DEPORTATION_WITHHELD"
+    | .CUBAN_HAITIAN_ENTRANT => Lean.Json.str "CUBAN_HAITIAN_ENTRANT"
+    | .CONDITIONAL_ENTRANT => Lean.Json.str "CONDITIONAL_ENTRANT"
+    | .PAROLED_ONE_YEAR => Lean.Json.str "PAROLED_ONE_YEAR"
+    | .UNDOCUMENTED => Lean.Json.str "UNDOCUMENTED"
+    | .DACA => Lean.Json.str "DACA"
+    | .TPS => Lean.Json.str "TPS"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def ImmigrationStatus.asStr : ImmigrationStatus → String
+  | .CITIZEN => "CITIZEN"
+  | .LEGAL_PERMANENT_RESIDENT => "LEGAL_PERMANENT_RESIDENT"
+  | .REFUGEE => "REFUGEE"
+  | .ASYLEE => "ASYLEE"
+  | .DEPORTATION_WITHHELD => "DEPORTATION_WITHHELD"
+  | .CUBAN_HAITIAN_ENTRANT => "CUBAN_HAITIAN_ENTRANT"
+  | .CONDITIONAL_ENTRANT => "CONDITIONAL_ENTRANT"
+  | .PAROLED_ONE_YEAR => "PAROLED_ONE_YEAR"
+  | .UNDOCUMENTED => "UNDOCUMENTED"
+  | .DACA => "DACA"
+  | .TPS => "TPS"
+
 inductive SSNCardType where
   | CITIZEN
   | NON_CITIZEN_VALID_EAD

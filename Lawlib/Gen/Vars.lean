@@ -31,6 +31,21 @@ def ctc_phase_out_threshold (t : TaxUnit) (d : Date) : Rat :=
 def is_in_k12_school (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((decide (p.age ≥ 5)) && (decide (p.age ≤ 17)))
 
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_employment_training_or_work_incentive_student.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_snap_employment_training_or_work_incentive_student (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (p.is_snap_employment_training_student || p.is_snap_work_incentive_student)
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_higher_ed_student.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_snap_higher_ed_student (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (p.is_full_time_college_student || p.is_part_time_college_student)
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/is_snap_immigration_status_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_snap_immigration_status_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (((Params.gov.usda.snap.eligibility.eligible_immigration_statuses.atDate d).contains (ImmigrationStatus.asStr p.immigration_status)) || p.ca_snap_immigration_status_eligible)
+
 /-- `policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_dependent.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_tax_unit_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -61,10 +76,35 @@ def meets_ctc_identification_requirements (t : TaxUnit) (p : Person) (d : Date) 
 def meets_eitc_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((p.ssn_card_type == SSNCardType.CITIZEN) || (p.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD))
 
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_work_exception.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def meets_snap_work_exception (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((decide (p.weekly_hours_worked_before_lsr ≥ (Params.gov.usda.snap.student.working_hours_threshold.atDate d))) || p.is_federal_work_study_participant)
+
+/-- `policyengine_us/variables/household/demographic/age/monthly_age.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def monthly_age (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((p.age / 12) * 12)
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def self_employment_tax_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (p.self_employment_tax * (Params.gov.irs.ald.self_employment_tax.percent_deductible.atDate d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_countable_earner.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def snap_countable_earner (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (!(p.snap_excluded_child_earner || p.is_federal_work_study_participant))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_test_income_fpg_ratio.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_gross_test_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
+  (t.snap_gross_test_income / t.snap_fpg)
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/self_employment/snap_self_employment_income_after_expense_deduction.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_self_employment_income_after_expense_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (max ((sumBy t.members fun p => (p.snap_gross_self_employment_income_person * 12)) - t.snap_self_employment_expense_deduction) 0)
 
 /-- `policyengine_us/variables/gov/irs/tax_unit/tax_unit_is_joint.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -106,10 +146,25 @@ def filer_meets_eitc_identification_requirements (t : TaxUnit) (d : Date) : Bool
 def is_full_time_student (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (p.is_full_time_college_student || (is_in_k12_school t p d))
 
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_ineligible_student.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_snap_ineligible_student (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if (is_snap_higher_ed_student t p d) then (!((((((decide ((Params.gov.usda.snap.student.age_threshold.atDate d p.age) ≠ 0)) || p.is_disabled) || (is_snap_employment_training_or_work_incentive_student t p d)) || (meets_snap_work_exception t p d)) || p.meets_snap_parent_exception) || ((decide (p.tanf_person > 0)) || (decide (boolToRat t.receives_tanf > 0))))) else false)
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/meets_snap_work_requirements_person.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def meets_snap_work_requirements_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if (decide ((sumBy t.members fun p => boolToRat (decide ((monthly_age t p d) < (if p.is_snap_abawd_hr1_in_effect then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩))))) = 0)) then (p.meets_snap_abawd_work_requirements && p.meets_snap_general_work_requirements) else p.meets_snap_general_work_requirements)
+
 /-- `policyengine_us/variables/household/income/tax_unit/net_capital_gains.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def net_capital_gains (t : TaxUnit) (d : Date) : Rat :=
   ((sumBy t.members fun p => (long_term_capital_gains t p d)) + (sumBy t.members fun p => p.short_term_capital_gains))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_earned_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_earned_income (t : TaxUnit) (d : Date) : Rat :=
+  (max ((sumBy t.members fun p => (p.snap_earned_income_person * p.snap_income_counted_share)) + ((((snap_self_employment_income_after_expense_deduction t d) / 12) * (sumBy t.members fun p => ((p.snap_gross_self_employment_income_person * boolToRat (snap_countable_earner t p d)) * p.snap_income_counted_share))) / (if (decide ((sumBy t.members fun p => p.snap_gross_self_employment_income_person) > 0)) then (sumBy t.members fun p => p.snap_gross_self_employment_income_person) else 1))) 0)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_child_individual_maximum_arpa.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -131,6 +186,21 @@ def filer_meets_child_ctc_identification_requirements (t : TaxUnit) (d : Date) :
 def is_qualifying_child_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (is_tax_unit_dependent t p d) then (decide (p.age < (if (is_full_time_student t p d) then (Params.gov.irs.dependent.ineligible_age.student.atDate d) else (Params.gov.irs.dependent.ineligible_age.non_student.atDate d)))) else false)
 
+/-- `policyengine_us/variables/gov/usda/snap/is_snap_excluded_member.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_snap_excluded_member (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (((is_snap_ineligible_student t p d) || (!(is_snap_immigration_status_eligible t p d))) || (!(meets_snap_work_requirements_person t p d)))
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/meets_snap_work_requirements.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_snap_work_requirements (t : TaxUnit) (d : Date) : Bool :=
+  (anyBy t.members fun p => (meets_snap_work_requirements_person t p d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_gross_income (t : TaxUnit) (d : Date) : Rat :=
+  (((snap_earned_income t d) + t.snap_unearned_income) - t.snap_child_support_gross_income_deduction)
+
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_child_individual_maximum.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ctc_child_individual_maximum (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -145,6 +215,16 @@ def eitc_child_count (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def eitc_investment_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (decide ((eitc_relevant_investment_income t d) ≤ (Params.gov.irs.credits.eitc.phase_out.max_investment_income.atDate d)))
+
+/-- `policyengine_us/variables/gov/usda/snap/has_snap_elderly_disabled_member.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def has_snap_elderly_disabled_member (t : TaxUnit) (d : Date) : Bool :=
+  (anyBy t.members fun p => ((p.is_usda_elderly || p.is_usda_disabled) && (!(is_snap_excluded_member t p d))))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_net_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_net_income (t : TaxUnit) (d : Date) : Rat :=
+  (max 0 ((snap_gross_income t d) - t.snap_deductions))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_adult_individual_maximum.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -181,6 +261,21 @@ def eitc_phase_out_rate (t : TaxUnit) (d : Date) : Rat :=
 def eitc_phase_out_start (t : TaxUnit) (d : Date) : Rat :=
   ((Params.gov.irs.credits.eitc.phase_out.start.atDate d (eitc_child_count t d)) + (boolToRat (tax_unit_is_joint t d) * (Params.gov.irs.credits.eitc.phase_out.joint_bonus.atDate d (eitc_child_count t d))))
 
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_asset_test.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_snap_asset_test (t : TaxUnit) (d : Date) : Bool :=
+  (decide (t.snap_assets ≤ (if (has_snap_elderly_disabled_member t d) then (Params.gov.usda.snap.asset_test.limit.elderly_disabled.atDate d) else (Params.gov.usda.snap.asset_test.limit.standard.atDate d))))
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_gross_income_test.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_snap_gross_income_test (t : TaxUnit) (d : Date) : Bool :=
+  ((has_snap_elderly_disabled_member t d) || (decide ((snap_gross_test_income_fpg_ratio t d) ≤ (Params.gov.usda.snap.income.limit.gross.atDate d))))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_net_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
+  ((snap_net_income t d) / t.snap_fpg)
+
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_cap.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctc_arpa_phase_out_cap (t : TaxUnit) (d : Date) : Rat :=
@@ -206,6 +301,11 @@ def eitc_phased_in (t : TaxUnit) (d : Date) : Rat :=
 def eitc_reduction (t : TaxUnit) (d : Date) : Rat :=
   ((eitc_phase_out_rate t d) * (max 0 ((max (eitc_earned_income t d) t.adjusted_gross_income) - (eitc_phase_out_start t d))))
 
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_net_income_test.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_snap_net_income_test (t : TaxUnit) (d : Date) : Bool :=
+  (decide ((snap_net_income_fpg_ratio t d) ≤ (Params.gov.usda.snap.income.limit.net.atDate d)))
+
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctc_arpa_phase_out (t : TaxUnit) (d : Date) : Rat :=
@@ -221,19 +321,39 @@ def ctc_maximum (t : TaxUnit) (d : Date) : Rat :=
 def eitc (t : TaxUnit) (d : Date) : Rat :=
   (if (eitc_eligible t d) then (((min (eitc_phased_in t d) (max 0 ((eitc_maximum t d) - (eitc_reduction t d)))) * boolToRat t.takes_up_eitc) * boolToRat ((t.tax_unit_is_required_to_file || t.would_file_taxes_voluntarily) || t.would_file_if_eligible_for_refundable_credit)) else 0)
 
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/is_snap_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def is_snap_eligible (t : TaxUnit) (d : Date) : Bool :=
+  ((((((meets_snap_net_income_test t d) && (meets_snap_gross_income_test t d)) && (meets_snap_asset_test t d)) || t.meets_snap_categorical_eligibility) && (anyBy t.members fun p => ((!(is_snap_ineligible_student t p d)) && (is_snap_immigration_status_eligible t p d)))) && (meets_snap_work_requirements t d))
+
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_addition.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctc_arpa_addition (t : TaxUnit) (d : Date) : Rat :=
   ((ctc_arpa_max_addition t d) - (ctc_arpa_phase_out t d))
+
+/-- `policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_normal_allotment (t : TaxUnit) (d : Date) : Rat :=
+  (if (is_snap_eligible t d) then (max t.snap_min_allotment (t.snap_max_allotment - t.snap_expected_contribution)) else 0)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum_with_arpa_addition.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctc_maximum_with_arpa_addition (t : TaxUnit) (d : Date) : Rat :=
   ((ctc_maximum t d) + (ctc_arpa_addition t d))
 
+/-- `policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_if_takes_up (t : TaxUnit) (d : Date) : Rat :=
+  (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else (((snap_normal_allotment t d) + t.snap_emergency_allotment) + t.dc_snap_temporary_local_benefit))
+
 /-- `policyengine_us/variables/gov/irs/credits/ctc/ctc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctc (t : TaxUnit) (d : Date) : Rat :=
   (if (filer_meets_ctc_identification_requirements t d) then (max 0 ((ctc_maximum_with_arpa_addition t d) - (ctc_phase_out t d))) else 0)
+
+/-- `policyengine_us/variables/gov/usda/snap/snap.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap (t : TaxUnit) (d : Date) : Rat :=
+  (if t.takes_up_snap_if_eligible then (snap_if_takes_up t d) else 0)
 
 end Lawlib.Gen.Vars
