@@ -21,12 +21,15 @@ structure Person where
   child_support_expense : Rat := 0
   child_support_received : Rat := 0
   disability_benefits : Rat := 0
+  employee_medicare_tax : Rat := 0
+  employee_social_security_tax : Rat := 0
   employment_income : Rat := 0
   farm_operations_income : Rat := 0
   financial_assistance : Rat := 0
   gi_cash_assistance : Rat := 0
   has_tin : Bool := false
   immigration_status : ImmigrationStatus := .CITIZEN
+  is_aca_ptc_eligible : Bool := false
   is_disabled : Bool := false
   is_federal_work_study_participant : Bool := false
   is_full_time_college_student : Bool := false
@@ -47,6 +50,7 @@ structure Person where
   meets_snap_parent_exception : Bool := false
   non_qualified_dividend_income : Rat := 0
   partnership_self_employment_net_earnings : Rat := 0
+  pays_aca_premium : Bool := false
   pre_subsidy_care_expenses : Rat := 0
   pre_subsidy_childcare_expenses : Rat := 0
   qualified_dividend_income : Rat := 0
@@ -54,6 +58,7 @@ structure Person where
   self_employment_income : Rat := 0
   self_employment_tax : Rat := 0
   short_term_capital_gains : Rat := 0
+  slcsp_age_curve_multiplier : Rat := 0
   snap_excluded_child_earner : Bool := false
   snap_gross_self_employment_income_person : Rat := 0
   snap_income_counted_share : Rat := 0
@@ -93,12 +98,20 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit where
   members : List Person := []
+  aca_required_contribution_percentage : Rat := 0
+  additional_medicare_tax : Rat := 0
   adjusted_gross_income : Rat := 0
+  ctc_limiting_tax_liability : Rat := 0
+  excess_payroll_tax_withheld : Rat := 0
   filing_status : FilingStatus := .SINGLE
   loss_limited_net_capital_gains : Rat := 0
+  medicaid_magi : Rat := 0
   net_investment_income : Rat := 0
+  slcsp_family_tier_amount : Rat := 0
+  slcsp_family_tier_applies : Bool := false
   takes_up_eitc : Bool := false
   tax_unit_is_required_to_file : Bool := false
+  unreported_payroll_tax : Rat := 0
   would_file_if_eligible_for_refundable_credit : Bool := false
   would_file_taxes_voluntarily : Bool := false
   child_care_subsidies : Rat := 0
@@ -119,6 +132,7 @@ structure TaxUnit where
   snap_unearned_income : Rat := 0
   spm_unit_size : Rat := 0
   takes_up_snap_if_eligible : Bool := false
+  slcsp_age_0 : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 end Lawlib.Gen

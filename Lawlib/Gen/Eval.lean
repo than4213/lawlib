@@ -12,9 +12,11 @@ open Lawlib.Gen.Vars
 /-- Every translated tax-unit-level variable, for the differential harness. -/
 def evalJson (t : TaxUnit) (d : Date) : Lean.Json :=
   Lean.Json.mkObj
-    [ ("childcare_expenses", Lean.toJson (childcare_expenses t d)),
+    [ ("aca_magi", Lean.toJson (aca_magi t d)),
+    ("childcare_expenses", Lean.toJson (childcare_expenses t d)),
     ("ctc_arpa_phase_out_threshold", Lean.toJson (ctc_arpa_phase_out_threshold t d)),
     ("ctc_phase_out_threshold", Lean.toJson (ctc_phase_out_threshold t d)),
+    ("slcsp_age_curve_applies", Lean.toJson (slcsp_age_curve_applies t d)),
     ("snap_assets", Lean.toJson (snap_assets t d)),
     ("snap_countable_child_support_expense", Lean.toJson (snap_countable_child_support_expense t d)),
     ("snap_expense_counted_share", Lean.toJson (snap_expense_counted_share t d)),
@@ -27,11 +29,16 @@ def evalJson (t : TaxUnit) (d : Date) : Lean.Json :=
     ("filer_meets_ctc_identification_requirements", Lean.toJson (filer_meets_ctc_identification_requirements t d)),
     ("filer_meets_eitc_identification_requirements", Lean.toJson (filer_meets_eitc_identification_requirements t d)),
     ("net_capital_gains", Lean.toJson (net_capital_gains t d)),
+    ("self_employment_tax_ald", Lean.toJson (self_employment_tax_ald t d)),
     ("snap_child_support_deduction", Lean.toJson (snap_child_support_deduction t d)),
     ("snap_dependent_care_deduction", Lean.toJson (snap_dependent_care_deduction t d)),
+    ("ctc_phase_in_relevant_earnings", Lean.toJson (ctc_phase_in_relevant_earnings t d)),
+    ("ctc_qualifying_children", Lean.toJson (ctc_qualifying_children t d)),
+    ("ctc_social_security_tax", Lean.toJson (ctc_social_security_tax t d)),
     ("eitc_relevant_investment_income", Lean.toJson (eitc_relevant_investment_income t d)),
     ("filer_meets_child_ctc_identification_requirements", Lean.toJson (filer_meets_child_ctc_identification_requirements t d)),
     ("meets_snap_work_requirements", Lean.toJson (meets_snap_work_requirements t d)),
+    ("slcsp", Lean.toJson (slcsp t d)),
     ("snap_earned_income", Lean.toJson (snap_earned_income t d)),
     ("eitc_child_count", Lean.toJson (eitc_child_count t d)),
     ("eitc_investment_income_eligible", Lean.toJson (eitc_investment_income_eligible t d)),
@@ -39,6 +46,7 @@ def evalJson (t : TaxUnit) (d : Date) : Lean.Json :=
     ("snap_earned_income_deduction", Lean.toJson (snap_earned_income_deduction t d)),
     ("snap_gross_income", Lean.toJson (snap_gross_income t d)),
     ("ctc_arpa_max_addition", Lean.toJson (ctc_arpa_max_addition t d)),
+    ("ctc_refundable_maximum", Lean.toJson (ctc_refundable_maximum t d)),
     ("eitc_demographic_eligible", Lean.toJson (eitc_demographic_eligible t d)),
     ("eitc_maximum", Lean.toJson (eitc_maximum t d)),
     ("eitc_phase_in_rate", Lean.toJson (eitc_phase_in_rate t d)),
@@ -57,12 +65,17 @@ def evalJson (t : TaxUnit) (d : Date) : Lean.Json :=
     ("eitc", Lean.toJson (eitc t d)),
     ("snap_net_income_fpg_ratio", Lean.toJson (snap_net_income_fpg_ratio t d)),
     ("ctc_arpa_addition", Lean.toJson (ctc_arpa_addition t d)),
+    ("ctc_phase_in", Lean.toJson (ctc_phase_in t d)),
     ("meets_snap_net_income_test", Lean.toJson (meets_snap_net_income_test t d)),
     ("ctc_maximum_with_arpa_addition", Lean.toJson (ctc_maximum_with_arpa_addition t d)),
     ("is_snap_eligible", Lean.toJson (is_snap_eligible t d)),
     ("ctc", Lean.toJson (ctc t d)),
     ("snap_normal_allotment", Lean.toJson (snap_normal_allotment t d)),
+    ("refundable_ctc", Lean.toJson (refundable_ctc t d)),
     ("snap_if_takes_up", Lean.toJson (snap_if_takes_up t d)),
-    ("snap", Lean.toJson (snap t d)) ]
+    ("eligible_for_refundable_credits", Lean.toJson (eligible_for_refundable_credits t d)),
+    ("snap", Lean.toJson (snap t d)),
+    ("tax_unit_is_filer", Lean.toJson (tax_unit_is_filer t d)),
+    ("aca_ptc", Lean.toJson (aca_ptc t d)) ]
 
 end Lawlib.Gen

@@ -650,6 +650,14 @@
   ],
   "variables": [
     {
+      "name": "aca_magi",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/aca/eligibility/aca_magi.py",
+      "sha256": "be8954642a921bf5b84461c192331204c65891fa75696fbde411857a81f59915"
+    },
+    {
       "name": "care_expenses",
       "entity": "person",
       "value_type": "float",
@@ -816,6 +824,14 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald_person.py",
       "sha256": "5112bf8bb3c82ff2126fe5219bf01f0d6a71c25e82ed4112aee69591f1a88519"
+    },
+    {
+      "name": "slcsp_age_curve_applies",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_applies.py",
+      "sha256": "52db85d28f31dc94ab438a75ec720d76d375a8b7992b8f9d289c26bf6815ce27"
     },
     {
       "name": "snap_assets",
@@ -1058,6 +1074,22 @@
       "sha256": "d594ccc5524ff4666f39d7a9431dc12905d6419c85a79b75020100d738c1ca11"
     },
     {
+      "name": "self_employment_tax_ald",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald.py",
+      "sha256": "3a5f59151d224d05ec14958a6f34eed7591b20b0f7d82cfbcd2e99b737240ff8"
+    },
+    {
+      "name": "slcsp_age_curve_amount_person",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_amount_person.py",
+      "sha256": "97c06f0743118a9e3561b91ce700e6283ec8706e86f714b2d5da8370effd8664"
+    },
+    {
       "name": "snap_child_support_deduction",
       "entity": "spm_unit",
       "value_type": "float",
@@ -1096,6 +1128,30 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_child_individual_maximum_arpa.py",
       "sha256": "5840e396d6f9ef7f7a3c007d8d5198c41fdfe42d5d606cabf76ab7107e5edb8e"
+    },
+    {
+      "name": "ctc_phase_in_relevant_earnings",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_phase_in_relevant_earnings.py",
+      "sha256": "e570a835b356031018ff6cd7838c843828b7cfbac5bcef437e0dc0b54c20f016"
+    },
+    {
+      "name": "ctc_qualifying_children",
+      "entity": "tax_unit",
+      "value_type": "int",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_qualifying_children.py",
+      "sha256": "27563f2568697fa9ec2edc43eb389a4e7cb35ab60273835ef39a5dd2bd3ba2c5"
+    },
+    {
+      "name": "ctc_social_security_tax",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_social_security_tax.py",
+      "sha256": "fc4739b9669b1f2004ebefde619b12afa0daf37e9d207a6b9dcc8e64ac54bfca"
     },
     {
       "name": "eitc_relevant_investment_income",
@@ -1160,6 +1216,14 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/resources/meets_ssi_resource_test.py",
       "sha256": "76bf8432a029c416195909250710f597aca1eb629bf82f37fb047683092adfcd"
+    },
+    {
+      "name": "slcsp",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/aca/slspc/slcsp.py",
+      "sha256": "b7076e4ef1aa3653afa0cdf675913e4f38fc15cbc874dbb89f898b43f776c12e"
     },
     {
       "name": "snap_earned_income",
@@ -1256,6 +1320,14 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_max_addition.py",
       "sha256": "5d43edb9405d784f7391dc9d3171f885a54b6a63b68c6c172e860541e38a91c5"
+    },
+    {
+      "name": "ctc_refundable_maximum",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_refundable_maximum.py",
+      "sha256": "fbf6e84cbe54a3f42be2f1372924a4de0ec4b994aab4aa8af6f50bb613ae3a08"
     },
     {
       "name": "eitc_demographic_eligible",
@@ -1442,6 +1514,14 @@
       "sha256": "73a4716f8926fc37f517e6b760ee952431e5a20b92e10f2295b1575f7dbc43cc"
     },
     {
+      "name": "ctc_phase_in",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_phase_in.py",
+      "sha256": "c85744828c4ef57c23b3b56dc493c4d14c18443a67e073997243063aaec8593f"
+    },
+    {
       "name": "meets_snap_net_income_test",
       "entity": "spm_unit",
       "value_type": "bool",
@@ -1490,6 +1570,14 @@
       "sha256": "531911ba6a7c6f7dd9b95e3fe222205f65dd7e986d007e48446f6480f36cfa41"
     },
     {
+      "name": "refundable_ctc",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/ctc/refundable/refundable_ctc.py",
+      "sha256": "52bee1b95a5f46d4ded3bc77b51378590920261634e555b06c5894354798f8c8"
+    },
+    {
       "name": "snap_if_takes_up",
       "entity": "spm_unit",
       "value_type": "float",
@@ -1498,21 +1586,62 @@
       "sha256": "994824cf5adc294aa1debdcb0fa6b3137d9ee77f04c9c251d1a6d21edfa079b8"
     },
     {
+      "name": "eligible_for_refundable_credits",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/eligible_for_refundable_credits.py",
+      "sha256": "37da036a325d33f8c436cafea35220e782b304736e6acac4dc023274e003f945"
+    },
+    {
       "name": "snap",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/snap.py",
       "sha256": "1d0a0747cec0e880062afc154f0eb70ef76f315e840420d19181ed3824a97863"
+    },
+    {
+      "name": "tax_unit_is_filer",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax_unit_is_filer.py",
+      "sha256": "994e9c8ab5b9d8e5c0bd6fb954c8bbd2a04646697b94a92c80cd6a96f65269d2"
+    },
+    {
+      "name": "aca_ptc",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/aca/ptc/aca_ptc.py",
+      "sha256": "dde7726417d2f38598d876185bee9f3a6db369ec81e81a21fef4bfc9e2ffc28d"
     }
   ],
   "root_variables": [
     "eitc",
     "ctc",
     "snap",
-    "ssi"
+    "ssi",
+    "aca_ptc"
   ],
   "input_boundary": [
+    {
+      "name": "aca_required_contribution_percentage",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "np.array"
+    },
+    {
+      "name": "additional_medicare_tax",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unsupported parameter subscript on 'gov.irs.payroll.medicare.additional.exclusion'"
+    },
     {
       "name": "adjusted_gross_income",
       "entity": "tax_unit",
@@ -1594,6 +1723,14 @@
       "note": ""
     },
     {
+      "name": "ctc_limiting_tax_liability",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "attribute 'simulation' on value expression"
+    },
+    {
       "name": "dc_snap_temporary_local_benefit",
       "entity": "spm_unit",
       "value_type": "float",
@@ -1610,12 +1747,36 @@
       "note": ""
     },
     {
+      "name": "employee_medicare_tax",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "parameter 'gov.irs.payroll.medicare.rate.employee' outside emitted subtrees"
+    },
+    {
+      "name": "employee_social_security_tax",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "parameter 'gov.irs.payroll.social_security.rate.employee' outside emitted subtrees"
+    },
+    {
       "name": "employment_income",
       "entity": "person",
       "value_type": "float",
       "period": "year",
       "kind": "pruned",
       "note": "behavioral-response chain (gov/simulation) out of scope"
+    },
+    {
+      "name": "excess_payroll_tax_withheld",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "farm_operations_income",
@@ -1688,6 +1849,14 @@
         "TPS"
       ],
       "default": "CITIZEN"
+    },
+    {
+      "name": "is_aca_ptc_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "rejected",
+      "note": "calc() on non-scale parameter 'gov.aca.ptc_income_eligibility'"
     },
     {
       "name": "is_disabled",
@@ -1818,6 +1987,14 @@
       "note": "capital-loss limitation chain out of scope"
     },
     {
+      "name": "medicaid_magi",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "add() without literal variable list"
+    },
+    {
       "name": "meets_snap_abawd_work_requirements",
       "entity": "person",
       "value_type": "bool",
@@ -1872,6 +2049,14 @@
       "period": "year",
       "kind": "input",
       "note": ""
+    },
+    {
+      "name": "pays_aca_premium",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "rejected",
+      "note": "add() without literal variable list"
     },
     {
       "name": "pre_subsidy_care_expenses",
@@ -1938,12 +2123,44 @@
       "note": ""
     },
     {
+      "name": "slcsp_age_0",
+      "entity": "household",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unsupported parameter subscript on 'gov.aca.state_rating_area_cost'"
+    },
+    {
+      "name": "slcsp_age_curve_multiplier",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call select"
+    },
+    {
+      "name": "slcsp_family_tier_amount",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "person ref to non-person variable 'slcsp_age_0'"
+    },
+    {
+      "name": "slcsp_family_tier_applies",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "period": "month",
+      "kind": "rejected",
+      "note": "person ref to non-person variable 'state_code'"
+    },
+    {
       "name": "snap_child_support_gross_income_deduction",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'state_code_str'"
     },
     {
       "name": "snap_emergency_allotment",
@@ -1951,7 +2168,7 @@
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'state_code'"
     },
     {
       "name": "snap_excess_medical_expense_deduction",
@@ -1959,7 +2176,7 @@
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'state_code_str'"
     },
     {
       "name": "snap_excess_shelter_expense_deduction",
@@ -1967,7 +2184,7 @@
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'snap_region_str'"
     },
     {
       "name": "snap_excluded_child_earner",
@@ -1991,7 +2208,7 @@
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'state_group_str'"
     },
     {
       "name": "snap_gross_self_employment_income_person",
@@ -2023,7 +2240,7 @@
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'snap_region_str'"
     },
     {
       "name": "snap_min_allotment",
@@ -2031,7 +2248,7 @@
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'snap_region_str'"
     },
     {
       "name": "snap_self_employment_expense_deduction",
@@ -2039,7 +2256,7 @@
       "value_type": "float",
       "period": "year",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'state_code'"
     },
     {
       "name": "snap_standard_deduction",
@@ -2047,7 +2264,7 @@
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "unrecognized call spm_unit.household"
+      "note": "person ref to non-person variable 'state_group_str'"
     },
     {
       "name": "snap_unearned_income",
@@ -2324,6 +2541,14 @@
     {
       "name": "unemployment_compensation",
       "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "unreported_payroll_tax",
+      "entity": "tax_unit",
       "value_type": "float",
       "period": "year",
       "kind": "input",

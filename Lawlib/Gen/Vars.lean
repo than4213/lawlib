@@ -16,6 +16,11 @@ open Lawlib Lawlib.Gen
 -- generated defs bind (t, p, d) uniformly whether or not used
 set_option linter.unusedVariables false
 
+/-- `policyengine_us/variables/gov/aca/eligibility/aca_magi.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def aca_magi (t : TaxUnit) (d : Date) : Rat :=
+  t.medicaid_magi
+
 /-- `policyengine_us/variables/household/expense/childcare/care_expenses.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def care_expenses (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -120,6 +125,11 @@ def ordinary_dividend_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def self_employment_tax_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (p.self_employment_tax * (Params.gov.irs.ald.self_employment_tax.percent_deductible.atDate d))
+
+/-- `policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_applies.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def slcsp_age_curve_applies (t : TaxUnit) (d : Date) : Bool :=
+  (!t.slcsp_family_tier_applies)
 
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/snap_assets.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -271,6 +281,16 @@ def pension_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 def retirement_distributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   ((taxable_retirement_distributions t p d) + (tax_exempt_retirement_distributions t p d))
 
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def self_employment_tax_ald (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => (self_employment_tax_ald_person t p d))
+
+/-- `policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_amount_person.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def slcsp_age_curve_amount_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if p.pays_aca_premium then ((t.slcsp_age_0 * p.slcsp_age_curve_multiplier) * boolToRat (slcsp_age_curve_applies t d)) else 0)
+
 /-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_child_support_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_child_support_deduction (t : TaxUnit) (d : Date) : Rat :=
@@ -295,6 +315,21 @@ def ssi_claim_is_joint (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ctc_child_individual_maximum_arpa (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (ctc_qualifying_child t p d) then (Params.gov.irs.credits.ctc.amount.arpa.atDate d p.age) else 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_phase_in_relevant_earnings.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_phase_in_relevant_earnings (t : TaxUnit) (d : Date) : Rat :=
+  ((max 0 ((eitc_earned_income t d) - (Params.gov.irs.credits.ctc.refundable.phase_in.threshold.atDate d))) * (Params.gov.irs.credits.ctc.refundable.phase_in.rate.atDate d))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_qualifying_children.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type int. -/
+def ctc_qualifying_children (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => boolToRat (ctc_qualifying_child t p d))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_social_security_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_social_security_tax (t : TaxUnit) (d : Date) : Rat :=
+  ((((((sumBy t.members fun p => p.employee_social_security_tax) + (sumBy t.members fun p => p.employee_medicare_tax)) + t.unreported_payroll_tax) + (self_employment_tax_ald t d)) + t.additional_medicare_tax) - t.excess_payroll_tax_withheld)
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_relevant_investment_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -335,6 +370,11 @@ def meets_snap_work_requirements (t : TaxUnit) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_ssi_resource_test (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide ((if (ssi_claim_is_joint t p d) then (if (p.is_tax_unit_head || p.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.is_tax_unit_head || q.is_tax_unit_spouse) then ((ssi_countable_resources t q d) / 12) else 0) else ((ssi_countable_resources t p d) / 12)) else ((ssi_countable_resources t p d) / 12)) ≤ (if (ssi_claim_is_joint t p d) then (Params.gov.ssa.ssi.eligibility.resources.limit.couple.atDate d) else (Params.gov.ssa.ssi.eligibility.resources.limit.individual.atDate d))))
+
+/-- `policyengine_us/variables/gov/aca/slspc/slcsp.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def slcsp (t : TaxUnit) (d : Date) : Rat :=
+  ((sumBy t.members fun p => (slcsp_age_curve_amount_person t p d)) + t.slcsp_family_tier_amount)
 
 /-- `policyengine_us/variables/gov/usda/snap/income/snap_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -395,6 +435,11 @@ def ctc_adult_individual_maximum (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctc_arpa_max_addition (t : TaxUnit) (d : Date) : Rat :=
   (if (!(Params.gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else ((sumBy t.members fun p => (ctc_child_individual_maximum_arpa t p d)) - (sumBy t.members fun p => (ctc_child_individual_maximum t p d))))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_refundable_maximum.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_refundable_maximum (t : TaxUnit) (d : Date) : Rat :=
+  (if (Params.gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then (sumBy t.members fun p => (max (ctc_child_individual_maximum t p d) (ctc_child_individual_maximum_arpa t p d))) else (sumBy t.members fun p => (min (max (ctc_child_individual_maximum t p d) (ctc_child_individual_maximum_arpa t p d)) (Params.gov.irs.credits.ctc.refundable.individual_max.atDate d))))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_demographic_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -511,6 +556,11 @@ def ssi_if_takes_up (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 def ctc_arpa_addition (t : TaxUnit) (d : Date) : Rat :=
   ((ctc_arpa_max_addition t d) - (ctc_arpa_phase_out t d))
 
+/-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_phase_in.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_phase_in (t : TaxUnit) (d : Date) : Rat :=
+  (if (decide ((ctc_qualifying_children t d) < (Params.gov.irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc.atDate d))) then (ctc_phase_in_relevant_earnings t d) else (max (ctc_phase_in_relevant_earnings t d) (max 0 ((ctc_social_security_tax t d) - (eitc t d)))))
+
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_net_income_test.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def meets_snap_net_income_test (t : TaxUnit) (d : Date) : Bool :=
@@ -541,14 +591,34 @@ def ctc (t : TaxUnit) (d : Date) : Rat :=
 def snap_normal_allotment (t : TaxUnit) (d : Date) : Rat :=
   (if (is_snap_eligible t d) then (max t.snap_min_allotment (t.snap_max_allotment - t.snap_expected_contribution)) else 0)
 
+/-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/refundable_ctc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def refundable_ctc (t : TaxUnit) (d : Date) : Rat :=
+  (if (Params.gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then (min (max 0 ((ctc_refundable_maximum t d) - (ctc_phase_out t d))) (ctc t d)) else (min (min (ctc_refundable_maximum t d) (ctc t d)) ((min (ctc t d) (t.ctc_limiting_tax_liability + (ctc_phase_in t d))) - (min (ctc t d) t.ctc_limiting_tax_liability))))
+
 /-- `policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_if_takes_up (t : TaxUnit) (d : Date) : Rat :=
   (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else (((snap_normal_allotment t d) + t.snap_emergency_allotment) + t.dc_snap_temporary_local_benefit))
 
+/-- `policyengine_us/variables/gov/irs/eligible_for_refundable_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def eligible_for_refundable_credits (t : TaxUnit) (d : Date) : Bool :=
+  (decide (((eitc t d) + (refundable_ctc t d)) > 0))
+
 /-- `policyengine_us/variables/gov/usda/snap/snap.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap (t : TaxUnit) (d : Date) : Rat :=
   (if t.takes_up_snap_if_eligible then (snap_if_takes_up t d) else 0)
+
+/-- `policyengine_us/variables/gov/irs/tax_unit_is_filer.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def tax_unit_is_filer (t : TaxUnit) (d : Date) : Bool :=
+  ((t.tax_unit_is_required_to_file || ((eligible_for_refundable_credits t d) && t.would_file_if_eligible_for_refundable_credit)) || t.would_file_taxes_voluntarily)
+
+/-- `policyengine_us/variables/gov/aca/ptc/aca_ptc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def aca_ptc (t : TaxUnit) (d : Date) : Rat :=
+  (if (anyBy t.members fun p => p.is_aca_ptc_eligible) then (if Date.ble ⟨2018, 1, 1⟩ d then ((max 0 (((slcsp t d) * 12) - ((aca_magi t d) * t.aca_required_contribution_percentage))) * boolToRat (tax_unit_is_filer t d)) else 0) else 0)
 
 end Lawlib.Gen.Vars
