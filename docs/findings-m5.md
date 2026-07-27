@@ -170,6 +170,22 @@ this affects PolicyEngine's own production paths (which sometimes use
 it means the SNAP differential harness needs a pinned input-semantics
 convention before SNAP joins the nightly suite.
 
+**Update (source analysis, `policyengine_core/simulations/simulation.py`):
+the three behaviors are three code paths.** (1) A year-defined *flow*
+variable requested at month goes through `calculate_divide` → annual/12
+(stock variables instead return the year value). (2) When the exact
+period holds no set value and the formula yields none, a variable with
+`uprating` metadata silently returns the **latest known period's array
+scaled by the uprating parameter's ratio** — set inputs transformed by
+SOI calibration factors the caller never invoked. (3) Otherwise an
+auto-carry-over path applies — whose own source comments document
+period-ordering hazards ("a known '2023' annual value would win over a
+later '2024-06' monthly value (bug H1)"). The observed zeros arise when
+the requested period falls outside what carry-over accepts. Remaining
+question (one function): how policyengine-us's situation parser slots
+year- vs month-keyed inputs, which selects among these paths. Tier:
+T4→root-cause-in-progress (docs/CLAIMS.md).
+
 ## 9. First cross-encoding divergence: the statutory formula vs the administered maximum
 
 An independent Catala encoding of §32(a)–(b)
