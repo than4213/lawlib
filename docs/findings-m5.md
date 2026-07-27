@@ -153,8 +153,17 @@ Catala-from-the-text chooses the formula; the machine caught the
 difference at the first plateau test point. (Confirmed also at the
 childless zero point: both encodings agree the credit hits $0 at
 exactly $17,640 = 9,800 + 599.76/0.0765, because the childless credit
-and phaseout percentages coincide.) Equivalence theorems modulo this
-documented divergence come with the `to_lean` pipeline.
+and phaseout percentages coincide.)
+
+**Now machine-checked** (`Lawlib/Verify/Catala2023.lean`): the Catala
+encoding, transpiled to Lean via its OCaml backend output
+(`pe2lean-catala`, cent-exact `multMonRat` semantics from the Catala
+runtime), is proven by `native_decide` to (a) reproduce the Catala
+interpreter's outputs, (b) agree with the PolicyEngine encoding within
+**1 cent** at every whole-dollar income $0–$60,000 in the 1- and
+2-child cells — pure cent-rounding residue — and within 25¢/51¢ in the
+0/3-child cells, and (c) diverge by **exactly 24¢ / 50¢** on those
+plateaus. Equivalence-modulo-documented-divergence, as a theorem.
 
 Consequences for PolicyEngine fidelity, now exact rather than
 estimated: PE differs from the legal credit by up to ~$11.25 in
