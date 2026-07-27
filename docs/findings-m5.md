@@ -145,6 +145,31 @@ staircase end. One tax code, two credits, opposite smoothness — both
 machine-checked. Differential validation: 1,000 households × 29
 variables across both chains, zero mismatches.
 
+## 11. PolicyEngine's period coercion of set inputs is path-dependent
+
+Discovered while extending the twin to SNAP (month-period, spm_unit
+entity — extraction complete and compiling on the `snap-wip` branch;
+differential validation pending this investigation). Probing
+policyengine-us 1.783.0's Simulation API with the same year-defined,
+`uprating`-annotated money variable (`self_employment_income_before_lsr`):
+
+| set at | read at | result |
+|---|---|---|
+| year (2024: 1000) | month 2024-01 | **0** |
+| month (2024-01: 1000) | month 2024-01 | **83.33** (=/12) |
+| month (2024-01: 1000) | year 2024 | **1000** |
+| year (via situation, other runs) | month | values unrelated to the input (uprated) |
+
+Three different month-read semantics for the same variable depending on
+how the value entered. Non-uprated inputs behave differently again
+(`employment_income` set at year reads /12 at month). Consequence: any
+month-period SNAP formula that references year-period uprated income
+via plain `period` computes from values a caller never set. Whether
+this affects PolicyEngine's own production paths (which sometimes use
+`period.this_year` explicitly) needs upstream discussion; for the twin
+it means the SNAP differential harness needs a pinned input-semantics
+convention before SNAP joins the nightly suite.
+
 ## 9. First cross-encoding divergence: the statutory formula vs the administered maximum
 
 An independent Catala encoding of §32(a)–(b)
