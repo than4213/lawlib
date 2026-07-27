@@ -13,10 +13,18 @@ namespace Lawlib.Gen
 
 structure Person where
   age : Rat := 0
+  alimony_income : Rat := 0
+  bank_account_assets : Rat := 0
+  bond_assets : Rat := 0
   ca_snap_immigration_status_eligible : Bool := false
   capital_gains_behavioral_response : Rat := 0
+  child_support_expense : Rat := 0
+  child_support_received : Rat := 0
+  disability_benefits : Rat := 0
   employment_income : Rat := 0
   farm_operations_income : Rat := 0
+  financial_assistance : Rat := 0
+  gi_cash_assistance : Rat := 0
   has_tin : Bool := false
   immigration_status : ImmigrationStatus := .CITIZEN
   is_disabled : Bool := false
@@ -27,27 +35,60 @@ structure Person where
   is_snap_abawd_hr1_in_effect : Bool := false
   is_snap_employment_training_student : Bool := false
   is_snap_work_incentive_student : Bool := false
+  is_ssi_aged_blind_disabled : Bool := false
   is_tax_unit_head : Bool := false
   is_tax_unit_spouse : Bool := false
   is_usda_disabled : Bool := false
   is_usda_elderly : Bool := false
+  keogh_distributions : Rat := 0
   long_term_capital_gains_before_response : Rat := 0
   meets_snap_abawd_work_requirements : Bool := false
   meets_snap_general_work_requirements : Bool := false
   meets_snap_parent_exception : Bool := false
+  non_qualified_dividend_income : Rat := 0
   partnership_self_employment_net_earnings : Rat := 0
+  pre_subsidy_care_expenses : Rat := 0
+  pre_subsidy_childcare_expenses : Rat := 0
+  qualified_dividend_income : Rat := 0
+  rental_income : Rat := 0
   self_employment_income : Rat := 0
   self_employment_tax : Rat := 0
   short_term_capital_gains : Rat := 0
-  snap_earned_income_person : Rat := 0
   snap_excluded_child_earner : Bool := false
   snap_gross_self_employment_income_person : Rat := 0
   snap_income_counted_share : Rat := 0
+  social_security_dependents : Rat := 0
+  social_security_disability : Rat := 0
+  social_security_retirement : Rat := 0
+  social_security_survivors : Rat := 0
+  ssi_amount_if_eligible : Rat := 0
+  ssi_countable_income : Rat := 0
+  ssi_earned_income_deemed_from_ineligible_spouse : Rat := 0
+  ssi_qualifying_quarters_earnings : Rat := 0
   ssn_card_type : SSNCardType := .CITIZEN
   sstb_self_employment_income : Rat := 0
+  stock_assets : Rat := 0
+  survivor_benefits : Rat := 0
+  takes_up_ssi_if_eligible : Bool := false
   tanf_person : Rat := 0
+  tax_exempt_401k_distributions : Rat := 0
+  tax_exempt_403b_distributions : Rat := 0
   tax_exempt_interest_income : Rat := 0
+  tax_exempt_ira_distributions : Rat := 0
+  tax_exempt_private_pension_income : Rat := 0
+  tax_exempt_public_pension_income : Rat := 0
+  tax_exempt_sep_distributions : Rat := 0
+  taxable_401k_distributions : Rat := 0
+  taxable_403b_distributions : Rat := 0
+  taxable_interest_income : Rat := 0
+  taxable_ira_distributions : Rat := 0
+  taxable_private_pension_income : Rat := 0
+  taxable_public_pension_income : Rat := 0
+  taxable_sep_distributions : Rat := 0
+  unemployment_compensation : Rat := 0
+  veterans_benefits : Rat := 0
   weekly_hours_worked_before_lsr : Rat := 0
+  workers_compensation : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit where
@@ -60,20 +101,23 @@ structure TaxUnit where
   tax_unit_is_required_to_file : Bool := false
   would_file_if_eligible_for_refundable_credit : Bool := false
   would_file_taxes_voluntarily : Bool := false
+  child_care_subsidies : Rat := 0
   dc_snap_temporary_local_benefit : Rat := 0
   meets_snap_categorical_eligibility : Bool := false
   receives_tanf : Bool := false
-  snap_assets : Rat := 0
   snap_child_support_gross_income_deduction : Rat := 0
-  snap_deductions : Rat := 0
   snap_emergency_allotment : Rat := 0
+  snap_excess_medical_expense_deduction : Rat := 0
+  snap_excess_shelter_expense_deduction : Rat := 0
   snap_expected_contribution : Rat := 0
   snap_fpg : Rat := 0
   snap_gross_test_income : Rat := 0
   snap_max_allotment : Rat := 0
   snap_min_allotment : Rat := 0
   snap_self_employment_expense_deduction : Rat := 0
+  snap_standard_deduction : Rat := 0
   snap_unearned_income : Rat := 0
+  spm_unit_size : Rat := 0
   takes_up_snap_if_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 

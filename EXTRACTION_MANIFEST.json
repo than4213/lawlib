@@ -650,6 +650,22 @@
   ],
   "variables": [
     {
+      "name": "care_expenses",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/expense/childcare/care_expenses.py",
+      "sha256": "cf857023bc34b703e78e6fe5ae904df9f3e89f58a3c3794205a671f6d59fbf57"
+    },
+    {
+      "name": "childcare_expenses",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/expense/childcare/childcare_expenses.py",
+      "sha256": "0d00a7288ddf5e3c781c7fd716b0a45174f6f79bd1e3112e493bfa386f0ae1c0"
+    },
+    {
       "name": "ctc_arpa_phase_out_threshold",
       "entity": "tax_unit",
       "value_type": "float",
@@ -664,6 +680,22 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/ctc_phase_out_threshold.py",
       "sha256": "d30ee4b4698919760ed3d2c67d16b5e4d18a770a320c3bb67a6cadcc4215d639"
+    },
+    {
+      "name": "interest_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/interest/interest_income.py",
+      "sha256": "ef5a6789b40fc4e42cb124a52feaf86ea5382f68dbc1493da10a5412ae3e528e"
+    },
+    {
+      "name": "is_child",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/household/demographic/age/is_child.py",
+      "sha256": "a6d4fb43ecb7e6b070586f7e6a967278080309fe9abec8200a4105c05a092ab7"
     },
     {
       "name": "is_in_k12_school",
@@ -696,6 +728,14 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/eligibility/is_snap_immigration_status_eligible.py",
       "sha256": "90fc76086bdef277d026ce0b3898dfbe58bd44c68b635a15bc4695f2e55190d7"
+    },
+    {
+      "name": "is_ssi_qualified_noncitizen",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_qualified_noncitizen.py",
+      "sha256": "42dde8799f2560f3e74ec1a04daeab36a4c8c3b77dabe9363e94711c6a6d597e"
     },
     {
       "name": "is_tax_unit_dependent",
@@ -762,6 +802,14 @@
       "sha256": "ac0b056ee401103c24d70fd84680b69bac77c163d7c7759f20ad40b21528d2c4"
     },
     {
+      "name": "ordinary_dividend_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/dividends/ordinary_dividend_income.py",
+      "sha256": "ced042d0706cff89123d2a76b0873526382b124732b91489eb2bf98ff833d1e1"
+    },
+    {
       "name": "self_employment_tax_ald_person",
       "entity": "person",
       "value_type": "float",
@@ -770,12 +818,36 @@
       "sha256": "5112bf8bb3c82ff2126fe5219bf01f0d6a71c25e82ed4112aee69591f1a88519"
     },
     {
+      "name": "snap_assets",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/snap_assets.py",
+      "sha256": "a85dad9c6ea918f0a40152159e72e4e11002fa4f3b8bcead852c9265eabe46d0"
+    },
+    {
+      "name": "snap_countable_child_support_expense",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/deductions/snap_countable_child_support_expense.py",
+      "sha256": "e9824c69760cb200d563af082e1e952c8046512560ef802ba1c27d1152dede3d"
+    },
+    {
       "name": "snap_countable_earner",
       "entity": "person",
       "value_type": "bool",
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/snap_countable_earner.py",
       "sha256": "53aeee3f8a1185f7985a0055e64ecc5e5e45ce29a457976af94e6f7cdc0eb2d3"
+    },
+    {
+      "name": "snap_expense_counted_share",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_expense_counted_share.py",
+      "sha256": "3b968feb01e8fab89853f36a3384c243fa57106272e32ac4a2be04088bb41696"
     },
     {
       "name": "snap_gross_test_income_fpg_ratio",
@@ -794,12 +866,76 @@
       "sha256": "b591bf2f55c5b64b2fa3530d9c6883253a76f6160388158f746a02077624ec1b"
     },
     {
+      "name": "social_security",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ss/social_security.py",
+      "sha256": "38a6d9366e3e412c8292d5f2f30aeef5803da917ae02fcf9c7461deb8dd2f72f"
+    },
+    {
+      "name": "ssi_countable_resources",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/resources/ssi_countable_resources.py",
+      "sha256": "28826af413dca1a149201ba4855bd2ee381a7e7cd173cacb72ca37e8d02d5f05"
+    },
+    {
+      "name": "ssi_earned_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_earned_income.py",
+      "sha256": "71c0b454bb3575344e8cce8e0b77214b523309a9c9c77ec366cfa7255e2c5899"
+    },
+    {
+      "name": "ssi_marital_both_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/marital/ssi_marital_both_eligible.py",
+      "sha256": "22d87086b0535d34cf7d9aadca8b8076031a6187fbe1fbf3eb9e3cc54bb46411"
+    },
+    {
+      "name": "tax_exempt_pension_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/retirement/tax_exempt_pension_income.py",
+      "sha256": "19668bd19c6e51d901cbba2bfee8e2c58cb080ef0454adcc7ac6467bd9ddb91c"
+    },
+    {
+      "name": "tax_exempt_retirement_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/retirement/tax_exempt_retirement_distributions.py",
+      "sha256": "c7211b0c09e3affa802d3a200d40b6acd69c5cf216e06af1776493a4210ba10c"
+    },
+    {
       "name": "tax_unit_is_joint",
       "entity": "tax_unit",
       "value_type": "bool",
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax_unit/tax_unit_is_joint.py",
       "sha256": "875e49add12246c07919ed0ff6b0b5220da1eb5925e74b4b9292ca27f3471d85"
+    },
+    {
+      "name": "taxable_pension_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/retirement/taxable_pension_income.py",
+      "sha256": "6bf95241c39686f1b6f0d28391b63ec07b5ebd38c025b161ac0edc43324e5c07"
+    },
+    {
+      "name": "taxable_retirement_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/retirement/taxable_retirement_distributions.py",
+      "sha256": "bab71680a405977e705e86060735de11d03c39a61a7b7966fee7f4d387ad5b27"
     },
     {
       "name": "ctc_arpa_uncapped_phase_out",
@@ -824,6 +960,14 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_qualifying_child.py",
       "sha256": "9240580aff0a68ad5d75759332256c137517d488f0002dd5601f19013819ccac"
+    },
+    {
+      "name": "dividend_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/dividends/dividend_income.py",
+      "sha256": "333baea91d008ed1a0e9cbfb986c4ca91038e101fbd6875186d29578c8c99b4e"
     },
     {
       "name": "eitc_earned_income",
@@ -866,6 +1010,22 @@
       "sha256": "ec1f469c1e167869f0c2aaff503aa5c0444ff6131c9733d52e0b32faa14ab0c0"
     },
     {
+      "name": "is_ssi_eligible_spouse",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_eligible_spouse.py",
+      "sha256": "f20e5a5960ba299549c8d709ba18ec2c78e0d8ccaa4cf0f545de1cd1a8a9135d"
+    },
+    {
+      "name": "is_ssi_ineligible_child",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_ineligible_child.py",
+      "sha256": "bdf8073283e478d82248f3afa026cd1658727958f441bf3bc59884ecd88c866d"
+    },
+    {
       "name": "meets_snap_work_requirements_person",
       "entity": "person",
       "value_type": "bool",
@@ -882,12 +1042,52 @@
       "sha256": "bdb60ce4980cbba91a27f4bcab9969ee550840a407016c1d4a639cf3ad558f39"
     },
     {
-      "name": "snap_earned_income",
+      "name": "pension_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/retirement/pension_income.py",
+      "sha256": "3e690c1779b059b59b3494daf160a265d36fafd7a217ed2185d7b2c9c26db95a"
+    },
+    {
+      "name": "retirement_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/household/income/person/retirement/retirement_distributions.py",
+      "sha256": "d594ccc5524ff4666f39d7a9431dc12905d6419c85a79b75020100d738c1ca11"
+    },
+    {
+      "name": "snap_child_support_deduction",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/income/snap_earned_income.py",
-      "sha256": "80b38047d8e67223e44f94eedc5bae52f3aac30aeab958987e11161305dcd4ae"
+      "source": "policyengine_us/variables/gov/usda/snap/income/deductions/snap_child_support_deduction.py",
+      "sha256": "ea093adf25cbe8c0f75bb376473f6154f32eb383bb43568ba88d8977ef877ff3"
+    },
+    {
+      "name": "snap_dependent_care_deduction",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/deductions/snap_dependent_care_deduction.py",
+      "sha256": "bfcbe08e1dd8e315a4092937e5d4ecfe52d39c3f1365d97dd3d2d484f1e00d72"
+    },
+    {
+      "name": "snap_earned_income_person",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_earned_income_person.py",
+      "sha256": "b7b6042e6fe2231bc227ddec8183b755c478271eb7a929a0014c4559768b5dd0"
+    },
+    {
+      "name": "ssi_claim_is_joint",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/ssi_claim_is_joint.py",
+      "sha256": "b3db12c84e69f5ebce340218420fdeaac1df35a73a9ff004a1118d4ef564506d"
     },
     {
       "name": "ctc_child_individual_maximum_arpa",
@@ -930,6 +1130,22 @@
       "sha256": "2b2c8782fc018387093638427fd3a619deb15fb0a3fd5b842dce53f5bd8fcdc6"
     },
     {
+      "name": "is_ssi_eligible_individual",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_eligible_individual.py",
+      "sha256": "d6079ffeef6a5dbefbda81513db09bdbf8002f15c966695b2008dde236df3bcc"
+    },
+    {
+      "name": "is_ssi_ineligible_spouse",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_ineligible_spouse.py",
+      "sha256": "5147db81765d7f5759a59915dbfd71f35f5057a9f1babccce93faa7954914e1d"
+    },
+    {
       "name": "meets_snap_work_requirements",
       "entity": "spm_unit",
       "value_type": "bool",
@@ -938,12 +1154,28 @@
       "sha256": "461abf0d957bffc28af3d33eec35fc88a64b3f053f639d09d20cc491d6039726"
     },
     {
-      "name": "snap_gross_income",
+      "name": "meets_ssi_resource_test",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/resources/meets_ssi_resource_test.py",
+      "sha256": "76bf8432a029c416195909250710f597aca1eb629bf82f37fb047683092adfcd"
+    },
+    {
+      "name": "snap_earned_income",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income.py",
-      "sha256": "15c53c773297245f9593b334e7f6a77ec9b6b33dd038a2c3a8a3a966c52bad99"
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_earned_income.py",
+      "sha256": "80b38047d8e67223e44f94eedc5bae52f3aac30aeab958987e11161305dcd4ae"
+    },
+    {
+      "name": "ssi_unearned_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_unearned_income.py",
+      "sha256": "5d0fba1c1cf1c76d8710095aa8a64e8db83343d734e4c37b2fedb95d9e9e82e0"
     },
     {
       "name": "ctc_child_individual_maximum",
@@ -978,12 +1210,36 @@
       "sha256": "2f2d642c1968cead95b4d06e43af7dd88f950c8823c8a519455a27fa5f945888"
     },
     {
-      "name": "snap_net_income",
+      "name": "is_ssi_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/ssa/ssi/is_ssi_eligible.py",
+      "sha256": "ec0f7b7a77c274da2f9e133fe44772d8e2fb5a0ff2b9c1c60da51d3a96831822"
+    },
+    {
+      "name": "snap_earned_income_deduction",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income.py",
-      "sha256": "9cfcb37afdb1efd8db4d987052a8168785f48b2aa1ec67c0fb5e1a6af7494c66"
+      "source": "policyengine_us/variables/gov/usda/snap/income/deductions/snap_earned_income_deduction.py",
+      "sha256": "741418e2728a3d4e2450c1739a2cbe996b33f66684f67d68c66f0fb2fbe07e49"
+    },
+    {
+      "name": "snap_gross_income",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income.py",
+      "sha256": "15c53c773297245f9593b334e7f6a77ec9b6b33dd038a2c3a8a3a966c52bad99"
+    },
+    {
+      "name": "ssi_ineligible_child_allocation",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/ssi_ineligible_child_allocation.py",
+      "sha256": "ee278e2432a62a0202c9c044cccdadcf482f815bbbe534afdedb869febdc2743"
     },
     {
       "name": "ctc_adult_individual_maximum",
@@ -1058,12 +1314,28 @@
       "sha256": "be61f9d9e7b6f3478e03b377c9df7688fed129b4c857ce49b39147973bce28f8"
     },
     {
-      "name": "snap_net_income_fpg_ratio",
+      "name": "snap_deductions",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py",
-      "sha256": "62316892a3456ce3c61743134715d5eea2de4d157243e604384c3450a12c1524"
+      "source": "policyengine_us/variables/gov/usda/snap/income/deductions/snap_deductions.py",
+      "sha256": "248ebb513cddc7d0ff04ae6a1914e71c60d558ac4e51e3a4a39f03003fce5d08"
+    },
+    {
+      "name": "ssi_unearned_income_deemed_from_ineligible_spouse",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/ssi_unearned_income_deemed_from_ineligible_spouse.py",
+      "sha256": "abd8b4df0f329bc7b6a4e1ebb7455c3369eba9fd75d2ba9dd3a2f93a41f8067b"
+    },
+    {
+      "name": "uncapped_ssi",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/ssa/ssi/uncapped_ssi.py",
+      "sha256": "55c18ba6fbc3d9159fe2e92437396a5fe5d9c324a8292343a2fb2cc4e337c3f1"
     },
     {
       "name": "ctc_arpa_phase_out_cap",
@@ -1106,12 +1378,20 @@
       "sha256": "d8ed0efccd4a02b080b102bb025457cbd9a4c2ec36383f5aedc5df2a08c27b7b"
     },
     {
-      "name": "meets_snap_net_income_test",
-      "entity": "spm_unit",
+      "name": "is_ssi_spousal_deeming_applies",
+      "entity": "person",
       "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/is_ssi_spousal_deeming_applies.py",
+      "sha256": "a1fac9e55c489517777d41d865363c30618790600866836852ee4f13b72fa1c8"
+    },
+    {
+      "name": "snap_net_income",
+      "entity": "spm_unit",
+      "value_type": "float",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_net_income_test.py",
-      "sha256": "4f7a651e6b5eaef823207bc1959f8070696e3c3a46d961b0901c4477aede0127"
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income.py",
+      "sha256": "9cfcb37afdb1efd8db4d987052a8168785f48b2aa1ec67c0fb5e1a6af7494c66"
     },
     {
       "name": "ctc_arpa_phase_out",
@@ -1138,12 +1418,20 @@
       "sha256": "5f5384842f733e95e82e3b0671a272150f7f47b999737607a7f40036791c80fb"
     },
     {
-      "name": "is_snap_eligible",
+      "name": "snap_net_income_fpg_ratio",
       "entity": "spm_unit",
-      "value_type": "bool",
+      "value_type": "float",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/eligibility/is_snap_eligible.py",
-      "sha256": "b5e5886f3577ac289ce256cdbc66d47c6461936586ec2499f1e38ea67742c670"
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py",
+      "sha256": "62316892a3456ce3c61743134715d5eea2de4d157243e604384c3450a12c1524"
+    },
+    {
+      "name": "ssi_if_takes_up",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/ssa/ssi/ssi_if_takes_up.py",
+      "sha256": "06877ca66cc26fb2d1b8d2f9914f1c58ca69396fd0bb7aec697ea0b05243fa6a"
     },
     {
       "name": "ctc_arpa_addition",
@@ -1154,12 +1442,20 @@
       "sha256": "73a4716f8926fc37f517e6b760ee952431e5a20b92e10f2295b1575f7dbc43cc"
     },
     {
-      "name": "snap_normal_allotment",
+      "name": "meets_snap_net_income_test",
       "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_net_income_test.py",
+      "sha256": "4f7a651e6b5eaef823207bc1959f8070696e3c3a46d961b0901c4477aede0127"
+    },
+    {
+      "name": "ssi",
+      "entity": "person",
       "value_type": "float",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py",
-      "sha256": "531911ba6a7c6f7dd9b95e3fe222205f65dd7e986d007e48446f6480f36cfa41"
+      "source": "policyengine_us/variables/gov/ssa/ssi/ssi.py",
+      "sha256": "610e6f8c1a05d5abf7bcb04050a46bc450965607cc3fb49e6301df79352fde86"
     },
     {
       "name": "ctc_maximum_with_arpa_addition",
@@ -1170,12 +1466,12 @@
       "sha256": "886b92ca6e7c675d4feb638cd21b251424eac7d9f7e42d9c1f82eecc2bc4b53b"
     },
     {
-      "name": "snap_if_takes_up",
+      "name": "is_snap_eligible",
       "entity": "spm_unit",
-      "value_type": "float",
+      "value_type": "bool",
       "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py",
-      "sha256": "994824cf5adc294aa1debdcb0fa6b3137d9ee77f04c9c251d1a6d21edfa079b8"
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/is_snap_eligible.py",
+      "sha256": "b5e5886f3577ac289ce256cdbc66d47c6461936586ec2499f1e38ea67742c670"
     },
     {
       "name": "ctc",
@@ -1184,6 +1480,22 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/ctc.py",
       "sha256": "fded0e29b77d90037881d864c3e981fdff1421c82902f60d39908498c74ebe05"
+    },
+    {
+      "name": "snap_normal_allotment",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py",
+      "sha256": "531911ba6a7c6f7dd9b95e3fe222205f65dd7e986d007e48446f6480f36cfa41"
+    },
+    {
+      "name": "snap_if_takes_up",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py",
+      "sha256": "994824cf5adc294aa1debdcb0fa6b3137d9ee77f04c9c251d1a6d21edfa079b8"
     },
     {
       "name": "snap",
@@ -1197,7 +1509,8 @@
   "root_variables": [
     "eitc",
     "ctc",
-    "snap"
+    "snap",
+    "ssi"
   ],
   "input_boundary": [
     {
@@ -1210,6 +1523,30 @@
     },
     {
       "name": "age",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "alimony_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "bank_account_assets",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "bond_assets",
       "entity": "person",
       "value_type": "float",
       "period": "year",
@@ -1233,12 +1570,44 @@
       "note": "attribute 'simulation' on value expression"
     },
     {
+      "name": "child_care_subsidies",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "adds/subtracts via unknown parameter path 'gov.hhs.ccdf.child_care_subsidy_programs'"
+    },
+    {
+      "name": "child_support_expense",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "child_support_received",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "dc_snap_temporary_local_benefit",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
       "note": "parameter 'gov.states.dc.tax.income.snap.temporary_local_benefit.rate' outside emitted subtrees"
+    },
+    {
+      "name": "disability_benefits",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "employment_income",
@@ -1272,6 +1641,22 @@
         "SURVIVING_SPOUSE"
       ],
       "default": "SINGLE"
+    },
+    {
+      "name": "financial_assistance",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "gi_cash_assistance",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "has_tin",
@@ -1369,6 +1754,14 @@
       "note": ""
     },
     {
+      "name": "is_ssi_aged_blind_disabled",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "rejected",
+      "note": "attribute 'simulation' on value expression"
+    },
+    {
       "name": "is_tax_unit_head",
       "entity": "person",
       "value_type": "bool",
@@ -1399,6 +1792,14 @@
       "period": "year",
       "kind": "rejected",
       "note": "parameter 'gov.usda.elderly_age_threshold' outside emitted subtrees"
+    },
+    {
+      "name": "keogh_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "long_term_capital_gains_before_response",
@@ -1457,7 +1858,39 @@
       "note": "adds via parameter path \u2014 resolve when AGI subtree lands"
     },
     {
+      "name": "non_qualified_dividend_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "partnership_self_employment_net_earnings",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "pre_subsidy_care_expenses",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "pre_subsidy_childcare_expenses",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "attribute 'spm_unit' on value expression"
+    },
+    {
+      "name": "qualified_dividend_income",
       "entity": "person",
       "value_type": "float",
       "period": "year",
@@ -1469,6 +1902,14 @@
       "entity": "spm_unit",
       "value_type": "bool",
       "period": "month",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "rental_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
       "kind": "input",
       "note": ""
     },
@@ -1497,14 +1938,6 @@
       "note": ""
     },
     {
-      "name": "snap_assets",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "period": "year",
-      "kind": "rejected",
-      "note": "adds/subtracts via parameter path 'gov.usda.snap.asset_test.sources'"
-    },
-    {
       "name": "snap_child_support_gross_income_deduction",
       "entity": "spm_unit",
       "value_type": "float",
@@ -1513,23 +1946,23 @@
       "note": "unrecognized call spm_unit.household"
     },
     {
-      "name": "snap_deductions",
+      "name": "snap_emergency_allotment",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "adds/subtracts via parameter path 'gov.usda.snap.income.deductions.allowed'"
+      "note": "unrecognized call spm_unit.household"
     },
     {
-      "name": "snap_earned_income_person",
-      "entity": "person",
+      "name": "snap_excess_medical_expense_deduction",
+      "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
-      "note": "adds/subtracts via parameter path 'gov.usda.snap.income.sources.earned'"
+      "note": "unrecognized call spm_unit.household"
     },
     {
-      "name": "snap_emergency_allotment",
+      "name": "snap_excess_shelter_expense_deduction",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
@@ -1609,12 +2042,92 @@
       "note": "unrecognized call spm_unit.household"
     },
     {
+      "name": "snap_standard_deduction",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.household"
+    },
+    {
       "name": "snap_unearned_income",
       "entity": "spm_unit",
       "value_type": "float",
       "period": "month",
       "kind": "rejected",
       "note": "add() without literal variable list"
+    },
+    {
+      "name": "social_security_dependents",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "social_security_disability",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "social_security_retirement",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "social_security_survivors",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "spm_unit_size",
+      "entity": "spm_unit",
+      "value_type": "int",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.nb_persons"
+    },
+    {
+      "name": "ssi_amount_if_eligible",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unbound name 'SSIFederalLivingArrangement'"
+    },
+    {
+      "name": "ssi_countable_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "non-value handle used as value"
+    },
+    {
+      "name": "ssi_earned_income_deemed_from_ineligible_spouse",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "attribute 'marital_unit' on value expression"
+    },
+    {
+      "name": "ssi_qualifying_quarters_earnings",
+      "entity": "person",
+      "value_type": "int",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "ssn_card_type",
@@ -1641,6 +2154,22 @@
       "note": "behavioral-response chain out of scope"
     },
     {
+      "name": "stock_assets",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "survivor_benefits",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "takes_up_eitc",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -1657,6 +2186,14 @@
       "note": ""
     },
     {
+      "name": "takes_up_ssi_if_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "tanf_person",
       "entity": "person",
       "value_type": "float",
@@ -1665,7 +2202,55 @@
       "note": "attribute 'spm_unit' on value expression"
     },
     {
+      "name": "tax_exempt_401k_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "tax_exempt_403b_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "tax_exempt_interest_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "tax_exempt_ira_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "tax_exempt_private_pension_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "tax_exempt_public_pension_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "tax_exempt_sep_distributions",
       "entity": "person",
       "value_type": "float",
       "period": "year",
@@ -1681,7 +2266,87 @@
       "note": "parameter 'gov.irs.income.exemption.suspended' outside emitted subtrees"
     },
     {
+      "name": "taxable_401k_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "taxable_403b_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "taxable_interest_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "taxable_ira_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "taxable_private_pension_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "taxable_public_pension_income",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "taxable_sep_distributions",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "unemployment_compensation",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "veterans_benefits",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "weekly_hours_worked_before_lsr",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "workers_compensation",
       "entity": "person",
       "value_type": "float",
       "period": "year",
