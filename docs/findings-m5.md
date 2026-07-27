@@ -199,8 +199,11 @@ pair (as our harness did) gets their target value silently replaced;
 the deleted source is then recomputed as `before_lsr + response`. The
 residue of §11 (the uprating fallback scaling stale periods by SOI
 calibration ratios) fills any period gaps this rewrite leaves. Tier T4
-→ source-located; harness convention adopted on `snap-wip`
-(set sources only, mirror into targets).
+→ source-located. **Resolved by convention** (merged): inputs keyed at
+their own definition period, month inputs replicated across all 12
+months (constant-within-year, the twin's date semantics); mover-pair
+sources only. Under this convention the SNAP chain is differentially
+clean: 1,000 households × 44 variables, zero mismatches.
 
 ## 9. First cross-encoding divergence: the statutory formula vs the administered maximum
 
