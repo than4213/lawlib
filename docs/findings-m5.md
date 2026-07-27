@@ -131,6 +131,31 @@ every parsed table cell, that the PE-vs-table gap is ≤ $11.50 everywhere
 midpoints. The finding is no longer an empirical comparison; it is a
 theorem about committed data.
 
+## 9. First cross-encoding divergence: the statutory formula vs the administered maximum
+
+An independent Catala encoding of §32(a)–(b)
+([catala/section_32.catala_en](../catala/section_32.catala_en)), written
+from the statute text without consulting PolicyEngine, diverges from
+the PolicyEngine encoding on plateau credits. §32(a)(2)(A) caps the
+credit at "the credit percentage of the earned income amount" — for
+2023: 7.65% × $7,840 = **$599.76** (childless) and 45% × $16,510 =
+**$7,429.50** (three children). PolicyEngine's `max` parameter — and
+Rev. Proc. 2022-38's own "Maximum Amount of Credit" line, and the
+§32(f) tables — all use the *rounded* $600 / $7,430. So the literal
+statutory formula and administered practice disagree by up to $0.50 on
+every plateau dollar of the affected cells (0 and 3+ children; the 1-
+and 2-child products happen to be whole dollars). Since §32(f) makes
+the tables operative for most filers, the administered figure
+presumably governs — but two published government artifacts (statute
+formula, Rev. Proc. maximum) are arithmetically inconsistent, and any
+encoder must silently choose. PolicyEngine chose the Rev. Proc.;
+Catala-from-the-text chooses the formula; the machine caught the
+difference at the first plateau test point. (Confirmed also at the
+childless zero point: both encodings agree the credit hits $0 at
+exactly $17,640 = 9,800 + 599.76/0.0765, because the childless credit
+and phaseout percentages coincide.) Equivalence theorems modulo this
+documented divergence come with the `to_lean` pipeline.
+
 Consequences for PolicyEngine fidelity, now exact rather than
 estimated: PE differs from the legal credit by up to ~$11.25 in
 phase-in and ~$5.27 in phase-out from midpoint quantization, plus a

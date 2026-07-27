@@ -1,0 +1,196 @@
+# 26 U.S.C. § 32 — Earned income
+
+An independent encoding of the federal Earned Income Tax Credit,
+written directly from the statute text (and the inflation-adjusted
+amounts of Rev. Proc. 2022-38 for tax year 2023), deliberately without
+consulting PolicyEngine's implementation. Lawlib transpiles this into
+Lean and compares it, definition by definition, against the
+PolicyEngine-derived encoding: agreement becomes an equivalence
+theorem; disagreement becomes a finding.
+
+Scope note: this encodes the credit *computation* of §32(a)–(b) — the
+amounts and percentages — for an eligible individual. Eligibility
+(§32(c)(1), §32(i) investment income, identification requirements) is
+the caller's burden here, mirroring the comparison boundary used for
+the Lean theorems.
+
+```catala-metadata
+declaration scope EarnedIncomeCredit:
+  input earned_income content money
+  input adjusted_gross_income content money
+  input qualifying_children content integer
+  input joint_return content boolean
+  internal credit_percentage content decimal
+  internal phaseout_percentage content decimal
+  internal earned_income_amount content money
+  internal phaseout_amount content money
+  internal credit_before_limitation content money
+  internal income_over_phaseout content money
+  internal limitation content money
+  output credit content money
+```
+
+## § 32(a)(1) — In general
+
+  In the case of an eligible individual, there shall be allowed as a
+  credit against the tax imposed by this subtitle for the taxable year
+  an amount equal to the credit percentage of so much of the
+  taxpayer's earned income for the taxable year as does not exceed the
+  earned income amount.
+
+```catala
+scope EarnedIncomeCredit:
+  definition credit_before_limitation equals
+    credit_percentage
+      * (if earned_income >= earned_income_amount
+         then earned_income_amount
+         else earned_income)
+```
+
+## § 32(a)(2) — Limitation
+
+  The amount of the credit allowable to a taxpayer under paragraph (1)
+  for any taxable year shall not exceed the excess (if any) of —
+  (A) the credit percentage of the earned income amount, over
+  (B) the phaseout percentage of so much of the adjusted gross income
+  (or, if greater, the earned income) of the taxpayer for the taxable
+  year as exceeds the phaseout amount.
+
+```catala
+scope EarnedIncomeCredit:
+  definition income_over_phaseout equals
+    if adjusted_gross_income >= earned_income then
+      (if adjusted_gross_income >= phaseout_amount
+       then adjusted_gross_income - phaseout_amount
+       else $0)
+    else
+      (if earned_income >= phaseout_amount
+       then earned_income - phaseout_amount
+       else $0)
+
+  definition limitation equals
+    if credit_percentage * earned_income_amount
+         >= phaseout_percentage * income_over_phaseout
+    then credit_percentage * earned_income_amount
+           - phaseout_percentage * income_over_phaseout
+    else $0
+
+  definition credit equals
+    if credit_before_limitation >= limitation
+    then limitation
+    else credit_before_limitation
+```
+
+## § 32(b)(1) — Percentages
+
+  In the case of an eligible individual with: 1 qualifying child, the
+  credit percentage is 34 and the phaseout percentage is 15.98; 2
+  qualifying children, 40 and 21.06; 3 or more qualifying children, 45
+  and 21.06; no qualifying children, 7.65 and 7.65.
+
+```catala
+scope EarnedIncomeCredit:
+  definition credit_percentage equals
+    if qualifying_children = 0 then 7.65%
+    else if qualifying_children = 1 then 34%
+    else if qualifying_children = 2 then 40%
+    else 45%
+
+  definition phaseout_percentage equals
+    if qualifying_children = 0 then 7.65%
+    else if qualifying_children = 1 then 15.98%
+    else 21.06%
+```
+
+## § 32(b)(2) — Amounts, as adjusted by § 32(j) for 2023
+
+The earned income amount and the phaseout amount, with the § 32(j)
+inflation adjustments for taxable year 2023 (Rev. Proc. 2022-38,
+§ 2.06; phaseout amounts include the § 32(b)(2)(B) increase for joint
+returns, as adjusted):
+
+```catala
+scope EarnedIncomeCredit:
+  definition earned_income_amount equals
+    if qualifying_children = 0 then $7,840
+    else if qualifying_children = 1 then $11,750
+    else $16,510
+
+  definition phaseout_amount equals
+    if joint_return then
+      (if qualifying_children = 0 then $16,370 else $28,120)
+    else
+      (if qualifying_children = 0 then $9,800 else $21,560)
+```
+
+## Test scopes
+
+Interpreted with `catala interpret --no-stdlib -s <scope>`.
+
+```catala
+declaration scope TestPlateau1Child:
+  output result content EarnedIncomeCredit
+
+scope TestPlateau1Child:
+  definition result equals
+    output of EarnedIncomeCredit with
+      { -- earned_income: $20,000
+        -- adjusted_gross_income: $20,000
+        -- qualifying_children: 1
+        -- joint_return: false }
+
+declaration scope TestPhaseIn1Child:
+  output result content EarnedIncomeCredit
+
+scope TestPhaseIn1Child:
+  definition result equals
+    output of EarnedIncomeCredit with
+      { -- earned_income: $10,000
+        -- adjusted_gross_income: $10,000
+        -- qualifying_children: 1
+        -- joint_return: false }
+
+declaration scope TestPhaseOut1Child:
+  output result content EarnedIncomeCredit
+
+scope TestPhaseOut1Child:
+  definition result equals
+    output of EarnedIncomeCredit with
+      { -- earned_income: $30,000
+        -- adjusted_gross_income: $30,000
+        -- qualifying_children: 1
+        -- joint_return: false }
+
+declaration scope TestChildlessPlateau:
+  output result content EarnedIncomeCredit
+
+scope TestChildlessPlateau:
+  definition result equals
+    output of EarnedIncomeCredit with
+      { -- earned_income: $7,900
+        -- adjusted_gross_income: $7,900
+        -- qualifying_children: 0
+        -- joint_return: false }
+
+declaration scope TestThreeKidsJointPlateau:
+  output result content EarnedIncomeCredit
+
+scope TestThreeKidsJointPlateau:
+  definition result equals
+    output of EarnedIncomeCredit with
+      { -- earned_income: $20,000
+        -- adjusted_gross_income: $20,000
+        -- qualifying_children: 3
+        -- joint_return: true }
+
+declaration scope TestChildlessZeroPoint:
+  output result content EarnedIncomeCredit
+
+scope TestChildlessZeroPoint:
+  definition result equals
+    output of EarnedIncomeCredit with
+      { -- earned_income: $17,640
+        -- adjusted_gross_income: $17,640
+        -- qualifying_children: 0
+        -- joint_return: false }
+```
