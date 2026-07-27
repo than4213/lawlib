@@ -1,4 +1,5 @@
 import Lawlib.Core.Date
+import Lawlib.Core.ExtRat
 
 /-!
 # Bracket scales
@@ -45,5 +46,29 @@ def lastThreshold (s : Scale) (d : Date) : Rat :=
   | none => 0
 
 end Scale
+
+/-- A scale whose thresholds/amounts may be `±∞` (some state parameter
+tables use unbounded brackets). Data-layer twin of `Scale`. -/
+structure ScaleXBracket where
+  threshold : DatedParam ExtRat
+  amount : DatedParam ExtRat
+deriving Repr
+
+structure ScaleX where
+  brackets : List ScaleXBracket
+deriving Repr
+
+namespace ScaleX
+
+/-- Amount of the last bracket whose threshold at `d` is `≤ x`
+(`negInf` thresholds always apply; `posInf` never). -/
+def atDate (s : ScaleX) (d : Date) (x : Rat) : ExtRat :=
+  s.brackets.foldl (init := .fin 0) fun acc b =>
+    match b.threshold.atDate d with
+    | .negInf => b.amount.atDate d
+    | .posInf => acc
+    | .fin t => if t ≤ x then b.amount.atDate d else acc
+
+end ScaleX
 
 end Lawlib

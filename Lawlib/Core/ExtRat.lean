@@ -9,10 +9,11 @@ unbounded use `ExtRat`: a rational or `+∞`.
 
 namespace Lawlib
 
-/-- A rational extended with `+∞` (statutory "no limit"). -/
+/-- A rational extended with `±∞` (statutory "no limit" bounds). -/
 inductive ExtRat where
   | fin (q : Rat)
   | posInf
+  | negInf
 deriving DecidableEq, Repr
 
 namespace ExtRat
@@ -20,6 +21,7 @@ namespace ExtRat
 /-- `x ≤ cap`, where `cap = posInf` means the limit is absent. -/
 def leCap (x : Rat) : ExtRat → Bool
   | .posInf => true
+  | .negInf => false
   | .fin q => x ≤ q
 
 end ExtRat
