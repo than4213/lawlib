@@ -30,6 +30,10 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install pinned extractor
         run: pip install "pe2lean @ git+https://github.com/than4213/pe2lean.git@${{ env.PE2LEAN_REF }}"
+      - name: Axiom quarantine (nothing imports Claims.Asserted)
+        run: |
+          ! grep -rn "import Lawlib.Claims.Asserted" --include="*.lean" . \
+            | grep -v "Lawlib/Claims/Asserted.lean"
       - name: Determinism check (re-extract must be byte-identical)
         run: |
           pe2lean extract --lawlib .

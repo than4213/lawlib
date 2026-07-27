@@ -11,6 +11,9 @@ rev = "v4.32.1"
 
 [[lean_lib]]
 name = "Lawlib"
+# The Asserted shadow is imported by nothing (CI-enforced) but must
+# still compile: build it explicitly alongside the root module.
+globs = ["Lawlib", "Lawlib.Claims.Asserted"]
 
 [[lean_exe]]
 name = "lawlib"
