@@ -19,6 +19,9 @@ each, newest last, to be extended before going public. Details in
 | 10 | Continuity contrast: EITC proven continuous (no cliffs, any income); CTC's 40+80 statutory $50 cliffs proven and completely enumerated | T0/T1 | §10 |
 | 11 | PolicyEngine's period coercion of set inputs is path-dependent: `calculate_divide` (÷12), silent uprating fallback (stale values × SOI calibration ratios), auto-carry-over with source-commented period-sort hazards (H1/H2) | T4 (source-located) | §11 |
 | 12 | `Simulation.__init__` silently moves income inputs onto `_before_lsr` counterparts, overwriting caller-set values and deleting sources | T4 (source-located) | §12 |
+| 13 | NumPy erases the bool/number distinction and policyengine-us leans on it everywhere: bool variables defined by numeric sums, float variables returning `head \|\| spouse`, float-typed `defined_for` gates. A typing pass over the IR re-inserts every implicit coercion (`True+True=2`, `x != 0` truth tests); across 1,771 swept formulas **zero** puns were uncoercible — all are well-defined NumPy semantics, none are latent bugs | T2 | Phase B |
+| 14 | `GroupPopulation.__call__` on a person variable implicitly **sums over members** — a one-line dispatch in policyengine-core that silently turns `spm_unit("x_person")` into an aggregate; undocumented, load-bearing in dozens of state-program formulas | T4 (source-located) | Phase B |
+| 15 | `adds` lists may mix variable names with *parameter paths* (the path resolves to a list of addends at runtime); several variables' addend lists are themselves parameters | T3 | Phase B |
 
 ## Internal lessons (about building verified twins, not about PE)
 
