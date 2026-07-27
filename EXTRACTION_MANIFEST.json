@@ -172,6 +172,476 @@
       "path": "gov.irs.ald.self_employment_tax.percent_deductible",
       "source": "gov/irs/ald/self_employment_tax/percent_deductible.yaml",
       "sha256": "894fa5faf630d98ca1c426e86b6b836ea711769bb6ce5d7abcc848c60db1fa23"
+    },
+    {
+      "path": "gov.usda.snap.abolish_snap",
+      "source": "gov/usda/snap/abolish_snap.yaml",
+      "sha256": "3042e842902fd9ec7fa3b96396fd92ed7569a43ef5964c66014abe48e85b6a16"
+    },
+    {
+      "path": "gov.usda.snap.asset_test.limit.standard",
+      "source": "gov/usda/snap/asset_test/limit.yaml",
+      "sha256": "c422072a7f5204c1e7d23a5207dc364d0ffdbd673e109a5e755623012d9f488f"
+    },
+    {
+      "path": "gov.usda.snap.asset_test.limit.elderly_disabled",
+      "source": "gov/usda/snap/asset_test/limit.yaml",
+      "sha256": "c422072a7f5204c1e7d23a5207dc364d0ffdbd673e109a5e755623012d9f488f"
+    },
+    {
+      "path": "gov.usda.snap.asset_test.sources",
+      "source": "gov/usda/snap/asset_test/sources.yaml",
+      "sha256": "4a2d3c96417028693bdcb0a2e0526a14065e43eab3e109353e65a12c50791a23"
+    },
+    {
+      "path": "gov.usda.snap.categorical_eligibility",
+      "source": "gov/usda/snap/categorical_eligibility.yaml",
+      "sha256": "1dd8122eb9001d8c70a8c6eaf39a0bd80cfda5b456d39854e96099dbf8abedf5"
+    },
+    {
+      "path": "gov.usda.snap.eligibility.eligible_immigration_statuses",
+      "source": "gov/usda/snap/eligibility/eligible_immigration_statuses.yaml",
+      "sha256": "939a67a10d47b1ccfa86e87bb17e9ea6a3ce107a11614351798e24267ed9ce97"
+    },
+    {
+      "path": "gov.usda.snap.emergency_allotment.allowed",
+      "source": "gov/usda/snap/emergency_allotment/allowed.yaml",
+      "sha256": "177c0d5555588bb619e91d22ef7f39e03728dba4446e13047e9cbd1f3a5d629c"
+    },
+    {
+      "path": "gov.usda.snap.emergency_allotment.in_effect",
+      "source": "gov/usda/snap/emergency_allotment/in_effect.yaml",
+      "sha256": "b1c18d70a92e8b9f77be6be942d2abed7eab475afb41e65342f2072ef99f072a"
+    },
+    {
+      "path": "gov.usda.snap.emergency_allotment.minimum",
+      "source": "gov/usda/snap/emergency_allotment/minimum.yaml",
+      "sha256": "e85ef0deb6ddf77b9e7baf2c0bf028eda6c93783ef6ce806fd20bde66934486f"
+    },
+    {
+      "path": "gov.usda.snap.expected_contribution",
+      "source": "gov/usda/snap/expected_contribution.yaml",
+      "sha256": "1bf287ca257616549512f6cce74a7833d73532aa91471597316234743f1018d9"
+    },
+    {
+      "path": "gov.usda.snap.income.child_income_exclusion_age",
+      "source": "gov/usda/snap/income/child_income_exclusion_age.yaml",
+      "sha256": "fd6673ee147805797a8a5a5498b7f9e40d1f81524c1afa038c673af84c1a6d57"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.allowed",
+      "source": "gov/usda/snap/income/deductions/allowed.yaml",
+      "sha256": "dcb6b47531138ba02358066b838e9eff23090c9179369a98106c18a73a5e08b5"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.child_support",
+      "source": "gov/usda/snap/income/deductions/child_support.yaml",
+      "sha256": "f378588bac550727051a00740f7595feac84dc6e4af88e723359105b28bcd069"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.earned_income",
+      "source": "gov/usda/snap/income/deductions/earned_income.yaml",
+      "sha256": "aa94ef747dea62b829e838ee0b4d580f44334ccb921edec042f9a724a7328d56"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.excess_medical_expense.disregard",
+      "source": "gov/usda/snap/income/deductions/excess_medical_expense/disregard.yaml",
+      "sha256": "ae06350ffe5d2e50d41aafe9ba562d702b3dfcf529bfdd74c279a0708e5a5cae"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.excess_medical_expense.standard",
+      "source": "gov/usda/snap/income/deductions/excess_medical_expense/standard.yaml",
+      "sha256": "7b7b7010f77f350603f436f05d34468193d302f085a56cd418fc092426fb57da"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.excess_shelter_expense.cap",
+      "source": "gov/usda/snap/income/deductions/excess_shelter_expense/cap.yaml",
+      "sha256": "e45552a8417bf0633f1306367906a77b055a0cd118f082b563ace06bd35143b4"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.excess_shelter_expense.elderly_or_disabled_exempt",
+      "source": "gov/usda/snap/income/deductions/excess_shelter_expense/elderly_or_disabled_exempt.yaml",
+      "sha256": "9e527ba58daeaeb000b946431b1f9b96e3423e2778d8955464ead6a0211dda0b"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.excess_shelter_expense.homeless.available",
+      "source": "gov/usda/snap/income/deductions/excess_shelter_expense/homeless/available.yaml",
+      "sha256": "fe2aa25a863f5707cb076124937d40b746f6e606c193a34cb151f55e0805d9b7"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.excess_shelter_expense.homeless.deduction",
+      "source": "gov/usda/snap/income/deductions/excess_shelter_expense/homeless/deduction.yaml",
+      "sha256": "2dc50f037b84c92bcb2d8e46342082ccbb582d439d37bbd777b6c106bbb5180f"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.excess_shelter_expense.income_share_disregard",
+      "source": "gov/usda/snap/income/deductions/excess_shelter_expense/income_share_disregard.yaml",
+      "sha256": "10ccc32829f59ce6171cbe147e9c5383172f611171a6837f5f48918f4c0dbf68"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.self_employment.expense_based_deduction_applies",
+      "source": "gov/usda/snap/income/deductions/self_employment/expense_based_deduction_applies.yaml",
+      "sha256": "1fbb04da9cc431939bdac33246bf52a8fbbb07686fcd95d07bbb8e7fd700dacb"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.self_employment.rate",
+      "source": "gov/usda/snap/income/deductions/self_employment/rate.yaml",
+      "sha256": "b50f50fafcc68558d1446850d4e349370171a7b3d4e350487096fb6e14531bfd"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.standard",
+      "source": "gov/usda/snap/income/deductions/standard.yaml",
+      "sha256": "c5ef6c3912682e4a2eded99ba84bfbe717e072fa9f8133daddf1d92ed03633bc"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.always_standard",
+      "source": "gov/usda/snap/income/deductions/utility/always_standard.yaml",
+      "sha256": "8544a5391e6a6f84898517b918b8433c51eaf6d66df4887363e251208b56b92e"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.limited.active",
+      "source": "gov/usda/snap/income/deductions/utility/limited/active.yaml",
+      "sha256": "47736715a30088b97bd3b86c73cc82930218418543132e956f8e32eab291431b"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.limited.by_household_size.amount",
+      "source": "gov/usda/snap/income/deductions/utility/limited/by_household_size/amount.yaml",
+      "sha256": "1301d0dd94cef003c4b8be09512a5bef8f064f705532b2457e9de8725f752931"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.limited.by_household_size.states",
+      "source": "gov/usda/snap/income/deductions/utility/limited/by_household_size/states.yaml",
+      "sha256": "e9a1737cdd5bb475344163e110ea456163b5e0004f1bbdd400f6aa572296c799"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.limited.main",
+      "source": "gov/usda/snap/income/deductions/utility/limited/main.yaml",
+      "sha256": "8f13229800bef19291d1919fb5e7fc5569bfbe60ebd63f329bc582a1ac0085b6"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.by_household_size.electricity",
+      "source": "gov/usda/snap/income/deductions/utility/single/by_household_size/electricity.yaml",
+      "sha256": "8d7859df3a6eb4a194a5f96cdb0e3dc6108a5c7be63716b258ccda12ed9b0ccc"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.by_household_size.gas_and_fuel",
+      "source": "gov/usda/snap/income/deductions/utility/single/by_household_size/gas_and_fuel.yaml",
+      "sha256": "f438a116b69067a6c9299deead329beefbf484620df1bb3cacf75b116b2f5cd2"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.by_household_size.states",
+      "source": "gov/usda/snap/income/deductions/utility/single/by_household_size/states.yaml",
+      "sha256": "a1433faa844191138e771fb4771d8de36732380d42f1a49cc535830c9fe1156a"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.by_household_size.water",
+      "source": "gov/usda/snap/income/deductions/utility/single/by_household_size/water.yaml",
+      "sha256": "afc795a770b48a5d4e45fab3c4da8fc7e9a61220f9a62448b5538717e5d1833c"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.electricity",
+      "source": "gov/usda/snap/income/deductions/utility/single/electricity.yaml",
+      "sha256": "212a4ac2329a17ed4e3102b9def0be6af28a19b4a0ae3aa0781e73d07124d7e1"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.gas_and_fuel",
+      "source": "gov/usda/snap/income/deductions/utility/single/gas_and_fuel.yaml",
+      "sha256": "f77372ef9d073c473b8e9d920fe1bc2b36456536d72e9c86319675cfd5950719"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.phone",
+      "source": "gov/usda/snap/income/deductions/utility/single/phone.yaml",
+      "sha256": "452f9d63b2d70dd388f30039f429a69fbc60d258d001d1b18a10167d3a712e41"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.sewage",
+      "source": "gov/usda/snap/income/deductions/utility/single/sewage.yaml",
+      "sha256": "ec6b7a722d3d9f78fe544991cd05f8e7ba10d20f41c119d1d7fbbd9a3748afd4"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.trash",
+      "source": "gov/usda/snap/income/deductions/utility/single/trash.yaml",
+      "sha256": "937681e13afad06e2b1966858213480486833f0b0b420bd2ea8df3d60536ddc2"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.utility_types",
+      "source": "gov/usda/snap/income/deductions/utility/single/utility_types.yaml",
+      "sha256": "aac5e46a0961032bbec32b2e337411e9b89efa298aa89c937c6345ab402e3049"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.single.water",
+      "source": "gov/usda/snap/income/deductions/utility/single/water.yaml",
+      "sha256": "1ac306eda2108f021ae7eea979bbc9676af4dd3b83a5e35c8593ef246e3bcbd5"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.standard.by_household_size.amount",
+      "source": "gov/usda/snap/income/deductions/utility/standard/by_household_size/amount.yaml",
+      "sha256": "1d5bbbf3a310fa4a5ae5eb522cbea5dd74ef7c90250b8bcb6eb09554a6a60f0c"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.standard.by_household_size.states",
+      "source": "gov/usda/snap/income/deductions/utility/standard/by_household_size/states.yaml",
+      "sha256": "8dcb133e1470483c7e70277c67bc23d0f533b97018305d95564749ee27603c9c"
+    },
+    {
+      "path": "gov.usda.snap.income.deductions.utility.standard.main",
+      "source": "gov/usda/snap/income/deductions/utility/standard/main.yaml",
+      "sha256": "2d81fc4911472aa5e8e62f1a741f8060495ba8f31563c1a02fb9218c8a6d5d51"
+    },
+    {
+      "path": "gov.usda.snap.income.ineligible_members.count_all_income_states",
+      "source": "gov/usda/snap/income/ineligible_members/count_all_income_states.yaml",
+      "sha256": "0313dce04fbad7452aff5a4a9d5e0484447dfb7a35e0075958627988373e9323"
+    },
+    {
+      "path": "gov.usda.snap.income.ineligible_members.gross_test_full_count_states",
+      "source": "gov/usda/snap/income/ineligible_members/gross_test_full_count_states.yaml",
+      "sha256": "7a519050dc616113e29160b2736dbe9832bbb50d6e38cb6b72c7b1c8e4fd0186"
+    },
+    {
+      "path": "gov.usda.snap.income.ineligible_members.pre_prwora_statuses",
+      "source": "gov/usda/snap/income/ineligible_members/pre_prwora_statuses.yaml",
+      "sha256": "15ac6323acc2464611d771210bcce001fe529b3a57b1af4e71d39a11010baa6e"
+    },
+    {
+      "path": "gov.usda.snap.income.limit.gross",
+      "source": "gov/usda/snap/income/limit/gross.yaml",
+      "sha256": "c33a2e3b4d93d88f15cf19aac3e44aa7e3a3e00e51ad37c8357a2dfd3cd7b04a"
+    },
+    {
+      "path": "gov.usda.snap.income.limit.net",
+      "source": "gov/usda/snap/income/limit/net.yaml",
+      "sha256": "a14c700920023fec0694d7632a20f50b13a8a9b73daabbca7179ad1c35108903"
+    },
+    {
+      "path": "gov.usda.snap.income.sources.earned",
+      "source": "gov/usda/snap/income/sources/earned.yaml",
+      "sha256": "a8176af687acaf48c1be2fbe0afb0366d9af2425df83fbf6998f3aad4a60e7ca"
+    },
+    {
+      "path": "gov.usda.snap.income.sources.unearned",
+      "source": "gov/usda/snap/income/sources/unearned.yaml",
+      "sha256": "47713da1c267ffbf2232831078c668d31a7eb3f78fc130576835271bc19441a5"
+    },
+    {
+      "path": "gov.usda.snap.income.sources.unearned_spm_unit",
+      "source": "gov/usda/snap/income/sources/unearned_spm_unit.yaml",
+      "sha256": "aa4119f460bdff041b8ca853e3a8c2b7897d9ff25d7a79ef864ce3cd50ef149f"
+    },
+    {
+      "path": "gov.usda.snap.max_allotment.main",
+      "source": "gov/usda/snap/max_allotment.yaml",
+      "sha256": "4be548bf73c4bad6953a11816c96e4c6edfb04e1d443383aa3c265ff633fa4d9"
+    },
+    {
+      "path": "gov.usda.snap.max_allotment.additional",
+      "source": "gov/usda/snap/max_allotment.yaml",
+      "sha256": "4be548bf73c4bad6953a11816c96e4c6edfb04e1d443383aa3c265ff633fa4d9"
+    },
+    {
+      "path": "gov.usda.snap.min_allotment.maximum_household_size",
+      "source": "gov/usda/snap/min_allotment/maximum_household_size.yaml",
+      "sha256": "65e8df5d512b036bbd58739d9f2ca2f5fe76db7ddbcdba9663fd130508da7d26"
+    },
+    {
+      "path": "gov.usda.snap.min_allotment.rate",
+      "source": "gov/usda/snap/min_allotment/rate.yaml",
+      "sha256": "db48086d798e5b027a1ab926fed99d0e3e078efd94fc10c73c0354ef1442b5b9"
+    },
+    {
+      "path": "gov.usda.snap.min_allotment.relevant_max_allotment_household_size",
+      "source": "gov/usda/snap/min_allotment/relevant_max_allotment_household_size.yaml",
+      "sha256": "5987ae1266cc7e6c01b5e02c358026fc27cd3064efda255b05360c0e0b321fb6"
+    },
+    {
+      "path": "gov.usda.snap.student.age_threshold",
+      "source": "gov/usda/snap/student/age_threshold.yaml",
+      "sha256": "329e22d548e732c4c5ee08630e3ae694fc4d1ac5d21df3734a8718d6c010093b"
+    },
+    {
+      "path": "gov.usda.snap.student.child_age_limit.single_parent",
+      "source": "gov/usda/snap/student/child_age_limit/single_parent.yaml",
+      "sha256": "3b94ac074bd5e2859827b1c80e937cd5563985c5160b5375c2f2f71cbbefac26"
+    },
+    {
+      "path": "gov.usda.snap.student.child_age_limit.two_parent",
+      "source": "gov/usda/snap/student/child_age_limit/two_parent.yaml",
+      "sha256": "9d82e4f740663e0f4289f799ac3c8b30f5e5d1ca5c29a72d085150408c6d7e4b"
+    },
+    {
+      "path": "gov.usda.snap.student.working_hours_threshold",
+      "source": "gov/usda/snap/student/working_hours_threshold.yaml",
+      "sha256": "4f2d2296495a907de42196bc762465e808de3eb73d221b74d2f66578e480d6fa"
+    },
+    {
+      "path": "gov.usda.snap.uprating",
+      "source": "gov/usda/snap/uprating.yaml",
+      "sha256": "d6321d48318324f256a09f59344db1953cf0ae936d6380a0b9d984f3e5b3f997"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.abawd.age_threshold.dependent",
+      "source": "gov/usda/snap/work_requirements/abawd/age_threshold/dependent.yaml",
+      "sha256": "f97b6fe82f34a89e537d1ded0e6a06e6495d6582265529cad1aed83d582f010a"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.abawd.age_threshold.exempted",
+      "source": "gov/usda/snap/work_requirements/abawd/age_threshold/exempted.yaml",
+      "sha256": "4570ebabea35f852d33502b4a0ab187fcaf8f907a398a7c675aa794f322009f8"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.abawd.age_threshold.former_foster_care",
+      "source": "gov/usda/snap/work_requirements/abawd/age_threshold/former_foster_care.yaml",
+      "sha256": "d12c2266b23694637c332bbfac5c670f9fd9215a590b76fb87056eab14d850f1"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.abawd.discretionary_exemption_rate",
+      "source": "gov/usda/snap/work_requirements/abawd/discretionary_exemption_rate.yaml",
+      "sha256": "ca8be6536da6b669dd7677819821a46009e60c62421c22ccc2c4091375a43246"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.abawd.in_effect",
+      "source": "gov/usda/snap/work_requirements/abawd/in_effect.yaml",
+      "sha256": "77a3ad6ec0b2b0c00263abdf5648751c994d8944805d32b8576a2cda68bf7a8e"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.abawd.waived_county_fips",
+      "source": "gov/usda/snap/work_requirements/abawd/waived_county_fips.yaml",
+      "sha256": "6cae0694fa45eb18e1bc1a5a632ba49100cffc07fdd8a91b7257a391b0774219"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.abawd.weekly_hours_threshold",
+      "source": "gov/usda/snap/work_requirements/abawd/weekly_hours_threshold.yaml",
+      "sha256": "0ec3455a91d5e5c6b8e593b05c2924cb08fcacc6638bbadce5edf14b6633e8db"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.general.age_threshold.caring_dependent_child",
+      "source": "gov/usda/snap/work_requirements/general/age_threshold/caring_dependent_child.yaml",
+      "sha256": "21212a6354fa9482c0f9901305661f32123ada8bd73e2daed4ebea10e3069960"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.general.age_threshold.exempted",
+      "source": "gov/usda/snap/work_requirements/general/age_threshold/exempted.yaml",
+      "sha256": "f9a00edf176ce4f1c664b1cf7ea9d14f4a67201499b6335915c8a0a82c604f78"
+    },
+    {
+      "path": "gov.usda.snap.work_requirements.general.weekly_hours_threshold",
+      "source": "gov/usda/snap/work_requirements/general/weekly_hours_threshold.yaml",
+      "sha256": "ecd054b7a28b5e3c069b2904253db6a6fa98b2d6b3939618f130d09eb9867b95"
+    },
+    {
+      "path": "gov.ssa.ssi.abolish_ssi",
+      "source": "gov/ssa/ssi/abolish_ssi.yaml",
+      "sha256": "3e5ad159c2673a204e99517403c452a0339cafbe155f10501059bf72648e9c22"
+    },
+    {
+      "path": "gov.ssa.ssi.amount.couple",
+      "source": "gov/ssa/ssi/amount/couple.yaml",
+      "sha256": "fa8d7cee418f6b4c02df757f2cc591936eb835efcdde17534dffd9d9d90e459e"
+    },
+    {
+      "path": "gov.ssa.ssi.amount.individual",
+      "source": "gov/ssa/ssi/amount/individual.yaml",
+      "sha256": "9dc3d2ed15f1f86e073e7ef06e06bd79c43d8d8b48419dcee87de25a5cdd0eaf"
+    },
+    {
+      "path": "gov.ssa.ssi.amount.institutional.couple",
+      "source": "gov/ssa/ssi/amount/institutional/couple.yaml",
+      "sha256": "35dae9b76a243ca9c1517c5e59f5b92ad2ad2bc4b777945c32be15820cbff1a2"
+    },
+    {
+      "path": "gov.ssa.ssi.amount.institutional.individual",
+      "source": "gov/ssa/ssi/amount/institutional/individual.yaml",
+      "sha256": "10d727cfab0a4cc51cea87b88ebe5831e064f72e5ade3b41a4ad6a25e2620fd4"
+    },
+    {
+      "path": "gov.ssa.ssi.amount.medical_facility",
+      "source": "gov/ssa/ssi/amount/medical_facility.yaml",
+      "sha256": "f364f73240a46493a4aa17fa5bf862a977d5514980b9b94dcf5c2f9962b3720e"
+    },
+    {
+      "path": "gov.ssa.ssi.amount.one_third_reduction_rate",
+      "source": "gov/ssa/ssi/amount/one_third_reduction_rate.yaml",
+      "sha256": "0d8a9749147c5f2173e3ad04039a8aeae9eae0681fb033f449dc979f7e4010a0"
+    },
+    {
+      "path": "gov.ssa.ssi.eligibility.aged_threshold",
+      "source": "gov/ssa/ssi/eligibility/aged_threshold.yaml",
+      "sha256": "6db6fb621418f1661eb7a4ddfbc65a81c238fcf2c76bbeb7a6db8d2778b41e0b"
+    },
+    {
+      "path": "gov.ssa.ssi.eligibility.resources.countable",
+      "source": "gov/ssa/ssi/eligibility/resources/countable.yaml",
+      "sha256": "340d82956b609fcb3d1cd321c94bc6a20503e7698292279e8bec2e040db37c81"
+    },
+    {
+      "path": "gov.ssa.ssi.eligibility.resources.limit.couple",
+      "source": "gov/ssa/ssi/eligibility/resources/limit/couple.yaml",
+      "sha256": "341b821e70c50a269741152f2e616cc4dc0663bfeab5fcfe0ded1b32a316dfc9"
+    },
+    {
+      "path": "gov.ssa.ssi.eligibility.resources.limit.individual",
+      "source": "gov/ssa/ssi/eligibility/resources/limit/individual.yaml",
+      "sha256": "155d6728a2ae00ea5da441ada685ad638f21d1faaa8cadd0e991ef6a40b94cc7"
+    },
+    {
+      "path": "gov.ssa.ssi.eligibility.status.qualified_noncitizen_status",
+      "source": "gov/ssa/ssi/eligibility/status/qualified_noncitizen_status.yaml",
+      "sha256": "9dd135de6eeaf6aa09d227ba0ba8c5ad3166e8afdec1cccb8b449d65c881dd8e"
+    },
+    {
+      "path": "gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.age_limit",
+      "source": "gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/age_limit.yaml",
+      "sha256": "516b3fd0f8d8b50aa7dd581b51c706c30f39e6058f0926dad5cfb018458c86a8"
+    },
+    {
+      "path": "gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.amount",
+      "source": "gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/amount.yaml",
+      "sha256": "4f717503f6043f55140351b1cca6b28282bbf00b19e3a02feabdae4f483dd6eb"
+    },
+    {
+      "path": "gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.cap",
+      "source": "gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/cap.yaml",
+      "sha256": "7b9ac16ea37d0ce42f9503785eea397aa832a2f3521103be59b8ebfd46163ce5"
+    },
+    {
+      "path": "gov.ssa.ssi.income.exclusions.earned",
+      "source": "gov/ssa/ssi/income/exclusions/earned.yaml",
+      "sha256": "50bc791fec4bf24b444a394e23f5ad19b86f758e71739bfd17665b3c11a96f4b"
+    },
+    {
+      "path": "gov.ssa.ssi.income.exclusions.earned_share",
+      "source": "gov/ssa/ssi/income/exclusions/earned_share.yaml",
+      "sha256": "f9efb4c19445cbc5fc38dcbeabcde0920396365fb3ba5de4e29a93e469257ec6"
+    },
+    {
+      "path": "gov.ssa.ssi.income.exclusions.general",
+      "source": "gov/ssa/ssi/income/exclusions/general.yaml",
+      "sha256": "dc77f88b148bd06771a267ab0775e80898043ec7581adea5b9431eff8267f9b1"
+    },
+    {
+      "path": "gov.ssa.ssi.income.ism.food_counts",
+      "source": "gov/ssa/ssi/income/ism/food_counts.yaml",
+      "sha256": "20b053e6f70dfe800b5930aea162506a5f832ca440ebef37a508535650e74c94"
+    },
+    {
+      "path": "gov.ssa.ssi.income.ism.pmv_fbr_fraction",
+      "source": "gov/ssa/ssi/income/ism/pmv_fbr_fraction.yaml",
+      "sha256": "9288e2375b626e173f86808979a77b6c21c84d4fcab2aa19af4a8dccfaf4c4ef"
+    },
+    {
+      "path": "gov.ssa.ssi.income.sources.earned",
+      "source": "gov/ssa/ssi/income/sources/earned.yaml",
+      "sha256": "77692a8088f5107ad7b07a70dc1830517f5febf9743f9ed0d79c9a1dd13ca869"
+    },
+    {
+      "path": "gov.ssa.ssi.income.sources.qualifying_quarters_threshold",
+      "source": "gov/ssa/ssi/income/sources/qualifying_quarters_threshold.yaml",
+      "sha256": "4d75d458730a89837da4e0b0ba330130eb8043015f31fd54d6f84f354f0e7465"
+    },
+    {
+      "path": "gov.ssa.ssi.income.sources.unearned",
+      "source": "gov/ssa/ssi/income/sources/unearned.yaml",
+      "sha256": "a3ede21a1f9410f2c6e7828dccf8be2e468935eb0e873773ee8533bd7bb5be0a"
     }
   ],
   "law_date_coverage": [
@@ -183,6 +653,7 @@
       "name": "ctc_arpa_phase_out_threshold",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_threshold.py",
       "sha256": "b22e712747fba587cf338c3f71ce75dfc3429d78ea99c163d929504f5c4ae1df"
     },
@@ -190,6 +661,7 @@
       "name": "ctc_phase_out_threshold",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/ctc_phase_out_threshold.py",
       "sha256": "d30ee4b4698919760ed3d2c67d16b5e4d18a770a320c3bb67a6cadcc4215d639"
     },
@@ -197,13 +669,39 @@
       "name": "is_in_k12_school",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/household/demographic/person/is_in_k12_school.py",
       "sha256": "0a689dba4c9f6d04c97f01a96a3d75dadf4e2dfe9b6c41639b4576934d5f877b"
+    },
+    {
+      "name": "is_snap_employment_training_or_work_incentive_student",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_employment_training_or_work_incentive_student.py",
+      "sha256": "0a1f879dfbdea8b158d2fe664f7e7132595c4960ec1ffc1b24fe89f187ed1beb"
+    },
+    {
+      "name": "is_snap_higher_ed_student",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_higher_ed_student.py",
+      "sha256": "bc04add6782c871e472c172b68ac4059f07e3d8960c64a748f3ced3f584a6c37"
+    },
+    {
+      "name": "is_snap_immigration_status_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/is_snap_immigration_status_eligible.py",
+      "sha256": "90fc76086bdef277d026ce0b3898dfbe58bd44c68b635a15bc4695f2e55190d7"
     },
     {
       "name": "is_tax_unit_dependent",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_dependent.py",
       "sha256": "1d6d43e3ee4217d321256f906150500f422296c0f07a56d5e489b3fb165ce310"
     },
@@ -211,6 +709,7 @@
       "name": "is_tax_unit_head_or_spouse",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_head_or_spouse.py",
       "sha256": "21273467ec604eac8ad8d97ecf34430b6466339345f3b15513becd1fbe8063f6"
     },
@@ -218,6 +717,7 @@
       "name": "long_term_capital_gains",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/household/income/person/capital_gains/long_term_capital_gains.py",
       "sha256": "074c8ace22b4ef50741c562c8f362760b8f5b2e877d9b5b0f05322e21fdfccfa"
     },
@@ -225,6 +725,7 @@
       "name": "meets_ctc_child_identification_requirements",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/meets_ctc_child_identification_requirements.py",
       "sha256": "d76ec87bf391fd6467e2c7b042616754253ebbfc975493a3e676febf0c68aeac"
     },
@@ -232,6 +733,7 @@
       "name": "meets_ctc_identification_requirements",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/meets_ctc_identification_requirements.py",
       "sha256": "757e89dc20308a508b6aeb46f37d6289a7ee2838bb167fc0d1220717916445d4"
     },
@@ -239,20 +741,63 @@
       "name": "meets_eitc_identification_requirements",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/meets_eitc_identification_requirements.py",
       "sha256": "4b0aa51cad111c4d497914320ffceff3ad22998a84690e52655df52bb3062403"
+    },
+    {
+      "name": "meets_snap_work_exception",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_work_exception.py",
+      "sha256": "f33d4a02c1e26473249b40d31e797c24e3c55234a3b7b5bb71a3cbc53598d29f"
+    },
+    {
+      "name": "monthly_age",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/household/demographic/age/monthly_age.py",
+      "sha256": "ac0b056ee401103c24d70fd84680b69bac77c163d7c7759f20ad40b21528d2c4"
     },
     {
       "name": "self_employment_tax_ald_person",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald_person.py",
       "sha256": "5112bf8bb3c82ff2126fe5219bf01f0d6a71c25e82ed4112aee69591f1a88519"
+    },
+    {
+      "name": "snap_countable_earner",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_countable_earner.py",
+      "sha256": "53aeee3f8a1185f7985a0055e64ecc5e5e45ce29a457976af94e6f7cdc0eb2d3"
+    },
+    {
+      "name": "snap_gross_test_income_fpg_ratio",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_test_income_fpg_ratio.py",
+      "sha256": "84ca24509d8795fb3584d55b4cbebcf8c5df47846079ff87318633b62c8ec0b7"
+    },
+    {
+      "name": "snap_self_employment_income_after_expense_deduction",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/snap/income/deductions/self_employment/snap_self_employment_income_after_expense_deduction.py",
+      "sha256": "b591bf2f55c5b64b2fa3530d9c6883253a76f6160388158f746a02077624ec1b"
     },
     {
       "name": "tax_unit_is_joint",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax_unit/tax_unit_is_joint.py",
       "sha256": "875e49add12246c07919ed0ff6b0b5220da1eb5925e74b4b9292ca27f3471d85"
     },
@@ -260,6 +805,7 @@
       "name": "ctc_arpa_uncapped_phase_out",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_uncapped_phase_out.py",
       "sha256": "e66241228e9f3e7de3a73ad19c61035120269b8c9372cfa953895a8acfde1f7e"
     },
@@ -267,6 +813,7 @@
       "name": "ctc_phase_out",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/ctc_phase_out.py",
       "sha256": "acd50168d0abf2819ae628d5ffd4536e812589dae387e18ff308ea9288ee6112"
     },
@@ -274,6 +821,7 @@
       "name": "ctc_qualifying_child",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_qualifying_child.py",
       "sha256": "9240580aff0a68ad5d75759332256c137517d488f0002dd5601f19013819ccac"
     },
@@ -281,6 +829,7 @@
       "name": "eitc_earned_income",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py",
       "sha256": "ae0a2d46d725bd16f5db39e3246aac2f7e933ff06b933c284fddf59488dc2c16"
     },
@@ -288,6 +837,7 @@
       "name": "filer_meets_ctc_identification_requirements",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/filer_meets_ctc_identification_requirements.py",
       "sha256": "a922aa74eefc07425371b885d7cd5ff641bb267c8d3bc08194fda1e64678ba11"
     },
@@ -295,6 +845,7 @@
       "name": "filer_meets_eitc_identification_requirements",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/filer_meets_eitc_identification_requirements.py",
       "sha256": "c0a3dfd839fb6a2c27d6f65e016c11e2995d46a740d8268e70dab59c8f94ed23"
     },
@@ -302,20 +853,47 @@
       "name": "is_full_time_student",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/household/demographic/person/is_full_time_student.py",
       "sha256": "ab744e09443c14e599b77b74affd6c8763f8950c3c35e11efe536b4400dd2b74"
+    },
+    {
+      "name": "is_snap_ineligible_student",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_ineligible_student.py",
+      "sha256": "ec1f469c1e167869f0c2aaff503aa5c0444ff6131c9733d52e0b32faa14ab0c0"
+    },
+    {
+      "name": "meets_snap_work_requirements_person",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/meets_snap_work_requirements_person.py",
+      "sha256": "47b3d56518dad6f87f216e8953ca555ad3978f2646fa3879462a8478591e7dd7"
     },
     {
       "name": "net_capital_gains",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/household/income/tax_unit/net_capital_gains.py",
       "sha256": "bdb60ce4980cbba91a27f4bcab9969ee550840a407016c1d4a639cf3ad558f39"
+    },
+    {
+      "name": "snap_earned_income",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_earned_income.py",
+      "sha256": "80b38047d8e67223e44f94eedc5bae52f3aac30aeab958987e11161305dcd4ae"
     },
     {
       "name": "ctc_child_individual_maximum_arpa",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_child_individual_maximum_arpa.py",
       "sha256": "5840e396d6f9ef7f7a3c007d8d5198c41fdfe42d5d606cabf76ab7107e5edb8e"
     },
@@ -323,6 +901,7 @@
       "name": "eitc_relevant_investment_income",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_relevant_investment_income.py",
       "sha256": "b10ed67fcaa2779f8b3a409f82f22c3d34bb1ec6a045cd3daa35bd0c35d9bb1f"
     },
@@ -330,6 +909,7 @@
       "name": "filer_meets_child_ctc_identification_requirements",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/filer_meets_child_ctc_identification_requirements.py",
       "sha256": "1cad753421203ee7ce44b591212a591e6ab829a7f014a38896fe5294e525dc14"
     },
@@ -337,13 +917,39 @@
       "name": "is_qualifying_child_dependent",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py",
       "sha256": "3c4d044fe50c58740ea0802d3e8c4073a67518be28d49613de42bce83c86dab4"
+    },
+    {
+      "name": "is_snap_excluded_member",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/is_snap_excluded_member.py",
+      "sha256": "2b2c8782fc018387093638427fd3a619deb15fb0a3fd5b842dce53f5bd8fcdc6"
+    },
+    {
+      "name": "meets_snap_work_requirements",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/meets_snap_work_requirements.py",
+      "sha256": "461abf0d957bffc28af3d33eec35fc88a64b3f053f639d09d20cc491d6039726"
+    },
+    {
+      "name": "snap_gross_income",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income.py",
+      "sha256": "15c53c773297245f9593b334e7f6a77ec9b6b33dd038a2c3a8a3a966c52bad99"
     },
     {
       "name": "ctc_child_individual_maximum",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_child_individual_maximum.py",
       "sha256": "e31d52f0ecc2ee3b7aec8be24987df1212d380595c7d228738ba4aa37ff3ca17"
     },
@@ -351,6 +957,7 @@
       "name": "eitc_child_count",
       "entity": "tax_unit",
       "value_type": "int",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_child_count.py",
       "sha256": "83b3737f82d737335a338948d2d474d0d64c04a2c170bd631d37cc196490fcaf"
     },
@@ -358,13 +965,31 @@
       "name": "eitc_investment_income_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_investment_income_eligible.py",
       "sha256": "64eda48965f1a814ea8cacf5317365e814fdee7dbe35abcd8d2877d02a911d07"
+    },
+    {
+      "name": "has_snap_elderly_disabled_member",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/has_snap_elderly_disabled_member.py",
+      "sha256": "2f2d642c1968cead95b4d06e43af7dd88f950c8823c8a519455a27fa5f945888"
+    },
+    {
+      "name": "snap_net_income",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income.py",
+      "sha256": "9cfcb37afdb1efd8db4d987052a8168785f48b2aa1ec67c0fb5e1a6af7494c66"
     },
     {
       "name": "ctc_adult_individual_maximum",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_adult_individual_maximum.py",
       "sha256": "5bfec07172d89f8e3ed480d0d68db24f412cb8e38ee112f5ff681fb71972e52f"
     },
@@ -372,6 +997,7 @@
       "name": "ctc_arpa_max_addition",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_max_addition.py",
       "sha256": "5d43edb9405d784f7391dc9d3171f885a54b6a63b68c6c172e860541e38a91c5"
     },
@@ -379,6 +1005,7 @@
       "name": "eitc_demographic_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_demographic_eligible.py",
       "sha256": "e45ea5e12dc5bc7c874b3880de58258f2fa2e151be92dcffe9c98560600bbae8"
     },
@@ -386,6 +1013,7 @@
       "name": "eitc_maximum",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py",
       "sha256": "0ba6adbed7776312f5441d1d721bbb6b8621be19a8fb77fef79e3783128c1537"
     },
@@ -393,6 +1021,7 @@
       "name": "eitc_phase_in_rate",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_in_rate.py",
       "sha256": "e9648ce0e80dbea178de5101c581a5726ec01ca43b05298f2bf72278ae509241"
     },
@@ -400,6 +1029,7 @@
       "name": "eitc_phase_out_rate",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_rate.py",
       "sha256": "2414cf862309b3c2d06520358891bc6066c9ac7b62f33474279355d4f44a1bcc"
     },
@@ -407,13 +1037,39 @@
       "name": "eitc_phase_out_start",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_start.py",
       "sha256": "ec3c2b7fa6a7c7d004249ec98e266a2b0ad17eccc3e4f1a8b41bb42659cb4926"
+    },
+    {
+      "name": "meets_snap_asset_test",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_asset_test.py",
+      "sha256": "b325797f5a71bc4394873916892375ba88148528170372fc1b365368cca23225"
+    },
+    {
+      "name": "meets_snap_gross_income_test",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_gross_income_test.py",
+      "sha256": "be61f9d9e7b6f3478e03b377c9df7688fed129b4c857ce49b39147973bce28f8"
+    },
+    {
+      "name": "snap_net_income_fpg_ratio",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py",
+      "sha256": "62316892a3456ce3c61743134715d5eea2de4d157243e604384c3450a12c1524"
     },
     {
       "name": "ctc_arpa_phase_out_cap",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_cap.py",
       "sha256": "e4c9a30150b352fbfedf00a76040f83e2ededfba3d726e8924928f99c4d9e948"
     },
@@ -421,6 +1077,7 @@
       "name": "ctc_individual_maximum",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_individual_maximum.py",
       "sha256": "26cce698dfc91493d681eb66e5879ec338dcfc779b9eebb2ce32b81de49f241f"
     },
@@ -428,6 +1085,7 @@
       "name": "eitc_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_eligible.py",
       "sha256": "1f466b730cd5f0b8f08ddfd970d913a66f76ac07e2c0e3019c14ad98a02940a4"
     },
@@ -435,6 +1093,7 @@
       "name": "eitc_phased_in",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_phased_in.py",
       "sha256": "e849bc48a5f57640730705a23e66d2c7992cbeb6801215c1e32c34c4c9b43894"
     },
@@ -442,13 +1101,23 @@
       "name": "eitc_reduction",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc_reduction.py",
       "sha256": "d8ed0efccd4a02b080b102bb025457cbd9a4c2ec36383f5aedc5df2a08c27b7b"
+    },
+    {
+      "name": "meets_snap_net_income_test",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_net_income_test.py",
+      "sha256": "4f7a651e6b5eaef823207bc1959f8070696e3c3a46d961b0901c4477aede0127"
     },
     {
       "name": "ctc_arpa_phase_out",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out.py",
       "sha256": "32ad1e9ab3fd1c5bbf7bff80e40fdfc91ee81f5d1da0fe18c2f95a57788f9fd2"
     },
@@ -456,6 +1125,7 @@
       "name": "ctc_maximum",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum.py",
       "sha256": "88a83a9c7834036f65f3605854e9be56bd3ae45cb1c2081c94fa9bb08e916e81"
     },
@@ -463,40 +1133,78 @@
       "name": "eitc",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/earned_income/eitc.py",
       "sha256": "5f5384842f733e95e82e3b0671a272150f7f47b999737607a7f40036791c80fb"
+    },
+    {
+      "name": "is_snap_eligible",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/is_snap_eligible.py",
+      "sha256": "b5e5886f3577ac289ce256cdbc66d47c6461936586ec2499f1e38ea67742c670"
     },
     {
       "name": "ctc_arpa_addition",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_addition.py",
       "sha256": "73a4716f8926fc37f517e6b760ee952431e5a20b92e10f2295b1575f7dbc43cc"
+    },
+    {
+      "name": "snap_normal_allotment",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py",
+      "sha256": "531911ba6a7c6f7dd9b95e3fe222205f65dd7e986d007e48446f6480f36cfa41"
     },
     {
       "name": "ctc_maximum_with_arpa_addition",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum_with_arpa_addition.py",
       "sha256": "886b92ca6e7c675d4feb638cd21b251424eac7d9f7e42d9c1f82eecc2bc4b53b"
+    },
+    {
+      "name": "snap_if_takes_up",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py",
+      "sha256": "994824cf5adc294aa1debdcb0fa6b3137d9ee77f04c9c251d1a6d21edfa079b8"
     },
     {
       "name": "ctc",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/ctc.py",
       "sha256": "fded0e29b77d90037881d864c3e981fdff1421c82902f60d39908498c74ebe05"
+    },
+    {
+      "name": "snap",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/snap.py",
+      "sha256": "1d0a0747cec0e880062afc154f0eb70ef76f315e840420d19181ed3824a97863"
     }
   ],
   "root_variables": [
     "eitc",
-    "ctc"
+    "ctc",
+    "snap"
   ],
   "input_boundary": [
     {
       "name": "adjusted_gross_income",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "kind": "pruned",
       "note": "AGI machinery out of Phase-1 subtree scope"
     },
@@ -504,20 +1212,39 @@
       "name": "age",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "input",
       "note": ""
+    },
+    {
+      "name": "ca_snap_immigration_status_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "kind": "rejected",
+      "note": "isin against non-list param 'gov.states.ca.cdss.snap.eligibility.eligible_immigration_statuses'"
     },
     {
       "name": "capital_gains_behavioral_response",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "rejected",
       "note": "attribute 'simulation' on value expression"
+    },
+    {
+      "name": "dc_snap_temporary_local_benefit",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "parameter 'gov.states.dc.tax.income.snap.temporary_local_benefit.rate' outside emitted subtrees"
     },
     {
       "name": "employment_income",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "pruned",
       "note": "behavioral-response chain (gov/simulation) out of scope"
     },
@@ -525,6 +1252,7 @@
       "name": "farm_operations_income",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "input",
       "note": ""
     },
@@ -532,6 +1260,7 @@
       "name": "filing_status",
       "entity": "tax_unit",
       "value_type": "Enum",
+      "period": "year",
       "kind": "rejected",
       "note": "unrecognized call select",
       "enum": "FilingStatus",
@@ -548,13 +1277,62 @@
       "name": "has_tin",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "kind": "rejected",
       "note": "attribute 'simulation' on value expression"
+    },
+    {
+      "name": "immigration_status",
+      "entity": "person",
+      "value_type": "Enum",
+      "period": "year",
+      "kind": "pruned",
+      "note": "str->enum conversion formula \u2014 enum input",
+      "enum": "ImmigrationStatus",
+      "members": [
+        "CITIZEN",
+        "LEGAL_PERMANENT_RESIDENT",
+        "REFUGEE",
+        "ASYLEE",
+        "DEPORTATION_WITHHELD",
+        "CUBAN_HAITIAN_ENTRANT",
+        "CONDITIONAL_ENTRANT",
+        "PAROLED_ONE_YEAR",
+        "UNDOCUMENTED",
+        "DACA",
+        "TPS"
+      ],
+      "default": "CITIZEN"
+    },
+    {
+      "name": "is_disabled",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "is_federal_work_study_participant",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "is_full_time_college_student",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "is_part_time_college_student",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
       "kind": "input",
       "note": ""
     },
@@ -562,6 +1340,31 @@
       "name": "is_permanently_and_totally_disabled",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "is_snap_abawd_hr1_in_effect",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call select"
+    },
+    {
+      "name": "is_snap_employment_training_student",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "is_snap_work_incentive_student",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
       "kind": "input",
       "note": ""
     },
@@ -569,6 +1372,7 @@
       "name": "is_tax_unit_head",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "kind": "rejected",
       "note": "attribute 'tax_unit' on value expression"
     },
@@ -576,13 +1380,31 @@
       "name": "is_tax_unit_spouse",
       "entity": "person",
       "value_type": "bool",
+      "period": "year",
       "kind": "rejected",
       "note": "attribute 'tax_unit' on value expression"
+    },
+    {
+      "name": "is_usda_disabled",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unbound name 'np'"
+    },
+    {
+      "name": "is_usda_elderly",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "rejected",
+      "note": "parameter 'gov.usda.elderly_age_threshold' outside emitted subtrees"
     },
     {
       "name": "long_term_capital_gains_before_response",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "input",
       "note": ""
     },
@@ -590,13 +1412,47 @@
       "name": "loss_limited_net_capital_gains",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "kind": "pruned",
       "note": "capital-loss limitation chain out of scope"
+    },
+    {
+      "name": "meets_snap_abawd_work_requirements",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "kind": "pruned",
+      "note": "consumes uprated hours inputs \u2014 input (findings \u00a711)"
+    },
+    {
+      "name": "meets_snap_categorical_eligibility",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unsupported syntax ListComp"
+    },
+    {
+      "name": "meets_snap_general_work_requirements",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "kind": "pruned",
+      "note": "consumes uprated hours inputs \u2014 input (findings \u00a711)"
+    },
+    {
+      "name": "meets_snap_parent_exception",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "rejected",
+      "note": "attribute 'spm_unit' on value expression"
     },
     {
       "name": "net_investment_income",
       "entity": "tax_unit",
       "value_type": "float",
+      "period": "year",
       "kind": "pruned",
       "note": "adds via parameter path \u2014 resolve when AGI subtree lands"
     },
@@ -604,6 +1460,15 @@
       "name": "partnership_self_employment_net_earnings",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "receives_tanf",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "month",
       "kind": "input",
       "note": ""
     },
@@ -611,6 +1476,7 @@
       "name": "self_employment_income",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "pruned",
       "note": "behavioral-response chain out of scope"
     },
@@ -618,6 +1484,7 @@
       "name": "self_employment_tax",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "rejected",
       "note": "parameter 'gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax' outside emitted subtrees"
     },
@@ -625,13 +1492,135 @@
       "name": "short_term_capital_gains",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "input",
       "note": ""
+    },
+    {
+      "name": "snap_assets",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "adds/subtracts via parameter path 'gov.usda.snap.asset_test.sources'"
+    },
+    {
+      "name": "snap_child_support_gross_income_deduction",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.household"
+    },
+    {
+      "name": "snap_deductions",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "adds/subtracts via parameter path 'gov.usda.snap.income.deductions.allowed'"
+    },
+    {
+      "name": "snap_earned_income_person",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "adds/subtracts via parameter path 'gov.usda.snap.income.sources.earned'"
+    },
+    {
+      "name": "snap_emergency_allotment",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.household"
+    },
+    {
+      "name": "snap_excluded_child_earner",
+      "entity": "person",
+      "value_type": "bool",
+      "period": "month",
+      "kind": "rejected",
+      "note": "non-simple assignment target"
+    },
+    {
+      "name": "snap_expected_contribution",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "np.floor"
+    },
+    {
+      "name": "snap_fpg",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.household"
+    },
+    {
+      "name": "snap_gross_self_employment_income_person",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "kind": "pruned",
+      "note": "consumes uprated year inputs at month (PE path-dependent; findings \u00a711)"
+    },
+    {
+      "name": "snap_gross_test_income",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "add() without literal variable list"
+    },
+    {
+      "name": "snap_income_counted_share",
+      "entity": "person",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call select"
+    },
+    {
+      "name": "snap_max_allotment",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.household"
+    },
+    {
+      "name": "snap_min_allotment",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.household"
+    },
+    {
+      "name": "snap_self_employment_expense_deduction",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unrecognized call spm_unit.household"
+    },
+    {
+      "name": "snap_unearned_income",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "period": "month",
+      "kind": "rejected",
+      "note": "add() without literal variable list"
     },
     {
       "name": "ssn_card_type",
       "entity": "person",
       "value_type": "Enum",
+      "period": "year",
       "kind": "input",
       "note": "",
       "enum": "SSNCardType",
@@ -647,6 +1636,7 @@
       "name": "sstb_self_employment_income",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "pruned",
       "note": "behavioral-response chain out of scope"
     },
@@ -654,13 +1644,31 @@
       "name": "takes_up_eitc",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "kind": "pruned",
       "note": "stochastic takeup \u2014 input by design"
+    },
+    {
+      "name": "takes_up_snap_if_eligible",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "tanf_person",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "rejected",
+      "note": "attribute 'spm_unit' on value expression"
     },
     {
       "name": "tax_exempt_interest_income",
       "entity": "person",
       "value_type": "float",
+      "period": "year",
       "kind": "input",
       "note": ""
     },
@@ -668,13 +1676,23 @@
       "name": "tax_unit_is_required_to_file",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "kind": "rejected",
       "note": "parameter 'gov.irs.income.exemption.suspended' outside emitted subtrees"
+    },
+    {
+      "name": "weekly_hours_worked_before_lsr",
+      "entity": "person",
+      "value_type": "float",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "would_file_if_eligible_for_refundable_credit",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "kind": "input",
       "note": ""
     },
@@ -682,6 +1700,7 @@
       "name": "would_file_taxes_voluntarily",
       "entity": "tax_unit",
       "value_type": "bool",
+      "period": "year",
       "kind": "input",
       "note": ""
     }
