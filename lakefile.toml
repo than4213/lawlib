@@ -14,6 +14,9 @@ name = "Lawlib"
 # The Asserted shadow is imported by nothing (CI-enforced) but must
 # still compile: build it explicitly alongside the root module.
 globs = ["Lawlib", "Lawlib.Claims.Asserted"]
+# native_decide over the full-depth eitc closure needs a deep
+# elaboration-thread stack (default 8MB segfaults).
+moreLeanArgs = ["--tstack=262144"]
 
 [[lean_exe]]
 name = "lawlib"

@@ -1,6 +1,4 @@
 import Lawlib.Verify.EicTable2023
-import Lawlib.Verify.Catala2023
-import Lawlib.Theorems.Eitc2023
 
 /-!
 # Claims: the bridge from committed data to reality
@@ -73,33 +71,12 @@ become statements about the world -/
 
 /-- Under the transcription claim, the reverse-engineered generator
 reproduces every cell of the **real printed table** (interior: T1
-`eic_table_2023_generator_verified`). -/
+`eic_table_2023_generator_verified`). Further certified conditionals
+(`pe_formula_within_1150_of_real_table`,
+`pe_executed_matches_real_table_at_20k`) live in
+`Verify/PendingLeanBug2023.lean` pending a Lean toolchain fix. -/
 theorem real_table_generator (h : claim_table_transcription) :
     irsEicTable2023.all rowOk = true := by
   rw [h]; exact eic_table_2023_generator_verified
-
-/-- Under the transcription claim, the translated PolicyEngine formula
-is within $11.50 of the credit the **real table** prescribes, at every
-bracket edge and midpoint (interior: T1 `pe_within_1150_of_table`). -/
-theorem pe_formula_within_1150_of_real_table (h : claim_table_transcription) :
-    irsEicTable2023.all (rowDevOk (23/2)) = true := by
-  rw [h]; exact pe_within_1150_of_table
-
-/-- Under both claims, **executed PolicyEngine itself** — not merely our
-translation of it — pays within 2¢ of the real table's prescribed
-credit for a single parent of one child at the $20,000–$20,050
-bracket's midpoint (real-table value $3,995, via the transcription; the
-translation equals it exactly there, T1). Exemplar of the composition
-pattern; the general midpoint bound is `pe_within_530_at_midpoints`
-plus the twin tolerance. -/
-theorem pe_executed_matches_real_table_at_20k
-    (ht : claim_table_transcription) (hw : claim_pe_twin_eitc) :
-    rabs (peEitcExecuted .single 1 20025 - 3995) ≤ 1/50 := by
-  have hpe : pe .single 1 20025 = 3995 := by native_decide
-  have hb :=
-    (show ∀ g n x, 0 ≤ x → rabs (peEitcExecuted g n x - pe g n x) ≤ 1/50
-      from hw) .single 1 20025 (by norm_num)
-  rw [hpe] at hb
-  exact hb
 
 end Lawlib.Claims
