@@ -74,6 +74,36 @@ def ALSSPPaymentCategory.asStr : ALSSPPaymentCategory → String
   | .CEREBRAL_PALSY => "CEREBRAL_PALSY"
   | .NONE => "NONE"
 
+inductive ArizonaFilingStatus where
+  | SINGLE
+  | SEPARATE
+  | HEAD_OF_HOUSEHOLD
+  | JOINT
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson ArizonaFilingStatus where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "SINGLE" => pure .SINGLE
+    | "SEPARATE" => pure .SEPARATE
+    | "HEAD_OF_HOUSEHOLD" => pure .HEAD_OF_HOUSEHOLD
+    | "JOINT" => pure .JOINT
+    | s => throw s!"unknown ArizonaFilingStatus: {s}"
+
+instance : Lean.ToJson ArizonaFilingStatus where
+  toJson x := match x with
+    | .SINGLE => Lean.Json.str "SINGLE"
+    | .SEPARATE => Lean.Json.str "SEPARATE"
+    | .HEAD_OF_HOUSEHOLD => Lean.Json.str "HEAD_OF_HOUSEHOLD"
+    | .JOINT => Lean.Json.str "JOINT"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def ArizonaFilingStatus.asStr : ArizonaFilingStatus → String
+  | .SINGLE => "SINGLE"
+  | .SEPARATE => "SEPARATE"
+  | .HEAD_OF_HOUSEHOLD => "HEAD_OF_HOUSEHOLD"
+  | .JOINT => "JOINT"
+
 inductive CHIPCategory where
   | CHILD
   | PREGNANT_STANDARD
@@ -103,6 +133,96 @@ def CHIPCategory.asStr : CHIPCategory → String
   | .PREGNANT_STANDARD => "PREGNANT_STANDARD"
   | .PREGNANT_FCEP => "PREGNANT_FCEP"
   | .NONE => "NONE"
+
+inductive CTSSPLivingArrangement where
+  | COMMUNITY_ALONE
+  | COMMUNITY_SHARED
+  | BOARDING_HOME
+  | MEDICAID_FACILITY
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson CTSSPLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "COMMUNITY_ALONE" => pure .COMMUNITY_ALONE
+    | "COMMUNITY_SHARED" => pure .COMMUNITY_SHARED
+    | "BOARDING_HOME" => pure .BOARDING_HOME
+    | "MEDICAID_FACILITY" => pure .MEDICAID_FACILITY
+    | s => throw s!"unknown CTSSPLivingArrangement: {s}"
+
+instance : Lean.ToJson CTSSPLivingArrangement where
+  toJson x := match x with
+    | .COMMUNITY_ALONE => Lean.Json.str "COMMUNITY_ALONE"
+    | .COMMUNITY_SHARED => Lean.Json.str "COMMUNITY_SHARED"
+    | .BOARDING_HOME => Lean.Json.str "BOARDING_HOME"
+    | .MEDICAID_FACILITY => Lean.Json.str "MEDICAID_FACILITY"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def CTSSPLivingArrangement.asStr : CTSSPLivingArrangement → String
+  | .COMMUNITY_ALONE => "COMMUNITY_ALONE"
+  | .COMMUNITY_SHARED => "COMMUNITY_SHARED"
+  | .BOARDING_HOME => "BOARDING_HOME"
+  | .MEDICAID_FACILITY => "MEDICAID_FACILITY"
+
+inductive CaCalworksChildCareTimeCategory where
+  | HOURLY
+  | DAILY
+  | WEEKLY
+  | MONTHLY
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson CaCalworksChildCareTimeCategory where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "HOURLY" => pure .HOURLY
+    | "DAILY" => pure .DAILY
+    | "WEEKLY" => pure .WEEKLY
+    | "MONTHLY" => pure .MONTHLY
+    | s => throw s!"unknown CaCalworksChildCareTimeCategory: {s}"
+
+instance : Lean.ToJson CaCalworksChildCareTimeCategory where
+  toJson x := match x with
+    | .HOURLY => Lean.Json.str "HOURLY"
+    | .DAILY => Lean.Json.str "DAILY"
+    | .WEEKLY => Lean.Json.str "WEEKLY"
+    | .MONTHLY => Lean.Json.str "MONTHLY"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def CaCalworksChildCareTimeCategory.asStr : CaCalworksChildCareTimeCategory → String
+  | .HOURLY => "HOURLY"
+  | .DAILY => "DAILY"
+  | .WEEKLY => "WEEKLY"
+  | .MONTHLY => "MONTHLY"
+
+inductive CaSMCGeneralAssistanceLivingArrangement where
+  | INDEPENDENT_LIVING
+  | DRUG_ALCOHOL_TREATMENT_CENTER
+  | NMOHC_WITHOUT_REFERRAL
+  | NMOHC_WITH_REFERRAL
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson CaSMCGeneralAssistanceLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "INDEPENDENT_LIVING" => pure .INDEPENDENT_LIVING
+    | "DRUG_ALCOHOL_TREATMENT_CENTER" => pure .DRUG_ALCOHOL_TREATMENT_CENTER
+    | "NMOHC_WITHOUT_REFERRAL" => pure .NMOHC_WITHOUT_REFERRAL
+    | "NMOHC_WITH_REFERRAL" => pure .NMOHC_WITH_REFERRAL
+    | s => throw s!"unknown CaSMCGeneralAssistanceLivingArrangement: {s}"
+
+instance : Lean.ToJson CaSMCGeneralAssistanceLivingArrangement where
+  toJson x := match x with
+    | .INDEPENDENT_LIVING => Lean.Json.str "INDEPENDENT_LIVING"
+    | .DRUG_ALCOHOL_TREATMENT_CENTER => Lean.Json.str "DRUG_ALCOHOL_TREATMENT_CENTER"
+    | .NMOHC_WITHOUT_REFERRAL => Lean.Json.str "NMOHC_WITHOUT_REFERRAL"
+    | .NMOHC_WITH_REFERRAL => Lean.Json.str "NMOHC_WITH_REFERRAL"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def CaSMCGeneralAssistanceLivingArrangement.asStr : CaSMCGeneralAssistanceLivingArrangement → String
+  | .INDEPENDENT_LIVING => "INDEPENDENT_LIVING"
+  | .DRUG_ALCOHOL_TREATMENT_CENTER => "DRUG_ALCOHOL_TREATMENT_CENTER"
+  | .NMOHC_WITHOUT_REFERRAL => "NMOHC_WITHOUT_REFERRAL"
+  | .NMOHC_WITH_REFERRAL => "NMOHC_WITH_REFERRAL"
 
 inductive ChildcareProviderTypeGroup where
   | DCC_SACC
@@ -137,6 +257,74 @@ def ChildcareProviderTypeGroup.asStr : ChildcareProviderTypeGroup → String
   | .LE_GC => "LE_GC"
   | .LE_STD => "LE_STD"
   | .LE_ENH => "LE_ENH"
+
+inductive DCCCSPSCHEDULETYPE where
+  | FULL_TIME_TRADITIONAL
+  | PART_TIME_TRADITIONAL
+  | EXTENDED_DAY_FULL_TIME
+  | EXTENDED_DAY_PART_TIME
+  | FULL_TIME_NONTRADITIONAL
+  | PART_TIME_NONTRADITIONAL
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson DCCCSPSCHEDULETYPE where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "FULL_TIME_TRADITIONAL" => pure .FULL_TIME_TRADITIONAL
+    | "PART_TIME_TRADITIONAL" => pure .PART_TIME_TRADITIONAL
+    | "EXTENDED_DAY_FULL_TIME" => pure .EXTENDED_DAY_FULL_TIME
+    | "EXTENDED_DAY_PART_TIME" => pure .EXTENDED_DAY_PART_TIME
+    | "FULL_TIME_NONTRADITIONAL" => pure .FULL_TIME_NONTRADITIONAL
+    | "PART_TIME_NONTRADITIONAL" => pure .PART_TIME_NONTRADITIONAL
+    | s => throw s!"unknown DCCCSPSCHEDULETYPE: {s}"
+
+instance : Lean.ToJson DCCCSPSCHEDULETYPE where
+  toJson x := match x with
+    | .FULL_TIME_TRADITIONAL => Lean.Json.str "FULL_TIME_TRADITIONAL"
+    | .PART_TIME_TRADITIONAL => Lean.Json.str "PART_TIME_TRADITIONAL"
+    | .EXTENDED_DAY_FULL_TIME => Lean.Json.str "EXTENDED_DAY_FULL_TIME"
+    | .EXTENDED_DAY_PART_TIME => Lean.Json.str "EXTENDED_DAY_PART_TIME"
+    | .FULL_TIME_NONTRADITIONAL => Lean.Json.str "FULL_TIME_NONTRADITIONAL"
+    | .PART_TIME_NONTRADITIONAL => Lean.Json.str "PART_TIME_NONTRADITIONAL"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def DCCCSPSCHEDULETYPE.asStr : DCCCSPSCHEDULETYPE → String
+  | .FULL_TIME_TRADITIONAL => "FULL_TIME_TRADITIONAL"
+  | .PART_TIME_TRADITIONAL => "PART_TIME_TRADITIONAL"
+  | .EXTENDED_DAY_FULL_TIME => "EXTENDED_DAY_FULL_TIME"
+  | .EXTENDED_DAY_PART_TIME => "EXTENDED_DAY_PART_TIME"
+  | .FULL_TIME_NONTRADITIONAL => "FULL_TIME_NONTRADITIONAL"
+  | .PART_TIME_NONTRADITIONAL => "PART_TIME_NONTRADITIONAL"
+
+inductive DCOSSPLivingArrangement where
+  | OS_A
+  | OS_B
+  | OS_G
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson DCOSSPLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "OS_A" => pure .OS_A
+    | "OS_B" => pure .OS_B
+    | "OS_G" => pure .OS_G
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown DCOSSPLivingArrangement: {s}"
+
+instance : Lean.ToJson DCOSSPLivingArrangement where
+  toJson x := match x with
+    | .OS_A => Lean.Json.str "OS_A"
+    | .OS_B => Lean.Json.str "OS_B"
+    | .OS_G => Lean.Json.str "OS_G"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def DCOSSPLivingArrangement.asStr : DCOSSPLivingArrangement → String
+  | .OS_A => "OS_A"
+  | .OS_B => "OS_B"
+  | .OS_G => "OS_G"
+  | .NONE => "NONE"
 
 inductive DESSPLivingArrangement where
   | CERTIFIED_RESIDENTIAL_CARE_HOME
@@ -190,6 +378,84 @@ def EmployerPremiumContribution.asStr : EmployerPremiumContribution → String
   | .ALL => "ALL"
   | .NA => "NA"
 
+inductive FLOSSLivingArrangement where
+  | ALF
+  | AFCH
+  | MHRTF
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson FLOSSLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "ALF" => pure .ALF
+    | "AFCH" => pure .AFCH
+    | "MHRTF" => pure .MHRTF
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown FLOSSLivingArrangement: {s}"
+
+instance : Lean.ToJson FLOSSLivingArrangement where
+  toJson x := match x with
+    | .ALF => Lean.Json.str "ALF"
+    | .AFCH => Lean.Json.str "AFCH"
+    | .MHRTF => Lean.Json.str "MHRTF"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def FLOSSLivingArrangement.asStr : FLOSSLivingArrangement → String
+  | .ALF => "ALF"
+  | .AFCH => "AFCH"
+  | .MHRTF => "MHRTF"
+  | .NONE => "NONE"
+
+inductive FLOSSProgramTrack where
+  | REDESIGN
+  | PROTECTED
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson FLOSSProgramTrack where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "REDESIGN" => pure .REDESIGN
+    | "PROTECTED" => pure .PROTECTED
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown FLOSSProgramTrack: {s}"
+
+instance : Lean.ToJson FLOSSProgramTrack where
+  toJson x := match x with
+    | .REDESIGN => Lean.Json.str "REDESIGN"
+    | .PROTECTED => Lean.Json.str "PROTECTED"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def FLOSSProgramTrack.asStr : FLOSSProgramTrack → String
+  | .REDESIGN => "REDESIGN"
+  | .PROTECTED => "PROTECTED"
+  | .NONE => "NONE"
+
+inductive FLSRTimeCategory where
+  | FULL_TIME
+  | PART_TIME
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson FLSRTimeCategory where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "FULL_TIME" => pure .FULL_TIME
+    | "PART_TIME" => pure .PART_TIME
+    | s => throw s!"unknown FLSRTimeCategory: {s}"
+
+instance : Lean.ToJson FLSRTimeCategory where
+  toJson x := match x with
+    | .FULL_TIME => Lean.Json.str "FULL_TIME"
+    | .PART_TIME => Lean.Json.str "PART_TIME"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def FLSRTimeCategory.asStr : FLSRTimeCategory → String
+  | .FULL_TIME => "FULL_TIME"
+  | .PART_TIME => "PART_TIME"
+
 inductive FilingStatus where
   | SINGLE
   | JOINT
@@ -223,6 +489,40 @@ def FilingStatus.asStr : FilingStatus → String
   | .SEPARATE => "SEPARATE"
   | .HEAD_OF_HOUSEHOLD => "HEAD_OF_HOUSEHOLD"
   | .SURVIVING_SPOUSE => "SURVIVING_SPOUSE"
+
+inductive HIOSSLivingArrangement where
+  | COMMUNITY_CARE
+  | DOMICILIARY_CARE_I
+  | DOMICILIARY_CARE_II
+  | MEDICAID_INSTITUTION
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson HIOSSLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "COMMUNITY_CARE" => pure .COMMUNITY_CARE
+    | "DOMICILIARY_CARE_I" => pure .DOMICILIARY_CARE_I
+    | "DOMICILIARY_CARE_II" => pure .DOMICILIARY_CARE_II
+    | "MEDICAID_INSTITUTION" => pure .MEDICAID_INSTITUTION
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown HIOSSLivingArrangement: {s}"
+
+instance : Lean.ToJson HIOSSLivingArrangement where
+  toJson x := match x with
+    | .COMMUNITY_CARE => Lean.Json.str "COMMUNITY_CARE"
+    | .DOMICILIARY_CARE_I => Lean.Json.str "DOMICILIARY_CARE_I"
+    | .DOMICILIARY_CARE_II => Lean.Json.str "DOMICILIARY_CARE_II"
+    | .MEDICAID_INSTITUTION => Lean.Json.str "MEDICAID_INSTITUTION"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def HIOSSLivingArrangement.asStr : HIOSSLivingArrangement → String
+  | .COMMUNITY_CARE => "COMMUNITY_CARE"
+  | .DOMICILIARY_CARE_I => "DOMICILIARY_CARE_I"
+  | .DOMICILIARY_CARE_II => "DOMICILIARY_CARE_II"
+  | .MEDICAID_INSTITUTION => "MEDICAID_INSTITUTION"
+  | .NONE => "NONE"
 
 inductive ImmigrationStatus where
   | CITIZEN
@@ -342,6 +642,32 @@ def KyFilingStatus.asStr : KyFilingStatus → String
   | .JOINT => "JOINT"
   | .SEPARATE => "SEPARATE"
 
+inductive MDCCSServiceUnit where
+  | UNIT_1
+  | UNIT_2
+  | UNIT_3
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MDCCSServiceUnit where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "UNIT_1" => pure .UNIT_1
+    | "UNIT_2" => pure .UNIT_2
+    | "UNIT_3" => pure .UNIT_3
+    | s => throw s!"unknown MDCCSServiceUnit: {s}"
+
+instance : Lean.ToJson MDCCSServiceUnit where
+  toJson x := match x with
+    | .UNIT_1 => Lean.Json.str "UNIT_1"
+    | .UNIT_2 => Lean.Json.str "UNIT_2"
+    | .UNIT_3 => Lean.Json.str "UNIT_3"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MDCCSServiceUnit.asStr : MDCCSServiceUnit → String
+  | .UNIT_1 => "UNIT_1"
+  | .UNIT_2 => "UNIT_2"
+  | .UNIT_3 => "UNIT_3"
+
 inductive MDPAALivingArrangement where
   | CARE_HOME_LEVEL_A
   | CARE_HOME_LEVEL_B
@@ -432,6 +758,74 @@ def MESSPCategory.asStr : MESSPCategory → String
   | .COST_REIMBURSED_BOARDING_HOME => "COST_REIMBURSED_BOARDING_HOME"
   | .MEDICAID_FACILITY => "MEDICAID_FACILITY"
   | .RESIDENTIAL_CARE_FACILITY => "RESIDENTIAL_CARE_FACILITY"
+  | .NONE => "NONE"
+
+inductive MISSPLivingArrangement where
+  | INDEPENDENT_LIVING
+  | HOUSEHOLD_OF_ANOTHER
+  | DOMICILIARY_CARE
+  | PERSONAL_CARE
+  | HOME_FOR_AGED
+  | INSTITUTION
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MISSPLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "INDEPENDENT_LIVING" => pure .INDEPENDENT_LIVING
+    | "HOUSEHOLD_OF_ANOTHER" => pure .HOUSEHOLD_OF_ANOTHER
+    | "DOMICILIARY_CARE" => pure .DOMICILIARY_CARE
+    | "PERSONAL_CARE" => pure .PERSONAL_CARE
+    | "HOME_FOR_AGED" => pure .HOME_FOR_AGED
+    | "INSTITUTION" => pure .INSTITUTION
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown MISSPLivingArrangement: {s}"
+
+instance : Lean.ToJson MISSPLivingArrangement where
+  toJson x := match x with
+    | .INDEPENDENT_LIVING => Lean.Json.str "INDEPENDENT_LIVING"
+    | .HOUSEHOLD_OF_ANOTHER => Lean.Json.str "HOUSEHOLD_OF_ANOTHER"
+    | .DOMICILIARY_CARE => Lean.Json.str "DOMICILIARY_CARE"
+    | .PERSONAL_CARE => Lean.Json.str "PERSONAL_CARE"
+    | .HOME_FOR_AGED => Lean.Json.str "HOME_FOR_AGED"
+    | .INSTITUTION => Lean.Json.str "INSTITUTION"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MISSPLivingArrangement.asStr : MISSPLivingArrangement → String
+  | .INDEPENDENT_LIVING => "INDEPENDENT_LIVING"
+  | .HOUSEHOLD_OF_ANOTHER => "HOUSEHOLD_OF_ANOTHER"
+  | .DOMICILIARY_CARE => "DOMICILIARY_CARE"
+  | .PERSONAL_CARE => "PERSONAL_CARE"
+  | .HOME_FOR_AGED => "HOME_FOR_AGED"
+  | .INSTITUTION => "INSTITUTION"
+  | .NONE => "NONE"
+
+inductive MNCCAPQualityRating where
+  | STAR_4
+  | ACCREDITED_OR_3STAR
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MNCCAPQualityRating where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "STAR_4" => pure .STAR_4
+    | "ACCREDITED_OR_3STAR" => pure .ACCREDITED_OR_3STAR
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown MNCCAPQualityRating: {s}"
+
+instance : Lean.ToJson MNCCAPQualityRating where
+  toJson x := match x with
+    | .STAR_4 => Lean.Json.str "STAR_4"
+    | .ACCREDITED_OR_3STAR => Lean.Json.str "ACCREDITED_OR_3STAR"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MNCCAPQualityRating.asStr : MNCCAPQualityRating → String
+  | .STAR_4 => "STAR_4"
+  | .ACCREDITED_OR_3STAR => "ACCREDITED_OR_3STAR"
   | .NONE => "NONE"
 
 inductive MNMSALivingArrangement where
@@ -562,6 +956,78 @@ def MarketplacePlanCategory.asStr : MarketplacePlanCategory → String
   | .BRONZE => "BRONZE"
   | .SILVER => "SILVER"
 
+inductive MassachusettsCCFARegion where
+  | WESTERN_CENTRAL_AND_SOUTHEAST
+  | NORTHEAST
+  | METRO_AND_BOSTON_METRO
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MassachusettsCCFARegion where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "WESTERN_CENTRAL_AND_SOUTHEAST" => pure .WESTERN_CENTRAL_AND_SOUTHEAST
+    | "NORTHEAST" => pure .NORTHEAST
+    | "METRO_AND_BOSTON_METRO" => pure .METRO_AND_BOSTON_METRO
+    | s => throw s!"unknown MassachusettsCCFARegion: {s}"
+
+instance : Lean.ToJson MassachusettsCCFARegion where
+  toJson x := match x with
+    | .WESTERN_CENTRAL_AND_SOUTHEAST => Lean.Json.str "WESTERN_CENTRAL_AND_SOUTHEAST"
+    | .NORTHEAST => Lean.Json.str "NORTHEAST"
+    | .METRO_AND_BOSTON_METRO => Lean.Json.str "METRO_AND_BOSTON_METRO"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MassachusettsCCFARegion.asStr : MassachusettsCCFARegion → String
+  | .WESTERN_CENTRAL_AND_SOUTHEAST => "WESTERN_CENTRAL_AND_SOUTHEAST"
+  | .NORTHEAST => "NORTHEAST"
+  | .METRO_AND_BOSTON_METRO => "METRO_AND_BOSTON_METRO"
+
+inductive MassachusettsEAEDCLivingArrangement where
+  | A
+  | B
+  | C
+  | D
+  | E
+  | F
+  | H
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MassachusettsEAEDCLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "A" => pure .A
+    | "B" => pure .B
+    | "C" => pure .C
+    | "D" => pure .D
+    | "E" => pure .E
+    | "F" => pure .F
+    | "H" => pure .H
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown MassachusettsEAEDCLivingArrangement: {s}"
+
+instance : Lean.ToJson MassachusettsEAEDCLivingArrangement where
+  toJson x := match x with
+    | .A => Lean.Json.str "A"
+    | .B => Lean.Json.str "B"
+    | .C => Lean.Json.str "C"
+    | .D => Lean.Json.str "D"
+    | .E => Lean.Json.str "E"
+    | .F => Lean.Json.str "F"
+    | .H => Lean.Json.str "H"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MassachusettsEAEDCLivingArrangement.asStr : MassachusettsEAEDCLivingArrangement → String
+  | .A => "A"
+  | .B => "B"
+  | .C => "C"
+  | .D => "D"
+  | .E => "E"
+  | .F => "F"
+  | .H => "H"
+  | .NONE => "NONE"
+
 inductive MedicaidCategory where
   | INFANT
   | YOUNG_CHILD
@@ -631,6 +1097,174 @@ def MedicaidCategory.asStr : MedicaidCategory → String
   | .WORKING_DISABLED_BUY_IN => "WORKING_DISABLED_BUY_IN"
   | .SECTION_1115_MEC_ADULT => "SECTION_1115_MEC_ADULT"
   | .HEALTHIER_MISSISSIPPI_WAIVER => "HEALTHIER_MISSISSIPPI_WAIVER"
+
+inductive MedicaidSSIRecipientStateClassification where
+  | SECTION_1634
+  | SSI_CRITERIA
+  | SECTION_209B
+  | UNKNOWN
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MedicaidSSIRecipientStateClassification where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "SECTION_1634" => pure .SECTION_1634
+    | "SSI_CRITERIA" => pure .SSI_CRITERIA
+    | "SECTION_209B" => pure .SECTION_209B
+    | "UNKNOWN" => pure .UNKNOWN
+    | s => throw s!"unknown MedicaidSSIRecipientStateClassification: {s}"
+
+instance : Lean.ToJson MedicaidSSIRecipientStateClassification where
+  toJson x := match x with
+    | .SECTION_1634 => Lean.Json.str "SECTION_1634"
+    | .SSI_CRITERIA => Lean.Json.str "SSI_CRITERIA"
+    | .SECTION_209B => Lean.Json.str "SECTION_209B"
+    | .UNKNOWN => Lean.Json.str "UNKNOWN"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MedicaidSSIRecipientStateClassification.asStr : MedicaidSSIRecipientStateClassification → String
+  | .SECTION_1634 => "SECTION_1634"
+  | .SSI_CRITERIA => "SSI_CRITERIA"
+  | .SECTION_209B => "SECTION_209B"
+  | .UNKNOWN => "UNKNOWN"
+
+inductive NHCCAPServiceLevel where
+  | FULL_TIME
+  | HALF_TIME
+  | PART_TIME
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson NHCCAPServiceLevel where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "FULL_TIME" => pure .FULL_TIME
+    | "HALF_TIME" => pure .HALF_TIME
+    | "PART_TIME" => pure .PART_TIME
+    | s => throw s!"unknown NHCCAPServiceLevel: {s}"
+
+instance : Lean.ToJson NHCCAPServiceLevel where
+  toJson x := match x with
+    | .FULL_TIME => Lean.Json.str "FULL_TIME"
+    | .HALF_TIME => Lean.Json.str "HALF_TIME"
+    | .PART_TIME => Lean.Json.str "PART_TIME"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def NHCCAPServiceLevel.asStr : NHCCAPServiceLevel → String
+  | .FULL_TIME => "FULL_TIME"
+  | .HALF_TIME => "HALF_TIME"
+  | .PART_TIME => "PART_TIME"
+
+inductive OHCCAPQualityTier where
+  | GOLD
+  | SILVER
+  | BRONZE
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson OHCCAPQualityTier where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "GOLD" => pure .GOLD
+    | "SILVER" => pure .SILVER
+    | "BRONZE" => pure .BRONZE
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown OHCCAPQualityTier: {s}"
+
+instance : Lean.ToJson OHCCAPQualityTier where
+  toJson x := match x with
+    | .GOLD => Lean.Json.str "GOLD"
+    | .SILVER => Lean.Json.str "SILVER"
+    | .BRONZE => Lean.Json.str "BRONZE"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def OHCCAPQualityTier.asStr : OHCCAPQualityTier → String
+  | .GOLD => "GOLD"
+  | .SILVER => "SILVER"
+  | .BRONZE => "BRONZE"
+  | .NONE => "NONE"
+
+inductive PellGrantEligibilityType where
+  | MAXIMUM
+  | MINIMUM
+  | INELIGIBLE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson PellGrantEligibilityType where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "MAXIMUM" => pure .MAXIMUM
+    | "MINIMUM" => pure .MINIMUM
+    | "INELIGIBLE" => pure .INELIGIBLE
+    | s => throw s!"unknown PellGrantEligibilityType: {s}"
+
+instance : Lean.ToJson PellGrantEligibilityType where
+  toJson x := match x with
+    | .MAXIMUM => Lean.Json.str "MAXIMUM"
+    | .MINIMUM => Lean.Json.str "MINIMUM"
+    | .INELIGIBLE => Lean.Json.str "INELIGIBLE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def PellGrantEligibilityType.asStr : PellGrantEligibilityType → String
+  | .MAXIMUM => "MAXIMUM"
+  | .MINIMUM => "MINIMUM"
+  | .INELIGIBLE => "INELIGIBLE"
+
+inductive PellGrantFormula where
+  | A
+  | B
+  | C
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson PellGrantFormula where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "A" => pure .A
+    | "B" => pure .B
+    | "C" => pure .C
+    | s => throw s!"unknown PellGrantFormula: {s}"
+
+instance : Lean.ToJson PellGrantFormula where
+  toJson x := match x with
+    | .A => Lean.Json.str "A"
+    | .B => Lean.Json.str "B"
+    | .C => Lean.Json.str "C"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def PellGrantFormula.asStr : PellGrantFormula → String
+  | .A => "A"
+  | .B => "B"
+  | .C => "C"
+
+inductive PellGrantHouseholdType where
+  | DEPENDENT_SINGLE
+  | DEPENDENT_NOT_SINGLE
+  | INDEPENDENT_SINGLE
+  | INDEPENDENT_NOT_SINGLE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson PellGrantHouseholdType where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "DEPENDENT_SINGLE" => pure .DEPENDENT_SINGLE
+    | "DEPENDENT_NOT_SINGLE" => pure .DEPENDENT_NOT_SINGLE
+    | "INDEPENDENT_SINGLE" => pure .INDEPENDENT_SINGLE
+    | "INDEPENDENT_NOT_SINGLE" => pure .INDEPENDENT_NOT_SINGLE
+    | s => throw s!"unknown PellGrantHouseholdType: {s}"
+
+instance : Lean.ToJson PellGrantHouseholdType where
+  toJson x := match x with
+    | .DEPENDENT_SINGLE => Lean.Json.str "DEPENDENT_SINGLE"
+    | .DEPENDENT_NOT_SINGLE => Lean.Json.str "DEPENDENT_NOT_SINGLE"
+    | .INDEPENDENT_SINGLE => Lean.Json.str "INDEPENDENT_SINGLE"
+    | .INDEPENDENT_NOT_SINGLE => Lean.Json.str "INDEPENDENT_NOT_SINGLE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def PellGrantHouseholdType.asStr : PellGrantHouseholdType → String
+  | .DEPENDENT_SINGLE => "DEPENDENT_SINGLE"
+  | .DEPENDENT_NOT_SINGLE => "DEPENDENT_NOT_SINGLE"
+  | .INDEPENDENT_SINGLE => "INDEPENDENT_SINGLE"
+  | .INDEPENDENT_NOT_SINGLE => "INDEPENDENT_NOT_SINGLE"
 
 inductive SSIFederalLivingArrangement where
   | OWN_HOUSEHOLD
@@ -718,6 +1352,338 @@ def SchoolMealTier.asStr : SchoolMealTier → String
   | .REDUCED => "REDUCED"
   | .PAID => "PAID"
 
+inductive StateCode where
+  | AL
+  | AK
+  | AZ
+  | AR
+  | CA
+  | CO
+  | CT
+  | DE
+  | FL
+  | GA
+  | HI
+  | ID
+  | IL
+  | IN
+  | IA
+  | KS
+  | KY
+  | LA
+  | ME
+  | MD
+  | MA
+  | MI
+  | MN
+  | MS
+  | MO
+  | MT
+  | NE
+  | NV
+  | NH
+  | NJ
+  | NM
+  | NY
+  | NC
+  | ND
+  | OH
+  | OK
+  | OR
+  | PA
+  | RI
+  | SC
+  | SD
+  | TN
+  | TX
+  | UT
+  | VT
+  | VA
+  | WA
+  | WV
+  | WI
+  | WY
+  | DC
+  | GU
+  | MP
+  | PW
+  | PR
+  | VI
+  | AA
+  | AE
+  | AP
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson StateCode where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "AL" => pure .AL
+    | "AK" => pure .AK
+    | "AZ" => pure .AZ
+    | "AR" => pure .AR
+    | "CA" => pure .CA
+    | "CO" => pure .CO
+    | "CT" => pure .CT
+    | "DE" => pure .DE
+    | "FL" => pure .FL
+    | "GA" => pure .GA
+    | "HI" => pure .HI
+    | "ID" => pure .ID
+    | "IL" => pure .IL
+    | "IN" => pure .IN
+    | "IA" => pure .IA
+    | "KS" => pure .KS
+    | "KY" => pure .KY
+    | "LA" => pure .LA
+    | "ME" => pure .ME
+    | "MD" => pure .MD
+    | "MA" => pure .MA
+    | "MI" => pure .MI
+    | "MN" => pure .MN
+    | "MS" => pure .MS
+    | "MO" => pure .MO
+    | "MT" => pure .MT
+    | "NE" => pure .NE
+    | "NV" => pure .NV
+    | "NH" => pure .NH
+    | "NJ" => pure .NJ
+    | "NM" => pure .NM
+    | "NY" => pure .NY
+    | "NC" => pure .NC
+    | "ND" => pure .ND
+    | "OH" => pure .OH
+    | "OK" => pure .OK
+    | "OR" => pure .OR
+    | "PA" => pure .PA
+    | "RI" => pure .RI
+    | "SC" => pure .SC
+    | "SD" => pure .SD
+    | "TN" => pure .TN
+    | "TX" => pure .TX
+    | "UT" => pure .UT
+    | "VT" => pure .VT
+    | "VA" => pure .VA
+    | "WA" => pure .WA
+    | "WV" => pure .WV
+    | "WI" => pure .WI
+    | "WY" => pure .WY
+    | "DC" => pure .DC
+    | "GU" => pure .GU
+    | "MP" => pure .MP
+    | "PW" => pure .PW
+    | "PR" => pure .PR
+    | "VI" => pure .VI
+    | "AA" => pure .AA
+    | "AE" => pure .AE
+    | "AP" => pure .AP
+    | s => throw s!"unknown StateCode: {s}"
+
+instance : Lean.ToJson StateCode where
+  toJson x := match x with
+    | .AL => Lean.Json.str "AL"
+    | .AK => Lean.Json.str "AK"
+    | .AZ => Lean.Json.str "AZ"
+    | .AR => Lean.Json.str "AR"
+    | .CA => Lean.Json.str "CA"
+    | .CO => Lean.Json.str "CO"
+    | .CT => Lean.Json.str "CT"
+    | .DE => Lean.Json.str "DE"
+    | .FL => Lean.Json.str "FL"
+    | .GA => Lean.Json.str "GA"
+    | .HI => Lean.Json.str "HI"
+    | .ID => Lean.Json.str "ID"
+    | .IL => Lean.Json.str "IL"
+    | .IN => Lean.Json.str "IN"
+    | .IA => Lean.Json.str "IA"
+    | .KS => Lean.Json.str "KS"
+    | .KY => Lean.Json.str "KY"
+    | .LA => Lean.Json.str "LA"
+    | .ME => Lean.Json.str "ME"
+    | .MD => Lean.Json.str "MD"
+    | .MA => Lean.Json.str "MA"
+    | .MI => Lean.Json.str "MI"
+    | .MN => Lean.Json.str "MN"
+    | .MS => Lean.Json.str "MS"
+    | .MO => Lean.Json.str "MO"
+    | .MT => Lean.Json.str "MT"
+    | .NE => Lean.Json.str "NE"
+    | .NV => Lean.Json.str "NV"
+    | .NH => Lean.Json.str "NH"
+    | .NJ => Lean.Json.str "NJ"
+    | .NM => Lean.Json.str "NM"
+    | .NY => Lean.Json.str "NY"
+    | .NC => Lean.Json.str "NC"
+    | .ND => Lean.Json.str "ND"
+    | .OH => Lean.Json.str "OH"
+    | .OK => Lean.Json.str "OK"
+    | .OR => Lean.Json.str "OR"
+    | .PA => Lean.Json.str "PA"
+    | .RI => Lean.Json.str "RI"
+    | .SC => Lean.Json.str "SC"
+    | .SD => Lean.Json.str "SD"
+    | .TN => Lean.Json.str "TN"
+    | .TX => Lean.Json.str "TX"
+    | .UT => Lean.Json.str "UT"
+    | .VT => Lean.Json.str "VT"
+    | .VA => Lean.Json.str "VA"
+    | .WA => Lean.Json.str "WA"
+    | .WV => Lean.Json.str "WV"
+    | .WI => Lean.Json.str "WI"
+    | .WY => Lean.Json.str "WY"
+    | .DC => Lean.Json.str "DC"
+    | .GU => Lean.Json.str "GU"
+    | .MP => Lean.Json.str "MP"
+    | .PW => Lean.Json.str "PW"
+    | .PR => Lean.Json.str "PR"
+    | .VI => Lean.Json.str "VI"
+    | .AA => Lean.Json.str "AA"
+    | .AE => Lean.Json.str "AE"
+    | .AP => Lean.Json.str "AP"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def StateCode.asStr : StateCode → String
+  | .AL => "AL"
+  | .AK => "AK"
+  | .AZ => "AZ"
+  | .AR => "AR"
+  | .CA => "CA"
+  | .CO => "CO"
+  | .CT => "CT"
+  | .DE => "DE"
+  | .FL => "FL"
+  | .GA => "GA"
+  | .HI => "HI"
+  | .ID => "ID"
+  | .IL => "IL"
+  | .IN => "IN"
+  | .IA => "IA"
+  | .KS => "KS"
+  | .KY => "KY"
+  | .LA => "LA"
+  | .ME => "ME"
+  | .MD => "MD"
+  | .MA => "MA"
+  | .MI => "MI"
+  | .MN => "MN"
+  | .MS => "MS"
+  | .MO => "MO"
+  | .MT => "MT"
+  | .NE => "NE"
+  | .NV => "NV"
+  | .NH => "NH"
+  | .NJ => "NJ"
+  | .NM => "NM"
+  | .NY => "NY"
+  | .NC => "NC"
+  | .ND => "ND"
+  | .OH => "OH"
+  | .OK => "OK"
+  | .OR => "OR"
+  | .PA => "PA"
+  | .RI => "RI"
+  | .SC => "SC"
+  | .SD => "SD"
+  | .TN => "TN"
+  | .TX => "TX"
+  | .UT => "UT"
+  | .VT => "VT"
+  | .VA => "VA"
+  | .WA => "WA"
+  | .WV => "WV"
+  | .WI => "WI"
+  | .WY => "WY"
+  | .DC => "DC"
+  | .GU => "GU"
+  | .MP => "MP"
+  | .PW => "PW"
+  | .PR => "PR"
+  | .VI => "VI"
+  | .AA => "AA"
+  | .AE => "AE"
+  | .AP => "AP"
+
+inductive StateFilingStatusIfMarriedFilingSeparatelyOnSameReturn where
+  | SINGLE
+  | SEPARATE
+  | HEAD_OF_HOUSEHOLD
+  | SURVIVING_SPOUSE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson StateFilingStatusIfMarriedFilingSeparatelyOnSameReturn where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "SINGLE" => pure .SINGLE
+    | "SEPARATE" => pure .SEPARATE
+    | "HEAD_OF_HOUSEHOLD" => pure .HEAD_OF_HOUSEHOLD
+    | "SURVIVING_SPOUSE" => pure .SURVIVING_SPOUSE
+    | s => throw s!"unknown StateFilingStatusIfMarriedFilingSeparatelyOnSameReturn: {s}"
+
+instance : Lean.ToJson StateFilingStatusIfMarriedFilingSeparatelyOnSameReturn where
+  toJson x := match x with
+    | .SINGLE => Lean.Json.str "SINGLE"
+    | .SEPARATE => Lean.Json.str "SEPARATE"
+    | .HEAD_OF_HOUSEHOLD => Lean.Json.str "HEAD_OF_HOUSEHOLD"
+    | .SURVIVING_SPOUSE => Lean.Json.str "SURVIVING_SPOUSE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def StateFilingStatusIfMarriedFilingSeparatelyOnSameReturn.asStr : StateFilingStatusIfMarriedFilingSeparatelyOnSameReturn → String
+  | .SINGLE => "SINGLE"
+  | .SEPARATE => "SEPARATE"
+  | .HEAD_OF_HOUSEHOLD => "HEAD_OF_HOUSEHOLD"
+  | .SURVIVING_SPOUSE => "SURVIVING_SPOUSE"
+
+inductive WAECEAPSlotType where
+  | PART_DAY
+  | SCHOOL_DAY
+  | WORKING_DAY
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson WAECEAPSlotType where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "PART_DAY" => pure .PART_DAY
+    | "SCHOOL_DAY" => pure .SCHOOL_DAY
+    | "WORKING_DAY" => pure .WORKING_DAY
+    | s => throw s!"unknown WAECEAPSlotType: {s}"
+
+instance : Lean.ToJson WAECEAPSlotType where
+  toJson x := match x with
+    | .PART_DAY => Lean.Json.str "PART_DAY"
+    | .SCHOOL_DAY => Lean.Json.str "SCHOOL_DAY"
+    | .WORKING_DAY => Lean.Json.str "WORKING_DAY"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def WAECEAPSlotType.asStr : WAECEAPSlotType → String
+  | .PART_DAY => "PART_DAY"
+  | .SCHOOL_DAY => "SCHOOL_DAY"
+  | .WORKING_DAY => "WORKING_DAY"
+
+inductive WAStateSupplementaryPaymentCategory where
+  | STANDARD
+  | MEDICAL_INSTITUTION
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson WAStateSupplementaryPaymentCategory where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "STANDARD" => pure .STANDARD
+    | "MEDICAL_INSTITUTION" => pure .MEDICAL_INSTITUTION
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown WAStateSupplementaryPaymentCategory: {s}"
+
+instance : Lean.ToJson WAStateSupplementaryPaymentCategory where
+  toJson x := match x with
+    | .STANDARD => Lean.Json.str "STANDARD"
+    | .MEDICAL_INSTITUTION => Lean.Json.str "MEDICAL_INSTITUTION"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def WAStateSupplementaryPaymentCategory.asStr : WAStateSupplementaryPaymentCategory → String
+  | .STANDARD => "STANDARD"
+  | .MEDICAL_INSTITUTION => "MEDICAL_INSTITUTION"
+  | .NONE => "NONE"
+
 inductive WICCategory where
   | PREGNANT
   | POSTPARTUM
@@ -754,6 +1720,40 @@ def WICCategory.asStr : WICCategory → String
   | .BREASTFEEDING => "BREASTFEEDING"
   | .INFANT => "INFANT"
   | .CHILD => "CHILD"
+  | .NONE => "NONE"
+
+inductive WIWorksPlacement where
+  | CSJ
+  | W2_TRANSITION
+  | CMC
+  | ARP
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson WIWorksPlacement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "CSJ" => pure .CSJ
+    | "W2_TRANSITION" => pure .W2_TRANSITION
+    | "CMC" => pure .CMC
+    | "ARP" => pure .ARP
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown WIWorksPlacement: {s}"
+
+instance : Lean.ToJson WIWorksPlacement where
+  toJson x := match x with
+    | .CSJ => Lean.Json.str "CSJ"
+    | .W2_TRANSITION => Lean.Json.str "W2_TRANSITION"
+    | .CMC => Lean.Json.str "CMC"
+    | .ARP => Lean.Json.str "ARP"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def WIWorksPlacement.asStr : WIWorksPlacement → String
+  | .CSJ => "CSJ"
+  | .W2_TRANSITION => "W2_TRANSITION"
+  | .CMC => "CMC"
+  | .ARP => "ARP"
   | .NONE => "NONE"
 
 end Lawlib.Gen

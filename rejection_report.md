@@ -1,7 +1,7 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc'].
-1771 translated, 1919 boundary inputs, 3225 rejections.
+3224 translated, 1576 boundary inputs, 1771 rejections.
 
 ## Rejections
 
@@ -58,853 +58,439 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **WI** (`policyengine_us/tools/general.py:2`): unrecognized call population
 - **WV** (`policyengine_us/tools/general.py:2`): unrecognized call population
 - **WY** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **above_the_line_deductions** (`?:0`): adds via unknown parameter path 'gov.irs.ald.deductions'
-- **aca_child_index** (`policyengine_us/variables/gov/aca/eligibility/aca_child_index.py:3`): parameter 'gov.aca.slcsp.max_child_age' outside emitted subtrees
+- **above_the_line_deductions** (`?:0`): adds via DATED parameter list 'gov.irs.ald.deductions'
+- **aca_child_index** (`policyengine_us/variables/gov/aca/eligibility/aca_child_index.py:4`): unrecognized call person.get_rank
 - **aca_magi_fraction** (`policyengine_us/variables/gov/aca/eligibility/aca_magi_fraction.py:4`): np.floor
-- **aca_ptc_below_fpl_immigration_exception** (`policyengine_us/variables/gov/aca/eligibility/aca_ptc_below_fpl_immigration_exception.py:16`): parameter 'gov.aca.below_fpl_immigration_exception_in_effect' outside emitted subtrees
 - **aca_required_contribution_percentage** (`policyengine_us/variables/gov/aca/ptc/aca_required_contribution_percentage.py:6`): np.array
 - **acp** (`policyengine_us/variables/gov/fcc/acp/acp.py:3`): person ref to non-person variable 'is_on_tribal_land'
-- **additional_medicare_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/additional_medicare_tax.py:6`): unsupported parameter subscript on 'gov.irs.payroll.medicare.additional.exclusion'
-- **additional_senior_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/senior_deduction/additional_senior_deduction.py:14`): calc() on non-scale parameter 'gov.irs.deductions.senior_deduction.phase_out_rate.joint'
-- **additional_senior_deduction_eligible_person** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/senior_deduction/additional_senior_deduction_eligible_person.py:5`): isin against non-list param 'gov.irs.deductions.senior_deduction.eligible_ssn_card_type'
-- **additional_standard_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/additional_standard_deduction.py:4`): unsupported parameter subscript on 'gov.irs.deductions.standard.aged_or_blind.amount'
-- **adjusted_earnings** (`policyengine_us/variables/gov/irs/income/adjusted_earnings.py:4`): parameter 'gov.irs.ald.misc.self_emp_tax_adj' outside emitted subtrees
 - **adjusted_gross_income_person** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/adjusted_gross_income_person.py:9`): unsupported syntax ListComp
 - **adult_earnings_index** (`policyengine_us/variables/household/marginal_tax_rate.py:3`): unrecognized call person.get_rank
 - **adult_index** (`policyengine_us/variables/household/marginal_tax_rate.py:3`): unrecognized call person.get_rank
 - **adult_index_cg** (`policyengine_us/variables/gov/simulation/capital_gains_responses.py:3`): unrecognized call person.get_rank
 - **age_group** (`policyengine_us/variables/household/demographic/age/age_group.py:2`): unrecognized call select
 - **aged_blind_count** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/aged_blind_count.py:2`): unrecognized call tax_unit('blind_head', period).astype
-- **aged_head** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/aged_head.py:3`): parameter 'gov.irs.deductions.standard.aged_or_blind.age_threshold' outside emitted subtrees
-- **aged_spouse** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/aged_spouse.py:3`): parameter 'gov.irs.deductions.standard.aged_or_blind.age_threshold' outside emitted subtrees
 - **ak_atap** (`policyengine_us/variables/gov/states/ak/dpa/atap/ak_atap.py:29`): non-value handle used as value
-- **ak_atap_childcare_deduction** (`policyengine_us/variables/gov/states/ak/dpa/atap/income/earned/ak_atap_childcare_deduction.py:17`): calc() on non-scale parameter 'gov.states.ak.dpa.atap.income.deductions.childcare'
-- **ak_atap_countable_earned_income_person** (`policyengine_us/variables/gov/states/ak/dpa/atap/income/earned/ak_atap_countable_earned_income_person.py:11`): parameter 'gov.states.ak.dpa.atap.income.deductions.initial_work_deduction' outside emitted subtrees
-- **ak_atap_countable_unearned_income** (`policyengine_us/variables/gov/states/ak/dpa/atap/income/unearned/ak_atap_countable_unearned_income.py:8`): parameter 'gov.states.ak.dpa.atap.income.deductions.child_support' outside emitted subtrees
-- **ak_atap_gross_income_limit** (`policyengine_us/variables/gov/states/ak/dpa/atap/ak_atap_gross_income_limit.py:5`): parameter 'gov.states.ak.dpa.atap.gross_income_limit_rate' outside emitted subtrees
-- **ak_atap_maximum_payment** (`policyengine_us/variables/gov/states/ak/dpa/atap/ak_atap_maximum_payment.py:14`): parameter 'gov.states.ak.dpa.atap.payment.base' outside emitted subtrees
-- **ak_atap_need_standard** (`policyengine_us/variables/gov/states/ak/dpa/atap/ak_atap_need_standard.py:11`): parameter 'gov.states.ak.dpa.atap.need_standard.max_unit_size' outside emitted subtrees
-- **ak_atap_resources_eligible** (`policyengine_us/variables/gov/states/ak/dpa/atap/eligibility/ak_atap_resources_eligible.py:8`): parameter 'gov.states.ak.dpa.atap.resource_limit.elderly.age_threshold' outside emitted subtrees
-- **ak_ccap_age_group** (`policyengine_us/variables/gov/states/ak/dpa/ccap/rates/ak_ccap_age_group.py:4`): calc() on non-scale parameter 'gov.states.ak.dpa.ccap.age_group.months'
-- **ak_ccap_child_age_eligible** (`policyengine_us/variables/gov/states/ak/dpa/ccap/eligibility/ak_ccap_child_age_eligible.py:8`): parameter 'gov.states.ak.dpa.ccap.age_threshold.child' outside emitted subtrees
-- **ak_ccap_copay_rate** (`policyengine_us/variables/gov/states/ak/dpa/ccap/copay/ak_ccap_copay_rate.py:6`): calc() on non-scale parameter 'gov.states.ak.dpa.ccap.copay.sliding_scale'
-- **ak_ccap_countable_earned_income** (`policyengine_us/variables/gov/states/ak/dpa/ccap/income/ak_ccap_countable_earned_income.py:13`): parameter 'gov.states.ak.dpa.ccap.age_threshold.adult' outside emitted subtrees
-- **ak_ccap_countable_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.ak.dpa.ccap.income.countable_income.unearned_sources'
-- **ak_ccap_income_eligible** (`policyengine_us/variables/gov/states/ak/dpa/ccap/income/ak_ccap_income_eligible.py:9`): parameter 'gov.states.ak.dpa.ccap.income.smi_rate' outside emitted subtrees
+- **ak_atap_need_standard** (`policyengine_us/variables/gov/states/ak/dpa/atap/ak_atap_need_standard.py:12`): unsupported parameter subscript on 'gov.states.ak.dpa.atap.need_standard.amount'
+- **ak_ccap_age_group** (`policyengine_us/variables/gov/states/ak/dpa/ccap/rates/ak_ccap_age_group.py:0`): Enum-valued formula
+- **ak_ccap_countable_earned_income** (`policyengine_us/variables/gov/states/ak/dpa/ccap/income/ak_ccap_countable_earned_income.py:14`): add() without literal variable list
 - **ak_ccap_max_provider_rate_per_child** (`policyengine_us/variables/gov/states/ak/dpa/ccap/rates/ak_ccap_max_provider_rate_per_child.py:9`): unbound name 'AKCCAPCareSchedule'
 - **ak_ccap_rate_region** (`policyengine_us/variables/gov/states/ak/dpa/ccap/rates/ak_ccap_rate_region.py:2`): person ref to non-person variable 'county_str'
-- **ak_ccap_special_needs_supplement** (`policyengine_us/variables/gov/states/ak/dpa/ccap/rates/ak_ccap_special_needs_supplement.py:9`): parameter 'gov.states.ak.dpa.ccap.special_needs.supplement_multiplier' outside emitted subtrees
 - **ak_energy_relief** (`?:0`): adds list mixes parameter paths: 'gov.states.ak.dor.energy_relief'
 - **ak_permanent_fund_dividend** (`?:0`): adds list mixes parameter paths: 'gov.states.ak.dor.permanent_fund_dividend'
 - **ak_ssp_claim_type** (`policyengine_us/variables/gov/states/ak/dpa/ssp/ak_ssp_claim_type.py:43`): unrecognized call is_eligible_individual.astype
-- **ak_ssp_eligible** (`policyengine_us/variables/gov/states/ak/dpa/ssp/ak_ssp_eligible.py:5`): parameter 'gov.states.ak.dpa.ssp.eligibility.age_threshold' outside emitted subtrees
 - **ak_ssp_living_arrangement** (`policyengine_us/variables/gov/states/ak/dpa/ssp/ak_ssp_living_arrangement.py:12`): unrecognized call select
 - **ak_ssp_payment_standard** (`policyengine_us/variables/gov/states/ak/dpa/ssp/ak_ssp_payment_standard.py:5`): unsupported parameter subscript on 'gov.states.ak.dpa.ssp.payment_standard'
-- **al_529_plan_deduction** (`policyengine_us/variables/gov/states/al/tax/income/deductions/plan_529/al_529_plan_deduction.py:5`): unsupported parameter subscript on 'gov.states.al.tax.income.deductions.plan_529.cap'
-- **al_agi** (`?:0`): adds via unknown parameter path 'gov.states.al.tax.income.agi.gross_income_sources'
-- **al_casualty_loss_deduction** (`policyengine_us/variables/gov/states/al/tax/income/deductions/itemized/al_casualty_loss_deduction.py:5`): parameter 'gov.irs.deductions.itemized.casualty.floor' outside emitted subtrees
+- **al_agi** (`?:0`): adds via DATED parameter list 'gov.states.al.tax.income.agi.deductions'
 - **al_ccsp** (`policyengine_us/variables/gov/states/al/dhr/ccsp/al_ccsp.py:11`): unrecognized call spm_unit.project
-- **al_ccsp_activity_eligible** (`policyengine_us/variables/gov/states/al/dhr/ccsp/eligibility/al_ccsp_activity_eligible.py:12`): parameter 'gov.states.al.dhr.ccsp.activity.hours_minimum' outside emitted subtrees
-- **al_ccsp_age_category** (`policyengine_us/variables/gov/states/al/dhr/ccsp/al_ccsp_age_category.py:4`): calc() on non-scale parameter 'gov.states.al.dhr.ccsp.age_category.months'
-- **al_ccsp_copay_waived** (`policyengine_us/variables/gov/states/al/dhr/ccsp/copay/al_ccsp_copay_waived.py:21`): parameter 'gov.states.al.dhr.ccsp.age.disabled_child_limit' outside emitted subtrees
-- **al_ccsp_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.al.dhr.ccsp.income.countable_income.sources'
-- **al_ccsp_eligible_child** (`policyengine_us/variables/gov/states/al/dhr/ccsp/eligibility/al_ccsp_eligible_child.py:7`): parameter 'gov.states.al.dhr.ccsp.age.disabled_child_limit' outside emitted subtrees
-- **al_ccsp_income_eligible** (`policyengine_us/variables/gov/states/al/dhr/ccsp/eligibility/al_ccsp_income_eligible.py:13`): parameter 'gov.states.al.dhr.ccsp.income.limit.fpl_continuing' outside emitted subtrees
+- **al_ccsp_age_category** (`policyengine_us/variables/gov/states/al/dhr/ccsp/al_ccsp_age_category.py:0`): Enum-valued formula
 - **al_ccsp_maximum_weekly_rate** (`policyengine_us/variables/gov/states/al/dhr/ccsp/payment/al_ccsp_maximum_weekly_rate.py:9`): unsupported parameter subscript on 'gov.states.al.dhr.ccsp.rates.maximum_weekly_full_time.CENTER'
 - **al_ccsp_protective_services** (`policyengine_us/variables/gov/states/al/dhr/ccsp/eligibility/al_ccsp_protective_services.py:13`): person ref to non-person variable 'is_homeless'
 - **al_ccsp_region** (`policyengine_us/variables/gov/states/al/dhr/ccsp/al_ccsp_region.py:7`): non-value handle used as value
-- **al_ccsp_weekly_copay_per_child** (`policyengine_us/variables/gov/states/al/dhr/ccsp/copay/al_ccsp_weekly_copay_per_child.py:10`): calc() on non-scale parameter 'gov.states.al.dhr.ccsp.copay.fee_by_fpl'
-- **al_chip_premium** (`policyengine_us/variables/gov/states/al/hhs/chip/al_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.al.hhs.chip.enrollment_fee.per_child'
-- **al_dependent_exemption** (`policyengine_us/variables/gov/states/al/tax/income/exemptions/al_dependent_exemption.py:5`): calc() on non-scale parameter 'gov.states.al.tax.income.exemptions.dependent'
+- **al_chip_premium** (`policyengine_us/variables/gov/states/al/hhs/chip/al_chip_premium.py:5`): ExtRat scale 'gov.states.al.hhs.chip.enrollment_fee.per_child' in value position
+- **al_dependent_exemption** (`policyengine_us/variables/gov/states/al/tax/income/exemptions/al_dependent_exemption.py:5`): ExtRat scale 'gov.states.al.tax.income.exemptions.dependent' in value position
 - **al_federal_income_tax_deduction** (`policyengine_us/variables/gov/states/al/tax/income/deductions/federal_income_tax/al_federal_income_tax_deduction.py:4`): add() without literal variable list
 - **al_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/al/tax/income/al_income_tax_before_non_refundable_credits.py:8`): unrecognized call select
-- **al_itemized_deductions** (`?:0`): adds via unknown parameter path 'gov.states.al.tax.income.deductions.itemized.sources'
-- **al_medical_expense_deduction** (`policyengine_us/variables/gov/states/al/tax/income/deductions/itemized/al_medical_expense_deduction.py:6`): parameter 'gov.states.al.tax.income.deductions.itemized.medical_expense.income_floor' outside emitted subtrees
-- **al_misc_deduction** (`policyengine_us/variables/gov/states/al/tax/income/deductions/itemized/al_misc_deduction.py:4`): parameter 'gov.states.al.tax.income.deductions.itemized.work_related_expense_rate' outside emitted subtrees
-- **al_personal_exemption** (`policyengine_us/variables/gov/states/al/tax/income/exemptions/al_personal_exemption.py:4`): unsupported parameter subscript on 'gov.states.al.tax.income.exemptions.personal'
-- **al_retirement_exemption_eligible_person** (`policyengine_us/variables/gov/states/al/tax/income/exemptions/retirement/al_retirement_exemption_eligible_person.py:4`): parameter 'gov.states.al.tax.income.exemptions.retirement.age_threshold' outside emitted subtrees
-- **al_retirement_exemption_person** (`policyengine_us/variables/gov/states/al/tax/income/exemptions/retirement/al_retirement_exemption_person.py:8`): parameter 'gov.states.al.tax.income.exemptions.retirement.cap' outside emitted subtrees
-- **al_senior_homestead_exemption** (`policyengine_us/variables/gov/states/al/tax/property/senior_homestead_exemption/al_senior_homestead_exemption.py:5`): parameter 'gov.states.al.tax.property.senior_homestead_exemption.state_property_tax_rate' outside emitted subtrees
-- **al_senior_homestead_exemption_eligible** (`policyengine_us/variables/gov/states/al/tax/property/senior_homestead_exemption/al_senior_homestead_exemption_eligible.py:3`): parameter 'gov.states.al.tax.property.senior_homestead_exemption.age_threshold' outside emitted subtrees
-- **al_ssp** (`policyengine_us/variables/gov/states/al/dhr/ssp/al_ssp.py:4`): unsupported parameter subscript on 'gov.states.al.dhr.ssp.amount'
 - **al_ssp_payment_category** (`policyengine_us/variables/gov/states/al/dhr/ssp/al_ssp_payment_category.py:18`): unrecognized call select
-- **al_standard_deduction** (`policyengine_us/variables/gov/states/al/tax/income/deductions/al_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.al.tax.income.deductions.standard.amount.max'
-- **al_tanf_countable_earned_income** (`policyengine_us/variables/gov/states/al/dhs/tanf/income/al_tanf_countable_earned_income.py:15`): parameter 'gov.states.al.dhs.tanf.income.work_expense_rate' outside emitted subtrees
-- **al_tanf_payment_standard** (`policyengine_us/variables/gov/states/al/dhs/tanf/al_tanf_payment_standard.py:4`): parameter 'gov.states.al.dhs.tanf.max_unit_size' outside emitted subtrees
+- **al_standard_deduction** (`policyengine_us/variables/gov/states/al/tax/income/deductions/al_standard_deduction.py:12`): operator FloorDiv
+- **al_tanf_payment_standard** (`policyengine_us/variables/gov/states/al/dhs/tanf/al_tanf_payment_standard.py:5`): unsupported parameter subscript on 'gov.states.al.dhs.tanf.payment_standard'
 - **al_withheld_income_tax** (`policyengine_us/variables/gov/states/al/tax/income/al_withheld_income_tax.py:5`): non-value handle used as value
-- **alimony_expense_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/alimony_expense_ald.py:6`): calc() on non-scale parameter 'gov.irs.ald.alimony_expense.divorce_year_threshold'
-- **american_opportunity_credit** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/american_opportunity_credit.py:7`): calc() on non-scale parameter 'gov.irs.credits.education.american_opportunity_credit.amount'
+- **american_opportunity_credit** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/american_opportunity_credit.py:8`): sum() over non-person expression
 - **ami** (`policyengine_us/variables/gov/hud/ami.py:3`): unrecognized call lookup_income_limit
 - **amt_excluded_deductions** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_excluded_deductions.py:5`): add() without literal variable list
 - **amt_exemption** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/exemption/amt_exemption.py:8`): unsupported parameter subscript on 'gov.irs.income.amt.exemption.amount'
-- **amt_higher_base_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_higher_base_tax.py:5`): unsupported parameter subscript on 'gov.irs.income.amt.multiplier'
-- **amt_lower_base_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_lower_base_tax.py:5`): unsupported parameter subscript on 'gov.irs.income.amt.multiplier'
-- **amt_separate_addition** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_separate_addition.py:8`): parameter 'gov.irs.income.amt.exemption.separate_limit' outside emitted subtrees
-- **amt_tax_including_cg** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/amt_tax_including_cg.py:23`): calc() on non-scale parameter 'gov.irs.income.amt.brackets'
+- **amt_higher_base_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_higher_base_tax.py:7`): unsupported parameter subscript on 'gov.irs.income.amt.brackets.rates'
+- **amt_lower_base_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_lower_base_tax.py:7`): unsupported parameter subscript on 'gov.irs.income.amt.brackets.rates'
+- **amt_separate_addition** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_separate_addition.py:13`): unsupported parameter subscript on 'gov.irs.income.amt.exemption.amount'
+- **amt_tax_including_cg** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/amt_tax_including_cg.py:26`): non-value handle used as value
 - **ar_additional_tax_credit_for_qualified_individuals** (`policyengine_us/variables/gov/states/ar/tax/income/credits/ar_additional_tax_credit_for_qualified_individuals.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ar_additional_tax_credit_for_qualified_individuals_person** (`policyengine_us/variables/gov/states/ar/tax/income/credits/ar_additional_tax_credit_for_qualified_individuals_person.py:16`): parameter 'gov.states.ar.tax.income.credits.additional_tax_credit_for_qualified_individuals.joint_multiplier' outside emitted subtrees
 - **ar_agi** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ar_capped_retirement_or_disability_benefits_exemption_person** (`policyengine_us/variables/gov/states/ar/tax/income/exemptions/ar_capped_retirement_or_disability_benefits_exemption_person.py:13`): parameter 'gov.states.ar.tax.income.exemptions.retirement_or_disability_benefits.cap' outside emitted subtrees
 - **ar_cdcc** (`policyengine_us/variables/gov/states/ar/tax/income/credits/ar_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
 - **ar_cdcc_potential** (`policyengine_us/variables/gov/states/ar/tax/income/credits/ar_cdcc_potential.py:15`): unbound name 'period'
-- **ar_exemptions** (`?:0`): adds via unknown parameter path 'gov.states.ar.tax.income.exemptions.exemptions'
-- **ar_federal_cdcc** (`policyengine_us/variables/gov/states/ar/tax/income/credits/ar_federal_cdcc.py:20`): parameter 'gov.irs.credits.cdcc.eligibility.max' outside emitted subtrees
-- **ar_files_separately** (`policyengine_us/variables/gov/states/ar/tax/income/ar_files_separately.py:30`): parameter 'gov.states.ar.tax.income.credits.additional_tax_credit_for_qualified_individuals.joint_multiplier' outside emitted subtrees
-- **ar_gross_income_indiv** (`?:0`): adds via unknown parameter path 'gov.states.ar.tax.income.gross_income.sources.individual'
-- **ar_gross_income_joint** (`?:0`): adds via unknown parameter path 'gov.states.ar.tax.income.gross_income.sources.joint'
-- **ar_income_tax_before_non_refundable_credits_indiv** (`policyengine_us/variables/gov/states/ar/tax/income/ar_income_tax_before_non_refundable_credits_indiv.py:4`): calc() on non-scale parameter 'gov.states.ar.tax.income.rates.main.rate'
-- **ar_income_tax_before_non_refundable_credits_joint** (`policyengine_us/variables/gov/states/ar/tax/income/ar_income_tax_before_non_refundable_credits_joint.py:5`): calc() on non-scale parameter 'gov.states.ar.tax.income.rates.main.rate'
-- **ar_inflation_relief_credit_person** (`policyengine_us/variables/gov/states/ar/tax/income/credits/ar_inflation_relief_credit_person.py:14`): unsupported parameter subscript on 'gov.states.ar.tax.income.credits.inflationary_relief.max_amount'
+- **ar_income_tax_before_non_refundable_credits_indiv** (`policyengine_us/variables/gov/states/ar/tax/income/ar_income_tax_before_non_refundable_credits_indiv.py:4`): ExtRat scale 'gov.states.ar.tax.income.rates.main.rate' in value position
+- **ar_income_tax_before_non_refundable_credits_joint** (`policyengine_us/variables/gov/states/ar/tax/income/ar_income_tax_before_non_refundable_credits_joint.py:5`): ExtRat scale 'gov.states.ar.tax.income.rates.main.rate' in value position
 - **ar_itemized_deductions** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **ar_itemized_deductions_indiv** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/ar_itemized_deductions_indiv.py:4`): add() without literal variable list
 - **ar_itemized_deductions_joint** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/ar_itemized_deductions_joint.py:6`): add() without literal variable list
 - **ar_low_income_tax_joint** (`policyengine_us/variables/gov/states/ar/tax/income/low_income/ar_low_income_tax_joint.py:9`): unrecognized call select
-- **ar_medicaid_work_requirement_eligible** (`policyengine_us/variables/gov/states/ar/dhs/medicaid/eligibility/ar_medicaid_work_requirement_eligible.py:11`): parameter 'gov.states.ar.dhs.medicaid.work_requirements.monthly_hours_threshold' outside emitted subtrees
-- **ar_medicaid_work_requirement_subject** (`policyengine_us/variables/gov/states/ar/dhs/medicaid/eligibility/ar_medicaid_work_requirement_subject.py:7`): calc() on non-scale parameter 'gov.states.ar.dhs.medicaid.work_requirements.age_range'
+- **ar_medicaid_work_requirement_subject** (`policyengine_us/variables/gov/states/ar/dhs/medicaid/eligibility/ar_medicaid_work_requirement_subject.py:9`): bitwise op on non-bool operands
 - **ar_medical_expense_deduction_indiv** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/ar_medical_expense_deduction_indiv.py:2`): unbound name 'period'
 - **ar_medical_expense_deduction_joint** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/ar_medical_expense_deduction_joint.py:2`): unbound name 'period'
-- **ar_misc_deduction_indiv** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/ar_misc_deduction_indiv.py:7`): parameter 'gov.irs.deductions.itemized.misc.floor' outside emitted subtrees
-- **ar_misc_deduction_joint** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/ar_misc_deduction_joint.py:7`): parameter 'gov.irs.deductions.itemized.misc.floor' outside emitted subtrees
 - **ar_non_refundable_credits** (`policyengine_us/variables/gov/states/ar/tax/income/ar_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **ar_personal_credit_dependent** (`policyengine_us/variables/gov/states/ar/tax/income/credits/personal/ar_personal_credit_dependent.py:4`): parameter 'gov.states.ar.tax.income.credits.personal.amount.base' outside emitted subtrees
-- **ar_personal_credit_disabled_dependent** (`policyengine_us/variables/gov/states/ar/tax/income/credits/personal/ar_personal_credit_disabled_dependent.py:6`): parameter 'gov.states.ar.tax.income.credits.personal.amount.disabled_dependent' outside emitted subtrees
 - **ar_personal_credits** (`policyengine_us/variables/gov/states/ar/tax/income/credits/personal/ar_personal_credits.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ar_personal_credits_base** (`policyengine_us/variables/gov/states/ar/tax/income/credits/personal/ar_personal_credits_base.py:6`): parameter 'gov.states.ar.tax.income.credits.personal.age_threshold' outside emitted subtrees
-- **ar_post_secondary_education_tuition_deduction_person** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/post_secondary_education/ar_post_secondary_education_tuition_deduction_person.py:4`): parameter 'gov.states.ar.tax.income.deductions.itemized.tuition.rate' outside emitted subtrees
-- **ar_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ar.tax.income.credits.refundable'
-- **ar_retirement_or_disability_benefits_exemption_person** (`policyengine_us/variables/gov/states/ar/tax/income/exemptions/ar_retirement_or_disability_benefits_exemption_person.py:9`): parameter 'gov.irs.income.exemption.traditional_distribution.age_threshold' outside emitted subtrees
-- **ar_sra** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_sra.py:27`): parameter 'gov.states.ar.ade.oec.sra.rates.max_copay_share_of_gross_income' outside emitted subtrees
-- **ar_sra_age_category** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_sra_age_category.py:8`): calc() on non-scale parameter 'gov.states.ar.ade.oec.sra.rates.age_category_months'
-- **ar_sra_countable_income** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/income/ar_sra_countable_income.py:5`): parameter 'gov.states.ar.ade.oec.sra.eligibility.adult_age_threshold' outside emitted subtrees
+- **ar_personal_credits_base** (`policyengine_us/variables/gov/states/ar/tax/income/credits/personal/ar_personal_credits_base.py:28`): unrecognized call aged.astype
+- **ar_post_secondary_education_tuition_deduction_person** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/itemized/post_secondary_education/ar_post_secondary_education_tuition_deduction_person.py:5`): unrecognized call select
+- **ar_sra_age_category** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_sra_age_category.py:0`): Enum-valued formula
+- **ar_sra_countable_income** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/income/ar_sra_countable_income.py:6`): unsupported syntax ListComp
 - **ar_sra_daily_base_rate** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/rates/ar_sra_daily_base_rate.py:11`): unsupported parameter subscript on 'gov.states.ar.ade.oec.sra.rates.base_rate'
 - **ar_sra_income_tier** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_sra_income_tier.py:6`): unbound name 'np'
 - **ar_sra_state_share** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/rates/ar_sra_state_share.py:6`): unsupported parameter subscript on 'gov.states.ar.ade.oec.sra.rates.state_share_by_tier'
-- **ar_sra_time_category** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_sra_time_category.py:5`): parameter 'gov.states.ar.ade.oec.sra.rates.full_time_hours_threshold' outside emitted subtrees
+- **ar_sra_time_category** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_sra_time_category.py:6`): unbound name 'ArSraTimeCategory'
 - **ar_sra_zone** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_sra_zone.py:6`): np.isin outside enum idioms
 - **ar_standard_deduction** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ar_standard_deduction_indiv** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/standard/ar_standard_deduction_indiv.py:8`): unsupported parameter subscript on 'gov.states.ar.tax.income.deductions.standard'
-- **ar_standard_deduction_joint** (`policyengine_us/variables/gov/states/ar/tax/income/deductions/standard/ar_standard_deduction_joint.py:5`): unsupported parameter subscript on 'gov.states.ar.tax.income.deductions.standard'
-- **ar_taxable_capital_gains_indiv** (`policyengine_us/variables/gov/states/ar/tax/income/ar_taxable_capital_gains_indiv.py:11`): parameter 'gov.states.ar.tax.income.gross_income.capital_gains.exempt.cap' outside emitted subtrees
-- **ar_taxable_capital_gains_joint** (`policyengine_us/variables/gov/states/ar/tax/income/ar_taxable_capital_gains_joint.py:11`): parameter 'gov.states.ar.tax.income.gross_income.capital_gains.exempt.cap' outside emitted subtrees
 - **ar_taxable_income** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ar_tea** (`policyengine_us/variables/gov/states/ar/dhs/tea/ar_tea.py:24`): parameter 'gov.states.ar.dhs.tea.payment_standard.trigger.amount' outside emitted subtrees
-- **ar_tea_countable_earned_income** (`policyengine_us/variables/gov/states/ar/dhs/tea/income/ar_tea_countable_earned_income.py:7`): parameter 'gov.states.ar.dhs.tea.income.work_deduction.expense_rate' outside emitted subtrees
-- **ar_tea_income_eligible** (`policyengine_us/variables/gov/states/ar/dhs/tea/eligibility/ar_tea_income_eligible.py:6`): parameter 'gov.states.ar.dhs.tea.income.income_limit' outside emitted subtrees
-- **ar_tea_maximum_benefit** (`policyengine_us/variables/gov/states/ar/dhs/tea/ar_tea_maximum_benefit.py:5`): parameter 'gov.states.ar.dhs.tea.payment_standard.max_unit_size' outside emitted subtrees
-- **ar_tea_resources_eligible** (`policyengine_us/variables/gov/states/ar/dhs/tea/eligibility/ar_tea_resources_eligible.py:6`): parameter 'gov.states.ar.dhs.tea.resources.limit' outside emitted subtrees
-- **ar_uses_low_income_tax_tables** (`policyengine_us/variables/gov/states/ar/tax/income/ar_uses_low_income_tax_tables.py:5`): calc() on non-scale parameter 'gov.states.ar.tax.income.rates.main.rate'
+- **ar_tea_maximum_benefit** (`policyengine_us/variables/gov/states/ar/dhs/tea/ar_tea_maximum_benefit.py:6`): unsupported parameter subscript on 'gov.states.ar.dhs.tea.payment_standard.amount'
+- **ar_uses_low_income_tax_tables** (`policyengine_us/variables/gov/states/ar/tax/income/ar_uses_low_income_tax_tables.py:5`): ExtRat scale 'gov.states.ar.tax.income.rates.main.rate' in value position
 - **ar_withheld_income_tax** (`policyengine_us/variables/gov/states/ar/tax/income/ar_withheld_income_tax.py:5`): non-value handle used as value
-- **auto_loan_interest_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/auto_loan_interest/auto_loan_interest_deduction.py:8`): parameter 'gov.irs.deductions.auto_loan_interest.cap' outside emitted subtrees
-- **az_529_college_savings_plan_subtraction** (`policyengine_us/variables/gov/states/az/tax/income/subtractions/college_savings/az_529_college_savings_plan_subtraction.py:7`): unsupported parameter subscript on 'gov.states.az.tax.income.subtractions.college_savings.cap'
-- **az_529a_able_account_subtraction** (`policyengine_us/variables/gov/states/az/tax/income/subtractions/az_529a_able_account_subtraction.py:7`): unsupported parameter subscript on 'gov.states.az.tax.income.subtractions.able_account.cap'
-- **az_adoption_expense_subtraction** (`policyengine_us/variables/gov/states/az/tax/income/subtractions/az_adoption_expense_subtraction.py:8`): unsupported parameter subscript on 'gov.states.az.tax.income.subtractions.adoption.max_amount'
-- **az_aged_exemption** (`policyengine_us/variables/gov/states/az/tax/income/exemptions/az_aged_exemption.py:5`): calc() on non-scale parameter 'gov.states.az.tax.income.exemptions.aged'
 - **az_aged_exemption_eligible_person** (`policyengine_us/variables/gov/states/az/tax/income/exemptions/az_aged_exemption_eligible_person.py:5`): attribute 'tax_unit' on value expression
-- **az_base_standard_deduction** (`policyengine_us/variables/gov/states/az/tax/income/deductions/standard/az_base_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.az.tax.income.deductions.standard.amount'
 - **az_blind_exemption** (`policyengine_us/variables/gov/states/az/tax/income/exemptions/az_blind_exemption.py:7`): unrecognized call blind_head.astype
-- **az_ccap_activity_eligible** (`policyengine_us/variables/gov/states/az/hhs/ccap/eligibility/az_ccap_activity_eligible.py:21`): parameter 'gov.states.az.hhs.ccap.eligibility.teen_parent_age_limit' outside emitted subtrees
 - **az_ccap_age_group** (`policyengine_us/variables/gov/states/az/hhs/ccap/reimbursement/az_ccap_age_group.py:4`): unbound name 'period'
 - **az_ccap_copay** (`policyengine_us/variables/gov/states/az/hhs/ccap/copay/az_ccap_copay.py:14`): unrecognized call spm_unit.project
 - **az_ccap_countable_income** (`policyengine_us/variables/gov/states/az/hhs/ccap/income/az_ccap_countable_income.py:3`): add() without literal variable list
 - **az_ccap_daily_rate** (`policyengine_us/variables/gov/states/az/hhs/ccap/reimbursement/az_ccap_daily_rate.py:7`): unrecognized call select
-- **az_ccap_eligible_child** (`policyengine_us/variables/gov/states/az/hhs/ccap/eligibility/az_ccap_eligible_child.py:14`): parameter 'gov.states.az.hhs.ccap.eligibility.child_age_limit' outside emitted subtrees
-- **az_ccap_fee_level** (`policyengine_us/variables/gov/states/az/hhs/ccap/income/az_ccap_fee_level.py:4`): parameter 'gov.states.az.hhs.ccap.income.max_family_size' outside emitted subtrees
-- **az_ccap_income_limit** (`policyengine_us/variables/gov/states/az/hhs/ccap/income/az_ccap_income_limit.py:4`): parameter 'gov.states.az.hhs.ccap.income.max_family_size' outside emitted subtrees
+- **az_ccap_fee_level** (`policyengine_us/variables/gov/states/az/hhs/ccap/income/az_ccap_fee_level.py:6`): unrecognized call select
+- **az_ccap_income_limit** (`policyengine_us/variables/gov/states/az/hhs/ccap/income/az_ccap_income_limit.py:8`): unsupported parameter subscript on 'gov.states.az.hhs.ccap.income.threshold.level_7'
 - **az_charitable_contributions_credit** (`policyengine_us/variables/gov/states/az/tax/income/credits/charitable_contribution/az_charitable_contributions_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **az_charitable_contributions_credit_potential** (`policyengine_us/variables/gov/states/az/tax/income/credits/charitable_contribution/az_charitable_contributions_credit_potential.py:15`): unsupported parameter subscript on 'gov.states.az.tax.income.credits.charitable_contribution.ceiling.qualifying_organization'
 - **az_dependent_tax_credit** (`policyengine_us/variables/gov/states/az/tax/income/credits/dependent_credit/az_dependent_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **az_dependent_tax_credit_potential** (`policyengine_us/variables/gov/states/az/tax/income/credits/dependent_credit/az_dependent_tax_credit_potential.py:6`): calc() on non-scale parameter 'gov.states.az.tax.income.credits.dependent_credit.amount'
 - **az_families_tax_rebate** (`policyengine_us/variables/gov/states/az/tax/income/credits/az_families_tax_rebate.py:29`): unsupported syntax ListComp
 - **az_family_tax_credit** (`policyengine_us/variables/gov/states/az/tax/income/credits/family_tax_credit/az_family_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
 - **az_family_tax_credit_eligible** (`policyengine_us/variables/gov/states/az/tax/income/credits/family_tax_credit/az_family_tax_credit_eligible.py:11`): unrecognized call select
-- **az_family_tax_credit_potential** (`policyengine_us/variables/gov/states/az/tax/income/credits/family_tax_credit/az_family_tax_credit_potential.py:7`): parameter 'gov.states.az.tax.income.credits.family_tax_credits.amount.per_person' outside emitted subtrees
 - **az_filing_status** (`policyengine_us/variables/gov/states/az/tax/income/az_filing_status.py:4`): unrecognized call select
 - **az_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/az/tax/income/az_income_tax_before_non_refundable_credits.py:6`): unrecognized call select
-- **az_increased_excise_tax_credit** (`policyengine_us/variables/gov/states/az/tax/income/credits/az_increased_excise_tax_credit.py:6`): parameter 'gov.states.az.tax.income.credits.increased_excise.amount' outside emitted subtrees
-- **az_increased_excise_tax_credit_eligible** (`policyengine_us/variables/gov/states/az/tax/income/credits/az_increased_excise_tax_credit_eligible.py:5`): unsupported parameter subscript on 'gov.states.az.tax.income.credits.increased_excise.income_threshold'
-- **az_increased_standard_deduction_for_charitable_contributions** (`policyengine_us/variables/gov/states/az/tax/income/deductions/standard/az_increased_standard_deduction_for_charitable_contributions.py:14`): parameter 'gov.states.az.tax.income.deductions.standard.increased.rate' outside emitted subtrees
 - **az_itemized_deductions** (`policyengine_us/variables/gov/states/az/tax/income/deductions/itemized/az_itemized_deductions.py:6`): unsupported syntax ListComp
-- **az_long_term_capital_gains_subtraction** (`policyengine_us/variables/gov/states/az/tax/income/subtractions/capital_gains/az_long_term_capital_gains_subtraction.py:17`): parameter 'gov.states.az.tax.income.subtractions.capital_gains.rate' outside emitted subtrees
-- **az_military_retirement_subtraction** (`policyengine_us/variables/gov/states/az/tax/income/subtractions/az_military_retirement_subtraction.py:7`): parameter 'gov.states.az.tax.income.subtractions.military_retirement.max_amount' outside emitted subtrees
+- **az_military_retirement_subtraction** (`policyengine_us/variables/gov/states/az/tax/income/subtractions/az_military_retirement_subtraction.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **az_non_refundable_credits** (`policyengine_us/variables/gov/states/az/tax/income/az_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **az_parents_grandparents_exemption** (`policyengine_us/variables/gov/states/az/tax/income/exemptions/az_parents_grandparents_exemption.py:8`): parameter 'gov.states.az.tax.income.exemptions.parent_grandparent.min_age' outside emitted subtrees
 - **az_property_tax_credit** (`policyengine_us/variables/gov/states/az/tax/income/credits/property_tax_credit/az_property_tax_credit.py:12`): person ref to non-person variable 'household_size'
-- **az_property_tax_credit_eligible** (`policyengine_us/variables/gov/states/az/tax/income/credits/property_tax_credit/az_property_tax_credit_eligible.py:8`): parameter 'gov.states.az.tax.income.credits.property_tax.age_threshold' outside emitted subtrees
-- **az_property_tax_credit_income** (`?:0`): adds via unknown parameter path 'gov.states.az.tax.income.credits.property_tax.income_sources'
-- **az_public_pension_exclusion** (`policyengine_us/variables/gov/states/az/tax/income/subtractions/az_public_pension_exclusion.py:8`): parameter 'gov.states.az.tax.income.subtractions.pension.public_pension_cap' outside emitted subtrees
-- **az_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.az.tax.income.credits.refundable'
-- **az_stillborn_exemption** (`policyengine_us/variables/gov/states/az/tax/income/exemptions/az_stillborn_exemption.py:6`): parameter 'gov.states.az.tax.income.exemptions.stillborn' outside emitted subtrees
+- **az_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.az.tax.income.credits.refundable'
 - **az_subtractions** (`policyengine_us/variables/gov/states/az/tax/income/az_subtractions.py:3`): add() without literal variable list
-- **az_tanf_dependent_care_deduction** (`policyengine_us/variables/gov/states/az/hhs/tanf/income/az_tanf_dependent_care_deduction.py:14`): calc() on non-scale parameter 'gov.states.az.hhs.tanf.income.deductions.care_expenses.amounts'
-- **az_tanf_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/az/hhs/tanf/income/az_tanf_earned_income_after_disregard_person.py:7`): parameter 'gov.states.az.hhs.tanf.income.deductions.flat' outside emitted subtrees
 - **az_tanf_fpg_baseline** (`policyengine_us/variables/gov/states/az/hhs/tanf/eligibility/az_tanf_fpg_baseline.py:5`): person ref to non-person variable 'state_group_str'
-- **az_tanf_fpg_rate** (`policyengine_us/variables/gov/states/az/hhs/tanf/eligibility/az_tanf_fpg_rate.py:22`): parameter 'gov.states.az.hhs.tanf.income.fpg_limit.non_parent' outside emitted subtrees
-- **az_tanf_max_benefit_standard** (`policyengine_us/variables/gov/states/az/hhs/tanf/az_tanf_max_benefit_standard.py:6`): parameter 'gov.states.az.hhs.tanf.payment_standard.rate' outside emitted subtrees
-- **az_tanf_payment_standard** (`policyengine_us/variables/gov/states/az/hhs/tanf/eligibility/az_tanf_payment_standard.py:9`): parameter 'gov.states.az.hhs.tanf.payment_standard.rate' outside emitted subtrees
-- **az_tanf_resources_eligible** (`policyengine_us/variables/gov/states/az/hhs/tanf/eligibility/az_tanf_resources_eligible.py:4`): parameter 'gov.states.az.hhs.tanf.resources.limit' outside emitted subtrees
 - **az_withheld_income_tax** (`policyengine_us/variables/gov/states/az/tax/income/az_withheld_income_tax.py:4`): non-value handle used as value
-- **base_part_a_premium** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_a/base_part_a_premium.py:7`): parameter 'gov.hhs.medicare.part_a.reduced_premium_quarters_threshold' outside emitted subtrees
-- **base_part_b_premium** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_b/base_part_b_premium.py:4`): parameter 'gov.hhs.medicare.part_b.base_premium' outside emitted subtrees
-- **basic_health_program** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program.py:4`): calc() on non-scale parameter 'gov.aca.ptc_income_eligibility'
-- **basic_health_program_adjusted_reference_premium** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_adjusted_reference_premium.py:5`): parameter 'gov.hhs.basic_health_program.payment.premium_adjustment_factor' outside emitted subtrees
+- **basic_health_program** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program.py:17`): where condition not bool
 - **basic_health_program_family_tier_amount** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_amount.py:2`): person ref to non-person variable 'slcsp_age_0'
 - **basic_health_program_family_tier_category** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_category.py:2`): person ref to non-person variable 'state_code'
-- **basic_health_program_family_tier_dependent_child** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_dependent_child.py:5`): parameter 'gov.aca.slcsp.max_child_age' outside emitted subtrees
 - **basic_health_program_family_tier_multiplier** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_multiplier.py:4`): person ref to non-person variable 'state_code'
-- **basic_health_program_ny_age_29_dependent_child** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_ny_age_29_dependent_child.py:7`): parameter 'gov.aca.family_tier_dependent_child_age_threshold' outside emitted subtrees
 - **basic_health_program_tax_unit_enrolled** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_tax_unit_enrolled.py:2`): unrecognized call tax_unit.members
-- **basic_income_before_phase_out** (`policyengine_us/variables/contrib/ubi_center/basic_income/basic_income_before_phase_out.py:4`): parameter 'gov.contrib.ubi_center.basic_income.amount.person.flat' outside emitted subtrees
-- **basic_income_eligible** (`policyengine_us/variables/contrib/ubi_center/basic_income/basic_income_eligible.py:3`): parameter 'gov.contrib.ubi_center.basic_income.agi_limit.in_effect' outside emitted subtrees
-- **basic_income_phase_in** (`policyengine_us/variables/contrib/ubi_center/basic_income/basic_income_phase_in.py:4`): parameter 'gov.contrib.ubi_center.basic_income.phase_in.include_ss_benefits_as_earnings' outside emitted subtrees
-- **basic_income_phase_out** (`policyengine_us/variables/contrib/ubi_center/basic_income/basic_income_phase_out.py:4`): parameter 'gov.contrib.ubi_center.basic_income.taxable' outside emitted subtrees
-- **basic_standard_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/basic_standard_deduction.py:6`): unsupported parameter subscript on 'gov.irs.deductions.standard.amount'
+- **basic_income_before_phase_out** (`policyengine_us/variables/contrib/ubi_center/basic_income/basic_income_before_phase_out.py:9`): sum() over non-person expression
+- **basic_income_phase_in** (`policyengine_us/variables/contrib/ubi_center/basic_income/basic_income_phase_in.py:6`): unsupported statement AugAssign
+- **basic_standard_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/basic_standard_deduction.py:15`): unrecognized call select
 - **birth_year** (`policyengine_us/variables/household/demographic/age/birth_year.py:3`): unbound name 'period'
 - **bonus_guaranteed_deduction** (`policyengine_us/variables/contrib/congress/wftca/bonus_guaranteed_deduction.py:4`): unsupported parameter subscript on 'gov.contrib.congress.wftca.bonus_guaranteed_deduction.amount'
 - **ca_agi_subtractions** (`policyengine_us/variables/gov/states/ca/tax/income/ca_agi_subtractions.py:3`): add() without literal variable list
-- **ca_ala_general_assistance_age_eligible** (`policyengine_us/variables/gov/local/ca/ala/ga/eligibility/ca_ala_general_assistance_age_eligible.py:5`): parameter 'gov.local.ca.ala.general_assistance.age_threshold' outside emitted subtrees
 - **ca_ala_general_assistance_base_amount** (`policyengine_us/variables/gov/local/ca/ala/ga/ca_ala_general_assistance_base_amount.py:3`): unrecognized call spm_unit.members
-- **ca_ala_general_assistance_countable_income_person** (`?:0`): adds via unknown parameter path 'gov.local.ca.ala.general_assistance.countable_income.sources'
-- **ca_ala_general_assistance_immigration_status_eligible** (`policyengine_us/variables/gov/local/ca/ala/ga/eligibility/ca_ala_general_assistance_immigration_status_eligible.py:5`): isin against non-list param 'gov.local.ca.ala.general_assistance.qualified_immigration_status'
-- **ca_ala_general_assistance_personal_property_eligible** (`policyengine_us/variables/gov/local/ca/ala/ga/eligibility/ca_ala_general_assistance_personal_property_eligible.py:4`): parameter 'gov.local.ca.ala.general_assistance.personal_property.limit' outside emitted subtrees
-- **ca_amt** (`policyengine_us/variables/gov/states/ca/tax/income/alternative_minimum_tax/ca_amt.py:9`): parameter 'gov.states.ca.tax.income.amt.tentative_min_tax_rate' outside emitted subtrees
 - **ca_amt_exemption** (`policyengine_us/variables/gov/states/ca/tax/income/alternative_minimum_tax/exemption/ca_amt_exemption.py:7`): unsupported parameter subscript on 'gov.states.ca.tax.income.amt.exemption.amount'
 - **ca_amti** (`policyengine_us/variables/gov/states/ca/tax/income/alternative_minimum_tax/amti/ca_amti.py:11`): unsupported parameter subscript on 'gov.states.ca.tax.income.amt.exemption.amti.threshold.upper'
 - **ca_amti_adjustments** (`policyengine_us/variables/gov/states/ca/tax/income/alternative_minimum_tax/amti/ca_amti_adjustments.py:8`): add() without literal variable list
-- **ca_calworks_child_care_child_age_eligible** (`policyengine_us/variables/gov/states/ca/cdss/tanf/child_care/eligibility/ca_calworks_child_care_child_age_eligible.py:5`): parameter 'gov.states.ca.cdss.tanf.child_care.eligibility.disabled_age_threshold' outside emitted subtrees
-- **ca_calworks_child_care_full_time** (`policyengine_us/variables/gov/states/ca/cdss/tanf/child_care/child_care_time/ca_calworks_child_care_full_time.py:11`): parameter 'gov.states.ca.cdss.tanf.child_care.child_care_time.weekly_care.weekly_child_care_hours_threshold' outside emitted subtrees
-- **ca_calworks_child_care_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/ca/cdss/tanf/child_care/eligibility/ca_calworks_child_care_immigration_status_eligible_person.py:9`): isin against non-list param 'gov.states.ca.cdss.tanf.child_care.eligibility.immigration_status.eligible_statuses'
 - **ca_calworks_child_care_payment_factor** (`policyengine_us/variables/gov/states/ca/cdss/tanf/child_care/reimbursement/ca_calworks_child_care_payment_factor.py:5`): unrecognized call select
 - **ca_calworks_child_care_payment_standard** (`policyengine_us/variables/gov/states/ca/cdss/tanf/child_care/reimbursement/ca_calworks_child_care_payment_standard.py:12`): unrecognized call select
 - **ca_calworks_child_care_time_coefficient** (`policyengine_us/variables/gov/states/ca/cdss/tanf/child_care/reimbursement/ca_calworks_child_care_time_coefficient.py:8`): unrecognized call select
-- **ca_calworks_stage_2_eligible** (`policyengine_us/variables/gov/states/ca/cdss/child_care/stage_2/ca_calworks_stage_2_eligible.py:12`): parameter 'gov.states.ca.cdss.child_care.stage_2.time_limit_months' outside emitted subtrees
-- **ca_calworks_stage_3_eligible** (`policyengine_us/variables/gov/states/ca/cdss/child_care/stage_3/ca_calworks_stage_3_eligible.py:12`): parameter 'gov.states.ca.cdss.child_care.stage_2.time_limit_months' outside emitted subtrees
-- **ca_capi** (`policyengine_us/variables/gov/states/ca/cdss/capi/ca_capi.py:10`): parameter 'gov.states.ca.cdss.capi.payment_standard_offset.couple' outside emitted subtrees
 - **ca_capi_countable_vehicle_value** (`policyengine_us/variables/gov/states/ca/cdss/capi/resources/ca_capi_countable_vehicle_value.py:2`): person ref to non-person variable 'household_vehicles_value'
-- **ca_capi_resource_eligible** (`policyengine_us/variables/gov/states/ca/cdss/capi/eligibility/ca_capi_resource_eligible.py:5`): parameter 'gov.states.ca.cdss.capi.resources.limit.couple' outside emitted subtrees
-- **ca_care_amount_if_eligible** (`policyengine_us/variables/gov/states/ca/cpuc/care/ca_care_amount_if_eligible.py:4`): parameter 'gov.states.ca.cpuc.care.discount' outside emitted subtrees
 - **ca_care_categorically_eligible** (`policyengine_us/variables/gov/states/ca/cpuc/care/eligibility/ca_care_categorically_eligible.py:4`): add() without literal variable list
-- **ca_care_income_eligible** (`policyengine_us/variables/gov/states/ca/cpuc/care/eligibility/ca_care_income_eligible.py:7`): parameter 'gov.states.ca.cpuc.care.eligibility.fpl_limit' outside emitted subtrees
 - **ca_care_poverty_line** (`policyengine_us/variables/gov/states/ca/cpuc/care/eligibility/ca_care_poverty_line.py:8`): non-value handle used as value
-- **ca_cc_general_assistance_age_eligible** (`policyengine_us/variables/gov/local/ca/cc/ga/eligibility/ca_cc_general_assistance_age_eligible.py:4`): parameter 'gov.local.ca.cc.general_assistance.age_threshold' outside emitted subtrees
-- **ca_cc_general_assistance_countable_income_person** (`?:0`): adds via unknown parameter path 'gov.local.ca.cc.general_assistance.countable_income.sources'
 - **ca_cc_general_assistance_countable_vehicle_value** (`policyengine_us/variables/gov/local/ca/cc/ga/eligibility/ca_cc_general_assistance_countable_vehicle_value.py:7`): attribute 'household' on value expression
-- **ca_cc_general_assistance_immigration_status_eligible** (`policyengine_us/variables/gov/local/ca/cc/ga/eligibility/ca_cc_general_assistance_immigration_status_eligible.py:10`): isin against non-list param 'gov.local.ca.cc.general_assistance.qualified_immigration_status'
 - **ca_cc_general_assistance_maximum_grant** (`policyengine_us/variables/gov/local/ca/cc/ga/ca_cc_general_assistance_maximum_grant.py:3`): unrecognized call spm_unit.members
-- **ca_cc_general_assistance_personal_property_eligible** (`policyengine_us/variables/gov/local/ca/cc/ga/eligibility/ca_cc_general_assistance_personal_property_eligible.py:15`): parameter 'gov.local.ca.cc.general_assistance.personal_property.limit' outside emitted subtrees
 - **ca_cdcc** (`policyengine_us/variables/gov/states/ca/tax/income/credits/ca_cdcc.py:4`): add() without literal variable list
 - **ca_cdcc_rate** (`policyengine_us/variables/gov/states/ca/tax/income/credits/ca_cdcc_rate.py:4`): unbound name 'period'
 - **ca_cdcc_relevant_expenses** (`policyengine_us/variables/gov/states/ca/tax/income/credits/ca_cdcc_relevant_expenses.py:2`): unbound name 'period'
-- **ca_child_care_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.ca.cdss.child_care.income.sources'
-- **ca_child_care_family_fee** (`policyengine_us/variables/gov/states/ca/cdss/child_care/common/ca_child_care_family_fee.py:7`): parameter 'gov.states.ca.cdss.child_care.family_fees.exemption_threshold' outside emitted subtrees
-- **ca_child_care_income_eligible** (`policyengine_us/variables/gov/states/ca/cdss/child_care/common/ca_child_care_income_eligible.py:5`): parameter 'gov.states.ca.cdss.child_care.income.income_limit' outside emitted subtrees
 - **ca_child_care_smi** (`policyengine_us/variables/gov/states/ca/cdss/child_care/common/ca_child_care_smi.py:3`): unbound name 'period'
-- **ca_cpuc_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.ca.cpuc.income_sources'
-- **ca_cvrp** (`policyengine_us/variables/gov/states/ca/calepa/carb/cvrp/ca_cvrp.py:14`): parameter 'gov.states.ca.calepa.carb.cvrp.increased_rebate.amount' outside emitted subtrees
-- **ca_eitc** (`policyengine_us/variables/gov/states/ca/tax/income/credits/earned_income/ca_eitc.py:7`): calc() on non-scale parameter 'gov.states.ca.tax.income.credits.earned_income.phase_in.rate'
 - **ca_eitc_eligible** (`policyengine_us/variables/gov/states/ca/tax/income/credits/earned_income/ca_eitc_eligible.py:9`): parameter 'gov.states.ca.tax.income.credits.earned_income.eligibility.age.min' outside emitted subtrees
-- **ca_employee_state_disability_insurance_contribution** (`policyengine_us/variables/gov/states/ca/tax/payroll/disability/ca_employee_state_disability_insurance_contribution.py:3`): parameter 'gov.states.ca.tax.payroll.disability.employee_rate' outside emitted subtrees
-- **ca_employer_employment_training_tax** (`policyengine_us/variables/gov/states/ca/tax/payroll/employment_training/ca_employer_employment_training_tax.py:5`): parameter 'gov.states.ca.tax.payroll.employment_training.employer_rate' outside emitted subtrees
 - **ca_exemptions** (`policyengine_us/variables/gov/states/ca/tax/income/exemptions/ca_exemptions.py:7`): unsupported parameter subscript on 'gov.states.ca.tax.income.exemptions.phase_out.start'
-- **ca_fera_amount_if_eligible** (`policyengine_us/variables/gov/states/ca/cpuc/fera/ca_fera_amount_if_eligible.py:4`): parameter 'gov.states.ca.cpuc.fera.discount' outside emitted subtrees
-- **ca_fera_eligible** (`policyengine_us/variables/gov/states/ca/cpuc/fera/ca_fera_eligible.py:7`): parameter 'gov.states.ca.cpuc.fera.eligibility.minimum_household_size' outside emitted subtrees
-- **ca_ffyp_eligible** (`policyengine_us/variables/gov/states/ca/dhcs/ffyp/ca_ffyp_eligible.py:5`): parameter 'gov.states.ca.dhcs.ffyp.foster_care_age_minimum' outside emitted subtrees
-- **ca_foster_care_minor_dependent** (`policyengine_us/variables/gov/states/ca/ca_foster_care_minor_dependent.py:4`): parameter 'gov.states.ca.foster_care.age_threshold' outside emitted subtrees
-- **ca_foster_youth_tax_credit_person** (`policyengine_us/variables/gov/states/ca/tax/income/credits/foster_youth/ca_foster_youth_tax_credit_person.py:4`): calc() on non-scale parameter 'gov.states.ca.tax.income.credits.foster_youth.amount'
 - **ca_income_tax_before_credits** (`policyengine_us/variables/gov/states/ca/tax/income/ca_income_tax_before_credits.py:8`): unrecognized call select
 - **ca_investment_interest_deduction** (`policyengine_us/variables/gov/states/ca/tax/income/deductions/ca_investment_interest_deduction.py:17`): np.abs
 - **ca_itemized_deductions** (`policyengine_us/variables/gov/states/ca/tax/income/deductions/itemized/ca_itemized_deductions.py:6`): add() without literal variable list
 - **ca_la_expectant_parent_payment** (`?:0`): adds list mixes parameter paths: 'gov.local.ca.la.dss.expectant_parent_payment.amount'
-- **ca_la_expectant_parent_payment_eligible** (`policyengine_us/variables/gov/local/ca/la/dss/expectant_parent_payment/ca_la_expectant_parent_payment_eligible.py:5`): parameter 'gov.local.ca.la.dss.expectant_parent_payment.pregnancy_month.min' outside emitted subtrees
-- **ca_la_ez_save** (`policyengine_us/variables/gov/local/ca/la/dwp/ez_save/ca_la_ez_save.py:7`): parameter 'gov.local.ca.la.dwp.ez_save.amount' outside emitted subtrees
-- **ca_la_ez_save_countable_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.la.dwp.ez_save.income_sources'
-- **ca_la_ez_save_eligible** (`policyengine_us/variables/gov/local/ca/la/dwp/ez_save/ca_la_ez_save_eligible.py:5`): parameter 'gov.local.ca.la.dwp.ez_save.eligibility.fpg_limit_increase' outside emitted subtrees
-- **ca_la_ez_save_fpg** (`policyengine_us/variables/gov/local/ca/la/dwp/ez_save/ca_la_ez_save_fpg.py:4`): parameter 'gov.local.ca.la.dwp.ez_save.eligibility.household_size_floor' outside emitted subtrees
-- **ca_la_infant_supplement** (`policyengine_us/variables/gov/local/ca/la/dss/infant_supplement/ca_la_infant_supplement.py:5`): parameter 'gov.local.ca.la.dss.infant_supplement.amount.group_home' outside emitted subtrees
-- **ca_marin_general_relief_age_eligible** (`policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/ca_marin_general_relief_age_eligible.py:7`): parameter 'gov.local.ca.marin.general_relief.eligibility.age_threshold' outside emitted subtrees
+- **ca_la_ez_save_fpg** (`policyengine_us/variables/gov/local/ca/la/dwp/ez_save/ca_la_ez_save_fpg.py:6`): unbound name 'period'
 - **ca_marin_general_relief_countable_vehicle_value** (`policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/personal_property/ca_marin_general_relief_countable_vehicle_value.py:8`): attribute 'household' on value expression
-- **ca_marin_general_relief_gross_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.marin.general_relief.income_sources'
-- **ca_marin_general_relief_immigration_status_eligible_person** (`policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/immigration/ca_marin_general_relief_immigration_status_eligible_person.py:9`): isin against non-list param 'gov.local.ca.marin.general_relief.qualified_immigration_status'
-- **ca_marin_general_relief_liquid_asset_limit** (`policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/liquid_assets/ca_marin_general_relief_liquid_asset_limit.py:9`): parameter 'gov.local.ca.marin.general_relief.eligibility.limit.liquid_assets.married' outside emitted subtrees
-- **ca_marin_general_relief_max_grant** (`policyengine_us/variables/gov/local/ca/marin/general_relief/ca_marin_general_relief_max_grant.py:23`): parameter 'gov.local.ca.marin.general_relief.amount.married' outside emitted subtrees
-- **ca_marin_general_relief_personal_property_limit** (`policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/personal_property/ca_marin_general_relief_personal_property_limit.py:9`): parameter 'gov.local.ca.marin.general_relief.eligibility.limit.personal_property.married' outside emitted subtrees
-- **ca_mental_health_services_tax** (`policyengine_us/variables/gov/states/ca/tax/income/ca_mental_health_services_tax.py:4`): calc() on non-scale parameter 'gov.states.ca.tax.income.mental_health_services'
-- **ca_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ca.tax.income.credits.nonrefundable'
-- **ca_oc_general_relief_countable_earned_income** (`policyengine_us/variables/gov/local/ca/oc/general_relief/income/ca_oc_general_relief_countable_earned_income.py:7`): parameter 'gov.local.ca.oc.general_relief.income.earned_income_deduction_rate' outside emitted subtrees
 - **ca_oc_general_relief_countable_vehicle_value** (`policyengine_us/variables/gov/local/ca/oc/general_relief/resources/ca_oc_general_relief_countable_vehicle_value.py:6`): person ref to non-person variable 'household_vehicles_value'
-- **ca_oc_general_relief_eligible_person** (`policyengine_us/variables/gov/local/ca/oc/general_relief/eligibility/ca_oc_general_relief_eligible_person.py:3`): parameter 'gov.local.ca.oc.general_relief.eligibility.adult_age_threshold' outside emitted subtrees
-- **ca_oc_general_relief_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.oc.general_relief.income.sources.earned'
-- **ca_oc_general_relief_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.oc.general_relief.income.sources.unearned'
-- **ca_oc_general_relief_immigration_status_eligible** (`policyengine_us/variables/gov/local/ca/oc/general_relief/eligibility/ca_oc_general_relief_immigration_status_eligible.py:19`): isin against non-list param 'gov.local.ca.oc.general_relief.eligibility.qualified_immigration_status'
 - **ca_oc_general_relief_max_aid_payment** (`policyengine_us/variables/gov/local/ca/oc/general_relief/payment/ca_oc_general_relief_max_aid_payment.py:9`): unsupported parameter subscript on 'gov.local.ca.oc.general_relief.payment.max_aid_payment'
-- **ca_oc_general_relief_resources_eligible** (`policyengine_us/variables/gov/local/ca/oc/general_relief/resources/ca_oc_general_relief_resources_eligible.py:8`): parameter 'gov.local.ca.oc.general_relief.resources.property_limit' outside emitted subtrees
-- **ca_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ca.tax.income.credits.refundable'
-- **ca_renter_credit** (`policyengine_us/variables/gov/states/ca/tax/income/credits/ca_renter_credit.py:7`): unsupported parameter subscript on 'gov.states.ca.tax.income.credits.renter.income_cap'
-- **ca_riv_general_relief_countable_property_value** (`?:0`): adds via unknown parameter path 'gov.local.ca.riv.general_relief.property.sources'
+- **ca_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.ca.tax.income.credits.refundable'
 - **ca_riv_general_relief_countable_vehicle_value** (`policyengine_us/variables/gov/local/ca/riv/general_relief/property/ca_riv_general_relief_countable_vehicle_value.py:5`): person ref to non-person variable 'household_vehicles_value'
-- **ca_riv_general_relief_earned_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.riv.general_relief.income.sources.earned'
-- **ca_riv_general_relief_earned_income_deductions** (`?:0`): adds via unknown parameter path 'gov.local.ca.riv.general_relief.income.deductions.sources'
 - **ca_riv_general_relief_eligible** (`policyengine_us/variables/gov/local/ca/riv/general_relief/eligibility/ca_riv_general_relief_eligible.py:3`): unrecognized call spm_unit.members
 - **ca_riv_general_relief_excluded_income** (`policyengine_us/variables/gov/local/ca/riv/general_relief/income/ca_riv_general_relief_excluded_income.py:3`): attribute 'spm_unit' on value expression
-- **ca_riv_general_relief_immigration_status_eligible** (`policyengine_us/variables/gov/local/ca/riv/general_relief/eligibility/ca_riv_general_relief_immigration_status_eligible.py:5`): isin against non-list param 'gov.local.ca.riv.general_relief.qualified_immigration_status'
-- **ca_riv_general_relief_meets_work_requirements** (`policyengine_us/variables/gov/local/ca/riv/general_relief/eligibility/ca_riv_general_relief_meets_work_requirements.py:26`): parameter 'gov.local.ca.riv.general_relief.work_exempted_age.younger' outside emitted subtrees
 - **ca_riv_general_relief_needs_standards** (`policyengine_us/variables/gov/local/ca/riv/general_relief/payment/ca_riv_general_relief_needs_standards.py:8`): unsupported parameter subscript on 'gov.local.ca.riv.general_relief.needs_standards.housing'
-- **ca_riv_general_relief_property_eligible** (`policyengine_us/variables/gov/local/ca/riv/general_relief/eligibility/ca_riv_general_relief_property_eligible.py:6`): parameter 'gov.local.ca.riv.general_relief.property.limit' outside emitted subtrees
 - **ca_riv_general_relief_special_needs_amount** (`?:0`): adds list mixes parameter paths: 'gov.local.ca.riv.general_relief.needs_standards.special_needs.transportation'
-- **ca_riv_general_relief_unearned_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.riv.general_relief.income.sources.unearned'
-- **ca_riv_liheap_countable_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.riv.cap.liheap.countable_income.sources'
-- **ca_riv_liheap_eligible** (`policyengine_us/variables/gov/local/ca/riv/liheap/ca_riv_liheap_eligible.py:6`): parameter 'gov.hhs.liheap.smi_limit' outside emitted subtrees
-- **ca_riv_share_countable_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.riv.cap.share.countable_income.sources'
-- **ca_riv_share_electricity_emergency_payment** (`policyengine_us/variables/gov/local/ca/riv/share/emergency_payment/ca_riv_share_electricity_emergency_payment.py:5`): parameter 'gov.local.ca.riv.cap.share.payment.electricity_emergency' outside emitted subtrees
-- **ca_riv_share_eligible** (`policyengine_us/variables/gov/local/ca/riv/share/ca_riv_share_eligible.py:5`): parameter 'gov.local.ca.riv.cap.share.income_limit' outside emitted subtrees
-- **ca_riv_share_payment** (`policyengine_us/variables/gov/local/ca/riv/share/ca_riv_share_payment.py:4`): parameter 'gov.local.ca.riv.cap.share.payment.electricity' outside emitted subtrees
-- **ca_scc_general_assistance_age_eligible** (`policyengine_us/variables/gov/local/ca/scc/ga/eligibility/ca_scc_general_assistance_age_eligible.py:4`): parameter 'gov.local.ca.scc.general_assistance.age_threshold' outside emitted subtrees
 - **ca_scc_general_assistance_base_amount** (`policyengine_us/variables/gov/local/ca/scc/ga/ca_scc_general_assistance_base_amount.py:3`): unrecognized call spm_unit.members
 - **ca_scc_general_assistance_countable_income_person** (`policyengine_us/variables/gov/local/ca/scc/ga/income/ca_scc_general_assistance_countable_income_person.py:3`): add() without literal variable list
 - **ca_scc_general_assistance_countable_vehicle_value** (`policyengine_us/variables/gov/local/ca/scc/ga/eligibility/ca_scc_general_assistance_countable_vehicle_value.py:7`): attribute 'household' on value expression
 - **ca_scc_general_assistance_earned_income_deductions** (`policyengine_us/variables/gov/local/ca/scc/ga/income/ca_scc_general_assistance_earned_income_deductions.py:3`): add() without literal variable list
-- **ca_scc_general_assistance_immigration_status_eligible** (`policyengine_us/variables/gov/local/ca/scc/ga/eligibility/ca_scc_general_assistance_immigration_status_eligible.py:10`): isin against non-list param 'gov.local.ca.scc.general_assistance.qualified_immigration_status'
-- **ca_scc_general_assistance_personal_property_eligible** (`policyengine_us/variables/gov/local/ca/scc/ga/eligibility/ca_scc_general_assistance_personal_property_eligible.py:15`): parameter 'gov.local.ca.scc.general_assistance.personal_property.limit' outside emitted subtrees
-- **ca_sf_caap** (`policyengine_us/variables/gov/local/ca/sf/caap/ca_sf_caap.py:25`): parameter 'gov.local.ca.sf.caap.special_allowance.floor' outside emitted subtrees
 - **ca_sf_caap_age_eligible** (`policyengine_us/variables/gov/local/ca/sf/caap/eligibility/ca_sf_caap_age_eligible.py:3`): unrecognized call spm_unit.members
 - **ca_sf_caap_countable_income** (`policyengine_us/variables/gov/local/ca/sf/caap/income/ca_sf_caap_countable_income.py:5`): unrecognized call spm_unit.members
-- **ca_sf_caap_earned_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.sf.caap.countable_income.sources.earned'
-- **ca_sf_caap_earned_income_disregard** (`policyengine_us/variables/gov/local/ca/sf/caap/income/ca_sf_caap_earned_income_disregard.py:8`): calc() on non-scale parameter 'gov.local.ca.sf.caap.earned_income_disregard'
-- **ca_sf_caap_immigration_status_eligible** (`policyengine_us/variables/gov/local/ca/sf/caap/eligibility/ca_sf_caap_immigration_status_eligible.py:17`): isin against non-list param 'gov.local.ca.sf.caap.qualified_immigration_status'
-- **ca_sf_caap_income_in_kind** (`policyengine_us/variables/gov/local/ca/sf/caap/income/ca_sf_caap_income_in_kind.py:12`): parameter 'gov.local.ca.sf.caap.amount.max_family_size' outside emitted subtrees
-- **ca_sf_caap_max_grant** (`policyengine_us/variables/gov/local/ca/sf/caap/ca_sf_caap_max_grant.py:8`): parameter 'gov.local.ca.sf.caap.amount.max_family_size' outside emitted subtrees
-- **ca_sf_caap_personal_property_eligible** (`policyengine_us/variables/gov/local/ca/sf/caap/eligibility/ca_sf_caap_personal_property_eligible.py:13`): parameter 'gov.local.ca.sf.caap.eligibility.personal_property.limit.couple' outside emitted subtrees
-- **ca_sf_caap_unearned_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.sf.caap.countable_income.sources.unearned'
+- **ca_sf_caap_income_in_kind** (`policyengine_us/variables/gov/local/ca/sf/caap/income/ca_sf_caap_income_in_kind.py:17`): unsupported parameter subscript on 'gov.local.ca.sf.caap.income_in_kind.housing'
+- **ca_sf_caap_max_grant** (`policyengine_us/variables/gov/local/ca/sf/caap/ca_sf_caap_max_grant.py:17`): unrecognized call member
 - **ca_sf_caap_vehicle_eligible** (`policyengine_us/variables/gov/local/ca/sf/caap/eligibility/ca_sf_caap_vehicle_eligible.py:9`): attribute 'household' on value expression
 - **ca_sf_wftc** (`policyengine_us/variables/gov/local/ca/sf/wftc/ca_sf_wftc.py:3`): person ref to non-person variable 'county_str'
 - **ca_smc_general_assistance_countable_income** (`policyengine_us/variables/gov/local/ca/smc/general_assistance/income/ca_smc_general_assistance_countable_income.py:3`): add() without literal variable list
-- **ca_smc_general_assistance_countable_property** (`?:0`): adds via unknown parameter path 'gov.local.ca.smc.general_assistance.property.sources'
 - **ca_smc_general_assistance_countable_vehicle_value** (`policyengine_us/variables/gov/local/ca/smc/general_assistance/property/ca_smc_general_assistance_countable_vehicle_value.py:3`): attribute 'household' on value expression
-- **ca_smc_general_assistance_eligible_person** (`policyengine_us/variables/gov/local/ca/smc/general_assistance/eligibility/ca_smc_general_assistance_eligible_person.py:11`): parameter 'gov.local.ca.smc.general_assistance.minimum_age' outside emitted subtrees
-- **ca_smc_general_assistance_immigration_status_eligible_person** (`policyengine_us/variables/gov/local/ca/smc/general_assistance/eligibility/ca_smc_general_assistance_immigration_status_eligible_person.py:4`): isin against non-list param 'gov.local.ca.smc.general_assistance.qualified_immigration_statuses'
-- **ca_smc_general_assistance_payment_standard** (`policyengine_us/variables/gov/local/ca/smc/general_assistance/payment/ca_smc_general_assistance_payment_standard.py:3`): unsupported parameter subscript on 'gov.local.ca.smc.general_assistance.payment_standard'
-- **ca_smc_general_assistance_property_eligible** (`policyengine_us/variables/gov/local/ca/smc/general_assistance/eligibility/ca_smc_general_assistance_property_eligible.py:4`): parameter 'gov.local.ca.smc.general_assistance.property.limit' outside emitted subtrees
-- **ca_snap_immigration_status_eligible** (`policyengine_us/variables/gov/states/ca/cdss/snap/eligibility/ca_snap_immigration_status_eligible.py:6`): isin against non-list param 'gov.states.ca.cdss.snap.eligibility.eligible_immigration_statuses'
 - **ca_standard_deduction** (`policyengine_us/variables/gov/states/ca/tax/income/deductions/standard/ca_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.ca.tax.income.deductions.standard.amount'
 - **ca_state_supplement_aged_disabled_amount** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_aged_disabled_amount.py:9`): unrecognized call select
-- **ca_state_supplement_aged_disabled_count** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_aged_disabled_count.py:7`): parameter 'gov.states.ca.cdss.state_supplement.payment_standard.aged_or_disabled.age_threshold' outside emitted subtrees
 - **ca_state_supplement_blind_amount** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_blind_amount.py:10`): unrecognized call select
-- **ca_state_supplement_dependent_amount** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_dependent_amount.py:10`): parameter 'gov.states.ca.cdss.state_supplement.payment_standard.dependent.age_limit' outside emitted subtrees
-- **ca_state_supplement_food_allowance** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_food_allowance.py:10`): parameter 'gov.states.ca.cdss.state_supplement.payment_standard.allowance.food.married' outside emitted subtrees
 - **ca_state_supplement_food_allowance_eligible** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_food_allowance_eligible.py:2`): person ref to non-person variable 'living_arrangements_allow_for_food_preparation'
-- **ca_state_supplement_medical_care_facility_amount** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_medical_care_facility_amount.py:8`): parameter 'gov.states.ca.cdss.state_supplement.payment_standard.allowance.medical_care_facility' outside emitted subtrees
-- **ca_state_supplement_out_of_home_care_facility_amount** (`policyengine_us/variables/gov/states/ca/cdss/state_supplement/payment_standard/ca_state_supplement_out_of_home_care_facility_amount.py:9`): parameter 'gov.states.ca.cdss.state_supplement.payment_standard.allowance.out_of_home_care' outside emitted subtrees
 - **ca_tanf** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/ca_tanf.py:9`): np.zeros_like
 - **ca_tanf_countable_income_applicant** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/income/ca_tanf_countable_income_applicant.py:11`): unbound name 'period'
-- **ca_tanf_countable_income_recipient** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/income/ca_tanf_countable_income_recipient.py:10`): parameter 'gov.states.ca.cdss.tanf.cash.income.disregards.recipient.flat' outside emitted subtrees
 - **ca_tanf_countable_vehicle_value** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/resources/ca_tanf_countable_vehicle_value.py:5`): person ref to non-person variable 'household_vehicles_value'
-- **ca_tanf_db_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.ca.cdss.tanf.cash.income.sources.db_unearned'
-- **ca_tanf_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/income/ca_tanf_earned_income_after_disregard_person.py:4`): parameter 'gov.states.ca.cdss.tanf.cash.income.disregards.applicant.flat' outside emitted subtrees
-- **ca_tanf_earned_income_person** (`?:0`): adds via unknown parameter path 'gov.states.ca.cdss.tanf.cash.income.sources.earned'
-- **ca_tanf_exempt** (`?:0`): adds via unknown parameter path 'gov.states.ca.cdss.tanf.cash.exempt'
-- **ca_tanf_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/eligibility/ca_tanf_immigration_status_eligible_person.py:7`): isin against non-list param 'gov.states.ca.cdss.tanf.cash.immigration_status.eligible_statuses'
-- **ca_tanf_income_limit** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/eligibility/ca_tanf_income_limit.py:4`): parameter 'gov.states.ca.cdss.tanf.cash.income.monthly_limit.max_au_size' outside emitted subtrees
-- **ca_tanf_max_benefit_standard** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/ca_tanf_max_benefit_standard.py:4`): parameter 'gov.states.ca.cdss.tanf.cash.monthly_payment.max_au_size' outside emitted subtrees
-- **ca_tanf_maximum_payment** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/eligibility/ca_tanf_maximum_payment.py:4`): parameter 'gov.states.ca.cdss.tanf.cash.monthly_payment.max_au_size' outside emitted subtrees
-- **ca_tanf_other_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.ca.cdss.tanf.cash.income.sources.other_unearned'
+- **ca_tanf_income_limit** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/eligibility/ca_tanf_income_limit.py:6`): person ref to non-person variable 'ca_tanf_region1'
+- **ca_tanf_max_benefit_standard** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/ca_tanf_max_benefit_standard.py:5`): unsupported parameter subscript on 'gov.states.ca.cdss.tanf.cash.monthly_payment.region1.non_exempt'
+- **ca_tanf_maximum_payment** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/eligibility/ca_tanf_maximum_payment.py:5`): person ref to non-person variable 'ca_tanf_region1'
 - **ca_tanf_region1** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/eligibility/ca_tanf_region1.py:6`): np.isin outside enum idioms
-- **ca_tanf_resources** (`?:0`): adds via unknown parameter path 'gov.states.ca.cdss.tanf.cash.resources.sources'
 - **ca_tanf_resources_limit** (`policyengine_us/variables/gov/states/ca/cdss/tanf/cash/resources/ca_tanf_resources_limit.py:4`): unrecognized call persons
-- **ca_taxable_earnings_for_state_unemployment_tax** (`policyengine_us/variables/gov/states/ca/tax/payroll/unemployment/ca_taxable_earnings_for_state_unemployment_tax.py:4`): parameter 'gov.states.ca.tax.payroll.unemployment.taxable_wage_base' outside emitted subtrees
-- **ca_use_tax** (`policyengine_us/variables/gov/states/ca/tax/income/ca_use_tax.py:5`): calc() on non-scale parameter 'gov.states.ca.tax.income.use_tax.main'
-- **ca_wdp_asset_eligible** (`policyengine_us/variables/gov/states/ca/chhs/wdp/eligibility/ca_wdp_asset_eligible.py:7`): parameter 'gov.states.ca.chhs.wdp.eligibility.asset.max_people' outside emitted subtrees
+- **ca_wdp_asset_eligible** (`policyengine_us/variables/gov/states/ca/chhs/wdp/eligibility/ca_wdp_asset_eligible.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **ca_wdp_countable_income** (`policyengine_us/variables/gov/states/ca/chhs/wdp/income/ca_wdp_countable_income.py:23`): non-value handle used as value
-- **ca_wdp_disability_income** (`?:0`): adds via unknown parameter path 'gov.states.ca.chhs.wdp.eligibility.income.sources.disability'
-- **ca_wdp_income_eligible** (`policyengine_us/variables/gov/states/ca/chhs/wdp/eligibility/ca_wdp_income_eligible.py:16`): unsupported parameter subscript on 'gov.hhs.fpg.first_person'
-- **ca_wdp_premium** (`policyengine_us/variables/gov/states/ca/chhs/wdp/ca_wdp_premium.py:4`): parameter 'gov.states.ca.chhs.wdp.premium.amount' outside emitted subtrees
 - **ca_wdp_ssi_ssp_income_eligible** (`policyengine_us/variables/gov/states/ca/chhs/wdp/eligibility/ca_wdp_ssi_ssp_income_eligible.py:23`): non-value handle used as value
 - **ca_withheld_income_tax** (`policyengine_us/variables/gov/states/ca/tax/income/ca_withheld_income_tax.py:4`): non-value handle used as value
-- **ca_yctc** (`policyengine_us/variables/gov/states/ca/tax/income/credits/young_child/ca_yctc.py:9`): parameter 'gov.states.ca.tax.income.credits.young_child.ineligible_age' outside emitted subtrees
 - **capital_gains_behavioral_response** (`policyengine_us/variables/gov/simulation/capital_gains_responses.py:2`): attribute 'simulation' on value expression
 - **capital_gains_elasticity** (`policyengine_us/variables/gov/simulation/capital_gains_responses.py:1`): returns a non-value
 - **capital_gains_excluded_from_taxable_income** (`policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_excluded_from_taxable_income.py:8`): non-value handle used as value
 - **capital_gains_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_tax.py:17`): non-value handle used as value
-- **capped_advanced_main_air_circulating_fan_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_advanced_main_air_circulating_fan_credit.py:5`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.property' outside emitted subtrees
+- **capped_advanced_main_air_circulating_fan_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_advanced_main_air_circulating_fan_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_cdcc** (`policyengine_us/variables/gov/irs/credits/cdcc/capped_cdcc.py:4`): comparison In
-- **capped_count_cdcc_eligible** (`policyengine_us/variables/gov/irs/credits/cdcc/capped_count_cdcc_eligible.py:4`): parameter 'gov.irs.credits.cdcc.eligibility.max' outside emitted subtrees
-- **capped_electric_heat_pump_clothes_dryer_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_electric_heat_pump_clothes_dryer_rebate.py:9`): parameter 'gov.doe.high_efficiency_electric_home_rebate.cap.electric_heat_pump_clothes_dryer' outside emitted subtrees
-- **capped_electric_load_service_center_upgrade_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_electric_load_service_center_upgrade_rebate.py:11`): parameter 'gov.doe.high_efficiency_electric_home_rebate.cap.electric_load_service_center_upgrade' outside emitted subtrees
-- **capped_electric_stove_cooktop_range_or_oven_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_electric_stove_cooktop_range_or_oven_rebate.py:11`): parameter 'gov.doe.high_efficiency_electric_home_rebate.cap.electric_stove_cooktop_range_or_oven' outside emitted subtrees
-- **capped_electric_wiring_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_electric_wiring_rebate.py:9`): parameter 'gov.doe.high_efficiency_electric_home_rebate.cap.electric_wiring' outside emitted subtrees
-- **capped_energy_efficient_central_air_conditioner_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_energy_efficient_central_air_conditioner_credit.py:7`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.property' outside emitted subtrees
-- **capped_energy_efficient_door_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_door_credit.py:5`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.improvements' outside emitted subtrees
-- **capped_energy_efficient_insulation_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_insulation_credit.py:16`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.improvements' outside emitted subtrees
-- **capped_energy_efficient_roof_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_roof_credit.py:5`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.improvements' outside emitted subtrees
-- **capped_energy_efficient_window_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_window_credit.py:5`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.improvements' outside emitted subtrees
+- **capped_energy_efficient_central_air_conditioner_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_energy_efficient_central_air_conditioner_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
+- **capped_energy_efficient_door_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_door_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
+- **capped_energy_efficient_insulation_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_insulation_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
+- **capped_energy_efficient_roof_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_roof_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
+- **capped_energy_efficient_window_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_window_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit.py:6`): unsupported syntax ListComp
-- **capped_heat_pump_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_heat_pump_rebate.py:9`): parameter 'gov.doe.high_efficiency_electric_home_rebate.cap.heat_pump' outside emitted subtrees
-- **capped_heat_pump_water_heater_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_heat_pump_water_heater_rebate.py:9`): parameter 'gov.doe.high_efficiency_electric_home_rebate.cap.heat_pump_water_heater' outside emitted subtrees
-- **capped_home_energy_audit_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/capped_home_energy_audit_credit.py:5`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.home_energy_audit' outside emitted subtrees
-- **capped_insulation_air_sealing_ventilation_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_insulation_air_sealing_ventilation_rebate.py:17`): parameter 'gov.doe.high_efficiency_electric_home_rebate.cap.insulation_air_sealing_ventilation' outside emitted subtrees
 - **capped_property_taxes** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/capped_property_taxes.py:4`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
-- **capped_qualified_furnace_or_hot_water_boiler_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_qualified_furnace_or_hot_water_boiler_credit.py:7`): parameter 'gov.irs.credits.energy_efficient_home_improvement.rates.property' outside emitted subtrees
+- **capped_qualified_furnace_or_hot_water_boiler_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_qualified_furnace_or_hot_water_boiler_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_qualified_tuition_expenses_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/capped_qualified_tuition_expenses_ald.py:6`): comparison NotIn
-- **casualty_loss_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/casualty_loss_deduction.py:5`): parameter 'gov.irs.deductions.itemized.casualty.floor' outside emitted subtrees
-- **cbo_household_federal_taxes** (`?:0`): adds via unknown parameter path 'gov.household.cbo_federal_taxes'
 - **cbo_household_market_income** (`policyengine_us/variables/household/income/household/cbo_household_market_income.py:4`): add() without literal variable list
-- **cbo_household_means_tested_transfers** (`?:0`): adds via unknown parameter path 'gov.household.cbo_means_tested_transfers'
-- **cbo_household_social_insurance_benefits** (`?:0`): adds via unknown parameter path 'gov.household.cbo_social_insurance_benefits'
 - **ccdf_age_group** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_age_group.py:4`): unrecognized call select
 - **ccdf_county_cluster** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_county_cluster.py:4`): np.ones_like
 - **ccdf_duration_of_care** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_duration_of_care.py:5`): unrecognized call select
 - **ccdf_market_rate** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_market_rate.py:8`): unsupported parameter subscript on 'gov.hhs.ccdf.amount'
 - **cdcc** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc.py:6`): comparison In
 - **cdcc_credit_limit** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc_credit_limit.py:4`): add() without literal variable list
-- **cdcc_limit** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc_limit.py:4`): parameter 'gov.irs.credits.cdcc.max' outside emitted subtrees
-- **cdcc_rate** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc_rate.py:6`): parameter 'gov.irs.credits.cdcc.phase_out.start' outside emitted subtrees
-- **charitable_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/charitable_deduction.py:27`): parameter 'gov.irs.deductions.itemized.charity.ceiling.non_cash' outside emitted subtrees
-- **charitable_deduction_for_non_itemizers** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/charitable_deduction_for_non_itemizers.py:5`): unsupported parameter subscript on 'gov.irs.deductions.itemized.charity.non_itemizers_amount'
-- **child_care_subsidies** (`?:0`): adds via unknown parameter path 'gov.hhs.ccdf.child_care_subsidy_programs'
+- **cdcc_rate** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc_rate.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **child_index** (`policyengine_us/variables/household/child_index.py:3`): unrecognized call person.get_rank
 - **chip_category** (`policyengine_us/variables/gov/hhs/chip/chip_category.py:10`): unrecognized call select
-- **chip_federal_share** (`policyengine_us/variables/gov/hhs/chip/chip_federal_share.py:4`): unsupported parameter subscript on 'gov.hhs.medicaid.cost_share.fmap'
+- **chip_federal_share** (`policyengine_us/variables/gov/hhs/chip/chip_federal_share.py:0`): enum-indexed parameter 'gov.hhs.medicaid.cost_share.fmap' lacks members ['GU', 'MP', 'PW', 'PR']
 - **chip_premium** (`policyengine_us/variables/gov/hhs/chip/chip_premium.py:2`): unbound name 'STATE_CHIP_PREMIUM_VARIABLES'
-- **cliff_evaluated** (`policyengine_us/variables/household/cliff.py:5`): parameter 'simulation.marginal_tax_rate_adults' outside emitted subtrees
-- **cliff_gap** (`policyengine_us/variables/household/cliff.py:4`): parameter 'simulation.marginal_tax_rate_delta' outside emitted subtrees
-- **co_able_contribution_subtraction** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/able_contribution/co_able_contribution_subtraction.py:4`): unsupported parameter subscript on 'gov.states.co.tax.income.subtractions.able_contribution.cap'
-- **co_additions** (`?:0`): adds via unknown parameter path 'gov.states.co.tax.income.additions.additions'
-- **co_care_worker_credit** (`policyengine_us/variables/gov/states/co/tax/income/credits/care_worker/co_care_worker_credit.py:10`): parameter 'gov.states.co.tax.income.credits.care_worker.amount.joint' outside emitted subtrees
-- **co_care_worker_credit_eligible** (`policyengine_us/variables/gov/states/co/tax/income/credits/care_worker/co_care_worker_credit_eligible.py:5`): parameter 'gov.states.co.tax.income.credits.care_worker.income_limit.joint' outside emitted subtrees
+- **co_additions** (`?:0`): adds via DATED parameter list 'gov.states.co.tax.income.additions.additions'
 - **co_ccap_add_on_parent_fee** (`policyengine_us/variables/gov/states/co/ccap/co_ccap_add_on_parent_fee.py:2`): unbound name 'period'
 - **co_ccap_base_parent_fee** (`policyengine_us/variables/gov/states/co/ccap/co_ccap_base_parent_fee.py:2`): unbound name 'period'
 - **co_ccap_child_eligible** (`policyengine_us/variables/gov/states/co/ccap/co_ccap_child_eligible.py:2`): unbound name 'period'
-- **co_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.co.ccap.income.countable_income.sources'
 - **co_ccap_fpg_eligible** (`policyengine_us/variables/gov/states/co/ccap/entry/co_ccap_fpg_eligible.py:2`): attribute 'household' on value expression
 - **co_ccap_parent_fee** (`policyengine_us/variables/gov/states/co/ccap/co_ccap_parent_fee.py:2`): unbound name 'period'
 - **co_ccap_re_determination_income_eligible** (`policyengine_us/variables/gov/states/co/ccap/re_determination/co_ccap_re_determination_income_eligible.py:2`): np.round
 - **co_ccap_smi** (`policyengine_us/variables/gov/states/co/ccap/co_ccap_smi.py:3`): person ref to non-person variable 'state_code_str'
 - **co_ccap_smi_eligible** (`policyengine_us/variables/gov/states/co/ccap/entry/co_ccap_smi_eligible.py:2`): np.round
-- **co_cdcc** (`policyengine_us/variables/gov/states/co/tax/income/credits/cdcc/co_cdcc.py:4`): parameter 'gov.states.co.tax.income.credits.cdcc.uses_federal_credit_before_liability_limitation' outside emitted subtrees
-- **co_charitable_contribution_subtraction** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/charitable_contribution/co_charitable_contribution_subtraction.py:10`): parameter 'gov.states.co.tax.income.subtractions.charitable_contribution.adjustment' outside emitted subtrees
 - **co_chp** (`policyengine_us/variables/gov/states/co/hcpf/chp/co_chp.py:7`): unsupported statement For
-- **co_chp_eligible** (`policyengine_us/variables/gov/states/co/hcpf/chp/co_chp_eligible.py:5`): parameter 'gov.states.co.hcpf.chp.income_limit' outside emitted subtrees
-- **co_chp_out_of_pocket_maximum** (`policyengine_us/variables/gov/states/co/hcpf/chp/co_chp_out_of_pocket_maximum.py:4`): parameter 'gov.states.co.hcpf.chp.out_of_pocket' outside emitted subtrees
-- **co_collegeinvest_subtraction** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/collegeinvest_contribution/co_collegeinvest_subtraction.py:6`): unsupported parameter subscript on 'gov.states.co.tax.income.subtractions.collegeinvest_contribution.max_amount'
-- **co_ctc** (`policyengine_us/variables/gov/states/co/tax/income/credits/ctc/co_ctc.py:8`): parameter 'gov.states.co.tax.income.credits.ctc.ctc_matched_federal_credit' outside emitted subtrees
-- **co_ctc_eligible_child** (`?:0`): adds via unknown parameter path 'gov.states.co.tax.income.credits.ctc.eligible_child'
-- **co_ctc_qualifying_child** (`policyengine_us/variables/gov/states/co/tax/income/credits/ctc/co_ctc_qualifying_child.py:5`): parameter 'gov.states.co.tax.income.credits.ctc.age_threshold' outside emitted subtrees
+- **co_chp_eligible** (`policyengine_us/variables/gov/states/co/hcpf/chp/co_chp_eligible.py:9`): bitwise op on non-bool operands
+- **co_collegeinvest_subtraction** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/collegeinvest_contribution/co_collegeinvest_subtraction.py:6`): ExtRat breakdown 'gov.states.co.tax.income.subtractions.collegeinvest_contribution.max_amount' in value position
+- **co_ctc** (`policyengine_us/variables/gov/states/co/tax/income/credits/ctc/co_ctc.py:10`): unrecognized call select
+- **co_ctc_eligible_child** (`?:0`): adds via DATED parameter list 'gov.states.co.tax.income.credits.ctc.eligible_child'
 - **co_denver_employee_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/denver/tax/payroll/occupational_privilege/co_denver_employee_occupational_privilege_tax.py:3`): unrecognized call tax_unit.members
 - **co_denver_homeowner_property_tax_relief** (`?:0`): adds list mixes parameter paths: 'gov.local.co.denver.dhs.property_tax_relief.amount.homeowner'
 - **co_denver_property_tax_relief_homeowner_eligible** (`policyengine_us/variables/gov/local/co/denver/dhs/property_tax_relief/eligibility/co_denver_property_tax_relief_homeowner_eligible.py:12`): person ref to non-person variable 'ami'
-- **co_denver_property_tax_relief_income** (`?:0`): adds via unknown parameter path 'gov.local.co.denver.dhs.property_tax_relief.income_sources'
 - **co_denver_property_tax_relief_renter_eligible** (`policyengine_us/variables/gov/local/co/denver/dhs/property_tax_relief/eligibility/co_denver_property_tax_relief_renter_eligible.py:8`): person ref to non-person variable 'ami'
 - **co_denver_renter_property_tax_relief** (`?:0`): adds list mixes parameter paths: 'gov.local.co.denver.dhs.property_tax_relief.amount.renter'
 - **co_denver_total_business_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/denver/tax/payroll/occupational_privilege/co_denver_total_business_occupational_privilege_tax.py:13`): unbound name 'StateCode'
 - **co_eitc** (`policyengine_us/variables/gov/states/co/tax/income/credits/eitc/co_eitc.py:35`): unrecognized call calculate_eitc_like_amount
-- **co_employee_famli_contribution** (`policyengine_us/variables/gov/states/co/tax/payroll/famli/co_employee_famli_contribution.py:3`): parameter 'gov.states.co.tax.payroll.famli.employee_rate' outside emitted subtrees
-- **co_employer_famli_contribution** (`policyengine_us/variables/gov/states/co/tax/payroll/famli/co_employer_famli_contribution.py:3`): parameter 'gov.states.co.tax.payroll.famli.employer_headcount_threshold' outside emitted subtrees
-- **co_family_affordability_credit** (`policyengine_us/variables/gov/states/co/tax/income/credits/family_affordability/co_family_affordability_credit.py:5`): parameter 'gov.states.co.tax.income.credits.family_affordability.amount' outside emitted subtrees
-- **co_famli_taxable_wages** (`policyengine_us/variables/gov/states/co/tax/payroll/famli/co_famli_taxable_wages.py:4`): parameter 'gov.irs.payroll.social_security.cap' outside emitted subtrees
-- **co_federal_deduction_addback** (`policyengine_us/variables/gov/states/co/tax/income/additions/federal_deductions/co_federal_deduction_addback.py:3`): parameter 'gov.states.co.tax.income.additions.federal_deductions.itemized_only' outside emitted subtrees
-- **co_federal_deduction_addback_required** (`policyengine_us/variables/gov/states/co/tax/income/additions/federal_deductions/co_federal_deduction_addback_required.py:5`): parameter 'gov.states.co.tax.income.additions.federal_deductions.agi_threshold' outside emitted subtrees
+- **co_family_affordability_credit** (`policyengine_us/variables/gov/states/co/tax/income/credits/family_affordability/co_family_affordability_credit.py:8`): unsupported parameter subscript on 'gov.states.co.tax.income.credits.family_affordability.reduction.threshold'
+- **co_federal_deduction_addback** (`policyengine_us/variables/gov/states/co/tax/income/additions/federal_deductions/co_federal_deduction_addback.py:3`): if arm without return
 - **co_glendale_employee_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/glendale/tax/payroll/occupational_privilege/co_glendale_employee_occupational_privilege_tax.py:3`): unrecognized call tax_unit.members
 - **co_glendale_total_business_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/glendale/tax/payroll/occupational_privilege/co_glendale_total_business_occupational_privilege_tax.py:13`): unbound name 'StateCode'
 - **co_greenwood_village_employee_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/greenwood_village/tax/payroll/occupational_privilege/co_greenwood_village_employee_occupational_privilege_tax.py:3`): unrecognized call tax_unit.members
 - **co_greenwood_village_total_business_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/greenwood_village/tax/payroll/occupational_privilege/co_greenwood_village_total_business_occupational_privilege_tax.py:15`): unbound name 'StateCode'
-- **co_income_qualified_senior_housing_credit** (`policyengine_us/variables/gov/states/co/tax/income/credits/income_qualified_senior_housing/co_income_qualified_senior_housing_credit.py:7`): unsupported parameter subscript on 'gov.states.co.tax.income.credits.income_qualified_senior_housing.reduction.max_amount'
-- **co_income_qualified_senior_housing_credit_eligible** (`policyengine_us/variables/gov/states/co/tax/income/credits/income_qualified_senior_housing/co_income_qualified_senior_housing_eligible.py:9`): parameter 'gov.states.co.tax.income.credits.income_qualified_senior_housing.age_limit' outside emitted subtrees
-- **co_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/co/tax/income/co_income_tax_before_non_refundable_credits.py:4`): parameter 'gov.states.co.tax.income.rate' outside emitted subtrees
+- **co_income_qualified_senior_housing_credit** (`policyengine_us/variables/gov/states/co/tax/income/credits/income_qualified_senior_housing/co_income_qualified_senior_housing_credit.py:12`): np.where
 - **co_low_income_cdcc** (`policyengine_us/variables/gov/states/co/tax/income/credits/cdcc/co_low_income_cdcc.py:6`): unrecognized call tax_unit.members
-- **co_low_income_cdcc_eligible** (`policyengine_us/variables/gov/states/co/tax/income/credits/cdcc/co_low_income_cdcc_eligible.py:16`): parameter 'gov.states.co.tax.income.credits.cdcc.low_income.federal_agi_threshold' outside emitted subtrees
-- **co_military_retirement_subtraction** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/military_retirement/co_military_retirement_subtraction.py:8`): parameter 'gov.states.co.tax.income.subtractions.military_retirement.age_threshold' outside emitted subtrees
-- **co_modified_agi** (`?:0`): adds via unknown parameter path 'gov.states.co.tax.income.credits.sales_tax_refund.magi_sources'
-- **co_oap** (`policyengine_us/variables/gov/states/co/ssa/oap/co_oap.py:6`): parameter 'gov.states.co.ssa.oap.grant_standard' outside emitted subtrees
-- **co_oap_eligible** (`policyengine_us/variables/gov/states/co/ssa/oap/co_oap_eligible.py:5`): parameter 'gov.states.co.ssa.oap.resources.couple' outside emitted subtrees
-- **co_omnisalud_eligible** (`policyengine_us/variables/gov/states/co/hcpf/omnisalud/eligibility/co_omnisalud_eligible.py:18`): parameter 'gov.states.co.hcpf.omnisalud.eligibility.in_effect' outside emitted subtrees
-- **co_omnisalud_immigration_status_eligible** (`policyengine_us/variables/gov/states/co/hcpf/omnisalud/eligibility/co_omnisalud_immigration_status_eligible.py:16`): parameter 'gov.states.co.hcpf.omnisalud.eligibility.child_max_age' outside emitted subtrees
-- **co_omnisalud_income_eligible** (`policyengine_us/variables/gov/states/co/hcpf/omnisalud/eligibility/co_omnisalud_income_eligible.py:6`): parameter 'gov.states.co.hcpf.omnisalud.eligibility.income_limit' outside emitted subtrees
+- **co_oap_eligible** (`policyengine_us/variables/gov/states/co/ssa/oap/co_oap_eligible.py:9`): bitwise op on non-bool operands
 - **co_omnisalud_tax_unit_eligible** (`policyengine_us/variables/gov/states/co/hcpf/omnisalud/eligibility/co_omnisalud_tax_unit_eligible.py:2`): unrecognized call tax_unit.members
-- **co_overtime_income_addback** (`policyengine_us/variables/gov/states/co/tax/income/additions/qualified_overtime/co_overtime_income_addback.py:9`): parameter 'gov.states.co.tax.income.additions.qualified_overtime.in_effect' outside emitted subtrees
-- **co_pension_subtraction_income** (`?:0`): adds via unknown parameter path 'gov.states.co.tax.income.subtractions.pension.income_sources'
-- **co_pension_subtraction_indv** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/pension/co_pension_subtraction_indv.py:10`): parameter 'gov.states.co.tax.income.subtractions.pension.cap.older' outside emitted subtrees
-- **co_qualified_business_income_deduction_addback_required** (`policyengine_us/variables/gov/states/co/tax/income/additions/qualified_business_income_deduction/co_qualified_business_income_deduction_addback_required.py:7`): unsupported parameter subscript on 'gov.states.co.tax.income.additions.qualified_business_income_deduction.agi_threshold'
-- **co_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.co.tax.income.credits.refundable'
-- **co_sales_tax_refund** (`policyengine_us/variables/gov/states/co/tax/income/credits/sales_tax_refund/co_sales_tax_refund.py:3`): parameter 'gov.states.co.tax.income.credits.sales_tax_refund.amount.flat_amount_enabled' outside emitted subtrees
-- **co_sales_tax_refund_person_eligible** (`policyengine_us/variables/gov/states/co/tax/income/credits/sales_tax_refund/co_sales_tax_refund_person_eligible.py:9`): parameter 'gov.states.co.tax.income.credits.sales_tax_refund.age_threshold' outside emitted subtrees
+- **co_pension_subtraction_income** (`?:0`): adds via DATED parameter list 'gov.states.co.tax.income.subtractions.pension.income_sources'
+- **co_pension_subtraction_indv** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/pension/co_pension_subtraction_indv.py:17`): unrecognized call select
+- **co_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.co.tax.income.credits.refundable'
+- **co_sales_tax_refund** (`policyengine_us/variables/gov/states/co/tax/income/credits/sales_tax_refund/co_sales_tax_refund.py:7`): ExtRat scale 'gov.states.co.tax.income.credits.sales_tax_refund.amount.scale' in value position
+- **co_sales_tax_refund_person_eligible** (`policyengine_us/variables/gov/states/co/tax/income/credits/sales_tax_refund/co_sales_tax_refund_person_eligible.py:19`): attribute 'tax_unit' on value expression
 - **co_sheridan_employee_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/sheridan/tax/payroll/occupational_privilege/co_sheridan_employee_occupational_privilege_tax.py:3`): unrecognized call tax_unit.members
 - **co_sheridan_total_business_occupational_privilege_tax** (`policyengine_us/variables/gov/local/co/sheridan/tax/payroll/occupational_privilege/co_sheridan_total_business_occupational_privilege_tax.py:9`): unbound name 'StateCode'
-- **co_social_security_subtraction_indv** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/pension/co_social_security_subtraction_indv.py:3`): parameter 'gov.states.co.tax.income.subtractions.pension.social_security_subtraction_available' outside emitted subtrees
+- **co_social_security_subtraction_indv** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/pension/co_social_security_subtraction_indv.py:39`): unrecognized call select
 - **co_state_addback** (`policyengine_us/variables/gov/states/co/tax/income/additions/co_state_addback.py:14`): add() without literal variable list
-- **co_state_supplement** (`policyengine_us/variables/gov/states/co/ssa/state_supplement/co_state_supplement.py:7`): parameter 'gov.states.co.ssa.state_supplement.grant_standard' outside emitted subtrees
-- **co_state_supplement_eligible** (`policyengine_us/variables/gov/states/co/ssa/state_supplement/co_state_supplement_eligible.py:8`): calc() on non-scale parameter 'gov.states.co.ssa.state_supplement.age_range'
+- **co_state_supplement_eligible** (`policyengine_us/variables/gov/states/co/ssa/state_supplement/co_state_supplement_eligible.py:9`): bitwise op on non-bool operands
 - **co_subtractions** (`policyengine_us/variables/gov/states/co/tax/income/subtractions/co_subtractions.py:3`): add() without literal variable list
-- **co_tabor_cash_back** (`policyengine_us/variables/gov/states/co/tax/income/credits/co_tabor_cash_back.py:5`): parameter 'gov.states.co.tax.income.credits.tabor.joint' outside emitted subtrees
-- **co_tanf_countable_earned_income_grant_standard** (`policyengine_us/variables/gov/states/co/cdhs/tanf/income/co_tanf_countable_earned_income_grant_standard.py:5`): parameter 'gov.states.co.cdhs.tanf.income.earned_exclusion.percent' outside emitted subtrees
-- **co_tanf_countable_earned_income_need** (`policyengine_us/variables/gov/states/co/cdhs/tanf/income/co_tanf_countable_earned_income_need.py:5`): parameter 'gov.states.co.cdhs.tanf.income.earned_exclusion.flat' outside emitted subtrees
-- **co_tanf_countable_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.co.cdhs.tanf.income.earned'
 - **co_tanf_countable_gross_unearned_income** (`policyengine_us/variables/gov/states/co/cdhs/tanf/income/co_tanf_countable_gross_unearned_income.py:4`): add() without literal variable list
 - **co_tanf_grant_standard** (`policyengine_us/variables/gov/states/co/cdhs/tanf/co_tanf_grant_standard.py:6`): unrecognized call min_(children, 10).astype
 - **co_tanf_need_standard** (`policyengine_us/variables/gov/states/co/cdhs/tanf/co_tanf_need_standard.py:6`): unrecognized call min_(children, 10).astype
-- **co_tentative_minimum_tax** (`policyengine_us/variables/gov/states/co/tax/income/amt/co_tentative_minimum_tax.py:5`): parameter 'gov.states.co.tax.income.amt.rate' outside emitted subtrees
 - **co_withheld_income_tax** (`policyengine_us/variables/gov/states/co/tax/income/co_withheld_income_tax.py:5`): non-value handle used as value
 - **commodity_supplemental_food_program** (`?:0`): adds list mixes parameter paths: 'gov.usda.csfp.amount'
-- **commodity_supplemental_food_program_eligible** (`policyengine_us/variables/gov/usda/csfp/commodity_supplemental_food_program_eligible.py:8`): parameter 'gov.usda.csfp.min_age' outside emitted subtrees
+- **commodity_supplemental_food_program_eligible** (`policyengine_us/variables/gov/usda/csfp/commodity_supplemental_food_program_eligible.py:12`): unbound name 'StateCode'
 - **count_days_postpartum** (`policyengine_us/variables/household/demographic/person/postpartum/count_days_postpartum.py:4`): unrecognized call select
 - **count_distinct_utility_expenses** (`policyengine_us/variables/household/expense/utilities/count_distinct_utility_expenses.py:13`): unsupported syntax ListComp
 - **county** (`policyengine_us/variables/household/demographic/geographic/county/county.py:2`): attribute 'simulation' on value expression
 - **county_str** (`policyengine_us/variables/household/demographic/geographic/county/county_str.py:1`): returns a non-value
-- **ct_additions** (`?:0`): adds via unknown parameter path 'gov.states.ct.tax.income.additions.additions'
 - **ct_agi_subtractions** (`policyengine_us/variables/gov/states/ct/tax/income/ct_agi_subtractions.py:3`): add() without literal variable list
-- **ct_c4k_age_group** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_age_group.py:4`): calc() on non-scale parameter 'gov.states.ct.oec.c4k.age_threshold.age_group'
-- **ct_c4k_care_level** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_care_level.py:4`): calc() on non-scale parameter 'gov.states.ct.oec.c4k.care_level'
+- **ct_c4k_age_group** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_age_group.py:0`): Enum-valued formula
+- **ct_c4k_care_level** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_care_level.py:0`): Enum-valued formula
 - **ct_c4k_countable_income** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_countable_income.py:18`): add() without literal variable list
-- **ct_c4k_eligible_child** (`policyengine_us/variables/gov/states/ct/oec/c4k/eligibility/ct_c4k_eligible_child.py:5`): parameter 'gov.states.ct.oec.c4k.age_threshold.special_needs_child' outside emitted subtrees
 - **ct_c4k_family_fee** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_family_fee.py:6`): np.divide
-- **ct_c4k_income_eligible** (`policyengine_us/variables/gov/states/ct/oec/c4k/eligibility/ct_c4k_income_eligible.py:8`): parameter 'gov.states.ct.oec.c4k.income.continuing_limit_smi' outside emitted subtrees
-- **ct_c4k_meets_activity_test** (`policyengine_us/variables/gov/states/ct/oec/c4k/eligibility/ct_c4k_meets_activity_test.py:19`): parameter 'gov.states.ct.oec.c4k.age_threshold.teen_parent' outside emitted subtrees
 - **ct_c4k_payment_rate** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_payment_rate.py:9`): unrecognized call select
 - **ct_c4k_region** (`policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k_region.py:6`): np.isin outside enum idioms
-- **ct_child_tax_rebate** (`policyengine_us/variables/gov/states/ct/tax/income/rebate/ct_child_tax_rebate.py:6`): unsupported parameter subscript on 'gov.states.ct.tax.income.rebate.reduction.start'
-- **ct_chip_premium** (`policyengine_us/variables/gov/states/ct/hhs/chip/ct_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.ct.hhs.chip.premium.per_child'
-- **ct_eitc** (`policyengine_us/variables/gov/states/ct/tax/income/credits/eitc/ct_eitc.py:4`): parameter 'gov.states.ct.tax.income.credits.eitc.match' outside emitted subtrees
-- **ct_employee_paid_leave_contribution** (`policyengine_us/variables/gov/states/ct/tax/payroll/paid_leave/ct_employee_paid_leave_contribution.py:3`): parameter 'gov.states.ct.tax.payroll.paid_leave.employee_rate' outside emitted subtrees
+- **ct_chip_premium** (`policyengine_us/variables/gov/states/ct/hhs/chip/ct_chip_premium.py:5`): ExtRat scale 'gov.states.ct.hhs.chip.premium.per_child' in value position
 - **ct_income_tax_after_personal_credits** (`policyengine_us/variables/gov/states/ct/tax/income/ct_income_tax_after_personal_credits.py:6`): unrecognized call select
-- **ct_income_tax_high_tax_recapture** (`policyengine_us/variables/gov/states/ct/tax/income/add_back/ct_income_tax_high_tax_recapture.py:5`): unsupported parameter subscript on 'gov.states.ct.tax.income.recapture.high.start'
-- **ct_income_tax_low_tax_recapture** (`policyengine_us/variables/gov/states/ct/tax/income/add_back/ct_income_tax_low_tax_recapture.py:4`): parameter 'gov.states.ct.tax.income.recapture.low.in_effect' outside emitted subtrees
-- **ct_income_tax_middle_tax_recapture** (`policyengine_us/variables/gov/states/ct/tax/income/add_back/ct_income_tax_middle_tax_recapture.py:5`): unsupported parameter subscript on 'gov.states.ct.tax.income.recapture.middle.start'
-- **ct_income_tax_phase_out_add_back** (`policyengine_us/variables/gov/states/ct/tax/income/add_back/ct_income_tax_phase_out_add_back.py:5`): unsupported parameter subscript on 'gov.states.ct.tax.income.add_back.start'
 - **ct_non_refundable_credits** (`policyengine_us/variables/gov/states/ct/tax/income/ct_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **ct_pension_annuity_subtraction** (`policyengine_us/variables/gov/states/ct/tax/income/subtractions/pension_annuity/ct_pension_annuity_subtraction.py:15`): calc() on non-scale parameter 'gov.states.ct.tax.income.subtractions.pensions_or_annuity.joint'
 - **ct_personal_credit_rate** (`policyengine_us/variables/gov/states/ct/tax/income/credits/ct_personal_credit_rate.py:7`): unrecognized call select
-- **ct_personal_exemptions** (`policyengine_us/variables/gov/states/ct/tax/income/exemptions/ct_personal_exemptions.py:5`): unsupported parameter subscript on 'gov.states.ct.tax.income.exemptions.personal.max_amount'
 - **ct_property_tax_credit** (`policyengine_us/variables/gov/states/ct/tax/income/credits/property_tax/ct_property_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ct_property_tax_credit_eligible** (`policyengine_us/variables/gov/states/ct/tax/income/credits/property_tax/ct_property_tax_credit_eligible.py:3`): parameter 'gov.states.ct.tax.income.credits.property_tax.age_threshold' outside emitted subtrees
-- **ct_property_tax_credit_potential** (`policyengine_us/variables/gov/states/ct/tax/income/credits/property_tax/ct_property_tax_credit_potential.py:6`): parameter 'gov.states.ct.tax.income.credits.property_tax.cap' outside emitted subtrees
-- **ct_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ct.tax.income.credits.refundable'
-- **ct_social_security_benefit_adjustment** (`policyengine_us/variables/gov/states/ct/tax/income/subtractions/ct_social_security_benefit_adjustment.py:17`): parameter 'gov.states.ct.tax.income.subtractions.social_security.rate' outside emitted subtrees
-- **ct_ssp_earned_income_disregard** (`policyengine_us/variables/gov/states/ct/dss/ssp/income/ct_ssp_earned_income_disregard.py:15`): parameter 'gov.states.ct.dss.ssp.disregard.earned.blind_initial' outside emitted subtrees
-- **ct_ssp_income_eligible** (`policyengine_us/variables/gov/states/ct/dss/ssp/eligibility/ct_ssp_income_eligible.py:7`): parameter 'gov.states.ct.dss.ssp.eligibility.income_cap_rate' outside emitted subtrees
 - **ct_ssp_living_arrangement** (`policyengine_us/variables/gov/states/ct/dss/ssp/ct_ssp_living_arrangement.py:9`): unbound name 'CTSSPLivingArrangement'
-- **ct_ssp_personal_needs_allowance** (`policyengine_us/variables/gov/states/ct/dss/ssp/payment/ct_ssp_personal_needs_allowance.py:7`): unsupported parameter subscript on 'gov.states.ct.dss.ssp.personal_needs_allowance'
-- **ct_ssp_resource_eligible** (`policyengine_us/variables/gov/states/ct/dss/ssp/eligibility/ct_ssp_resource_eligible.py:21`): parameter 'gov.states.ct.dss.ssp.eligibility.asset_limit.couple' outside emitted subtrees
-- **ct_ssp_shelter_allowance** (`policyengine_us/variables/gov/states/ct/dss/ssp/payment/ct_ssp_shelter_allowance.py:9`): unsupported parameter subscript on 'gov.states.ct.dss.ssp.shelter_allowance'
-- **ct_ssp_special_needs** (`policyengine_us/variables/gov/states/ct/dss/ssp/payment/ct_ssp_special_needs.py:4`): parameter 'gov.states.ct.dss.ssp.special_needs.therapeutic_diet' outside emitted subtrees
-- **ct_ssp_unearned_income_disregard** (`policyengine_us/variables/gov/states/ct/dss/ssp/income/ct_ssp_unearned_income_disregard.py:4`): unsupported parameter subscript on 'gov.states.ct.dss.ssp.disregard.unearned'
-- **ct_stillborn_credit** (`policyengine_us/variables/gov/states/ct/tax/income/credits/ct_stillborn_credit.py:4`): parameter 'gov.states.ct.tax.income.credits.stillborn' outside emitted subtrees
-- **ct_tfa** (`policyengine_us/variables/gov/states/ct/dss/tfa/ct_tfa.py:11`): parameter 'gov.states.ct.dss.tfa.payment.housing_subsidy_rate' outside emitted subtrees
-- **ct_tfa_countable_earned_income_at_application** (`policyengine_us/variables/gov/states/ct/dss/tfa/income/new_applicant/ct_tfa_countable_earned_income_at_application.py:5`): parameter 'gov.states.ct.dss.tfa.income.deduction.new_applicant.amount' outside emitted subtrees
-- **ct_tfa_countable_unearned_income** (`policyengine_us/variables/gov/states/ct/dss/tfa/income/ct_tfa_countable_unearned_income.py:6`): parameter 'gov.states.ct.dss.tfa.income.deduction.child_support' outside emitted subtrees
-- **ct_tfa_income_eligible** (`policyengine_us/variables/gov/states/ct/dss/tfa/eligibility/ct_tfa_income_eligible.py:18`): parameter 'gov.states.ct.dss.tfa.income.recipient.income_limit_rate' outside emitted subtrees
-- **ct_tfa_max_benefit_standard** (`policyengine_us/variables/gov/states/ct/dss/tfa/ct_tfa_max_benefit_standard.py:4`): parameter 'gov.states.ct.dss.tfa.payment.max_unit_size' outside emitted subtrees
-- **ct_tfa_need_standard** (`policyengine_us/variables/gov/states/ct/dss/tfa/payment/ct_tfa_need_standard.py:5`): parameter 'gov.states.ct.dss.tfa.payment.need_standard_rate' outside emitted subtrees
-- **ct_tfa_payment_standard** (`policyengine_us/variables/gov/states/ct/dss/tfa/payment/ct_tfa_payment_standard.py:4`): parameter 'gov.states.ct.dss.tfa.payment.regional_in_effect' outside emitted subtrees
-- **ct_tfa_resources_eligible** (`policyengine_us/variables/gov/states/ct/dss/tfa/eligibility/ct_tfa_resources_eligible.py:4`): parameter 'gov.states.ct.dss.tfa.resource.limit' outside emitted subtrees
-- **ct_tuition_subtraction** (`policyengine_us/variables/gov/states/ct/tax/income/subtractions/tuition/ct_tuition_subtraction.py:4`): unsupported parameter subscript on 'gov.states.ct.tax.income.subtractions.tuition.cap'
+- **ct_tfa_max_benefit_standard** (`policyengine_us/variables/gov/states/ct/dss/tfa/ct_tfa_max_benefit_standard.py:5`): unsupported parameter subscript on 'gov.states.ct.dss.tfa.payment.regional.region_a.amount'
+- **ct_tfa_payment_standard** (`policyengine_us/variables/gov/states/ct/dss/tfa/payment/ct_tfa_payment_standard.py:7`): person ref to non-person variable 'ct_tfa_region'
 - **ct_withheld_income_tax** (`policyengine_us/variables/gov/states/ct/tax/income/ct_withheld_income_tax.py:6`): non-value handle used as value
 - **ctc_limiting_tax_liability** (`policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_limiting_tax_liability.py:2`): attribute 'simulation' on value expression
-- **dc_additions** (`?:0`): adds via unknown parameter path 'gov.states.dc.tax.income.additions.sources'
-- **dc_ccsp_asset_eligible** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/dc_ccsp_asset_eligible.py:4`): parameter 'gov.states.dc.dhs.ccsp.assets.limit' outside emitted subtrees
-- **dc_ccsp_assets** (`?:0`): adds via unknown parameter path 'gov.states.dc.dhs.ccsp.assets.sources'
-- **dc_ccsp_copay** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/copay/dc_ccsp_copay.py:6`): parameter 'gov.states.dc.dhs.ccsp.copay.exempted_rate' outside emitted subtrees
-- **dc_ccsp_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.dc.dhs.ccsp.income.countable_income.sources'
-- **dc_ccsp_eligible_child** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/dc_ccsp_eligible_child.py:5`): parameter 'gov.states.dc.dhs.ccsp.age_threshold.disabled_child' outside emitted subtrees
-- **dc_ccsp_first_child_copay** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/copay/dc_ccsp_first_child_copay.py:10`): calc() on non-scale parameter 'gov.states.dc.dhs.ccsp.copay.first_child.full_time'
-- **dc_ccsp_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/dc_ccsp_immigration_status_eligible_person.py:5`): isin against non-list param 'gov.states.dc.dhs.ccsp.qualified_immigration_statuses'
-- **dc_ccsp_income_eligible** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/dc_ccsp_income_eligible.py:7`): parameter 'gov.states.dc.dhs.ccsp.income.income_limit.new_applicants_rate' outside emitted subtrees
 - **dc_ccsp_income_test_waived** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/dc_ccsp_income_test_waived.py:10`): person ref to non-person variable 'is_homeless'
-- **dc_ccsp_is_full_time** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/copay/dc_ccsp_is_full_time.py:5`): isin against non-list param 'gov.states.dc.dhs.ccsp.full_time_schedule_types'
 - **dc_ccsp_is_second_youngest_child** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/copay/dc_ccsp_is_second_youngest_child.py:5`): attribute 'spm_unit' on value expression
 - **dc_ccsp_is_youngest_child** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/copay/dc_ccsp_is_youngest_child.py:5`): attribute 'spm_unit' on value expression
 - **dc_ccsp_maximum_subsidy_amount** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/payment/dc_ccsp_maximum_subsidy_amount.py:6`): unsupported parameter subscript on 'gov.states.dc.dhs.ccsp.reimbursement_rates'
-- **dc_ccsp_qualified_need_eligible** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/qualified_activity_or_need/dc_ccsp_qualified_need_eligible.py:8`): parameter 'gov.states.dc.dhs.ccsp.age_threshold.disabled_child' outside emitted subtrees
-- **dc_ccsp_second_child_copay** (`policyengine_us/variables/gov/states/dc/dhs/ccsp/copay/dc_ccsp_second_child_copay.py:10`): calc() on non-scale parameter 'gov.states.dc.dhs.ccsp.copay.second_child.full_time'
 - **dc_cdcc** (`policyengine_us/variables/gov/states/dc/tax/income/credits/dc_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **dc_cdcc_potential** (`policyengine_us/variables/gov/states/dc/tax/income/credits/dc_cdcc_potential.py:5`): parameter 'gov.states.dc.tax.income.credits.cdcc.match' outside emitted subtrees
 - **dc_ctc** (`policyengine_us/variables/gov/states/dc/tax/income/credits/ctc/dc_ctc.py:5`): unsupported parameter subscript on 'gov.states.dc.tax.income.credits.ctc.income_threshold'
-- **dc_ctc_eligible_child** (`policyengine_us/variables/gov/states/dc/tax/income/credits/ctc/dc_ctc_eligible_child.py:4`): parameter 'gov.states.dc.tax.income.credits.ctc.child.age_threshold' outside emitted subtrees
 - **dc_deduction_indiv** (`policyengine_us/variables/gov/states/dc/tax/income/deductions/dc_deduction_indiv.py:10`): unrecognized call allocate_joint_amount_to_minimize_combined_tax
 - **dc_disability_exclusion** (`policyengine_us/variables/gov/states/dc/tax/income/subtractions/dc_disability_exclusion.py:3`): attribute 'tax_unit' on value expression
 - **dc_disabled_exclusion_subtraction** (`policyengine_us/variables/gov/states/dc/tax/income/subtractions/dc_disabled_exclusion_subtraction.py:13`): attribute 'tax_unit' on value expression
 - **dc_eitc_with_qualifying_child** (`policyengine_us/variables/gov/states/dc/tax/income/credits/eitc/dc_eitc_with_qualifying_child.py:17`): unrecognized call calculate_eitc_like_amount
 - **dc_eitc_without_qualifying_child** (`policyengine_us/variables/gov/states/dc/tax/income/credits/eitc/dc_eitc_without_qualifying_child.py:27`): unrecognized call eitc_filing_status_eligible
-- **dc_employer_paid_leave_tax** (`policyengine_us/variables/gov/states/dc/tax/payroll/paid_leave/dc_employer_paid_leave_tax.py:3`): parameter 'gov.states.dc.tax.payroll.paid_leave.employer_rate' outside emitted subtrees
-- **dc_files_separately** (`policyengine_us/variables/gov/states/dc/tax/income/dc_files_separately.py:4`): parameter 'gov.states.dc.tax.income.joint_separately_option' outside emitted subtrees
-- **dc_gac_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/dc/dhs/gac/income/dc_gac_earned_income_after_disregard_person.py:4`): parameter 'gov.states.dc.dhs.gac.income_disregard.amount' outside emitted subtrees
-- **dc_gac_standard_payment** (`policyengine_us/variables/gov/states/dc/dhs/gac/dc_gac_standard_payment.py:4`): parameter 'gov.states.dc.dhs.tanf.standard_payment.max_unit_size' outside emitted subtrees
+- **dc_gac_standard_payment** (`policyengine_us/variables/gov/states/dc/dhs/gac/dc_gac_standard_payment.py:5`): unsupported parameter subscript on 'gov.states.dc.dhs.tanf.standard_payment.amount'
 - **dc_income_subtractions** (`policyengine_us/variables/gov/states/dc/tax/income/subtractions/dc_income_subtractions.py:3`): add() without literal variable list
-- **dc_income_tax_before_credits_indiv** (`policyengine_us/variables/gov/states/dc/tax/income/dc_income_tax_before_credits_indiv.py:5`): calc() on non-scale parameter 'gov.states.dc.tax.income.rates'
-- **dc_income_tax_before_credits_joint** (`policyengine_us/variables/gov/states/dc/tax/income/dc_income_tax_before_credits_joint.py:4`): calc() on non-scale parameter 'gov.states.dc.tax.income.rates'
-- **dc_itemized_deductions** (`policyengine_us/variables/gov/states/dc/tax/income/deductions/dc_itemized_deductions.py:18`): unsupported parameter subscript on 'gov.states.dc.tax.income.deductions.itemized.phase_out.start'
+- **dc_income_tax_before_credits_indiv** (`policyengine_us/variables/gov/states/dc/tax/income/dc_income_tax_before_credits_indiv.py:5`): ExtRat scale 'gov.states.dc.tax.income.rates' in value position
+- **dc_income_tax_before_credits_joint** (`policyengine_us/variables/gov/states/dc/tax/income/dc_income_tax_before_credits_joint.py:4`): ExtRat scale 'gov.states.dc.tax.income.rates' in value position
 - **dc_kccatc** (`policyengine_us/variables/gov/states/dc/tax/income/credits/dc_kccatc.py:6`): unsupported parameter subscript on 'gov.states.dc.tax.income.credits.kccatc.income_limit'
-- **dc_liheap_eligible** (`policyengine_us/variables/gov/states/dc/doee/liheap/dc_liheap_eligible.py:6`): parameter 'gov.hhs.liheap.smi_limit' outside emitted subtrees
 - **dc_liheap_income_level** (`policyengine_us/variables/gov/states/dc/doee/liheap/dc_liheap_income_level.py:5`): unsupported syntax ListComp
 - **dc_liheap_payment** (`policyengine_us/variables/gov/states/dc/doee/liheap/dc_liheap_payment.py:11`): unrecognized call select
 - **dc_non_refundable_credits** (`policyengine_us/variables/gov/states/dc/tax/income/credits/dc_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **dc_ossp_eligible** (`policyengine_us/variables/gov/states/dc/dhcf/ossp/dc_ossp_eligible.py:9`): unbound name 'DCOSSPLivingArrangement'
 - **dc_ossp_living_arrangement** (`policyengine_us/variables/gov/states/dc/dhcf/ossp/dc_ossp_living_arrangement.py:4`): unbound name 'SSIFederalLivingArrangement'
-- **dc_ossp_payment_amount** (`policyengine_us/variables/gov/states/dc/dhcf/ossp/dc_ossp_payment_amount.py:21`): unsupported parameter subscript on 'gov.states.dc.dhcf.ossp.payment.couple'
-- **dc_pap_eligible_child** (`policyengine_us/variables/gov/states/dc/dhs/dc_pap_eligible_child.py:6`): parameter 'gov.states.dc.dhs.tanf.age_threshold.student_dependent' outside emitted subtrees
-- **dc_power_has_disqualifying_benefits** (`?:0`): adds via unknown parameter path 'gov.states.dc.dhs.power.disqualifying_benefits'
 - **dc_power_head_or_spouse_eligible** (`policyengine_us/variables/gov/states/dc/dhs/power/dc_power_head_or_spouse_eligible.py:3`): attribute 'spm_unit' on value expression
-- **dc_ptc** (`policyengine_us/variables/gov/states/dc/tax/income/credits/dc_ptc.py:5`): parameter 'gov.states.dc.tax.income.credits.ptc.rent_ratio' outside emitted subtrees
-- **dc_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.dc.tax.income.credits.refundable'
-- **dc_self_employment_loss_addition** (`policyengine_us/variables/gov/states/dc/tax/income/additions/dc_self_employment_loss_addition.py:11`): parameter 'gov.states.dc.tax.income.additions.self_employment_loss.threshold' outside emitted subtrees
-- **dc_senior_disabled_property_tax_relief** (`policyengine_us/variables/gov/states/dc/tax/property/senior_disabled_property_tax_relief/dc_senior_disabled_property_tax_relief.py:5`): parameter 'gov.states.dc.tax.property.senior_disabled_property_tax_relief.rate' outside emitted subtrees
-- **dc_senior_disabled_property_tax_relief_eligible** (`policyengine_us/variables/gov/states/dc/tax/property/senior_disabled_property_tax_relief/dc_senior_disabled_property_tax_relief_eligible.py:5`): parameter 'gov.states.dc.tax.property.senior_disabled_property_tax_relief.age_threshold' outside emitted subtrees
-- **dc_snap_temporary_local_benefit** (`policyengine_us/variables/gov/states/dc/tax/income/dc_snap_temporary_local_benefit.py:6`): parameter 'gov.states.dc.tax.income.snap.temporary_local_benefit.rate' outside emitted subtrees
+- **dc_ptc** (`policyengine_us/variables/gov/states/dc/tax/income/credits/dc_ptc.py:17`): ExtRat scale 'gov.states.dc.tax.income.credits.ptc.fraction_elderly' in value position
+- **dc_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.dc.tax.income.credits.refundable'
+- **dc_self_employment_loss_addition** (`policyengine_us/variables/gov/states/dc/tax/income/additions/dc_self_employment_loss_addition.py:15`): np.zeros_like
+- **dc_senior_disabled_property_tax_relief_eligible** (`policyengine_us/variables/gov/states/dc/tax/property/senior_disabled_property_tax_relief/dc_senior_disabled_property_tax_relief_eligible.py:17`): person ref to non-person variable 'dc_senior_disabled_property_tax_relief_income'
 - **dc_standard_deduction** (`policyengine_us/variables/gov/states/dc/tax/income/deductions/dc_standard_deduction.py:7`): unsupported parameter subscript on 'gov.states.dc.tax.income.deductions.standard.amount'
-- **dc_tanf_childcare_deduction** (`policyengine_us/variables/gov/states/dc/dhs/tanf/income/deductions/dc_tanf_childcare_deduction.py:15`): calc() on non-scale parameter 'gov.states.dc.dhs.tanf.income.deductions.child_care.amount'
-- **dc_tanf_countable_unearned_income** (`policyengine_us/variables/gov/states/dc/dhs/tanf/income/unearned/dc_tanf_countable_unearned_income.py:5`): parameter 'gov.states.dc.dhs.tanf.income.deductions.child_support' outside emitted subtrees
-- **dc_tanf_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/dc/dhs/tanf/income/earned/dc_tanf_earned_income_after_disregard_person.py:6`): parameter 'gov.states.dc.dhs.tanf.income.deductions.work_related_expense.amount' outside emitted subtrees
-- **dc_tanf_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.dc.dhs.tanf.income.sources.earned'
-- **dc_tanf_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.dc.dhs.tanf.income.sources.unearned'
-- **dc_tanf_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/dc/dhs/tanf/eligibility/dc_tanf_immigration_status_eligible_person.py:6`): isin against non-list param 'gov.states.dc.dhs.qualified_noncitizen_statuses'
 - **dc_tanf_is_working** (`policyengine_us/variables/gov/states/dc/dhs/tanf/work_requirement/dc_tanf_is_working.py:7`): attribute 'spm_unit' on value expression
-- **dc_tanf_resources_eligible** (`policyengine_us/variables/gov/states/dc/dhs/tanf/eligibility/dc_tanf_resources_eligible.py:6`): parameter 'gov.states.dc.dhs.tanf.resource_limit.higher.age_threshold' outside emitted subtrees
-- **dc_tanf_standard_payment** (`policyengine_us/variables/gov/states/dc/dhs/tanf/dc_tanf_standard_payment.py:4`): parameter 'gov.states.dc.dhs.tanf.standard_payment.max_unit_size' outside emitted subtrees
-- **dc_tanf_work_requirement_exempt** (`policyengine_us/variables/gov/states/dc/dhs/tanf/work_requirement/dc_tanf_work_requirement_exempt.py:11`): parameter 'gov.states.dc.dhs.tanf.work_requirement.work_exempted.infant_age_threshold' outside emitted subtrees
-- **dc_tanf_work_sanction_rate** (`policyengine_us/variables/gov/states/dc/dhs/tanf/work_requirement/dc_tanf_work_sanction_rate.py:9`): parameter 'gov.states.dc.dhs.tanf.work_requirement.sanction.rate' outside emitted subtrees
+- **dc_tanf_standard_payment** (`policyengine_us/variables/gov/states/dc/dhs/tanf/dc_tanf_standard_payment.py:5`): unsupported parameter subscript on 'gov.states.dc.dhs.tanf.standard_payment.amount'
 - **dc_taxable_income** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **dc_withheld_income_tax** (`policyengine_us/variables/gov/states/dc/tax/income/dc_withheld_income_tax.py:5`): non-value handle used as value
-- **de_529_plan_subtraction** (`policyengine_us/variables/gov/states/de/tax/income/subtractions/de_529_plan_subtraction.py:5`): unsupported parameter subscript on 'gov.states.de.tax.income.subtractions.plan_529.cap'
-- **de_additional_standard_deduction** (`policyengine_us/variables/gov/states/de/tax/income/deductions/standard/de_additional_standard_deduction.py:3`): parameter 'gov.states.de.tax.income.deductions.standard.additional.age_threshold' outside emitted subtrees
+- **de_additional_standard_deduction** (`policyengine_us/variables/gov/states/de/tax/income/deductions/standard/de_additional_standard_deduction.py:3`): unrecognized call (person('age', period) >= p.age_threshold).astype
 - **de_aged_personal_credit** (`policyengine_us/variables/gov/states/de/tax/income/credits/personal/de_aged_personal_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **de_aged_personal_credit_indv** (`policyengine_us/variables/gov/states/de/tax/income/credits/personal/de_aged_personal_credit_indv.py:9`): calc() on non-scale parameter 'gov.states.de.tax.income.credits.personal_credits.aged'
-- **de_aged_personal_credit_potential** (`policyengine_us/variables/gov/states/de/tax/income/credits/personal/de_aged_personal_credit_potential.py:9`): calc() on non-scale parameter 'gov.states.de.tax.income.credits.personal_credits.aged'
 - **de_agi** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **de_base_standard_deduction_indv** (`policyengine_us/variables/gov/states/de/tax/income/deductions/standard/de_base_standard_deduction_indv.py:8`): unsupported parameter subscript on 'gov.states.de.tax.income.deductions.standard.amount'
-- **de_base_standard_deduction_joint** (`policyengine_us/variables/gov/states/de/tax/income/deductions/standard/de_base_standard_deduction_joint.py:5`): unsupported parameter subscript on 'gov.states.de.tax.income.deductions.standard.amount'
 - **de_capped_real_estate_tax** (`policyengine_us/variables/gov/states/de/tax/income/deductions/itemized/de_capped_real_estate_tax.py:5`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
 - **de_cdcc** (`policyengine_us/variables/gov/states/de/tax/income/credits/cdcc/de_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **de_cdcc_potential** (`policyengine_us/variables/gov/states/de/tax/income/credits/cdcc/de_cdcc_potential.py:5`): parameter 'gov.states.de.tax.income.credits.cdcc.match' outside emitted subtrees
-- **de_chip_premium** (`policyengine_us/variables/gov/states/de/hhs/chip/de_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.de.hhs.chip.premium'
-- **de_elderly_or_disabled_income_exclusion_eligible_person** (`policyengine_us/variables/gov/states/de/tax/income/subtractions/exclusions/de_elderly_or_disabled_income_exclusion_eligible_person.py:16`): parameter 'gov.states.de.tax.income.subtractions.exclusions.elderly_or_disabled.eligibility.age_threshold' outside emitted subtrees
-- **de_elderly_or_disabled_income_exclusion_indiv** (`policyengine_us/variables/gov/states/de/tax/income/subtractions/exclusions/de_elderly_or_disabled_income_exclusion_indiv.py:11`): unsupported parameter subscript on 'gov.states.de.tax.income.subtractions.exclusions.elderly_or_disabled.amount'
+- **de_chip_premium** (`policyengine_us/variables/gov/states/de/hhs/chip/de_chip_premium.py:5`): ExtRat scale 'gov.states.de.hhs.chip.premium' in value position
 - **de_elderly_or_disabled_income_exclusion_joint** (`policyengine_us/variables/gov/states/de/tax/income/subtractions/exclusions/de_elderly_or_disabled_income_exclusion_joint.py:2`): attribute 'tax_unit' on value expression
-- **de_employee_paid_leave_contribution** (`policyengine_us/variables/gov/states/de/tax/payroll/paid_leave/de_employee_paid_leave_contribution.py:6`): parameter 'gov.states.de.tax.payroll.paid_leave.employee_share' outside emitted subtrees
-- **de_employer_paid_leave_contribution** (`policyengine_us/variables/gov/states/de/tax/payroll/paid_leave/de_employer_paid_leave_contribution.py:6`): parameter 'gov.states.de.tax.payroll.paid_leave.employee_share' outside emitted subtrees
-- **de_income_tax_before_non_refundable_credits_indv** (`policyengine_us/variables/gov/states/de/tax/income/de_income_tax_before_non_refundable_credits_indv.py:4`): calc() on non-scale parameter 'gov.states.de.tax.income.rate'
-- **de_income_tax_before_non_refundable_credits_joint** (`policyengine_us/variables/gov/states/de/tax/income/de_income_tax_before_non_refundable_credits_joint.py:4`): calc() on non-scale parameter 'gov.states.de.tax.income.rate'
 - **de_income_tax_before_refundable_credits_separate** (`policyengine_us/variables/gov/states/de/tax/income/de_income_tax_before_refundable_credits_separate.py:7`): unrecognized call members
 - **de_income_tax_if_claiming_non_refundable_eitc** (`policyengine_us/variables/gov/states/de/tax/income/credits/eitc/refundability_calculation/de_income_tax_if_claiming_non_refundable_eitc.py:2`): attribute 'simulation' on value expression
 - **de_income_tax_if_claiming_refundable_eitc** (`policyengine_us/variables/gov/states/de/tax/income/credits/eitc/refundability_calculation/de_income_tax_if_claiming_refundable_eitc.py:2`): attribute 'simulation' on value expression
 - **de_itemized_deductions** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **de_itemized_deductions_indv** (`policyengine_us/variables/gov/states/de/tax/income/deductions/itemized/de_itemized_deductions_indv.py:6`): np.zeros_like
-- **de_itemized_deductions_unit** (`?:0`): adds via unknown parameter path 'gov.states.de.tax.income.deductions.itemized.sources'
 - **de_non_refundable_credits** (`policyengine_us/variables/gov/states/de/tax/income/de_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **de_non_refundable_eitc** (`policyengine_us/variables/gov/states/de/tax/income/credits/eitc/de_non_refundable_eitc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **de_non_refundable_eitc_if_claimed** (`policyengine_us/variables/gov/states/de/tax/income/credits/eitc/de_non_refundable_eitc_if_claimed.py:4`): parameter 'gov.states.de.tax.income.credits.eitc.non_refundable' outside emitted subtrees
-- **de_paid_leave_contribution_rate** (`policyengine_us/variables/gov/states/de/tax/payroll/paid_leave/de_paid_leave_contribution_rate.py:4`): parameter 'gov.states.de.tax.payroll.paid_leave.family_caregiver_rate' outside emitted subtrees
-- **de_pension_exclusion** (`policyengine_us/variables/gov/states/de/tax/income/subtractions/pension_exclusion/de_pension_exclusion.py:8`): calc() on non-scale parameter 'gov.states.de.tax.income.subtractions.exclusions.pension.cap.amount'
-- **de_pension_exclusion_income** (`?:0`): adds via unknown parameter path 'gov.states.de.tax.income.subtractions.exclusions.pension.income_sources'
+- **de_paid_leave_contribution_rate** (`policyengine_us/variables/gov/states/de/tax/payroll/paid_leave/de_paid_leave_contribution_rate.py:5`): unrecognized call select
+- **de_pension_exclusion** (`policyengine_us/variables/gov/states/de/tax/income/subtractions/pension_exclusion/de_pension_exclusion.py:21`): where condition not bool
 - **de_personal_credit** (`policyengine_us/variables/gov/states/de/tax/income/credits/personal/de_personal_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **de_personal_credit_indv** (`policyengine_us/variables/gov/states/de/tax/income/credits/personal/de_personal_credit_indv.py:24`): parameter 'gov.states.de.tax.income.credits.personal_credits.personal' outside emitted subtrees
-- **de_personal_credit_potential** (`policyengine_us/variables/gov/states/de/tax/income/credits/personal/de_personal_credit_potential.py:4`): parameter 'gov.states.de.tax.income.credits.personal_credits.personal' outside emitted subtrees
-- **de_poc_age_group** (`policyengine_us/variables/gov/states/de/dss/poc/de_poc_age_group.py:4`): calc() on non-scale parameter 'gov.states.de.dss.poc.age_group'
-- **de_poc_copay** (`policyengine_us/variables/gov/states/de/dss/poc/de_poc_copay.py:6`): parameter 'gov.states.de.dss.poc.copay.waiver_fpl_rate' outside emitted subtrees
-- **de_poc_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.de.dss.poc.income.countable_income.sources'
-- **de_poc_eligible_child** (`policyengine_us/variables/gov/states/de/dss/poc/eligibility/de_poc_eligible_child.py:5`): parameter 'gov.states.de.dss.poc.age_threshold.disabled_child' outside emitted subtrees
-- **de_poc_income_eligible** (`policyengine_us/variables/gov/states/de/dss/poc/eligibility/de_poc_income_eligible.py:9`): parameter 'gov.states.de.dss.poc.income.fpl_rate.redetermination' outside emitted subtrees
+- **de_personal_credit_indv** (`policyengine_us/variables/gov/states/de/tax/income/credits/personal/de_personal_credit_indv.py:40`): np.floor
+- **de_poc_age_group** (`policyengine_us/variables/gov/states/de/dss/poc/de_poc_age_group.py:6`): unbound name 'DEPOCAgeGroup'
 - **de_poc_maximum_weekly_benefit** (`policyengine_us/variables/gov/states/de/dss/poc/de_poc_maximum_weekly_benefit.py:5`): unbound name 'DEPOCProviderType'
-- **de_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.de.tax.income.credits.refundable'
-- **de_refundable_eitc_if_claimed** (`policyengine_us/variables/gov/states/de/tax/income/credits/eitc/de_refundable_eitc_if_claimed.py:4`): parameter 'gov.states.de.tax.income.credits.eitc.refundable' outside emitted subtrees
-- **de_relief_rebate** (`policyengine_us/variables/gov/states/de/tax/income/credits/relief_rebate/de_relief_rebate.py:4`): parameter 'gov.states.de.tax.income.credits.relief_rebate.amount' outside emitted subtrees
-- **de_ssp** (`policyengine_us/variables/gov/states/de/dhss/ssp/de_ssp.py:6`): parameter 'gov.states.de.dhss.ssp.amount.couple' outside emitted subtrees
+- **de_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.de.tax.income.credits.refundable'
 - **de_standard_deduction** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **de_subtractions** (`policyengine_us/variables/gov/states/de/tax/income/subtractions/de_subtractions.py:3`): add() without literal variable list
-- **de_tanf** (`policyengine_us/variables/gov/states/de/dhss/tanf/de_tanf.py:13`): parameter 'gov.states.de.dhss.tanf.benefit.deficit_rate' outside emitted subtrees
-- **de_tanf_countable_earned_income_person** (`policyengine_us/variables/gov/states/de/dhss/tanf/income/earned/de_tanf_countable_earned_income_person.py:19`): parameter 'gov.states.de.dhss.tanf.income.deductions.work_expense' outside emitted subtrees
-- **de_tanf_countable_unearned_income** (`policyengine_us/variables/gov/states/de/dhss/tanf/income/unearned/de_tanf_countable_unearned_income.py:6`): parameter 'gov.states.de.dhss.tanf.income.deductions.child_support' outside emitted subtrees
-- **de_tanf_dependent_care_deduction** (`policyengine_us/variables/gov/states/de/dhss/tanf/income/earned/de_tanf_dependent_care_deduction.py:17`): calc() on non-scale parameter 'gov.states.de.dhss.tanf.income.deductions.dependent_care'
-- **de_tanf_earned_income_deduction** (`policyengine_us/variables/gov/states/de/dhss/tanf/income/earned/de_tanf_earned_income_deduction.py:9`): parameter 'gov.states.de.dhss.tanf.income.deductions.work_expense' outside emitted subtrees
-- **de_tanf_gross_income_eligible** (`policyengine_us/variables/gov/states/de/dhss/tanf/eligibility/de_tanf_gross_income_eligible.py:5`): parameter 'gov.states.de.dhss.tanf.income.gross_limit' outside emitted subtrees
-- **de_tanf_payment_standard** (`policyengine_us/variables/gov/states/de/dhss/tanf/de_tanf_payment_standard.py:4`): parameter 'gov.states.de.dhss.tanf.payment_standard.max_unit_size' outside emitted subtrees
-- **de_tanf_resources_eligible** (`policyengine_us/variables/gov/states/de/dhss/tanf/eligibility/de_tanf_resources_eligible.py:6`): parameter 'gov.states.de.dhss.tanf.resource_limit' outside emitted subtrees
-- **de_tanf_standard_of_need** (`policyengine_us/variables/gov/states/de/dhss/tanf/de_tanf_standard_of_need.py:5`): parameter 'gov.states.de.dhss.tanf.income.standard_of_need' outside emitted subtrees
+- **de_tanf_payment_standard** (`policyengine_us/variables/gov/states/de/dhss/tanf/de_tanf_payment_standard.py:5`): unsupported parameter subscript on 'gov.states.de.dhss.tanf.payment_standard.amount'
 - **de_taxable_income** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **de_wilmington_earned_income_tax** (`policyengine_us/variables/gov/local/de/wilmington/tax/income/de_wilmington_earned_income_tax.py:6`): person ref to non-person variable 'in_wilmington'
 - **de_withheld_income_tax** (`policyengine_us/variables/gov/states/de/tax/income/de_withheld_income_tax.py:5`): non-value handle used as value
-- **deductible_mortgage_interest_tax_unit** (`policyengine_us/variables/household/expense/tax_unit/mortgage_interest_structure.py:13`): unsupported parameter subscript on 'gov.irs.deductions.itemized.interest.mortgage.pre_tcja_cap'
-- **dependent_care_assistance_exclusion** (`policyengine_us/variables/gov/irs/credits/cdcc/dependent_care_assistance_exclusion.py:9`): unsupported parameter subscript on 'gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount'
+- **deductible_mortgage_interest_tax_unit** (`policyengine_us/variables/household/expense/tax_unit/mortgage_interest_structure.py:17`): unrecognized call _mortgage_balance_cap
 - **dependent_gross_income** (`policyengine_us/variables/gov/irs/income/dependent_gross_income.py:5`): unsupported statement For
 - **dwks19** (`policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks19.py:6`): non-value handle used as value
-- **early_head_start** (`policyengine_us/variables/gov/hhs/head_start/early_head_start.py:4`): unsupported parameter subscript on 'gov.hhs.head_start.early_head_start.spending'
+- **early_head_start** (`policyengine_us/variables/gov/hhs/head_start/early_head_start.py:7`): np.zeros_like
 - **ebb** (`policyengine_us/variables/gov/fcc/ebb/ebb.py:3`): person ref to non-person variable 'is_on_tribal_land'
-- **education_credit_phase_out** (`policyengine_us/variables/gov/irs/credits/education/education_credit_phase_out.py:7`): parameter 'gov.irs.credits.education.phase_out.start.joint' outside emitted subtrees
 - **elderly_disabled_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_credit_limit.py:4`): add() without literal variable list
-- **elderly_disabled_credit_potential** (`policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_potential.py:3`): parameter 'gov.irs.credits.elderly_or_disabled.rate' outside emitted subtrees
 - **elective_deferral_limit** (`policyengine_us/variables/household/expense/retirement/elective_deferral_limit.py:3`): unrecognized call getattr
 - **electricity_expense** (`policyengine_us/variables/household/expense/utilities/electricity_expense.py:6`): add() without literal variable list
 - **emp_self_emp_ratio** (`policyengine_us/variables/household/emp_self_emp_ratio.py:10`): np.ones_like
-- **employee_medicare_tax** (`policyengine_us/variables/gov/irs/tax/payroll/medicare/employee_medicare_tax.py:3`): parameter 'gov.irs.payroll.medicare.rate.employee' outside emitted subtrees
-- **employee_payroll_tax** (`policyengine_us/variables/gov/irs/tax/payroll/employee_payroll_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_payroll_tax' outside emitted subtrees
-- **employee_social_security_tax** (`policyengine_us/variables/gov/irs/tax/payroll/social_security/employee_social_security_tax.py:3`): parameter 'gov.irs.payroll.social_security.rate.employee' outside emitted subtrees
-- **employer_federal_unemployment_tax_rate** (`policyengine_us/variables/gov/irs/tax/payroll/unemployment/employer_federal_unemployment_tax_rate.py:5`): parameter 'gov.irs.payroll.federal_unemployment.effective_rate' outside emitted subtrees
-- **employer_medicare_tax** (`policyengine_us/variables/gov/irs/tax/payroll/medicare/employer_medicare_tax.py:3`): parameter 'gov.irs.payroll.medicare.rate.employer' outside emitted subtrees
+- **employee_payroll_tax** (`policyengine_us/variables/gov/irs/tax/payroll/employee_payroll_tax.py:5`): unbound name 'EMPLOYEE_PAYROLL_TAX_COMPONENTS'
 - **employer_medicare_tax_income_tax_revenue** (`policyengine_us/variables/gov/ssa/revenue/employer_medicare_tax_income_tax_revenue.py:14`): attribute 'simulation' on value expression
 - **employer_payroll_tax** (`policyengine_us/variables/gov/irs/tax/payroll/employer_payroll_tax.py:2`): unbound name 'EMPLOYER_PAYROLL_TAX_COMPONENTS'
-- **employer_social_security_tax** (`policyengine_us/variables/gov/irs/tax/payroll/social_security/employer_social_security_tax.py:3`): parameter 'gov.irs.payroll.social_security.rate.employer' outside emitted subtrees
 - **employer_ss_tax_income_tax_revenue** (`policyengine_us/variables/gov/ssa/revenue/employer_ss_tax_income_tax_revenue.py:14`): attribute 'simulation' on value expression
 - **employer_state_unemployment_tax** (`policyengine_us/variables/gov/states/tax/payroll/unemployment/employer_state_unemployment_tax.py:2`): unbound name 'STATE_EMPLOYER_UNEMPLOYMENT_TAX_VARIABLES'
 - **employer_state_unemployment_tax_default_rate** (`policyengine_us/variables/gov/states/tax/payroll/unemployment/employer_state_unemployment_tax_default_rate.py:2`): unrecognized call select_state_unemployment_tax_parameter
-- **employer_total_additional_state_payroll_tax** (`policyengine_us/variables/gov/states/tax/payroll/employer_total_additional_state_payroll_tax.py:12`): parameter 'gov.states.ca.tax.payroll.employment_training.employer_rate' outside emitted subtrees
-- **employer_total_medicare_tax** (`policyengine_us/variables/gov/irs/tax/payroll/medicare/employer_total_medicare_tax.py:4`): parameter 'gov.irs.payroll.medicare.rate.employer' outside emitted subtrees
+- **employer_total_additional_state_payroll_tax** (`policyengine_us/variables/gov/states/tax/payroll/employer_total_additional_state_payroll_tax.py:36`): unrecognized call select
 - **employer_total_payroll_tax** (`policyengine_us/variables/gov/irs/tax/payroll/employer_total_payroll_tax.py:2`): unbound name 'EMPLOYER_TOTAL_PAYROLL_TAX_COMPONENTS'
-- **employer_total_social_security_tax** (`policyengine_us/variables/gov/irs/tax/payroll/social_security/employer_total_social_security_tax.py:6`): parameter 'gov.irs.payroll.social_security.rate.employer' outside emitted subtrees
 - **employment_income_behavioral_response** (`policyengine_us/variables/gov/simulation/labor_supply_response/employment_income_behavioral_response.py:4`): unrecognized call earnings_before_lsr
 - **employment_income_last_year** (`policyengine_us/variables/household/income/person/employment_income_last_year.py:3`): unrecognized call employment_income_target
 - **energy_efficient_home_improvement_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_credit_limit.py:4`): add() without literal variable list
-- **energy_efficient_home_improvement_credit_potential** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_potential.py:3`): parameter 'gov.irs.credits.energy_efficient_home_improvement.in_effect' outside emitted subtrees
+- **energy_efficient_home_improvement_credit_potential** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_potential.py:10`): add() without literal variable list
 - **equiv_cbo_household_income** (`policyengine_us/variables/household/income/household/equiv_cbo_household_income.py:4`): operator Pow
 - **equiv_cbo_household_income_after_transfers_and_taxes** (`policyengine_us/variables/household/income/household/equiv_cbo_household_income_after_transfers_and_taxes.py:3`): operator Pow
 - **equiv_cbo_household_income_before_transfers_and_taxes** (`policyengine_us/variables/household/income/household/equiv_cbo_household_income_before_transfers_and_taxes.py:3`): operator Pow
 - **equiv_household_net_income** (`policyengine_us/variables/household/income/household/equiv_household_net_income.py:4`): operator Pow
-- **estate_tax_before_credits** (`policyengine_us/variables/gov/irs/tax/estate/estate_tax_before_credits.py:4`): calc() on non-scale parameter 'gov.irs.tax.estate.rate'
 - **estate_tax_credit** (`policyengine_us/variables/gov/irs/credits/estate/estate_tax_credit.py:1`): returns a non-value
-- **exemptions** (`policyengine_us/variables/gov/irs/income/taxable_income/exemptions/exemptions.py:5`): parameter 'gov.irs.income.exemption.suspended' outside emitted subtrees
-- **federal_benefit_cost** (`?:0`): adds via unknown parameter path 'gov.household.federal_benefit_cost'
+- **exemptions** (`policyengine_us/variables/gov/irs/income/taxable_income/exemptions/exemptions.py:9`): ExtRat breakdown 'gov.irs.income.exemption.phase_out.start' in value position
 - **federal_marginal_tax_rate** (`policyengine_us/variables/household/federal_marginal_tax_rate.py:2`): unrecognized call compute_component_mtr
 - **fica_marginal_tax_rate** (`policyengine_us/variables/household/fica_marginal_tax_rate.py:2`): unrecognized call compute_component_mtr
-- **fica_pre_tax_contributions** (`?:0`): adds via unknown parameter path 'gov.irs.gross_income.fica_pre_tax_contributions'
 - **filing_status** (`policyengine_us/variables/household/demographic/tax_unit/filing_status.py:7`): unrecognized call select
 - **first_county_in_state** (`policyengine_us/variables/household/demographic/geographic/county/first_county_in_state.py:6`): unsupported syntax Dict
-- **fl_chip_premium** (`policyengine_us/variables/gov/states/fl/hhs/chip/fl_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.fl.hhs.chip.premium'
-- **fl_oss** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss.py:7`): parameter 'gov.states.fl.dcf.oss.pna' outside emitted subtrees
+- **fl_chip_premium** (`policyengine_us/variables/gov/states/fl/hhs/chip/fl_chip_premium.py:5`): ExtRat scale 'gov.states.fl.hhs.chip.premium' in value position
 - **fl_oss_couple_rate_applies** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_couple_rate_applies.py:12`): attribute 'marital_unit' on value expression
-- **fl_oss_eligible** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_eligible.py:10`): parameter 'gov.states.fl.dcf.oss.protected.in_effect' outside emitted subtrees
-- **fl_oss_income_standard** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_income_standard.py:10`): parameter 'gov.states.fl.dcf.oss.redesign.income_standard_pna_offset' outside emitted subtrees
 - **fl_oss_living_arrangement** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_living_arrangement.py:4`): unbound name 'FLOSSLivingArrangement'
-- **fl_oss_max_oss** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_max_oss.py:6`): parameter 'gov.states.fl.dcf.oss.protected.in_effect' outside emitted subtrees
-- **fl_oss_provider_rate** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_provider_rate.py:6`): parameter 'gov.states.fl.dcf.oss.protected.in_effect' outside emitted subtrees
-- **fl_sr_care_level** (`policyengine_us/variables/gov/states/fl/doe/sr/rates/fl_sr_care_level.py:7`): calc() on non-scale parameter 'gov.states.fl.doe.sr.rates.care_level_age'
-- **fl_sr_copay** (`policyengine_us/variables/gov/states/fl/doe/sr/copay/fl_sr_copay.py:21`): calc() on non-scale parameter 'gov.states.fl.doe.sr.copay.smi_scale.full_time_rate'
-- **fl_sr_copay_waived** (`policyengine_us/variables/gov/states/fl/doe/sr/copay/fl_sr_copay_waived.py:18`): parameter 'gov.states.fl.doe.sr.copay.waiver.income_fpl_limit' outside emitted subtrees
+- **fl_oss_max_oss** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_max_oss.py:6`): if arm without return
+- **fl_oss_provider_rate** (`policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_provider_rate.py:6`): if arm without return
+- **fl_sr_care_level** (`policyengine_us/variables/gov/states/fl/doe/sr/rates/fl_sr_care_level.py:0`): Enum-valued formula
+- **fl_sr_copay_waived** (`policyengine_us/variables/gov/states/fl/doe/sr/copay/fl_sr_copay_waived.py:21`): person ref to non-person variable 'is_homeless'
 - **fl_sr_countable_income** (`policyengine_us/variables/gov/states/fl/doe/sr/income/fl_sr_countable_income.py:11`): add() without literal variable list
 - **fl_sr_max_daily_rate** (`policyengine_us/variables/gov/states/fl/doe/sr/rates/fl_sr_max_daily_rate.py:8`): unbound name 'period'
 - **fl_sr_smi** (`policyengine_us/variables/gov/states/fl/doe/sr/fl_sr_smi.py:6`): unbound name 'period'
-- **fl_sr_time_category** (`policyengine_us/variables/gov/states/fl/doe/sr/copay/fl_sr_time_category.py:9`): parameter 'gov.states.fl.doe.sr.copay.full_time_hours_threshold' outside emitted subtrees
-- **fl_tca** (`policyengine_us/variables/gov/states/fl/dcf/tanf/fl_tca.py:14`): parameter 'gov.states.fl.dcf.tanf.minimum_benefit' outside emitted subtrees
-- **fl_tca_200_and_half_disregard_eligible** (`policyengine_us/variables/gov/states/fl/dcf/tanf/income/fl_tca_200_and_half_disregard_eligible.py:8`): parameter 'gov.states.fl.dcf.tanf.income.disregard.standard_disregard' outside emitted subtrees
-- **fl_tca_countable_earned_income** (`policyengine_us/variables/gov/states/fl/dcf/tanf/income/fl_tca_countable_earned_income.py:9`): parameter 'gov.states.fl.dcf.tanf.income.disregard.standard_disregard' outside emitted subtrees
-- **fl_tca_gross_income_eligible** (`policyengine_us/variables/gov/states/fl/dcf/tanf/eligibility/fl_tca_gross_income_eligible.py:16`): parameter 'gov.states.fl.dcf.tanf.income.gross_test.gross_income_limit_rate' outside emitted subtrees
-- **fl_tca_max_benefit_standard** (`policyengine_us/variables/gov/states/fl/dcf/tanf/fl_tca_max_benefit_standard.py:5`): parameter 'gov.states.fl.dcf.tanf.max_family_size' outside emitted subtrees
-- **fl_tca_payment_standard** (`policyengine_us/variables/gov/states/fl/dcf/tanf/fl_tca_payment_standard.py:23`): parameter 'gov.states.fl.dcf.tanf.max_family_size' outside emitted subtrees
-- **fl_tca_resources_eligible** (`policyengine_us/variables/gov/states/fl/dcf/tanf/eligibility/fl_tca_resources_eligible.py:5`): parameter 'gov.states.fl.dcf.tanf.resources.asset_limit' outside emitted subtrees
-- **flat_tax** (`policyengine_us/variables/contrib/ubi_center/flat_tax.py:5`): parameter 'gov.contrib.ubi_center.flat_tax.rate.gross_income' outside emitted subtrees
+- **fl_sr_time_category** (`policyengine_us/variables/gov/states/fl/doe/sr/copay/fl_sr_time_category.py:10`): unbound name 'FLSRTimeCategory'
+- **fl_tca_max_benefit_standard** (`policyengine_us/variables/gov/states/fl/dcf/tanf/fl_tca_max_benefit_standard.py:6`): unsupported parameter subscript on 'gov.states.fl.dcf.tanf.payment_standard.high_shelter'
+- **fl_tca_payment_standard** (`policyengine_us/variables/gov/states/fl/dcf/tanf/fl_tca_payment_standard.py:30`): unrecognized call select
 - **fsla_overtime_occupation_exemption_category** (`policyengine_us/variables/household/income/person/fsla_overtime_occupation_exemption_category.py:3`): unrecognized call select
 - **fsla_overtime_salary_threshold** (`policyengine_us/variables/household/income/fsla_overtime_salary_threshold.py:7`): np.full_like
-- **ga_additional_standard_deduction** (`policyengine_us/variables/gov/states/ga/tax/income/deductions/ga_additional_standard_deduction.py:8`): parameter 'gov.states.ga.tax.income.deductions.standard.aged.age_threshold' outside emitted subtrees
-- **ga_additions** (`?:0`): adds via unknown parameter path 'gov.states.ga.tax.income.additions.additions'
 - **ga_caps** (`policyengine_us/variables/gov/states/ga/decal/caps/ga_caps.py:20`): unrecognized call select
-- **ga_caps_activity_eligible** (`policyengine_us/variables/gov/states/ga/decal/caps/eligibility/ga_caps_activity_eligible.py:8`): parameter 'gov.states.ga.decal.caps.activity_requirements.weekly_hours' outside emitted subtrees
 - **ga_caps_age_group** (`policyengine_us/variables/gov/states/ga/decal/caps/payment/ga_caps_age_group.py:4`): unrecognized call select
 - **ga_caps_countable_income** (`policyengine_us/variables/gov/states/ga/decal/caps/income/ga_caps_countable_income.py:5`): add() without literal variable list
-- **ga_caps_eligible_child** (`policyengine_us/variables/gov/states/ga/decal/caps/eligibility/ga_caps_eligible_child.py:9`): parameter 'gov.states.ga.decal.caps.age_threshold.disabled_child' outside emitted subtrees
-- **ga_caps_family_fee** (`policyengine_us/variables/gov/states/ga/decal/caps/copay/ga_caps_family_fee.py:7`): parameter 'gov.states.ga.decal.caps.family_fee.minor_parent_age' outside emitted subtrees
-- **ga_caps_income_eligible** (`policyengine_us/variables/gov/states/ga/decal/caps/eligibility/ga_caps_income_eligible.py:6`): parameter 'gov.states.ga.decal.caps.income.smi_rate.initial_eligibility' outside emitted subtrees
+- **ga_caps_family_fee** (`policyengine_us/variables/gov/states/ga/decal/caps/copay/ga_caps_family_fee.py:15`): np.divide
 - **ga_caps_maximum_weekly_benefit** (`policyengine_us/variables/gov/states/ga/decal/caps/payment/ga_caps_maximum_weekly_benefit.py:8`): unsupported parameter subscript on 'gov.states.ga.decal.caps.rates.center'
 - **ga_caps_zone** (`policyengine_us/variables/gov/states/ga/decal/caps/payment/ga_caps_zone.py:4`): np.isin outside enum idioms
-- **ga_cash_tip_exclusion** (`policyengine_us/variables/gov/states/ga/tax/income/ga_cash_tip_exclusion.py:29`): parameter 'gov.states.ga.tax.income.agi.exclusions.tips.cap' outside emitted subtrees
 - **ga_cdcc** (`policyengine_us/variables/gov/states/ga/tax/income/credits/cdcc/ga_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ga_cdcc_potential** (`policyengine_us/variables/gov/states/ga/tax/income/credits/cdcc/ga_cdcc_potential.py:5`): parameter 'gov.states.ga.tax.income.credits.cdcc.rate' outside emitted subtrees
-- **ga_chip_premium** (`policyengine_us/variables/gov/states/ga/hhs/chip/ga_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.ga.hhs.chip.premium.per_child'
+- **ga_chip_premium** (`policyengine_us/variables/gov/states/ga/hhs/chip/ga_chip_premium.py:5`): ExtRat scale 'gov.states.ga.hhs.chip.premium.per_child' in value position
 - **ga_ctc** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ctc/ga_ctc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ga_ctc_potential** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ctc/ga_ctc_potential.py:6`): parameter 'gov.states.ga.tax.income.credits.ctc.age_threshold' outside emitted subtrees
 - **ga_deductions** (`policyengine_us/variables/gov/states/ga/tax/income/deductions/ga_deductions.py:5`): unsupported statement AugAssign
-- **ga_exemptions** (`policyengine_us/variables/gov/states/ga/tax/income/exemptions/ga_exemptions.py:7`): parameter 'gov.states.ga.tax.income.exemptions.dependent' outside emitted subtrees
-- **ga_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/ga/tax/income/ga_income_tax_before_non_refundable_credits.py:4`): parameter 'gov.states.ga.tax.income.main.flat_applies' outside emitted subtrees
+- **ga_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/ga/tax/income/ga_income_tax_before_non_refundable_credits.py:9`): unrecognized call select
 - **ga_itemizer_credit** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ga_itemizer_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ga_itemizer_credit_potential** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ga_itemizer_credit_potential.py:7`): parameter 'gov.states.ga.tax.income.credits.itemizer.amount' outside emitted subtrees
 - **ga_low_income_credit** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ga_low_income_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ga_low_income_credit_potential** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ga_low_income_credit_potential.py:10`): parameter 'gov.states.ga.tax.income.credits.low_income.supplement_age_eligibility' outside emitted subtrees
-- **ga_military_retirement_exclusion_eligible_person** (`policyengine_us/variables/gov/states/ga/tax/income/subtractions/retirement/military/ga_military_retirement_exclusion_eligible_person.py:6`): parameter 'gov.states.ga.tax.income.agi.exclusions.military_retirement.age_limit' outside emitted subtrees
-- **ga_military_retirement_exclusion_person** (`policyengine_us/variables/gov/states/ga/tax/income/subtractions/retirement/military/ga_military_retirement_exclusion_person.py:7`): parameter 'gov.states.ga.tax.income.agi.exclusions.military_retirement.additional.earned_income_threshold' outside emitted subtrees
+- **ga_low_income_credit_potential** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ga_low_income_credit_potential.py:10`): unrecognized call (tax_unit('age_head', period) >= age_threshold).astype
 - **ga_non_refundable_credits** (`policyengine_us/variables/gov/states/ga/tax/income/ga_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **ga_qualified_overtime_exclusion** (`policyengine_us/variables/gov/states/ga/tax/income/ga_qualified_overtime_exclusion.py:24`): parameter 'gov.states.ga.tax.income.agi.exclusions.overtime.cap' outside emitted subtrees
-- **ga_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ga.tax.income.credits.refundable'
-- **ga_retirement_exclusion_countable_earned_income** (`policyengine_us/variables/gov/states/ga/tax/income/subtractions/retirement/ga_retirement_exclusion_countable_earned_income.py:7`): parameter 'gov.states.ga.tax.income.agi.exclusions.retirement.cap.earned_income' outside emitted subtrees
-- **ga_retirement_exclusion_eligible_person** (`policyengine_us/variables/gov/states/ga/tax/income/subtractions/retirement/ga_retirement_exclusion_eligible_person.py:5`): parameter 'gov.states.ga.tax.income.agi.exclusions.retirement.age_threshold.younger' outside emitted subtrees
-- **ga_retirement_exclusion_person** (`policyengine_us/variables/gov/states/ga/tax/income/subtractions/retirement/ga_retirement_exclusion_person.py:4`): parameter 'gov.states.ga.tax.income.agi.exclusions.retirement.age_threshold.older' outside emitted subtrees
 - **ga_retirement_income_exclusion_retirement_income** (`policyengine_us/variables/gov/states/ga/tax/income/subtractions/retirement/ga_retirement_income_exclusion_retirement_income.py:8`): add() without literal variable list
 - **ga_ssp_person** (`?:0`): adds list mixes parameter paths: 'gov.states.ga.dhs.ssp.amount'
-- **ga_standard_deduction** (`policyengine_us/variables/gov/states/ga/tax/income/deductions/ga_standard_deduction.py:5`): unsupported parameter subscript on 'gov.states.ga.tax.income.deductions.standard.amount'
 - **ga_subtractions** (`policyengine_us/variables/gov/states/ga/tax/income/ga_subtractions.py:3`): add() without literal variable list
-- **ga_surplus_tax_rebate** (`policyengine_us/variables/gov/states/ga/tax/income/credits/ga_surplus_tax_rebate.py:4`): unsupported parameter subscript on 'gov.states.ga.tax.income.credits.surplus_tax_rebate.amount'
-- **ga_tanf_childcare_deduction** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/income/deductions/ga_tanf_childcare_deduction.py:20`): calc() on non-scale parameter 'gov.states.ga.dfcs.tanf.income.deductions.childcare'
-- **ga_tanf_earned_income_after_disregard** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/income/ga_tanf_earned_income_after_disregard.py:8`): parameter 'gov.states.ga.dfcs.tanf.income.deductions.work_expense' outside emitted subtrees
-- **ga_tanf_family_maximum** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/benefit_standards/ga_tanf_family_maximum.py:9`): parameter 'gov.states.ga.dfcs.tanf.financial_standards.max_table_size' outside emitted subtrees
-- **ga_tanf_gross_income_ceiling** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/benefit_standards/ga_tanf_gross_income_ceiling.py:8`): parameter 'gov.states.ga.dfcs.tanf.financial_standards.gross_income_ceiling_rate' outside emitted subtrees
-- **ga_tanf_resources_eligible** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/eligibility/ga_tanf_resources_eligible.py:8`): parameter 'gov.states.ga.dfcs.tanf.resources.limit' outside emitted subtrees
-- **ga_tanf_standard_of_need** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/benefit_standards/ga_tanf_standard_of_need.py:9`): parameter 'gov.states.ga.dfcs.tanf.financial_standards.max_table_size' outside emitted subtrees
+- **ga_tanf_family_maximum** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/benefit_standards/ga_tanf_family_maximum.py:10`): unsupported parameter subscript on 'gov.states.ga.dfcs.tanf.financial_standards.family_maximum.base'
+- **ga_tanf_standard_of_need** (`policyengine_us/variables/gov/states/ga/dfcs/tanf/benefit_standards/ga_tanf_standard_of_need.py:10`): unsupported parameter subscript on 'gov.states.ga.dfcs.tanf.financial_standards.standard_of_need.base'
 - **ga_withheld_income_tax** (`policyengine_us/variables/gov/states/ga/tax/income/ga_withheld_income_tax.py:5`): non-value handle used as value
 - **gross_medicare_part_b_premium** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_b/gross_medicare_part_b_premium.py:2`): attribute 'tax_unit' on value expression
 - **has_chip_disqualifying_health_coverage** (`policyengine_us/variables/gov/hhs/chip/has_chip_disqualifying_health_coverage.py:3`): add() without literal variable list
 - **has_qdiv_or_ltcg** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/has_qdiv_or_ltcg.py:10`): np.any
 - **has_tin** (`policyengine_us/variables/household/demographic/person/has_tin.py:2`): attribute 'simulation' on value expression
-- **head_start** (`policyengine_us/variables/gov/hhs/head_start/head_start.py:4`): unsupported parameter subscript on 'gov.hhs.head_start.spending'
+- **head_start** (`policyengine_us/variables/gov/hhs/head_start/head_start.py:7`): np.zeros_like
 - **hhs_smi** (`policyengine_us/variables/gov/hhs/hhs_smi.py:3`): person ref to non-person variable 'state_code_str'
 - **hi_act_115_rebate** (`policyengine_us/variables/gov/states/hi/tax/income/credits/hi_act_115_rebate.py:6`): unrecognized call select
-- **hi_additions** (`?:0`): adds via unknown parameter path 'gov.states.hi.tax.income.additions.additions'
 - **hi_alternative_tax_on_capital_gains** (`policyengine_us/variables/gov/states/hi/tax/income/alternative_tax/hi_alternative_tax_on_capital_gains.py:10`): unrecognized call select
-- **hi_alternative_tax_on_capital_gains_eligible** (`policyengine_us/variables/gov/states/hi/tax/income/alternative_tax/hi_alternative_tax_on_capital_gains_eligible.py:4`): parameter 'gov.states.hi.tax.income.alternative_tax.availability' outside emitted subtrees
-- **hi_casualty_loss_deduction** (`policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_casualty_loss_deduction.py:11`): parameter 'gov.irs.deductions.itemized.casualty.floor' outside emitted subtrees
 - **hi_ccap_age_group** (`policyengine_us/variables/gov/states/hi/bessd/ccap/hi_ccap_age_group.py:7`): unrecognized call select
 - **hi_ccap_authorized_activity_hours** (`policyengine_us/variables/gov/states/hi/bessd/ccap/hi_ccap_authorized_activity_hours.py:14`): unbound name 'np'
-- **hi_ccap_copay_rate** (`policyengine_us/variables/gov/states/hi/bessd/ccap/copay/hi_ccap_copay_rate.py:11`): calc() on non-scale parameter 'gov.states.hi.bessd.ccap.copay.rate'
 - **hi_ccap_countable_income** (`policyengine_us/variables/gov/states/hi/bessd/ccap/hi_ccap_countable_income.py:4`): add() without literal variable list
-- **hi_ccap_eligible_child** (`policyengine_us/variables/gov/states/hi/bessd/ccap/eligibility/hi_ccap_eligible_child.py:5`): parameter 'gov.states.hi.bessd.ccap.age.child_limit' outside emitted subtrees
 - **hi_ccap_hours_tier** (`policyengine_us/variables/gov/states/hi/bessd/ccap/hi_ccap_hours_tier.py:10`): unbound name 'HICCAPProviderCategory'
 - **hi_ccap_income_eligible** (`policyengine_us/variables/gov/states/hi/bessd/ccap/eligibility/hi_ccap_income_eligible.py:5`): person ref to non-person variable 'state_code_str'
 - **hi_ccap_maximum_monthly_rate** (`policyengine_us/variables/gov/states/hi/bessd/ccap/hi_ccap_maximum_monthly_rate.py:6`): unsupported parameter subscript on 'gov.states.hi.bessd.ccap.rates.rates'
-- **hi_cdcc** (`policyengine_us/variables/gov/states/hi/tax/income/credits/cdcc/hi_cdcc.py:16`): calc() on non-scale parameter 'gov.states.hi.tax.income.credits.cdcc.rate'
 - **hi_cdcc_min_head_spouse_earned** (`policyengine_us/variables/gov/states/hi/tax/income/credits/cdcc/dependent_care_benefit/hi_cdcc_min_head_spouse_earned.py:8`): person ref to non-person variable 'count_cdcc_eligible'
-- **hi_deductions** (`policyengine_us/variables/gov/states/hi/tax/income/deductions/hi_deductions.py:11`): unsupported parameter subscript on 'gov.states.hi.tax.income.deductions.itemized.threshold.deductions'
-- **hi_dependent_care_benefits** (`policyengine_us/variables/gov/states/hi/tax/income/credits/cdcc/dependent_care_benefit/hi_dependent_care_benefits.py:31`): unsupported parameter subscript on 'gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount'
-- **hi_disabled_exemptions** (`policyengine_us/variables/gov/states/hi/tax/income/exemptions/hi_disabled_exemptions.py:11`): parameter 'gov.states.hi.tax.income.exemptions.base' outside emitted subtrees
 - **hi_eitc** (`policyengine_us/variables/gov/states/hi/tax/income/credits/hi_eitc.py:2`): unbound name 'period'
-- **hi_eitc_potential** (`policyengine_us/variables/gov/states/hi/tax/income/credits/hi_eitc_potential.py:4`): parameter 'gov.states.hi.tax.income.credits.eitc.match' outside emitted subtrees
 - **hi_food_excise_credit_child_receiving_public_support** (`policyengine_us/variables/gov/states/hi/tax/income/credits/food_excise/hi_food_excise_credit_child_receiving_public_support.py:11`): np.zeros_like
-- **hi_food_excise_credit_minor_child_amount** (`policyengine_us/variables/gov/states/hi/tax/income/credits/food_excise/hi_food_excise_credit_minor_child_amount.py:4`): parameter 'gov.states.hi.tax.income.credits.food_excise_tax.minor_child.amount' outside emitted subtrees
-- **hi_food_excise_credit_minor_child_count** (`policyengine_us/variables/gov/states/hi/tax/income/credits/food_excise/hi_food_excise_credit_minor_child_count.py:8`): parameter 'gov.states.hi.tax.income.credits.food_excise_tax.minor_child.age_threshold' outside emitted subtrees
 - **hi_food_excise_exemption_amount** (`policyengine_us/variables/gov/states/hi/tax/income/credits/food_excise/hi_food_excise_exemption_amount.py:15`): unrecognized call select
 - **hi_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/hi/tax/income/hi_income_tax_before_non_refundable_credits.py:8`): unrecognized call select
 - **hi_itemized_deductions** (`policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_itemized_deductions.py:11`): unsupported parameter subscript on 'gov.irs.deductions.itemized.limitation.applicable_amount'
-- **hi_medical_expense_deduction** (`policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_medical_expense_deduction.py:8`): parameter 'gov.irs.deductions.itemized.medical.floor' outside emitted subtrees
-- **hi_military_pay_exclusion** (`policyengine_us/variables/gov/states/hi/tax/income/subtractions/hi_military_pay_exclusion.py:5`): parameter 'gov.states.hi.tax.income.subtractions.military_pay.cap' outside emitted subtrees
 - **hi_modified_agi** (`policyengine_us/variables/gov/states/hi/tax/income/subtractions/hi_student_loan_interest_adjustment.py:8`): unsupported syntax ListComp
 - **hi_non_refundable_credits** (`policyengine_us/variables/gov/states/hi/tax/income/hi_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **hi_oss_couple_rate_applies** (`policyengine_us/variables/gov/states/hi/dhs/oss/hi_oss_couple_rate_applies.py:5`): attribute 'marital_unit' on value expression
 - **hi_oss_eligible** (`policyengine_us/variables/gov/states/hi/dhs/oss/hi_oss_eligible.py:9`): unbound name 'HIOSSLivingArrangement'
 - **hi_oss_living_arrangement** (`policyengine_us/variables/gov/states/hi/dhs/oss/hi_oss_living_arrangement.py:7`): unbound name 'HIOSSLivingArrangement'
-- **hi_oss_payment_amount** (`policyengine_us/variables/gov/states/hi/dhs/oss/hi_oss_payment_amount.py:7`): unsupported parameter subscript on 'gov.states.hi.dhs.oss.payment.couple.amount'
-- **hi_reduced_itemized_deductions** (`policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_reduced_itemized_deductions.py:20`): parameter 'gov.irs.deductions.itemized.limitation.itemized_deduction_rate' outside emitted subtrees
-- **hi_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.hi.tax.income.credits.refundable'
-- **hi_regular_exemptions** (`policyengine_us/variables/gov/states/hi/tax/income/exemptions/hi_regular_exemptions.py:7`): parameter 'gov.states.hi.tax.income.exemptions.aged_threshold' outside emitted subtrees
-- **hi_standard_deduction** (`policyengine_us/variables/gov/states/hi/tax/income/deductions/standard/hi_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.hi.tax.income.deductions.standard.amount'
-- **hi_student_loan_interest_adjustment** (`policyengine_us/variables/gov/states/hi/tax/income/subtractions/hi_student_loan_interest_adjustment.py:5`): parameter 'gov.states.hi.tax.income.subtractions.student_loan_interest.in_effect' outside emitted subtrees
-- **hi_student_loan_interest_deduction** (`policyengine_us/variables/gov/states/hi/tax/income/subtractions/hi_student_loan_interest_adjustment.py:7`): parameter 'gov.states.hi.tax.income.subtractions.student_loan_interest.in_effect' outside emitted subtrees
+- **hi_reduced_itemized_deductions** (`policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_reduced_itemized_deductions.py:0`): type error: cannot coerce ext to rat at ParamValue
+- **hi_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.hi.tax.income.credits.refundable'
+- **hi_student_loan_interest_adjustment** (`policyengine_us/variables/gov/states/hi/tax/income/subtractions/hi_student_loan_interest_adjustment.py:9`): unrecognized call tax_unit.members
 - **hi_subtractions** (`policyengine_us/variables/gov/states/hi/tax/income/hi_subtractions.py:3`): add() without literal variable list
-- **hi_tanf_countable_earned_income_person** (`policyengine_us/variables/gov/states/hi/dhs/tanf/income/earned/hi_tanf_countable_earned_income_person.py:8`): parameter 'gov.states.hi.dhs.tanf.deductions.standard_rate' outside emitted subtrees
-- **hi_tanf_dependent_care_deduction** (`policyengine_us/variables/gov/states/hi/dhs/tanf/income/hi_tanf_dependent_care_deduction.py:26`): calc() on non-scale parameter 'gov.states.hi.dhs.tanf.deductions.dependent_care.amount'
-- **hi_tanf_gross_income_eligible** (`policyengine_us/variables/gov/states/hi/dhs/tanf/eligibility/hi_tanf_gross_income_eligible.py:8`): parameter 'gov.states.hi.dhs.tanf.max_unit_size' outside emitted subtrees
-- **hi_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/hi/dhs/tanf/hi_tanf_maximum_benefit.py:5`): parameter 'gov.states.hi.dhs.tanf.max_unit_size' outside emitted subtrees
-- **hi_tax_credit_for_low_income_household_renters** (`policyengine_us/variables/gov/states/hi/tax/income/credits/hi_low_income_household_renters/hi_low_income_household_renters_tax_credit.py:5`): parameter 'gov.states.hi.tax.income.credits.lihrtc.aged_age_threshold' outside emitted subtrees
-- **hi_tax_credit_for_low_income_household_renters_eligible** (`policyengine_us/variables/gov/states/hi/tax/income/credits/hi_low_income_household_renters/hi_tax_credit_for_low_income_household_renters_eligible.py:7`): parameter 'gov.states.hi.tax.income.credits.lihrtc.eligibility.rent_threshold' outside emitted subtrees
+- **hi_tanf_gross_income_eligible** (`policyengine_us/variables/gov/states/hi/dhs/tanf/eligibility/hi_tanf_gross_income_eligible.py:9`): unsupported parameter subscript on 'gov.states.hi.dhs.tanf.standard_of_need.amount'
+- **hi_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/hi/dhs/tanf/hi_tanf_maximum_benefit.py:8`): unsupported parameter subscript on 'gov.states.hi.dhs.tanf.standard_of_need.amount'
+- **hi_tax_credit_for_low_income_household_renters** (`policyengine_us/variables/gov/states/hi/tax/income/credits/hi_low_income_household_renters/hi_low_income_household_renters_tax_credit.py:5`): unrecognized call (tax_unit('age_head', period) >= p.aged_age_threshold).astype
 - **hi_taxable_income_for_alternative_tax** (`policyengine_us/variables/gov/states/hi/tax/income/alternative_tax/hi_taxable_income_for_alternative_tax.py:16`): unsupported parameter subscript on 'gov.states.hi.tax.income.rates.single.thresholds'
-- **hi_total_itemized_deductions** (`?:0`): adds via unknown parameter path 'gov.states.hi.tax.income.deductions.itemized.sources'
 - **hi_withheld_income_tax** (`policyengine_us/variables/gov/states/hi/tax/income/hi_withheld_income_tax.py:5`): non-value handle used as value
-- **high_efficiency_electric_home_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/high_efficiency_electric_home_rebate.py:4`): parameter 'gov.doe.high_efficiency_electric_home_rebate.elements' outside emitted subtrees
-- **high_efficiency_electric_home_rebate_percent_covered** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/high_efficiency_electric_home_rebate_percent_covered.py:4`): calc() on non-scale parameter 'gov.doe.high_efficiency_electric_home_rebate.percent_covered'
+- **high_efficiency_electric_home_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/high_efficiency_electric_home_rebate.py:4`): non-value handle used as value
+- **high_efficiency_electric_home_rebate_percent_covered** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/high_efficiency_electric_home_rebate_percent_covered.py:4`): ExtRat scale 'gov.doe.high_efficiency_electric_home_rebate.percent_covered' in value position
 - **home_mortgage_interest_share** (`policyengine_us/variables/household/expense/person/home_mortgage_interest_share.py:6`): np.zeros_like
 - **household_benefits** (`policyengine_us/variables/household/income/household/household_benefits.py:2`): unrecognized call list
 - **household_count_people** (`policyengine_us/variables/household/income/household/household_count_people.py:2`): unrecognized call household.nb_persons
-- **household_health_benefits** (`policyengine_us/variables/household/income/household/household_health_benefits.py:3`): parameter 'gov.simulation.include_health_benefits_in_net_income' outside emitted subtrees
-- **household_health_costs** (`policyengine_us/variables/household/income/household/household_health_costs.py:3`): parameter 'gov.simulation.include_health_benefits_in_net_income' outside emitted subtrees
+- **household_health_benefits** (`policyengine_us/variables/household/income/household/household_health_benefits.py:4`): add() without literal variable list
+- **household_health_costs** (`policyengine_us/variables/household/income/household/household_health_costs.py:4`): add() without literal variable list
 - **household_income_decile** (`policyengine_us/variables/household/income/household/household_income_decile.py:5`): unrecognized call MicroSeries
-- **household_local_benefits** (`?:0`): adds via unknown parameter path 'gov.household.household_local_benefits'
-- **household_market_income** (`?:0`): adds via unknown parameter path 'gov.household.market_income_sources'
-- **household_refundable_state_tax_credits** (`?:0`): adds via unknown parameter path 'gov.household.household_refundable_state_credits'
 - **household_size** (`policyengine_us/variables/household/demographic/household/household_size.py:2`): unrecognized call household.nb_persons
-- **household_state_benefits** (`?:0`): adds via unknown parameter path 'gov.household.household_state_benefits'
+- **household_state_benefits** (`?:0`): adds via DATED parameter list 'gov.household.household_state_benefits'
 - **household_state_income_tax** (`policyengine_us/variables/household/income/household/household_state_income_tax.py:7`): person ref to non-person variable 'state_code'
-- **housing_assistance** (`policyengine_us/variables/gov/hud/housing_assistance.py:2`): parameter 'gov.hud.abolition' outside emitted subtrees
-- **hud_adjusted_income** (`policyengine_us/variables/gov/hud/hud_adjusted_income.py:30`): parameter 'gov.hud.adjusted_income.deductions.moop.threshold' outside emitted subtrees
-- **hud_countable_earned_income** (`policyengine_us/variables/gov/hud/income/hud_countable_earned_income.py:17`): parameter 'gov.hud.adjusted_income.deductions.dependent.amount' outside emitted subtrees
-- **hud_earned_income** (`?:0`): adds via unknown parameter path 'gov.hud.annual_income.sources.earned'
 - **hud_especially_low_income_factor** (`policyengine_us/variables/gov/hud/income_level_factor/hud_especially_low_income_factor.py:4`): non-simple assignment target
 - **hud_extremely_low_income_limit** (`policyengine_us/variables/gov/hud/hud_extremely_low_income_limit.py:2`): person ref to non-person variable 'county_fips'
 - **hud_fair_market_rent** (`policyengine_us/variables/gov/hud/hud_fair_market_rent.py:4`): np.clip
@@ -914,198 +500,103 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **hud_max_subsidy** (`policyengine_us/variables/gov/hud/hud_max_subsidy.py:3`): person ref to non-person variable 'pha_payment_standard'
 - **hud_moderate_income_factor** (`policyengine_us/variables/gov/hud/income_level_factor/hud_moderate_income_factor.py:4`): non-simple assignment target
 - **hud_ttp** (`policyengine_us/variables/gov/hud/ttp/hud_ttp.py:3`): unbound name 'max_'
-- **hud_ttp_adjusted_income_share** (`policyengine_us/variables/gov/hud/ttp/hud_ttp_adjusted_income_share.py:4`): parameter 'gov.hud.total_tenant_payment.adjusted_income_share' outside emitted subtrees
-- **hud_ttp_income_share** (`policyengine_us/variables/gov/hud/ttp/hud_ttp_income_share.py:4`): parameter 'gov.hud.total_tenant_payment.income_share' outside emitted subtrees
-- **hud_unearned_income** (`?:0`): adds via unknown parameter path 'gov.hud.annual_income.sources.unearned'
 - **hud_utility_allowance** (`policyengine_us/variables/gov/hud/hud_utility_allowance.py:15`): unbound name 'SRO_BEDROOMS'
 - **hud_very_low_income_factor** (`policyengine_us/variables/gov/hud/income_level_factor/hud_very_low_income_factor.py:4`): non-simple assignment target
 - **hud_very_low_income_limit** (`policyengine_us/variables/gov/hud/hud_very_low_income_limit.py:2`): person ref to non-person variable 'county_fips'
-- **ia_529_plan_subtraction** (`policyengine_us/variables/gov/states/ia/tax/income/subtractions/ia_529_plan_subtraction.py:9`): parameter 'gov.states.ia.tax.income.subtractions.plan_529.cap' outside emitted subtrees
-- **ia_additions_consolidated** (`?:0`): adds via unknown parameter path 'gov.states.ia.tax.income.taxable_income.additions'
 - **ia_agi** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ia_alternate_tax_consolidated** (`policyengine_us/variables/gov/states/ia/tax/income/consolidated/ia_alternate_tax_consolidated.py:7`): parameter 'gov.states.ia.tax.income.alternate_tax.elderly_age' outside emitted subtrees
-- **ia_alternate_tax_unit** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/alternate_tax/ia_alternate_tax_unit.py:5`): parameter 'gov.states.ia.tax.income.alternate_tax.elderly_age' outside emitted subtrees
-- **ia_amt_indiv** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_amt_indiv.py:5`): parameter 'gov.states.ia.tax.income.alternative_minimum_tax.in_effect' outside emitted subtrees
-- **ia_amt_joint** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_amt_joint.py:5`): parameter 'gov.states.ia.tax.income.alternative_minimum_tax.in_effect' outside emitted subtrees
-- **ia_cca_activity_eligible** (`policyengine_us/variables/gov/states/ia/hhs/cca/eligibility/ia_cca_activity_eligible.py:9`): parameter 'gov.states.ia.hhs.cca.activity_requirements.weekly_hours_special_needs' outside emitted subtrees
-- **ia_cca_age_group** (`policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca_age_group.py:8`): calc() on non-scale parameter 'gov.states.ia.hhs.cca.age_group.age_group'
-- **ia_cca_asset_eligible** (`policyengine_us/variables/gov/states/ia/hhs/cca/eligibility/ia_cca_asset_eligible.py:8`): parameter 'gov.states.ia.hhs.cca.eligibility.asset_limit' outside emitted subtrees
+- **ia_amt_indiv** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_amt_indiv.py:19`): unrecognized call select
+- **ia_cca_activity_eligible** (`policyengine_us/variables/gov/states/ia/hhs/cca/eligibility/ia_cca_activity_eligible.py:17`): unrecognized call spm_unit.project
+- **ia_cca_age_group** (`policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca_age_group.py:0`): Enum-valued formula
 - **ia_cca_copay** (`policyengine_us/variables/gov/states/ia/hhs/cca/copay/ia_cca_copay.py:14`): unrecognized call clip(children_in_care, 1, 3).astype
-- **ia_cca_countable_income** (`policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca_countable_income.py:14`): parameter 'gov.states.ia.hhs.cca.income.minor_earnings_age' outside emitted subtrees
-- **ia_cca_eligible_child** (`policyengine_us/variables/gov/states/ia/hhs/cca/eligibility/ia_cca_eligible_child.py:9`): parameter 'gov.states.ia.hhs.cca.eligibility.special_needs_age_limit' outside emitted subtrees
+- **ia_cca_countable_income** (`policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca_countable_income.py:17`): add() without literal variable list
 - **ia_cca_exit_fee_level** (`policyengine_us/variables/gov/states/ia/hhs/cca/copay/ia_cca_exit_fee_level.py:5`): unrecognized call clip(size, 1, 13).astype
-- **ia_cca_in_exit_tier** (`policyengine_us/variables/gov/states/ia/hhs/cca/copay/ia_cca_in_exit_tier.py:13`): parameter 'gov.states.ia.hhs.cca.income.fpl_rate.plus_basic' outside emitted subtrees
-- **ia_cca_income_eligible** (`policyengine_us/variables/gov/states/ia/hhs/cca/eligibility/ia_cca_income_eligible.py:14`): parameter 'gov.states.ia.hhs.cca.income.fpl_rate.initial_special_needs' outside emitted subtrees
 - **ia_cca_max_rate** (`policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca_max_rate.py:7`): unsupported parameter subscript on 'gov.states.ia.hhs.cca.payment.rates.licensed_center'
 - **ia_cca_monthly_units** (`policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca_monthly_units.py:15`): unrecognized call select
 - **ia_cca_sliding_fee_level** (`policyengine_us/variables/gov/states/ia/hhs/cca/copay/ia_cca_sliding_fee_level.py:9`): unrecognized call clip(size, 1, 13).astype
 - **ia_cca_smi** (`policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca_smi.py:8`): unbound name 'period'
-- **ia_cdcc** (`policyengine_us/variables/gov/states/ia/tax/income/credits/ia_cdcc.py:8`): calc() on non-scale parameter 'gov.states.ia.tax.income.credits.child_care.fraction'
-- **ia_chip_premium** (`policyengine_us/variables/gov/states/ia/hhs/chip/ia_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.ia.hhs.chip.premium.per_child'
-- **ia_eitc** (`policyengine_us/variables/gov/states/ia/tax/income/credits/ia_eitc.py:4`): parameter 'gov.states.ia.tax.income.credits.earned_income.fraction' outside emitted subtrees
-- **ia_exemption_credit** (`policyengine_us/variables/gov/states/ia/tax/income/credits/ia_exemption_credit.py:11`): parameter 'gov.states.ia.tax.income.credits.exemption.elderly_age' outside emitted subtrees
+- **ia_cdcc** (`policyengine_us/variables/gov/states/ia/tax/income/credits/ia_cdcc.py:8`): ExtRat scale 'gov.states.ia.tax.income.credits.child_care.fraction' in value position
+- **ia_chip_premium** (`policyengine_us/variables/gov/states/ia/hhs/chip/ia_chip_premium.py:5`): ExtRat scale 'gov.states.ia.hhs.chip.premium.per_child' in value position
+- **ia_exemption_credit** (`policyengine_us/variables/gov/states/ia/tax/income/credits/ia_exemption_credit.py:13`): unrecognized call elder_head.astype
 - **ia_fedtax_deduction** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/deductions/ia_fedtax_deduction.py:9`): if arm without return
-- **ia_files_separately** (`policyengine_us/variables/gov/states/ia/tax/income/ia_files_separately.py:5`): parameter 'gov.states.ia.tax.income.married_filing_separately_on_same_return.availability' outside emitted subtrees
-- **ia_fip_countable_earned_income** (`policyengine_us/variables/gov/states/ia/dhs/fip/income/ia_fip_countable_earned_income.py:4`): parameter 'gov.states.ia.dhs.fip.income.earned_income_deduction' outside emitted subtrees
-- **ia_fip_gross_income_eligible** (`policyengine_us/variables/gov/states/ia/dhs/fip/eligibility/ia_fip_gross_income_eligible.py:5`): parameter 'gov.states.ia.dhs.fip.income.gross_income_limit_percent' outside emitted subtrees
-- **ia_fip_net_income_eligible** (`policyengine_us/variables/gov/states/ia/dhs/fip/eligibility/ia_fip_net_income_eligible.py:9`): parameter 'gov.states.ia.dhs.fip.income.earned_income_deduction' outside emitted subtrees
-- **ia_fip_payment_standard** (`policyengine_us/variables/gov/states/ia/dhs/fip/ia_fip_payment_standard.py:4`): parameter 'gov.states.ia.dhs.fip.max_unit_size' outside emitted subtrees
-- **ia_fip_resources_eligible** (`policyengine_us/variables/gov/states/ia/dhs/fip/eligibility/ia_fip_resources_eligible.py:6`): parameter 'gov.states.ia.dhs.fip.resources.recipient_limit' outside emitted subtrees
-- **ia_fip_standard_of_need** (`policyengine_us/variables/gov/states/ia/dhs/fip/ia_fip_standard_of_need.py:4`): parameter 'gov.states.ia.dhs.fip.max_unit_size' outside emitted subtrees
-- **ia_gross_income** (`?:0`): adds via unknown parameter path 'gov.states.ia.tax.income.gross_income.sources'
-- **ia_income_adjustments** (`?:0`): adds via unknown parameter path 'gov.states.ia.tax.income.income_adjustments.sources'
-- **ia_income_tax_before_credits** (`policyengine_us/variables/gov/states/ia/tax/income/ia_income_tax_before_credits.py:5`): parameter 'gov.states.ia.tax.income.married_filing_separately_on_same_return.availability' outside emitted subtrees
-- **ia_is_tax_exempt** (`policyengine_us/variables/gov/states/ia/tax/income/ia_is_tax_exempt.py:5`): parameter 'gov.states.ia.tax.income.tax_exempt.elderly_age' outside emitted subtrees
+- **ia_fip_payment_standard** (`policyengine_us/variables/gov/states/ia/dhs/fip/ia_fip_payment_standard.py:4`): unrecognized call min_(people, p.max_unit_size).astype
+- **ia_fip_standard_of_need** (`policyengine_us/variables/gov/states/ia/dhs/fip/ia_fip_standard_of_need.py:4`): unrecognized call min_(people, p.max_unit_size).astype
 - **ia_itemized_deductions** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ia_itemized_deductions_unit** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/deductions/ia_itemized_deductions_unit.py:11`): parameter 'gov.states.ia.tax.income.deductions.itemized.applies_federal' outside emitted subtrees
-- **ia_modified_income** (`?:0`): adds via unknown parameter path 'gov.states.ia.tax.income.modified_income.sources'
-- **ia_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ia.tax.income.credits.nonrefundable'
-- **ia_pension_exclusion** (`policyengine_us/variables/gov/states/ia/tax/income/net_income/ia_pension_exclusion.py:6`): unsupported parameter subscript on 'gov.states.ia.tax.income.pension_exclusion.maximum_amount'
-- **ia_pension_exclusion_eligible** (`policyengine_us/variables/gov/states/ia/tax/income/net_income/ia_pension_exclusion_eligible.py:5`): parameter 'gov.states.ia.tax.income.pension_exclusion.minimum_age' outside emitted subtrees
+- **ia_itemized_deductions_unit** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/deductions/ia_itemized_deductions_unit.py:13`): add() without literal variable list
+- **ia_modified_income** (`?:0`): adds via DATED parameter list 'gov.states.ia.tax.income.modified_income.sources'
+- **ia_pension_exclusion** (`policyengine_us/variables/gov/states/ia/tax/income/net_income/ia_pension_exclusion.py:6`): ExtRat breakdown 'gov.states.ia.tax.income.pension_exclusion.maximum_amount' in value position
 - **ia_prorate_fraction** (`policyengine_us/variables/gov/states/ia/tax/income/net_income/ia_prorate_fraction.py:5`): np.zeros_like
 - **ia_qbi_deduction** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/deductions/ia_qbi_deduction.py:3`): attribute 'tax_unit' on value expression
-- **ia_reduced_tax** (`policyengine_us/variables/gov/states/ia/tax/income/ia_reduced_tax.py:5`): parameter 'gov.states.ia.tax.income.tax_reduction.elderly_age' outside emitted subtrees
-- **ia_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ia.tax.income.credits.refundable'
+- **ia_reduced_tax** (`policyengine_us/variables/gov/states/ia/tax/income/ia_reduced_tax.py:13`): unbound name 'np'
 - **ia_regular_tax_consolidated** (`policyengine_us/variables/gov/states/ia/tax/income/consolidated/ia_regular_tax_consolidated.py:8`): calc() on non-scale parameter 'gov.states.ia.tax.income.rates.by_filing_status.joint'
-- **ia_regular_tax_indiv** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_regular_tax_indiv.py:4`): parameter 'gov.states.ia.tax.income.rates.by_filing_status.active' outside emitted subtrees
-- **ia_regular_tax_joint** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_regular_tax_joint.py:4`): parameter 'gov.states.ia.tax.income.rates.by_filing_status.active' outside emitted subtrees
-- **ia_reportable_social_security** (`policyengine_us/variables/gov/states/ia/tax/income/ia_reportable_social_security.py:10`): unsupported parameter subscript on 'gov.states.ia.tax.income.reportable_social_security.deduction'
+- **ia_regular_tax_indiv** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_regular_tax_indiv.py:12`): calc() on non-scale parameter 'gov.states.ia.tax.income.rates.by_filing_status.joint'
+- **ia_regular_tax_joint** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_regular_tax_joint.py:12`): calc() on non-scale parameter 'gov.states.ia.tax.income.rates.by_filing_status.joint'
 - **ia_standard_deduction** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **ia_standard_deduction_indiv** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/deductions/ia_standard_deduction_indiv.py:4`): unrecognized call select
-- **ia_standard_deduction_joint** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/deductions/ia_standard_deduction_joint.py:6`): parameter 'gov.states.ia.tax.income.deductions.standard.applies_federal' outside emitted subtrees
+- **ia_standard_deduction_joint** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/deductions/ia_standard_deduction_joint.py:6`): if arm without return
 - **ia_subtractions_consolidated** (`policyengine_us/variables/gov/states/ia/tax/income/consolidated/taxable_income/ia_subtractions_consolidated.py:3`): add() without literal variable list
 - **ia_taxable_income** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **ia_taxable_income_indiv** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_taxable_income_indiv.py:4`): unsupported syntax ListComp
 - **ia_taxable_income_joint** (`policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_taxable_income_joint.py:8`): unsupported syntax ListComp
-- **ia_withheld_income_tax** (`policyengine_us/variables/gov/states/ia/tax/income/ia_withheld_income_tax.py:5`): parameter 'gov.states.ia.tax.income.deductions.standard.applies_federal' outside emitted subtrees
+- **ia_withheld_income_tax** (`policyengine_us/variables/gov/states/ia/tax/income/ia_withheld_income_tax.py:7`): non-value handle used as value
 - **id_2022_rebate** (`policyengine_us/variables/gov/states/id/tax/income/credits/2022_rebate/id_2022_rebate.py:2`): non-value handle used as value
 - **id_2022_rebate_floor** (`?:0`): adds list mixes parameter paths: 'gov.states.id.tax.income.credits.2022_rebate.floor'
-- **id_529_plan_subtraction** (`policyengine_us/variables/gov/states/id/tax/income/subtractions/id_529_plan_subtraction.py:5`): unsupported parameter subscript on 'gov.states.id.tax.income.subtractions.plan_529.cap'
 - **id_aabd** (`policyengine_us/variables/gov/states/id/dhw/aabd/id_aabd.py:4`): unbound name 'IDAAbdLivingArrangement'
 - **id_aabd_eligible** (`policyengine_us/variables/gov/states/id/dhw/aabd/id_aabd_eligible.py:4`): unbound name 'IDAAbdLivingArrangement'
-- **id_aged_or_disabled_credit** (`policyengine_us/variables/gov/states/id/tax/income/credits/id_aged_or_disabled_credit.py:8`): parameter 'gov.states.id.tax.income.credits.aged_or_disabled.person_cap' outside emitted subtrees
-- **id_aged_or_disabled_credit_eligible_person** (`policyengine_us/variables/gov/states/id/tax/income/credits/id_aged_or_disabled_credit_eligible_person.py:6`): parameter 'gov.states.id.tax.income.subtractions.aged_or_disabled.age_threshold' outside emitted subtrees
-- **id_aged_or_disabled_deduction** (`policyengine_us/variables/gov/states/id/tax/income/subtractions/id_aged_or_disabled_deduction.py:10`): parameter 'gov.states.id.tax.income.subtractions.aged_or_disabled.person_cap' outside emitted subtrees
-- **id_aged_or_disabled_deduction_eligible_person** (`policyengine_us/variables/gov/states/id/tax/income/subtractions/id_aged_or_disabled_deduction_eligible_person.py:6`): parameter 'gov.states.id.tax.income.subtractions.aged_or_disabled.age_threshold' outside emitted subtrees
-- **id_capital_gains_deduction** (`policyengine_us/variables/gov/states/id/tax/income/deductions/id_capital_gains_deduction.py:10`): parameter 'gov.states.id.tax.income.deductions.capital_gains.percentage' outside emitted subtrees
 - **id_cdcc_limit** (`policyengine_us/variables/gov/states/id/tax/income/subtractions/household_and_dependent_care/id_cdcc_limit.py:2`): unbound name 'period'
-- **id_chip_premium** (`policyengine_us/variables/gov/states/id/hhs/chip/id_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.id.hhs.chip.premium.per_child'
-- **id_ctc** (`policyengine_us/variables/gov/states/id/tax/income/credits/id_ctc.py:8`): parameter 'gov.states.id.tax.income.credits.ctc.amount' outside emitted subtrees
-- **id_grocery_credit** (`policyengine_us/variables/gov/states/id/tax/income/credits/grocery/id_grocery_credit.py:5`): parameter 'gov.states.id.tax.income.credits.grocery.aged.in_effect' outside emitted subtrees
-- **id_grocery_credit_aged** (`policyengine_us/variables/gov/states/id/tax/income/credits/grocery/id_grocery_credit_aged.py:5`): parameter 'gov.states.id.tax.income.credits.grocery.aged.age_threshold' outside emitted subtrees
+- **id_chip_premium** (`policyengine_us/variables/gov/states/id/hhs/chip/id_chip_premium.py:5`): ExtRat scale 'gov.states.id.hhs.chip.premium.per_child' in value position
+- **id_grocery_credit** (`policyengine_us/variables/gov/states/id/tax/income/credits/grocery/id_grocery_credit.py:5`): if arm without return
 - **id_grocery_credit_base** (`policyengine_us/variables/gov/states/id/tax/income/credits/grocery/id_grocery_credit_base.py:1`): returns a non-value
 - **id_grocery_credit_qualified_months** (`policyengine_us/variables/gov/states/id/tax/income/credits/grocery/eligible/id_grocery_credit_qualified_months.py:3`): unbound name 'period'
-- **id_household_and_dependent_care_expense_deduction** (`policyengine_us/variables/gov/states/id/tax/income/subtractions/household_and_dependent_care/id_household_and_dependent_care_expense_deduction.py:12`): parameter 'gov.states.id.tax.income.deductions.dependent_care_expenses.cap' outside emitted subtrees
 - **id_iccp_activity_eligible** (`policyengine_us/variables/gov/states/id/dhw/iccp/eligibility/id_iccp_activity_eligible.py:7`): add() without literal variable list
-- **id_iccp_age_group** (`policyengine_us/variables/gov/states/id/dhw/iccp/id_iccp_age_group.py:3`): calc() on non-scale parameter 'gov.states.id.dhw.iccp.age_group.months'
-- **id_iccp_copay_per_child** (`policyengine_us/variables/gov/states/id/dhw/iccp/copay/id_iccp_copay_per_child.py:5`): parameter 'gov.states.id.dhw.iccp.copay.max_family_size' outside emitted subtrees
-- **id_iccp_countable_income** (`policyengine_us/variables/gov/states/id/dhw/iccp/income/id_iccp_countable_income.py:11`): parameter 'gov.states.id.dhw.iccp.income.child_earnings_age_threshold' outside emitted subtrees
+- **id_iccp_age_group** (`policyengine_us/variables/gov/states/id/dhw/iccp/id_iccp_age_group.py:0`): Enum-valued formula
+- **id_iccp_copay_per_child** (`policyengine_us/variables/gov/states/id/dhw/iccp/copay/id_iccp_copay_per_child.py:12`): unbound name 'IDICCPTimeCategory'
+- **id_iccp_countable_income** (`policyengine_us/variables/gov/states/id/dhw/iccp/income/id_iccp_countable_income.py:16`): add() without literal variable list
 - **id_iccp_county_cluster** (`policyengine_us/variables/gov/states/id/dhw/iccp/id_iccp_county_cluster.py:4`): unrecognized call select
-- **id_iccp_eligible_child** (`policyengine_us/variables/gov/states/id/dhw/iccp/eligibility/id_iccp_eligible_child.py:5`): parameter 'gov.states.id.dhw.iccp.age_threshold.child' outside emitted subtrees
-- **id_iccp_income_eligible** (`policyengine_us/variables/gov/states/id/dhw/iccp/eligibility/id_iccp_income_eligible.py:6`): parameter 'gov.states.id.dhw.iccp.income.fpl_rate.initial_eligibility' outside emitted subtrees
 - **id_iccp_maximum_monthly_benefit** (`policyengine_us/variables/gov/states/id/dhw/iccp/payment/id_iccp_maximum_monthly_benefit.py:9`): unbound name 'IDICCPProviderType'
 - **id_iccp_time_category** (`policyengine_us/variables/gov/states/id/dhw/iccp/id_iccp_time_category.py:8`): unbound name 'CCDFDurationOfCare'
 - **id_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/id/tax/income/id_income_tax_before_non_refundable_credits.py:6`): unrecognized call select
 - **id_income_tax_if_receiving_aged_or_disabled_credit** (`policyengine_us/variables/gov/states/id/tax/income/id_income_tax_if_receiving_aged_or_disabled_credit.py:2`): attribute 'simulation' on value expression
 - **id_income_tax_if_receiving_aged_or_disabled_deduction** (`policyengine_us/variables/gov/states/id/tax/income/id_income_tax_if_receiving_aged_or_disabled_deduction.py:2`): attribute 'simulation' on value expression
-- **id_military_retirement_deduction** (`policyengine_us/variables/gov/states/id/tax/income/subtractions/military_retirement/id_military_retirement_deduction.py:9`): parameter 'gov.states.id.tax.income.subtractions.military_retirement.applies' outside emitted subtrees
 - **id_non_refundable_credits** (`policyengine_us/variables/gov/states/id/tax/income/id_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **id_pbf** (`policyengine_us/variables/gov/states/id/tax/income/other_taxes/pbf/id_pbf.py:1`): returns a non-value
 - **id_pbf_liable** (`policyengine_us/variables/gov/states/id/tax/income/other_taxes/pbf/id_pbf_liable.py:6`): person ref to non-person variable 'tanf'
-- **id_qualified_business_income_and_federal_schedule_1a_deductions** (`?:0`): adds via unknown parameter path 'gov.states.id.tax.income.deductions.qualified_business_income_and_federal_schedule_1a_deductions'
-- **id_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.id.tax.income.credits.refundable'
-- **id_retirement_benefits_deduction** (`policyengine_us/variables/gov/states/id/tax/income/deductions/retirement_benefits/id_retirement_benefits_deduction.py:6`): unsupported parameter subscript on 'gov.states.id.tax.income.deductions.retirement_benefits.cap'
-- **id_retirement_benefits_deduction_eligible_person** (`policyengine_us/variables/gov/states/id/tax/income/deductions/retirement_benefits/id_retirement_benefits_eligible_person.py:6`): parameter 'gov.states.id.tax.income.deductions.retirement_benefits.age_eligibility.disabled' outside emitted subtrees
-- **id_retirement_benefits_deduction_relevant_income** (`?:0`): adds via unknown parameter path 'gov.states.id.tax.income.deductions.retirement_benefits.income_sources'
+- **id_qualified_business_income_and_federal_schedule_1a_deductions** (`?:0`): adds via DATED parameter list 'gov.states.id.tax.income.deductions.qualified_business_income_and_federal_schedule_1a_deductions'
+- **id_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.id.tax.income.credits.refundable'
+- **id_retirement_benefits_deduction_relevant_income** (`?:0`): adds via DATED parameter list 'gov.states.id.tax.income.deductions.retirement_benefits.income_sources'
 - **id_salt_deduction** (`policyengine_us/variables/gov/states/id/tax/income/deductions/id_salt_deduction.py:5`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
-- **id_special_season_rebate** (`policyengine_us/variables/gov/states/id/tax/income/credits/id_special_season_rebate.py:6`): parameter 'gov.states.id.tax.income.credits.special_seasonal_rebate.rate' outside emitted subtrees
 - **id_subtractions** (`policyengine_us/variables/gov/states/id/tax/income/subtractions/id_subtractions.py:3`): add() without literal variable list
-- **id_tafi** (`policyengine_us/variables/gov/states/id/tafi/id_tafi.py:5`): parameter 'gov.states.id.tafi.maximum_grant' outside emitted subtrees
-- **id_tafi_countable_earned_income** (`policyengine_us/variables/gov/states/id/tafi/income/id_tafi_countable_earned_income.py:6`): parameter 'gov.states.id.tafi.income.earned.countable_rate' outside emitted subtrees
-- **id_tafi_grant_standard** (`policyengine_us/variables/gov/states/id/tafi/income/id_tafi_grant_standard.py:11`): parameter 'gov.states.id.tafi.maximum_grant' outside emitted subtrees
-- **id_tafi_resources_eligible** (`policyengine_us/variables/gov/states/id/tafi/eligibility/id_tafi_resources_eligible.py:5`): parameter 'gov.states.id.tafi.resources.limit' outside emitted subtrees
-- **id_tafi_work_incentive_amount** (`policyengine_us/variables/gov/states/id/tafi/income/id_tafi_work_incentive_amount.py:4`): parameter 'gov.states.id.tafi.work_incentive_table.max_size' outside emitted subtrees
+- **id_tafi_work_incentive_amount** (`policyengine_us/variables/gov/states/id/tafi/income/id_tafi_work_incentive_amount.py:5`): unsupported parameter subscript on 'gov.states.id.tafi.work_incentive_table.amount'
 - **id_withheld_income_tax** (`policyengine_us/variables/gov/states/id/tax/income/id_withheld_income_tax.py:5`): non-value handle used as value
-- **il_529_plan_subtraction** (`policyengine_us/variables/gov/states/il/tax/income/subtractions/il_529_plan_subtraction.py:5`): unsupported parameter subscript on 'gov.states.il.tax.income.subtractions.plan_529.cap'
 - **il_aabd_area** (`policyengine_us/variables/gov/states/il/dhs/aabd/il_aabd_area.py:5`): np.isin outside enum idioms
 - **il_aabd_asset_value_eligible** (`policyengine_us/variables/gov/states/il/dhs/aabd/asset/il_aabd_asset_value_eligible.py:7`): unsupported parameter subscript on 'gov.states.il.dhs.aabd.asset.disregard.base'
-- **il_aabd_child_care_expense_exemption** (`policyengine_us/variables/gov/states/il/dhs/aabd/income/expense/il_aabd_child_care_expense_exemption.py:8`): calc() on non-scale parameter 'gov.states.il.dhs.aabd.income.exemption.child_care'
-- **il_aabd_countable_assets** (`?:0`): adds via unknown parameter path 'gov.states.il.dhs.aabd.asset.sources'
-- **il_aabd_countable_unearned_income** (`policyengine_us/variables/gov/states/il/dhs/aabd/income/il_aabd_countable_unearned_income.py:4`): parameter 'gov.states.il.dhs.aabd.income.exemption.flat' outside emitted subtrees
 - **il_aabd_countable_vehicle_value** (`policyengine_us/variables/gov/states/il/dhs/aabd/asset/il_aabd_countable_vehicle_value.py:3`): person ref to non-person variable 'household_vehicles_owned'
-- **il_aabd_earned_income_after_exemption_person** (`policyengine_us/variables/gov/states/il/dhs/aabd/income/earned/il_aabd_earned_income_after_exemption_person.py:14`): calc() on non-scale parameter 'gov.states.il.dhs.aabd.income.exemption.blind'
-- **il_aabd_expense_exemption_person** (`?:0`): adds via unknown parameter path 'gov.states.il.dhs.aabd.income.exemption.sources'
-- **il_aabd_flat_exemption_excess_over_unearned_income** (`policyengine_us/variables/gov/states/il/dhs/aabd/income/il_aabd_flat_exemption_excess_over_unearned_income.py:4`): parameter 'gov.states.il.dhs.aabd.income.exemption.flat' outside emitted subtrees
 - **il_aabd_grant_amount** (`?:0`): adds list mixes parameter paths: 'gov.states.il.dhs.aabd.payment.grant_amount'
-- **il_aabd_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.il.dhs.aabd.income.sources.earned'
-- **il_aabd_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.il.dhs.aabd.income.sources.unearned'
-- **il_aabd_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/il/dhs/aabd/eligibility/il_aabd_immigration_status_eligible_person.py:6`): isin against non-list param 'gov.states.il.dhs.aabd.qualified_noncitizen_statuses'
 - **il_aabd_personal_allowance** (`policyengine_us/variables/gov/states/il/dhs/aabd/payment/personal_allowance/il_aabd_personal_allowance.py:6`): unsupported parameter subscript on 'gov.states.il.dhs.aabd.payment.personal_allowance.bedfast'
-- **il_aabd_shelter_allowance** (`policyengine_us/variables/gov/states/il/dhs/aabd/payment/shelter/il_aabd_shelter_allowance.py:5`): parameter 'gov.states.il.dhs.aabd.payment.shelter_allowance.rent' outside emitted subtrees
 - **il_aabd_utility_allowance** (`policyengine_us/variables/gov/states/il/dhs/aabd/payment/utility/il_utility_allowance.py:5`): person ref to non-person variable 'il_aabd_area'
-- **il_aged_blind_exemption** (`policyengine_us/variables/gov/states/il/tax/income/exemptions/il_aged_blind_exemption.py:4`): parameter 'gov.states.il.tax.income.exemption.aged_and_blind' outside emitted subtrees
-- **il_bap_eligible** (`policyengine_us/variables/gov/states/il/idoa/bap/il_bap_eligible.py:5`): parameter 'gov.states.il.idoa.bap.senior_age_threshold' outside emitted subtrees
-- **il_base_income_additions** (`?:0`): adds via unknown parameter path 'gov.states.il.tax.income.base.additions'
+- **il_bap_eligible** (`policyengine_us/variables/gov/states/il/idoa/bap/il_bap_eligible.py:10`): unsupported parameter subscript on 'gov.states.il.idoa.bap.income_limit'
 - **il_base_income_subtractions** (`policyengine_us/variables/gov/states/il/tax/income/base_income/il_base_income_subtractions.py:3`): add() without literal variable list
-- **il_bcc_age_eligible** (`policyengine_us/variables/gov/states/il/hfs/bcc/eligibility/il_bcc_age_eligible.py:4`): parameter 'gov.states.il.hfs.bcc.eligibility.age' outside emitted subtrees
-- **il_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.il.dhs.ccap.income.countable_income.sources'
-- **il_ccap_eligible_child** (`policyengine_us/variables/gov/states/il/dhs/ccap/eligibility/il_ccap_eligible_child.py:5`): parameter 'gov.states.il.dhs.ccap.age_limit.special_needs_child' outside emitted subtrees
-- **il_ccap_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/il/dhs/ccap/eligibility/il_ccap_immigration_status_eligible_person.py:5`): isin against non-list param 'gov.states.il.dhs.ccap.qualified_alien_statuses'
-- **il_ccap_income_eligible** (`policyengine_us/variables/gov/states/il/dhs/ccap/eligibility/il_ccap_income_eligible.py:8`): parameter 'gov.states.il.dhs.ccap.income.income_limit.redetermination_rate' outside emitted subtrees
-- **il_chip_premium** (`policyengine_us/variables/gov/states/il/hhs/chip/il_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.il.hhs.chip.premium.per_child'
-- **il_cta_children_reduced_fare_eligible** (`policyengine_us/variables/gov/states/il/rta/cta/reduced_fare/il_cta_children_reduced_fare_eligible.py:4`): calc() on non-scale parameter 'gov.states.il.rta.cta.reduced_fare_program.age_threshold.child'
+- **il_chip_premium** (`policyengine_us/variables/gov/states/il/hhs/chip/il_chip_premium.py:5`): ExtRat scale 'gov.states.il.hhs.chip.premium.per_child' in value position
 - **il_cta_free_ride_benefit** (`?:0`): adds list mixes parameter paths: 'gov.states.il.rta.cta.monthly_pass_cost.full_fare'
-- **il_cta_free_ride_eligible** (`policyengine_us/variables/gov/states/il/rta/cta/free_ride/il_cta_free_ride_eligible.py:4`): parameter 'gov.states.il.rta.cta.free_ride_program.age_threshold.young_child' outside emitted subtrees
-- **il_cta_reduced_fare_benefit** (`policyengine_us/variables/gov/states/il/rta/cta/reduced_fare/il_cta_reduced_fare_benefit.py:4`): parameter 'gov.states.il.rta.cta.monthly_pass_cost.full_fare' outside emitted subtrees
-- **il_cta_rta_reduced_fare_eligible** (`policyengine_us/variables/gov/states/il/rta/cta/reduced_fare/il_cta_rta_reduced_fare_eligible.py:4`): parameter 'gov.states.il.rta.cta.reduced_fare_program.age_threshold.senior' outside emitted subtrees
-- **il_cta_student_reduced_fare_eligible** (`policyengine_us/variables/gov/states/il/rta/cta/reduced_fare/il_cta_student_reduced_fare_eligible.py:4`): parameter 'gov.states.il.rta.cta.reduced_fare_program.age_threshold.student' outside emitted subtrees
-- **il_ctc** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_ctc.py:8`): parameter 'gov.states.il.tax.income.credits.ctc.age_limit' outside emitted subtrees
-- **il_dependent_exemption** (`policyengine_us/variables/gov/states/il/tax/income/exemptions/il_dependent_exemption.py:4`): parameter 'gov.states.il.tax.income.exemption.dependent' outside emitted subtrees
-- **il_eitc** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_eitc.py:18`): parameter 'gov.states.il.tax.income.credits.eitc.childless_min_age' outside emitted subtrees
-- **il_fpp_income_eligible** (`policyengine_us/variables/gov/states/il/hfs/fpp/eligibility/il_fpp_income_eligible.py:4`): parameter 'gov.states.il.hfs.fpp.eligibility.income_limit' outside emitted subtrees
+- **il_eitc** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_eitc.py:20`): unrecognized call calculate_eitc_like_amount
 - **il_fpp_income_level** (`policyengine_us/variables/gov/states/il/hfs/fpp/il_fpp_income_level.py:10`): unrecognized call fpg
-- **il_hbi_age_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbi/eligibility/il_hbi_age_eligible.py:7`): parameter 'gov.states.il.hfs.hbi.eligibility.child.max_age' outside emitted subtrees
-- **il_hbi_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbi/eligibility/il_hbi_eligible.py:12`): parameter 'gov.states.il.hfs.hbi.eligibility.child.max_age' outside emitted subtrees
-- **il_hbi_income_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbi/eligibility/il_hbi_income_eligible.py:7`): parameter 'gov.states.il.hfs.hbi.eligibility.child.max_age' outside emitted subtrees
-- **il_hbi_resource_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbi/eligibility/il_hbi_resource_eligible.py:5`): parameter 'gov.states.il.hfs.hbi.eligibility.senior.min_age' outside emitted subtrees
-- **il_hbwd_age_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbwd/eligibility/il_hbwd_age_eligible.py:4`): calc() on non-scale parameter 'gov.states.il.hfs.hbwd.eligibility.age'
-- **il_hbwd_asset_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbwd/eligibility/il_hbwd_asset_eligible.py:5`): parameter 'gov.states.il.hfs.hbwd.eligibility.asset.limit' outside emitted subtrees
-- **il_hbwd_countable_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.il.hfs.hbwd.eligibility.income.sources.unearned'
-- **il_hbwd_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.il.hfs.hbwd.eligibility.income.sources.earned'
-- **il_hbwd_income_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbwd/eligibility/il_hbwd_income_eligible.py:5`): parameter 'gov.states.il.hfs.hbwd.eligibility.income.limit' outside emitted subtrees
-- **il_hbwd_premium** (`policyengine_us/variables/gov/states/il/hfs/hbwd/il_hbwd_premium.py:8`): calc() on non-scale parameter 'gov.states.il.hfs.hbwd.premium.earned'
-- **il_hfs_immigration_status_eligible** (`policyengine_us/variables/gov/states/il/hfs/il_hfs_immigration_status_eligible.py:6`): isin against non-list param 'gov.states.il.hfs.qualified_noncitizen_statuses'
-- **il_ihwap_categorically_eligible** (`?:0`): adds via unknown parameter path 'gov.states.il.dceo.ihwap.eligibility.categorical_eligibility'
+- **il_hbi_income_eligible** (`policyengine_us/variables/gov/states/il/hfs/hbi/eligibility/il_hbi_income_eligible.py:19`): unrecognized call select
 - **il_ihwap_hhs_smi** (`policyengine_us/variables/gov/states/il/dceo/ihwap/il_ihwap_hhs_smi.py:4`): unsupported syntax JoinedStr
 - **il_ihwap_income_eligible** (`policyengine_us/variables/gov/states/il/dceo/ihwap/eligibility/il_ihwap_income_eligible.py:7`): unrecognized call str
-- **il_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/il/tax/income/il_income_tax_before_non_refundable_credits.py:7`): parameter 'gov.states.il.tax.income.rate' outside emitted subtrees
-- **il_income_tax_rebate** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_income_tax_rebate.py:7`): calc() on non-scale parameter 'gov.states.il.tax.income.credits.income_tax_rebate.amount.joint'
 - **il_income_tax_rebate_eligible** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_income_tax_rebate_eligible.py:7`): unsupported parameter subscript on 'gov.states.il.tax.income.credits.income_tax_rebate.amount.joint.thresholds'
-- **il_ipass_assist_income_eligible** (`policyengine_us/variables/gov/states/il/tollway/ipass_assist/il_ipass_assist_income_eligible.py:6`): parameter 'gov.states.il.tollway.ipass_assist.eligibility.fpg_limit' outside emitted subtrees
-- **il_is_exemption_eligible** (`policyengine_us/variables/gov/states/il/tax/income/exemptions/il_is_exemption_eligible.py:3`): unsupported parameter subscript on 'gov.states.il.tax.income.exemption.income_limit'
-- **il_isbe_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.il.isbe.income.countable_sources'
 - **il_isbe_income_eligible** (`policyengine_us/variables/gov/states/il/isbe/eligibility/il_isbe_income_eligible.py:6`): attribute 'spm_unit' on value expression
 - **il_isbe_was_teen_parent_at_first_birth** (`policyengine_us/variables/gov/states/il/isbe/eligibility/il_isbe_was_teen_parent_at_first_birth.py:7`): expected a string literal
 - **il_k12_education_expense_credit** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_k12_education_expense_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **il_k12_education_expense_credit_potential** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_k12_education_expense_credit_potential.py:4`): parameter 'gov.states.il.tax.income.credits.k12.reduction' outside emitted subtrees
 - **il_liheap_base_payment** (`policyengine_us/variables/gov/states/il/dceo/liheap/payment/il_liheap_base_payment.py:13`): unrecognized call select
 - **il_liheap_crisis_assistance_amount** (`?:0`): adds list mixes parameter paths: 'gov.states.il.dceo.liheap.payment.crisis_amount.max'
-- **il_liheap_eligible** (`policyengine_us/variables/gov/states/il/dceo/liheap/eligibility/il_liheap_eligible.py:10`): parameter 'gov.states.il.dceo.liheap.eligibility.rent_rate' outside emitted subtrees
 - **il_liheap_heating_type** (`policyengine_us/variables/gov/states/il/dceo/liheap/il_liheap_heating_type.py:5`): unbound name 'ILLIHEAPHeatingType'
-- **il_liheap_income_bracket** (`policyengine_us/variables/gov/states/il/dceo/liheap/il_liheap_income_bracket.py:8`): calc() on non-scale parameter 'gov.states.il.dceo.liheap.payment.income_bracket'
-- **il_liheap_income_eligible** (`policyengine_us/variables/gov/states/il/dceo/liheap/eligibility/il_liheap_income_eligible.py:7`): parameter 'gov.hhs.liheap.smi_limit' outside emitted subtrees
-- **il_mpe_income_eligible** (`policyengine_us/variables/gov/states/il/hfs/mpe/eligibility/il_mpe_income_eligible.py:4`): parameter 'gov.states.il.hfs.mpe.eligibility.income_limit' outside emitted subtrees
-- **il_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.il.tax.income.credits.non_refundable'
-- **il_personal_exemption** (`policyengine_us/variables/gov/states/il/tax/income/exemptions/il_personal_exemption.py:10`): parameter 'gov.states.il.tax.income.exemption.personal' outside emitted subtrees
-- **il_personal_exemption_eligibility_status** (`policyengine_us/variables/gov/states/il/tax/income/exemptions/il_personal_exemption_eligibility_status.py:10`): parameter 'gov.states.il.tax.income.exemption.personal' outside emitted subtrees
+- **il_personal_exemption** (`policyengine_us/variables/gov/states/il/tax/income/exemptions/il_personal_exemption.py:10`): unrecognized call select
+- **il_personal_exemption_eligibility_status** (`policyengine_us/variables/gov/states/il/tax/income/exemptions/il_personal_exemption_eligibility_status.py:58`): unrecognized call select
 - **il_pfa** (`?:0`): adds list mixes parameter paths: 'gov.states.il.isbe.pfa.benefit.amount'
 - **il_pfae** (`?:0`): adds list mixes parameter paths: 'gov.states.il.isbe.pfae.benefit.amount'
-- **il_pfae_age_eligible_child** (`policyengine_us/variables/gov/states/il/isbe/pfae/eligibility/il_pfae_age_eligible_child.py:9`): calc() on non-scale parameter 'gov.states.il.isbe.pfae.eligibility.age_range'
 - **il_pfae_is_deep_poverty** (`policyengine_us/variables/gov/states/il/isbe/pfae/priority/il_pfae_is_deep_poverty.py:6`): attribute 'spm_unit' on value expression
 - **il_pfae_is_low_income** (`policyengine_us/variables/gov/states/il/isbe/pfae/priority/il_pfae_is_low_income.py:3`): attribute 'spm_unit' on value expression
 - **il_pfae_secondary_priority_factor_count** (`policyengine_us/variables/gov/states/il/isbe/pfae/priority/il_pfae_secondary_priority_factor_count.py:2`): attribute 'spm_unit' on value expression
 - **il_pi** (`?:0`): adds list mixes parameter paths: 'gov.states.il.isbe.pi.benefit.amount'
-- **il_pi_demographic_eligible** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/il_pi_demographic_eligible.py:5`): parameter 'gov.states.il.isbe.pi.eligibility.age_threshold.child' outside emitted subtrees
 - **il_pi_has_developmental_delay** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/priority/il_pi_has_developmental_delay.py:3`): unrecognized call spm_unit.members
 - **il_pi_has_geriatric_pregnancy** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/priority/il_pi_has_geriatric_pregnancy.py:4`): unrecognized call spm_unit.members
 - **il_pi_highest_priority_score** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/priority/il_pi_highest_priority_score.py:2`): attribute 'household' on value expression
@@ -1115,29 +606,14 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **il_pi_is_young_parent_family** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/priority/il_pi_is_young_parent_family.py:4`): unrecognized call spm_unit.members
 - **il_pi_lower_priority_score** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/priority/il_pi_lower_priority_score.py:2`): attribute 'household' on value expression
 - **il_pi_other_priority_score** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/priority/il_pi_other_priority_score.py:2`): attribute 'spm_unit' on value expression
-- **il_pi_risk_eligible** (`policyengine_us/variables/gov/states/il/isbe/pi/eligibility/il_pi_risk_eligible.py:5`): parameter 'gov.states.il.isbe.pi.eligibility.risk_factors.minimum_score' outside emitted subtrees
 - **il_property_tax_credit** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_property_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **il_property_tax_credit_potential** (`policyengine_us/variables/gov/states/il/tax/income/credits/il_property_tax_credit_potential.py:4`): parameter 'gov.states.il.tax.income.credits.property_tax.rate' outside emitted subtrees
-- **il_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.il.tax.income.credits.refundable'
-- **il_scretd_age_eligible** (`policyengine_us/variables/gov/states/il/idor/scretd/il_scretd_age_eligible.py:4`): parameter 'gov.states.il.idor.scretd.age_threshold' outside emitted subtrees
-- **il_scretd_deferral_amount** (`policyengine_us/variables/gov/states/il/idor/scretd/il_scretd_deferral_amount.py:8`): parameter 'gov.states.il.idor.scretd.max_annual_deferral' outside emitted subtrees
-- **il_scretd_income_eligible** (`policyengine_us/variables/gov/states/il/idor/scretd/il_scretd_income_eligible.py:4`): parameter 'gov.states.il.idor.scretd.income_limit' outside emitted subtrees
+- **il_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.il.tax.income.credits.refundable'
 - **il_tanf** (`policyengine_us/variables/gov/states/il/dhs/tanf/il_tanf.py:10`): np.floor
 - **il_tanf_assistance_unit_fpg** (`policyengine_us/variables/gov/states/il/dhs/tanf/assistance_unit/il_tanf_assistance_unit_fpg.py:3`): person ref to non-person variable 'state_group_str'
-- **il_tanf_childcare_deduction** (`policyengine_us/variables/gov/states/il/dhs/tanf/income/deductions/il_tanf_childcare_deduction.py:15`): calc() on non-scale parameter 'gov.states.il.dhs.tanf.income.child_care_deduction'
-- **il_tanf_countable_earned_income_for_grant_calculation** (`policyengine_us/variables/gov/states/il/dhs/tanf/income/earned/il_tanf_countable_earned_income_for_grant_calculation.py:11`): parameter 'gov.states.il.dhs.tanf.income.disregard.rate' outside emitted subtrees
 - **il_tanf_county_group** (`policyengine_us/variables/gov/states/il/dhs/tanf/il_tanf_county_group.py:2`): person ref to non-person variable 'county_str'
-- **il_tanf_eligible_child** (`policyengine_us/variables/gov/states/il/dhs/tanf/eligibility/il_tanf_eligible_child.py:8`): parameter 'gov.states.il.dhs.tanf.age_threshold.student_dependent' outside emitted subtrees
-- **il_tanf_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.il.dhs.tanf.income.sources.earned'
-- **il_tanf_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.il.dhs.tanf.income.sources.unearned'
-- **il_tanf_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/il/dhs/tanf/eligibility/il_tanf_immigration_status_eligible_person.py:5`): isin against non-list param 'gov.states.il.dhs.tanf.qualified_noncitizen_statuses'
-- **il_tanf_income_eligible** (`policyengine_us/variables/gov/states/il/dhs/tanf/eligibility/il_tanf_income_eligible.py:12`): parameter 'gov.states.il.dhs.tanf.minimum_payment' outside emitted subtrees
 - **il_tanf_initial_employment_deduction_fpg** (`policyengine_us/variables/gov/states/il/dhs/tanf/income/deductions/il_tanf_initial_employment_deduction_fpg.py:3`): person ref to non-person variable 'state_group_str'
-- **il_tanf_initial_employment_deduction_person** (`policyengine_us/variables/gov/states/il/dhs/tanf/income/deductions/il_tanf_initial_employment_deduction_person.py:11`): parameter 'gov.states.il.dhs.tanf.income.initial_employment_deduction.rate' outside emitted subtrees
-- **il_tanf_payment_level_for_grant_calculation** (`policyengine_us/variables/gov/states/il/dhs/tanf/il_tanf_payment_level_for_grant_calculation.py:8`): parameter 'gov.states.il.dhs.tanf.payment_level.regional_in_effect' outside emitted subtrees
-- **il_tanf_payment_level_for_initial_eligibility** (`policyengine_us/variables/gov/states/il/dhs/tanf/il_tanf_payment_level_for_initial_eligibility.py:5`): parameter 'gov.states.il.dhs.tanf.payment_level.regional_in_effect' outside emitted subtrees
-- **il_use_tax** (`policyengine_us/variables/gov/states/il/tax/income/il_use_tax.py:5`): calc() on non-scale parameter 'gov.states.il.tax.income.use_tax.amount'
-- **il_withheld_income_tax** (`policyengine_us/variables/gov/states/il/tax/income/il_withheld_income_tax.py:7`): parameter 'gov.states.il.tax.income.exemption.personal' outside emitted subtrees
+- **il_tanf_payment_level_for_grant_calculation** (`policyengine_us/variables/gov/states/il/dhs/tanf/il_tanf_payment_level_for_grant_calculation.py:10`): unbound name 'ILTANFCountyGroup'
+- **il_tanf_payment_level_for_initial_eligibility** (`policyengine_us/variables/gov/states/il/dhs/tanf/il_tanf_payment_level_for_initial_eligibility.py:7`): unbound name 'ILTANFCountyGroup'
 - **in_529_plan_credit** (`policyengine_us/variables/gov/states/in/tax/income/credits/plan_529/in_529_plan_credit.py:2`): non-value handle used as value
 - **in_additional_exemptions** (`policyengine_us/variables/gov/states/in/tax/income/exemptions/in_additional_exemptions.py:3`): non-value handle used as value
 - **in_adoption_exemption** (`policyengine_us/variables/gov/states/in/tax/income/exemptions/in_adoption_exemption.py:2`): non-value handle used as value
@@ -1153,12 +629,11 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **in_ccdf_asset_eligible** (`policyengine_us/variables/gov/states/in/fssa/ccdf/eligibility/in_ccdf_asset_eligible.py:5`): non-value handle used as value
 - **in_ccdf_copay** (`policyengine_us/variables/gov/states/in/fssa/ccdf/copay/in_ccdf_copay.py:2`): non-value handle used as value
 - **in_ccdf_eligible_child** (`policyengine_us/variables/gov/states/in/fssa/ccdf/eligibility/in_ccdf_eligible_child.py:8`): non-value handle used as value
-- **in_ccdf_gross_income** (`?:0`): adds via unknown parameter path 'gov.states.in.fssa.ccdf.income.sources'
 - **in_ccdf_income_eligible** (`policyengine_us/variables/gov/states/in/fssa/ccdf/eligibility/in_ccdf_income_eligible.py:2`): non-value handle used as value
 - **in_ccdf_max_rate_per_child** (`policyengine_us/variables/gov/states/in/fssa/ccdf/rates/in_ccdf_max_rate_per_child.py:2`): non-value handle used as value
 - **in_chip_premium** (`policyengine_us/variables/gov/states/in/hhs/chip/in_chip_premium.py:4`): non-value handle used as value
 - **in_county_tax** (`policyengine_us/variables/gov/states/in/tax/income/in_county_tax.py:3`): person ref to non-person variable 'state_code_str'
-- **in_deductions** (`?:0`): adds via unknown parameter path 'gov.states.in.tax.income.deductions.deductions'
+- **in_deductions** (`?:0`): adds via DATED parameter list 'gov.states.in.tax.income.deductions.deductions'
 - **in_eitc** (`policyengine_us/variables/gov/states/in/tax/income/credits/earned_income_credit/in_eitc.py:2`): non-value handle used as value
 - **in_eitc_eligible** (`policyengine_us/variables/gov/states/in/tax/income/credits/earned_income_credit/in_eitc_eligible.py:2`): non-value handle used as value
 - **in_harris_county_tx** (`policyengine_us/variables/gov/local/tx/harris/in_harris_county_tx.py:3`): non-value handle used as value
@@ -1199,157 +674,87 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **in_unified_elderly_tax_credit** (`policyengine_us/variables/gov/states/in/tax/income/credits/elderly_tax_credit/in_unified_elderly_tax_credit.py:3`): non-value handle used as value
 - **in_withheld_income_tax** (`policyengine_us/variables/gov/states/in/tax/income/in_withheld_income_tax.py:3`): non-value handle used as value
 - **income_adjusted_part_d_premium_surcharge** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_d/income_adjusted_part_d_premium_surcharge.py:2`): attribute 'tax_unit' on value expression
-- **income_elasticity** (`policyengine_us/variables/gov/simulation/labor_supply_response/income_elasticity.py:8`): parameter 'gov.simulation.labor_supply_responses.elasticities.income_age_threshold' outside emitted subtrees
 - **income_elasticity_lsr** (`policyengine_us/variables/gov/simulation/labor_supply_response/income_elasticity_lsr.py:2`): unrecognized call calculate_income_lsr_effect
-- **income_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/income_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax' outside emitted subtrees
-- **income_tax_before_refundable_credits** (`policyengine_us/variables/gov/irs/tax/federal_income/income_tax_before_refundable_credits.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax' outside emitted subtrees
 - **income_tax_main_rates** (`policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_main_rates.py:13`): unsupported statement For
-- **income_tax_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.irs.credits.non_refundable'
-- **income_tax_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.irs.credits.refundable'
-- **ira_contribution_limit** (`policyengine_us/variables/household/expense/retirement/ira_contribution_limit.py:4`): parameter 'gov.irs.gross_income.retirement_contributions.catch_up.age_threshold' outside emitted subtrees
+- **income_tax_non_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.irs.credits.non_refundable'
+- **income_tax_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.irs.credits.refundable'
 - **irs_gross_income** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/irs_gross_income.py:5`): unsupported statement For
-- **is_209b_ssi_recipient_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_209b_ssi_recipient_for_medicaid.py:13`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children'
 - **is_209b_ssi_recipient_income_eligible_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_209b_ssi_recipient_income_eligible_for_medicaid.py:11`): attribute 'tax_unit' on value expression
-- **is_aca_family_tier_dependent_child** (`policyengine_us/variables/gov/aca/slspc/is_aca_family_tier_dependent_child.py:5`): parameter 'gov.aca.slcsp.max_child_age' outside emitted subtrees
-- **is_aca_ny_age_29_dependent_child** (`policyengine_us/variables/gov/aca/slspc/is_aca_ny_age_29_dependent_child.py:8`): parameter 'gov.aca.family_tier_dependent_child_age_threshold' outside emitted subtrees
-- **is_aca_ptc_eligible** (`policyengine_us/variables/gov/aca/eligibility/is_aca_ptc_eligible.py:8`): calc() on non-scale parameter 'gov.aca.ptc_income_eligibility'
-- **is_aca_ptc_immigration_status_eligible** (`policyengine_us/variables/gov/aca/eligibility/is_aca_ptc_immigration_status_eligible.py:5`): isin against non-list param 'gov.aca.ineligible_immigration_statuses'
+- **is_aca_ptc_eligible** (`policyengine_us/variables/gov/aca/eligibility/is_aca_ptc_eligible.py:12`): bitwise op on non-bool operands
 - **is_acp_eligible** (`policyengine_us/variables/gov/fcc/acp/is_acp_eligible.py:3`): np.any
 - **is_adult_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
-- **is_adult_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/adult/is_adult_for_medicaid_fc.py:5`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.adult.income_limit'
-- **is_adult_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/adult/is_adult_for_medicaid_nfc.py:4`): calc() on non-scale parameter 'gov.hhs.medicaid.eligibility.categories.adult.age_range'
-- **is_ar_sra_age_eligible** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/eligibility/is_ar_sra_age_eligible.py:5`): parameter 'gov.states.ar.ade.oec.sra.eligibility.child_age_limit_disabled' outside emitted subtrees
-- **is_ar_sra_eligible** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/eligibility/is_ar_sra_eligible.py:3`): parameter 'gov.states.ar.ade.oec.sra.in_effect' outside emitted subtrees
-- **is_ar_sra_ess_eligible** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/eligibility/is_ar_sra_ess_eligible.py:6`): parameter 'gov.states.ar.ade.oec.sra.eligibility.ess_window_months' outside emitted subtrees
-- **is_ar_sra_income_eligible** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/eligibility/is_ar_sra_income_eligible.py:5`): parameter 'gov.states.ar.ade.oec.sra.eligibility.income_smi_rate' outside emitted subtrees
-- **is_ar_sra_li_activity_eligible** (`policyengine_us/variables/gov/states/ar/ade/oec/sra/eligibility/is_ar_sra_li_activity_eligible.py:4`): parameter 'gov.states.ar.ade.oec.sra.eligibility.adult_age_threshold' outside emitted subtrees
+- **is_adult_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/adult/is_adult_for_medicaid_fc.py:5`): ExtRat breakdown 'gov.hhs.medicaid.eligibility.categories.adult.income_limit' in value position
 - **is_basic_health_program_eligible** (`policyengine_us/variables/gov/hhs/basic_health_program/is_basic_health_program_eligible.py:5`): np.isin outside enum idioms
-- **is_basic_health_program_immigration_status_eligible** (`policyengine_us/variables/gov/hhs/basic_health_program/is_basic_health_program_immigration_status_eligible.py:5`): isin against non-list param 'gov.hhs.basic_health_program.eligibility.ineligible_immigration_statuses'
 - **is_ca_cvrp_increased_rebate_eligible** (`policyengine_us/variables/gov/states/ca/calepa/carb/cvrp/is_ca_cvrp_increased_rebate_eligible.py:3`): attribute 'spm_unit' on value expression
-- **is_ca_cvrp_normal_rebate_eligible** (`policyengine_us/variables/gov/states/ca/calepa/carb/cvrp/is_ca_cvrp_normal_rebate_eligible.py:6`): unsupported parameter subscript on 'gov.states.ca.calepa.carb.cvrp.income_cap'
-- **is_ca_medicaid_immigration_status_eligible** (`policyengine_us/variables/gov/states/ca/chhs/is_ca_medicaid_immigration_status_eligible.py:7`): isin against non-list param 'gov.states.ca.chhs.ca_state_funded_immigration_statuses'
-- **is_ccdf_age_eligible** (`policyengine_us/variables/gov/hhs/ccdf/is_ccdf_age_eligible.py:4`): parameter 'gov.hhs.ccdf.age_limit' outside emitted subtrees
-- **is_ccdf_asset_eligible** (`policyengine_us/variables/gov/hhs/ccdf/is_ccdf_asset_eligible.py:4`): parameter 'gov.hhs.ccdf.asset_limit' outside emitted subtrees
-- **is_ccdf_immigration_eligible_child** (`policyengine_us/variables/gov/hhs/ccdf/is_ccdf_immigration_eligible_child.py:5`): isin against non-list param 'gov.dhs.immigration.qualified_noncitizen_status'
-- **is_ccdf_income_eligible** (`policyengine_us/variables/gov/hhs/ccdf/is_ccdf_income_eligible.py:4`): parameter 'gov.hhs.ccdf.income_limit_smi' outside emitted subtrees
-- **is_cdcc_eligible** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc_eligible.py:11`): parameter 'gov.irs.credits.cdcc.eligibility.child_age' outside emitted subtrees
-- **is_chip_eligible_child** (`policyengine_us/variables/gov/hhs/chip/is_chip_eligible_child.py:9`): parameter 'gov.hhs.chip.child.max_age' outside emitted subtrees
-- **is_chip_eligible_standard_pregnant_person** (`policyengine_us/variables/gov/hhs/chip/is_chip_eligible_standard_pregnant_person.py:10`): unsupported parameter subscript on 'gov.hhs.chip.pregnant.income_limit'
-- **is_chip_fcep_eligible_person** (`policyengine_us/variables/gov/hhs/chip/is_chip_fcep_eligible_person.py:10`): unsupported parameter subscript on 'gov.hhs.chip.fcep.income_limit'
-- **is_citizen_or_legal_immigrant** (`policyengine_us/variables/household/demographic/person/is_citizen_or_legal_immigrant.py:6`): isin against non-list param 'gov.dhs.immigration.qualified_noncitizen_status'
-- **is_co_denver_dhs_elderly** (`policyengine_us/variables/gov/local/co/denver/dhs/is_co_denver_dhs_elderly.py:3`): parameter 'gov.local.co.denver.dhs.elderly_age_threshold' outside emitted subtrees
-- **is_early_head_start_eligible** (`policyengine_us/variables/gov/hhs/head_start/is_early_head_start_eligible.py:5`): parameter 'gov.hhs.head_start.early_head_start.age_limit' outside emitted subtrees
+- **is_ca_medicaid_immigration_status_eligible** (`policyengine_us/variables/gov/states/ca/chhs/is_ca_medicaid_immigration_status_eligible.py:15`): bitwise op on non-bool operands
+- **is_chip_eligible_child** (`policyengine_us/variables/gov/hhs/chip/is_chip_eligible_child.py:12`): ExtRat breakdown 'gov.hhs.chip.child.income_limit' in value position
+- **is_chip_eligible_standard_pregnant_person** (`policyengine_us/variables/gov/hhs/chip/is_chip_eligible_standard_pregnant_person.py:10`): ExtRat breakdown 'gov.hhs.chip.pregnant.income_limit' in value position
+- **is_chip_fcep_eligible_person** (`policyengine_us/variables/gov/hhs/chip/is_chip_fcep_eligible_person.py:10`): ExtRat breakdown 'gov.hhs.chip.fcep.income_limit' in value position
 - **is_ebb_eligible** (`policyengine_us/variables/gov/fcc/ebb/is_ebb_eligible.py:3`): np.any
 - **is_eligible_for_american_opportunity_credit** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/is_eligible_for_american_opportunity_credit.py:3`): attribute 'tax_unit' on value expression
 - **is_eligible_for_housing_assistance** (`policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py:11`): unbound name 'SPMUnitTenureType'
 - **is_eligible_for_lifetime_learning_credit** (`policyengine_us/variables/gov/irs/credits/education/is_eligible_for_lifetime_learning_credit.py:3`): attribute 'tax_unit' on value expression
-- **is_emergency_medicaid_eligible** (`policyengine_us/variables/gov/hhs/medicaid/emergency_medicaid/is_emergency_medicaid_eligible.py:14`): parameter 'gov.hhs.medicaid.emergency_medicaid.enabled' outside emitted subtrees
-- **is_fl_sr_activity_eligible** (`policyengine_us/variables/gov/states/fl/doe/sr/eligibility/is_fl_sr_activity_eligible.py:32`): parameter 'gov.states.fl.doe.sr.eligibility.activity_hours_single' outside emitted subtrees
-- **is_fl_sr_age_eligible** (`policyengine_us/variables/gov/states/fl/doe/sr/eligibility/is_fl_sr_age_eligible.py:4`): parameter 'gov.states.fl.doe.sr.eligibility.child_age_limit' outside emitted subtrees
-- **is_fl_sr_eligible** (`policyengine_us/variables/gov/states/fl/doe/sr/eligibility/is_fl_sr_eligible.py:3`): parameter 'gov.states.fl.doe.sr.in_effect' outside emitted subtrees
-- **is_fl_sr_income_eligible** (`policyengine_us/variables/gov/states/fl/doe/sr/eligibility/is_fl_sr_income_eligible.py:8`): parameter 'gov.states.fl.doe.sr.eligibility.income.exit_smi_rate' outside emitted subtrees
-- **is_head_start_eligible** (`policyengine_us/variables/gov/hhs/head_start/is_head_start_eligible.py:5`): calc() on non-scale parameter 'gov.hhs.head_start.age_range'
+- **is_head_start_eligible** (`policyengine_us/variables/gov/hhs/head_start/is_head_start_eligible.py:9`): bitwise op on non-bool operands
 - **is_head_start_income_eligible** (`policyengine_us/variables/gov/hhs/head_start/is_head_start_income_eligible.py:2`): attribute 'tax_unit' on value expression
 - **is_hud_dependent** (`policyengine_us/variables/gov/hud/income/is_hud_dependent.py:8`): unrecognized call person.get_rank
-- **is_hud_elderly_disabled_family** (`policyengine_us/variables/gov/hud/is_hud_elderly_disabled_family.py:4`): parameter 'gov.hud.elderly_age_threshold' outside emitted subtrees
 - **is_in_medicaid_medically_needy_category** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medically_needy/is_in_medicaid_medically_needy_category.py:6`): non-value handle used as value
 - **is_infant_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
-- **is_infant_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/infant/is_infant_for_medicaid_fc.py:6`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.infant.income_limit'
+- **is_infant_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/infant/is_infant_for_medicaid_fc.py:8`): np.isclose
 - **is_infant_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/infant/is_infant_for_medicaid_nfc.py:8`): unrecognized call select
 - **is_irs_aged** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/is_irs_aged.py:3`): cross-entity ref tax_unit(...) in person formula
 - **is_lifeline_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_eligible.py:3`): attribute 'household' on value expression
 - **is_lifeline_income_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_income_eligible.py:6`): person ref to non-person variable 'state_code_str'
-- **is_medicaid_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_eligible.py:13`): parameter 'gov.hhs.medicaid.eligibility.work_requirements.applies' outside emitted subtrees
-- **is_medicaid_immigration_status_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_immigration_status_eligible.py:6`): isin against non-list param 'gov.hhs.medicaid.eligibility.eligible_immigration_statuses'
-- **is_medicaid_ineligible_due_to_work_requirement** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_ineligible_due_to_work_requirement.py:9`): parameter 'gov.hhs.medicaid.eligibility.work_requirements.applies' outside emitted subtrees
-- **is_medicaid_long_term_care_home_equity_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_long_term_care_home_equity_eligible.py:11`): parameter 'gov.hhs.medicaid.eligibility.long_term_care.home_equity.agricultural_limit' outside emitted subtrees
-- **is_medicaid_slcsp_dependent_child** (`policyengine_us/variables/gov/hhs/medicaid/costs/is_medicaid_slcsp_dependent_child.py:12`): parameter 'gov.aca.family_tier_dependent_child_age_threshold' outside emitted subtrees
+- **is_medicaid_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_eligible.py:29`): non-value handle used as value
+- **is_medicaid_ineligible_due_to_work_requirement** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_ineligible_due_to_work_requirement.py:25`): non-value handle used as value
 - **is_medically_needy_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medically_needy/is_medically_needy_for_medicaid.py:7`): attribute 'tax_unit' on value expression
-- **is_medicare_eligible** (`policyengine_us/variables/gov/hhs/medicare/eligibility/is_medicare_eligible.py:3`): parameter 'gov.hhs.medicare.eligibility.min_age' outside emitted subtrees
-- **is_older_child_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/older_child/is_older_child_for_medicaid.py:5`): calc() on non-scale parameter 'gov.hhs.medicaid.eligibility.categories.older_child.age_range'
-- **is_older_child_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/older_child/is_older_child_for_medicaid_fc.py:5`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.older_child.income_limit'
-- **is_older_child_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/older_child/is_older_child_for_medicaid_nfc.py:4`): calc() on non-scale parameter 'gov.hhs.medicaid.eligibility.categories.older_child.age_range'
+- **is_older_child_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/older_child/is_older_child_for_medicaid.py:8`): bitwise op on non-bool operands
 - **is_optional_senior_or_disabled_asset_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_optional_senior_or_disabled_asset_eligible.py:4`): attribute 'tax_unit' on value expression
 - **is_optional_senior_or_disabled_income_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_optional_senior_or_disabled_income_eligible.py:5`): attribute 'tax_unit' on value expression
 - **is_parent_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
-- **is_parent_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/is_parent_for_medicaid_nfc.py:11`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.parent.requires_deprivation'
-- **is_person_demographic_tanf_eligible** (`policyengine_us/variables/gov/hhs/tanf/cash/eligibility/is_person_demographic_tanf_eligible.py:11`): parameter 'gov.hhs.tanf.cash.eligibility.age_limit.student' outside emitted subtrees
 - **is_pregnant_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
-- **is_pregnant_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/pregnant/is_pregnant_for_medicaid_fc.py:5`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.pregnant.income_limit'
-- **is_pregnant_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/pregnant/is_pregnant_for_medicaid_nfc.py:6`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.pregnant.postpartum_coverage'
-- **is_premium_free_part_a** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_a/is_premium_free_part_a.py:4`): parameter 'gov.hhs.medicare.part_a.premium_free_quarters_threshold' outside emitted subtrees
-- **is_qi_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_qi_eligible.py:12`): parameter 'gov.hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit' outside emitted subtrees
-- **is_qmb_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_qmb_eligible.py:10`): parameter 'gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit' outside emitted subtrees
-- **is_qualifying_relative_dependent** (`policyengine_us/variables/household/demographic/person/is_qualifying_relative_dependent.py:16`): parameter 'gov.irs.income.exemption.amount' outside emitted subtrees
-- **is_slmb_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_slmb_eligible.py:11`): parameter 'gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit' outside emitted subtrees
 - **is_snap_abawd_hr1_in_effect** (`policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_abawd_hr1_in_effect.py:15`): unrecognized call select
 - **is_snap_gross_test_full_income_count_alien** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_gross_test_full_income_count_alien.py:5`): np.isin outside enum idioms
 - **is_snap_prorated_income_member** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_prorated_income_member.py:6`): np.isin outside enum idioms
 - **is_ssi_aged_blind_disabled** (`policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_aged_blind_disabled.py:2`): attribute 'simulation' on value expression
-- **is_ssi_recipient_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_ssi_recipient_for_medicaid.py:4`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered'
 - **is_tanf_non_cash_hheod** (`policyengine_us/variables/gov/hhs/tanf/non_cash/is_tanf_non_cash_hheod.py:2`): person ref to non-person variable 'state_code_str'
 - **is_tax_unit_head** (`policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_head.py:5`): attribute 'tax_unit' on value expression
 - **is_tax_unit_spouse** (`policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_spouse.py:7`): attribute 'tax_unit' on value expression
-- **is_tce_eligible** (`policyengine_us/variables/gov/irs/tce/is_tce_eligible.py:4`): parameter 'gov.irs.tce.age_threshold' outside emitted subtrees
 - **is_usda_disabled** (`policyengine_us/variables/gov/usda/is_usda_disabled.py:3`): unbound name 'np'
-- **is_usda_elderly** (`policyengine_us/variables/gov/usda/is_usda_elderly.py:3`): parameter 'gov.usda.elderly_age_threshold' outside emitted subtrees
 - **is_young_adult_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
-- **is_young_adult_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_adult/is_young_adult_for_medicaid_fc.py:5`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.young_adult.income_limit'
-- **is_young_adult_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_adult/is_young_adult_for_medicaid_nfc.py:4`): calc() on non-scale parameter 'gov.hhs.medicaid.eligibility.categories.young_adult.age_range'
+- **is_young_adult_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_adult/is_young_adult_for_medicaid_fc.py:5`): ExtRat breakdown 'gov.hhs.medicaid.eligibility.categories.young_adult.income_limit' in value position
 - **is_young_child_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
-- **is_young_child_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_child/is_young_child_for_medicaid_fc.py:5`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.young_child.income_limit'
-- **is_young_child_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_child/is_young_child_for_medicaid_nfc.py:4`): calc() on non-scale parameter 'gov.hhs.medicaid.eligibility.categories.young_child.age_range'
 - **itemized_deductions_less_salt** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemized_deductions_less_salt.py:3`): unsupported syntax ListComp
-- **itemized_taxable_income_deductions_reduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions_reduction.py:3`): parameter 'gov.irs.deductions.itemized.limitation.applies' outside emitted subtrees
-- **k401_catch_up_eligible** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/retirement/k401_catch_up_eligible.py:4`): parameter 'gov.irs.gross_income.retirement_contributions.catch_up.age_threshold' outside emitted subtrees
-- **k401_catch_up_limit** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/retirement/k401_catch_up_limit.py:4`): calc() on non-scale parameter 'gov.irs.gross_income.retirement_contributions.catch_up.limit.k401'
-- **ks_529_plan_subtraction** (`policyengine_us/variables/gov/states/ks/tax/income/ks_529_plan_subtraction.py:10`): unsupported parameter subscript on 'gov.states.ks.tax.income.agi.subtractions.plan_529.cap'
-- **ks_agi_subtractions** (`policyengine_us/variables/gov/states/ks/tax/income/ks_agi_subtractions.py:5`): parameter 'gov.states.ks.tax.income.agi.subtractions.oasdi.agi_limit' outside emitted subtrees
-- **ks_ccap_activity_eligible** (`policyengine_us/variables/gov/states/ks/dcf/ccap/eligibility/ks_ccap_activity_eligible.py:19`): parameter 'gov.states.ks.dcf.ccap.eligibility.activity_hours' outside emitted subtrees
-- **ks_ccap_center_age_group** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_center_age_group.py:4`): calc() on non-scale parameter 'gov.states.ks.dcf.ccap.age_group.center_months'
+- **itemized_taxable_income_deductions_reduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions_reduction.py:7`): unsupported parameter subscript on 'gov.irs.deductions.itemized.limitation.applicable_amount'
+- **ks_ccap_center_age_group** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_center_age_group.py:0`): Enum-valued formula
 - **ks_ccap_countable_income** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_countable_income.py:16`): add() without literal variable list
-- **ks_ccap_eligible_child** (`policyengine_us/variables/gov/states/ks/dcf/ccap/eligibility/ks_ccap_eligible_child.py:15`): parameter 'gov.states.ks.dcf.ccap.eligibility.special_needs_child_age_limit' outside emitted subtrees
 - **ks_ccap_family_share** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_family_share.py:13`): person ref to non-person variable 'state_group_str'
-- **ks_ccap_home_age_group** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_home_age_group.py:4`): calc() on non-scale parameter 'gov.states.ks.dcf.ccap.age_group.home_months'
+- **ks_ccap_home_age_group** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_home_age_group.py:0`): Enum-valued formula
 - **ks_ccap_hourly_rate** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_hourly_rate.py:9`): unsupported parameter subscript on 'gov.states.ks.dcf.ccap.rates.center'
 - **ks_ccap_income_eligible** (`policyengine_us/variables/gov/states/ks/dcf/ccap/eligibility/ks_ccap_income_eligible.py:11`): person ref to non-person variable 'state_code_str'
 - **ks_ccap_monthly_hours** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_monthly_hours.py:7`): unbound name 'KSCCAPProviderType'
 - **ks_ccap_rate_group** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_rate_group.py:7`): non-value handle used as value
-- **ks_ccap_relative_age_group** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_relative_age_group.py:4`): calc() on non-scale parameter 'gov.states.ks.dcf.ccap.age_group.relative_months'
-- **ks_cdcc** (`policyengine_us/variables/gov/states/ks/tax/income/credits/ks_cdcc.py:4`): parameter 'gov.states.ks.tax.income.credits.cdcc_fraction' outside emitted subtrees
-- **ks_chip_premium** (`policyengine_us/variables/gov/states/ks/hhs/chip/ks_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.ks.hhs.chip.premium'
+- **ks_ccap_relative_age_group** (`policyengine_us/variables/gov/states/ks/dcf/ccap/ks_ccap_relative_age_group.py:0`): Enum-valued formula
+- **ks_chip_premium** (`policyengine_us/variables/gov/states/ks/hhs/chip/ks_chip_premium.py:5`): ExtRat scale 'gov.states.ks.hhs.chip.premium' in value position
 - **ks_dcf_csfp_county_eligible** (`policyengine_us/variables/gov/states/ks/dcf/csfp/ks_dcf_csfp_county_eligible.py:4`): np.isin outside enum idioms
-- **ks_disabled_veteran_exemptions_eligible_person** (`policyengine_us/variables/gov/states/ks/tax/income/exemptions/ks_disabled_veteran_exemptions_person.py:6`): parameter 'gov.states.ks.tax.income.exemptions.disabled_veteran.in_effect' outside emitted subtrees
-- **ks_exemptions** (`policyengine_us/variables/gov/states/ks/tax/income/exemptions/ks_exemptions.py:8`): parameter 'gov.states.ks.tax.income.exemptions.disabled_veteran.base' outside emitted subtrees
-- **ks_fstc** (`policyengine_us/variables/gov/states/ks/tax/income/credits/ks_fstc.py:8`): parameter 'gov.states.ks.tax.income.credits.food_sales_tax.child_age' outside emitted subtrees
-- **ks_income_tax_before_credits** (`policyengine_us/variables/gov/states/ks/tax/income/ks_income_tax_before_credits.py:7`): calc() on non-scale parameter 'gov.states.ks.tax.income.rates.joint'
+- **ks_income_tax_before_credits** (`policyengine_us/variables/gov/states/ks/tax/income/ks_income_tax_before_credits.py:7`): ExtRat scale 'gov.states.ks.tax.income.rates.joint' in value position
 - **ks_lifeline_supplement** (`?:0`): adds list mixes parameter paths: 'gov.states.ks.kcc.lifeline.supplement'
-- **ks_non_refundable_credits** (`policyengine_us/variables/gov/states/ks/tax/income/credits/ks_non_refundable_credits.py:4`): parameter 'gov.states.ks.tax.income.credits.nonrefundable_before_eitc' outside emitted subtrees
+- **ks_non_refundable_credits** (`policyengine_us/variables/gov/states/ks/tax/income/credits/ks_non_refundable_credits.py:5`): non-value handle used as value
 - **ks_nonrefundable_eitc** (`policyengine_us/variables/gov/states/ks/tax/income/credits/eitc/ks_nonrefundable_eitc.py:6`): add() without literal variable list
-- **ks_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ks.tax.income.credits.refundable'
 - **ks_sspp** (`?:0`): adds list mixes parameter paths: 'gov.states.ks.kdhe.sspp.payment.amount'
 - **ks_sspp_eligible** (`policyengine_us/variables/gov/states/ks/kdhe/sspp/ks_sspp_eligible.py:6`): unbound name 'SSIFederalLivingArrangement'
-- **ks_standard_deduction** (`policyengine_us/variables/gov/states/ks/tax/income/deductions/ks_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.ks.tax.income.deductions.standard.base_amount'
 - **ks_tanf_assistance_unit_size** (`policyengine_us/variables/gov/states/ks/dcf/tanf/ks_tanf_assistance_unit_size.py:5`): unrecognized call spm_unit.members
-- **ks_tanf_child_earned_income_exempt** (`policyengine_us/variables/gov/states/ks/dcf/tanf/income/ks_tanf_child_earned_income_exempt.py:16`): parameter 'gov.hhs.tanf.cash.eligibility.age_limit.student' outside emitted subtrees
 - **ks_tanf_county_group** (`policyengine_us/variables/gov/states/ks/dcf/tanf/ks_tanf_county_group.py:8`): person ref to non-person variable 'county_str'
-- **ks_tanf_earned_income_after_deductions** (`policyengine_us/variables/gov/states/ks/dcf/tanf/income/ks_tanf_earned_income_after_deductions.py:14`): parameter 'gov.states.ks.dcf.tanf.income.earned_income_disregard.flat' outside emitted subtrees
 - **ks_tanf_gross_income_eligible** (`policyengine_us/variables/gov/states/ks/dcf/tanf/eligibility/ks_tanf_gross_income_eligible.py:17`): person ref to non-person variable 'state_group_str'
-- **ks_tanf_max_benefit_standard** (`policyengine_us/variables/gov/states/ks/dcf/tanf/ks_tanf_max_benefit_standard.py:9`): parameter 'gov.states.ks.dcf.tanf.max_family_size_in_table' outside emitted subtrees
-- **ks_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/ks/dcf/tanf/ks_tanf_maximum_benefit.py:9`): parameter 'gov.states.ks.dcf.tanf.max_family_size_in_table' outside emitted subtrees
-- **ks_tanf_resources_eligible** (`policyengine_us/variables/gov/states/ks/dcf/tanf/eligibility/ks_tanf_resources_eligible.py:5`): parameter 'gov.states.ks.dcf.tanf.resource_limit.amount' outside emitted subtrees
-- **ks_total_eitc** (`policyengine_us/variables/gov/states/ks/tax/income/credits/eitc/ks_total_eitc.py:4`): parameter 'gov.states.ks.tax.income.credits.eitc_fraction' outside emitted subtrees
+- **ks_tanf_max_benefit_standard** (`policyengine_us/variables/gov/states/ks/dcf/tanf/ks_tanf_max_benefit_standard.py:13`): unsupported parameter subscript on 'gov.states.ks.dcf.tanf.payment_standard.non_shared.GROUP_IV'
+- **ks_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/ks/dcf/tanf/ks_tanf_maximum_benefit.py:12`): person ref to non-person variable 'is_shared_living'
 - **ks_withheld_income_tax** (`policyengine_us/variables/gov/states/ks/tax/income/ks_withheld_income_tax.py:5`): non-value handle used as value
-- **ky_aged_personal_tax_credits** (`policyengine_us/variables/gov/states/ky/tax/income/credits/personal/ky_aged_personal_tax_credits.py:4`): calc() on non-scale parameter 'gov.states.ky.tax.income.credits.personal.amount.aged'
-- **ky_blind_personal_tax_credits** (`policyengine_us/variables/gov/states/ky/tax/income/credits/personal/ky_blind_personal_tax_credits.py:5`): parameter 'gov.states.ky.tax.income.credits.personal.amount.blind' outside emitted subtrees
-- **ky_ccap_activity_eligible** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/eligibility/ky_ccap_activity_eligible.py:29`): parameter 'gov.states.ky.dcbs.ccap.eligibility.single_parent_activity_hours' outside emitted subtrees
-- **ky_ccap_child_age_category** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_child_age_category.py:7`): calc() on non-scale parameter 'gov.states.ky.dcbs.ccap.age_group.months'
+- **ky_ccap_activity_eligible** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/eligibility/ky_ccap_activity_eligible.py:32`): unrecognized call spm_unit.min
+- **ky_ccap_child_age_category** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_child_age_category.py:0`): Enum-valued formula
 - **ky_ccap_copay** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_copay.py:27`): unrecognized call select
 - **ky_ccap_countable_income** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_countable_income.py:5`): add() without literal variable list
-- **ky_ccap_daily_benefit** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_daily_benefit.py:13`): parameter 'gov.states.ky.dcbs.ccap.supplements.special_care' outside emitted subtrees
+- **ky_ccap_daily_benefit** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_daily_benefit.py:25`): np.divide
 - **ky_ccap_daily_rate** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_daily_rate.py:11`): unbound name 'KYCCAPProviderType'
-- **ky_ccap_day_length** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_day_length.py:6`): parameter 'gov.states.ky.dcbs.ccap.rates.full_day_min_hours' outside emitted subtrees
-- **ky_ccap_eligible_child** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/eligibility/ky_ccap_eligible_child.py:17`): parameter 'gov.states.ky.dcbs.ccap.eligibility.special_needs_child_age_limit' outside emitted subtrees
+- **ky_ccap_day_length** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_day_length.py:9`): unbound name 'KYCCAPDayLength'
 - **ky_ccap_income_eligible** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/eligibility/ky_ccap_income_eligible.py:26`): np.clip
 - **ky_ccap_rate_region** (`policyengine_us/variables/gov/states/ky/dcbs/ccap/ky_ccap_rate_region.py:7`): unbound name 'KYCCAPRateRegion'
 - **ky_cdcc** (`policyengine_us/variables/gov/states/ky/tax/income/credits/dependent_care_service/ky_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
@@ -1358,23 +763,13 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **ky_family_size_tax_credit_rate** (`policyengine_us/variables/gov/states/ky/tax/income/credits/family_size_credit/ky_family_size_tax_credit_rate.py:5`): person ref to non-person variable 'state_group_str'
 - **ky_fayette_occupational_tax** (`policyengine_us/variables/gov/local/ky/fayette/tax/income/ky_fayette_occupational_tax.py:5`): person ref to non-person variable 'county_str'
 - **ky_filing_status** (`policyengine_us/variables/gov/states/ky/tax/income/ky_filing_status.py:5`): unrecognized call select
-- **ky_homestead_exemption** (`policyengine_us/variables/gov/states/ky/tax/property/homestead_exemption/ky_homestead_exemption.py:9`): parameter 'gov.states.ky.tax.property.homestead_exemption.age_threshold' outside emitted subtrees
-- **ky_homestead_exemption_eligible** (`policyengine_us/variables/gov/states/ky/tax/property/homestead_exemption/ky_homestead_exemption_eligible.py:12`): parameter 'gov.states.ky.tax.property.homestead_exemption.age_threshold' outside emitted subtrees
-- **ky_homestead_property_tax_reduction** (`policyengine_us/variables/gov/states/ky/tax/property/homestead_exemption/ky_homestead_property_tax_reduction.py:9`): parameter 'gov.states.ky.tax.property.homestead_exemption.age_threshold' outside emitted subtrees
-- **ky_income_tax_before_non_refundable_credits_indiv** (`policyengine_us/variables/gov/states/ky/tax/income/ky_income_tax_before_non_refundable_credits_indiv.py:4`): parameter 'gov.states.ky.tax.income.rate' outside emitted subtrees
-- **ky_income_tax_before_non_refundable_credits_joint** (`policyengine_us/variables/gov/states/ky/tax/income/ky_income_tax_before_non_refundable_credits_joint.py:4`): parameter 'gov.states.ky.tax.income.rate' outside emitted subtrees
 - **ky_itemized_deductions** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **ky_itemized_deductions_indiv** (`policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_itemized_deduction_indiv.py:5`): np.zeros_like
 - **ky_jefferson_occupational_tax** (`policyengine_us/variables/gov/local/ky/jefferson/tax/income/ky_jefferson_occupational_tax.py:5`): person ref to non-person variable 'county_str'
-- **ky_ktap** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/ky_ktap.py:9`): parameter 'gov.states.ky.dcbs.ktap.benefit.rate' outside emitted subtrees
-- **ky_ktap_countable_earned_income** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/income/ky_ktap_countable_earned_income.py:6`): parameter 'gov.states.ky.dcbs.ktap.income.deductions.work_expense' outside emitted subtrees
-- **ky_ktap_countable_unearned_income** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/income/ky_ktap_countable_unearned_income.py:5`): parameter 'gov.states.ky.dcbs.ktap.income.deductions.child_support_disregard' outside emitted subtrees
+- **ky_ktap_countable_earned_income** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/income/ky_ktap_countable_earned_income.py:12`): unbound name 'period'
 - **ky_ktap_dependent_care_disregard** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/income/ky_ktap_dependent_care_disregard.py:16`): unsupported parameter subscript on 'gov.states.ky.dcbs.ktap.income.deductions.dependent_care.thresholds'
-- **ky_ktap_income_eligible** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/eligibility/ky_ktap_income_eligible.py:9`): parameter 'gov.states.ky.dcbs.ktap.eligibility.gross_income_limit_rate' outside emitted subtrees
-- **ky_ktap_payment_maximum** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/benefit/ky_ktap_payment_maximum.py:4`): parameter 'gov.states.ky.dcbs.ktap.benefit.max_unit_size' outside emitted subtrees
-- **ky_ktap_resource_eligible** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/eligibility/ky_ktap_resource_eligible.py:4`): parameter 'gov.states.ky.dcbs.ktap.eligibility.resource_limit' outside emitted subtrees
-- **ky_ktap_standard_of_need** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/benefit/ky_ktap_standard_of_need.py:4`): parameter 'gov.states.ky.dcbs.ktap.benefit.max_unit_size' outside emitted subtrees
-- **ky_military_personal_tax_credits** (`policyengine_us/variables/gov/states/ky/tax/income/credits/personal/ky_military_personal_tax_credits.py:5`): parameter 'gov.states.ky.tax.income.credits.personal.amount.military' outside emitted subtrees
+- **ky_ktap_payment_maximum** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/benefit/ky_ktap_payment_maximum.py:5`): unsupported parameter subscript on 'gov.states.ky.dcbs.ktap.benefit.payment_maximum'
+- **ky_ktap_standard_of_need** (`policyengine_us/variables/gov/states/ky/dcbs/ktap/benefit/ky_ktap_standard_of_need.py:5`): unsupported parameter subscript on 'gov.states.ky.dcbs.ktap.benefit.standard_of_need'
 - **ky_non_refundable_credits** (`policyengine_us/variables/gov/states/ky/tax/income/credits/ky_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **ky_pension_income_exclusion** (`policyengine_us/variables/gov/states/ky/tax/income/exclusions/pension_income/ky_pension_income_exclusion.py:22`): add() without literal variable list
 - **ky_personal_tax_credits** (`policyengine_us/variables/gov/states/ky/tax/income/credits/personal/ky_personal_tax_credits.py:5`): unrecognized call applied_state_non_refundable_credit
@@ -1383,67 +778,34 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **ky_ssp_payment_standard** (`policyengine_us/variables/gov/states/ky/dcbs/ssp/ky_ssp_payment_standard.py:9`): unsupported parameter subscript on 'gov.states.ky.dcbs.ssp.payment_standard'
 - **ky_ssp_personal_needs_allowance** (`policyengine_us/variables/gov/states/ky/dcbs/ssp/ky_ssp_personal_needs_allowance.py:9`): unrecognized call select
 - **ky_standard_deduction** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ky_standard_deduction_indiv** (`policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_standard_deduction_indiv.py:4`): parameter 'gov.states.ky.tax.income.deductions.standard' outside emitted subtrees
-- **ky_standard_deduction_joint** (`policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_standard_deduction_joint.py:5`): parameter 'gov.states.ky.tax.income.deductions.standard' outside emitted subtrees
 - **ky_subtractions** (`policyengine_us/variables/gov/states/ky/tax/income/ky_subtractions.py:3`): add() without literal variable list
 - **ky_taxable_income** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **ky_tuition_tax_credit** (`policyengine_us/variables/gov/states/ky/tax/income/credits/tuition_tax/ky_tuition_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ky_tuition_tax_credit_potential** (`policyengine_us/variables/gov/states/ky/tax/income/credits/tuition_tax/ky_tuition_tax_credit_potential.py:9`): parameter 'gov.states.ky.tax.income.credits.tuition_tax.rate' outside emitted subtrees
-- **ky_withheld_income_tax** (`policyengine_us/variables/gov/states/ky/tax/income/ky_withheld_income_tax.py:6`): parameter 'gov.states.ky.tax.income.deductions.standard' outside emitted subtrees
-- **la_529_plan_deduction** (`policyengine_us/variables/gov/states/la/tax/income/deductions/la_529_plan_deduction.py:10`): unsupported parameter subscript on 'gov.states.la.tax.income.deductions.plan_529.cap'
-- **la_aged_exemption** (`policyengine_us/variables/gov/states/la/tax/income/exemptions/personal/la_aged_exemption.py:5`): calc() on non-scale parameter 'gov.states.la.tax.income.exemptions.aged'
 - **la_agi_exempt_income** (`policyengine_us/variables/gov/states/la/tax/income/exempt_income/la_agi_exempt_income.py:3`): add() without literal variable list
 - **la_blind_exemption_person** (`policyengine_us/variables/gov/states/la/tax/income/exemptions/personal/blind/la_blind_exemption_person.py:3`): unrecognized call person('is_blind', period).astype
 - **la_ccap** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap.py:16`): unrecognized call spm_unit.project
-- **la_ccap_activity_eligible** (`policyengine_us/variables/gov/states/la/ldoe/ccap/eligibility/la_ccap_activity_eligible.py:15`): parameter 'gov.states.la.ldoe.ccap.activity.special_needs_weekly_hours' outside emitted subtrees
+- **la_ccap_activity_eligible** (`policyengine_us/variables/gov/states/la/ldoe/ccap/eligibility/la_ccap_activity_eligible.py:23`): unrecognized call spm_unit.project
 - **la_ccap_age_group** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_age_group.py:4`): unrecognized call select
 - **la_ccap_copay_waived** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_copay_waived.py:15`): person ref to non-person variable 'is_homeless'
 - **la_ccap_countable_income** (`policyengine_us/variables/gov/states/la/ldoe/ccap/income/la_ccap_countable_income.py:11`): add() without literal variable list
-- **la_ccap_daily_copay** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_daily_copay.py:10`): calc() on non-scale parameter 'gov.states.la.ldoe.ccap.copay.daily_amount'
 - **la_ccap_daily_rate** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_daily_rate.py:8`): unsupported parameter subscript on 'gov.states.la.ldoe.ccap.rates.regular'
-- **la_ccap_eligible_child** (`policyengine_us/variables/gov/states/la/ldoe/ccap/eligibility/la_ccap_eligible_child.py:10`): parameter 'gov.states.la.ldoe.ccap.age.disabled_child_limit' outside emitted subtrees
-- **la_ccap_income_eligible** (`policyengine_us/variables/gov/states/la/ldoe/ccap/eligibility/la_ccap_income_eligible.py:7`): parameter 'gov.states.la.ldoe.ccap.income.limit' outside emitted subtrees
-- **la_ccap_monthly_days** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_monthly_days.py:9`): parameter 'gov.states.la.ldoe.ccap.payment.max_monthly_days' outside emitted subtrees
 - **la_ccap_smi** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_smi.py:12`): unbound name 'period'
-- **la_ccap_special_needs_child** (`policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_special_needs_child.py:14`): parameter 'gov.states.la.ldoe.ccap.age.disabled_child_limit' outside emitted subtrees
-- **la_chip_premium** (`policyengine_us/variables/gov/states/la/hhs/chip/la_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.la.hhs.chip.premium'
-- **la_dependents_exemption** (`policyengine_us/variables/gov/states/la/tax/income/exemptions/personal/la_dependents_exemption.py:4`): parameter 'gov.states.la.tax.income.exemptions.dependent' outside emitted subtrees
-- **la_disability_income_exemption_person** (`policyengine_us/variables/gov/states/la/tax/income/exempt_income/la_disability_income_exemption_person.py:5`): parameter 'gov.states.la.tax.income.exempt_income.disability.cap' outside emitted subtrees
-- **la_eitc** (`policyengine_us/variables/gov/states/la/tax/income/credits/la_eitc.py:4`): parameter 'gov.states.la.tax.income.credits.eitc.match' outside emitted subtrees
-- **la_federal_tax_deduction** (`policyengine_us/variables/gov/states/la/tax/income/deductions/la_federal_tax_deduction.py:16`): parameter 'gov.states.la.tax.income.deductions.federal_tax.availability' outside emitted subtrees
+- **la_chip_premium** (`policyengine_us/variables/gov/states/la/hhs/chip/la_chip_premium.py:5`): ExtRat scale 'gov.states.la.hhs.chip.premium' in value position
 - **la_fitap** (`policyengine_us/variables/gov/states/la/dcfs/fitap/la_fitap.py:11`): np.floor
-- **la_fitap_earned_income_after_disregard** (`policyengine_us/variables/gov/states/la/dcfs/fitap/income/la_fitap_earned_income_after_disregard.py:8`): parameter 'gov.states.la.dcfs.fitap.income.deductions.standard' outside emitted subtrees
-- **la_fitap_flat_grant** (`policyengine_us/variables/gov/states/la/dcfs/fitap/la_fitap_flat_grant.py:6`): parameter 'gov.states.la.dcfs.fitap.flat_grant.max_table_size' outside emitted subtrees
-- **la_general_relief_age_eligible** (`policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/la_general_relief_age_eligible.py:7`): parameter 'gov.local.ca.la.general_relief.eligibility.age_threshold' outside emitted subtrees
-- **la_general_relief_base_amount** (`policyengine_us/variables/gov/local/ca/la/general_relief/la_general_relief_base_amount.py:13`): parameter 'gov.local.ca.la.general_relief.amount.married' outside emitted subtrees
+- **la_fitap_flat_grant** (`policyengine_us/variables/gov/states/la/dcfs/fitap/la_fitap_flat_grant.py:10`): unsupported parameter subscript on 'gov.states.la.dcfs.fitap.flat_grant.amount'
 - **la_general_relief_cash_asset_limit** (`policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/cash/la_general_relief_cash_asset_limit.py:4`): where condition not bool
-- **la_general_relief_gross_income** (`?:0`): adds via unknown parameter path 'gov.local.ca.la.general_relief.income_sources'
-- **la_general_relief_home_value_eligible** (`policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/la_general_relief_home_value_eligible.py:4`): parameter 'gov.local.ca.la.general_relief.eligibility.limit.home_value' outside emitted subtrees
 - **la_general_relief_housing_subsidy** (`policyengine_us/variables/gov/local/ca/la/general_relief/housing_subsidy/la_general_relief_housing_subsidy.py:4`): where condition not bool
 - **la_general_relief_housing_subsidy_base_amount_eligible** (`policyengine_us/variables/gov/local/ca/la/general_relief/housing_subsidy/eligibility/la_general_relief_housing_subsidy_base_amount_eligible.py:8`): where condition not bool
 - **la_general_relief_housing_subsidy_eligible** (`policyengine_us/variables/gov/local/ca/la/general_relief/housing_subsidy/eligibility/la_general_relief_housing_subsidy_eligible.py:2`): attribute 'household' on value expression
 - **la_general_relief_motor_vehicle_value_eligible** (`policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/la_general_relief_motor_vehicle_value_eligible.py:2`): attribute 'household' on value expression
 - **la_general_relief_net_income_limit** (`policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/net_income/la_general_relief_net_income_limit.py:4`): where condition not bool
-- **la_general_relief_personal_property_eligible** (`policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/la_general_relief_personal_property_eligible.py:4`): parameter 'gov.local.ca.la.general_relief.eligibility.limit.personal_property' outside emitted subtrees
 - **la_general_relief_rent_contribution** (`policyengine_us/variables/gov/local/ca/la/general_relief/housing_subsidy/la_general_relief_rent_contribution.py:10`): where condition not bool
-- **la_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/la/tax/income/la_income_tax_before_non_refundable_credits.py:4`): parameter 'gov.states.la.tax.income.main.flat.applies' outside emitted subtrees
+- **la_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/la/tax/income/la_income_tax_before_non_refundable_credits.py:11`): unsupported parameter subscript on 'gov.states.la.tax.income.main.by_filing_status.single.rates'
 - **la_itemized_deductions** (`policyengine_us/variables/gov/states/la/tax/income/deductions/la_itemized_deductions.py:7`): add() without literal variable list
-- **la_military_pay_exclusion** (`policyengine_us/variables/gov/states/la/tax/income/exempt_income/military_pay_exclusion/la_military_pay_exclusion.py:6`): parameter 'gov.states.la.tax.income.exempt_income.military_pay_exclusion.max_amount' outside emitted subtrees
 - **la_non_refundable_cdcc** (`policyengine_us/variables/gov/states/la/tax/income/credits/cdcc/la_non_refundable_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **la_non_refundable_cdcc_potential** (`policyengine_us/variables/gov/states/la/tax/income/credits/cdcc/la_non_refundable_cdcc_potential.py:6`): calc() on non-scale parameter 'gov.states.la.tax.income.credits.cdcc.non_refundable.match'
 - **la_non_refundable_credits** (`policyengine_us/variables/gov/states/la/tax/income/la_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **la_oss** (`policyengine_us/variables/gov/states/la/hhs/oss/la_oss.py:12`): parameter 'gov.states.la.hhs.oss.personal_care_needs_allowance' outside emitted subtrees
 - **la_oss_eligible** (`policyengine_us/variables/gov/states/la/hhs/oss/la_oss_eligible.py:12`): unbound name 'SSIFederalLivingArrangement'
-- **la_personal_exemption** (`policyengine_us/variables/gov/states/la/tax/income/exemptions/personal/la_personal_exemption.py:4`): unsupported parameter subscript on 'gov.states.la.tax.income.exemptions.personal'
-- **la_refundable_cdcc** (`policyengine_us/variables/gov/states/la/tax/income/credits/cdcc/la_refundable_cdcc.py:7`): calc() on non-scale parameter 'gov.states.la.tax.income.credits.cdcc.refundable.match'
-- **la_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.la.tax.income.credits.refundable'
-- **la_retirement_exemption_person** (`policyengine_us/variables/gov/states/la/tax/income/exempt_income/la_retirement_exemption_person.py:5`): calc() on non-scale parameter 'gov.states.la.tax.income.exempt_income.retirement.cap'
-- **la_school_readiness_credit** (`policyengine_us/variables/gov/states/la/tax/income/credits/school_readiness/la_school_readiness_tax_credit.py:10`): calc() on non-scale parameter 'gov.states.la.tax.income.credits.school_readiness.rate'
-- **la_school_readiness_credit_eligible_child** (`policyengine_us/variables/gov/states/la/tax/income/credits/school_readiness/la_school_readiness_credit_eligible_child.py:5`): parameter 'gov.states.la.tax.income.credits.school_readiness.age_threshold' outside emitted subtrees
-- **la_school_readiness_credit_refundable_eligible** (`policyengine_us/variables/gov/states/la/tax/income/credits/school_readiness/la_school_readiness_credit_refundable_eligible.py:5`): thresholds[-1] on non-scale 'gov.states.la.tax.income.credits.cdcc.refundable.match'
-- **la_standard_deduction** (`policyengine_us/variables/gov/states/la/tax/income/deductions/la_standard_deduction.py:3`): parameter 'gov.states.la.tax.income.deductions.standard.applies' outside emitted subtrees
-- **la_surviving_spouse_exemption** (`policyengine_us/variables/gov/states/la/tax/income/exemptions/personal/la_widow_exemption.py:5`): parameter 'gov.states.la.tax.income.exemptions.surviving_spouse' outside emitted subtrees
-- **la_taxable_income** (`policyengine_us/variables/gov/states/la/tax/income/la_taxable_income.py:9`): parameter 'gov.states.la.tax.income.deductions.standard.applies' outside emitted subtrees
+- **la_taxable_income** (`policyengine_us/variables/gov/states/la/tax/income/la_taxable_income.py:11`): unsupported statement AugAssign
 - **la_withheld_income_tax** (`policyengine_us/variables/gov/states/la/tax/income/la_withheld_income_tax.py:5`): non-value handle used as value
 - **labor_supply_behavioral_response** (`policyengine_us/variables/gov/simulation/labor_supply_response/labor_supply_behavioral_response.py:3`): attribute 'simulation' on value expression
 - **lcbp_age_0** (`policyengine_us/variables/gov/aca/lcbp/lcbp_age_0.py:9`): unsupported parameter subscript on 'gov.aca.lcbp.state_rating_area_cost'
@@ -1453,93 +815,43 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **lcbp_family_tier_multiplier** (`policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_multiplier.py:4`): person ref to non-person variable 'state_code'
 - **lifeline** (`policyengine_us/variables/gov/fcc/lifeline/lifeline.py:6`): attribute 'household' on value expression
 - **lifetime_learning_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_credit_limit.py:4`): add() without literal variable list
-- **lifetime_learning_credit_phase_out** (`policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_phase_out.py:7`): parameter 'gov.irs.credits.education.lifetime_learning_credit.phase_out.start.joint' outside emitted subtrees
-- **lifetime_learning_credit_potential** (`policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_potential.py:12`): parameter 'gov.irs.credits.education.lifetime_learning_credit.expense_limit' outside emitted subtrees
-- **limited_capital_loss** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/limited_capital_loss.py:4`): unsupported parameter subscript on 'gov.irs.ald.loss.capital.max'
 - **loss_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/loss_ald.py:4`): unsupported parameter subscript on 'gov.irs.ald.loss.max'
 - **loss_limited_net_capital_gains_person** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/loss_limited_net_capital_gains_person.py:6`): attribute 'tax_unit' on value expression
-- **ma_529_deduction** (`policyengine_us/variables/gov/states/ma/tax/income/deductions/plan_529_contributions/ma_529_deduction.py:7`): unsupported parameter subscript on 'gov.states.ma.tax.income.deductions.plan_529_contributions.cap'
-- **ma_ccfa_activity_eligible** (`policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_activity_eligible.py:8`): parameter 'gov.states.ma.eec.ccfa.activity_requirements.weekly_hours' outside emitted subtrees
-- **ma_ccfa_asset_eligible** (`policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_asset_eligible.py:4`): parameter 'gov.states.ma.eec.ccfa.assets.limit' outside emitted subtrees
+- **ma_ccfa_activity_eligible** (`policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_activity_eligible.py:23`): person ref to non-person variable 'is_homeless'
 - **ma_ccfa_base_copay** (`policyengine_us/variables/gov/states/ma/eec/ccfa/copay/ma_ccfa_base_copay.py:8`): unsupported parameter subscript on 'gov.states.ma.eec.ccfa.copay.fee_level.fee_percentages'
 - **ma_ccfa_center_based_early_education_reimbursement** (`policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_center_based_early_education_reimbursement.py:5`): unsupported parameter subscript on 'gov.states.ma.eec.ccfa.reimbursement_rates.center_based.early_education'
 - **ma_ccfa_center_based_school_age_reimbursement** (`policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_center_based_school_age_reimbursement.py:6`): unsupported parameter subscript on 'gov.states.ma.eec.ccfa.reimbursement_rates.center_based.school_age'
 - **ma_ccfa_child_age_category** (`policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_child_age_category.py:10`): unrecognized call select
 - **ma_ccfa_copay_level** (`policyengine_us/variables/gov/states/ma/eec/ccfa/copay/ma_ccfa_copay_level.py:5`): np.clip
-- **ma_ccfa_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.ma.eec.ccfa.income.countable_income.sources'
-- **ma_ccfa_eligible_child** (`policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_eligible_child.py:5`): parameter 'gov.states.ma.eec.ccfa.age_threshold.disabled_child' outside emitted subtrees
-- **ma_ccfa_family_child_care_reimbursement** (`policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_family_child_care_reimbursement.py:7`): parameter 'gov.states.ma.eec.ccfa.reimbursement_rates.family_child_care.age_threshold' outside emitted subtrees
 - **ma_ccfa_fpg** (`policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_fpg.py:4`): person ref to non-person variable 'state_group_str'
 - **ma_ccfa_head_start_partner_and_kindergarten_reimbursement** (`policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_head_start_partner_and_kindergarten_reimbursement.py:5`): unsupported parameter subscript on 'gov.states.ma.eec.ccfa.reimbursement_rates.head_start_partner_and_kindergarten'
-- **ma_ccfa_immigration_status_eligible** (`policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_immigration_status_eligible.py:5`): isin against non-list param 'gov.states.ma.eec.ccfa.qualified_immigration_statuses'
-- **ma_ccfa_income_eligible** (`policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_income_eligible.py:12`): parameter 'gov.states.ma.eec.ccfa.income.smi_rate.redetermination' outside emitted subtrees
-- **ma_ccfa_informal_child_care_reimbursement** (`policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_informal_child_care_reimbursement.py:6`): parameter 'gov.states.ma.eec.ccfa.reimbursement_rates.informal_child_care.relative_home' outside emitted subtrees
 - **ma_ccfa_region** (`policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_region.py:5`): np.isin outside enum idioms
-- **ma_ccfa_reimbursement_ratio** (`policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_reimbursement_ratio.py:4`): calc() on non-scale parameter 'gov.states.ma.eec.ccfa.reimbursement_rates.amount_ratio'
 - **ma_ccfa_total_copay** (`policyengine_us/variables/gov/states/ma/eec/ccfa/copay/ma_ccfa_total_copay.py:7`): unrecognized call spm_unit.members
 - **ma_ccfa_uncapped_daily_payment** (`policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_uncapped_daily_payment.py:34`): unrecognized call select
-- **ma_child_and_family_credit** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_child_and_family_credit.py:6`): parameter 'gov.states.ma.tax.income.credits.child_and_family.child_age_limit' outside emitted subtrees
-- **ma_child_and_family_credit_or_dependent_care_credit** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_child_and_family_credit_or_dependent_care_credit.py:6`): parameter 'gov.states.ma.tax.income.credits.dependent_care.in_effect' outside emitted subtrees
-- **ma_chip_premium** (`policyengine_us/variables/gov/states/ma/hhs/chip/ma_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.ma.hhs.chip.premium.per_child'
+- **ma_child_and_family_credit** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_child_and_family_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
+- **ma_chip_premium** (`policyengine_us/variables/gov/states/ma/hhs/chip/ma_chip_premium.py:5`): ExtRat scale 'gov.states.ma.hhs.chip.premium.per_child' in value position
 - **ma_covid_19_essential_employee_premium_pay_program** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_covid_19_essential_employee_premium_pay_program/ma_covid_19_essential_employee_premium_pay_program.py:3`): attribute 'tax_unit' on value expression
-- **ma_dependent_care_credit** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_dependent_care_credit.py:10`): parameter 'gov.states.ma.tax.income.credits.dependent_care.dependent_cap' outside emitted subtrees
 - **ma_dese_csfp_county_eligible** (`policyengine_us/variables/gov/states/ma/dese/csfp/ma_dese_csfp_county_eligible.py:4`): np.isin outside enum idioms
-- **ma_eaedc_assets_limit_eligible** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/eligibility/financial/ma_eaedc_assets_limit_eligible.py:9`): parameter 'gov.states.ma.dta.tcap.eaedc.assets.limit' outside emitted subtrees
-- **ma_eaedc_countable_assets** (`?:0`): adds via unknown parameter path 'gov.states.ma.dta.tcap.eaedc.assets.sources'
-- **ma_eaedc_dependent_care_deduction_person** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/dependent_care_deduction/ma_eaedc_dependent_care_deduction_person.py:14`): parameter 'gov.states.ma.dta.tcap.deductions.dependent_care_expenses.young_child_age_threshold' outside emitted subtrees
-- **ma_eaedc_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/income/ma_eaedc_earned_income_after_disregard_person.py:11`): parameter 'gov.states.ma.dta.tcap.eaedc.deductions.income_disregard.flat' outside emitted subtrees
-- **ma_eaedc_eligible_caretaker_family** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/eligibility/non_financial/ma_eaedc_eligible_caretaker_family.py:9`): parameter 'gov.states.ma.dta.tcap.eaedc.age_threshold.caretaker' outside emitted subtrees
-- **ma_eaedc_eligible_dependent** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/dependent_care_deduction/ma_eaedc_eligible_dependent.py:5`): parameter 'gov.states.ma.dta.tcap.eaedc.age_threshold.dependent' outside emitted subtrees
-- **ma_eaedc_eligible_disabled_dependent_present** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/eligibility/non_financial/ma_eaedc_eligible_disabled_dependent_present.py:15`): parameter 'gov.states.ma.dta.tcap.eaedc.income.disabled_limit' outside emitted subtrees
-- **ma_eaedc_eligible_elderly_present** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/eligibility/non_financial/ma_eaedc_eligible_elderly_present.py:7`): parameter 'gov.states.ma.dta.tcap.eaedc.age_threshold.elderly' outside emitted subtrees
-- **ma_eaedc_standard_assistance** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/income/ma_eaedc_standard_assistance.py:5`): unsupported parameter subscript on 'gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base'
-- **ma_eitc** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_eitc.py:4`): parameter 'gov.states.ma.tax.income.credits.eitc.match' outside emitted subtrees
-- **ma_employee_paid_leave_contribution** (`policyengine_us/variables/gov/states/ma/tax/payroll/paid_leave/ma_employee_paid_leave_contribution.py:3`): parameter 'gov.states.ma.tax.payroll.paid_leave.family_rate' outside emitted subtrees
-- **ma_employer_paid_leave_contribution** (`policyengine_us/variables/gov/states/ma/tax/payroll/paid_leave/ma_employer_paid_leave_contribution.py:3`): parameter 'gov.states.ma.tax.payroll.paid_leave.employer_headcount_threshold' outside emitted subtrees
-- **ma_income_tax_before_credits** (`policyengine_us/variables/gov/states/ma/tax/income/ma_income_tax_before_credits.py:11`): parameter 'gov.states.ma.tax.income.rates.part_a.dividends' outside emitted subtrees
-- **ma_income_tax_exemption_threshold** (`policyengine_us/variables/gov/states/ma/tax/income/ma_income_tax_exemption_threshold.py:7`): unsupported parameter subscript on 'gov.states.ma.tax.income.exempt_status.limit.personal_exemption_added'
+- **ma_eaedc_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/income/ma_eaedc_earned_income_after_disregard_person.py:15`): unbound name 'period'
 - **ma_liheap** (`policyengine_us/variables/gov/states/ma/doer/liheap/payment/ma_liheap.py:13`): unrecognized call select
-- **ma_liheap_benefit_level** (`policyengine_us/variables/gov/states/ma/doer/liheap/ma_liheap_benefit_level.py:8`): calc() on non-scale parameter 'gov.states.ma.doer.liheap.benefit_level'
-- **ma_liheap_eligible_subsidized_housing** (`policyengine_us/variables/gov/states/ma/doer/liheap/eligibility/ma_liheap_eligible_subsidized_housing.py:4`): parameter 'gov.states.ma.doer.liheap.eligibility.rent_threshold_subsidized_housing' outside emitted subtrees
 - **ma_liheap_fpg** (`policyengine_us/variables/gov/states/ma/doer/liheap/ma_liheap_fpg.py:3`): person ref to non-person variable 'state_group_str'
-- **ma_liheap_hecs_eligible** (`policyengine_us/variables/gov/states/ma/doer/liheap/eligibility/ma_liheap_hecs_eligible.py:6`): unsupported parameter subscript on 'gov.states.ma.doer.liheap.hecs.eligibility.prior_year_cost_threshold'
+- **ma_liheap_hecs_eligible** (`policyengine_us/variables/gov/states/ma/doer/liheap/eligibility/ma_liheap_hecs_eligible.py:0`): enum-indexed parameter 'gov.states.ma.doer.liheap.hecs.eligibility.prior_year_cost_threshold' lacks members ['NONE']
 - **ma_liheap_hecs_payment** (`policyengine_us/variables/gov/states/ma/doer/liheap/payment/ma_liheap_hecs_payment.py:8`): unsupported parameter subscript on 'gov.states.ma.doer.liheap.hecs.amount.subsidized'
 - **ma_liheap_standard_payment** (`policyengine_us/variables/gov/states/ma/doer/liheap/payment/ma_liheap_standard_payment.py:9`): unsupported parameter subscript on 'gov.states.ma.doer.liheap.standard.amount.subsidized'
-- **ma_liheap_state_median_income_threshold** (`policyengine_us/variables/gov/states/ma/doer/liheap/ma_liheap_state_median_income_threshold.py:4`): parameter 'gov.hhs.liheap.smi_limit' outside emitted subtrees
 - **ma_liheap_utility_category** (`policyengine_us/variables/gov/states/ma/doer/liheap/ma_liheap_utility_category.py:18`): non-string list element
 - **ma_limited_income_tax_credit** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_limited_income_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
 - **ma_limited_income_tax_credit_potential** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_limited_income_tax_credit_potential.py:7`): np.ones_like
 - **ma_maximum_state_supplement** (`policyengine_us/variables/gov/states/ma/dta/ssp/ma_maximum_state_supplement.py:21`): unsupported parameter subscript on 'gov.states.ma.dta.ssp.amount'
-- **ma_mbta_enrolled_in_applicable_programs** (`?:0`): adds via unknown parameter path 'gov.states.ma.dot.mbta.income_eligible_reduced_fares.applicable_programs'
-- **ma_mbta_income_eligible_reduced_fare_eligible** (`policyengine_us/variables/gov/states/ma/dot/mbta/income_eligible_reduced_fares/ma_mbta_income_eligible_reduced_fare_eligible.py:6`): calc() on non-scale parameter 'gov.states.ma.dot.mbta.income_eligible_reduced_fares.age_threshold'
-- **ma_mbta_senior_charlie_card_eligible** (`policyengine_us/variables/gov/states/ma/dot/mbta/senior_charlie_card/ma_mbta_senior_charlie_card_eligible.py:4`): parameter 'gov.states.ma.dot.mbta.senior_charlie_card.age_threshold' outside emitted subtrees
 - **ma_non_refundable_credits** (`policyengine_us/variables/gov/states/ma/tax/income/ma_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **ma_paid_leave_taxable_wages** (`policyengine_us/variables/gov/states/ma/tax/payroll/paid_leave/ma_paid_leave_taxable_wages.py:4`): parameter 'gov.irs.payroll.social_security.cap' outside emitted subtrees
-- **ma_part_a_agi** (`policyengine_us/variables/gov/states/ma/tax/income/adjusted_gross_income/ma_part_a_agi.py:15`): parameter 'gov.states.ma.tax.income.capital_gains.deductible_against_interest_dividends' outside emitted subtrees
 - **ma_part_b_agi** (`policyengine_us/variables/gov/states/ma/tax/income/adjusted_gross_income/ma_part_b_agi.py:6`): unsupported syntax ListComp
-- **ma_part_b_taxable_income_deductions** (`policyengine_us/variables/gov/states/ma/tax/income/taxable_income/ma_part_b_taxable_income_deductions.py:15`): parameter 'gov.states.ma.tax.income.deductions.public_retirement_contributions' outside emitted subtrees
-- **ma_part_b_taxable_income_exemption** (`policyengine_us/variables/gov/states/ma/tax/income/taxable_income/ma_part_b_taxable_income_exemption.py:10`): unsupported parameter subscript on 'gov.states.ma.tax.income.exemptions.personal'
-- **ma_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ma.tax.income.credits.refundable'
+- **ma_part_b_taxable_income_deductions** (`policyengine_us/variables/gov/states/ma/tax/income/taxable_income/ma_part_b_taxable_income_deductions.py:25`): if arm without return
+- **ma_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.ma.tax.income.credits.refundable'
 - **ma_scb_total_income** (`policyengine_us/variables/gov/states/ma/tax/income/credits/senior_circuit_breaker/ma_scb_total_income.py:6`): add() without literal variable list
-- **ma_senior_circuit_breaker** (`policyengine_us/variables/gov/states/ma/tax/income/credits/senior_circuit_breaker/ma_senior_circuit_breaker.py:8`): parameter 'gov.states.ma.tax.income.credits.senior_circuit_breaker.eligibility.min_age' outside emitted subtrees
-- **ma_tafdc_age_limit** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/eligibility/non_financial/ma_tafdc_age_limit.py:6`): parameter 'gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.student_dependent' outside emitted subtrees
-- **ma_tafdc_child_support_deduction** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/income/deductions/ma_tafdc_child_support_deduction.py:4`): parameter 'gov.states.ma.dta.tcap.deductions.child_support_received' outside emitted subtrees
-- **ma_tafdc_clothing_allowance** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/payment/ma_tafdc_clothing_allowance.py:4`): parameter 'gov.states.ma.dta.tcap.tafdc.clothing_allowance' outside emitted subtrees
-- **ma_tafdc_countable_earned_income** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/income/earned/ma_tafdc_countable_earned_income.py:11`): parameter 'gov.states.ma.dta.tcap.tafdc.earned_income_disregard.full_disregard.percentage' outside emitted subtrees
-- **ma_tafdc_dependent_care_deduction_person** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/income/deductions/ma_tafdc_dependent_care_deduction_person.py:14`): parameter 'gov.states.ma.dta.tcap.deductions.dependent_care_expenses.young_child_age_threshold' outside emitted subtrees
 - **ma_tafdc_dependent_criteria_eligible** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/eligibility/non_financial/ma_tafdc_dependent_criteria_eligible.py:6`): unrecognized call spm_unit.members
-- **ma_tafdc_eligible_infant** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/ma_tafdc_eligible_infant.py:5`): parameter 'gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.infant' outside emitted subtrees
-- **ma_tafdc_full_earned_income_disregard_eligible** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/income/earned/ma_tafdc_full_earned_income_disregard_eligible.py:10`): parameter 'gov.states.ma.dta.tcap.tafdc.earned_income_disregard.full_disregard.fpg_limit' outside emitted subtrees
 - **ma_tafdc_immigration_status_eligible** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/eligibility/non_financial/ma_tafdc_immigration_status_eligible.py:2`): unrecognized call spm_unit.members
-- **ma_tafdc_infant_benefit** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/payment/ma_tafdc_infant_benefit.py:4`): parameter 'gov.states.ma.dta.tcap.tafdc.infant_amount' outside emitted subtrees
-- **ma_tafdc_partially_disregarded_earned_income** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/income/earned/ma_tafdc_partially_disregarded_earned_income.py:22`): parameter 'gov.states.ma.dta.tcap.tafdc.earned_income_disregard.percentage' outside emitted subtrees
 - **ma_tafdc_payment_standard** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/payment/ma_tafdc_payment_standard.py:2`): person ref to non-person variable 'is_in_public_housing'
-- **ma_tafdc_pregnancy_eligible** (`policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/eligibility/non_financial/ma_tafdc_pregnancy_eligible.py:9`): parameter 'gov.states.ma.dta.tcap.tafdc.eligibility.pregnancy_month' outside emitted subtrees
 - **ma_tafdc_work_related_expense_deduction** (`?:0`): adds list mixes parameter paths: 'gov.states.ma.dta.tcap.deductions.work_related_expenses.amount'
-- **ma_taxable_earnings_for_state_unemployment_tax** (`policyengine_us/variables/gov/states/ma/tax/payroll/unemployment/ma_taxable_earnings_for_state_unemployment_tax.py:4`): parameter 'gov.states.ma.tax.payroll.unemployment.taxable_wage_base' outside emitted subtrees
 - **ma_taxpayer_refund_rebate** (`policyengine_us/variables/gov/states/ma/tax/income/credits/ma_taxpayer_refund_rebate.py:10`): unsupported statement For
-- **ma_tcap_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.ma.dta.tcap.gross_income.earned'
-- **ma_tcap_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.ma.dta.tcap.gross_income.unearned'
 - **ma_withheld_income_tax** (`policyengine_us/variables/gov/states/ma/tax/income/ma_withheld_income_tax.py:6`): non-value handle used as value
 - **marginal_tax_rate** (`policyengine_us/variables/household/marginal_tax_rate.py:5`): attribute 'simulation' on value expression
 - **marginal_tax_rate_including_health_benefits** (`policyengine_us/variables/household/marginal_tax_rate_including_health_benefits.py:7`): attribute 'simulation' on value expression
@@ -1547,119 +859,69 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **marital_unit_weight** (`policyengine_us/variables/household/demographic/marital_unit/marital_unit_weight.py:3`): person ref to non-person variable 'household_weight'
 - **marketplace_csr_actuarial_value** (`policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py:4`): unrecognized call select
 - **marketplace_csr_category** (`policyengine_us/variables/gov/aca/csr/marketplace_csr_category.py:5`): unrecognized call select
-- **marketplace_csr_eligible** (`policyengine_us/variables/gov/aca/csr/marketplace_csr_eligible.py:8`): parameter 'gov.aca.csr.income_threshold.maximum' outside emitted subtrees
-- **md_529_deduction** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/plan_529_contributions/md_529_deduction.py:8`): unsupported parameter subscript on 'gov.states.md.tax.income.agi.subtractions.plan_529_contributions.cap'
-- **md_aged_dependent_exemption** (`policyengine_us/variables/gov/states/md/tax/income/exemptions/md_aged_dependent_exemption.py:7`): parameter 'gov.states.md.tax.income.exemptions.aged.age' outside emitted subtrees
-- **md_aged_exemption** (`policyengine_us/variables/gov/states/md/tax/income/exemptions/md_aged_exemption.py:3`): parameter 'gov.states.md.tax.income.exemptions.aged.age' outside emitted subtrees
+- **md_aged_exemption** (`policyengine_us/variables/gov/states/md/tax/income/exemptions/md_aged_exemption.py:3`): unrecognized call (tax_unit('age_head', period) >= p.age).astype
 - **md_anne_arundel_county_tax** (`policyengine_us/variables/gov/states/md/tax/income/local/md_anne_arundel_county_tax.py:2`): person ref to non-person variable 'county_str'
 - **md_applicable_local_tax_rate** (`policyengine_us/variables/gov/states/md/tax/income/local/md_applicable_local_tax_rate.py:2`): person ref to non-person variable 'county_str'
 - **md_blind_exemption** (`policyengine_us/variables/gov/states/md/tax/income/exemptions/md_blind_exemption.py:4`): unrecognized call tax_unit('blind_head', period).astype
-- **md_capital_gains_surtax** (`policyengine_us/variables/gov/states/md/tax/income/capital_gains/md_capital_gains_surtax.py:66`): parameter 'gov.states.md.tax.income.capital_gains.surtax_rate' outside emitted subtrees
-- **md_capital_gains_surtax_applies** (`policyengine_us/variables/gov/states/md/tax/income/capital_gains/md_capital_gains_surtax_applies.py:5`): parameter 'gov.states.md.tax.income.capital_gains.surtax_applies' outside emitted subtrees
-- **md_ccs_age_group** (`policyengine_us/variables/gov/states/md/msde/ccs/payment/md_ccs_age_group.py:5`): parameter 'gov.states.md.msde.ccs.payment.infant_age_threshold' outside emitted subtrees
+- **md_ccs_age_group** (`policyengine_us/variables/gov/states/md/msde/ccs/payment/md_ccs_age_group.py:6`): unbound name 'MDCCSAgeGroup'
 - **md_ccs_countable_income** (`policyengine_us/variables/gov/states/md/msde/ccs/md_ccs_countable_income.py:3`): add() without literal variable list
-- **md_ccs_eligible_child** (`policyengine_us/variables/gov/states/md/msde/ccs/eligibility/md_ccs_eligible_child.py:5`): parameter 'gov.states.md.msde.ccs.age_threshold.disabled_child' outside emitted subtrees
-- **md_ccs_income_eligible** (`policyengine_us/variables/gov/states/md/msde/ccs/md_ccs_income_eligible.py:7`): parameter 'gov.states.md.msde.ccs.income.smi_freeze_in_effect' outside emitted subtrees
-- **md_ccs_payment_rate** (`policyengine_us/variables/gov/states/md/msde/ccs/payment/md_ccs_payment_rate.py:11`): unsupported parameter subscript on 'gov.states.md.msde.ccs.payment.unit_count'
+- **md_ccs_income_eligible** (`policyengine_us/variables/gov/states/md/msde/ccs/md_ccs_income_eligible.py:9`): person ref to non-person variable 'state_code_str'
+- **md_ccs_payment_rate** (`policyengine_us/variables/gov/states/md/msde/ccs/payment/md_ccs_payment_rate.py:11`): non-value handle used as value
 - **md_ccs_region** (`policyengine_us/variables/gov/states/md/msde/ccs/payment/md_ccs_region.py:4`): np.isin outside enum idioms
-- **md_ccs_service_unit** (`policyengine_us/variables/gov/states/md/msde/ccs/payment/md_ccs_service_unit.py:4`): calc() on non-scale parameter 'gov.states.md.msde.ccs.copay.unit_hours'
-- **md_ccs_weekly_copay** (`policyengine_us/variables/gov/states/md/msde/ccs/md_ccs_weekly_copay.py:29`): unsupported parameter subscript on 'gov.states.md.msde.ccs.copay.weekly_amount'
+- **md_ccs_service_unit** (`policyengine_us/variables/gov/states/md/msde/ccs/payment/md_ccs_service_unit.py:5`): unrecognized call select
 - **md_cdcc** (`policyengine_us/variables/gov/states/md/tax/income/credits/cdcc/md_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **md_cdcc_potential** (`policyengine_us/variables/gov/states/md/tax/income/credits/cdcc/md_cdcc_potential.py:6`): unsupported parameter subscript on 'gov.states.md.tax.income.credits.cdcc.eligibility.agi_cap'
-- **md_ctc** (`policyengine_us/variables/gov/states/md/tax/income/credits/ctc/md_ctc.py:6`): parameter 'gov.states.md.tax.income.credits.ctc.age_threshold.disabled' outside emitted subtrees
-- **md_ctc_eligible** (`policyengine_us/variables/gov/states/md/tax/income/credits/ctc/md_ctc_eligible.py:9`): parameter 'gov.states.md.tax.income.credits.ctc.age_threshold.disabled' outside emitted subtrees
+- **md_ctc** (`policyengine_us/variables/gov/states/md/tax/income/credits/ctc/md_ctc.py:15`): if arm without return
+- **md_ctc_eligible** (`policyengine_us/variables/gov/states/md/tax/income/credits/ctc/md_ctc_eligible.py:17`): ExtRat parameter compared with <
 - **md_dependent_care_subtraction** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_dependent_care_subtraction.py:4`): unbound name 'period'
 - **md_flat_rate_county_tax** (`policyengine_us/variables/gov/states/md/tax/income/local/md_flat_rate_county_tax.py:2`): person ref to non-person variable 'county_str'
 - **md_frederick_county_tax_rate** (`policyengine_us/variables/gov/states/md/tax/income/local/md_frederick_county_tax_rate.py:2`): person ref to non-person variable 'county_str'
-- **md_hundred_year_subtraction_eligible** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/hundred_year/md_hundred_year_subtraction_eligible.py:4`): parameter 'gov.states.md.tax.income.agi.subtractions.hundred_year.age_threshold' outside emitted subtrees
 - **md_hundred_year_subtraction_person** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/hundred_year/md_hundred_year_subtraction_person.py:1`): returns a non-value
 - **md_income_tax_before_credits** (`policyengine_us/variables/gov/states/md/tax/income/md_income_tax_before_credits.py:8`): unrecognized call select
-- **md_itemized_deductions** (`policyengine_us/variables/gov/states/md/tax/income/deductions/md_itemized_deductions.py:11`): parameter 'gov.states.md.tax.income.deductions.itemized.phase_out.applies' outside emitted subtrees
-- **md_local_eitc** (`policyengine_us/variables/gov/states/md/tax/income/local/credits/md_local_eitc.py:8`): parameter 'gov.states.md.tax.income.credits.eitc.local.rate_multiplier' outside emitted subtrees
-- **md_married_or_has_child_non_refundable_eitc** (`policyengine_us/variables/gov/states/md/tax/income/credits/eitc/non_refundable/md_married_or_has_child_non_refundable_eitc.py:23`): parameter 'gov.states.md.tax.income.credits.eitc.non_refundable.married_or_has_child.match' outside emitted subtrees
-- **md_married_or_has_child_refundable_eitc** (`policyengine_us/variables/gov/states/md/tax/income/credits/eitc/refundable/md_married_or_has_child_refundable_eitc.py:22`): parameter 'gov.states.md.tax.income.credits.eitc.refundable.married_or_has_child.match' outside emitted subtrees
-- **md_military_retirement_subtraction** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_military_retirement_subtraction.py:15`): parameter 'gov.states.md.tax.income.agi.subtractions.military_retirement.age_threshold' outside emitted subtrees
 - **md_montgomery_eitc** (`policyengine_us/variables/gov/local/md/montgomery/tax/income/credits/eitc/refundable/montgomery_refundable_eitc.py:7`): person ref to non-person variable 'county_str'
 - **md_non_refundable_credits** (`policyengine_us/variables/gov/states/md/tax/income/credits/md_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **md_non_refundable_eitc** (`policyengine_us/variables/gov/states/md/tax/income/credits/eitc/non_refundable/md_non_refundable_eitc.py:5`): unrecognized call applied_state_non_refundable_credit
 - **md_paa_countable_income** (`policyengine_us/variables/gov/states/md/dhs/fia/paa/md_paa_countable_income.py:23`): non-value handle used as value
 - **md_paa_personal_needs_allowance** (`?:0`): adds list mixes parameter paths: 'gov.states.md.dhs.fia.paa.personal_needs_allowance'
-- **md_paa_provider_rate** (`policyengine_us/variables/gov/states/md/dhs/fia/paa/md_paa_provider_rate.py:3`): unsupported parameter subscript on 'gov.states.md.dhs.fia.paa.provider_rate'
-- **md_pension_subtraction_amount** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_pension_subtraction_amount.py:6`): parameter 'gov.states.md.tax.income.agi.subtractions.pension.min_age' outside emitted subtrees
 - **md_personal_exemption** (`policyengine_us/variables/gov/states/md/tax/income/exemptions/md_personal_exemption.py:8`): unrecognized call select
 - **md_poverty_line_credit** (`policyengine_us/variables/gov/states/md/tax/income/credits/poverty_line/md_poverty_line_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **md_poverty_line_credit_potential** (`policyengine_us/variables/gov/states/md/tax/income/credits/poverty_line/md_poverty_line_credit_potential.py:21`): parameter 'gov.states.md.tax.income.credits.poverty_line.earned_income_share' outside emitted subtrees
-- **md_refundable_cdcc** (`policyengine_us/variables/gov/states/md/tax/income/credits/cdcc/md_refundable_cdcc.py:10`): unsupported parameter subscript on 'gov.states.md.tax.income.credits.cdcc.eligibility.refundable_agi_cap'
-- **md_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.md.tax.income.credits.refundable'
 - **md_senior_tax_credit** (`policyengine_us/variables/gov/states/md/tax/income/credits/senior_tax/md_senior_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **md_senior_tax_credit_eligible** (`policyengine_us/variables/gov/states/md/tax/income/credits/senior_tax/md_senior_tax_credit_eligible.py:7`): unsupported parameter subscript on 'gov.states.md.tax.income.credits.senior_tax.income_threshold'
-- **md_senior_tax_credit_potential** (`policyengine_us/variables/gov/states/md/tax/income/credits/senior_tax/md_senior_tax_credit_potential.py:9`): parameter 'gov.states.md.tax.income.credits.senior_tax.age_eligibility' outside emitted subtrees
-- **md_snap_is_elderly** (`policyengine_us/variables/gov/states/md/usda/snap/min_allotment/md_snap_is_elderly.py:3`): parameter 'gov.states.md.usda.snap.min_allotment.age_threshold' outside emitted subtrees
-- **md_standard_deduction** (`policyengine_us/variables/gov/states/md/tax/income/deductions/md_standard_deduction.py:6`): parameter 'gov.states.md.tax.income.deductions.standard.flat_deduction.applies' outside emitted subtrees
+- **md_senior_tax_credit_potential** (`policyengine_us/variables/gov/states/md/tax/income/credits/senior_tax/md_senior_tax_credit_potential.py:9`): unrecognized call (age_head >= p.age_eligibility).astype
+- **md_standard_deduction** (`policyengine_us/variables/gov/states/md/tax/income/deductions/md_standard_deduction.py:13`): np.clip
 - **md_tax_unit_earned_income** (`policyengine_us/tools/general.py:2`): unbound name 'variable'
-- **md_tca_childcare_deduction** (`policyengine_us/variables/gov/states/md/tca/income/md_tca_childcare_deduction.py:17`): calc() on non-scale parameter 'gov.states.md.tca.income.deductions.childcare_expenses.cap'
-- **md_tca_countable_earned_income** (`policyengine_us/variables/gov/states/md/tca/income/md_tca_countable_earned_income.py:9`): parameter 'gov.states.md.tca.income.deductions.earned.recipient' outside emitted subtrees
-- **md_tca_maximum_benefit** (`policyengine_us/variables/gov/states/md/tca/md_tca_maximum_benefit.py:4`): parameter 'gov.states.md.tca.maximum_benefit.max_table_size' outside emitted subtrees
+- **md_tca_maximum_benefit** (`policyengine_us/variables/gov/states/md/tca/md_tca_maximum_benefit.py:6`): unsupported parameter subscript on 'gov.states.md.tca.maximum_benefit.main'
 - **md_total_subtractions** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_total_subtractions.py:3`): add() without literal variable list
 - **md_two_income_subtraction** (`policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_two_income_subtraction.py:14`): np.ones_like
-- **md_unmarried_childless_non_refundable_eitc** (`policyengine_us/variables/gov/states/md/tax/income/credits/eitc/non_refundable/md_unmarried_childless_non_refundable_eitc.py:9`): parameter 'gov.states.md.tax.income.credits.eitc.non_refundable.unmarried_childless.match' outside emitted subtrees
+- **md_unmarried_childless_non_refundable_eitc** (`policyengine_us/variables/gov/states/md/tax/income/credits/eitc/non_refundable/md_unmarried_childless_non_refundable_eitc.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **md_withheld_income_tax** (`policyengine_us/variables/gov/states/md/tax/income/md_withheld_income_tax.py:5`): non-value handle used as value
-- **me_529_plan_subtraction** (`policyengine_us/variables/gov/states/me/tax/income/adjusted_gross_income/me_529_plan_subtraction.py:9`): parameter 'gov.states.me.tax.income.agi.subtractions.plan_529.cap' outside emitted subtrees
-- **me_affordability_payment** (`policyengine_us/variables/gov/states/me/tax/income/credits/me_affordability_payment.py:9`): parameter 'gov.states.me.tax.income.credits.affordability_payment.amount' outside emitted subtrees
 - **me_affordability_payment_eligible** (`policyengine_us/variables/gov/states/me/tax/income/credits/me_affordability_payment_eligible.py:5`): unsupported parameter subscript on 'gov.states.me.tax.income.credits.affordability_payment.income_limit'
-- **me_affordability_payment_subtraction** (`policyengine_us/variables/gov/states/me/tax/income/adjusted_gross_income/me_affordability_payment_subtraction.py:5`): parameter 'gov.states.me.tax.income.agi.subtractions.affordability_payment_subtraction.in_effect' outside emitted subtrees
 - **me_ccap_age_group** (`policyengine_us/variables/gov/states/me/dhhs/ccap/payment/me_ccap_age_group.py:5`): unrecognized call select
-- **me_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.me.dhhs.ccap.income.countable_income.sources'
-- **me_ccap_eligible_child** (`policyengine_us/variables/gov/states/me/dhhs/ccap/eligibility/me_ccap_eligible_child.py:5`): parameter 'gov.states.me.dhhs.ccap.age_limit.special_needs' outside emitted subtrees
-- **me_ccap_income_eligible** (`policyengine_us/variables/gov/states/me/dhhs/ccap/eligibility/me_ccap_income_eligible.py:5`): parameter 'gov.states.me.dhhs.ccap.income.smi_limit' outside emitted subtrees
 - **me_ccap_market_rate** (`policyengine_us/variables/gov/states/me/dhhs/ccap/payment/me_ccap_market_rate.py:8`): unsupported statement FunctionDef
-- **me_ccap_parent_fee** (`policyengine_us/variables/gov/states/me/dhhs/ccap/copay/me_ccap_parent_fee.py:8`): calc() on non-scale parameter 'gov.states.me.dhhs.ccap.copay.rate'
+- **me_ccap_parent_fee** (`policyengine_us/variables/gov/states/me/dhhs/ccap/copay/me_ccap_parent_fee.py:9`): np.floor
 - **me_ccap_region** (`policyengine_us/variables/gov/states/me/dhhs/ccap/payment/me_ccap_region.py:4`): unbound name 'period'
 - **me_ccap_smi** (`policyengine_us/variables/gov/states/me/dhhs/ccap/income/me_ccap_smi.py:2`): unbound name 'period'
-- **me_ccap_time_category** (`policyengine_us/variables/gov/states/me/dhhs/ccap/payment/me_ccap_time_category.py:4`): parameter 'gov.states.me.dhhs.ccap.hours.uses_simplified_time' outside emitted subtrees
+- **me_ccap_time_category** (`policyengine_us/variables/gov/states/me/dhhs/ccap/payment/me_ccap_time_category.py:7`): unbound name 'MECCAPTimeCategory'
 - **me_child_care_credit** (`policyengine_us/variables/gov/states/me/tax/income/credits/child_care_credit/me_child_care_credit.py:15`): unbound name 'period'
-- **me_childless_eitc_age_eligible** (`policyengine_us/variables/gov/states/me/tax/income/credits/eitc/me_childless_eitc_age_eligible.py:19`): parameter 'gov.states.me.tax.income.credits.eitc.eligibility.age.min' outside emitted subtrees
 - **me_deduction_phaseout_percentage** (`policyengine_us/variables/gov/states/me/tax/income/taxable_income/deductions/me_deduction_phaseout_percentage.py:13`): unsupported parameter subscript on 'gov.states.me.tax.income.deductions.phase_out.start'
-- **me_dependent_exemption_credit** (`policyengine_us/variables/gov/states/me/tax/income/credits/dependent_exemption/me_dependent_exemption_credit.py:17`): unsupported parameter subscript on 'gov.states.me.tax.income.credits.dependent_exemption.phase_out.start'
-- **me_dependent_exemption_credit_amount_person** (`policyengine_us/variables/gov/states/me/tax/income/credits/dependent_exemption/me_dependent_exemption_credit_amount_person.py:5`): calc() on non-scale parameter 'gov.states.me.tax.income.credits.dependent_exemption.multiplier'
-- **me_eitc** (`policyengine_us/variables/gov/states/me/tax/income/credits/me_eitc.py:14`): parameter 'gov.states.me.tax.income.credits.eitc.rate.with_qualifying_child' outside emitted subtrees
-- **me_employee_paid_leave_contribution** (`policyengine_us/variables/gov/states/me/tax/payroll/paid_leave/me_employee_paid_leave_contribution.py:3`): parameter 'gov.states.me.tax.payroll.paid_leave.employee_rate' outside emitted subtrees
-- **me_employer_paid_leave_contribution** (`policyengine_us/variables/gov/states/me/tax/payroll/paid_leave/me_employer_paid_leave_contribution.py:3`): parameter 'gov.states.me.tax.payroll.paid_leave.employer_headcount_threshold' outside emitted subtrees
 - **me_income_tax_before_credits** (`policyengine_us/variables/gov/states/me/tax/income/me_income_tax_before_credits.py:8`): unrecognized call select
 - **me_income_tax_surcharge** (`policyengine_us/variables/gov/states/me/tax/income/me_income_tax_surcharge.py:7`): unsupported parameter subscript on 'gov.states.me.tax.income.surcharge.threshold'
-- **me_itemized_deductions_pre_phaseout** (`policyengine_us/variables/gov/states/me/tax/income/taxable_income/deductions/me_itemized_deductions_pre_phaseout.py:18`): parameter 'gov.states.me.tax.income.deductions.itemized.cap' outside emitted subtrees
 - **me_non_refundable_child_care_credit** (`policyengine_us/variables/gov/states/me/tax/income/credits/child_care_credit/me_non_refundable_child_care_credit.py:5`): unrecognized call applied_state_non_refundable_credit
 - **me_non_refundable_credits** (`policyengine_us/variables/gov/states/me/tax/income/me_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **me_paid_leave_taxable_wages** (`policyengine_us/variables/gov/states/me/tax/payroll/paid_leave/me_paid_leave_taxable_wages.py:4`): parameter 'gov.irs.payroll.social_security.cap' outside emitted subtrees
-- **me_pension_income_deduction** (`policyengine_us/variables/gov/states/me/tax/income/adjusted_gross_income/me_pension_income_deduction.py:11`): parameter 'gov.states.me.tax.income.agi.subtractions.pension_exclusion.cap' outside emitted subtrees
+- **me_pension_income_deduction** (`policyengine_us/variables/gov/states/me/tax/income/adjusted_gross_income/me_pension_income_deduction.py:40`): unsupported parameter subscript on 'gov.states.me.tax.income.agi.subtractions.pension_exclusion.phaseout.start'
 - **me_personal_exemption_deduction** (`policyengine_us/variables/gov/states/me/tax/income/taxable_income/deductions/personal_exemption/me_personal_exemption_deduction.py:13`): unsupported parameter subscript on 'gov.states.me.tax.income.deductions.personal_exemption.phaseout.start'
-- **me_property_tax_fairness_credit_base_cap** (`policyengine_us/variables/gov/states/me/tax/income/credits/fairness/property_tax_fairness_credit/me_property_tax_fairness_credit_base_cap.py:7`): calc() on non-scale parameter 'gov.states.me.tax.income.credits.fairness.property_tax.benefit_base.senior'
-- **me_property_tax_fairness_credit_benefit_base** (`policyengine_us/variables/gov/states/me/tax/income/credits/fairness/property_tax_fairness_credit/me_property_tax_fairness_credit_benefit_base.py:11`): parameter 'gov.states.me.tax.income.credits.fairness.property_tax.dependent_count_threshold' outside emitted subtrees
-- **me_property_tax_fairness_credit_countable_rent** (`policyengine_us/variables/gov/states/me/tax/income/credits/fairness/property_tax_fairness_credit/me_property_tax_fairness_credit_countable_rent.py:11`): parameter 'gov.states.me.tax.income.credits.fairness.property_tax.rate.rent' outside emitted subtrees
-- **me_property_tax_fairness_credit_veterans_cap** (`policyengine_us/variables/gov/states/me/tax/income/credits/fairness/property_tax_fairness_credit/me_property_tax_fairness_credit_veterans_cap.py:9`): parameter 'gov.states.me.tax.income.credits.fairness.property_tax.veterans_matched' outside emitted subtrees
-- **me_refundable_child_care_credit** (`policyengine_us/variables/gov/states/me/tax/income/credits/child_care_credit/me_refundable_child_care_credit.py:3`): parameter 'gov.states.me.tax.income.credits.child_care.max_amount' outside emitted subtrees
-- **me_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.me.tax.income.credits.refundable'
-- **me_relief_rebate** (`policyengine_us/variables/gov/states/me/tax/income/credits/me_relief_rebate.py:4`): parameter 'gov.states.me.tax.income.credits.relief_rebate.amount' outside emitted subtrees
-- **me_relief_rebate_eligible** (`policyengine_us/variables/gov/states/me/tax/income/credits/me_relief_rebate_eligible.py:5`): unsupported parameter subscript on 'gov.states.me.tax.income.credits.relief_rebate.income_limit'
-- **me_sales_and_property_tax_fairness_credit_income** (`?:0`): adds via unknown parameter path 'gov.states.me.tax.income.credits.fairness.income_sources'
+- **me_property_tax_fairness_credit_benefit_base** (`policyengine_us/variables/gov/states/me/tax/income/credits/fairness/property_tax_fairness_credit/me_property_tax_fairness_credit_benefit_base.py:21`): unrecognized call select
+- **me_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.me.tax.income.credits.refundable'
 - **me_sales_tax_fairness_credit** (`policyengine_us/variables/gov/states/me/tax/income/credits/fairness/sales_tax_fairness_credit/me_sales_tax_fairness_credit.py:6`): unsupported parameter subscript on 'gov.states.me.tax.income.credits.fairness.sales_tax.amount.base'
 - **me_ssp** (`policyengine_us/variables/gov/states/me/dhhs/ssp/me_ssp.py:8`): marital_unit aggregation other than sum
-- **me_ssp_couple** (`policyengine_us/variables/gov/states/me/dhhs/ssp/me_ssp_couple.py:7`): unsupported parameter subscript on 'gov.states.me.dhhs.ssp.amount.couple'
-- **me_ssp_individual** (`policyengine_us/variables/gov/states/me/dhhs/ssp/me_ssp_individual.py:5`): unsupported parameter subscript on 'gov.states.me.dhhs.ssp.amount.individual'
 - **me_ssp_payment_category** (`policyengine_us/variables/gov/states/me/dhhs/ssp/me_ssp_payment_category.py:13`): unrecognized call select
-- **me_standard_deduction** (`policyengine_us/variables/gov/states/me/tax/income/taxable_income/deductions/me_standard_deduction.py:9`): unsupported parameter subscript on 'gov.states.me.tax.income.deductions.standard.amount'
 - **me_tanf_child_care_deduction** (`policyengine_us/variables/gov/states/me/dhhs/tanf/income/deductions/me_tanf_child_care_deduction.py:20`): unsupported parameter subscript on 'gov.states.me.dhhs.tanf.child_care.amount.amounts'
-- **me_tanf_countable_unearned_income** (`policyengine_us/variables/gov/states/me/dhhs/tanf/income/unearned/me_tanf_countable_unearned_income.py:8`): parameter 'gov.states.me.dhhs.tanf.child_support_deduction' outside emitted subtrees
-- **me_tanf_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/me/dhhs/tanf/income/earned/me_tanf_earned_income_after_disregard_person.py:13`): parameter 'gov.states.me.dhhs.tanf.earned_income.flat_deduction' outside emitted subtrees
-- **me_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/me/dhhs/tanf/me_tanf_maximum_benefit.py:9`): parameter 'gov.states.me.dhhs.tanf.max_unit_size' outside emitted subtrees
-- **me_tanf_resources_eligible** (`policyengine_us/variables/gov/states/me/dhhs/tanf/eligibility/me_tanf_resources_eligible.py:7`): parameter 'gov.states.me.dhhs.tanf.resource_limit' outside emitted subtrees
-- **me_tanf_standard_of_need** (`policyengine_us/variables/gov/states/me/dhhs/tanf/me_tanf_standard_of_need.py:9`): parameter 'gov.states.me.dhhs.tanf.max_unit_size' outside emitted subtrees
+- **me_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/me/dhhs/tanf/me_tanf_maximum_benefit.py:13`): unsupported parameter subscript on 'gov.states.me.dhhs.tanf.maximum_benefit.amount'
+- **me_tanf_standard_of_need** (`policyengine_us/variables/gov/states/me/dhhs/tanf/me_tanf_standard_of_need.py:13`): unsupported parameter subscript on 'gov.states.me.dhhs.tanf.standard_of_need.amount'
 - **me_withheld_income_tax** (`policyengine_us/variables/gov/states/me/tax/income/me_withheld_income_tax.py:5`): non-value handle used as value
 - **medicaid_adjusted_gross_income_person** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_adjusted_gross_income_person.py:3`): unbound name 'PERSON_LEVEL_MEDICAID_AGI_ALDS'
 - **medicaid_category** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medicaid_category.py:16`): unrecognized call dict
 - **medicaid_cost_if_enrolled** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_cost_if_enrolled.py:7`): np.divide
-- **medicaid_federal_share** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_federal_share.py:4`): unsupported parameter subscript on 'gov.hhs.medicaid.cost_share.fmap'
-- **medicaid_group** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_group.py:38`): parameter 'gov.states.il.hfs.hbi.eligibility.child.max_age' outside emitted subtrees
+- **medicaid_federal_share** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_federal_share.py:7`): unrecognized call select
+- **medicaid_group** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_group.py:45`): unrecognized call select
 - **medicaid_has_known_claiming_tax_unit** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_has_known_claiming_tax_unit.py:4`): unbound name 'NO_MEDICAID_CLAIMING_TAX_UNIT_ID'
 - **medicaid_home_equity_limit_family_exception** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_home_equity_limit_family_exception.py:7`): attribute 'marital_unit' on value expression
 - **medicaid_household_income** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_household_income.py:15`): unrecognized call head_or_spouse.astype
@@ -1668,11 +930,10 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicaid_irs_gross_income** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_irs_gross_income.py:3`): unsupported statement For
 - **medicaid_magi** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_magi.py:4`): add() without literal variable list
 - **medicaid_magi_person** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_magi_person.py:4`): unsupported syntax ListComp
-- **medicaid_non_filer_child_age_eligible** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_non_filer_child_age_eligible.py:5`): parameter 'gov.hhs.medicaid.household.child_age_limit.non_student' outside emitted subtrees
-- **medicaid_optional_senior_or_disabled_countable_income** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_optional_senior_or_disabled_countable_income.py:28`): unsupported parameter subscript on 'gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.disregard.couple'
+- **medicaid_optional_senior_or_disabled_countable_income** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_optional_senior_or_disabled_countable_income.py:31`): unrecognized call _apply_medicaid_optional_senior_or_disabled_exclusions
 - **medicaid_optional_senior_or_disabled_income_deemed_from_ineligible_spouse** (`policyengine_us/variables/gov/hhs/medicaid/income/deemed/from_ineligible_spouse/medicaid_optional_senior_or_disabled_income_deemed_from_ineligible_spouse.py:17`): unrecognized call _apply_medicaid_optional_senior_or_disabled_exclusions
 - **medicaid_optional_senior_or_disabled_unearned_income_deemed_from_ineligible_parent** (`policyengine_us/variables/gov/hhs/medicaid/income/deemed/from_ineligible_parent/medicaid_optional_senior_or_disabled_unearned_income_deemed_from_ineligible_parent.py:6`): attribute 'tax_unit' on value expression
-- **medicaid_parent_income_limit** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/medicaid_parent_income_limit.py:6`): parameter 'gov.states.va.dmas.medicaid.lifc.in_effect' outside emitted subtrees
+- **medicaid_parent_income_limit** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/medicaid_parent_income_limit.py:8`): unbound name 'StateCode'
 - **medicaid_person_is_required_to_file** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_person_is_required_to_file.py:8`): attribute 'marital_unit' on value expression
 - **medicaid_rating_area** (`policyengine_us/variables/input/geography.py:5`): unbound name 'pd'
 - **medicaid_slcsp_cost_index** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_cost_index.py:2`): unbound name 'period'
@@ -1682,15 +943,10 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicaid_slcsp_state_average_cost_index** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_state_average_cost_index.py:6`): unrecognized call sum_by_state
 - **medicaid_slcsp_state_denominator** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_state_denominator.py:2`): attribute 'simulation' on value expression
 - **medicaid_ssi_recipient_state_classification** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medicaid_ssi_recipient_state_classification.py:7`): unrecognized call select
-- **medicaid_work_requirement_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_work_requirement_eligible.py:5`): parameter 'gov.hhs.medicaid.eligibility.work_requirements.monthly_hours_threshold' outside emitted subtrees
+- **medicaid_work_requirement_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_work_requirement_eligible.py:103`): where condition not bool
 - **medicaid_working_disabled_buy_in_premium** (`policyengine_us/variables/gov/hhs/medicaid/medicaid_working_disabled_buy_in_premium.py:2`): unrecognized call tax_unit.members
-- **medical_expense_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/medical_expense_deduction.py:4`): parameter 'gov.irs.deductions.itemized.medical.floor' outside emitted subtrees
-- **medicare_cost** (`policyengine_us/variables/gov/hhs/medicare/costs/medicare_cost.py:15`): parameter 'calibration.gov.hhs.medicare.per_capita_cost' outside emitted subtrees
 - **medicare_gross_cost** (`policyengine_us/variables/gov/hhs/medicare/costs/medicare_gross_cost.py:1`): returns a non-value
 - **medicare_irmaa_magi_two_years_prior** (`policyengine_us/variables/gov/hhs/medicare/eligibility/medicare_irmaa_magi_two_years_prior.py:2`): unbound name 'period'
-- **meets_american_opportunity_credit_identification_requirements** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/meets_american_opportunity_credit_identification_requirements.py:3`): parameter 'gov.irs.credits.education.american_opportunity_credit.eligibility.requires_qualifying_ssn' outside emitted subtrees
-- **meets_lifetime_learning_credit_identification_requirements** (`policyengine_us/variables/gov/irs/credits/education/meets_lifetime_learning_credit_identification_requirements.py:3`): parameter 'gov.irs.credits.education.lifetime_learning_credit.eligibility.requires_qualifying_ssn' outside emitted subtrees
-- **meets_school_meal_categorical_eligibility** (`?:0`): adds via unknown parameter path 'gov.usda.school_meals.categorical_eligibility'
 - **meets_snap_categorical_eligibility** (`policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_categorical_eligibility.py:3`): unsupported syntax ListComp
 - **meets_snap_parent_exception** (`policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_parent_exception.py:7`): attribute 'spm_unit' on value expression
 - **meets_tanf_non_cash_asset_test** (`policyengine_us/variables/gov/hhs/tanf/non_cash/meets_tanf_non_cash_asset_test.py:3`): person ref to non-person variable 'state_code_str'
@@ -1698,734 +954,368 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **meets_tanf_non_cash_net_income_test** (`policyengine_us/variables/gov/hhs/tanf/non_cash/meets_tanf_non_cash_net_income_test.py:4`): person ref to non-person variable 'state_code_str'
 - **meets_tanf_work_requirements** (`policyengine_us/variables/gov/hhs/tanf/cash/eligibility/meets_tanf_work_requirements.py:2`): unbound name 'STATE_TANF_WORK_REQUIREMENT_VARIABLES'
 - **meets_wic_categorical_eligibility** (`policyengine_us/variables/gov/usda/wic/meets_wic_categorical_eligibility.py:2`): attribute 'spm_unit' on value expression
-- **mi_529_deduction** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/plan_529_contributions/mi_529_deduction.py:7`): unsupported parameter subscript on 'gov.states.mi.tax.income.deductions.plan_529_contributions.cap'
-- **mi_additions** (`?:0`): adds via unknown parameter path 'gov.states.mi.tax.income.additions'
-- **mi_allowable_homestead_property_tax_credit** (`policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_allowable_homestead_property_tax_credit.py:14`): calc() on non-scale parameter 'gov.states.mi.tax.income.credits.homestead_property_tax.rate.senior.base'
-- **mi_alternate_home_heating_credit** (`policyengine_us/variables/gov/states/mi/tax/income/credits/home_heating/alternate/mi_alternate_home_heating_credit.py:7`): parameter 'gov.states.mi.tax.income.credits.home_heating.alternate.heating_costs.cap' outside emitted subtrees
-- **mi_alternate_home_heating_credit_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/credits/home_heating/alternate/mi_alternate_home_heating_credit_eligible.py:7`): calc() on non-scale parameter 'gov.states.mi.tax.income.credits.home_heating.alternate.household_resources.cap'
-- **mi_ccap_age_group** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_age_group.py:4`): calc() on non-scale parameter 'gov.states.mi.mdhhs.ccap.age_group.thresholds'
-- **mi_ccap_authorized_hours** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_authorized_hours.py:14`): parameter 'gov.states.mi.mdhhs.ccap.authorized_hours.travel_hours_per_pay_period' outside emitted subtrees
-- **mi_ccap_block_payment** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_block_payment.py:17`): calc() on non-scale parameter 'gov.states.mi.mdhhs.ccap.block_hours.tiers'
-- **mi_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.mi.mdhhs.ccap.income.countable_income.sources'
-- **mi_ccap_eligible_child** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/eligibility/mi_ccap_eligible_child.py:11`): parameter 'gov.states.mi.mdhhs.ccap.eligibility.disabled_child_age_limit' outside emitted subtrees
+- **mi_allowable_homestead_property_tax_credit** (`policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_allowable_homestead_property_tax_credit.py:32`): unrecognized call select
+- **mi_ccap_age_group** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_age_group.py:0`): Enum-valued formula
+- **mi_ccap_authorized_hours** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_authorized_hours.py:25`): unrecognized call spm_unit.min
+- **mi_ccap_block_payment** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_block_payment.py:21`): unbound name 'MICCAPProviderType'
 - **mi_ccap_family_contribution** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_family_contribution.py:14`): unrecognized call select
 - **mi_ccap_hourly_rate** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_hourly_rate.py:10`): unsupported parameter subscript on 'gov.states.mi.mdhhs.ccap.rates.center'
 - **mi_ccap_income_eligible** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/eligibility/mi_ccap_income_eligible.py:16`): unsupported parameter subscript on 'gov.states.mi.mdhhs.ccap.income.scale.exit_limit'
 - **mi_ccap_income_waived** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/eligibility/mi_ccap_income_waived.py:21`): person ref to non-person variable 'is_homeless'
-- **mi_ccap_program_group_size** (`policyengine_us/variables/gov/states/mi/mdhhs/ccap/mi_ccap_program_group_size.py:10`): parameter 'gov.states.mi.mdhhs.ccap.eligibility.max_program_group_size' outside emitted subtrees
-- **mi_chip_premium** (`policyengine_us/variables/gov/states/mi/hhs/chip/mi_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.mi.hhs.chip.premium'
-- **mi_disabled_exemption_eligible_person** (`policyengine_us/variables/gov/states/mi/tax/income/exemptions/mi_disabled_exemption_eligible_person.py:7`): parameter 'gov.states.mi.tax.income.exemptions.disabled.age_limit' outside emitted subtrees
-- **mi_eitc** (`policyengine_us/variables/gov/states/mi/tax/income/credits/mi_eitc.py:4`): parameter 'gov.states.mi.tax.income.credits.eitc.match' outside emitted subtrees
-- **mi_exemptions** (`policyengine_us/variables/gov/states/mi/tax/income/exemptions/mi_exemptions.py:11`): parameter 'gov.states.mi.tax.income.exemptions.disabled.amount.base' outside emitted subtrees
-- **mi_expanded_retirement_benefits_deduction** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/expanded/mi_expanded_retirement_benefits_deduction.py:18`): unsupported parameter subscript on 'gov.states.mi.tax.income.deductions.retirement_benefits.tier_one.amount'
-- **mi_expanded_retirement_benefits_deduction_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/expanded/mi_expanded_retirement_benefits_deduction_eligible.py:6`): parameter 'gov.states.mi.tax.income.deductions.retirement_benefits.expanded.availability' outside emitted subtrees
-- **mi_fip_earned_income_after_deductions_for_benefit_person** (`policyengine_us/variables/gov/states/mi/mdhhs/fip/income/benefit/mi_fip_earned_income_after_deductions_for_benefit_person.py:17`): parameter 'gov.states.mi.mdhhs.fip.income.disregard.flat' outside emitted subtrees
-- **mi_fip_earned_income_after_deductions_for_eligibility_person** (`policyengine_us/variables/gov/states/mi/mdhhs/fip/income/eligibility/mi_fip_earned_income_after_deductions_for_eligibility_person.py:14`): parameter 'gov.states.mi.mdhhs.fip.income.disregard.flat' outside emitted subtrees
-- **mi_fip_payment_standard** (`policyengine_us/variables/gov/states/mi/mdhhs/fip/mi_fip_payment_standard.py:10`): parameter 'gov.states.mi.mdhhs.fip.payment_standard.max_household_size' outside emitted subtrees
-- **mi_fip_resources_eligible** (`policyengine_us/variables/gov/states/mi/mdhhs/fip/eligibility/mi_fip_resources_eligible.py:8`): parameter 'gov.states.mi.mdhhs.fip.resources.limit' outside emitted subtrees
-- **mi_healthy_michigan_contribution** (`policyengine_us/variables/gov/states/mi/mdhhs/healthy_michigan/mi_healthy_michigan_contribution.py:3`): parameter 'gov.states.mi.mdhhs.healthy_michigan.contribution.active' outside emitted subtrees
-- **mi_home_heating_credit** (`policyengine_us/variables/gov/states/mi/tax/income/credits/home_heating/mi_home_heating_credit.py:6`): parameter 'gov.states.mi.tax.income.credits.home_heating.credit_percentage' outside emitted subtrees
+- **mi_chip_premium** (`policyengine_us/variables/gov/states/mi/hhs/chip/mi_chip_premium.py:5`): ExtRat scale 'gov.states.mi.hhs.chip.premium' in value position
+- **mi_healthy_michigan_contribution** (`policyengine_us/variables/gov/states/mi/mdhhs/healthy_michigan/mi_healthy_michigan_contribution.py:11`): unrecognized call tax_unit.members
 - **mi_home_heating_credit_eligible_rate** (`policyengine_us/variables/gov/states/mi/tax/income/credits/home_heating/mi_home_heating_credit_eligible_rate.py:11`): np.zeros_like
-- **mi_homestead_property_tax_credit_alternate_senior_amount** (`policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_homestead_property_tax_credit_alternate_senior_amount.py:13`): parameter 'gov.states.mi.tax.income.credits.homestead_property_tax.rate.senior.alternate' outside emitted subtrees
-- **mi_homestead_property_tax_credit_countable_property_tax** (`policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_homestead_property_tax_credit_countable_property_tax.py:8`): parameter 'gov.states.mi.tax.income.credits.homestead_property_tax.rent_equivalization' outside emitted subtrees
-- **mi_homestead_property_tax_credit_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_homestead_property_tax_credit_eligible.py:4`): parameter 'gov.states.mi.tax.income.credits.homestead_property_tax.property_value_limit' outside emitted subtrees
-- **mi_homestead_property_tax_credit_household_resource_exemption** (`policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_homestead_property_tax_credit_household_resource_exemption.py:12`): calc() on non-scale parameter 'gov.states.mi.tax.income.credits.homestead_property_tax.exemption.senior_disabled'
-- **mi_homestead_property_tax_credit_pre_alternate_senior_amount** (`policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_homestead_property_tax_credit_pre_alternate_senior_amount.py:12`): parameter 'gov.states.mi.tax.income.credits.homestead_property_tax.reduction.start' outside emitted subtrees
 - **mi_household_resources** (`policyengine_us/variables/gov/states/mi/tax/income/mi_household_resources.py:10`): unsupported syntax Set
-- **mi_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/mi/tax/income/mi_income_tax_before_non_refundable_credits.py:4`): parameter 'gov.states.mi.tax.income.rate' outside emitted subtrees
 - **mi_interest_dividends_capital_gains_deduction** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/interest_dividends_capital_gains/mi_interest_dividends_capital_gains_deduction.py:11`): add() without literal variable list
-- **mi_interest_dividends_capital_gains_deduction_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/interest_dividends_capital_gains/mi_interest_dividends_capital_gains_deduction_eligible.py:8`): parameter 'gov.states.mi.tax.income.deductions.interest_dividends_capital_gains.birth_year' outside emitted subtrees
-- **mi_is_senior_for_tax** (`policyengine_us/variables/gov/states/mi/tax/income/mi_is_senior_for_tax.py:3`): parameter 'gov.states.mi.tax.income.senior_age' outside emitted subtrees
-- **mi_personal_exemptions** (`policyengine_us/variables/gov/states/mi/tax/income/exemptions/mi_personal_exemptions.py:8`): parameter 'gov.states.mi.tax.income.exemptions.personal' outside emitted subtrees
-- **mi_qualified_overtime_deduction** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/qualified_tips_and_overtime/mi_qualified_overtime_deduction.py:8`): parameter 'gov.states.mi.tax.income.deductions.qualified_tips_and_overtime.in_effect' outside emitted subtrees
-- **mi_qualified_tips_deduction** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/qualified_tips_and_overtime/mi_qualified_tips_deduction.py:8`): parameter 'gov.states.mi.tax.income.deductions.qualified_tips_and_overtime.in_effect' outside emitted subtrees
-- **mi_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.mi.tax.income.credits.refundable'
-- **mi_retirement_benefits_deduction_tier_one_amount** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/tier_one/mi_retirement_benefits_deduction_tier_one_amount.py:9`): unsupported parameter subscript on 'gov.states.mi.tax.income.deductions.retirement_benefits.tier_one.amount'
-- **mi_retirement_benefits_deduction_tier_one_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/tier_one/mi_retirement_benefits_deduction_tier_one_eligible.py:8`): parameter 'gov.states.mi.tax.income.deductions.retirement_benefits.tier_one.birth_year' outside emitted subtrees
-- **mi_retirement_benefits_deduction_tier_three_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/tier_three/mi_retirement_benefits_deduction_tier_three_eligible.py:6`): calc() on non-scale parameter 'gov.states.mi.tax.income.deductions.retirement_benefits.tier_three.age_eligibility'
-- **mi_retirement_benefits_deduction_tier_three_ss_exempt_not_retired** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/tier_three/ss_exempt/not_retired/mi_retirement_benefits_deduction_tier_three_ss_exempt_not_retired.py:15`): parameter 'gov.states.mi.tax.income.deductions.retirement_benefits.tier_three.ss_exempt.not_retired.amount' outside emitted subtrees
 - **mi_retirement_benefits_deduction_tier_three_ss_exempt_retired** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/tier_three/ss_exempt/retired/mi_retirement_benefits_deduction_tier_three_ss_exempt_retired.py:20`): unrecognized call select
-- **mi_retirement_benefits_deduction_tier_three_ss_exempt_retired_eligible_people** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/tier_three/ss_exempt/retired/mi_retirement_benefits_deduction_tier_three_ss_exempt_retired_eligible_people.py:10`): parameter 'gov.states.mi.tax.income.deductions.retirement_benefits.tier_three.ss_exempt.retired.retirement_year' outside emitted subtrees
-- **mi_ssp_couple_amount** (`policyengine_us/variables/gov/states/mi/mdhhs/ssp/mi_ssp_couple_amount.py:4`): unsupported parameter subscript on 'gov.states.mi.mdhhs.ssp.payment.couple'
 - **mi_ssp_couple_eligible** (`policyengine_us/variables/gov/states/mi/mdhhs/ssp/mi_ssp_couple_eligible.py:10`): unsupported syntax ListComp
 - **mi_ssp_eligible** (`policyengine_us/variables/gov/states/mi/mdhhs/ssp/mi_ssp_eligible.py:13`): unbound name 'MISSPLivingArrangement'
-- **mi_ssp_individual_amount** (`policyengine_us/variables/gov/states/mi/mdhhs/ssp/mi_ssp_individual_amount.py:4`): unsupported parameter subscript on 'gov.states.mi.mdhhs.ssp.payment.individual'
 - **mi_ssp_payment_category** (`policyengine_us/variables/gov/states/mi/mdhhs/ssp/mi_ssp_payment_category.py:15`): unrecognized call select
-- **mi_standard_deduction_tier_three** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/standard/tier_three/mi_standard_deduction_tier_three.py:5`): unsupported parameter subscript on 'gov.states.mi.tax.income.deductions.standard.tier_three.amount'
-- **mi_standard_deduction_tier_three_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/standard/tier_three/mi_standard_deduction_tier_three_eligible.py:6`): calc() on non-scale parameter 'gov.states.mi.tax.income.deductions.standard.tier_three.birth_year'
-- **mi_standard_deduction_tier_two** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/standard/tier_two/mi_standard_deduction_tier_two.py:5`): unsupported parameter subscript on 'gov.states.mi.tax.income.deductions.standard.tier_two.amount.base'
-- **mi_standard_deduction_tier_two_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/standard/tier_two/mi_standard_deduction_tier_two_eligible.py:6`): calc() on non-scale parameter 'gov.states.mi.tax.income.deductions.standard.tier_two.birth_year'
-- **mi_standard_deduction_tier_two_increase_eligible_people** (`policyengine_us/variables/gov/states/mi/tax/income/deductions/standard/tier_two/mi_standard_deduction_tier_two_increase_eligible_people.py:7`): parameter 'gov.states.mi.tax.income.deductions.standard.tier_two.retirement_year' outside emitted subtrees
-- **mi_standard_home_heating_credit** (`policyengine_us/variables/gov/states/mi/tax/income/credits/home_heating/standard/mi_standard_home_heating_credit.py:6`): calc() on non-scale parameter 'gov.states.mi.tax.income.credits.home_heating.standard.base'
-- **mi_standard_home_heating_credit_eligible** (`policyengine_us/variables/gov/states/mi/tax/income/credits/home_heating/standard/mi_standard_home_heating_credit_eligible.py:8`): parameter 'gov.states.mi.tax.income.credits.home_heating.standard.fpg_rate' outside emitted subtrees
 - **mi_subtractions** (`policyengine_us/variables/gov/states/mi/tax/income/mi_subtractions.py:3`): add() without literal variable list
-- **mi_surtax** (`policyengine_us/reforms/states/mi/surtax.py:8`): calc() on non-scale parameter 'gov.contrib.states.mi.surtax.rate.joint'
-- **mi_withheld_income_tax** (`policyengine_us/variables/gov/states/mi/tax/income/mi_withheld_income_tax.py:6`): parameter 'gov.states.mi.tax.income.rate' outside emitted subtrees
-- **min_head_spouse_earned** (`policyengine_us/variables/gov/irs/credits/cdcc/min_head_spouse_earned.py:22`): calc() on non-scale parameter 'gov.irs.credits.cdcc.deemed_earned_income'
-- **misc_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/misc_deduction.py:3`): parameter 'gov.irs.deductions.itemized.misc.applies' outside emitted subtrees
-- **mn_529_contribution_subtraction** (`policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_529_contribution_subtraction.py:7`): unsupported parameter subscript on 'gov.states.mn.tax.income.subtractions.education_savings.cap'
-- **mn_additions** (`?:0`): adds via unknown parameter path 'gov.states.mn.tax.income.additions.sources'
-- **mn_amt** (`policyengine_us/variables/gov/states/mn/tax/income/amt/mn_amt.py:7`): unsupported parameter subscript on 'gov.states.mn.tax.income.amt.income_threshold'
 - **mn_basic_tax** (`policyengine_us/variables/gov/states/mn/tax/income/mn_basic_tax.py:6`): unrecognized call select
-- **mn_ccap_activity_eligible** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/eligibility/mn_ccap_activity_eligible.py:12`): parameter 'gov.states.mn.dcyf.ccap.activity.min_weekly_hours' outside emitted subtrees
+- **mn_ccap_activity_eligible** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/eligibility/mn_ccap_activity_eligible.py:40`): person ref to non-person variable 'is_homeless'
 - **mn_ccap_age_group** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/mn_ccap_age_group.py:10`): unbound name 'MNCCAPProviderType'
 - **mn_ccap_copay** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/copay/mn_ccap_copay.py:7`): unrecognized call select
-- **mn_ccap_eligible_child** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/eligibility/mn_ccap_eligible_child.py:6`): parameter 'gov.states.mn.dcyf.ccap.age_threshold.disabled_child' outside emitted subtrees
 - **mn_ccap_gross_earned_income** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/mn_ccap_gross_earned_income.py:7`): add() without literal variable list
-- **mn_ccap_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.mn.dcyf.ccap.income.countable_income.unearned'
-- **mn_ccap_income_deductions** (`?:0`): adds via unknown parameter path 'gov.states.mn.dcyf.ccap.income.deductions.sources'
-- **mn_ccap_income_eligible** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/eligibility/mn_ccap_income_eligible.py:16`): parameter 'gov.states.mn.dcyf.ccap.income.smi_rate.entrance_mfip' outside emitted subtrees
-- **mn_ccap_max_rate** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/mn_ccap_max_rate.py:9`): unsupported parameter subscript on 'gov.states.mn.dcyf.ccap.quality_differential'
 - **mn_ccap_provider_rate** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/mn_ccap_provider_rate.py:11`): non-value handle used as value
-- **mn_ccap_rate_unit** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/mn_ccap_rate_unit.py:9`): parameter 'gov.states.mn.dcyf.ccap.rate_unit.weekly_hours_threshold' outside emitted subtrees
-- **mn_cdcc** (`policyengine_us/variables/gov/states/mn/tax/income/credits/cdcc/mn_cdcc.py:11`): parameter 'gov.states.mn.tax.income.credits.cdcc.maximum_dependents' outside emitted subtrees
-- **mn_cdcc_dependent_count** (`policyengine_us/variables/gov/states/mn/tax/income/credits/cdcc/mn_cdcc_dependent_count.py:7`): parameter 'gov.states.mn.tax.income.credits.cdcc.child_age' outside emitted subtrees
-- **mn_cdcc_eligible** (`policyengine_us/variables/gov/states/mn/tax/income/credits/cdcc/mn_cdcc_eligible.py:3`): parameter 'gov.states.mn.tax.income.credits.cdcc.separate_filers_excluded' outside emitted subtrees
-- **mn_cdcc_phase_out** (`policyengine_us/variables/gov/states/mn/tax/income/credits/cdcc/mn_cdcc_phase_out.py:7`): parameter 'gov.states.mn.tax.income.credits.cdcc.phaseout_threshold' outside emitted subtrees
-- **mn_charity_subtraction** (`policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_charity_subtraction.py:5`): parameter 'gov.states.mn.tax.income.subtractions.charity.fraction' outside emitted subtrees
-- **mn_child_and_working_families_credits** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_child_and_working_families_credits.py:13`): parameter 'gov.states.mn.tax.income.credits.cwfc.ctc.amount' outside emitted subtrees
-- **mn_child_and_working_families_credits_ctc_eligible_child** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_child_and_working_families_credits_ctc_eligible_child.py:13`): parameter 'gov.states.mn.tax.income.credits.cwfc.ctc.age_limit' outside emitted subtrees
-- **mn_elderly_disabled_subtraction** (`policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_elderly_disabled_subtraction.py:8`): parameter 'gov.states.mn.tax.income.subtractions.elderly_disabled.minimum_age' outside emitted subtrees
-- **mn_employee_paid_leave_contribution** (`policyengine_us/variables/gov/states/mn/tax/payroll/paid_leave/mn_employee_paid_leave_contribution.py:3`): parameter 'gov.states.mn.tax.payroll.paid_leave.employee_rate' outside emitted subtrees
-- **mn_exemptions** (`policyengine_us/variables/gov/states/mn/tax/income/exemptions/mn_exemptions.py:4`): parameter 'gov.states.mn.tax.income.exemptions.amount' outside emitted subtrees
-- **mn_homestead_credit_refund** (`policyengine_us/variables/gov/states/mn/tax/property/homestead_credit_refund/mn_homestead_credit_refund.py:10`): calc() on non-scale parameter 'gov.states.mn.tax.property.homestead_credit_refund.percent_of_income'
+- **mn_ccap_rate_unit** (`policyengine_us/variables/gov/states/mn/dcyf/ccap/mn_ccap_rate_unit.py:12`): unbound name 'MNCCAPProviderType'
+- **mn_cdcc** (`policyengine_us/variables/gov/states/mn/tax/income/credits/cdcc/mn_cdcc.py:23`): ExtRat scale 'gov.states.mn.tax.income.credits.cdcc.expense_fraction' in value position
+- **mn_exemptions** (`policyengine_us/variables/gov/states/mn/tax/income/exemptions/mn_exemptions.py:8`): unsupported parameter subscript on 'gov.states.mn.tax.income.exemptions.agi_threshold'
+- **mn_homestead_credit_refund** (`policyengine_us/variables/gov/states/mn/tax/property/homestead_credit_refund/mn_homestead_credit_refund.py:13`): unrecognized call round_
 - **mn_homestead_credit_refund_eligible** (`policyengine_us/variables/gov/states/mn/tax/property/homestead_credit_refund/mn_homestead_credit_refund_eligible.py:8`): unrecognized call tax_unit.members
 - **mn_homestead_credit_refund_household_income** (`policyengine_us/variables/gov/states/mn/tax/property/homestead_credit_refund/mn_homestead_credit_refund_household_income.py:13`): unrecognized call people
-- **mn_income_tax_before_credits** (`policyengine_us/variables/gov/states/mn/tax/income/mn_income_tax_before_credits.py:5`): parameter 'gov.states.mn.tax.income.niit.in_effect' outside emitted subtrees
-- **mn_itemized_deductions** (`policyengine_us/variables/gov/states/mn/tax/income/deductions/mn_itemized_deductions.py:21`): unsupported parameter subscript on 'gov.states.mn.tax.income.deductions.itemized.reduction.agi_threshold.low'
-- **mn_k12_education_credit** (`policyengine_us/variables/gov/states/mn/tax/income/credits/k12_education/mn_k12_education_credit.py:8`): parameter 'gov.states.mn.tax.income.credits.k12_education.expense_rate' outside emitted subtrees
-- **mn_k12_education_credit_eligible** (`policyengine_us/variables/gov/states/mn/tax/income/credits/k12_education/mn_k12_education_credit_eligible.py:11`): parameter 'gov.states.mn.tax.income.credits.k12_education.income_limit.base' outside emitted subtrees
-- **mn_k12_education_subtraction** (`policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_k12_education_subtraction.py:12`): parameter 'gov.states.mn.tax.income.subtractions.k12_education.cap.higher' outside emitted subtrees
+- **mn_itemized_deductions** (`policyengine_us/variables/gov/states/mn/tax/income/deductions/mn_itemized_deductions.py:25`): if arm without return
 - **mn_k12_qualifying_children** (`policyengine_us/variables/gov/states/mn/tax/income/credits/k12_education/mn_k12_qualifying_children.py:7`): unrecognized call tax_unit.members
 - **mn_marriage_credit** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_marriage_credit.py:9`): add() without literal variable list
-- **mn_mfip_cash_portion** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/mn_mfip_cash_portion.py:7`): parameter 'gov.states.mn.dcyf.mfip.transitional_standard.cash.max_unit_size' outside emitted subtrees
-- **mn_mfip_child_support_income_exclusion** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/income/unearned/mn_mfip_child_support_income_exclusion.py:7`): calc() on non-scale parameter 'gov.states.mn.dcyf.mfip.income.deductions.child_support'
-- **mn_mfip_countable_earned_income** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/income/earned/mn_mfip_countable_earned_income.py:17`): parameter 'gov.states.mn.dcyf.mfip.income.earned_income_disregard.flat_amount' outside emitted subtrees
-- **mn_mfip_countable_earned_income_for_eligibility** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/income/earned/mn_mfip_countable_earned_income_for_eligibility.py:10`): parameter 'gov.states.mn.dcyf.mfip.income.earned_income_disregard.rate' outside emitted subtrees
-- **mn_mfip_dependent_care_deduction** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/income/earned/mn_mfip_dependent_care_deduction.py:18`): calc() on non-scale parameter 'gov.states.mn.dcyf.mfip.income.deductions.dependent_care'
-- **mn_mfip_family_wage_level** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/mn_mfip_family_wage_level.py:6`): parameter 'gov.states.mn.dcyf.mfip.income.family_wage_level_multiplier' outside emitted subtrees
-- **mn_mfip_food_portion** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/mn_mfip_food_portion.py:7`): parameter 'gov.states.mn.dcyf.mfip.transitional_standard.cash.max_unit_size' outside emitted subtrees
-- **mn_mfip_resources_eligible** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/eligibility/mn_mfip_resources_eligible.py:6`): parameter 'gov.states.mn.dcyf.mfip.resources.limit' outside emitted subtrees
-- **mn_msa_assistance_standard** (`policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_assistance_standard.py:3`): unsupported parameter subscript on 'gov.states.mn.dhs.msa.assistance_standard.amount'
-- **mn_msa_gross_income_eligible** (`policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_gross_income_eligible.py:27`): parameter 'gov.states.mn.dhs.msa.eligibility.income_limit.couple_fbr_multiplier' outside emitted subtrees
-- **mn_msa_guardian_fee** (`policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_guardian_fee.py:25`): parameter 'gov.states.mn.dhs.msa.special_needs.guardian_fee.rate' outside emitted subtrees
-- **mn_msa_housing_assistance** (`policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_housing_assistance.py:5`): parameter 'gov.states.mn.dhs.msa.housing_assistance.fbr_multiplier' outside emitted subtrees
+- **mn_mfip_cash_portion** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/mn_mfip_cash_portion.py:8`): unsupported parameter subscript on 'gov.states.mn.dcyf.mfip.transitional_standard.cash.amount'
+- **mn_mfip_food_portion** (`policyengine_us/variables/gov/states/mn/dcyf/mfip/mn_mfip_food_portion.py:8`): unsupported parameter subscript on 'gov.states.mn.dcyf.mfip.transitional_standard.food.amount'
 - **mn_msa_net_income_eligible** (`policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_net_income_eligible.py:23`): non-value handle used as value
 - **mn_msa_payment_category** (`policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_payment_category.py:11`): unbound name 'MNMSALivingArrangement'
 - **mn_msa_person** (`policyengine_us/variables/gov/states/mn/dhs/msa/mn_msa_person.py:23`): non-value handle used as value
-- **mn_msa_representative_payee_fee** (`policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_representative_payee_fee.py:4`): parameter 'gov.states.mn.dhs.msa.special_needs.representative_payee_fee.amount' outside emitted subtrees
-- **mn_msa_resource_eligible** (`policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_resource_eligible.py:14`): parameter 'gov.states.mn.dhs.msa.eligibility.asset_limit.non_ssi_track' outside emitted subtrees
-- **mn_niit** (`policyengine_us/variables/gov/states/mn/tax/income/niit/mn_niit.py:13`): calc() on non-scale parameter 'gov.states.mn.tax.income.niit.rate'
-- **mn_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.mn.tax.income.credits.nonrefundable'
 - **mn_paid_leave_taxable_wages** (`policyengine_us/variables/gov/states/mn/tax/payroll/paid_leave/mn_paid_leave_taxable_wages.py:3`): np.floor
 - **mn_public_pension_subtraction** (`policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_public_pension_subtraction.py:7`): unsupported parameter subscript on 'gov.states.mn.tax.income.subtractions.pension_income.cap'
-- **mn_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.mn.tax.income.credits.refundable'
+- **mn_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.mn.tax.income.credits.refundable'
 - **mn_rent_constituting_property_taxes** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_rent_constituting_property_taxes.py:4`): unrecognized call round_
-- **mn_renters_credit** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_renters_credit.py:7`): calc() on non-scale parameter 'gov.states.mn.tax.income.credits.renters.percent_of_income'
+- **mn_renters_credit** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_renters_credit.py:14`): unrecognized call round_
 - **mn_renters_credit_eligible** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_renters_credit_eligible.py:10`): unrecognized call tax_unit.members
 - **mn_renters_credit_household_agi** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_renters_credit_household_agi.py:7`): attribute 'tax_unit' on value expression
 - **mn_renters_credit_household_income** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_renters_credit_household_income.py:6`): person ref to non-person variable 'mn_renters_credit_household_agi'
 - **mn_social_security_subtraction** (`policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_social_security_subtraction.py:5`): unsupported parameter subscript on 'gov.states.mn.tax.income.subtractions.social_security.reduction.start'
 - **mn_standard_deduction** (`policyengine_us/variables/gov/states/mn/tax/income/deductions/mn_standard_deduction.py:6`): unsupported parameter subscript on 'gov.states.mn.tax.income.deductions.standard.reduction.agi_threshold.low'
 - **mn_subtractions** (`policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_subtractions.py:3`): add() without literal variable list
-- **mn_wfc** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_wfc.py:9`): calc() on non-scale parameter 'gov.states.mn.tax.income.credits.cwfc.wfc.pre_cwfc_legislation.phase_in.earnings_maximum'
-- **mn_wfc_eligible** (`policyengine_us/variables/gov/states/mn/tax/income/credits/mn_wfc_eligible.py:9`): parameter 'gov.states.mn.tax.income.credits.cwfc.wfc.eligible.childless_adult_age.minimum' outside emitted subtrees
 - **mn_withheld_income_tax** (`policyengine_us/variables/gov/states/mn/tax/income/mn_withheld_income_tax.py:5`): non-value handle used as value
-- **mo_529_deduction** (`policyengine_us/variables/gov/states/mo/tax/income/subtractions/plan_529_contributions/mo_529_deduction.py:7`): unsupported parameter subscript on 'gov.states.mo.tax.income.subtractions.plan_529_contributions.cap'
+- **mo_529_deduction** (`policyengine_us/variables/gov/states/mo/tax/income/subtractions/plan_529_contributions/mo_529_deduction.py:13`): np.zeros_like
 - **mo_adjusted_gross_income** (`policyengine_us/variables/gov/states/mo/tax/income/adjusted_gross_income/mo_adjusted_gross_income.py:10`): attribute 'tax_unit' on value expression
 - **mo_agi_subtractions** (`policyengine_us/variables/gov/states/mo/tax/income/subtractions/mo_agi_subtractions.py:3`): add() without literal variable list
-- **mo_business_income_deduction** (`policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_business_income_deduction.py:8`): parameter 'gov.states.mo.tax.income.deductions.business_income.rate' outside emitted subtrees
-- **mo_capital_gains_subtraction** (`policyengine_us/variables/gov/states/mo/tax/income/subtractions/mo_capital_gains_subtraction.py:6`): parameter 'gov.states.mo.tax.income.subtractions.net_capital_gain.rate' outside emitted subtrees
 - **mo_capital_gains_subtraction_person** (`policyengine_us/variables/gov/states/mo/tax/income/subtractions/mo_capital_gains_subtraction_person.py:2`): attribute 'tax_unit' on value expression
-- **mo_ccs** (`policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs.py:22`): calc() on non-scale parameter 'gov.states.mo.dese.ccs.transitional.funding_rate'
 - **mo_ccs_activity_eligible** (`policyengine_us/variables/gov/states/mo/dese/ccs/eligibility/mo_ccs_activity_eligible.py:27`): person ref to non-person variable 'is_homeless'
-- **mo_ccs_age_group** (`policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs_age_group.py:6`): calc() on non-scale parameter 'gov.states.mo.dese.ccs.age_group.age'
+- **mo_ccs_age_group** (`policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs_age_group.py:0`): Enum-valued formula
 - **mo_ccs_copay** (`policyengine_us/variables/gov/states/mo/dese/ccs/copay/mo_ccs_copay.py:11`): unrecognized call select
-- **mo_ccs_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.mo.dese.ccs.income.countable_income.sources'
-- **mo_ccs_eligible_child** (`policyengine_us/variables/gov/states/mo/dese/ccs/eligibility/mo_ccs_eligible_child.py:23`): parameter 'gov.states.mo.dese.ccs.eligibility.special_needs_in_school_age_limit' outside emitted subtrees
-- **mo_ccs_income_eligible** (`policyengine_us/variables/gov/states/mo/dese/ccs/eligibility/mo_ccs_income_eligible.py:11`): parameter 'gov.states.mo.dese.ccs.income.fpl_rate.transitional' outside emitted subtrees
 - **mo_ccs_maximum_daily_benefit** (`policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs_maximum_daily_benefit.py:20`): unsupported statement FunctionDef
 - **mo_ccs_region** (`policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs_region.py:6`): unrecognized call select
-- **mo_ccs_time_category** (`policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs_time_category.py:8`): calc() on non-scale parameter 'gov.states.mo.dese.ccs.time_category.hours'
-- **mo_chip_premium** (`policyengine_us/variables/gov/states/mo/hhs/chip/mo_chip_premium.py:6`): calc() on non-scale parameter 'gov.states.mo.hhs.chip.premium.tier_1'
+- **mo_ccs_time_category** (`policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs_time_category.py:0`): Enum-valued formula
+- **mo_chip_premium** (`policyengine_us/variables/gov/states/mo/hhs/chip/mo_chip_premium.py:9`): unrecognized call select
 - **mo_dhss_csfp_county_eligible** (`policyengine_us/variables/gov/states/mo/dhss/csfp/mo_dhss_csfp_county_eligible.py:4`): unrecognized call len
 - **mo_federal_income_tax_deduction** (`policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_federal_income_tax_deduction.py:7`): non-value handle used as value
-- **mo_head_of_household_exemption** (`policyengine_us/variables/gov/states/mo/tax/income/exemptions/mo_head_of_household_exemption.py:8`): parameter 'gov.states.mo.tax.income.exemptions.head_of_household' outside emitted subtrees
 - **mo_income_tax_before_credits** (`policyengine_us/variables/gov/states/mo/tax/income/income_tax/mo_income_tax_before_credits.py:5`): where condition not bool
-- **mo_income_tax_exempt** (`policyengine_us/variables/gov/states/mo/tax/income/income_tax/mo_income_tax_exempt.py:4`): parameter 'gov.states.mo.tax.income.minimum_taxable_income' outside emitted subtrees
 - **mo_itemized_deductions** (`policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_itemized_deductions.py:3`): add() without literal variable list
-- **mo_kansas_city_earnings_tax** (`policyengine_us/variables/gov/local/mo/kansas_city/tax/income/mo_kansas_city_earnings_tax.py:7`): parameter 'gov.local.mo.kansas_city.tax.income.rate' outside emitted subtrees
 - **mo_net_state_income_taxes** (`policyengine_us/variables/gov/states/mo/tax/income/taxable_income/mo_net_state_income_taxes.py:16`): np.zeros_like
 - **mo_non_refundable_credits** (`policyengine_us/variables/gov/states/mo/tax/income/credits/mo_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **mo_pension_and_ss_or_ssd_deduction_section_a** (`policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_pension_and_ss_or_ssd_deduction_section_a.py:4`): attribute 'tax_unit' on value expression
 - **mo_pension_and_ss_or_ssd_deduction_section_b** (`policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_pension_and_ss_or_ssd_deduction_section_b.py:2`): attribute 'tax_unit' on value expression
-- **mo_pension_and_ss_or_ssd_deduction_section_c** (`policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_pension_and_ss_or_ssd_deduction_section_c.py:10`): parameter 'gov.states.mo.tax.income.deductions.social_security_and_public_pension.age_threshold' outside emitted subtrees
-- **mo_property_tax_credit** (`policyengine_us/variables/gov/states/mo/tax/income/credits/property_tax/mo_property_tax_credit.py:7`): parameter 'gov.states.mo.tax.income.credits.property_tax.property_tax_rent_ratio' outside emitted subtrees
+- **mo_pension_and_ss_or_ssd_deduction_section_c** (`policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_pension_and_ss_or_ssd_deduction_section_c.py:22`): np.zeros_like
 - **mo_ptc_gross_income** (`policyengine_us/variables/gov/states/mo/tax/income/credits/property_tax/mo_ptc_gross_income.py:10`): sum() over non-person expression
-- **mo_ptc_income_offset** (`policyengine_us/variables/gov/states/mo/tax/income/credits/property_tax/mo_ptc_income_offset.py:8`): parameter 'gov.states.mo.tax.income.credits.property_tax.income_offset.non_joint' outside emitted subtrees
-- **mo_ptc_taxunit_eligible** (`policyengine_us/variables/gov/states/mo/tax/income/credits/property_tax/mo_ptc_taxunit_eligible.py:6`): parameter 'gov.states.mo.tax.income.credits.property_tax.age_threshold' outside emitted subtrees
 - **mo_qualified_health_insurance_premiums** (`policyengine_us/variables/gov/states/mo/tax/income/subtractions/mo_qualified_health_insurance_premiums.py:3`): attribute 'tax_unit' on value expression
-- **mo_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.mo.tax.income.credits.refundable'
 - **mo_sab_countable_income** (`policyengine_us/variables/gov/states/mo/dss/ssp/mo_sab_countable_income.py:23`): non-value handle used as value
-- **mo_ssp** (`policyengine_us/variables/gov/states/mo/dss/ssp/mo_ssp.py:8`): parameter 'gov.states.mo.dss.ssp.sab.maximum_payment' outside emitted subtrees
+- **mo_ssp** (`policyengine_us/variables/gov/states/mo/dss/ssp/mo_ssp.py:12`): np.floor
 - **mo_ssp_age_eligible** (`policyengine_us/variables/gov/states/mo/dss/ssp/eligibility/mo_ssp_age_eligible.py:5`): unbound name 'MOSSPLivingArrangement'
-- **mo_ssp_eligible** (`policyengine_us/variables/gov/states/mo/dss/ssp/mo_ssp_eligible.py:23`): parameter 'gov.states.mo.dss.ssp.sab.consolidated_standard' outside emitted subtrees
 - **mo_ssp_personal_needs_allowance** (`policyengine_us/variables/gov/states/mo/dss/ssp/mo_ssp_personal_needs_allowance.py:9`): unbound name 'MOSSPLivingArrangement'
-- **mo_ssp_resource_eligible** (`policyengine_us/variables/gov/states/mo/dss/ssp/eligibility/mo_ssp_resource_eligible.py:18`): parameter 'gov.states.mo.dss.ssp.eligibility.resource_limit.sab.couple' outside emitted subtrees
-- **mo_st_louis_earnings_tax** (`policyengine_us/variables/gov/local/mo/st_louis/tax/income/mo_st_louis_earnings_tax.py:6`): parameter 'gov.local.mo.st_louis.tax.income.rate' outside emitted subtrees
-- **mo_st_louis_earnings_tax_before_credit** (`policyengine_us/variables/gov/local/mo/st_louis/tax/income/mo_st_louis_earnings_tax_before_credit.py:5`): parameter 'gov.local.mo.st_louis.tax.income.rate' outside emitted subtrees
 - **mo_st_louis_total_payroll_expense_tax** (`policyengine_us/variables/gov/local/mo/st_louis/tax/payroll/mo_st_louis_total_payroll_expense_tax.py:5`): unbound name 'StateCode'
-- **mo_tanf** (`policyengine_us/variables/gov/states/mo/dss/tanf/mo_tanf.py:7`): parameter 'gov.states.mo.dss.tanf.minimum_payment' outside emitted subtrees
 - **mo_tanf_child_care_deduction** (`policyengine_us/variables/gov/states/mo/dss/tanf/income/deductions/mo_tanf_child_care_deduction.py:16`): unsupported parameter subscript on 'gov.states.mo.dss.tanf.child_care_deduction.amount.thresholds'
-- **mo_tanf_earned_income_deductions** (`policyengine_us/variables/gov/states/mo/dss/tanf/income/deductions/mo_tanf_earned_income_deductions.py:8`): parameter 'gov.states.mo.dss.tanf.earned_income_disregard.amount' outside emitted subtrees
-- **mo_tanf_gross_income_eligible** (`policyengine_us/variables/gov/states/mo/dss/tanf/eligibility/mo_tanf_gross_income_eligible.py:9`): parameter 'gov.states.mo.dss.tanf.income_limit.rate' outside emitted subtrees
-- **mo_tanf_income_for_need_test** (`policyengine_us/variables/gov/states/mo/dss/tanf/income/mo_tanf_income_for_need_test.py:5`): parameter 'gov.states.mo.dss.tanf.earned_income_disregard.amount' outside emitted subtrees
-- **mo_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/mo/dss/tanf/mo_tanf_maximum_benefit.py:4`): parameter 'gov.states.mo.dss.tanf.maximum_benefit.percentage' outside emitted subtrees
-- **mo_tanf_percentage_of_need_test** (`policyengine_us/variables/gov/states/mo/dss/tanf/eligibility/mo_tanf_percentage_of_need_test.py:5`): parameter 'gov.states.mo.dss.tanf.maximum_benefit.percentage' outside emitted subtrees
-- **mo_tanf_resources_eligible** (`policyengine_us/variables/gov/states/mo/dss/tanf/eligibility/mo_tanf_resources_eligible.py:4`): parameter 'gov.states.mo.dss.tanf.resource_limit.amount' outside emitted subtrees
-- **mo_tanf_standard_of_need** (`policyengine_us/variables/gov/states/mo/dss/tanf/mo_tanf_standard_of_need.py:4`): parameter 'gov.states.mo.dss.tanf.standard_of_need.base_table_max_size' outside emitted subtrees
+- **mo_tanf_standard_of_need** (`policyengine_us/variables/gov/states/mo/dss/tanf/mo_tanf_standard_of_need.py:5`): unsupported parameter subscript on 'gov.states.mo.dss.tanf.standard_of_need.amount'
 - **mo_taxable_income** (`policyengine_us/variables/gov/states/mo/tax/income/taxable_income/mo_taxable_income.py:3`): attribute 'tax_unit' on value expression
 - **mo_wftc** (`policyengine_us/variables/gov/states/mo/tax/income/credits/mo_wftc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **mo_wftc_potential** (`policyengine_us/variables/gov/states/mo/tax/income/credits/mo_wftc_potential.py:4`): parameter 'gov.states.mo.tax.income.credits.wftc.match' outside emitted subtrees
 - **mo_withheld_income_tax** (`policyengine_us/variables/gov/states/mo/tax/income/mo_withheld_income_tax.py:5`): non-value handle used as value
-- **ms_529_deduction** (`policyengine_us/variables/gov/states/ms/tax/income/adjustments/plan_529_contributions/ms_529_deduction.py:7`): unsupported parameter subscript on 'gov.states.ms.tax.income.adjustments.plan_529_contributions.cap'
+- **ms_529_deduction** (`policyengine_us/variables/gov/states/ms/tax/income/adjustments/plan_529_contributions/ms_529_deduction.py:13`): np.zeros_like
 - **ms_age_disability_homestead_exemption** (`policyengine_us/variables/gov/states/ms/tax/property/age_disability_homestead_exemption/ms_age_disability_homestead_exemption.py:4`): person ref to non-person variable 'tax_unit_is_joint'
 - **ms_age_disability_homestead_exemption_eligible** (`policyengine_us/variables/gov/states/ms/tax/property/age_disability_homestead_exemption/ms_age_disability_homestead_exemption_eligible.py:7`): person ref to non-person variable 'tax_unit_is_joint'
 - **ms_age_disability_homestead_property_tax_reduction** (`policyengine_us/variables/gov/states/ms/tax/property/age_disability_homestead_exemption/ms_age_disability_homestead_property_tax_reduction.py:4`): person ref to non-person variable 'tax_unit_is_joint'
-- **ms_aged_exemption** (`policyengine_us/variables/gov/states/ms/tax/income/exemptions/ms_aged_exemption.py:12`): parameter 'gov.states.ms.tax.income.exemptions.aged.age_threshold' outside emitted subtrees
+- **ms_aged_exemption** (`policyengine_us/variables/gov/states/ms/tax/income/exemptions/ms_aged_exemption.py:12`): unrecognized call (age_head >= p.age_threshold).astype
 - **ms_agi** (`policyengine_us/variables/gov/states/ms/tax/income/ms_agi.py:3`): add() without literal variable list
-- **ms_agi_adjustments** (`?:0`): adds via unknown parameter path 'gov.states.ms.tax.income.adjustments.adjustments'
 - **ms_blind_exemption** (`policyengine_us/variables/gov/states/ms/tax/income/exemptions/ms_blind_exemption.py:9`): unrecognized call tax_unit('blind_head', period).astype
-- **ms_ccpp_activity_eligible** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/eligibility/ms_ccpp_activity_eligible.py:8`): parameter 'gov.states.ms.dhs.ccpp.eligibility.activity_hours' outside emitted subtrees
-- **ms_ccpp_age_group** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_age_group.py:6`): calc() on non-scale parameter 'gov.states.ms.dhs.ccpp.age_group.age'
+- **ms_ccpp_age_group** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_age_group.py:0`): Enum-valued formula
 - **ms_ccpp_categorically_eligible** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/eligibility/ms_ccpp_categorically_eligible.py:7`): person ref to non-person variable 'is_homeless'
-- **ms_ccpp_copay** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/copay/ms_ccpp_copay.py:5`): parameter 'gov.states.ms.dhs.ccpp.copay.minimum_fee_categories_cap' outside emitted subtrees
-- **ms_ccpp_copay_waived** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/copay/ms_ccpp_copay_waived.py:5`): parameter 'gov.states.ms.dhs.ccpp.copay.fpg_exempt_rate' outside emitted subtrees
-- **ms_ccpp_countable_earned_income** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_countable_earned_income.py:7`): parameter 'gov.states.ms.dhs.ccpp.income.student_earner_age_limit' outside emitted subtrees
+- **ms_ccpp_copay_waived** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/copay/ms_ccpp_copay_waived.py:7`): person ref to non-person variable 'is_homeless'
+- **ms_ccpp_countable_earned_income** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_countable_earned_income.py:12`): add() without literal variable list
 - **ms_ccpp_countable_income** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_countable_income.py:4`): add() without literal variable list
-- **ms_ccpp_eligible_child** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/eligibility/ms_ccpp_eligible_child.py:8`): parameter 'gov.states.ms.dhs.ccpp.eligibility.special_needs_child_age_limit' outside emitted subtrees
 - **ms_ccpp_facility_location** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_facility_location.py:7`): np.isin outside enum idioms
-- **ms_ccpp_income_based_copay** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/copay/ms_ccpp_income_based_copay.py:8`): parameter 'gov.states.ms.dhs.ccpp.copay.max_family_size' outside emitted subtrees
-- **ms_ccpp_income_eligible** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/eligibility/ms_ccpp_income_eligible.py:6`): parameter 'gov.states.ms.dhs.ccpp.income.smi_rate' outside emitted subtrees
 - **ms_ccpp_maximum_weekly_rate** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_maximum_weekly_rate.py:8`): unbound name 'MSCCPPProviderType'
-- **ms_ccpp_minimum_fee_category** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/copay/ms_ccpp_minimum_fee_category.py:17`): parameter 'gov.states.ms.dhs.ccpp.eligibility.special_needs_child_age_limit' outside emitted subtrees
-- **ms_ccpp_time_category** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_time_category.py:7`): calc() on non-scale parameter 'gov.states.ms.dhs.ccpp.time_category.hours'
+- **ms_ccpp_time_category** (`policyengine_us/variables/gov/states/ms/dhs/ccpp/ms_ccpp_time_category.py:0`): Enum-valued formula
 - **ms_cdcc** (`policyengine_us/variables/gov/states/ms/tax/income/credits/cdcc/ms_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ms_cdcc_eligible** (`policyengine_us/variables/gov/states/ms/tax/income/credits/cdcc/ms_cdcc_eligible.py:4`): parameter 'gov.states.ms.tax.income.credits.cdcc.income_limit' outside emitted subtrees
-- **ms_cdcc_potential** (`policyengine_us/variables/gov/states/ms/tax/income/credits/cdcc/ms_cdcc_potential.py:5`): parameter 'gov.states.ms.tax.income.credits.cdcc.match' outside emitted subtrees
 - **ms_charitable_contributions_credit** (`policyengine_us/variables/gov/states/ms/tax/income/credits/charitable_contribution/ms_charitable_contributions_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ms_charitable_contributions_credit_potential** (`policyengine_us/variables/gov/states/ms/tax/income/credits/charitable_contribution/ms_charitable_contributions_credit_potential.py:9`): unsupported parameter subscript on 'gov.states.ms.tax.income.credits.charitable_contribution.cap'
-- **ms_dependents_exemption** (`policyengine_us/variables/gov/states/ms/tax/income/exemptions/ms_dependents_exemption.py:9`): parameter 'gov.states.ms.tax.income.exemptions.dependents.amount' outside emitted subtrees
-- **ms_hmw_eligible** (`policyengine_us/variables/gov/states/ms/dom/hmw/eligibility/ms_hmw_eligible.py:4`): parameter 'gov.states.ms.dom.hmw.in_effect' outside emitted subtrees
 - **ms_hmw_income_eligible** (`policyengine_us/variables/gov/states/ms/dom/hmw/eligibility/ms_hmw_income_eligible.py:5`): attribute 'marital_unit' on value expression
-- **ms_hmw_other_coverage_ineligible** (`policyengine_us/variables/gov/states/ms/dom/hmw/eligibility/ms_hmw_other_coverage_ineligible.py:18`): unsupported parameter subscript on 'gov.hhs.chip.child.income_limit'
+- **ms_hmw_other_coverage_ineligible** (`policyengine_us/variables/gov/states/ms/dom/hmw/eligibility/ms_hmw_other_coverage_ineligible.py:18`): ExtRat breakdown 'gov.hhs.chip.child.income_limit' in value position
 - **ms_hmw_resource_eligible** (`policyengine_us/variables/gov/states/ms/dom/hmw/eligibility/ms_hmw_resource_eligible.py:3`): attribute 'marital_unit' on value expression
-- **ms_income_tax_before_credits_indiv** (`policyengine_us/variables/gov/states/ms/tax/income/ms_income_tax_before_credits_indiv.py:4`): calc() on non-scale parameter 'gov.states.ms.tax.income.rate'
-- **ms_income_tax_before_credits_joint** (`policyengine_us/variables/gov/states/ms/tax/income/ms_income_tax_before_credits_joint.py:4`): calc() on non-scale parameter 'gov.states.ms.tax.income.rate'
+- **ms_income_tax_before_credits_indiv** (`policyengine_us/variables/gov/states/ms/tax/income/ms_income_tax_before_credits_indiv.py:4`): ExtRat scale 'gov.states.ms.tax.income.rate' in value position
+- **ms_income_tax_before_credits_joint** (`policyengine_us/variables/gov/states/ms/tax/income/ms_income_tax_before_credits_joint.py:4`): ExtRat scale 'gov.states.ms.tax.income.rate' in value position
 - **ms_itemized_deductions** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **ms_itemized_deductions_indiv** (`policyengine_us/variables/gov/states/ms/tax/income/deductions/itemized/ms_itemized_deductions_indiv.py:12`): np.abs
-- **ms_national_guard_or_reserve_pay_adjustment** (`policyengine_us/variables/gov/states/ms/tax/income/adjustments/ms_national_guard_or_reserve_pay_adjustment.py:7`): parameter 'gov.states.ms.tax.income.adjustments.national_guard_or_reserve_pay.cap' outside emitted subtrees
 - **ms_non_refundable_credits** (`policyengine_us/variables/gov/states/ms/tax/income/ms_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **ms_prorate_fraction** (`policyengine_us/variables/gov/states/ms/tax/income/ms_prorate_fraction.py:2`): attribute 'tax_unit' on value expression
 - **ms_real_estate_tax_deduction** (`policyengine_us/variables/gov/states/ms/tax/income/deductions/itemized/ms_real_estate_tax_deduction.py:9`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
-- **ms_regular_exemption** (`policyengine_us/variables/gov/states/ms/tax/income/exemptions/ms_regular_exemption.py:9`): unsupported parameter subscript on 'gov.states.ms.tax.income.exemptions.regular.amount'
-- **ms_self_employment_adjustment** (`policyengine_us/variables/gov/states/ms/tax/income/adjustments/ms_self_employment_adjustment.py:4`): parameter 'gov.states.ms.tax.income.adjustments.self_employment.rate' outside emitted subtrees
 - **ms_standard_deduction** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ms_standard_deduction_indiv** (`policyengine_us/variables/gov/states/ms/tax/income/deductions/standard/ms_standard_deduction_indiv.py:8`): unsupported parameter subscript on 'gov.states.ms.tax.income.deductions.standard.amount'
-- **ms_standard_deduction_joint** (`policyengine_us/variables/gov/states/ms/tax/income/deductions/standard/ms_standard_deduction_joint.py:6`): unsupported parameter subscript on 'gov.states.ms.tax.income.deductions.standard.amount'
-- **ms_tanf_income_eligible** (`policyengine_us/variables/gov/states/ms/dhs/tanf/eligibility/ms_tanf_income_eligible.py:13`): parameter 'gov.states.ms.dhs.tanf.need_standard.max_table_size' outside emitted subtrees
-- **ms_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/ms/dhs/tanf/ms_tanf_maximum_benefit.py:7`): parameter 'gov.states.ms.dhs.tanf.payment_standard.second_person' outside emitted subtrees
-- **ms_tanf_resources_eligible** (`policyengine_us/variables/gov/states/ms/dhs/tanf/eligibility/ms_tanf_resources_eligible.py:4`): parameter 'gov.states.ms.dhs.tanf.resources.limit' outside emitted subtrees
+- **ms_tanf_income_eligible** (`policyengine_us/variables/gov/states/ms/dhs/tanf/eligibility/ms_tanf_income_eligible.py:13`): unrecognized call min_(size, p.need_standard.max_table_size).astype
 - **ms_taxable_income** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **ms_wd_countable_earned_income** (`policyengine_us/variables/gov/states/ms/dom/wd/income/ms_wd_countable_earned_income.py:10`): parameter 'gov.states.ms.dom.wd.eligibility.income.exclusions.general' outside emitted subtrees
-- **ms_wd_countable_unearned_income** (`policyengine_us/variables/gov/states/ms/dom/wd/income/ms_wd_countable_unearned_income.py:6`): parameter 'gov.states.ms.dom.wd.eligibility.income.exclusions.general' outside emitted subtrees
-- **ms_wd_earned_income_eligible** (`policyengine_us/variables/gov/states/ms/dom/wd/eligibility/ms_wd_earned_income_eligible.py:4`): parameter 'gov.states.ms.dom.wd.eligibility.income.limit.earned' outside emitted subtrees
 - **ms_wd_fpg** (`policyengine_us/variables/gov/states/ms/dom/wd/ms_wd_fpg.py:4`): attribute 'marital_unit' on value expression
-- **ms_wd_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.ms.dom.wd.eligibility.income.sources.earned'
-- **ms_wd_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.ms.dom.wd.eligibility.income.sources.unearned'
-- **ms_wd_premium** (`policyengine_us/variables/gov/states/ms/dom/wd/ms_wd_premium.py:7`): parameter 'gov.states.ms.dom.wd.premium.fpl_threshold' outside emitted subtrees
+- **ms_wd_premium** (`policyengine_us/variables/gov/states/ms/dom/wd/ms_wd_premium.py:11`): np.floor
 - **ms_wd_resource_eligible** (`policyengine_us/variables/gov/states/ms/dom/wd/eligibility/ms_wd_resource_eligible.py:7`): attribute 'marital_unit' on value expression
-- **ms_wd_unearned_income_eligible** (`policyengine_us/variables/gov/states/ms/dom/wd/eligibility/ms_wd_unearned_income_eligible.py:5`): parameter 'gov.states.ms.dom.wd.eligibility.income.limit.unearned' outside emitted subtrees
-- **ms_wd_work_eligible** (`policyengine_us/variables/gov/states/ms/dom/wd/eligibility/ms_wd_work_eligible.py:3`): parameter 'gov.states.ms.dom.wd.eligibility.work.monthly_hours' outside emitted subtrees
 - **ms_withheld_income_tax** (`policyengine_us/variables/gov/states/ms/tax/income/ms_withheld_income_tax.py:5`): non-value handle used as value
-- **msp_asset_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_asset_eligible.py:5`): unsupported parameter subscript on 'gov.hhs.medicare.savings_programs.eligibility.asset.applies'
+- **msp_asset_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_asset_eligible.py:16`): where condition not bool
 - **msp_benefit_value** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_benefit_value.py:12`): unbound name 'MSPCategory'
 - **msp_category** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/category/msp_category.py:7`): unrecognized call select
 - **msp_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_cost.py:3`): unsupported statement For
 - **msp_countable_income** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/income/msp_countable_income.py:2`): unbound name 'period'
-- **msp_federal_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_federal_cost.py:4`): unsupported parameter subscript on 'gov.hhs.medicaid.cost_share.fmap'
-- **msp_fpg** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/income/msp_fpg.py:10`): unsupported parameter subscript on 'gov.hhs.fpg.first_person'
-- **msp_income_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_income_eligible.py:9`): parameter 'gov.hhs.medicare.savings_programs.eligibility.income.qi.fpl_limit' outside emitted subtrees
+- **msp_federal_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_federal_cost.py:7`): unsupported statement For
 - **msp_part_a_premium_coverage** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_part_a_premium_coverage.py:5`): unsupported statement For
 - **msp_part_b_premium_coverage** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_part_b_premium_coverage.py:7`): unsupported statement For
-- **mt_additions** (`?:0`): adds via unknown parameter path 'gov.states.mt.tax.income.additions.additions'
-- **mt_aged_exemption_eligible_person** (`policyengine_us/variables/gov/states/mt/tax/income/exemptions/aged/mt_aged_exemption_eligible_person.py:4`): parameter 'gov.states.mt.tax.income.exemptions.applies' outside emitted subtrees
-- **mt_agi_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_agi_indiv.py:10`): parameter 'gov.states.mt.tax.income.social_security.applies' outside emitted subtrees
-- **mt_agi_joint** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_agi_joint.py:19`): parameter 'gov.states.mt.tax.income.social_security.applies' outside emitted subtrees
-- **mt_capital_gain_credit** (`policyengine_us/variables/gov/states/mt/tax/income/credits/capital_gain/mt_capital_gain_credit.py:6`): parameter 'gov.states.mt.tax.income.credits.capital_gain.percentage' outside emitted subtrees
+- **mt_agi_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_agi_indiv.py:10`): if arm without return
+- **mt_agi_joint** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_agi_joint.py:19`): if arm without return
 - **mt_capital_gains_tax_applicable_threshold_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/capital_gains/mt_capital_gains_tax_applicable_threshold_indiv.py:13`): unrecognized call select
 - **mt_capital_gains_tax_applicable_threshold_joint** (`policyengine_us/variables/gov/states/mt/tax/income/capital_gains/mt_capital_gains_tax_applicable_threshold_joint.py:10`): unrecognized call select
-- **mt_capital_gains_tax_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/capital_gains/mt_capital_gains_tax_indiv.py:4`): parameter 'gov.states.mt.tax.income.main.capital_gains.in_effect' outside emitted subtrees
-- **mt_capital_gains_tax_joint** (`policyengine_us/variables/gov/states/mt/tax/income/capital_gains/mt_capital_gains_tax_joint.py:4`): parameter 'gov.states.mt.tax.income.main.capital_gains.in_effect' outside emitted subtrees
+- **mt_capital_gains_tax_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/capital_gains/mt_capital_gains_tax_indiv.py:18`): unrecognized call select
+- **mt_capital_gains_tax_joint** (`policyengine_us/variables/gov/states/mt/tax/income/capital_gains/mt_capital_gains_tax_joint.py:23`): unrecognized call select
 - **mt_ccap_activity_eligible** (`policyengine_us/variables/gov/states/mt/dphhs/ccap/eligibility/mt_ccap_activity_eligible.py:51`): unrecognized call spm_unit.project
-- **mt_ccap_child_age_category** (`policyengine_us/variables/gov/states/mt/dphhs/ccap/mt_ccap_child_age_category.py:9`): calc() on non-scale parameter 'gov.states.mt.dphhs.ccap.age_group.months'
-- **mt_ccap_copay** (`policyengine_us/variables/gov/states/mt/dphhs/ccap/mt_ccap_copay.py:9`): calc() on non-scale parameter 'gov.states.mt.dphhs.ccap.copayment.copay_rate'
-- **mt_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.mt.dphhs.ccap.income.countable_income.sources'
-- **mt_ccap_eligible_child** (`policyengine_us/variables/gov/states/mt/dphhs/ccap/eligibility/mt_ccap_eligible_child.py:6`): parameter 'gov.states.mt.dphhs.ccap.eligibility.special_needs_child_age_limit' outside emitted subtrees
-- **mt_ccap_income_eligible** (`policyengine_us/variables/gov/states/mt/dphhs/ccap/eligibility/mt_ccap_income_eligible.py:26`): parameter 'gov.states.mt.dphhs.ccap.income.fpg_limit.graduated' outside emitted subtrees
+- **mt_ccap_child_age_category** (`policyengine_us/variables/gov/states/mt/dphhs/ccap/mt_ccap_child_age_category.py:0`): Enum-valued formula
 - **mt_ccap_max_rate** (`policyengine_us/variables/gov/states/mt/dphhs/ccap/mt_ccap_max_rate.py:6`): unsupported parameter subscript on 'gov.states.mt.dphhs.ccap.rates.provider_rates'
-- **mt_child_dependent_care_expense_deduction** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/cdcc/mt_child_dependent_care_expense_deduction.py:5`): parameter 'gov.states.mt.tax.income.deductions.child_dependent_care_expense.in_effect' outside emitted subtrees
-- **mt_child_dependent_care_expense_deduction_qualifying_individual** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/cdcc/mt_child_dependent_care_expense_deduction_qualifying_individual.py:8`): parameter 'gov.states.mt.tax.income.deductions.child_dependent_care_expense.age_limit' outside emitted subtrees
-- **mt_dependent_exemptions_person** (`policyengine_us/variables/gov/states/mt/tax/income/exemptions/dependent/mt_dependent_exemptions_person.py:4`): parameter 'gov.states.mt.tax.income.exemptions.applies' outside emitted subtrees
-- **mt_disability_income_exclusion_eligible_person** (`policyengine_us/variables/gov/states/mt/tax/income/subtractions/disability/mt_disability_income_exclusion_eligible_person.py:5`): parameter 'gov.states.mt.tax.income.subtractions.disability_income.age_threshold' outside emitted subtrees
-- **mt_disability_income_exclusion_person** (`policyengine_us/variables/gov/states/mt/tax/income/subtractions/disability/mt_disability_income_exclusion_person.py:3`): parameter 'gov.states.mt.tax.income.subtractions.disability_income.cap' outside emitted subtrees
-- **mt_eitc** (`policyengine_us/variables/gov/states/mt/tax/income/credits/eitc/mt_eitc.py:7`): parameter 'gov.states.mt.tax.income.credits.eitc.match' outside emitted subtrees
-- **mt_elderly_homeowner_or_renter_credit** (`policyengine_us/variables/gov/states/mt/tax/income/credits/mt_elderly_homeowner_or_renter/mt_elderly_homeowner_or_renter_credit.py:23`): parameter 'gov.states.mt.tax.income.credits.elderly_homeowner_or_renter.rent_equivalent_tax_rate' outside emitted subtrees
-- **mt_elderly_homeowner_or_renter_credit_eligible** (`policyengine_us/variables/gov/states/mt/tax/income/credits/mt_elderly_homeowner_or_renter/mt_elderly_homeowner_or_renter_credit_eligible.py:9`): parameter 'gov.states.mt.tax.income.credits.elderly_homeowner_or_renter.age_threshold' outside emitted subtrees
+- **mt_child_dependent_care_expense_deduction** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/cdcc/mt_child_dependent_care_expense_deduction.py:7`): attribute 'tax_unit' on value expression
 - **mt_elderly_homeowner_or_renter_credit_gross_household_income** (`policyengine_us/variables/gov/states/mt/tax/income/credits/mt_elderly_homeowner_or_renter/mt_elderly_homeowner_or_renter_credit_gross_household_income.py:5`): add() without literal variable list
-- **mt_elderly_homeowner_or_renter_credit_net_household_income** (`policyengine_us/variables/gov/states/mt/tax/income/credits/mt_elderly_homeowner_or_renter/mt_elderly_homeowner_or_renter_credit_net_household_income.py:17`): parameter 'gov.states.mt.tax.income.credits.elderly_homeowner_or_renter.net_household_income.standard_exclusion' outside emitted subtrees
-- **mt_federal_income_tax_deduction_for_federal_itemization** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/federal_itemization/mt_federal_income_tax_deduction_for_federal_itemization.py:6`): unsupported parameter subscript on 'gov.states.mt.tax.income.deductions.itemized.federal_income_tax.cap'
 - **mt_federal_income_tax_deduction_for_federal_itemization_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/federal_itemization/mt_federal_income_tax_deduction_for_federal_itemization_indiv.py:8`): np.zeros_like
 - **mt_federal_income_tax_deduction_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/federal_tax/mt_federal_income_tax_deduction_indiv.py:6`): np.zeros_like
-- **mt_federal_income_tax_deduction_unit** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/federal_tax/mt_federal_income_tax_deduction_unit.py:6`): parameter 'gov.states.mt.tax.income.deductions.itemized.federal_income_tax.applies' outside emitted subtrees
-- **mt_files_separately** (`policyengine_us/variables/gov/states/mt/tax/income/filing/mt_files_separately.py:3`): parameter 'gov.states.mt.tax.income.married_filing_separately_on_same_return_allowed' outside emitted subtrees
-- **mt_help_premium** (`policyengine_us/variables/gov/states/mt/dphhs/help/mt_help_premium.py:3`): parameter 'gov.states.mt.dphhs.help.premium.active' outside emitted subtrees
-- **mt_income_tax_before_refundable_credits_unit** (`policyengine_us/variables/gov/states/mt/tax/income/tax_calculation/mt_income_tax_before_refundable_credits_unit.py:5`): parameter 'gov.states.mt.tax.income.married_filing_separately_on_same_return_allowed' outside emitted subtrees
+- **mt_help_premium** (`policyengine_us/variables/gov/states/mt/dphhs/help/mt_help_premium.py:10`): unrecognized call tax_unit.members
 - **mt_income_tax_rebate** (`policyengine_us/variables/gov/states/mt/tax/income/credits/rebate/mt_income_tax_rebate.py:8`): non-value handle used as value
-- **mt_interest_exemption** (`policyengine_us/variables/gov/states/mt/tax/income/exemptions/interest/mt_interest_exemption.py:4`): parameter 'gov.states.mt.tax.income.exemptions.applies' outside emitted subtrees
-- **mt_interest_exemption_eligible_person** (`policyengine_us/variables/gov/states/mt/tax/income/exemptions/interest/mt_interest_exemption_eligible_person.py:4`): parameter 'gov.states.mt.tax.income.exemptions.applies' outside emitted subtrees
 - **mt_interest_exemption_person** (`policyengine_us/variables/gov/states/mt/tax/income/exemptions/interest/mt_interest_exemption_person.py:6`): np.zeros_like
 - **mt_itemized_deductions** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **mt_itemized_deductions_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/general/mt_itemized_deductions_indiv.py:6`): parameter 'gov.states.mt.tax.income.deductions.itemized.spouse_allocation_rate' outside emitted subtrees
 - **mt_married_filing_separately_on_same_return_eligible** (`policyengine_us/variables/gov/states/mt/tax/income/filing/mt_married_filing_separately_on_same_return_eligible.py:1`): returns a non-value
-- **mt_medical_expense_deduction_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/medical/mt_medical_expense_deduction_indiv.py:8`): parameter 'gov.irs.deductions.itemized.medical.floor' outside emitted subtrees
-- **mt_medical_expense_deduction_joint** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/medical/mt_medical_expense_deduction_joint.py:6`): parameter 'gov.irs.deductions.itemized.medical.floor' outside emitted subtrees
-- **mt_misc_deductions** (`?:0`): adds via unknown parameter path 'gov.states.mt.tax.income.deductions.itemized.misc_deductions'
-- **mt_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.mt.tax.income.credits.non_refundable'
-- **mt_old_age_subtraction** (`policyengine_us/variables/gov/states/mt/tax/income/subtractions/old_age/mt_old_age_subtraction.py:5`): calc() on non-scale parameter 'gov.states.mt.tax.income.subtractions.old_age.amount'
-- **mt_personal_exemptions_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/exemptions/personal/mt_personal_exemptions_indiv.py:4`): parameter 'gov.states.mt.tax.income.exemptions.applies' outside emitted subtrees
-- **mt_property_tax_rebate** (`policyengine_us/variables/gov/states/mt/tax/income/credits/rebate/mt_property_tax_rebate.py:6`): parameter 'gov.states.mt.tax.income.credits.rebate.property.amount' outside emitted subtrees
-- **mt_refundable_credits_before_renter_credit** (`?:0`): adds via unknown parameter path 'gov.states.mt.tax.income.credits.refundable'
-- **mt_regular_income_tax_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/tax_calculation/mt_regular_income_tax_indiv.py:8`): parameter 'gov.states.mt.tax.income.main.capital_gains.in_effect' outside emitted subtrees
-- **mt_regular_income_tax_joint** (`policyengine_us/variables/gov/states/mt/tax/income/tax_calculation/mt_regular_income_tax_joint.py:7`): parameter 'gov.states.mt.tax.income.main.capital_gains.in_effect' outside emitted subtrees
+- **mt_misc_deductions** (`?:0`): adds via DATED parameter list 'gov.states.mt.tax.income.deductions.itemized.misc_deductions'
+- **mt_non_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.mt.tax.income.credits.non_refundable'
+- **mt_personal_exemptions_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/exemptions/personal/mt_personal_exemptions_indiv.py:12`): unrecognized call head_or_spouse.astype
+- **mt_regular_income_tax_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/tax_calculation/mt_regular_income_tax_indiv.py:17`): unrecognized call select
+- **mt_regular_income_tax_joint** (`policyengine_us/variables/gov/states/mt/tax/income/tax_calculation/mt_regular_income_tax_joint.py:15`): unrecognized call select
 - **mt_salt_deduction** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/itemized/salt/mt_salt_deduction.py:8`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
 - **mt_standard_deduction** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
-- **mt_standard_deduction_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/standard/mt_standard_deduction_indiv.py:10`): parameter 'gov.states.mt.tax.income.deductions.standard.state_specific_deduction_applies' outside emitted subtrees
-- **mt_standard_deduction_joint** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/standard/mt_standard_deduction_joint.py:7`): parameter 'gov.states.mt.tax.income.deductions.standard.state_specific_deduction_applies' outside emitted subtrees
+- **mt_standard_deduction_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/standard/mt_standard_deduction_indiv.py:10`): if arm without return
+- **mt_standard_deduction_joint** (`policyengine_us/variables/gov/states/mt/tax/income/deductions/standard/mt_standard_deduction_joint.py:7`): if arm without return
 - **mt_subtractions** (`policyengine_us/variables/gov/states/mt/tax/income/subtractions/mt_subtractions.py:3`): add() without literal variable list
-- **mt_tanf_benefit_standard** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income_standards/mt_tanf_benefit_standard.py:8`): parameter 'gov.states.mt.dhs.tanf.max_unit_size' outside emitted subtrees
+- **mt_tanf_benefit_standard** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income_standards/mt_tanf_benefit_standard.py:10`): person ref to non-person variable 'state_group_str'
 - **mt_tanf_countable_resources** (`policyengine_us/variables/gov/states/mt/dhs/tanf/mt_tanf_countable_resources.py:3`): person ref to non-person variable 'household_vehicles_owned'
-- **mt_tanf_dependent_care_deduction** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income/deductions/mt_tanf_dependent_care_deduction.py:21`): parameter 'gov.states.mt.dhs.tanf.income.deductions.dependent_care.amount' outside emitted subtrees
-- **mt_tanf_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income/earned/mt_tanf_earned_income_after_disregard_person.py:6`): parameter 'gov.states.mt.dhs.tanf.income.deductions.work_related_expense.amount' outside emitted subtrees
-- **mt_tanf_eligible_child** (`policyengine_us/variables/gov/states/mt/dhs/tanf/eligibility/mt_tanf_eligible_child.py:6`): parameter 'gov.states.mt.dhs.tanf.age_threshold.student_dependent' outside emitted subtrees
-- **mt_tanf_gross_earned_income_person** (`?:0`): adds via unknown parameter path 'gov.states.mt.dhs.tanf.income.sources.earned'
-- **mt_tanf_gross_income_standard** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income_standards/mt_tanf_gross_income_standard.py:5`): parameter 'gov.states.mt.dhs.tanf.income_standards.net_to_gross_rate' outside emitted subtrees
-- **mt_tanf_gross_unearned_income_person** (`?:0`): adds via unknown parameter path 'gov.states.mt.dhs.tanf.income.sources.unearned'
-- **mt_tanf_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/mt/dhs/tanf/eligibility/mt_tanf_immigration_status_eligible_person.py:5`): isin against non-list param 'gov.states.mt.dhs.tanf.qualified_noncitizen_status'
 - **mt_tanf_is_working** (`policyengine_us/variables/gov/states/mt/dhs/tanf/work_requirement/mt_tanf_is_working.py:7`): attribute 'spm_unit' on value expression
-- **mt_tanf_net_income_standard** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income_standards/mt_tanf_net_income_standard.py:4`): parameter 'gov.states.mt.dhs.tanf.income_standards.benefit_to_net_factor' outside emitted subtrees
-- **mt_tanf_payment_standard** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income_standards/mt_tanf_payment_standard.py:8`): parameter 'gov.states.mt.dhs.tanf.max_unit_size' outside emitted subtrees
-- **mt_tanf_resources_eligible** (`policyengine_us/variables/gov/states/mt/dhs/tanf/eligibility/mt_tanf_resources_eligible.py:4`): parameter 'gov.states.mt.dhs.tanf.resource_limit.amount' outside emitted subtrees
+- **mt_tanf_payment_standard** (`policyengine_us/variables/gov/states/mt/dhs/tanf/income_standards/mt_tanf_payment_standard.py:10`): person ref to non-person variable 'state_group_str'
 - **mt_taxable_income** (`policyengine_us/variables/gov/states/tax/income/_generate_state_mfs_variables.py:1`): not a function definition
 - **mt_taxable_income_indiv** (`policyengine_us/variables/gov/states/mt/tax/income/tax_calculation/mt_taxable_income_indiv.py:14`): np.abs
-- **mt_taxable_social_security** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_taxable_social_security.py:8`): parameter 'gov.irs.social_security.taxability.rate.base.benefit_cap' outside emitted subtrees
-- **mt_taxable_social_security_joint** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_taxable_social_security_joint.py:10`): parameter 'gov.irs.social_security.taxability.rate.base.benefit_cap' outside emitted subtrees
-- **mt_tuition_subtraction_person** (`policyengine_us/variables/gov/states/mt/tax/income/subtractions/tuition/mt_tuition_subtraction_person.py:5`): parameter 'gov.states.mt.tax.income.subtractions.tuition.cap' outside emitted subtrees
+- **mt_taxable_social_security** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_taxable_social_security.py:47`): non-value handle used as value
 - **mt_withheld_income_tax** (`policyengine_us/variables/gov/states/mt/tax/income/base/mt_withheld_income_tax.py:5`): non-value handle used as value
 - **nc_child_deduction** (`policyengine_us/variables/gov/states/nc/tax/income/deductions/nc_child_deduction.py:7`): unrecognized call select
 - **nc_ctc** (`policyengine_us/variables/gov/states/nc/tax/income/credits/nc_ctc.py:5`): unrecognized call applied_state_non_refundable_credit
 - **nc_ctc_potential** (`policyengine_us/variables/gov/states/nc/tax/income/credits/nc_ctc_potential.py:7`): unrecognized call select
-- **nc_deductions** (`?:0`): adds via unknown parameter path 'gov.states.nc.tax.income.deductions.deductions'
-- **nc_demographic_tanf_eligible** (`policyengine_us/variables/gov/states/nc/ncdhhs/tanf/nc_demographic_tanf_eligible.py:4`): parameter 'gov.states.nc.ncdhhs.tanf.eligibility.age_limit' outside emitted subtrees
-- **nc_income_tax_before_credits** (`policyengine_us/variables/gov/states/nc/tax/income/nc_income_tax_before_credits.py:4`): parameter 'gov.states.nc.tax.income.rate' outside emitted subtrees
+- **nc_deductions** (`?:0`): adds via DATED parameter list 'gov.states.nc.tax.income.deductions.deductions'
 - **nc_itemized_deductions** (`policyengine_us/variables/gov/states/nc/tax/income/deductions/nc_itemized_deductions.py:9`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
-- **nc_military_retirement_deduction** (`policyengine_us/variables/gov/states/nc/tax/income/deductions/military_retirement/nc_military_retirement_deduction.py:6`): parameter 'gov.states.nc.tax.income.deductions.military_retirement.fraction' outside emitted subtrees
-- **nc_military_retirement_deduction_eligible** (`policyengine_us/variables/gov/states/nc/tax/income/deductions/military_retirement/nc_military_retirement_deduction_eligible.py:4`): parameter 'gov.states.nc.tax.income.deductions.military_retirement.minimum_years' outside emitted subtrees
 - **nc_non_refundable_credits** (`policyengine_us/variables/gov/states/nc/tax/income/nc_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **nc_scca_age_group** (`policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_age_group.py:18`): calc() on non-scale parameter 'gov.states.nc.ncdhhs.scca.age.group'
-- **nc_scca_child_age_eligible** (`policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_child_age_eligible.py:8`): parameter 'gov.states.nc.ncdhhs.scca.age.limit.disabled' outside emitted subtrees
 - **nc_scca_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.nc.ncdhhs.scca.income.sources'
 - **nc_scca_entry_income_eligible** (`policyengine_us/variables/gov/states/nc/ncdhhs/scca/entry/nc_scca_entry_income_eligible.py:3`): np.round
-- **nc_scca_fpg_rate** (`policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_fpg_rate.py:35`): parameter 'gov.states.nc.ncdhhs.scca.entry.fpg_limit.preschool' outside emitted subtrees
-- **nc_scca_is_school_age** (`policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_is_school_age.py:8`): parameter 'gov.states.nc.ncdhhs.scca.age.school' outside emitted subtrees
-- **nc_scca_market_rate** (`policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_market_rate.py:5`): unsupported parameter subscript on 'gov.states.nc.ncdhhs.scca.childcare_market_rates'
 - **nc_scca_parent_fee** (`policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_parent_fee.py:7`): parameter 'gov.states.nc.ncdhhs.scca.parent_fee_rate.value' outside emitted subtrees
-- **nc_standard_deduction** (`policyengine_us/variables/gov/states/nc/tax/income/deductions/nc_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.nc.tax.income.deductions.standard.amount'
-- **nc_tanf** (`policyengine_us/variables/gov/states/nc/ncdhhs/tanf/nc_tanf.py:7`): parameter 'gov.states.nc.ncdhhs.tanf.benefit.payment_percentage' outside emitted subtrees
-- **nc_tanf_countable_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.nc.ncdhhs.tanf.income.earned'
 - **nc_tanf_countable_gross_unearned_income** (`policyengine_us/variables/gov/states/nc/ncdhhs/tanf/income/nc_tanf_countable_gross_unearned_income.py:4`): add() without literal variable list
 - **nc_tanf_household_size** (`policyengine_us/variables/gov/states/nc/ncdhhs/tanf/nc_tanf_household_size.py:2`): unrecognized call spm_unit.members
 - **nc_tanf_income_eligible** (`policyengine_us/variables/gov/states/nc/ncdhhs/tanf/nc_tanf_income_eligible.py:6`): np.divide
-- **nc_tanf_need_standard** (`policyengine_us/variables/gov/states/nc/ncdhhs/tanf/nc_tanf_need_standard.py:4`): parameter 'gov.states.nc.ncdhhs.tanf.need_standard.max_table_size' outside emitted subtrees
-- **nc_use_tax** (`policyengine_us/variables/gov/states/nc/tax/income/nc_use_tax.py:5`): calc() on non-scale parameter 'gov.states.nc.tax.use_tax.base'
+- **nc_tanf_need_standard** (`policyengine_us/variables/gov/states/nc/ncdhhs/tanf/nc_tanf_need_standard.py:4`): unrecognized call clip(household_size, 1, p.max_table_size).astype
 - **nc_withheld_income_tax** (`policyengine_us/variables/gov/states/nc/tax/income/nc_withheld_income_tax.py:5`): non-value handle used as value
-- **nd_529_deduction** (`policyengine_us/variables/gov/states/nd/tax/income/taxable_income/subtractions/plan_529_contributions/nd_529_deduction.py:7`): unsupported parameter subscript on 'gov.states.nd.tax.income.taxable_income.subtractions.plan_529_contributions.cap'
-- **nd_additions** (`?:0`): adds via unknown parameter path 'gov.states.nd.tax.income.taxable_income.additions.sources'
 - **nd_ccap_age_group** (`policyengine_us/variables/gov/states/nd/dhs/ccap/rates/nd_ccap_age_group.py:11`): unrecognized call select
-- **nd_ccap_copay** (`policyengine_us/variables/gov/states/nd/dhs/ccap/copay/nd_ccap_copay.py:13`): calc() on non-scale parameter 'gov.states.nd.dhs.ccap.copay.rate'
-- **nd_ccap_countable_income** (`policyengine_us/variables/gov/states/nd/dhs/ccap/income/nd_ccap_countable_income.py:7`): parameter 'gov.states.nd.dhs.ccap.income.child_earned_income_exclusion_age' outside emitted subtrees
-- **nd_ccap_eligible_child** (`policyengine_us/variables/gov/states/nd/dhs/ccap/eligibility/nd_ccap_eligible_child.py:9`): parameter 'gov.states.nd.dhs.ccap.eligibility.disabled_child_age_limit' outside emitted subtrees
-- **nd_ccap_gross_income** (`?:0`): adds via unknown parameter path 'gov.states.nd.dhs.ccap.income.sources'
-- **nd_ccap_income_eligible** (`policyengine_us/variables/gov/states/nd/dhs/ccap/eligibility/nd_ccap_income_eligible.py:11`): parameter 'gov.states.nd.dhs.ccap.income.initial_smi_rate' outside emitted subtrees
-- **nd_ccap_infant_toddler_bonus** (`policyengine_us/variables/gov/states/nd/dhs/ccap/rates/nd_ccap_infant_toddler_bonus.py:11`): unsupported parameter subscript on 'gov.states.nd.dhs.ccap.rates.infant_toddler_bonus'
+- **nd_ccap_eligible_child** (`policyengine_us/variables/gov/states/nd/dhs/ccap/eligibility/nd_ccap_eligible_child.py:20`): unbound name 'ImmigrationStatus'
+- **nd_ccap_infant_toddler_bonus** (`policyengine_us/variables/gov/states/nd/dhs/ccap/rates/nd_ccap_infant_toddler_bonus.py:14`): unbound name 'NDCCAPProviderQRISStep'
 - **nd_ccap_qris_step_bonus** (`policyengine_us/variables/gov/states/nd/dhs/ccap/rates/nd_ccap_qris_step_bonus.py:13`): unbound name 'NDCCAPTimeCategory'
 - **nd_ccap_state_max_rate** (`policyengine_us/variables/gov/states/nd/dhs/ccap/rates/nd_ccap_state_max_rate.py:6`): unsupported parameter subscript on 'gov.states.nd.dhs.ccap.rates.full_time'
-- **nd_ccap_time_category** (`policyengine_us/variables/gov/states/nd/dhs/ccap/rates/nd_ccap_time_category.py:7`): parameter 'gov.states.nd.dhs.ccap.time_category.full_time_min_hours' outside emitted subtrees
+- **nd_ccap_time_category** (`policyengine_us/variables/gov/states/nd/dhs/ccap/rates/nd_ccap_time_category.py:8`): unbound name 'NDCCAPTimeCategory'
 - **nd_income_tax_before_credits** (`policyengine_us/variables/gov/states/nd/tax/income/nd_income_tax_before_credits.py:6`): unrecognized call select
-- **nd_ltcg_subtraction** (`policyengine_us/variables/gov/states/nd/tax/income/subtractions/nd_ltcg_subtraction.py:6`): parameter 'gov.states.nd.tax.income.taxable_income.subtractions.ltcg_fraction' outside emitted subtrees
-- **nd_mpc** (`policyengine_us/variables/gov/states/nd/tax/income/credits/nd_mpc.py:9`): parameter 'gov.states.nd.tax.income.credits.marriage_penalty.taxable_income_threshold' outside emitted subtrees
-- **nd_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.nd.tax.income.credits.nonrefundable'
-- **nd_primary_residence_credit** (`policyengine_us/variables/gov/states/nd/tax/property/primary_residence_credit/nd_primary_residence_credit.py:12`): parameter 'gov.states.nd.tax.property.primary_residence_credit.amount' outside emitted subtrees
-- **nd_qdiv_subtraction** (`policyengine_us/variables/gov/states/nd/tax/income/subtractions/nd_qdiv_subtraction.py:4`): parameter 'gov.states.nd.tax.income.taxable_income.subtractions.qdiv_fraction' outside emitted subtrees
-- **nd_renters_refund** (`policyengine_us/variables/gov/states/nd/tax/property/renters_refund/nd_renters_refund.py:6`): parameter 'gov.states.nd.tax.property.renters_refund.rent_rate' outside emitted subtrees
-- **nd_renters_refund_eligible** (`policyengine_us/variables/gov/states/nd/tax/property/renters_refund/nd_renters_refund_eligible.py:8`): parameter 'gov.states.nd.tax.property.renters_refund.age_threshold' outside emitted subtrees
+- **nd_mpc** (`policyengine_us/variables/gov/states/nd/tax/income/credits/nd_mpc.py:29`): ExtRat scale 'gov.states.nd.tax.income.rates.single' in value position
+- **nd_non_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.nd.tax.income.credits.nonrefundable'
 - **nd_renters_refund_income** (`policyengine_us/variables/gov/states/nd/tax/property/renters_refund/nd_renters_refund_income.py:4`): add() without literal variable list
-- **nd_rtrc** (`policyengine_us/variables/gov/states/nd/tax/income/credits/nd_rtrc.py:6`): parameter 'gov.states.nd.tax.income.credits.resident_tax_relief.joint_amount' outside emitted subtrees
-- **nd_stillborn_subtraction** (`policyengine_us/variables/gov/states/nd/tax/income/subtractions/nd_stillborn_subtraction.py:4`): parameter 'gov.states.nd.tax.income.taxable_income.subtractions.stillborn' outside emitted subtrees
 - **nd_subtractions** (`policyengine_us/variables/gov/states/nd/tax/income/subtractions/nd_subtractions.py:3`): add() without literal variable list
-- **nd_tanf_countable_earned_income_person** (`policyengine_us/variables/gov/states/nd/dhs/tanf/income/nd_tanf_countable_earned_income_person.py:7`): parameter 'gov.states.nd.dhs.tanf.income.deductions.standard_employment_expense.rate' outside emitted subtrees
+- **nd_tanf_countable_earned_income_person** (`policyengine_us/variables/gov/states/nd/dhs/tanf/income/nd_tanf_countable_earned_income_person.py:19`): unbound name 'period'
 - **nd_tanf_resources_eligible** (`policyengine_us/variables/gov/states/nd/dhs/tanf/eligibility/nd_tanf_resources_eligible.py:6`): unsupported parameter subscript on 'gov.states.nd.dhs.tanf.resources.limit.base'
 - **nd_tanf_standard_of_need** (`policyengine_us/variables/gov/states/nd/dhs/tanf/nd_tanf_standard_of_need.py:16`): unrecognized call min_(caretaker_count, 2).astype
 - **nd_withheld_income_tax** (`policyengine_us/variables/gov/states/nd/tax/income/nd_withheld_income_tax.py:5`): non-value handle used as value
-- **ne_529_deduction** (`policyengine_us/variables/gov/states/ne/tax/income/agi/subtractions/plan_529_contributions/ne_529_deduction.py:7`): unsupported parameter subscript on 'gov.states.ne.tax.income.agi.subtractions.plan_529_contributions.cap'
 - **ne_aabd_couple_rate_applies** (`policyengine_us/variables/gov/states/ne/dhhs/aabd/ne_aabd_couple_rate_applies.py:10`): attribute 'marital_unit' on value expression
 - **ne_aabd_living_arrangement** (`policyengine_us/variables/gov/states/ne/dhhs/aabd/ne_aabd_living_arrangement.py:10`): unbound name 'NEAABDLivingArrangement'
 - **ne_aabd_standard_of_need** (`policyengine_us/variables/gov/states/ne/dhhs/aabd/ne_aabd_standard_of_need.py:12`): unsupported parameter subscript on 'gov.states.ne.dhhs.aabd.standard_of_need.independent'
-- **ne_adc_countable_earned_income** (`policyengine_us/variables/gov/states/ne/dhhs/adc/income/ne_adc_countable_earned_income.py:8`): parameter 'gov.states.ne.dhhs.adc.income.earned_income_disregard.ongoing' outside emitted subtrees
-- **ne_adc_need_standard** (`policyengine_us/variables/gov/states/ne/dhhs/adc/benefit/ne_adc_need_standard.py:6`): parameter 'gov.states.ne.dhhs.adc.max_unit_size' outside emitted subtrees
-- **ne_adc_payment_standard** (`policyengine_us/variables/gov/states/ne/dhhs/adc/benefit/ne_adc_payment_standard.py:5`): parameter 'gov.states.ne.dhhs.adc.benefit.payment_standard_rate' outside emitted subtrees
-- **ne_adc_resources_eligible** (`policyengine_us/variables/gov/states/ne/dhhs/adc/eligibility/ne_adc_resources_eligible.py:7`): calc() on non-scale parameter 'gov.states.ne.dhhs.adc.resources.limit'
+- **ne_adc_need_standard** (`policyengine_us/variables/gov/states/ne/dhhs/adc/benefit/ne_adc_need_standard.py:7`): unsupported parameter subscript on 'gov.states.ne.dhhs.adc.benefit.standard_of_need.amount'
 - **ne_agi_subtractions** (`policyengine_us/variables/gov/states/ne/tax/income/adjusted_gross_income/ne_agi_subtractions.py:3`): add() without literal variable list
 - **ne_base_standard_deduction** (`policyengine_us/variables/gov/states/ne/tax/income/deductions/ne_base_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.ne.tax.income.deductions.standard.base_amount'
-- **ne_cdcc_nonrefundable** (`policyengine_us/variables/gov/states/ne/tax/income/credits/cdcc/ne_cdcc_nonrefundable.py:10`): parameter 'gov.states.ne.tax.income.credits.cdcc.nonrefundable.fraction' outside emitted subtrees
-- **ne_cdcc_refundable** (`policyengine_us/variables/gov/states/ne/tax/income/credits/cdcc/ne_cdcc_refundable.py:8`): parameter 'gov.states.ne.tax.income.credits.cdcc.refundable.reduction.start' outside emitted subtrees
-- **ne_cdcc_refundable_eligible** (`policyengine_us/variables/gov/states/ne/tax/income/credits/cdcc/ne_cdcc_refundable_eligible.py:4`): parameter 'gov.states.ne.tax.income.credits.cdcc.refundable.income_limit' outside emitted subtrees
-- **ne_child_care_subsidy** (`policyengine_us/variables/gov/states/ne/dhhs/child_care_subsidy/ne_child_care_subsidy.py:6`): parameter 'gov.states.ne.dhhs.child_care_subsidy.fpg_fraction.fee_free_limit' outside emitted subtrees
-- **ne_child_care_subsidy_countable_income** (`policyengine_us/variables/gov/states/ne/dhhs/child_care_subsidy/ne_child_care_subsidy_countable_income.py:7`): parameter 'gov.states.ne.dhhs.child_care_subsidy.income.student_earner_age_threshold' outside emitted subtrees
-- **ne_child_care_subsidy_eligible_child** (`policyengine_us/variables/gov/states/ne/dhhs/child_care_subsidy/ne_child_care_subsidy_eligible_child.py:5`): parameter 'gov.states.ne.dhhs.child_care_subsidy.age_threshold.special_needs' outside emitted subtrees
-- **ne_child_care_subsidy_income_eligible** (`policyengine_us/variables/gov/states/ne/dhhs/child_care_subsidy/ne_child_care_subsidy_income_eligible.py:5`): parameter 'gov.states.ne.dhhs.child_care_subsidy.fpg_fraction.initial_eligibility' outside emitted subtrees
-- **ne_eitc** (`policyengine_us/variables/gov/states/ne/tax/income/credits/eitc/ne_eitc.py:4`): parameter 'gov.states.ne.tax.income.credits.eitc.fraction' outside emitted subtrees
-- **ne_exemptions** (`policyengine_us/variables/gov/states/ne/tax/income/exemptions/ne_exemptions.py:3`): parameter 'gov.states.ne.tax.income.exemptions.amount' outside emitted subtrees
+- **ne_child_care_subsidy_countable_income** (`policyengine_us/variables/gov/states/ne/dhhs/child_care_subsidy/ne_child_care_subsidy_countable_income.py:9`): add() without literal variable list
 - **ne_income_tax_before_credits** (`policyengine_us/variables/gov/states/ne/tax/income/ne_income_tax_before_credits.py:6`): unrecognized call select
-- **ne_income_tax_before_refundable_credits** (`policyengine_us/variables/gov/states/ne/tax/income/ne_income_tax_before_refundable_credits.py:10`): parameter 'gov.states.ne.tax.income.credits.nonrefundable_adjust_limit' outside emitted subtrees
-- **ne_military_retirement_subtraction** (`policyengine_us/variables/gov/states/ne/tax/income/adjusted_gross_income/subtractions/ne_military_retirement_substraction.py:7`): parameter 'gov.states.ne.tax.income.agi.subtractions.military_retirement.age_threshold' outside emitted subtrees
-- **ne_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ne.tax.income.credits.nonrefundable'
-- **ne_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ne.tax.income.credits.refundable'
-- **ne_refundable_ctc** (`policyengine_us/variables/gov/states/ne/tax/income/credits/ctc/refundable/ne_refundable_ctc.py:6`): calc() on non-scale parameter 'gov.states.ne.tax.income.credits.ctc.refundable.amount'
-- **ne_refundable_ctc_eligible_child** (`policyengine_us/variables/gov/states/ne/tax/income/credits/ctc/refundable/ne_refundable_ctc_eligible_child.py:3`): parameter 'gov.states.ne.tax.income.credits.ctc.refundable.age_threshold' outside emitted subtrees
-- **ne_refundable_ctc_income_eligible** (`policyengine_us/variables/gov/states/ne/tax/income/credits/ctc/refundable/ne_refundable_ctc_income_eligible.py:4`): parameter 'gov.states.ne.tax.income.credits.ctc.refundable.fpg_fraction' outside emitted subtrees
-- **ne_school_readiness_credit** (`policyengine_us/variables/gov/states/ne/tax/income/credits/school_readiness/ne_school_readiness_credit.py:4`): parameter 'gov.states.ne.tax.income.credits.school_readiness.max_unit_size' outside emitted subtrees
+- **ne_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.ne.tax.income.credits.refundable'
+- **ne_school_readiness_credit** (`policyengine_us/variables/gov/states/ne/tax/income/credits/school_readiness/ne_school_readiness_credit.py:6`): unsupported parameter subscript on 'gov.states.ne.tax.income.credits.school_readiness.amount.refundable'
 - **ne_social_security_subtraction** (`policyengine_us/variables/gov/states/ne/tax/income/adjusted_gross_income/subtractions/ne_social_security_subtraction.py:6`): unsupported parameter subscript on 'gov.states.ne.tax.income.agi.subtractions.social_security.threshold'
 - **ne_standard_deduction** (`policyengine_us/variables/gov/states/ne/tax/income/deductions/ne_standard_deduction.py:7`): unsupported parameter subscript on 'gov.states.ne.tax.income.deductions.standard.additional_amount'
-- **ne_stillborn_credit** (`policyengine_us/variables/gov/states/ne/tax/income/credits/ne_stillborn_credit.py:4`): parameter 'gov.states.ne.tax.income.credits.stillborn' outside emitted subtrees
 - **ne_withheld_income_tax** (`policyengine_us/variables/gov/states/ne/tax/income/ne_withheld_income_tax.py:5`): non-value handle used as value
 - **net_investment_income_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/net_investment_income_tax.py:3`): unsupported parameter subscript on 'gov.irs.investment.net_investment_income_tax.threshold'
 - **new_clean_vehicle_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_credit_limit.py:4`): add() without literal variable list
-- **new_clean_vehicle_credit_eligible** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_eligible.py:7`): parameter 'gov.irs.credits.clean_vehicle.new.eligibility.in_effect' outside emitted subtrees
-- **new_clean_vehicle_credit_potential** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_potential.py:8`): parameter 'gov.irs.credits.clean_vehicle.new.battery_components.threshold' outside emitted subtrees
-- **nh_base_exemption** (`policyengine_us/variables/gov/states/nh/tax/income/exemptions/nh_base_exemption.py:4`): unsupported parameter subscript on 'gov.states.nh.tax.income.exemptions.amount.base'
+- **new_clean_vehicle_credit_eligible** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_eligible.py:14`): ExtRat breakdown 'gov.irs.credits.clean_vehicle.new.eligibility.income_limit' in value position
+- **new_clean_vehicle_credit_potential** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_potential.py:32`): np.floor
 - **nh_blind_exemption** (`policyengine_us/variables/gov/states/nh/tax/income/exemptions/nh_blind_exemption.py:5`): unrecognized call tax_unit('blind_head', period).astype
 - **nh_ccap** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/nh_ccap.py:19`): np.zeros_like
 - **nh_ccap_authorized_activity_hours** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/nh_ccap_authorized_activity_hours.py:6`): unbound name 'np'
 - **nh_ccap_child_age_category** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/nh_ccap_child_age_category.py:5`): unrecognized call select
-- **nh_ccap_cost_share** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/nh_ccap_cost_share.py:9`): calc() on non-scale parameter 'gov.states.nh.dhhs.ccap.cost_share.income_share_rate'
-- **nh_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.nh.dhhs.ccap.income.countable_income.sources'
-- **nh_ccap_disability_supplement** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/payment/nh_ccap_disability_supplement.py:5`): unsupported parameter subscript on 'gov.states.nh.dhhs.ccap.payment.disability_supplement.amount'
-- **nh_ccap_eligible_child** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/eligibility/nh_ccap_eligible_child.py:5`): parameter 'gov.states.nh.dhhs.ccap.eligibility.disabled_child_age_limit' outside emitted subtrees
-- **nh_ccap_immigration_status_eligible_person** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/eligibility/nh_ccap_immigration_status_eligible_person.py:5`): isin against non-list param 'gov.states.nh.dhhs.ccap.eligibility.qualified_immigration_statuses'
-- **nh_ccap_income_eligible** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/eligibility/nh_ccap_income_eligible.py:6`): parameter 'gov.states.nh.dhhs.ccap.income.income_limit_smi_rate' outside emitted subtrees
 - **nh_ccap_payment_rate** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/payment/nh_ccap_payment_rate.py:8`): unsupported parameter subscript on 'gov.states.nh.dhhs.ccap.payment.rates.licensed_center'
-- **nh_ccap_service_level** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/nh_ccap_service_level.py:4`): calc() on non-scale parameter 'gov.states.nh.dhhs.ccap.service_level.authorized_hours'
-- **nh_disabled_exemption** (`policyengine_us/variables/gov/states/nh/tax/income/exemptions/nh_disabled_exemption.py:7`): parameter 'gov.states.nh.tax.income.exemptions.disability_age_threshold' outside emitted subtrees
-- **nh_education_tax_credit** (`policyengine_us/variables/gov/states/nh/tax/credits/nh_education_tax_credit.py:10`): calc() on non-scale parameter 'gov.states.nh.tax.credits.education.rate'
-- **nh_fanf_child_care_deduction** (`policyengine_us/variables/gov/states/nh/dhhs/fanf/income/nh_fanf_child_care_deduction.py:7`): parameter 'gov.states.nh.dhhs.fanf.income.child_care_deduction.full_time_threshold' outside emitted subtrees
-- **nh_fanf_countable_earned_income** (`policyengine_us/variables/gov/states/nh/dhhs/fanf/income/nh_fanf_countable_earned_income.py:10`): parameter 'gov.states.nh.dhhs.fanf.income.earned_income_disregard.recipient_rate' outside emitted subtrees
-- **nh_fanf_payment_standard** (`policyengine_us/variables/gov/states/nh/dhhs/fanf/nh_fanf_payment_standard.py:4`): parameter 'gov.states.nh.dhhs.fanf.payment_standard.fpg_rate' outside emitted subtrees
-- **nh_fanf_resources_eligible** (`policyengine_us/variables/gov/states/nh/dhhs/fanf/eligibility/nh_fanf_resources_eligible.py:7`): parameter 'gov.states.nh.dhhs.fanf.resources.recipient_limit' outside emitted subtrees
-- **nh_income_tax_before_refundable_credits** (`policyengine_us/variables/gov/states/nh/tax/income/nh_income_tax_before_refundable_credits.py:4`): parameter 'gov.states.nh.tax.income.in_effect' outside emitted subtrees
-- **nh_old_age_exemption** (`policyengine_us/variables/gov/states/nh/tax/income/exemptions/nh_old_age_exemption.py:6`): parameter 'gov.states.nh.tax.income.exemptions.old_age_eligibility' outside emitted subtrees
-- **nj_529_deduction** (`policyengine_us/variables/gov/states/nj/tax/income/deductions/plan_529_contributions/nj_529_deduction.py:7`): parameter 'gov.states.nj.tax.income.deductions.plan_529_contributions.income_limit' outside emitted subtrees
-- **nj_additions** (`?:0`): adds via unknown parameter path 'gov.states.nj.tax.income.additions'
+- **nh_ccap_service_level** (`policyengine_us/variables/gov/states/nh/dhhs/ccap/nh_ccap_service_level.py:0`): Enum-valued formula
+- **nh_disabled_exemption** (`policyengine_us/variables/gov/states/nh/tax/income/exemptions/nh_disabled_exemption.py:8`): unrecognized call (disabled_head & age_head).astype
+- **nh_fanf_child_care_deduction** (`policyengine_us/variables/gov/states/nh/dhhs/fanf/income/nh_fanf_child_care_deduction.py:22`): unrecognized call spm_unit.project
+- **nh_old_age_exemption** (`policyengine_us/variables/gov/states/nh/tax/income/exemptions/nh_old_age_exemption.py:6`): unrecognized call (tax_unit('age_head', period) >= p.old_age_eligibility).astype
+- **nj_529_deduction** (`policyengine_us/variables/gov/states/nj/tax/income/deductions/plan_529_contributions/nj_529_deduction.py:14`): np.zeros_like
 - **nj_agi** (`policyengine_us/variables/gov/states/nj/tax/income/adjusted_gross_income/nj_agi.py:4`): add() without literal variable list
-- **nj_agi_subtractions** (`policyengine_us/variables/gov/states/nj/tax/income/adjusted_gross_income/nj_agi_subtractions.py:5`): parameter 'gov.states.nj.tax.income.subtractions' outside emitted subtrees
-- **nj_anchor** (`policyengine_us/variables/gov/states/nj/tax/income/credits/anchor/nj_anchor.py:9`): parameter 'gov.states.nj.tax.income.credits.anchor.age_threshold' outside emitted subtrees
-- **nj_anchor_eligible** (`policyengine_us/variables/gov/states/nj/tax/income/credits/anchor/nj_anchor_eligible.py:15`): parameter 'gov.states.nj.tax.income.credits.anchor.homeowner.income_limit.upper' outside emitted subtrees
+- **nj_agi_subtractions** (`policyengine_us/variables/gov/states/nj/tax/income/adjusted_gross_income/nj_agi_subtractions.py:5`): negation of non-bool
 - **nj_blind_or_disabled_exemption** (`policyengine_us/variables/gov/states/nj/tax/income/exemptions/nj_blind_or_disabled_exemption.py:16`): unrecognized call (blind_head | disabled_head).astype
-- **nj_ccap_activity_eligible** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/eligibility/nj_ccap_activity_eligible.py:4`): parameter 'gov.states.nj.njdhs.ccap.activity_requirements.weekly_hours_redetermination' outside emitted subtrees
-- **nj_ccap_age_group** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/nj_ccap_age_group.py:4`): calc() on non-scale parameter 'gov.states.nj.njdhs.ccap.age_group.months'
+- **nj_ccap_activity_eligible** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/eligibility/nj_ccap_activity_eligible.py:8`): unrecognized call spm_unit.project
+- **nj_ccap_age_group** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/nj_ccap_age_group.py:0`): Enum-valued formula
 - **nj_ccap_copay** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/copay/nj_ccap_copay.py:10`): unbound name 'NJCCAPTimeCategory'
 - **nj_ccap_countable_income** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/nj_ccap_countable_income.py:17`): add() without literal variable list
-- **nj_ccap_eligible_child** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/eligibility/nj_ccap_eligible_child.py:5`): parameter 'gov.states.nj.njdhs.ccap.age_threshold.special_needs' outside emitted subtrees
-- **nj_ccap_income_eligible** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/eligibility/nj_ccap_income_eligible.py:7`): parameter 'gov.states.nj.njdhs.ccap.income.fpl_rate.initial_eligibility' outside emitted subtrees
 - **nj_ccap_maximum_weekly_benefit** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/nj_ccap_maximum_weekly_benefit.py:8`): unsupported parameter subscript on 'gov.states.nj.njdhs.ccap.rates.licensed_center'
 - **nj_ccap_smi** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/nj_ccap_smi.py:3`): unbound name 'period'
-- **nj_ccap_time_category** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/nj_ccap_time_category.py:4`): calc() on non-scale parameter 'gov.states.nj.njdhs.ccap.time_authorization.thresholds'
-- **nj_cdcc** (`policyengine_us/variables/gov/states/nj/tax/income/credits/cdcc/nj_cdcc.py:13`): calc() on non-scale parameter 'gov.states.nj.tax.income.credits.cdcc.rate'
-- **nj_childless_eitc_age_eligible** (`policyengine_us/variables/gov/states/nj/tax/income/credits/eitc/nj_childless_eitc_age_eligible.py:15`): parameter 'gov.states.nj.tax.income.credits.eitc.eligibility.age.min' outside emitted subtrees
-- **nj_ctc** (`policyengine_us/variables/gov/states/nj/tax/income/credits/ctc/nj_ctc.py:6`): calc() on non-scale parameter 'gov.states.nj.tax.income.credits.ctc.amount'
-- **nj_dependents_attending_college_exemption** (`policyengine_us/variables/gov/states/nj/tax/income/exemptions/nj_dependents_attending_college_exemption.py:11`): parameter 'gov.states.nj.tax.income.exemptions.dependents_attending_college.age_threshold' outside emitted subtrees
-- **nj_dependents_exemption** (`policyengine_us/variables/gov/states/nj/tax/income/exemptions/nj_dependents_exemption.py:9`): parameter 'gov.states.nj.tax.income.exemptions.dependents.amount' outside emitted subtrees
+- **nj_ccap_time_category** (`policyengine_us/variables/gov/states/nj/njdhs/ccap/nj_ccap_time_category.py:0`): Enum-valued formula
+- **nj_cdcc** (`policyengine_us/variables/gov/states/nj/tax/income/credits/cdcc/nj_cdcc.py:13`): ExtRat scale 'gov.states.nj.tax.income.credits.cdcc.rate' in value position
 - **nj_eitc** (`policyengine_us/variables/gov/states/nj/tax/income/credits/eitc/nj_eitc.py:30`): unrecognized call select
-- **nj_eligible_pension_income** (`policyengine_us/variables/gov/states/nj/tax/income/exclusions/nj_eligible_pension_income.py:6`): parameter 'gov.states.nj.tax.income.exclusions.retirement.age_threshold' outside emitted subtrees
-- **nj_employee_family_leave_insurance_contribution** (`policyengine_us/variables/gov/states/nj/tax/payroll/family_leave_insurance/nj_employee_family_leave_insurance_contribution.py:5`): parameter 'gov.states.nj.tax.payroll.family_leave_insurance.employee_rate' outside emitted subtrees
-- **nj_employee_temporary_disability_insurance_contribution** (`policyengine_us/variables/gov/states/nj/tax/payroll/temporary_disability_insurance/nj_employee_temporary_disability_insurance_contribution.py:6`): parameter 'gov.states.nj.tax.payroll.temporary_disability_insurance.employee_rate' outside emitted subtrees
-- **nj_family_leave_insurance_taxable_wages** (`policyengine_us/variables/gov/states/nj/tax/payroll/family_leave_insurance/nj_family_leave_insurance_taxable_wages.py:5`): parameter 'gov.states.nj.tax.payroll.temporary_disability_insurance.taxable_wage_base' outside emitted subtrees
 - **nj_gross_income** (`policyengine_us/variables/gov/states/nj/tax/income/adjusted_gross_income/nj_gross_income.py:3`): add() without literal variable list
-- **nj_income_tax** (`policyengine_us/variables/gov/states/nj/tax/income/nj_income_tax.py:11`): unsupported parameter subscript on 'gov.states.nj.tax.income.filing_threshold'
-- **nj_income_tax_before_refundable_credits** (`policyengine_us/variables/gov/states/nj/tax/income/nj_income_tax_before_refundable_credits.py:10`): unsupported parameter subscript on 'gov.states.nj.tax.income.filing_threshold'
 - **nj_main_income_tax** (`policyengine_us/variables/gov/states/nj/tax/income/nj_main_income_tax.py:9`): unrecognized call select
-- **nj_medical_expense_deduction** (`policyengine_us/variables/gov/states/nj/tax/income/deductions/nj_medical_expense_deduction.py:8`): parameter 'gov.states.nj.tax.income.deductions.medical_expenses.rate' outside emitted subtrees
-- **nj_other_retirement_income_exclusion** (`policyengine_us/variables/gov/states/nj/tax/income/exclusions/nj_other_retirement_income_exclusion.py:8`): parameter 'gov.states.nj.tax.income.exclusions.retirement.age_threshold' outside emitted subtrees
-- **nj_other_retirement_special_exclusion** (`policyengine_us/variables/gov/states/nj/tax/income/exclusions/nj_other_retirement_special_exclusion.py:25`): unsupported parameter subscript on 'gov.states.nj.tax.income.exclusions.retirement.special_exclusion.amount'
-- **nj_pension_retirement_exclusion** (`policyengine_us/variables/gov/states/nj/tax/income/exclusions/nj_pension_retirement_exclusion.py:6`): unsupported parameter subscript on 'gov.states.nj.tax.income.exclusions.retirement.max_amount'
-- **nj_potential_property_tax_deduction** (`policyengine_us/variables/gov/states/nj/tax/income/property_tax/nj_potential_property_tax_deduction.py:7`): parameter 'gov.states.nj.tax.income.deductions.property_tax.qualifying_rent_fraction' outside emitted subtrees
-- **nj_property_tax_credit** (`policyengine_us/variables/gov/states/nj/tax/income/credits/property_tax_credit/nj_property_tax_credit.py:8`): parameter 'gov.states.nj.tax.income.credits.property_tax.amount' outside emitted subtrees
-- **nj_property_tax_credit_eligible** (`policyengine_us/variables/gov/states/nj/tax/income/credits/property_tax_credit/nj_property_tax_credit_eligible.py:15`): parameter 'gov.states.nj.tax.income.credits.property_tax.age_threshold' outside emitted subtrees
-- **nj_property_tax_deduction_eligible** (`policyengine_us/variables/gov/states/nj/tax/income/property_tax/nj_property_tax_deduction_eligible.py:6`): unsupported parameter subscript on 'gov.states.nj.tax.income.filing_threshold'
 - **nj_property_tax_relief_income** (`policyengine_us/variables/gov/states/nj/tax/income/credits/property_tax_relief/nj_property_tax_relief_income.py:8`): add() without literal variable list
-- **nj_regular_exemption** (`policyengine_us/variables/gov/states/nj/tax/income/exemptions/nj_regular_exemption.py:9`): unsupported parameter subscript on 'gov.states.nj.tax.income.exemptions.regular.amount'
 - **nj_retirement_exclusion_fraction** (`policyengine_us/variables/gov/states/nj/tax/income/exclusions/nj_retirement_exclusion_fraction.py:6`): unrecognized call select
-- **nj_senior_exemption** (`policyengine_us/variables/gov/states/nj/tax/income/exemptions/nj_senior_exemption.py:12`): parameter 'gov.states.nj.tax.income.exemptions.senior.age_threshold' outside emitted subtrees
-- **nj_staynj** (`policyengine_us/variables/gov/states/nj/tax/income/credits/staynj/nj_staynj.py:9`): calc() on non-scale parameter 'gov.states.nj.tax.income.credits.staynj.max_benefit'
-- **nj_staynj_eligible** (`policyengine_us/variables/gov/states/nj/tax/income/credits/staynj/nj_staynj_eligible.py:6`): parameter 'gov.states.nj.tax.income.credits.staynj.age_threshold' outside emitted subtrees
+- **nj_senior_exemption** (`policyengine_us/variables/gov/states/nj/tax/income/exemptions/nj_senior_exemption.py:12`): unrecognized call (age_head >= p.age_threshold).astype
+- **nj_staynj** (`policyengine_us/variables/gov/states/nj/tax/income/credits/staynj/nj_staynj.py:9`): ExtRat scale 'gov.states.nj.tax.income.credits.staynj.max_benefit' in value position
 - **nj_taking_property_tax_deduction** (`policyengine_us/variables/gov/states/nj/tax/income/property_tax/nj_taking_property_tax_deduction.py:13`): unrecognized call select
-- **nj_taxable_earnings_for_state_unemployment_tax** (`policyengine_us/variables/gov/states/nj/tax/payroll/unemployment/nj_taxable_earnings_for_state_unemployment_tax.py:4`): parameter 'gov.states.nj.tax.payroll.unemployment.taxable_wage_base' outside emitted subtrees
-- **nj_temporary_disability_insurance_taxable_wages** (`policyengine_us/variables/gov/states/nj/tax/payroll/temporary_disability_insurance/nj_temporary_disability_insurance_taxable_wages.py:3`): parameter 'gov.states.nj.tax.payroll.temporary_disability_insurance.taxable_wage_base' outside emitted subtrees
-- **nj_unemployment_insurance** (`policyengine_us/variables/gov/states/nj/dol/unemployment_insurance/nj_unemployment_insurance.py:14`): parameter 'gov.states.nj.dol.unemployment_insurance.max_benefit_weeks' outside emitted subtrees
-- **nj_unemployment_insurance_dependency_allowance** (`policyengine_us/variables/gov/states/nj/dol/unemployment_insurance/nj_unemployment_insurance_dependency_allowance.py:5`): parameter 'gov.states.nj.dol.unemployment_insurance.max_dependents' outside emitted subtrees
-- **nj_unemployment_insurance_eligible** (`policyengine_us/variables/gov/states/nj/dol/unemployment_insurance/nj_unemployment_insurance_eligible.py:7`): parameter 'gov.states.nj.dol.unemployment_insurance.min_base_weeks' outside emitted subtrees
+- **nj_unemployment_insurance** (`policyengine_us/variables/gov/states/nj/dol/unemployment_insurance/nj_unemployment_insurance.py:17`): np.floor
 - **nj_unemployment_insurance_weekly_benefit** (`policyengine_us/variables/gov/states/nj/dol/unemployment_insurance/nj_unemployment_insurance_weekly_benefit.py:8`): np.floor
 - **nj_unemployment_insurance_weekly_benefit_rate** (`policyengine_us/variables/gov/states/nj/dol/unemployment_insurance/nj_unemployment_insurance_weekly_benefit_rate.py:6`): np.floor
 - **nj_wfnj_countable_earned_income_person** (`policyengine_us/variables/gov/states/nj/njdhs/wfnj/income/nj_wfnj_countable_earned_income_person.py:4`): unbound name 'period'
-- **nj_wfnj_countable_unearned_income** (`policyengine_us/variables/gov/states/nj/njdhs/wfnj/income/nj_wfnj_countable_unearned_income.py:6`): calc() on non-scale parameter 'gov.states.nj.njdhs.wfnj.income.child_support_disregard'
 - **nj_wfnj_gross_income_eligible** (`policyengine_us/variables/gov/states/nj/njdhs/wfnj/eligibility/nj_wfnj_gross_income_eligible.py:5`): np.round
-- **nj_wfnj_payment_levels** (`policyengine_us/variables/gov/states/nj/njdhs/wfnj/nj_wfnj_payment_levels.py:4`): parameter 'gov.states.nj.njdhs.wfnj.max_household_size' outside emitted subtrees
-- **nj_wfnj_resources_eligible** (`policyengine_us/variables/gov/states/nj/njdhs/wfnj/eligibility/nj_wfnj_resources_eligible.py:4`): parameter 'gov.states.nj.njdhs.wfnj.resources.limit' outside emitted subtrees
+- **nj_wfnj_payment_levels** (`policyengine_us/variables/gov/states/nj/njdhs/wfnj/nj_wfnj_payment_levels.py:6`): unsupported parameter subscript on 'gov.states.nj.njdhs.wfnj.payment_levels.amount'
 - **nj_withheld_income_tax** (`policyengine_us/variables/gov/states/nj/tax/income/nj_withheld_income_tax.py:6`): non-value handle used as value
 - **nm_2021_income_rebate** (`policyengine_us/variables/gov/states/nm/tax/income/rebates/2021_rebate/nm_2021_income_rebate.py:5`): non-value handle used as value
 - **nm_additional_2021_income_rebate** (`policyengine_us/variables/gov/states/nm/tax/income/rebates/2021_rebate/nm_additional_2021_income_rebate.py:3`): non-value handle used as value
-- **nm_aged_blind_exemption** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_blind_and_aged_exemption.py:10`): parameter 'gov.states.nm.tax.income.exemptions.blind_and_aged.age_threshold' outside emitted subtrees
-- **nm_armed_forces_retirement_pay_exemption_person** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_armed_forces_retirement_pay_exemption_person.py:6`): parameter 'gov.states.nm.tax.income.exemptions.armed_forces_retirement_pay.cap' outside emitted subtrees
-- **nm_ccap_age_group** (`policyengine_us/variables/gov/states/nm/ececd/ccap/nm_ccap_age_group.py:5`): calc() on non-scale parameter 'gov.states.nm.ececd.ccap.rates.age_group.months'
-- **nm_ccap_copay** (`policyengine_us/variables/gov/states/nm/ececd/ccap/nm_ccap_copay.py:15`): parameter 'gov.states.nm.ececd.ccap.copay.waived' outside emitted subtrees
+- **nm_aged_blind_exemption** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_blind_and_aged_exemption.py:23`): unrecognized call head_eligible.astype
+- **nm_ccap_age_group** (`policyengine_us/variables/gov/states/nm/ececd/ccap/nm_ccap_age_group.py:0`): Enum-valued formula
 - **nm_ccap_countable_income** (`policyengine_us/variables/gov/states/nm/ececd/ccap/nm_ccap_countable_income.py:10`): add() without literal variable list
-- **nm_ccap_eligible_child** (`policyengine_us/variables/gov/states/nm/ececd/ccap/eligibility/nm_ccap_eligible_child.py:15`): parameter 'gov.states.nm.ececd.ccap.eligibility.special_needs_child_age_limit' outside emitted subtrees
-- **nm_ccap_income_eligible** (`policyengine_us/variables/gov/states/nm/ececd/ccap/eligibility/nm_ccap_income_eligible.py:5`): parameter 'gov.states.nm.ececd.ccap.eligibility.income_limit_in_effect' outside emitted subtrees
+- **nm_ccap_income_eligible** (`policyengine_us/variables/gov/states/nm/ececd/ccap/eligibility/nm_ccap_income_eligible.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **nm_ccap_monthly_rate** (`policyengine_us/variables/gov/states/nm/ececd/ccap/nm_ccap_monthly_rate.py:12`): unsupported parameter subscript on 'gov.states.nm.ececd.ccap.rates.center'
-- **nm_ccap_service_unit** (`policyengine_us/variables/gov/states/nm/ececd/ccap/nm_ccap_service_unit.py:11`): calc() on non-scale parameter 'gov.states.nm.ececd.ccap.rates.service_unit.hours'
+- **nm_ccap_service_unit** (`policyengine_us/variables/gov/states/nm/ececd/ccap/nm_ccap_service_unit.py:0`): Enum-valued formula
 - **nm_cdcc** (`policyengine_us/variables/gov/states/nm/tax/income/credits/cdcc/nm_cdcc.py:5`): comparison In
 - **nm_cdcc_eligible** (`policyengine_us/variables/gov/states/nm/tax/income/credits/cdcc/nm_cdcc_eligible.py:22`): person ref to non-person variable 'tanf'
-- **nm_cdcc_eligible_child** (`policyengine_us/variables/gov/states/nm/tax/income/credits/cdcc/nm_cdcc_eligible_child.py:4`): parameter 'gov.states.nm.tax.income.credits.cdcc.age_eligible' outside emitted subtrees
 - **nm_cdcc_max_amount** (`policyengine_us/variables/gov/states/nm/tax/income/credits/cdcc/nm_cdcc_max_amount.py:4`): person ref to non-person variable 'tax_unit_childcare_expenses'
-- **nm_ctc** (`policyengine_us/variables/gov/states/nm/tax/income/credits/nm_ctc.py:10`): calc() on non-scale parameter 'gov.states.nm.tax.income.credits.ctc.amount'
-- **nm_deduction_for_certain_dependents** (`policyengine_us/variables/gov/states/nm/tax/income/deductions/certain_dependents/nm_deduction_for_certain_dependents.py:10`): unsupported parameter subscript on 'gov.states.nm.tax.income.deductions.certain_dependents.amount'
-- **nm_eitc** (`policyengine_us/variables/gov/states/nm/tax/income/credits/eitc/nm_eitc.py:9`): parameter 'gov.states.nm.tax.income.credits.eitc.match' outside emitted subtrees
-- **nm_eitc_demographic_eligible** (`policyengine_us/variables/gov/states/nm/tax/income/credits/eitc/nm_eitc_demographic_eligible.py:13`): parameter 'gov.states.nm.tax.income.credits.eitc.eligibility.age.min' outside emitted subtrees
-- **nm_exemptions** (`?:0`): adds via unknown parameter path 'gov.states.nm.tax.income.exemptions.exemptions'
-- **nm_hundred_year_exemption** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_hundred_year_exemption.py:5`): parameter 'gov.states.nm.tax.income.exemptions.hundred_year.age_eligibility' outside emitted subtrees
+- **nm_ctc** (`policyengine_us/variables/gov/states/nm/tax/income/credits/nm_ctc.py:10`): ExtRat scale 'gov.states.nm.tax.income.credits.ctc.amount' in value position
+- **nm_exemptions** (`?:0`): adds via DATED parameter list 'gov.states.nm.tax.income.exemptions.exemptions'
+- **nm_hundred_year_exemption** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_hundred_year_exemption.py:11`): unrecognized call head_eligible.astype
 - **nm_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/nm/tax/income/nm_income_tax_before_non_refundable_credits.py:6`): unrecognized call select
-- **nm_low_and_middle_income_exemption** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_low_and_middle_income_exemption.py:7`): unsupported parameter subscript on 'gov.states.nm.tax.income.exemptions.low_and_middle_income.income_limit'
 - **nm_low_income_comprehensive_tax_rebate** (`policyengine_us/variables/gov/states/nm/tax/income/rebates/low_income_comprehensive/nm_low_income_comprehensive_tax_rebate.py:9`): unrecognized call select
-- **nm_low_income_comprehensive_tax_rebate_exemptions** (`policyengine_us/variables/gov/states/nm/tax/income/rebates/low_income_comprehensive/nm_low_income_comprehensive_tax_rebate_exemptions.py:20`): calc() on non-scale parameter 'gov.states.nm.tax.income.rebates.low_income.exemptions.aged'
 - **nm_medical_care_expense_deduction** (`policyengine_us/variables/gov/states/nm/tax/income/deductions/nm_medical_care_expense_deduction.py:9`): unrecognized call select
-- **nm_medical_expense_credit** (`policyengine_us/variables/gov/states/nm/tax/income/credits/nm_medical_expense_credit.py:7`): parameter 'gov.states.nm.tax.income.credits.unreimbursed_medical_care_expense.age_eligibility' outside emitted subtrees
-- **nm_medical_expense_exemption** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_medical_expense_exemption.py:8`): parameter 'gov.states.nm.tax.income.exemptions.unreimbursed_medical_care_expense.age_eligibility' outside emitted subtrees
 - **nm_modified_gross_income** (`policyengine_us/variables/gov/states/nm/tax/income/nm_modified_gross_income.py:9`): unsupported statement For
-- **nm_net_capital_gains_deduction** (`policyengine_us/variables/gov/states/nm/tax/income/deductions/nm_net_capital_gains_deduction.py:4`): parameter 'gov.states.nm.tax.income.deductions.net_capital_gains.uncapped_element_percent' outside emitted subtrees
-- **nm_other_deductions_and_exemptions** (`?:0`): adds via unknown parameter path 'gov.states.nm.tax.income.other_deductions_and_exemptions'
-- **nm_property_tax_rebate** (`policyengine_us/variables/gov/states/nm/tax/income/rebates/property_tax_rebate/nm_property_tax_rebate.py:7`): parameter 'gov.states.nm.tax.income.rebates.property_tax.rent_rate' outside emitted subtrees
-- **nm_property_tax_rebate_eligible** (`policyengine_us/variables/gov/states/nm/tax/income/rebates/property_tax_rebate/nm_property_tax_rebate_eligible.py:6`): parameter 'gov.states.nm.tax.income.rebates.property_tax.age_eligibility' outside emitted subtrees
-- **nm_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.nm.tax.income.credits.refundable'
+- **nm_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.nm.tax.income.credits.refundable'
 - **nm_salt_add_back** (`policyengine_us/variables/gov/states/nm/tax/income/deductions/nm_salt_add_back.py:12`): np.zeros_like
-- **nm_social_security_income_exemption** (`policyengine_us/variables/gov/states/nm/tax/income/exemptions/nm_social_security_income_exemption.py:9`): unsupported parameter subscript on 'gov.states.nm.tax.income.exemptions.social_security_income.income_limit'
 - **nm_ssi_state_supplement** (`policyengine_us/variables/gov/states/nm/hca/ssi_supplement/nm_ssi_state_supplement.py:1`): returns a non-value
-- **nm_ssi_state_supplement_eligible** (`policyengine_us/variables/gov/states/nm/hca/ssi_supplement/nm_ssi_state_supplement_eligible.py:5`): parameter 'gov.states.nm.hca.ssi_supplement.min_age' outside emitted subtrees
 - **nm_supplemental_2021_income_rebate** (`policyengine_us/variables/gov/states/nm/tax/income/rebates/2021_rebate/nm_supplemental_2021_income_rebate.py:3`): non-value handle used as value
 - **nm_withheld_income_tax** (`policyengine_us/variables/gov/states/nm/tax/income/nm_withheld_income_tax.py:5`): non-value handle used as value
-- **nm_works_child_support_deduction** (`policyengine_us/variables/gov/states/nm/hca/nm_works/income/deductions/nm_works_child_support_deduction.py:12`): parameter 'gov.states.nm.hca.nm_works.income.deductions.child_support.disregard' outside emitted subtrees
-- **nm_works_childcare_deduction** (`policyengine_us/variables/gov/states/nm/hca/nm_works/income/deductions/nm_works_childcare_deduction.py:13`): calc() on non-scale parameter 'gov.states.nm.hca.nm_works.income.deductions.childcare.amount'
 - **nm_works_earned_income_deduction_person** (`policyengine_us/variables/gov/states/nm/hca/nm_works/income/earned/nm_works_earned_income_deduction_person.py:11`): attribute 'spm_unit' on value expression
-- **nm_works_gross_income_eligible** (`policyengine_us/variables/gov/states/nm/hca/nm_works/eligibility/nm_works_gross_income_eligible.py:6`): parameter 'gov.states.nm.hca.nm_works.income.gross_limit.rate' outside emitted subtrees
-- **nm_works_maximum_benefit** (`policyengine_us/variables/gov/states/nm/hca/nm_works/nm_works_maximum_benefit.py:4`): parameter 'gov.states.nm.hca.nm_works.payment_standard.max_table_size' outside emitted subtrees
-- **nm_works_resources_eligible** (`policyengine_us/variables/gov/states/nm/hca/nm_works/eligibility/nm_works_resources_eligible.py:7`): parameter 'gov.states.nm.hca.nm_works.resources.limit.liquid' outside emitted subtrees
+- **nm_works_maximum_benefit** (`policyengine_us/variables/gov/states/nm/hca/nm_works/nm_works_maximum_benefit.py:5`): unsupported parameter subscript on 'gov.states.nm.hca.nm_works.payment_standard.amount'
 - **non_refundable_american_opportunity_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/non_refundable_american_opportunity_credit_credit_limit.py:4`): add() without literal variable list
-- **nv_ccdp** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/nv_ccdp.py:13`): parameter 'gov.states.nv.dwss.ccdp.billing.monthly_billed_days' outside emitted subtrees
 - **nv_ccdp_activity_eligible** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/eligibility/nv_ccdp_activity_eligible.py:29`): person ref to non-person variable 'is_homeless'
-- **nv_ccdp_age_group** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/nv_ccdp_age_group.py:8`): calc() on non-scale parameter 'gov.states.nv.dwss.ccdp.age_group.months'
-- **nv_ccdp_copay** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/copay/nv_ccdp_copay.py:14`): calc() on non-scale parameter 'gov.states.nv.dwss.ccdp.copay.amount'
+- **nv_ccdp_age_group** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/nv_ccdp_age_group.py:0`): Enum-valued formula
+- **nv_ccdp_copay** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/copay/nv_ccdp_copay.py:36`): person ref to non-person variable 'is_homeless'
 - **nv_ccdp_countable_income** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/income/nv_ccdp_countable_income.py:4`): add() without literal variable list
-- **nv_ccdp_eligible_child** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/eligibility/nv_ccdp_eligible_child.py:16`): parameter 'gov.states.nv.dwss.ccdp.eligibility.special_needs_child_age_limit' outside emitted subtrees
-- **nv_ccdp_income_eligible** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/eligibility/nv_ccdp_income_eligible.py:26`): parameter 'gov.states.nv.dwss.ccdp.income.smi_renewal' outside emitted subtrees
 - **nv_ccdp_provider_rate** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/nv_ccdp_provider_rate.py:12`): unsupported parameter subscript on 'gov.states.nv.dwss.ccdp.rates.center'
 - **nv_ccdp_region** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/nv_ccdp_region.py:17`): non-value handle used as value
 - **nv_ccdp_smi** (`policyengine_us/variables/gov/states/nv/dwss/ccdp/nv_ccdp_smi.py:5`): unbound name 'period'
 - **nv_tanf** (`policyengine_us/variables/gov/states/nv/dwss/tanf/nv_tanf.py:12`): np.floor
-- **nv_tanf_earned_income_after_disregard** (`policyengine_us/variables/gov/states/nv/dwss/tanf/income/nv_tanf_earned_income_after_disregard.py:11`): parameter 'gov.states.nv.dwss.tanf.income.work_expense_disregard.rate' outside emitted subtrees
-- **nv_tanf_income_eligible** (`policyengine_us/variables/gov/states/nv/dwss/tanf/eligibility/nv_tanf_income_eligible.py:5`): parameter 'gov.states.nv.dwss.tanf.income.gross_income_limit_rate' outside emitted subtrees
-- **nv_tanf_need_standard** (`policyengine_us/variables/gov/states/nv/dwss/tanf/nv_tanf_need_standard.py:8`): parameter 'gov.states.nv.dwss.tanf.max_unit_size' outside emitted subtrees
-- **nv_tanf_payment_standard** (`policyengine_us/variables/gov/states/nv/dwss/tanf/nv_tanf_payment_standard.py:8`): parameter 'gov.states.nv.dwss.tanf.max_unit_size' outside emitted subtrees
-- **nv_tanf_resources_eligible** (`policyengine_us/variables/gov/states/nv/dwss/tanf/eligibility/nv_tanf_resources_eligible.py:7`): parameter 'gov.states.nv.dwss.tanf.resource_limit.amount' outside emitted subtrees
-- **ny_additional_ctc** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_additional_ctc.py:4`): calc() on non-scale parameter 'gov.states.ny.tax.income.credits.ctc.additional.amount'
+- **nv_tanf_need_standard** (`policyengine_us/variables/gov/states/nv/dwss/tanf/nv_tanf_need_standard.py:8`): unsupported parameter subscript on 'gov.states.nv.dwss.tanf.need_standard.amount'
+- **nv_tanf_payment_standard** (`policyengine_us/variables/gov/states/nv/dwss/tanf/nv_tanf_payment_standard.py:8`): unsupported parameter subscript on 'gov.states.nv.dwss.tanf.payment_standard.amount'
 - **ny_agi_subtractions** (`policyengine_us/variables/gov/states/ny/tax/income/adjusted_gross_income/ny_agi_subtractions.py:3`): add() without literal variable list
-- **ny_allowable_college_tuition_expenses** (`policyengine_us/variables/gov/states/ny/tax/income/ny_allowable_college_tuition_expenses.py:4`): parameter 'gov.states.ny.tax.income.college_tuition.cap' outside emitted subtrees
-- **ny_casualty_loss_deduction** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/pre_tcja/ny_casualty_loss_deduction.py:8`): parameter 'gov.irs.deductions.itemized.casualty.floor' outside emitted subtrees
-- **ny_cdcc_max** (`policyengine_us/variables/gov/states/ny/tax/income/credits/cdcc/ny_cdcc_max.py:6`): calc() on non-scale parameter 'gov.states.ny.tax.income.credits.cdcc.max'
-- **ny_cdcc_rate** (`policyengine_us/variables/gov/states/ny/tax/income/credits/cdcc/ny_cdcc_rate.py:23`): parameter 'gov.states.ny.tax.income.credits.cdcc.percentage.main.fraction.numerator.min' outside emitted subtrees
-- **ny_chip_premium** (`policyengine_us/variables/gov/states/ny/hhs/chip/ny_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.ny.hhs.chip.premium.per_child'
-- **ny_college_tuition_credit** (`policyengine_us/variables/gov/states/ny/tax/income/credits/college_tuition/ny_college_tuition_credit.py:5`): calc() on non-scale parameter 'gov.states.ny.tax.income.credits.college_tuition.rate'
-- **ny_college_tuition_deduction** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/ny_college_tuition_deduction.py:6`): parameter 'gov.states.ny.tax.income.deductions.itemized.college_tuition.applicable_percentage' outside emitted subtrees
-- **ny_ctc_post_2024_base** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_post_2024_base.py:10`): calc() on non-scale parameter 'gov.states.ny.tax.income.credits.ctc.post_2024.amount'
-- **ny_ctc_post_2024_eligible** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_post_2024_eligible.py:5`): parameter 'gov.states.ny.tax.income.credits.ctc.post_2024.in_effect' outside emitted subtrees
-- **ny_ctc_post_2024_phase_out** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_post_2024_phase_out.py:8`): unsupported parameter subscript on 'gov.states.ny.tax.income.credits.ctc.post_2024.phase_out.threshold'
-- **ny_ctc_pre_2024** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_pre_2024.py:8`): parameter 'gov.states.ny.tax.income.credits.ctc.pre_tcja' outside emitted subtrees
-- **ny_ctc_pre_2024_eligible** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_pre_2024_eligible.py:5`): parameter 'gov.states.ny.tax.income.credits.ctc.post_2024.in_effect' outside emitted subtrees
+- **ny_chip_premium** (`policyengine_us/variables/gov/states/ny/hhs/chip/ny_chip_premium.py:5`): ExtRat scale 'gov.states.ny.hhs.chip.premium.per_child' in value position
+- **ny_ctc_post_2024_phase_out** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_post_2024_phase_out.py:12`): operator FloorDiv
+- **ny_ctc_pre_2024** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_pre_2024.py:15`): attribute 'simulation' on value expression
+- **ny_ctc_pre_2024_eligible** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_ctc_pre_2024_eligible.py:17`): attribute 'simulation' on value expression
 - **ny_drive_clean_rebate** (`policyengine_us/variables/gov/states/ny/nyserda/drive_clean/ny_drive_clean_rebate.py:3`): person ref to non-person variable 'ny_drive_clean_purchased_qualifying_vehicle'
-- **ny_eitc** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_eitc.py:3`): parameter 'gov.states.ny.tax.income.credits.eitc.decoupled' outside emitted subtrees
-- **ny_employee_disability_benefits_contribution** (`policyengine_us/variables/gov/states/ny/tax/payroll/disability_benefits/ny_employee_disability_benefits_contribution.py:3`): parameter 'gov.states.ny.tax.payroll.disability_benefits.employee_rate' outside emitted subtrees
-- **ny_employee_paid_family_leave_contribution** (`policyengine_us/variables/gov/states/ny/tax/payroll/paid_family_leave/ny_employee_paid_family_leave_contribution.py:3`): parameter 'gov.states.ny.tax.payroll.paid_family_leave.employee_rate' outside emitted subtrees
-- **ny_escc_qualifying_child** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ctc/ny_escc_qualifying_child.py:7`): thresholds[-1] on non-scale 'gov.states.ny.tax.income.credits.ctc.post_2024.amount'
-- **ny_exemptions** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/ny_exemptions.py:6`): parameter 'gov.states.ny.tax.income.exemptions.dependent' outside emitted subtrees
+- **ny_eitc** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_eitc.py:9`): attribute 'simulation' on value expression
 - **ny_geothermal_energy_system_credit** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_geothermal_energy_system_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ny_geothermal_energy_system_credit_potential** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_geothermal_energy_system_credit_potential.py:6`): parameter 'gov.states.ny.tax.income.credits.geothermal_energy_system.rate' outside emitted subtrees
 - **ny_household_credit** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_household_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ny_household_credit_potential** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_household_credit_potential.py:14`): calc() on non-scale parameter 'gov.states.ny.tax.income.credits.household_credit.single'
+- **ny_household_credit_potential** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_household_credit_potential.py:14`): ExtRat scale 'gov.states.ny.tax.income.credits.household_credit.single' in value position
 - **ny_inflation_refund_credit** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_inflation_refund_credit.py:7`): unrecognized call select
-- **ny_itemized_deductions_higher_incremental_reduction** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/reduction/based_on_charitable_deduction/incremental/ny_itemized_deductions_higher_incremental_reduction.py:6`): parameter 'gov.states.ny.tax.income.deductions.itemized.reduction.incremental.higher.income_threshold' outside emitted subtrees
 - **ny_itemized_deductions_lower_incremental_reduction** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/reduction/based_on_charitable_deduction/incremental/ny_itemized_deductions_lower_incremental_reduction.py:7`): unsupported parameter subscript on 'gov.states.ny.tax.income.deductions.itemized.reduction.incremental.lower.income_threshold'
-- **ny_itemized_deductions_phase_out** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/phase_out/ny_itemized_deductions_phase_out.py:25`): parameter 'gov.states.ny.tax.income.deductions.itemized.phase_out.deduction_limited_rate' outside emitted subtrees
+- **ny_itemized_deductions_phase_out** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/phase_out/ny_itemized_deductions_phase_out.py:33`): unsupported parameter subscript on 'gov.states.ny.tax.income.deductions.itemized.phase_out.start'
 - **ny_itemized_deductions_phase_out_applies** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/phase_out/ny_itemized_deductions_phase_out_applies.py:10`): unsupported parameter subscript on 'gov.states.ny.tax.income.deductions.itemized.phase_out.start'
 - **ny_itemized_deductions_reduction_applies** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/reduction/ny_itemized_deductions_reduction_applies.py:7`): unsupported parameter subscript on 'gov.states.ny.tax.income.deductions.itemized.reduction.incremental.lower.income_threshold'
-- **ny_itemized_deductions_reduction_based_on_charitable_deduction** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/reduction/based_on_charitable_deduction/ny_itemized_deductions_reduction_based_on_charitable_deduction.py:5`): calc() on non-scale parameter 'gov.states.ny.tax.income.deductions.itemized.reduction.charitable_deduction_rate'
 - **ny_itemized_deductions_reduction_based_on_charitable_deduction_applies** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/reduction/based_on_charitable_deduction/ny_itemized_deductions_reduction_based_on_charitable_deduction_applies.py:4`): unsupported parameter subscript on 'gov.states.ny.tax.income.deductions.itemized.reduction.charitable_deduction_rate.thresholds'
 - **ny_main_income_tax** (`policyengine_us/variables/gov/states/ny/tax/income/ny_main_income_tax.py:13`): unrecognized call select
 - **ny_mctmt_employer_tax** (`policyengine_us/variables/gov/local/ny/mctd/tax/payroll/ny_mctmt_employer_tax.py:7`): unrecognized call select
-- **ny_mctmt_total_employer_tax** (`policyengine_us/variables/gov/local/ny/mctd/tax/payroll/ny_mctmt_total_employer_tax.py:9`): calc() on non-scale parameter 'gov.local.ny.mctd.tax.payroll.rates.zone_1'
-- **ny_misc_deduction** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/itemized/pre_tcja/ny_misc_deduction.py:6`): parameter 'gov.irs.deductions.itemized.misc.floor' outside emitted subtrees
 - **ny_non_refundable_credits** (`policyengine_us/variables/gov/states/ny/tax/income/ny_non_refundable_credits.py:3`): unrecognized call ordered_capped_state_non_refundable_credits
-- **ny_pension_exclusion** (`policyengine_us/variables/gov/states/ny/tax/income/adjusted_gross_income/ny_pension_exclusion.py:10`): parameter 'gov.states.ny.tax.income.agi.subtractions.pension_exclusion.min_age' outside emitted subtrees
-- **ny_real_property_tax_credit** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_real_property_tax_credit.py:8`): parameter 'gov.states.ny.tax.income.credits.real_property_tax.elderly_age' outside emitted subtrees
-- **ny_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ny.tax.income.credits.refundable'
+- **ny_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.ny.tax.income.credits.refundable'
 - **ny_solar_energy_systems_equipment_credit** (`policyengine_us/variables/gov/states/ny/tax/income/credits/solar_energy_systems/ny_solar_energy_systems_equipment_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ny_solar_energy_systems_equipment_credit_potential** (`policyengine_us/variables/gov/states/ny/tax/income/credits/solar_energy_systems/ny_solar_energy_systems_equipment_credit_potential.py:8`): parameter 'gov.states.ny.tax.income.credits.solar_energy_systems_equipment.rate' outside emitted subtrees
-- **ny_standard_deduction** (`policyengine_us/variables/gov/states/ny/tax/income/taxable_income/deductions/ny_standard_deduction.py:9`): parameter 'gov.states.ny.tax.income.deductions.standard.dependent_elsewhere' outside emitted subtrees
-- **ny_supplemental_eitc** (`policyengine_us/variables/gov/states/ny/tax/income/credits/ny_supplemental_eitc.py:4`): parameter 'gov.states.ny.tax.income.credits.eitc.supplemental_match' outside emitted subtrees
 - **ny_supplemental_tax** (`policyengine_us/variables/gov/states/ny/tax/income/ny_supplemental_tax.py:11`): non-string list element
-- **ny_tanf_basic_monthly_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_basic_monthly_allowance.py:4`): parameter 'gov.states.ny.otda.tanf.need_standard.max_table_size' outside emitted subtrees
-- **ny_tanf_countable_earned_income** (`policyengine_us/variables/gov/states/ny/otda/tanf/income/ny_tanf_countable_earned_income.py:7`): parameter 'gov.states.ny.otda.tanf.reform_2022.in_effect' outside emitted subtrees
-- **ny_tanf_gross_income_eligible** (`policyengine_us/variables/gov/states/ny/otda/tanf/eligibility/ny_tanf_gross_income_eligible.py:9`): parameter 'gov.states.ny.otda.tanf.gross_income_test.rate' outside emitted subtrees
-- **ny_tanf_home_energy_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_home_energy_allowance.py:5`): parameter 'gov.states.ny.otda.tanf.need_standard.max_table_size' outside emitted subtrees
-- **ny_tanf_income_eligible** (`policyengine_us/variables/gov/states/ny/otda/tanf/eligibility/ny_tanf_income_eligible.py:13`): parameter 'gov.states.ny.otda.tanf.reform_2022.in_effect' outside emitted subtrees
-- **ny_tanf_max_benefit_standard** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_max_benefit_standard.py:4`): parameter 'gov.states.ny.otda.tanf.need_standard.shelter.max_table_size' outside emitted subtrees
-- **ny_tanf_resources_eligible** (`policyengine_us/variables/gov/states/ny/otda/tanf/eligibility/ny_tanf_resources_eligible.py:7`): parameter 'gov.states.ny.otda.tanf.resource_limit.higher.age_threshold' outside emitted subtrees
-- **ny_tanf_shelter_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_shelter_allowance.py:9`): parameter 'gov.states.ny.otda.tanf.need_standard.shelter.max_table_size' outside emitted subtrees
-- **ny_tanf_supplemental_home_energy_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_supplemental_home_energy_allowance.py:5`): parameter 'gov.states.ny.otda.tanf.need_standard.max_table_size' outside emitted subtrees
+- **ny_tanf_basic_monthly_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_basic_monthly_allowance.py:6`): unsupported parameter subscript on 'gov.states.ny.otda.tanf.need_standard.main'
+- **ny_tanf_home_energy_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_home_energy_allowance.py:8`): unsupported parameter subscript on 'gov.states.ny.otda.tanf.need_standard.home_energy.main'
+- **ny_tanf_max_benefit_standard** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_max_benefit_standard.py:5`): unsupported parameter subscript on 'gov.states.ny.otda.tanf.need_standard.shelter.maximum'
+- **ny_tanf_shelter_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_shelter_allowance.py:10`): unsupported parameter subscript on 'gov.states.ny.otda.tanf.need_standard.shelter.maximum'
+- **ny_tanf_supplemental_home_energy_allowance** (`policyengine_us/variables/gov/states/ny/otda/tanf/ny_tanf_supplemental_home_energy_allowance.py:8`): unsupported parameter subscript on 'gov.states.ny.otda.tanf.need_standard.supplemental_home_energy.main'
 - **ny_withheld_income_tax** (`policyengine_us/variables/gov/states/ny/tax/income/ny_withheld_income_tax.py:5`): non-value handle used as value
 - **ny_yonkers_income_tax** (`policyengine_us/variables/gov/local/ny/yonkers/tax/income/ny_yonkers_income_tax.py:4`): person ref to non-person variable 'in_yonkers'
-- **nyc_cdcc_age_restricted_expenses** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/cdcc/nyc_cdcc_age_restricted_expenses.py:10`): parameter 'gov.local.ny.nyc.tax.income.credits.cdcc.child_age_restriction' outside emitted subtrees
-- **nyc_cdcc_applicable_percentage** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/cdcc/nyc_cdcc_applicable_percentage.py:14`): parameter 'gov.local.ny.nyc.tax.income.credits.cdcc.phaseout_end' outside emitted subtrees
-- **nyc_cdcc_eligible** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/cdcc/nyc_cdcc_eligible.py:11`): parameter 'gov.local.ny.nyc.tax.income.credits.cdcc.phaseout_end' outside emitted subtrees
+- **nyc_cdcc_age_restricted_expenses** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/cdcc/nyc_cdcc_age_restricted_expenses.py:14`): np.zeros_like
 - **nyc_cdcc_share_qualifying_childcare_expenses** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/cdcc/nyc_cdcc_share_qualifying_childcare_expenses.py:12`): np.zeros_like
-- **nyc_eitc** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/nyc_eitc.py:10`): calc() on non-scale parameter 'gov.local.ny.nyc.tax.income.credits.eitc.percent'
 - **nyc_household_credit** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/household/nyc_household_credit.py:17`): unrecognized call select
 - **nyc_income_tax_before_credits** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/nyc_income_tax_before_credits.py:6`): unrecognized call select
-- **nyc_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.local.ny.nyc.tax.income.credits.non_refundable'
-- **nyc_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.local.ny.nyc.tax.income.credits.refundable'
-- **nyc_school_tax_credit_fixed_amount** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/school/nyc_school_tax_credit_fixed_amount.py:8`): unsupported parameter subscript on 'gov.local.ny.nyc.tax.income.credits.school.fixed.amount'
-- **nyc_school_tax_credit_fixed_amount_eligible** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/school/nyc_school_tax_credit_fixed_amount_eligible.py:11`): parameter 'gov.local.ny.nyc.tax.income.credits.school.fixed.income_limit' outside emitted subtrees
 - **nyc_school_tax_credit_rate_reduction_amount** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/school/nyc_school_tax_credit_rate_reduction_amount.py:13`): unrecognized call select
-- **nyc_school_tax_credit_rate_reduction_amount_eligible** (`policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/school/nyc_school_tax_credit_rate_reduction_amount_eligible.py:8`): parameter 'gov.local.ny.nyc.tax.income.credits.school.rate_reduction.income_limit' outside emitted subtrees
-- **oh_529_plan_deduction** (`policyengine_us/variables/gov/states/oh/tax/income/deductions/529_plan/oh_529_plan_deduction.py:7`): parameter 'gov.states.oh.tax.income.deductions.plan_529_contributions.cap' outside emitted subtrees
 - **oh_529_plan_deduction_person** (`policyengine_us/variables/gov/states/oh/tax/income/deductions/529_plan/oh_529_plan_deduction_person.py:6`): np.zeros_like
-- **oh_additions** (`?:0`): adds via unknown parameter path 'gov.states.oh.tax.income.additions'
-- **oh_adoption_credit_person** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_adoption_credit_person.py:6`): parameter 'gov.states.oh.tax.income.credits.adoption.age_limit' outside emitted subtrees
 - **oh_ccap_base_rate** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_base_rate.py:17`): unsupported parameter subscript on 'gov.states.oh.dcy.ccap.rates.center'
-- **oh_ccap_child_age_group** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_child_age_group.py:4`): calc() on non-scale parameter 'gov.states.oh.dcy.ccap.age_group.months'
-- **oh_ccap_copay** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_copay.py:23`): parameter 'gov.states.oh.dcy.ccap.copay.rounding_increment' outside emitted subtrees
+- **oh_ccap_child_age_group** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_child_age_group.py:6`): unbound name 'period'
+- **oh_ccap_copay** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_copay.py:42`): np.round
 - **oh_ccap_countable_income** (`policyengine_us/variables/gov/states/oh/dcy/ccap/eligibility/oh_ccap_countable_income.py:3`): add() without literal variable list
 - **oh_ccap_county_rate_category** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_county_rate_category.py:4`): np.isin outside enum idioms
-- **oh_ccap_eligible** (`policyengine_us/variables/gov/states/oh/dcy/ccap/eligibility/oh_ccap_eligible.py:3`): parameter 'gov.states.oh.dcy.ccap.in_effect' outside emitted subtrees
-- **oh_ccap_eligible_child** (`policyengine_us/variables/gov/states/oh/dcy/ccap/eligibility/oh_ccap_eligible_child.py:7`): parameter 'gov.states.oh.dcy.ccap.eligibility.special_needs_child_age_limit' outside emitted subtrees
+- **oh_ccap_eligible** (`policyengine_us/variables/gov/states/oh/dcy/ccap/eligibility/oh_ccap_eligible.py:4`): np.zeros_like
 - **oh_ccap_fpg** (`policyengine_us/variables/gov/states/oh/dcy/ccap/eligibility/oh_ccap_fpg.py:9`): person ref to non-person variable 'state_group_str'
-- **oh_ccap_income_eligible** (`policyengine_us/variables/gov/states/oh/dcy/ccap/eligibility/oh_ccap_income_eligible.py:20`): parameter 'gov.states.oh.dcy.ccap.income.fpl_rate.special_needs_eligibility' outside emitted subtrees
-- **oh_ccap_rate_with_addons** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_rate_with_addons.py:13`): unsupported parameter subscript on 'gov.states.oh.dcy.ccap.addons.quality.sutq'
-- **oh_ccap_time_category** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_time_category.py:7`): calc() on non-scale parameter 'gov.states.oh.dcy.ccap.time_category.hours'
+- **oh_ccap_time_category** (`policyengine_us/variables/gov/states/oh/dcy/ccap/oh_ccap_time_category.py:0`): Enum-valued formula
 - **oh_cdcc** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **oh_cdcc_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_cdcc_potential.py:9`): parameter 'gov.states.oh.tax.income.credits.cdcc.low_income_threshold' outside emitted subtrees
-- **oh_deductions** (`?:0`): adds via unknown parameter path 'gov.states.oh.tax.income.deductions.deductions'
 - **oh_eitc** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_eitc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **oh_eitc_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_eitc_potential.py:4`): parameter 'gov.states.oh.tax.income.credits.eitc.rate' outside emitted subtrees
 - **oh_exemption_credit** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_exemption_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **oh_exemption_credit_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_exemption_credit_potential.py:8`): calc() on non-scale parameter 'gov.states.oh.tax.income.credits.exemption.amount'
 - **oh_homestead_exemption** (`policyengine_us/variables/gov/states/oh/tax/property/homestead_exemption/oh_homestead_exemption.py:4`): person ref to non-person variable 'tax_unit_is_joint'
 - **oh_homestead_exemption_eligible** (`policyengine_us/variables/gov/states/oh/tax/property/homestead_exemption/oh_homestead_exemption_eligible.py:5`): person ref to non-person variable 'tax_unit_is_joint'
 - **oh_homestead_property_tax_reduction** (`policyengine_us/variables/gov/states/oh/tax/property/homestead_exemption/oh_homestead_property_tax_reduction.py:4`): person ref to non-person variable 'tax_unit_is_joint'
-- **oh_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/oh/tax/income/oh_income_tax_before_non_refundable_credits.py:5`): calc() on non-scale parameter 'gov.states.oh.tax.income.rates'
-- **oh_income_tax_exempt** (`policyengine_us/variables/gov/states/oh/tax/income/oh_income_tax_exempt.py:4`): parameter 'gov.states.oh.tax.income.agi_threshold' outside emitted subtrees
-- **oh_insured_unreimbursed_medical_care_expenses** (`policyengine_us/variables/gov/states/oh/tax/income/deductions/medical_exepenses/insured_unreimbursed_expenses/oh_insured_unreimbursed_medical_care_expenses.py:16`): parameter 'gov.states.oh.tax.income.deductions.unreimbursed_medical_care_expenses.rate' outside emitted subtrees
+- **oh_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/oh/tax/income/oh_income_tax_before_non_refundable_credits.py:5`): ExtRat scale 'gov.states.oh.tax.income.rates' in value position
 - **oh_insured_unreimbursed_medical_care_expenses_person** (`policyengine_us/variables/gov/states/oh/tax/income/deductions/medical_exepenses/insured_unreimbursed_expenses/oh_insured_unreimbursed_medical_care_expenses_person.py:12`): np.zeros_like
 - **oh_joint_filing_credit** (`policyengine_us/variables/gov/states/oh/tax/income/credits/joint_filing_credit/oh_joint_filing_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **oh_joint_filing_credit_agi_subtractions** (`?:0`): adds via unknown parameter path 'gov.states.oh.tax.income.credits.joint_filing.agi_subtractions'
-- **oh_joint_filing_credit_eligible** (`policyengine_us/variables/gov/states/oh/tax/income/credits/joint_filing_credit/oh_joint_filing_credit_eligible.py:9`): parameter 'gov.states.oh.tax.income.credits.joint_filing.income_threshold' outside emitted subtrees
-- **oh_joint_filing_credit_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/joint_filing_credit/oh_joint_filing_credit_potential.py:12`): calc() on non-scale parameter 'gov.states.oh.tax.income.credits.joint_filing.rate'
-- **oh_lump_sum_distribution_credit_eligible** (`policyengine_us/variables/gov/states/oh/tax/income/credits/lump_sum_distribution/oh_lump_sum_distribution_credit_eligible.py:6`): parameter 'gov.states.oh.tax.income.credits.lump_sum_distribution.income_limit' outside emitted subtrees
-- **oh_lump_sum_distribution_credit_eligible_person** (`policyengine_us/variables/gov/states/oh/tax/income/credits/lump_sum_distribution/oh_lump_sum_distribution_credit_eligible_person.py:4`): parameter 'gov.states.oh.tax.income.credits.lump_sum_distribution.age_threshold' outside emitted subtrees
-- **oh_lump_sum_distribution_credit_person** (`policyengine_us/variables/gov/states/oh/tax/income/credits/lump_sum_distribution/oh_lump_sum_distribution_credit_person.py:5`): parameter 'gov.states.oh.tax.income.credits.lump_sum_distribution.base_amount' outside emitted subtrees
-- **oh_lump_sum_retirement_credit** (`policyengine_us/variables/gov/states/oh/tax/income/credits/retirement_income/lump_sum/oh_lump_sum_retirement_credit.py:9`): parameter 'gov.states.oh.tax.income.credits.retirement.lump_sum.age_threshold' outside emitted subtrees
-- **oh_lump_sum_retirement_credit_eligible** (`policyengine_us/variables/gov/states/oh/tax/income/credits/retirement_income/lump_sum/oh_lump_sum_retirement_credit_eligible.py:5`): parameter 'gov.states.oh.tax.income.credits.retirement.lump_sum.income_limit' outside emitted subtrees
+- **oh_joint_filing_credit_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/joint_filing_credit/oh_joint_filing_credit_potential.py:12`): ExtRat scale 'gov.states.oh.tax.income.credits.joint_filing.rate' in value position
+- **oh_lump_sum_distribution_credit_person** (`policyengine_us/variables/gov/states/oh/tax/income/credits/lump_sum_distribution/oh_lump_sum_distribution_credit_person.py:5`): ExtRat scale 'gov.states.oh.tax.income.credits.lump_sum_distribution.expected_remaining_years' in value position
 - **oh_non_public_school_credits** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_non_public_school_credits.py:5`): unrecognized call applied_state_non_refundable_credit
-- **oh_non_public_school_credits_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_non_public_school_credits_potential.py:6`): calc() on non-scale parameter 'gov.states.oh.tax.income.credits.non_public_tuition'
+- **oh_non_public_school_credits_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_non_public_school_credits_potential.py:6`): ExtRat scale 'gov.states.oh.tax.income.credits.non_public_tuition' in value position
 - **oh_non_refundable_credits** (`policyengine_us/variables/gov/states/oh/tax/income/oh_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **oh_owf_countable_income** (`policyengine_us/variables/gov/states/oh/odjfs/owf/income/oh_owf_countable_income.py:13`): parameter 'gov.states.oh.odjfs.owf.income.deductions.earned_income_disregard.flat_amount' outside emitted subtrees
 - **oh_owf_fpg** (`policyengine_us/variables/gov/states/oh/odjfs/owf/oh_owf_fpg.py:6`): person ref to non-person variable 'state_group_str'
-- **oh_owf_initial_income_eligible** (`policyengine_us/variables/gov/states/oh/odjfs/owf/eligibility/oh_owf_initial_income_eligible.py:12`): parameter 'gov.states.oh.odjfs.owf.initial_eligibility.income_limit_rate' outside emitted subtrees
-- **oh_owf_payment_standard** (`policyengine_us/variables/gov/states/oh/odjfs/owf/oh_owf_payment_standard.py:7`): parameter 'gov.states.oh.odjfs.owf.payment_standard.max_group_size' outside emitted subtrees
-- **oh_partial_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.oh.tax.income.credits.joint_filing.other_non_refundable_credits'
-- **oh_pension_based_retirement_income_credit** (`policyengine_us/variables/gov/states/oh/tax/income/credits/retirement_income/pension_based/oh_pension_based_retirement_income_credit.py:10`): calc() on non-scale parameter 'gov.states.oh.tax.income.credits.retirement.pension_based.amount'
-- **oh_pension_based_retirement_income_credit_eligible** (`policyengine_us/variables/gov/states/oh/tax/income/credits/retirement_income/pension_based/oh_pension_based_retirement_income_credit_eligible.py:7`): parameter 'gov.states.oh.tax.income.credits.retirement.pension_based.income_limit' outside emitted subtrees
-- **oh_personal_exemptions** (`policyengine_us/variables/gov/states/oh/tax/income/exemptions/oh_personal_exemptions.py:9`): calc() on non-scale parameter 'gov.states.oh.tax.income.exemptions.personal.amount'
+- **oh_owf_payment_standard** (`policyengine_us/variables/gov/states/oh/odjfs/owf/oh_owf_payment_standard.py:12`): unsupported parameter subscript on 'gov.states.oh.odjfs.owf.payment_standard.amounts'
+- **oh_personal_exemptions** (`policyengine_us/variables/gov/states/oh/tax/income/exemptions/oh_personal_exemptions.py:9`): ExtRat scale 'gov.states.oh.tax.income.exemptions.personal.amount' in value position
 - **oh_retirement_credit** (`policyengine_us/variables/gov/states/oh/tax/income/credits/retirement_income/oh_retirement_credit.py:5`): unrecognized call applied_state_non_refundable_credit
 - **oh_senior_citizen_credit** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_senior_citizen_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **oh_senior_citizen_credit_potential** (`policyengine_us/variables/gov/states/oh/tax/income/credits/oh_senior_citizen_credit_potential.py:12`): parameter 'gov.states.oh.tax.income.credits.senior_citizen.age_threshold' outside emitted subtrees
-- **oh_withheld_income_tax** (`policyengine_us/variables/gov/states/oh/tax/income/oh_withheld_income_tax.py:4`): parameter 'gov.states.oh.tax.income.agi_threshold' outside emitted subtrees
-- **ok_529_plan_deduction** (`policyengine_us/variables/gov/states/ok/tax/income/ok_529_plan_deduction.py:5`): unsupported parameter subscript on 'gov.states.ok.tax.income.agi.subtractions.plan_529.cap'
+- **oh_withheld_income_tax** (`policyengine_us/variables/gov/states/oh/tax/income/oh_withheld_income_tax.py:7`): ExtRat scale 'gov.states.oh.tax.income.exemptions.personal.amount' in value position
 - **ok_agi_subtractions** (`policyengine_us/variables/gov/states/ok/tax/income/ok_agi_subtractions.py:3`): add() without literal variable list
 - **ok_ccs_activity_eligible** (`policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_activity_eligible.py:10`): np.divide
-- **ok_ccs_center_age_group** (`policyengine_us/variables/gov/states/ok/dhs/ccs/rates/ok_ccs_center_age_group.py:7`): calc() on non-scale parameter 'gov.states.ok.dhs.ccs.age_group.center'
+- **ok_ccs_center_age_group** (`policyengine_us/variables/gov/states/ok/dhs/ccs/rates/ok_ccs_center_age_group.py:0`): Enum-valued formula
 - **ok_ccs_copay** (`policyengine_us/variables/gov/states/ok/dhs/ccs/copay/ok_ccs_copay.py:8`): unrecognized call select
-- **ok_ccs_countable_income** (`policyengine_us/variables/gov/states/ok/dhs/ccs/income/ok_ccs_countable_income.py:9`): parameter 'gov.states.ok.dhs.ccs.income.child_earned_income_exclusion_age' outside emitted subtrees
+- **ok_ccs_countable_income** (`policyengine_us/variables/gov/states/ok/dhs/ccs/income/ok_ccs_countable_income.py:24`): np.floor
 - **ok_ccs_daily_rate** (`policyengine_us/variables/gov/states/ok/dhs/ccs/rates/ok_ccs_daily_rate.py:8`): unsupported parameter subscript on 'gov.states.ok.dhs.ccs.rates.center'
-- **ok_ccs_eligible_child** (`policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_eligible_child.py:11`): parameter 'gov.states.ok.dhs.ccs.eligibility.disabled_child_age_limit' outside emitted subtrees
 - **ok_ccs_gross_income** (`policyengine_us/variables/gov/states/ok/dhs/ccs/income/ok_ccs_gross_income.py:5`): add() without literal variable list
-- **ok_ccs_home_age_group** (`policyengine_us/variables/gov/states/ok/dhs/ccs/rates/ok_ccs_home_age_group.py:7`): calc() on non-scale parameter 'gov.states.ok.dhs.ccs.age_group.home'
-- **ok_ccs_income_eligible** (`policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_income_eligible.py:8`): calc() on non-scale parameter 'gov.states.ok.dhs.ccs.income.limit'
-- **ok_ccs_time_category** (`policyengine_us/variables/gov/states/ok/dhs/ccs/rates/ok_ccs_time_category.py:9`): parameter 'gov.states.ok.dhs.ccs.time_category.max_part_time_hours' outside emitted subtrees
-- **ok_child_care_child_tax_credit** (`policyengine_us/variables/gov/states/ok/tax/income/credits/ok_child_care_child_tax_credit.py:5`): parameter 'gov.states.ok.tax.income.credits.child.agi_limit' outside emitted subtrees
-- **ok_count_exemptions** (`policyengine_us/variables/gov/states/ok/tax/income/exemptions/ok_count_exemptions.py:6`): unsupported parameter subscript on 'gov.states.ok.tax.income.exemptions.special_agi_limit'
+- **ok_ccs_home_age_group** (`policyengine_us/variables/gov/states/ok/dhs/ccs/rates/ok_ccs_home_age_group.py:0`): Enum-valued formula
+- **ok_ccs_time_category** (`policyengine_us/variables/gov/states/ok/dhs/ccs/rates/ok_ccs_time_category.py:12`): unbound name 'OKCCSTimeCategory'
+- **ok_child_care_child_tax_credit** (`policyengine_us/variables/gov/states/ok/tax/income/credits/ok_child_care_child_tax_credit.py:15`): np.zeros_like
 - **ok_eitc** (`policyengine_us/variables/gov/states/ok/tax/income/credits/eitc/ok_eitc.py:4`): np.zeros_like
-- **ok_exemptions** (`policyengine_us/variables/gov/states/ok/tax/income/exemptions/ok_exemptions.py:4`): parameter 'gov.states.ok.tax.income.exemptions.amount' outside emitted subtrees
 - **ok_federal_ctc** (`policyengine_us/variables/gov/states/ok/tax/income/credits/ok_federal_ctc.py:3`): unrecognized call non_refundable_credits.index
 - **ok_federal_eitc_demographic_eligible** (`policyengine_us/variables/gov/states/ok/tax/income/credits/eitc/federal_credit/eligible/ok_federal_eitc_demographic_eligible.py:7`): unrecognized call parameters.gov.irs.credits.eitc.eligibility.age.min
 - **ok_federal_eitc_eligible** (`policyengine_us/variables/gov/states/ok/tax/income/credits/eitc/federal_credit/eligible/ok_federal_eitc_eligible.py:3`): unrecognized call parameters.gov.irs.credits.eitc
 - **ok_federal_eitc_investment_income_eligible** (`policyengine_us/variables/gov/states/ok/tax/income/credits/eitc/federal_credit/eligible/ok_federal_eitc_investment_income_eligible.py:3`): unrecognized call parameters.gov.irs.credits.eitc
 - **ok_gross_income** (`policyengine_us/variables/gov/states/ok/tax/income/credits/ok_gross_income.py:9`): unsupported statement For
 - **ok_income_tax_before_credits** (`policyengine_us/variables/gov/states/ok/tax/income/ok_income_tax_before_credits.py:7`): unrecognized call select
-- **ok_itemized_deductions** (`policyengine_us/variables/gov/states/ok/tax/income/deductions/ok_itemized_deductions.py:15`): parameter 'gov.states.ok.tax.income.deductions.itemized.limit' outside emitted subtrees
 - **ok_military_retirement_exclusion** (`policyengine_us/variables/gov/states/ok/tax/income/subtractions/ok_military_retirement_exclusion.py:5`): unrecognized call tax_unit.members
-- **ok_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ok.tax.income.credits.nonrefundable'
+- **ok_non_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.ok.tax.income.credits.nonrefundable'
 - **ok_pension_subtraction** (`policyengine_us/variables/gov/states/ok/tax/income/subtractions/ok_pension_subtraction.py:3`): unrecognized call tax_unit.members
-- **ok_ptc** (`policyengine_us/variables/gov/states/ok/tax/income/credits/ok_ptc.py:4`): parameter 'gov.states.ok.tax.income.credits.property_tax.age_minimum' outside emitted subtrees
-- **ok_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ok.tax.income.credits.refundable'
-- **ok_standard_deduction** (`policyengine_us/variables/gov/states/ok/tax/income/deductions/ok_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.ok.tax.income.deductions.standard.amount'
-- **ok_stc** (`policyengine_us/variables/gov/states/ok/tax/income/credits/ok_stc.py:12`): parameter 'gov.states.ok.tax.income.credits.sales_tax.income_limit1' outside emitted subtrees
-- **ok_tanf** (`policyengine_us/variables/gov/states/ok/dhs/tanf/ok_tanf.py:12`): parameter 'gov.states.ok.dhs.tanf.benefit.minimum_benefit' outside emitted subtrees
-- **ok_tanf_countable_earned_income** (`policyengine_us/variables/gov/states/ok/dhs/tanf/income/ok_tanf_countable_earned_income.py:21`): parameter 'gov.states.ok.dhs.tanf.income.disregard.rate' outside emitted subtrees
-- **ok_tanf_dependent_care_deduction** (`policyengine_us/variables/gov/states/ok/dhs/tanf/income/ok_tanf_dependent_care_deduction.py:18`): calc() on non-scale parameter 'gov.states.ok.dhs.tanf.income.deductions.dependent_care'
-- **ok_tanf_eid_eligible** (`policyengine_us/variables/gov/states/ok/dhs/tanf/income/ok_tanf_eid_eligible.py:5`): parameter 'gov.states.ok.dhs.tanf.income.disregard.cap' outside emitted subtrees
-- **ok_tanf_income_eligible** (`policyengine_us/variables/gov/states/ok/dhs/tanf/eligibility/ok_tanf_income_eligible.py:6`): calc() on non-scale parameter 'gov.states.ok.dhs.tanf.income.need_standard'
-- **ok_tanf_payment_standard** (`policyengine_us/variables/gov/states/ok/dhs/tanf/ok_tanf_payment_standard.py:4`): calc() on non-scale parameter 'gov.states.ok.dhs.tanf.benefit.payment_standard'
-- **ok_tanf_resources_eligible** (`policyengine_us/variables/gov/states/ok/dhs/tanf/eligibility/ok_tanf_resources_eligible.py:5`): parameter 'gov.states.ok.dhs.tanf.resources.limit' outside emitted subtrees
-- **ok_tanf_work_expense_person** (`policyengine_us/variables/gov/states/ok/dhs/tanf/income/ok_tanf_work_expense_person.py:10`): calc() on non-scale parameter 'gov.states.ok.dhs.tanf.income.deductions.work_expense'
-- **ok_use_tax** (`policyengine_us/variables/gov/states/ok/tax/income/ok_use_tax.py:4`): parameter 'gov.states.ok.tax.use.rate' outside emitted subtrees
+- **ok_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.ok.tax.income.credits.refundable'
 - **ok_withheld_income_tax** (`policyengine_us/variables/gov/states/ok/tax/income/ok_withheld_income_tax.py:4`): non-value handle used as value
 - **older_spouse_birth_year** (`policyengine_us/variables/household/demographic/tax_unit/older_spouse_birth_year.py:2`): unbound name 'period'
 - **or_529_credit** (`policyengine_us/variables/gov/states/or/tax/income/credits/or_529_credit.py:2`): non-value handle used as value
@@ -2448,9 +1338,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **or_kicker** (`policyengine_us/variables/gov/states/or/tax/income/credits/kicker/or_kicker.py:2`): non-value handle used as value
 - **or_lane_transit_district_total_payroll_tax** (`policyengine_us/variables/gov/local/or/lane_transit_district/tax/payroll/or_lane_transit_district_total_payroll_tax.py:6`): non-value handle used as value
 - **or_multnomah_pfa_tax** (`policyengine_us/variables/gov/local/or/multnomah_county/tax/income/or_multnomah_pfa_tax.py:9`): non-value handle used as value
-- **or_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.or.tax.income.credits.nonrefundable'
-- **or_paid_leave_taxable_wages** (`policyengine_us/variables/gov/states/or/tax/payroll/paid_leave/or_paid_leave_taxable_wages.py:4`): parameter 'gov.irs.payroll.social_security.cap' outside emitted subtrees
-- **or_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.or.tax.income.credits.refundable'
+- **or_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.or.tax.income.credits.refundable'
 - **or_regular_exemptions** (`policyengine_us/variables/gov/states/or/tax/income/credits/exemption/or_regular_exemptions.py:5`): non-value handle used as value
 - **or_retirement_credit** (`policyengine_us/variables/gov/states/or/tax/income/credits/retirement_credit/or_retirement_credit.py:22`): non-value handle used as value
 - **or_retirement_credit_eligible_person** (`policyengine_us/variables/gov/states/or/tax/income/credits/retirement_credit/or_retirement_credit_eligible_person.py:6`): non-value handle used as value
@@ -2472,114 +1360,45 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **or_withheld_income_tax** (`policyengine_us/variables/gov/states/or/tax/income/or_withheld_income_tax.py:3`): non-value handle used as value
 - **or_working_family_household_and_dependent_care_credit** (`policyengine_us/variables/gov/states/or/tax/income/credits/wfhdc/or_working_family_household_and_dependent_care_credit.py:3`): non-value handle used as value
 - **other_net_gain_gross_income** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/other_net_gain_gross_income.py:2`): attribute 'tax_unit' on value expression
-- **overtime_income_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/overtime_income/overtime_income_deduction.py:7`): unsupported parameter subscript on 'gov.irs.deductions.overtime_income.cap'
-- **overtime_income_deduction_ssn_requirement_met** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/overtime_income/overtime_income_deduction_ssn_requirement_met.py:6`): isin against non-list param 'gov.irs.deductions.overtime_income.eligible_ssn_card_type'
-- **pa_529_plan_deduction** (`policyengine_us/variables/gov/states/pa/tax/income/deductions/pa_529_plan_deduction.py:9`): parameter 'gov.states.pa.tax.income.deductions.plan_529.cap' outside emitted subtrees
-- **pa_ccw** (`policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw.py:12`): parameter 'gov.states.pa.dhs.ccw.min_dept_payment' outside emitted subtrees
-- **pa_ccw_activity_eligible** (`policyengine_us/variables/gov/states/pa/dhs/ccw/eligibility/pa_ccw_activity_eligible.py:6`): parameter 'gov.states.pa.dhs.ccw.activity_requirements.weekly_hours' outside emitted subtrees
-- **pa_ccw_adjusted_income** (`policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_adjusted_income.py:11`): parameter 'gov.states.pa.dhs.ccw.income.medical_expense_threshold' outside emitted subtrees
-- **pa_ccw_age_group** (`policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw_age_group.py:4`): calc() on non-scale parameter 'gov.states.pa.dhs.ccw.age_group.months'
+- **pa_ccw_age_group** (`policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw_age_group.py:0`): Enum-valued formula
 - **pa_ccw_copay** (`policyengine_us/variables/gov/states/pa/dhs/ccw/copay/pa_ccw_copay.py:11`): person ref to non-person variable 'is_homeless'
-- **pa_ccw_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.pa.dhs.ccw.income.countable_income.sources'
-- **pa_ccw_eligible_child** (`policyengine_us/variables/gov/states/pa/dhs/ccw/eligibility/pa_ccw_eligible_child.py:5`): parameter 'gov.states.pa.dhs.ccw.eligibility.age_threshold.disabled_child' outside emitted subtrees
-- **pa_ccw_income_eligible** (`policyengine_us/variables/gov/states/pa/dhs/ccw/eligibility/pa_ccw_income_eligible.py:7`): parameter 'gov.states.pa.dhs.ccw.eligibility.initial_income_limit' outside emitted subtrees
 - **pa_ccw_market_rate** (`policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw_market_rate.py:8`): unsupported statement FunctionDef
 - **pa_ccw_region** (`policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw_region.py:5`): unrecognized call select
 - **pa_ccw_stepparent_county_group** (`policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_stepparent_county_group.py:5`): np.isin outside enum idioms
 - **pa_ccw_stepparent_deduction** (`policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_stepparent_deduction.py:4`): person ref to non-person variable 'pa_ccw_stepparent_county_group'
-- **pa_ccw_time_category** (`policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw_time_category.py:5`): parameter 'gov.states.pa.dhs.ccw.full_time_hours_per_day' outside emitted subtrees
-- **pa_cdcc** (`policyengine_us/variables/gov/states/pa/tax/income/credits/pa_cdcc.py:8`): parameter 'gov.states.pa.tax.income.credits.cdcc.match' outside emitted subtrees
-- **pa_eitc** (`policyengine_us/variables/gov/states/pa/tax/income/credits/pa_eitc.py:4`): parameter 'gov.states.pa.tax.income.credits.eitc.match' outside emitted subtrees
-- **pa_eligibility_income** (`?:0`): adds via unknown parameter path 'gov.states.pa.tax.income.forgiveness.eligibility_income_sources'
-- **pa_employee_unemployment_compensation_contribution** (`policyengine_us/variables/gov/states/pa/tax/payroll/unemployment/pa_employee_unemployment_compensation_contribution.py:3`): parameter 'gov.states.pa.tax.payroll.unemployment.employee_rate' outside emitted subtrees
-- **pa_income_tax_before_forgiveness** (`policyengine_us/variables/gov/states/pa/tax/income/forgiveness/pa_income_tax_before_forgiveness.py:4`): parameter 'gov.states.pa.tax.income.rate' outside emitted subtrees
-- **pa_nontaxable_retirement_distributions** (`policyengine_us/variables/gov/states/pa/tax/income/taxable_income/pa_nontaxable_retirement_distributions.py:3`): parameter 'gov.states.pa.tax.income.retirement_age_threshold' outside emitted subtrees
+- **pa_ccw_time_category** (`policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw_time_category.py:6`): unbound name 'PACCWTimeCategory'
+- **pa_nontaxable_retirement_distributions** (`policyengine_us/variables/gov/states/pa/tax/income/taxable_income/pa_nontaxable_retirement_distributions.py:4`): add() without literal variable list
 - **pa_philadelphia_wage_tax** (`policyengine_us/variables/gov/local/pa/philadelphia/tax/income/pa_philadelphia_wage_tax.py:4`): np.any
-- **pa_property_tax_or_rent_rebate** (`policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate.py:4`): parameter 'gov.states.pa.tax.property.property_tax_or_rent_rebate.rent_rate' outside emitted subtrees
-- **pa_property_tax_or_rent_rebate_eligible** (`policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate_eligible.py:12`): parameter 'gov.states.pa.tax.property.property_tax_or_rent_rebate.age_threshold' outside emitted subtrees
-- **pa_property_tax_or_rent_rebate_income** (`policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate_income.py:49`): parameter 'gov.states.pa.tax.property.property_tax_or_rent_rebate.death_benefit_exclusion' outside emitted subtrees
-- **pa_refundable_tax_credits** (`?:0`): adds via unknown parameter path 'gov.states.pa.tax.income.credits.refundable'
-- **pa_tanf** (`policyengine_us/variables/gov/states/pa/dhs/tanf/pa_tanf.py:16`): parameter 'gov.states.pa.dhs.tanf.income.work_expense.deduction_applies' outside emitted subtrees
+- **pa_refundable_tax_credits** (`?:0`): adds via DATED parameter list 'gov.states.pa.tax.income.credits.refundable'
 - **pa_tanf_county_group** (`policyengine_us/variables/gov/states/pa/dhs/tanf/pa_tanf_county_group.py:5`): np.isin outside enum idioms
-- **pa_tanf_disregard_eligible** (`policyengine_us/variables/gov/states/pa/dhs/tanf/eligibility/pa_tanf_disregard_eligible.py:8`): parameter 'gov.states.pa.dhs.tanf.income.deductions.work_expense.initial' outside emitted subtrees
-- **pa_tanf_earned_income_after_deductions_person** (`policyengine_us/variables/gov/states/pa/dhs/tanf/income/pa_tanf_earned_income_after_deductions_person.py:8`): parameter 'gov.states.pa.dhs.tanf.income.deductions.earned_income_disregard.percentage' outside emitted subtrees
 - **pa_tanf_maximum_benefit** (`policyengine_us/variables/gov/states/pa/dhs/tanf/pa_tanf_maximum_benefit.py:3`): attribute 'household' on value expression
-- **pa_tanf_resources_eligible** (`policyengine_us/variables/gov/states/pa/dhs/tanf/eligibility/pa_tanf_resources_eligible.py:6`): parameter 'gov.states.pa.dhs.tanf.resource_limit' outside emitted subtrees
 - **pa_tanf_standard_of_need** (`policyengine_us/variables/gov/states/pa/dhs/tanf/pa_tanf_standard_of_need.py:3`): attribute 'household' on value expression
-- **pa_tax_forgiveness_rate** (`policyengine_us/variables/gov/states/pa/tax/income/forgiveness/pa_tax_forgiveness_rate.py:14`): parameter 'gov.states.pa.tax.income.forgiveness.base' outside emitted subtrees
 - **pa_total_taxable_income** (`policyengine_us/variables/gov/states/pa/tax/income/taxable_income/pa_total_taxable_income.py:5`): add() without literal variable list
-- **pa_uc_dependent_allowance** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_dependent_allowance.py:13`): parameter 'gov.states.pa.dli.unemployment_compensation.dependent_allowance.spouse_or_first_child' outside emitted subtrees
 - **pa_uc_dependent_children_count** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_dependent_children_count.py:8`): attribute 'tax_unit' on value expression
 - **pa_uc_has_dependent_spouse** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_has_dependent_spouse.py:9`): attribute 'tax_unit' on value expression
-- **pa_uc_maximum_weeks** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_maximum_weeks.py:6`): parameter 'gov.states.pa.dli.unemployment_compensation.maximum_weeks' outside emitted subtrees
-- **pa_uc_meets_credit_weeks_test** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_meets_credit_weeks_test.py:4`): parameter 'gov.states.pa.dli.unemployment_compensation.minimum_credit_weeks' outside emitted subtrees
-- **pa_uc_meets_high_quarter_test** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_meets_high_quarter_test.py:4`): parameter 'gov.states.pa.dli.unemployment_compensation.minimum_high_quarter_wages' outside emitted subtrees
-- **pa_uc_meets_wages_outside_high_quarter_test** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_meets_wages_outside_high_quarter_test.py:5`): parameter 'gov.states.pa.dli.unemployment_compensation.wages_outside_high_quarter_fraction' outside emitted subtrees
 - **pa_uc_partial_benefit_credit** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_partial_benefit_credit.py:10`): np.round
-- **pa_uc_qualifying_wages** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_qualifying_wages.py:4`): calc() on non-scale parameter 'gov.states.pa.dli.unemployment_compensation.qualifying_wages'
-- **pa_uc_weekly_benefit_rate** (`policyengine_us/variables/gov/states/pa/dli/unemployment_compensation/pa_uc_weekly_benefit_rate.py:4`): calc() on non-scale parameter 'gov.states.pa.dli.unemployment_compensation.rate_table'
 - **pa_use_tax** (`policyengine_us/variables/gov/states/pa/tax/income/pa_use_tax.py:7`): person ref to non-person variable 'county_str'
-- **pa_withheld_income_tax** (`policyengine_us/variables/gov/states/pa/tax/income/pa_withheld_income_tax.py:6`): parameter 'gov.states.pa.tax.income.rate' outside emitted subtrees
 - **pays_aca_premium** (`policyengine_us/variables/gov/aca/eligibility/pays_aca_premium.py:7`): add() without literal variable list
-- **pell_grant** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant.py:5`): parameter 'gov.ed.pell_grant.uses_sai' outside emitted subtrees
-- **pell_grant_contribution_from_assets** (`policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution_from_assets.py:6`): unsupported parameter subscript on 'gov.ed.pell_grant.head.asset_assessment_rate'
-- **pell_grant_dependent_allowances** (`policyengine_us/variables/gov/ed/pell_grant/dependent/pell_grant_dependent_allowances.py:6`): parameter 'gov.ed.pell_grant.dependent.ipa' outside emitted subtrees
-- **pell_grant_dependent_contribution** (`policyengine_us/variables/gov/ed/pell_grant/dependent/pell_grant_dependent_contribution.py:7`): parameter 'gov.ed.pell_grant.dependent.income_assessment_rate' outside emitted subtrees
-- **pell_grant_efc** (`policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_efc.py:7`): parameter 'gov.ed.pell_grant.efc.automatic_zero' outside emitted subtrees
+- **pell_grant** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant.py:10`): unrecognized call select
+- **pell_grant_efc** (`policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_efc.py:8`): unrecognized call select
 - **pell_grant_eligibility_type** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_eligibility_type.py:10`): unrecognized call select
 - **pell_grant_formula** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant_formula.py:6`): unrecognized call select
-- **pell_grant_head_available_income** (`policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_available_income.py:6`): unsupported parameter subscript on 'gov.ed.pell_grant.head.income_assessment_rate'
-- **pell_grant_head_contribution** (`policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution.py:7`): calc() on non-scale parameter 'gov.ed.pell_grant.head.marginal_rate'
+- **pell_grant_head_contribution** (`policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution.py:30`): np.zeros_like
 - **pell_grant_household_type** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_household_type.py:5`): unrecognized call select
-- **pell_grant_max_fpg_percent_limit** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_max_fpg_limit.py:5`): unsupported parameter subscript on 'gov.ed.pell_grant.sai.fpg_fraction.max_pell_limits'
 - **pell_grant_min_fpg_percent_limit** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_min_fpg_limit.py:14`): parameter 'gov.ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_NOT_PARENT' outside emitted subtrees
-- **pell_grant_sai** (`policyengine_us/variables/gov/ed/pell_grant/sai/pell_grant_sai.py:9`): parameter 'gov.ed.pell_grant.sai.limits.max_sai' outside emitted subtrees
 - **pell_grant_simplified_formula_applies** (`policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_simplified_formula_applies.py:2`): attribute 'tax_unit' on value expression
-- **per_capita_chip** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip.py:5`): unsupported parameter subscript on 'calibration.gov.hhs.cms.chip.spending.separate_chip.total'
-- **per_capita_chip_gross** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip_gross.py:5`): unsupported parameter subscript on 'calibration.gov.hhs.cms.chip.spending.separate_chip.total'
+- **per_capita_chip** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip.py:8`): np.zeros_like
+- **per_capita_chip_gross** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip_gross.py:10`): np.zeros_like
 - **person_id** (`policyengine_us/variables/household/demographic/identifiers/person_id.py:2`): np.arange
 - **pha_payment_standard** (`policyengine_us/variables/gov/hud/pha_payment_standard.py:15`): unrecognized call select
-- **pr_casualty_loss_deduction** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/pr_casualty_loss_deduction.py:11`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.casualty_loss.separate_percentage' outside emitted subtrees
-- **pr_charitable_deduction** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/pr_charitable_deduction.py:10`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.charity.floor' outside emitted subtrees
-- **pr_compensatory_low_income_credit** (`policyengine_us/variables/gov/territories/pr/tax/income/credits/low_income/pr_compensatory_low_income_credit.py:4`): calc() on non-scale parameter 'gov.territories.pr.tax.income.credits.low_income.amount.additional'
-- **pr_deductions** (`?:0`): adds via unknown parameter path 'gov.territories.pr.tax.income.taxable_income.deductions.sources'
-- **pr_dependents_exemption** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/exemptions/dependent/pr_dependents_exemption.py:10`): parameter 'gov.territories.pr.tax.income.taxable_income.exemptions.dependent.amount.separate' outside emitted subtrees
-- **pr_earned_income_credit** (`policyengine_us/variables/gov/territories/pr/tax/income/credits/earned_income/pr_earned_income_credit.py:15`): calc() on non-scale parameter 'gov.territories.pr.tax.income.credits.earned_income.phase_in_rate'
-- **pr_earned_income_credit_eligible_person** (`policyengine_us/variables/gov/territories/pr/tax/income/credits/earned_income/pr_earned_income_credit_eligible_person.py:6`): parameter 'gov.territories.pr.tax.income.credits.earned_income.unearned_income.limit' outside emitted subtrees
-- **pr_earned_income_credit_unearned_income** (`?:0`): adds via unknown parameter path 'gov.territories.pr.tax.income.credits.earned_income.unearned_income.sources'
-- **pr_education_deduction** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/education/pr_education_deduction.py:7`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.education.max' outside emitted subtrees
-- **pr_education_deduction_beneficiary_count** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/education/pr_education_deduction_beneficiary_count.py:7`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.education.age_threshold' outside emitted subtrees
-- **pr_exemptions** (`?:0`): adds via unknown parameter path 'gov.territories.pr.tax.income.taxable_income.exemptions.sources'
-- **pr_exemptions_is_eligible_nonstudent** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/exemptions/dependent/pr_exemptions_is_eligible_nonstudent.py:8`): parameter 'gov.territories.pr.tax.income.taxable_income.exemptions.dependent.income_limit.nonstudent' outside emitted subtrees
-- **pr_exemptions_is_eligible_student** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/exemptions/dependent/pr_exemptions_is_eligible_student.py:10`): parameter 'gov.territories.pr.tax.income.taxable_income.exemptions.dependent.age_threshold.student' outside emitted subtrees
-- **pr_gradual_adjustment_amount** (`policyengine_us/variables/gov/territories/pr/tax/income/gradual_adjustment/pr_gradual_adjustment_amount.py:4`): parameter 'gov.territories.pr.tax.income.gradual_adjustment.threshold' outside emitted subtrees
-- **pr_gradual_adjustment_eligible** (`policyengine_us/variables/gov/territories/pr/tax/income/gradual_adjustment/pr_gradual_adjustment_eligible.py:5`): parameter 'gov.territories.pr.tax.income.gradual_adjustment.threshold' outside emitted subtrees
-- **pr_gross_income_person** (`?:0`): adds via unknown parameter path 'gov.territories.pr.tax.income.gross_income.sources'
-- **pr_is_tax_unit_dependent** (`policyengine_us/variables/gov/territories/pr/pr_is_tax_unit_dependent.py:9`): parameter 'gov.territories.pr.tax.income.taxable_income.exemptions.dependent.age_threshold.younger' outside emitted subtrees
-- **pr_low_income_credit** (`policyengine_us/variables/gov/territories/pr/tax/income/credits/low_income/pr_low_income_credit.py:4`): parameter 'gov.territories.pr.tax.income.credits.low_income.amount.base' outside emitted subtrees
-- **pr_low_income_credit_eligible** (`policyengine_us/variables/gov/territories/pr/tax/income/credits/low_income/pr_low_income_credit_eligible.py:5`): calc() on non-scale parameter 'gov.territories.pr.tax.income.credits.low_income.income_limit'
-- **pr_low_income_credit_eligible_person** (`policyengine_us/variables/gov/territories/pr/tax/income/credits/low_income/pr_low_income_credit_eligible_person.py:5`): parameter 'gov.territories.pr.tax.income.credits.low_income.age_threshold' outside emitted subtrees
-- **pr_medical_expense_deduction** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/pr_medical_expense_deduction.py:6`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.medical.floor' outside emitted subtrees
-- **pr_mortgage_deduction** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/pr_mortgage_deduction.py:7`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.mortgage.floor' outside emitted subtrees
-- **pr_normal_tax** (`policyengine_us/variables/gov/territories/pr/tax/income/pr_normal_tax.py:4`): calc() on non-scale parameter 'gov.territories.pr.tax.income.tax_rate.amount'
-- **pr_personal_exemption** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/exemptions/pr_personal_exemption.py:5`): unsupported parameter subscript on 'gov.territories.pr.tax.income.taxable_income.exemptions.personal'
-- **pr_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.territories.pr.tax.income.credits.refundable'
-- **pr_regular_tax_before_credits** (`policyengine_us/variables/gov/territories/pr/tax/income/pr_regular_tax_before_credits.py:8`): calc() on non-scale parameter 'gov.territories.pr.tax.income.regular_tax.percentage'
-- **pr_retirement_deduction** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/retirement/pr_retirement_deduction.py:7`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.retirement.max' outside emitted subtrees
-- **pr_retirement_deduction_eligibility** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/deductions/retirement/pr_retirement_deduction_eligibility.py:8`): parameter 'gov.territories.pr.tax.income.taxable_income.deductions.retirement.age_threshold' outside emitted subtrees
-- **pr_veteran_exemption** (`policyengine_us/variables/gov/territories/pr/tax/income/taxable_income/exemptions/pr_veteran_exemption.py:5`): parameter 'gov.territories.pr.tax.income.taxable_income.exemptions.veteran' outside emitted subtrees
-- **pre_obbba_cdcc_potential** (`policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py:12`): parameter 'gov.irs.credits.cdcc.phase_out.start' outside emitted subtrees
+- **pr_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.territories.pr.tax.income.credits.refundable'
 - **pre_subsidy_childcare_expenses** (`policyengine_us/variables/household/expense/childcare/pre_subsidy_childcare_expenses.py:4`): attribute 'spm_unit' on value expression
-- **pre_tax_contributions** (`?:0`): adds via unknown parameter path 'gov.irs.gross_income.pre_tax_contributions'
-- **qbid_amount** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qbid_amount.py:11`): unsupported parameter subscript on 'gov.irs.deductions.qbi.phase_out.start'
-- **qmb_cost_sharing** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py:5`): parameter 'calibration.gov.hhs.medicare.per_capita_cost' outside emitted subtrees
+- **qbid_amount** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qbid_amount.py:19`): np.divide
+- **qmb_cost_sharing** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py:9`): unbound name 'MSPCategory'
 - **qualified_business_income** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income.py:4`): unsupported statement For
-- **qualified_business_income_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction.py:16`): parameter 'gov.irs.deductions.qbi.max.rate' outside emitted subtrees
+- **qualified_business_income_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction.py:19`): ExtRat scale 'gov.irs.deductions.qbi.deduction_floor.amount' in value position
 - **qualified_business_income_deduction_person** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction_person.py:9`): np.zeros_like
-- **qualifies_for_elderly_or_disabled_credit** (`policyengine_us/variables/gov/irs/credits/elderly_and_disabled/eligibility.py:3`): parameter 'gov.irs.credits.elderly_or_disabled.age' outside emitted subtrees
-- **qualifying_non_marketplace_health_coverage_type_count_at_interview** (`?:0`): adds via unknown parameter path 'gov.aca.qualifying_non_marketplace_health_coverage'
 - **race** (`policyengine_us/variables/household/demographic/person/race.py:4`): unrecognized call select
-- **refundable_american_opportunity_credit** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/refundable_american_opportunity_credit.py:3`): parameter 'gov.irs.credits.education.american_opportunity_credit.refundability' outside emitted subtrees
 - **regular_tax_before_credits** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/regular_tax_before_credits.py:6`): non-value handle used as value
 - **relative_capital_gains_mtr_change** (`policyengine_us/variables/gov/simulation/capital_gains_responses.py:2`): unrecognized call get_behavioral_response_measurements
 - **relative_income_change** (`policyengine_us/variables/gov/simulation/labor_supply_response/relative_income_change.py:3`): unrecognized call get_behavioral_response_measurements
@@ -2588,76 +1407,38 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **residential_clean_energy_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_credit_limit.py:4`): add() without literal variable list
 - **residential_clean_energy_credit_potential** (`policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_potential.py:7`): unsupported syntax ListComp
 - **residential_efficiency_electrification_rebate** (`policyengine_us/variables/gov/doe/residential_efficiency_electrification_rebate/residential_efficiency_electrification_rebate.py:11`): person ref to non-person variable 'current_home_energy_use'
-- **ri_additions** (`?:0`): adds via unknown parameter path 'gov.states.ri.tax.income.agi.additions.additions'
-- **ri_ccap_activity_eligible** (`policyengine_us/variables/gov/states/ri/dhs/ccap/eligibility/ri_ccap_activity_eligible.py:6`): parameter 'gov.states.ri.dhs.ccap.activity_requirements.weekly_hours' outside emitted subtrees
+- **ri_additions** (`?:0`): adds via DATED parameter list 'gov.states.ri.tax.income.agi.additions.additions'
 - **ri_ccap_center_age_group** (`policyengine_us/variables/gov/states/ri/dhs/ccap/ri_ccap_center_age_group.py:4`): unsupported syntax Tuple
 - **ri_ccap_copay** (`policyengine_us/variables/gov/states/ri/dhs/ccap/copay/ri_ccap_copay.py:2`): person ref to non-person variable 'is_homeless'
-- **ri_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.ri.dhs.ccap.income.countable_income.sources'
-- **ri_ccap_eligible_child** (`policyengine_us/variables/gov/states/ri/dhs/ccap/eligibility/ri_ccap_eligible_child.py:5`): parameter 'gov.states.ri.dhs.ccap.age_threshold.disabled_child' outside emitted subtrees
 - **ri_ccap_family_age_group** (`policyengine_us/variables/gov/states/ri/dhs/ccap/ri_ccap_family_age_group.py:5`): unrecognized call select
-- **ri_ccap_income_eligible** (`policyengine_us/variables/gov/states/ri/dhs/ccap/eligibility/ri_ccap_income_eligible.py:6`): parameter 'gov.states.ri.dhs.ccap.income.fpl_rate.initial_eligibility' outside emitted subtrees
 - **ri_ccap_maximum_weekly_benefit** (`policyengine_us/variables/gov/states/ri/dhs/ccap/ri_ccap_maximum_weekly_benefit.py:8`): unsupported parameter subscript on 'gov.states.ri.dhs.ccap.rates.center'
-- **ri_ccap_time_category** (`policyengine_us/variables/gov/states/ri/dhs/ccap/ri_ccap_time_category.py:4`): calc() on non-scale parameter 'gov.states.ri.dhs.ccap.time_authorization.thresholds'
+- **ri_ccap_time_category** (`policyengine_us/variables/gov/states/ri/dhs/ccap/ri_ccap_time_category.py:0`): Enum-valued formula
 - **ri_cdcc** (`policyengine_us/variables/gov/states/ri/tax/income/credits/cdcc/ri_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ri_cdcc_potential** (`policyengine_us/variables/gov/states/ri/tax/income/credits/cdcc/ri_cdcc_potential.py:5`): parameter 'gov.states.ri.tax.income.credits.cdcc.rate' outside emitted subtrees
-- **ri_child_tax_rebate** (`policyengine_us/variables/gov/states/ri/tax/income/credits/rebates/ri_child_tax_rebate.py:6`): parameter 'gov.states.ri.tax.income.credits.child_tax_rebate.limit.age' outside emitted subtrees
-- **ri_child_tax_rebate_eligible** (`policyengine_us/variables/gov/states/ri/tax/income/credits/rebates/ri_child_tax_rebate_eligible.py:5`): unsupported parameter subscript on 'gov.states.ri.tax.income.credits.child_tax_rebate.limit.income'
-- **ri_ctc** (`policyengine_us/variables/gov/states/ri/tax/income/credits/ctc/ri_ctc.py:6`): parameter 'gov.states.ri.tax.income.credits.ctc.amount' outside emitted subtrees
-- **ri_ctc_eligible_child** (`policyengine_us/variables/gov/states/ri/tax/income/credits/ctc/ri_ctc_eligible_child.py:4`): parameter 'gov.states.ri.tax.income.credits.ctc.age_limit' outside emitted subtrees
-- **ri_eitc** (`policyengine_us/variables/gov/states/ri/tax/income/credits/eitc/ri_eitc.py:4`): parameter 'gov.states.ri.tax.income.credits.eitc.match' outside emitted subtrees
-- **ri_employee_temporary_disability_insurance_contribution** (`policyengine_us/variables/gov/states/ri/tax/payroll/temporary_disability_insurance/ri_employee_temporary_disability_insurance_contribution.py:3`): parameter 'gov.states.ri.tax.payroll.temporary_disability_insurance.employee_rate' outside emitted subtrees
-- **ri_employer_job_development_fund_tax** (`policyengine_us/variables/gov/states/ri/tax/payroll/job_development_fund/ri_employer_job_development_fund_tax.py:5`): parameter 'gov.states.ri.tax.payroll.job_development_fund.employer_rate' outside emitted subtrees
-- **ri_exemptions** (`policyengine_us/variables/gov/states/ri/tax/income/exemption/ri_exemptions.py:6`): parameter 'gov.states.ri.tax.income.exemption.amount' outside emitted subtrees
-- **ri_high_earner_tax** (`policyengine_us/variables/gov/states/ri/tax/income/ri_high_earner_tax.py:5`): parameter 'gov.states.ri.tax.income.high_earner_tax.threshold' outside emitted subtrees
-- **ri_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/ri/tax/income/ri_income_tax_before_non_refundable_credits.py:5`): calc() on non-scale parameter 'gov.states.ri.tax.income.rate'
+- **ri_ctc** (`policyengine_us/variables/gov/states/ri/tax/income/credits/ctc/ri_ctc.py:8`): unsupported parameter subscript on 'gov.states.ri.tax.income.credits.ctc.phase_out.threshold'
 - **ri_non_refundable_credits** (`policyengine_us/variables/gov/states/ri/tax/income/ri_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **ri_property_tax_credit** (`policyengine_us/variables/gov/states/ri/tax/income/credits/property_tax/ri_property_tax_credit.py:6`): calc() on non-scale parameter 'gov.states.ri.tax.income.credits.property_tax.rate.one_person'
-- **ri_property_tax_credit_eligible** (`policyengine_us/variables/gov/states/ri/tax/income/credits/property_tax/ri_property_tax_credit_eligible.py:5`): parameter 'gov.states.ri.tax.income.credits.property_tax.age_threshold' outside emitted subtrees
-- **ri_property_tax_household_income** (`?:0`): adds via unknown parameter path 'gov.states.ri.tax.income.credits.property_tax.income_sources'
-- **ri_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ri.tax.income.credits.refundable'
-- **ri_refundable_eitc** (`policyengine_us/variables/gov/states/ri/tax/income/credits/eitc/ri_refundable_eitc.py:12`): parameter 'gov.states.ri.tax.income.credits.eitc.refundable_percent' outside emitted subtrees
-- **ri_retirement_income_subtraction** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/taxable_retirement_income/ri_retirement_income_subtraction.py:9`): parameter 'gov.states.ri.tax.income.agi.subtractions.taxable_retirement_income.cap' outside emitted subtrees
-- **ri_retirement_income_subtraction_eligible** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/taxable_retirement_income/ri_retirement_income_subtraction_eligible.py:9`): parameter 'gov.states.ri.tax.income.agi.subtractions.taxable_retirement_income.birth_year' outside emitted subtrees
-- **ri_social_security_modification** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/social_security/ri_social_security_modification.py:10`): parameter 'gov.states.ri.tax.income.agi.subtractions.social_security.limit.birth_year' outside emitted subtrees
-- **ri_social_security_modification_eligible** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/social_security/ri_social_security_modification_eligible.py:10`): parameter 'gov.states.ri.tax.income.agi.subtractions.social_security.limit.birth_year' outside emitted subtrees
+- **ri_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.ri.tax.income.credits.refundable'
+- **ri_retirement_income_subtraction_eligible** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/taxable_retirement_income/ri_retirement_income_subtraction_eligible.py:10`): unsupported parameter subscript on 'gov.states.ri.tax.income.agi.subtractions.taxable_retirement_income.income_limit'
+- **ri_social_security_modification** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/social_security/ri_social_security_modification.py:20`): np.zeros_like
+- **ri_social_security_modification_eligible** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/social_security/ri_social_security_modification_eligible.py:13`): unsupported parameter subscript on 'gov.states.ri.tax.income.agi.subtractions.social_security.limit.income'
 - **ri_standard_deduction** (`policyengine_us/variables/gov/states/ri/tax/income/deductions/standard/ri_standard_deduction.py:5`): unsupported parameter subscript on 'gov.states.ri.tax.income.deductions.standard.amount'
-- **ri_standard_deduction_applicable_percentage** (`policyengine_us/variables/gov/states/ri/tax/income/deductions/standard/ri_standard_deduction_applicable_percentage.py:6`): parameter 'gov.states.ri.tax.income.deductions.standard.phase_out.start' outside emitted subtrees
 - **ri_subtractions** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/ri_subtractions.py:3`): add() without literal variable list
-- **ri_taxable_earnings_for_state_unemployment_tax** (`policyengine_us/variables/gov/states/ri/tax/payroll/unemployment/ri_taxable_earnings_for_state_unemployment_tax.py:4`): parameter 'gov.states.ri.tax.payroll.unemployment.taxable_wage_base' outside emitted subtrees
-- **ri_temporary_disability_insurance_taxable_wages** (`policyengine_us/variables/gov/states/ri/tax/payroll/temporary_disability_insurance/ri_temporary_disability_insurance_taxable_wages.py:3`): parameter 'gov.states.ri.tax.payroll.temporary_disability_insurance.taxable_wage_base' outside emitted subtrees
-- **ri_tuition_saving_program_contribution_subtraction** (`policyengine_us/variables/gov/states/ri/tax/income/agi/subtractions/ri_tuition_saving_program_contribution_subtraction.py:7`): unsupported parameter subscript on 'gov.states.ri.tax.income.agi.subtractions.tuition_saving_program_contributions.cap'
 - **ri_withheld_income_tax** (`policyengine_us/variables/gov/states/ri/tax/income/ri_withheld_income_tax.py:5`): non-value handle used as value
-- **ri_works_countable_unearned_income** (`policyengine_us/variables/gov/states/ri/dhs/works/income/unearned/ri_works_countable_unearned_income.py:9`): parameter 'gov.states.ri.dhs.works.income.child_support_disregard' outside emitted subtrees
-- **ri_works_dependent_care_deduction** (`policyengine_us/variables/gov/states/ri/dhs/works/income/deductions/ri_works_dependent_care_deduction.py:16`): calc() on non-scale parameter 'gov.states.ri.dhs.works.income.dependent_care.amount'
-- **ri_works_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/ri/dhs/works/income/earned/ri_works_earned_income_after_disregard_person.py:7`): parameter 'gov.states.ri.dhs.works.income.earned_income_disregard.amount' outside emitted subtrees
-- **ri_works_payment_standard** (`policyengine_us/variables/gov/states/ri/dhs/works/ri_works_payment_standard.py:5`): parameter 'gov.states.ri.dhs.works.payment_standard.max_unit_size' outside emitted subtrees
-- **ri_works_resource_eligible** (`policyengine_us/variables/gov/states/ri/dhs/works/eligibility/ri_works_resource_eligible.py:4`): parameter 'gov.states.ri.dhs.works.resource_limit' outside emitted subtrees
-- **rrc_arpa** (`policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_arpa.py:21`): parameter 'gov.irs.credits.recovery_rebate_credit.arpa.max.adult' outside emitted subtrees
-- **rrc_caa** (`policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_caa.py:25`): parameter 'gov.irs.credits.recovery_rebate_credit.caa.max.adult' outside emitted subtrees
-- **rrc_cares** (`policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_cares.py:25`): parameter 'gov.irs.credits.recovery_rebate_credit.cares.max.adult' outside emitted subtrees
+- **ri_works_payment_standard** (`policyengine_us/variables/gov/states/ri/dhs/works/ri_works_payment_standard.py:6`): unsupported parameter subscript on 'gov.states.ri.dhs.works.payment_standard.amount'
 - **safmr_used_for_hcv** (`policyengine_us/variables/household/demographic/geographic/safmr_used_for_hcv.py:3`): unbound name 'pd'
-- **salt** (`?:0`): adds via unknown parameter path 'gov.irs.deductions.itemized.salt_and_real_estate.sources'
 - **salt_cap** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt_cap.py:4`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
-- **salt_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt_deduction.py:4`): parameter 'gov.simulation.limit_itemized_deductions_to_taxable_income' outside emitted subtrees
+- **salt_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt_deduction.py:4`): if arm without return
 - **savers_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_credit_limit.py:4`): add() without literal variable list
-- **savers_credit_eligible_person** (`policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_eligible_person.py:4`): parameter 'gov.irs.credits.retirement_saving.age_threshold' outside emitted subtrees
-- **savers_credit_person** (`policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_person.py:8`): parameter 'gov.irs.credits.retirement_saving.contributions_cap' outside emitted subtrees
 - **savers_credit_qualified_contributions** (`policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_qualified_contributions.py:3`): add() without literal variable list
 - **sc_2022_rebate** (`policyengine_us/variables/gov/states/sc/tax/income/credits/sc_2022_rebate.py:7`): unsupported statement For
-- **sc_additions** (`?:0`): adds via unknown parameter path 'gov.states.sc.tax.income.additions.additions'
-- **sc_ccap_activity_eligible** (`policyengine_us/variables/gov/states/sc/dss/ccap/eligibility/sc_ccap_activity_eligible.py:6`): parameter 'gov.states.sc.dss.ccap.eligibility.activity_hours' outside emitted subtrees
-- **sc_ccap_age_group** (`policyengine_us/variables/gov/states/sc/dss/ccap/sc_ccap_age_group.py:5`): calc() on non-scale parameter 'gov.states.sc.dss.ccap.age_group.age'
+- **sc_additions** (`?:0`): adds via DATED parameter list 'gov.states.sc.tax.income.additions.additions'
+- **sc_ccap_age_group** (`policyengine_us/variables/gov/states/sc/dss/ccap/sc_ccap_age_group.py:0`): Enum-valued formula
 - **sc_ccap_copay** (`policyengine_us/variables/gov/states/sc/dss/ccap/copay/sc_ccap_copay.py:4`): unrecognized call len
-- **sc_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.sc.dss.ccap.income.countable_income.sources'
-- **sc_ccap_eligible_child** (`policyengine_us/variables/gov/states/sc/dss/ccap/eligibility/sc_ccap_eligible_child.py:7`): parameter 'gov.states.sc.dss.ccap.eligibility.disabled_child_age_limit' outside emitted subtrees
 - **sc_ccap_geography** (`policyengine_us/variables/gov/states/sc/dss/ccap/sc_ccap_geography.py:4`): np.isin outside enum idioms
-- **sc_ccap_income_eligible** (`policyengine_us/variables/gov/states/sc/dss/ccap/eligibility/sc_ccap_income_eligible.py:5`): parameter 'gov.states.sc.dss.ccap.income.smi_rate' outside emitted subtrees
 - **sc_ccap_maximum_weekly_benefit** (`policyengine_us/variables/gov/states/sc/dss/ccap/sc_ccap_maximum_weekly_benefit.py:15`): unsupported parameter subscript on 'gov.states.sc.dss.ccap.rates.center'
 - **sc_ccap_protective_services** (`policyengine_us/variables/gov/states/sc/dss/ccap/eligibility/sc_ccap_protective_services.py:3`): person ref to non-person variable 'is_homeless'
-- **sc_ccap_time_category** (`policyengine_us/variables/gov/states/sc/dss/ccap/sc_ccap_time_category.py:4`): calc() on non-scale parameter 'gov.states.sc.dss.ccap.time_category.hours'
+- **sc_ccap_time_category** (`policyengine_us/variables/gov/states/sc/dss/ccap/sc_ccap_time_category.py:10`): unbound name 'SCCCAPTimeCategory'
 - **sc_cdcc** (`policyengine_us/variables/gov/states/sc/tax/income/credits/cdcc/sc_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
 - **sc_cdcc_potential** (`policyengine_us/variables/gov/states/sc/tax/income/credits/cdcc/sc_cdcc_potential.py:8`): unbound name 'period'
-- **sc_dependent_exemption** (`policyengine_us/variables/gov/states/sc/tax/income/exemptions/sc_dependent_exemption.py:7`): parameter 'gov.states.sc.tax.income.deductions.dependent_exemption.amount' outside emitted subtrees
 - **sc_eitc** (`policyengine_us/variables/gov/states/sc/tax/income/credits/eitc/sc_eitc.py:5`): unrecognized call applied_state_non_refundable_credit
 - **sc_eitc_potential** (`policyengine_us/variables/gov/states/sc/tax/income/credits/eitc/sc_eitc_potential.py:4`): np.round
 - **sc_gross_earned_income** (`policyengine_us/variables/gov/states/sc/tax/income/credits/two_wage_earner/sc_gross_earned_income.py:8`): add() without literal variable list
@@ -2665,58 +1446,25 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **sc_homestead_exemption_eligible** (`policyengine_us/variables/gov/states/sc/tax/property/homestead_exemption/sc_homestead_exemption_eligible.py:5`): person ref to non-person variable 'tax_unit_is_joint'
 - **sc_homestead_property_tax_reduction** (`policyengine_us/variables/gov/states/sc/tax/property/homestead_exemption/sc_homestead_property_tax_reduction.py:4`): person ref to non-person variable 'tax_unit_is_joint'
 - **sc_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/sc/tax/income/sc_income_tax_before_non_refundable_credits.py:4`): calc() on non-scale parameter 'gov.states.sc.tax.income.rates'
-- **sc_net_capital_gain_deduction** (`policyengine_us/variables/gov/states/sc/tax/income/deductions/net_capital_gain/sc_net_capital_gain_deduction.py:7`): parameter 'gov.states.sc.tax.income.deductions.net_capital_gain.rate' outside emitted subtrees
 - **sc_non_refundable_credits** (`policyengine_us/variables/gov/states/sc/tax/income/sc_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **sc_obbba_addback** (`policyengine_us/variables/gov/states/sc/tax/income/additions/sc_obbba_addback.py:8`): unsupported parameter subscript on 'gov.irs.deductions.standard.amount'
-- **sc_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.sc.tax.income.credits.refundable'
-- **sc_retirement_cap** (`policyengine_us/variables/gov/states/sc/tax/income/subtractions/retirement/sc_retirement_cap.py:4`): calc() on non-scale parameter 'gov.states.sc.tax.income.subtractions.retirement.cap'
-- **sc_retirement_deduction_indv** (`policyengine_us/variables/gov/states/sc/tax/income/subtractions/retirement/sc_retirement_deduction_indv.py:6`): calc() on non-scale parameter 'gov.states.sc.tax.income.subtractions.retirement.cap'
-- **sc_retirement_deduction_survivors** (`policyengine_us/variables/gov/states/sc/tax/income/subtractions/retirement/sc_retirement_deduction_survivors.py:5`): calc() on non-scale parameter 'gov.states.sc.tax.income.subtractions.retirement.cap'
-- **sc_sciad** (`policyengine_us/variables/gov/states/sc/tax/income/deductions/sciad/sc_sciad.py:4`): parameter 'gov.states.sc.tax.income.deductions.sciad.in_effect' outside emitted subtrees
-- **sc_senior_exemption_person** (`policyengine_us/variables/gov/states/sc/tax/income/exemptions/senior/sc_senior_exemption_person.py:9`): parameter 'gov.states.sc.tax.income.exemptions.senior.age_threshold' outside emitted subtrees
-- **sc_ssi_state_supplement** (`policyengine_us/variables/gov/states/sc/scdhhs/ssi_state_supplement/sc_ssi_state_supplement.py:7`): parameter 'gov.states.sc.scdhhs.ssi_state_supplement.net_income_limit' outside emitted subtrees
-- **sc_ssi_state_supplement_eligible** (`policyengine_us/variables/gov/states/sc/scdhhs/ssi_state_supplement/sc_ssi_state_supplement_eligible.py:9`): parameter 'gov.states.sc.scdhhs.ssi_state_supplement.net_income_limit' outside emitted subtrees
-- **sc_ssi_state_supplement_pna** (`policyengine_us/variables/gov/states/sc/scdhhs/ssi_state_supplement/sc_ssi_state_supplement_pna.py:8`): parameter 'gov.states.sc.scdhhs.ssi_state_supplement.personal_needs_allowance.ssi_only' outside emitted subtrees
+- **sc_sciad** (`policyengine_us/variables/gov/states/sc/tax/income/deductions/sciad/sc_sciad.py:21`): np.floor
 - **sc_state_tax_addback** (`policyengine_us/variables/gov/states/sc/tax/income/additions/sc_state_tax_addback.py:24`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
 - **sc_subtractions** (`policyengine_us/variables/gov/states/sc/tax/income/subtractions/sc_subtractions.py:3`): add() without literal variable list
-- **sc_tanf** (`policyengine_us/variables/gov/states/sc/tanf/sc_tanf.py:5`): parameter 'gov.states.sc.tanf.income.need_standard.rate' outside emitted subtrees
 - **sc_tanf_countable_earned_income_person** (`policyengine_us/variables/gov/states/sc/tanf/income/sc_tanf_countable_earned_income_person.py:4`): unbound name 'period'
-- **sc_tanf_countable_income_eligible** (`policyengine_us/variables/gov/states/sc/tanf/eligibility/sc_tanf_countable_income_eligible.py:4`): parameter 'gov.states.sc.tanf.income.need_standard.rate' outside emitted subtrees
-- **sc_tanf_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.sc.tanf.income.earned.earned'
-- **sc_tanf_gross_income_eligible** (`policyengine_us/variables/gov/states/sc/tanf/eligibility/sc_tanf_gross_income_eligible.py:4`): parameter 'gov.states.sc.tanf.income.need_standard.rate' outside emitted subtrees
-- **sc_tanf_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.sc.tanf.income.unearned'
-- **sc_tanf_resources_eligible** (`policyengine_us/variables/gov/states/sc/tanf/eligibility/sc_tanf_resources_eligible.py:4`): parameter 'gov.states.sc.tanf.resources.limit' outside emitted subtrees
-- **sc_taxable_income** (`policyengine_us/variables/gov/states/sc/tax/income/sc_taxable_income.py:5`): parameter 'gov.states.sc.tax.income.deductions.sciad.in_effect' outside emitted subtrees
 - **sc_two_wage_earner_credit** (`policyengine_us/variables/gov/states/sc/tax/income/credits/two_wage_earner/sc_two_wage_earner_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **sc_two_wage_earner_credit_potential** (`policyengine_us/variables/gov/states/sc/tax/income/credits/two_wage_earner/sc_two_wage_earner_credit_potential.py:14`): calc() on non-scale parameter 'gov.states.sc.tax.income.credits.two_wage_earner.rate'
 - **sc_withheld_income_tax** (`policyengine_us/variables/gov/states/sc/tax/income/sc_withheld_income_tax.py:5`): non-value handle used as value
-- **sc_young_child_deduction** (`policyengine_us/variables/gov/states/sc/tax/income/deductions/sc_young_child_deduction.py:6`): parameter 'gov.states.sc.tax.income.deductions.young_child.ineligible_age' outside emitted subtrees
-- **school_meal_countable_income** (`?:0`): adds via unknown parameter path 'gov.usda.school_meals.income.sources'
 - **school_meal_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_daily_subsidy.py:3`): person ref to non-person variable 'state_group_str'
-- **school_meal_net_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_net_subsidy.py:11`): parameter 'gov.usda.school_meals.school_days' outside emitted subtrees
 - **school_meal_paid_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_paid_daily_subsidy.py:3`): person ref to non-person variable 'state_group_str'
 - **school_meal_tier** (`policyengine_us/variables/gov/usda/school_meals/school_meal_tier.py:11`): unrecognized call select
-- **sd_cca** (`policyengine_us/variables/gov/states/sd/dss/cca/sd_cca.py:6`): parameter 'gov.states.sd.dss.cca.rates.uses_weekly_rates' outside emitted subtrees
-- **sd_cca_age_group** (`policyengine_us/variables/gov/states/sd/dss/cca/rates/sd_cca_age_group.py:11`): parameter 'gov.states.sd.dss.cca.age_group.school_age_min_months' outside emitted subtrees
-- **sd_cca_copay** (`policyengine_us/variables/gov/states/sd/dss/cca/copay/sd_cca_copay.py:12`): parameter 'gov.states.sd.dss.cca.copay.fpl_threshold' outside emitted subtrees
-- **sd_cca_countable_income** (`policyengine_us/variables/gov/states/sd/dss/cca/income/sd_cca_countable_income.py:19`): parameter 'gov.states.sd.dss.cca.income.child_earned_income_exclusion_age' outside emitted subtrees
-- **sd_cca_eligible_child** (`policyengine_us/variables/gov/states/sd/dss/cca/eligibility/sd_cca_eligible_child.py:13`): parameter 'gov.states.sd.dss.cca.eligibility.special_needs_student_age_limit' outside emitted subtrees
-- **sd_cca_gross_income** (`?:0`): adds via unknown parameter path 'gov.states.sd.dss.cca.income.sources'
-- **sd_cca_income_eligible** (`policyengine_us/variables/gov/states/sd/dss/cca/eligibility/sd_cca_income_eligible.py:9`): parameter 'gov.states.sd.dss.cca.income.smi_limit' outside emitted subtrees
-- **sd_cca_parent_in_eligible_activity** (`policyengine_us/variables/gov/states/sd/dss/cca/eligibility/sd_cca_parent_in_eligible_activity.py:7`): parameter 'gov.states.sd.dss.cca.work_requirement.weekly_to_monthly_factor' outside emitted subtrees
+- **sd_cca_age_group** (`policyengine_us/variables/gov/states/sd/dss/cca/rates/sd_cca_age_group.py:13`): unrecognized call select
+- **sd_cca_copay** (`policyengine_us/variables/gov/states/sd/dss/cca/copay/sd_cca_copay.py:18`): np.floor
+- **sd_cca_eligible_child** (`policyengine_us/variables/gov/states/sd/dss/cca/eligibility/sd_cca_eligible_child.py:21`): unbound name 'ImmigrationStatus'
 - **sd_cca_region** (`policyengine_us/variables/gov/states/sd/dss/cca/rates/sd_cca_region.py:4`): unrecognized call select
 - **sd_cca_time_category** (`policyengine_us/variables/gov/states/sd/dss/cca/rates/sd_cca_time_category.py:6`): unrecognized call select
 - **sd_cca_weekly_rate** (`policyengine_us/variables/gov/states/sd/dss/cca/rates/sd_cca_weekly_rate.py:7`): unsupported parameter subscript on 'gov.states.sd.dss.cca.rates.weekly.family_day_care'
-- **sd_tanf_countable_earned_income_person** (`policyengine_us/variables/gov/states/sd/dss/tanf/income/sd_tanf_countable_earned_income_person.py:6`): parameter 'gov.states.sd.dss.tanf.income.earned_income_disregard.flat_deduction' outside emitted subtrees
-- **sd_tanf_payment_standard** (`policyengine_us/variables/gov/states/sd/dss/tanf/sd_tanf_payment_standard.py:7`): parameter 'gov.states.sd.dss.tanf.payment_standard.max_table_size' outside emitted subtrees
-- **sd_tanf_resources_eligible** (`policyengine_us/variables/gov/states/sd/dss/tanf/eligibility/sd_tanf_resources_eligible.py:4`): parameter 'gov.states.sd.dss.tanf.resources.limit' outside emitted subtrees
+- **sd_tanf_payment_standard** (`policyengine_us/variables/gov/states/sd/dss/tanf/sd_tanf_payment_standard.py:8`): unsupported parameter subscript on 'gov.states.sd.dss.tanf.payment_standard.independent_living'
 - **section_22_income** (`policyengine_us/variables/gov/irs/credits/elderly_and_disabled/section_22_income.py:9`): unrecognized call select
-- **selected_marketplace_plan_actuarial_value** (`policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_actuarial_value.py:9`): parameter 'gov.aca.metal_actuarial_value.bronze' outside emitted subtrees
-- **self_employed_pension_contribution_limit** (`policyengine_us/variables/household/expense/retirement/self_employed_pension_contribution_limit.py:4`): parameter 'gov.irs.gross_income.retirement_contributions.limit.annual_additions' outside emitted subtrees
 - **self_employment_income_behavioral_response** (`policyengine_us/variables/gov/simulation/labor_supply_response/self_employment_income_behavioral_response.py:5`): unrecognized call abs
-- **self_employment_medicare_tax** (`policyengine_us/variables/gov/irs/tax/self_employment/self_employment_medicare_tax.py:3`): parameter 'gov.irs.self_employment.rate.medicare' outside emitted subtrees
-- **self_employment_social_security_tax** (`policyengine_us/variables/gov/irs/tax/self_employment/self_employment_social_security_tax.py:4`): parameter 'gov.irs.self_employment.rate.social_security' outside emitted subtrees
-- **self_employment_tax** (`policyengine_us/variables/gov/irs/tax/self_employment/self_employment_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax' outside emitted subtrees
 - **share_of_care_and_support_costs_paid_by_tax_filer** (`policyengine_us/variables/household/demographic/person/share_of_care_and_support_costs_paid_by_tax_filer.py:6`): np.zeros_like
 - **slcsp_age_0** (`policyengine_us/variables/gov/aca/slspc/slcsp_age_0.py:12`): unsupported parameter subscript on 'gov.aca.state_rating_area_cost'
 - **slcsp_age_curve_multiplier** (`policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_multiplier.py:6`): unrecognized call select
@@ -2753,8 +1501,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **snap_utility_allowance_type** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_utility_allowance_type.py:4`): person ref to non-person variable 'snap_utility_region_str'
 - **snap_utility_region** (`policyengine_us/variables/gov/usda/snap/snap_utility_region.py:9`): non-value handle used as value
 - **snap_utility_region_str** (`policyengine_us/variables/gov/usda/snap/snap_utility_region_str.py:1`): returns a non-value
-- **social_security_taxable_self_employment_income** (`policyengine_us/variables/gov/irs/tax/self_employment/social_security_taxable_self_employment_income.py:5`): parameter 'gov.irs.payroll.social_security.cap' outside emitted subtrees
-- **spm_unit_benefits** (`policyengine_us/variables/household/income/spm_unit/spm_unit_benefits.py:70`): parameter 'gov.contrib.ubi_center.flat_tax.deduct_ptc' outside emitted subtrees
+- **spm_unit_benefits** (`policyengine_us/variables/household/income/spm_unit/spm_unit_benefits.py:71`): unsupported statement Expr
 - **spm_unit_capped_work_childcare_expenses** (`policyengine_us/variables/household/expense/childcare/spm_unit_capped_work_childcare_expenses.py:5`): np.maximum
 - **spm_unit_count_adults** (`policyengine_us/variables/household/demographic/spm_unit/spm_unit_count_adults.py:2`): unrecognized call spm_unit.members
 - **spm_unit_federal_tax** (`policyengine_us/variables/household/expense/tax/spm_unit_federal_tax.py:2`): unrecognized call sum_contained_tax_units
@@ -2774,80 +1521,60 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **spm_unit_weight** (`policyengine_us/variables/household/demographic/weights/spm_unit_weight.py:3`): person ref to non-person variable 'household_weight'
 - **spm_unit_work_expenses** (`policyengine_us/variables/household/expense/childcare/spm_unit_work_expenses.py:8`): np.clip
 - **ss_aime** (`policyengine_us/variables/gov/ssa/social_security/ss_aime.py:7`): unrecognized call _compute_aime
-- **ss_aime_eligible** (`policyengine_us/variables/gov/ssa/social_security/ss_aime_eligible.py:4`): parameter 'gov.ssa.social_security.aime.minimum_age_for_earnings' outside emitted subtrees
-- **ss_covered_earnings_this_year** (`policyengine_us/variables/gov/ssa/social_security/ss_covered_earnings_this_year.py:11`): parameter 'gov.ssa.social_security.wage_base' outside emitted subtrees
-- **ss_earnings_test_reduction** (`policyengine_us/variables/gov/ssa/social_security/ss_earnings_test_reduction.py:23`): parameter 'gov.ssa.social_security.earnings_test.exempt_amount_year_of_fra' outside emitted subtrees
 - **ss_full_retirement_age_months** (`policyengine_us/variables/gov/ssa/social_security/ss_full_retirement_age_months.py:3`): unbound name 'period'
-- **ss_pia** (`policyengine_us/variables/gov/ssa/social_security/ss_pia.py:7`): calc() on non-scale parameter 'gov.ssa.social_security.pia.formula_factors'
+- **ss_pia** (`policyengine_us/variables/gov/ssa/social_security/ss_pia.py:11`): np.floor
 - **ss_quarters_of_coverage** (`policyengine_us/variables/gov/ssa/social_security/ss_quarters_of_coverage.py:10`): np.floor
 - **ss_retirement_age_adjustment_factor** (`policyengine_us/variables/gov/ssa/social_security/ss_retirement_age_adjustment_factor.py:15`): unrecognized call abs
-- **ss_retirement_eligible** (`policyengine_us/variables/gov/ssa/social_security/ss_retirement_eligible.py:4`): parameter 'gov.ssa.social_security.minimum_retirement_age' outside emitted subtrees
 - **ssi_amount_if_eligible** (`policyengine_us/variables/gov/ssa/ssi/ssi_amount_if_eligible.py:38`): unbound name 'SSIFederalLivingArrangement'
 - **ssi_category** (`policyengine_us/variables/gov/ssa/ssi/eligibility/status/ssi_category.py:8`): unrecognized call select
 - **ssi_countable_income** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_countable_income.py:23`): non-value handle used as value
 - **ssi_couple_computation_applies** (`policyengine_us/variables/gov/ssa/ssi/ssi_couple_computation_applies.py:16`): unbound name 'SSIFederalLivingArrangement'
 - **ssi_earned_income_deemed_from_ineligible_spouse** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/ssi_earned_income_deemed_from_ineligible_spouse.py:6`): attribute 'marital_unit' on value expression
-- **ssi_engaged_in_sga** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_engaged_in_sga.py:9`): parameter 'gov.ssa.sga.non_blind' outside emitted subtrees
 - **ssi_federal_living_arrangement** (`policyengine_us/variables/gov/ssa/ssi/eligibility/status/ssi_federal_living_arrangement.py:19`): attribute 'tax_unit' on value expression
 - **ssi_income_deemed_from_ineligible_spouse** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/ssi_income_deemed_from_ineligible_spouse.py:23`): non-value handle used as value
 - **ssi_pmv_applies** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_pmv_applies.py:3`): unbound name 'SSIFederalLivingArrangement'
 - **ssi_unearned_income_deemed_from_ineligible_parent** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_parent/ssi_unearned_income_deemed_from_ineligible_parent.py:6`): attribute 'tax_unit' on value expression
 - **sstb_qualified_business_income** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/sstb_qualified_business_income.py:4`): unsupported statement For
 - **sstb_self_employment_income_behavioral_response** (`policyengine_us/variables/gov/simulation/labor_supply_response/sstb_self_employment_income_behavioral_response.py:5`): unrecognized call abs
-- **state_benefit_cost** (`?:0`): adds via unknown parameter path 'gov.household.state_benefit_cost'
 - **state_code** (`policyengine_us/variables/household/demographic/geographic/state_code.py:2`): unbound name 'StateCode'
 - **state_code_str** (`policyengine_us/variables/household/demographic/geographic/state_code_str.py:1`): returns a non-value
 - **state_filing_status_if_married_filing_separately_on_same_return** (`policyengine_us/variables/gov/states/state_filing_status_if_married_filing_separately_on_same_return.py:4`): unrecognized call select
 - **state_group** (`policyengine_us/variables/household/demographic/geographic/state_group.py:2`): unsupported syntax Tuple
 - **state_has_universal_free_school_meals** (`policyengine_us/variables/gov/usda/school_meals/state_has_universal_free_school_meals.py:2`): person ref to non-person variable 'state_code_str'
 - **state_income_tax** (`policyengine_us/variables/gov/states/tax/income/state_income_tax.py:9`): person ref to non-person variable 'state_code'
-- **state_income_tax_before_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.household.state_income_tax_before_refundable_credits'
 - **state_itemized_deductions** (`policyengine_us/variables/gov/states/tax/income/state_itemized_deductions.py:7`): person ref to non-person variable 'state_code_str'
 - **state_marginal_tax_rate** (`policyengine_us/variables/household/state_marginal_tax_rate.py:2`): unrecognized call compute_component_mtr
 - **state_name** (`policyengine_us/variables/input/geography.py:4`): unbound name 'pd'
-- **state_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.household.state_non_refundable_credits'
-- **state_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.household.state_refundable_credits'
 - **state_sales_tax** (`policyengine_us/variables/gov/states/tax/sales/state_sales_tax.py:10`): person ref to non-person variable 'state_code'
 - **state_sales_tax_income_bracket** (`policyengine_us/variables/gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_income_bracket.py:5`): add() without literal variable list
 - **state_standard_deduction** (`policyengine_us/variables/gov/states/tax/income/state_standard_deduction.py:7`): add() without literal variable list
-- **state_use_tax** (`?:0`): adds via unknown parameter path 'gov.states.household.state_use_tax'
-- **state_withheld_income_tax** (`?:0`): adds via unknown parameter path 'gov.states.household.state_withheld_income_tax'
-- **student_loan_interest_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/student_loan_interest/student_loan_interest_ald.py:5`): unsupported parameter subscript on 'gov.irs.ald.student_loan_interest.cap'
+- **student_loan_interest_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/student_loan_interest/student_loan_interest_ald.py:13`): np.divide
 - **student_loan_interest_ald_magi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/student_loan_interest/student_loan_interest_ald_magi.py:6`): unsupported syntax ListComp
-- **substitution_elasticity** (`policyengine_us/variables/gov/simulation/labor_supply_response/substitution_elasticity.py:6`): parameter 'gov.simulation.labor_supply_responses.elasticities.substitution.all' outside emitted subtrees
+- **substitution_elasticity** (`policyengine_us/variables/gov/simulation/labor_supply_response/substitution_elasticity.py:11`): non-string list element
 - **substitution_elasticity_lsr** (`policyengine_us/variables/gov/simulation/labor_supply_response/substitution_elasticity_lsr.py:2`): unrecognized call calculate_substitution_lsr_effect
 - **tanf_fpg** (`policyengine_us/variables/gov/hhs/tanf/tanf_fpg.py:4`): person ref to non-person variable 'state_group_str'
-- **tanf_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.hhs.tanf.cash.income.sources.earned'
-- **tanf_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.hhs.tanf.cash.income.sources.unearned'
-- **tanf_if_takes_up** (`policyengine_us/variables/gov/hhs/tanf/cash/tanf_if_takes_up.py:2`): parameter 'gov.hhs.tanf.abolish_tanf' outside emitted subtrees
+- **tanf_if_takes_up** (`policyengine_us/variables/gov/hhs/tanf/cash/tanf_if_takes_up.py:4`): unbound name 'STATE_TANF_VARIABLES'
 - **tanf_person** (`policyengine_us/variables/gov/hhs/tanf/cash/tanf_person.py:2`): attribute 'spm_unit' on value expression
 - **tax_liability_if_itemizing** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_liability_if_itemizing.py:2`): attribute 'simulation' on value expression
 - **tax_liability_if_not_itemizing** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_liability_if_not_itemizing.py:2`): attribute 'simulation' on value expression
 - **tax_unit_childcare_expenses** (`policyengine_us/variables/household/expense/childcare/tax_unit_childcare_expenses.py:4`): attribute 'spm_unit' on value expression
-- **tax_unit_combined_income_for_social_security_taxability** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_combined_income_for_social_security_taxability.py:10`): parameter 'gov.irs.social_security.taxability.combined_income_ss_fraction' outside emitted subtrees
 - **tax_unit_earned_income** (`policyengine_us/tools/general.py:2`): unbound name 'variable'
 - **tax_unit_earned_income_last_year** (`policyengine_us/tools/general.py:2`): unbound name 'variable'
 - **tax_unit_fpg** (`policyengine_us/variables/gov/hhs/tax_unit_fpg.py:3`): person ref to non-person variable 'state_group_str'
 - **tax_unit_household_id** (`policyengine_us/variables/household/demographic/tax_unit/tax_unit_household_id.py:3`): unrecognized call tax_unit.value_from_first_person
-- **tax_unit_is_required_to_file** (`policyengine_us/variables/gov/irs/tax_unit_is_required_to_file.py:4`): parameter 'gov.irs.income.exemption.suspended' outside emitted subtrees
-- **tax_unit_itemizes** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_unit_itemizes.py:4`): parameter 'gov.simulation.branch_to_determine_itemization' outside emitted subtrees
+- **tax_unit_is_required_to_file** (`policyengine_us/variables/gov/irs/tax_unit_is_required_to_file.py:8`): non-value handle used as value
+- **tax_unit_itemizes** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_unit_itemizes.py:13`): np.abs
 - **tax_unit_medicaid_income_level** (`policyengine_us/variables/gov/hhs/medicaid/income/tax_unit_medicaid_income_level.py:5`): person ref to non-person variable 'state_group_str'
 - **tax_unit_size** (`policyengine_us/variables/gov/irs/tax_unit/tax_unit_size.py:2`): unrecognized call tax_unit.nb_persons
-- **tax_unit_ss_combined_income_excess** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_ss_combined_income_excess.py:20`): parameter 'gov.irs.social_security.taxability.threshold.base.separate_cohabitating' outside emitted subtrees
 - **tax_unit_state** (`policyengine_us/variables/household/demographic/geographic/tax_unit_state.py:2`): person ref to non-person variable 'state_code_str'
-- **tax_unit_taxable_social_security** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_taxable_social_security.py:21`): parameter 'gov.irs.social_security.taxability.threshold.base.separate_cohabitating' outside emitted subtrees
-- **tax_unit_taxable_unemployment_compensation** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/tax_unit_taxable_unemployment_compensation.py:8`): unsupported parameter subscript on 'gov.irs.unemployment_compensation.exemption.cutoff'
+- **tax_unit_taxable_social_security** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_taxable_social_security.py:63`): unrecognized call select
 - **tax_unit_weight** (`policyengine_us/variables/household/demographic/weights/tax_unit_weight.py:2`): person ref to non-person variable 'household_weight'
-- **taxable_alimony_income** (`policyengine_us/variables/household/income/person/misc/taxable_alimony_income.py:7`): calc() on non-scale parameter 'gov.irs.ald.alimony_expense.divorce_year_threshold'
-- **taxable_earnings_for_federal_unemployment_tax** (`policyengine_us/variables/gov/irs/tax/payroll/unemployment/taxable_earnings_for_federal_unemployment_tax.py:4`): parameter 'gov.irs.payroll.federal_unemployment.taxable_wage_base' outside emitted subtrees
-- **taxable_earnings_for_social_security** (`policyengine_us/variables/gov/irs/tax/payroll/social_security/taxable_earnings_for_social_security.py:3`): parameter 'gov.irs.payroll.social_security.cap' outside emitted subtrees
 - **taxable_earnings_for_state_unemployment_tax** (`policyengine_us/variables/gov/states/tax/payroll/unemployment/taxable_earnings_for_state_unemployment_tax.py:2`): unrecognized call select_state_unemployment_tax_parameter
-- **taxable_income_deductions_if_itemizing** (`?:0`): adds via unknown parameter path 'gov.irs.deductions.deductions_if_itemizing'
-- **taxable_income_deductions_if_not_itemizing** (`?:0`): adds via unknown parameter path 'gov.irs.deductions.deductions_if_not_itemizing'
+- **taxable_income_deductions_if_itemizing** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.deductions_if_itemizing'
+- **taxable_income_deductions_if_not_itemizing** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.deductions_if_not_itemizing'
 - **taxable_income_less_qbid** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/taxable_income_less_qbid.py:4`): unsupported syntax ListComp
-- **taxable_self_employment_income** (`policyengine_us/variables/gov/irs/tax/self_employment/taxable_self_employment_income.py:16`): parameter 'gov.irs.self_employment.rate.social_security' outside emitted subtrees
 - **taxable_social_security** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security.py:8`): np.zeros_like
-- **taxable_social_security_tier_1** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security_tier_1.py:14`): parameter 'gov.irs.social_security.taxability.threshold.base.separate_cohabitating' outside emitted subtrees
+- **taxable_social_security_tier_1** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security_tier_1.py:40`): unrecognized call select
 - **taxable_ss_magi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_ss_magi.py:5`): unsupported syntax ListComp
 - **taxable_uc_agi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/taxable_uc_agi.py:4`): unsupported syntax ListComp
 - **taxsim_age1** (`policyengine_us/variables/contrib/taxsim/taxsim_age1.py:5`): expected a string literal
@@ -2856,276 +1583,144 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **taxsim_dep13** (`policyengine_us/variables/contrib/taxsim/taxsim_dep13.py:2`): unrecognized call tax_unit.members
 - **taxsim_dep17** (`policyengine_us/variables/contrib/taxsim/taxsim_dep17.py:2`): unrecognized call tax_unit.members
 - **taxsim_mstat** (`policyengine_us/variables/contrib/taxsim/taxsim_mstat.py:4`): unrecognized call select
-- **taxsim_ok_child_tax_credit_component** (`policyengine_us/variables/gov/states/ok/tax/income/credits/taxsim_ok_child_tax_credit_component.py:8`): parameter 'gov.states.ok.tax.income.credits.child.cdcc_fraction' outside emitted subtrees
 - **taxsim_state** (`policyengine_us/variables/contrib/taxsim/taxsim_state.py:2`): person ref to non-person variable 'state_code_str'
 - **taxsim_state_agi** (`policyengine_us/variables/gov/states/tax/income/taxsim_state_agi.py:15`): person ref to non-person variable 'state_code_str'
-- **taxsim_state_cdcc** (`?:0`): adds via unknown parameter path 'gov.states.household.state_cdccs'
-- **taxsim_state_ctc** (`?:0`): adds via unknown parameter path 'gov.states.household.state_ctcs'
-- **taxsim_state_eitc** (`?:0`): adds via unknown parameter path 'gov.states.household.state_eitcs'
-- **taxsim_state_property_tax_credit** (`?:0`): adds via unknown parameter path 'gov.states.household.state_property_tax_credits'
-- **taxsim_state_taxable_income** (`?:0`): adds via unknown parameter path 'gov.states.household.state_taxable_incomes'
-- **taxsim_v12** (`policyengine_us/variables/contrib/taxsim/taxsim_v12.py:7`): parameter 'gov.irs.social_security.taxability.combined_income_ss_fraction' outside emitted subtrees
+- **taxsim_state_cdcc** (`?:0`): adds via DATED parameter list 'gov.states.household.state_cdccs'
+- **taxsim_state_ctc** (`?:0`): adds via DATED parameter list 'gov.states.household.state_ctcs'
+- **taxsim_state_eitc** (`?:0`): adds via DATED parameter list 'gov.states.household.state_eitcs'
+- **taxsim_state_property_tax_credit** (`?:0`): adds via DATED parameter list 'gov.states.household.state_property_tax_credits'
+- **taxsim_v12** (`policyengine_us/variables/contrib/taxsim/taxsim_v12.py:42`): unrecognized call select
 - **taxsim_year** (`policyengine_us/variables/contrib/taxsim/taxsim_year.py:2`): unbound name 'period'
 - **three_digit_zip_code** (`policyengine_us/variables/household/demographic/geographic/zip_code/three_digit_zip_code.py:2`): unbound name 'pd'
-- **tip_income_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tip_income/tip_income_deduction.py:10`): unsupported parameter subscript on 'gov.irs.deductions.tip_income.phase_out.start'
-- **tip_income_deduction_ssn_requirement_met** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tip_income/tip_income_deduction_ssn_requirement_met.py:6`): isin against non-list param 'gov.irs.deductions.tip_income.eligible_ssn_card_type'
 - **tn_elderly_property_tax_relief** (`policyengine_us/variables/gov/states/tn/tax/property/elderly_property_tax_relief/tn_elderly_property_tax_relief.py:5`): person ref to non-person variable 'tax_unit_is_joint'
 - **tn_elderly_property_tax_relief_eligible** (`policyengine_us/variables/gov/states/tn/tax/property/elderly_property_tax_relief/tn_elderly_property_tax_relief_eligible.py:5`): person ref to non-person variable 'tax_unit_is_joint'
-- **tn_ff** (`policyengine_us/variables/gov/states/tn/dhs/ff/tn_ff.py:14`): parameter 'gov.states.tn.dhs.ff.payment.max_family_size' outside emitted subtrees
-- **tn_ff_child_care_deduction** (`policyengine_us/variables/gov/states/tn/dhs/ff/income/tn_ff_child_care_deduction.py:7`): calc() on non-scale parameter 'gov.states.tn.dhs.ff.income.deductions.child_care_deduction'
+- **tn_ff** (`policyengine_us/variables/gov/states/tn/dhs/ff/tn_ff.py:16`): unsupported parameter subscript on 'gov.states.tn.dhs.ff.payment.consolidated_need_standard'
 - **tn_ff_countable_resources** (`policyengine_us/variables/gov/states/tn/dhs/ff/eligibility/tn_ff_countable_resources.py:3`): person ref to non-person variable 'household_vehicles_value'
-- **tn_ff_earned_income_after_disregard** (`policyengine_us/variables/gov/states/tn/dhs/ff/income/tn_ff_earned_income_after_disregard.py:4`): parameter 'gov.states.tn.dhs.ff.income.deductions.earned_income_disregard' outside emitted subtrees
-- **tn_ff_income_eligible** (`policyengine_us/variables/gov/states/tn/dhs/ff/eligibility/tn_ff_income_eligible.py:10`): parameter 'gov.states.tn.dhs.ff.payment.max_family_size' outside emitted subtrees
-- **tn_ff_payment_standard** (`policyengine_us/variables/gov/states/tn/dhs/ff/tn_ff_payment_standard.py:8`): parameter 'gov.states.tn.dhs.ff.payment.max_family_size' outside emitted subtrees
-- **tn_ff_resources_eligible** (`policyengine_us/variables/gov/states/tn/dhs/ff/eligibility/tn_ff_resources_eligible.py:4`): parameter 'gov.states.tn.dhs.ff.resources.limit' outside emitted subtrees
+- **tn_ff_income_eligible** (`policyengine_us/variables/gov/states/tn/dhs/ff/eligibility/tn_ff_income_eligible.py:12`): unsupported parameter subscript on 'gov.states.tn.dhs.ff.payment.consolidated_need_standard'
+- **tn_ff_payment_standard** (`policyengine_us/variables/gov/states/tn/dhs/ff/tn_ff_payment_standard.py:10`): unsupported parameter subscript on 'gov.states.tn.dhs.ff.payment.standard_payment_amount'
 - **tob_revenue_medicare_hi** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_medicare_hi.py:13`): attribute 'simulation' on value expression
 - **tob_revenue_oasdi** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_oasdi.py:13`): attribute 'simulation' on value expression
 - **tob_revenue_total** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_total.py:8`): attribute 'simulation' on value expression
-- **total_itemized_taxable_income_deductions** (`?:0`): adds via unknown parameter path 'gov.irs.deductions.itemized_deductions'
-- **total_misc_deductions** (`?:0`): adds via unknown parameter path 'gov.irs.deductions.itemized.misc.sources'
-- **tuition_and_fees_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tuition_and_fees_deduction.py:11`): calc() on non-scale parameter 'gov.irs.deductions.tuition_and_fees.joint'
-- **tx_ccs_asset_eligible** (`policyengine_us/variables/gov/states/tx/twc/ccs/eligibility/tx_ccs_asset_eligible.py:5`): parameter 'gov.states.tx.twc.ccs.assets.limit' outside emitted subtrees
-- **tx_ccs_child_age_category** (`policyengine_us/variables/gov/states/tx/twc/ccs/tx_ccs_child_age_category.py:8`): parameter 'gov.states.tx.twc.ccs.payment.uses_expanded_age_groups' outside emitted subtrees
+- **total_itemized_taxable_income_deductions** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.itemized_deductions'
+- **tuition_and_fees_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tuition_and_fees_deduction.py:11`): ExtRat scale 'gov.irs.deductions.tuition_and_fees.joint' in value position
+- **tx_ccs_child_age_category** (`policyengine_us/variables/gov/states/tx/twc/ccs/tx_ccs_child_age_category.py:10`): unrecognized call select
 - **tx_ccs_copay** (`policyengine_us/variables/gov/states/tx/twc/ccs/copay/tx_ccs_copay.py:9`): unrecognized call spm_unit.members
-- **tx_ccs_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.tx.twc.ccs.income.sources'
-- **tx_ccs_eligible_child** (`policyengine_us/variables/gov/states/tx/twc/ccs/eligibility/tx_ccs_eligible_child.py:5`): parameter 'gov.states.tx.twc.ccs.age_threshold.disabled_child' outside emitted subtrees
-- **tx_ccs_income_eligible** (`policyengine_us/variables/gov/states/tx/twc/ccs/eligibility/tx_ccs_income_eligible.py:7`): parameter 'gov.states.tx.twc.ccs.income.smi_rate' outside emitted subtrees
 - **tx_ccs_payment_rate** (`policyengine_us/variables/gov/states/tx/twc/ccs/payment/tx_ccs_payment_rate.py:2`): attribute 'household' on value expression
-- **tx_ccs_work_requirement_eligible** (`policyengine_us/variables/gov/states/tx/twc/ccs/eligibility/tx_ccs_work_requirement_eligible.py:17`): parameter 'gov.states.tx.twc.ccs.work_requirements.two_parent' outside emitted subtrees
 - **tx_ccs_workforce_board_region** (`policyengine_us/variables/gov/states/tx/twc/ccs/tx_ccs_workforce_board_region.py:9`): unsupported statement For
 - **tx_ceap** (`policyengine_us/variables/gov/states/tx/tdhca/ceap/tx_ceap.py:12`): unrecognized call select
 - **tx_ceap_countable_income_person** (`policyengine_us/variables/gov/states/tx/tdhca/ceap/tx_ceap_countable_income_person.py:3`): add() without literal variable list
-- **tx_ceap_eligible** (`policyengine_us/variables/gov/states/tx/tdhca/ceap/tx_ceap_eligible.py:9`): parameter 'gov.states.tx.tdhca.ceap.income_limit' outside emitted subtrees
-- **tx_chip_premium** (`policyengine_us/variables/gov/states/tx/hhs/chip/tx_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.tx.hhs.chip.enrollment_fee'
-- **tx_dart_free_ride_benefit** (`policyengine_us/variables/gov/states/tx/dart/free_ride/tx_dart_free_ride_benefit.py:4`): parameter 'gov.states.tx.dart.monthly_pass_cost.full_fare' outside emitted subtrees
+- **tx_chip_premium** (`policyengine_us/variables/gov/states/tx/hhs/chip/tx_chip_premium.py:5`): ExtRat scale 'gov.states.tx.hhs.chip.enrollment_fee' in value position
 - **tx_dart_free_ride_eligible_young_child** (`policyengine_us/variables/gov/states/tx/dart/free_ride/tx_dart_free_ride_eligible_young_child.py:6`): unsupported parameter subscript on 'gov.states.tx.dart.reduced_fare.age_threshold.child.thresholds'
-- **tx_dart_reduced_fare_age_eligible** (`policyengine_us/variables/gov/states/tx/dart/reduced_fare/eligibility/tx_dart_reduced_fare_age_eligible.py:6`): parameter 'gov.states.tx.dart.reduced_fare.age_threshold.senior' outside emitted subtrees
-- **tx_dart_reduced_fare_benefit** (`policyengine_us/variables/gov/states/tx/dart/reduced_fare/tx_dart_reduced_fare_benefit.py:3`): parameter 'gov.states.tx.dart.monthly_pass_cost.full_fare' outside emitted subtrees
-- **tx_dart_reduced_fare_program_eligible** (`?:0`): adds via unknown parameter path 'gov.states.tx.dart.qualifying_programs'
-- **tx_dta_csfp_income_eligible** (`policyengine_us/variables/gov/states/tx/dta/csfp/tx_dta_csfp_income_eligible.py:4`): parameter 'gov.states.tx.dta.csfp.fpg_limit' outside emitted subtrees
-- **tx_fpp_age_eligible** (`policyengine_us/variables/gov/states/tx/fpp/tx_fpp_age_eligible.py:5`): parameter 'gov.states.tx.fpp.age_threshold' outside emitted subtrees
+- **tx_dart_reduced_fare_age_eligible** (`policyengine_us/variables/gov/states/tx/dart/reduced_fare/eligibility/tx_dart_reduced_fare_age_eligible.py:10`): bitwise op on non-bool operands
 - **tx_fpp_benefit** (`?:0`): adds list mixes parameter paths: 'gov.states.tx.fpp.annual_benefit'
 - **tx_fpp_countable_earned_income** (`policyengine_us/variables/gov/states/tx/fpp/income/tx_fpp_countable_earned_income.py:4`): add() without literal variable list
 - **tx_fpp_countable_unearned_income** (`policyengine_us/variables/gov/states/tx/fpp/income/tx_fpp_countable_unearned_income.py:3`): add() without literal variable list
-- **tx_fpp_dependent_care_deduction** (`policyengine_us/variables/gov/states/tx/fpp/income/tx_fpp_dependent_care_deduction.py:13`): parameter 'gov.states.tx.fpp.income.child_age_threshold' outside emitted subtrees
-- **tx_fpp_income_limit** (`policyengine_us/variables/gov/states/tx/fpp/tx_fpp_income_limit.py:9`): parameter 'gov.states.tx.fpp.fpg_percentage' outside emitted subtrees
-- **tx_harris_rides_eligible** (`policyengine_us/variables/gov/local/tx/harris/rides/tx_harris_rides_eligible.py:6`): parameter 'gov.local.tx.harris.rides.age_threshold' outside emitted subtrees
-- **tx_harris_rides_subsidy** (`policyengine_us/variables/gov/local/tx/harris/rides/tx_harris_rides_subsidy.py:10`): parameter 'gov.local.tx.harris.rides.customer_payment_rate' outside emitted subtrees
+- **tx_fpp_dependent_care_deduction** (`policyengine_us/variables/gov/states/tx/fpp/income/tx_fpp_dependent_care_deduction.py:17`): attribute 'marital_unit' on value expression
 - **tx_lifeline_supplement** (`?:0`): adds list mixes parameter paths: 'gov.states.tx.uct.lifeline.supplement'
-- **tx_ottanf** (`policyengine_us/variables/gov/states/tx/tanf/ottanf/tx_ottanf.py:5`): parameter 'gov.states.tx.tanf.ottanf.payment_amount' outside emitted subtrees
-- **tx_ottanf_eligible** (`policyengine_us/variables/gov/states/tx/tanf/ottanf/tx_ottanf_eligible.py:17`): parameter 'gov.states.tx.tanf.minimum_grant' outside emitted subtrees
-- **tx_over_65_or_disabled_school_district_homestead_exemption** (`policyengine_us/variables/gov/states/tx/tax/property/school_district_homestead_exemption/tx_over_65_or_disabled_school_district_homestead_exemption.py:9`): parameter 'gov.states.tx.tax.property.school_district_homestead_exemption.over_65_or_disabled_amount' outside emitted subtrees
-- **tx_over_65_or_disabled_school_district_homestead_exemption_eligible** (`policyengine_us/variables/gov/states/tx/tax/property/school_district_homestead_exemption/tx_over_65_or_disabled_school_district_homestead_exemption_eligible.py:6`): parameter 'gov.states.tx.tax.property.school_district_homestead_exemption.age_threshold' outside emitted subtrees
-- **tx_regular_tanf** (`policyengine_us/variables/gov/states/tx/tanf/tx_regular_tanf.py:11`): parameter 'gov.states.tx.tanf.minimum_grant' outside emitted subtrees
-- **tx_school_district_homestead_exemption** (`policyengine_us/variables/gov/states/tx/tax/property/school_district_homestead_exemption/tx_school_district_homestead_exemption.py:4`): parameter 'gov.states.tx.tax.property.school_district_homestead_exemption.general_amount' outside emitted subtrees
-- **tx_ssi_state_supplement** (`policyengine_us/variables/gov/states/tx/hhsc/ssi_state_supplement/tx_ssi_state_supplement.py:6`): parameter 'gov.states.tx.hhsc.ssi_state_supplement.personal_needs_allowance' outside emitted subtrees
-- **tx_tanf_age_eligible_child** (`policyengine_us/variables/gov/states/tx/tanf/assistance_unit/tx_tanf_age_eligible_child.py:9`): parameter 'gov.states.tx.tanf.age_threshold.student_dependent' outside emitted subtrees
-- **tx_tanf_budgetary_needs** (`policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_budgetary_needs.py:21`): parameter 'gov.states.tx.tanf.needs_standard.budgetary_needs.additional_person' outside emitted subtrees
+- **tx_tanf_budgetary_needs** (`policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_budgetary_needs.py:24`): unrecognized call select
 - **tx_tanf_caretaker_type** (`policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_caretaker_type.py:21`): unrecognized call select
-- **tx_tanf_child_support_deduction** (`policyengine_us/variables/gov/states/tx/tanf/income/deductions/tx_tanf_child_support_deduction.py:6`): parameter 'gov.states.tx.tanf.income.deductions.child_support' outside emitted subtrees
 - **tx_tanf_countable_resources** (`policyengine_us/variables/gov/states/tx/tanf/resources/tx_tanf_countable_resources.py:9`): person ref to non-person variable 'household_vehicles_value'
-- **tx_tanf_dependent_care_deduction** (`policyengine_us/variables/gov/states/tx/tanf/income/deductions/tx_tanf_dependent_care_deduction.py:20`): calc() on non-scale parameter 'gov.states.tx.tanf.income.deductions.dependent_care'
-- **tx_tanf_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/tx/tanf/income/earned/tx_tanf_earned_income_after_disregard_person.py:7`): parameter 'gov.states.tx.tanf.income.deductions.work_expense' outside emitted subtrees
-- **tx_tanf_gross_earned_income** (`?:0`): adds via unknown parameter path 'gov.states.tx.tanf.income.sources.earned'
-- **tx_tanf_gross_unearned_income** (`?:0`): adds via unknown parameter path 'gov.states.tx.tanf.income.sources.unearned'
-- **tx_tanf_income_for_budgetary_needs_test** (`policyengine_us/variables/gov/states/tx/tanf/income/tx_tanf_income_for_budgetary_needs_test.py:13`): parameter 'gov.states.tx.tanf.income.deductions.work_expense' outside emitted subtrees
-- **tx_tanf_payment_standard** (`policyengine_us/variables/gov/states/tx/tanf/tx_tanf_payment_standard.py:22`): parameter 'gov.states.tx.tanf.payment_standard.additional_person' outside emitted subtrees
-- **tx_tanf_recognizable_needs_test** (`policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_recognizable_needs_test.py:10`): parameter 'gov.states.tx.tanf.needs_standard.recognizable_needs.rate' outside emitted subtrees
-- **tx_tanf_resources_eligible** (`policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_resources_eligible.py:5`): parameter 'gov.states.tx.tanf.resources.resource_limit' outside emitted subtrees
-- **used_clean_vehicle_credit** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit.py:5`): parameter 'gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price' outside emitted subtrees
+- **tx_tanf_earned_income_after_disregard_person** (`policyengine_us/variables/gov/states/tx/tanf/income/earned/tx_tanf_earned_income_after_disregard_person.py:12`): attribute 'spm_unit' on value expression
+- **tx_tanf_payment_standard** (`policyengine_us/variables/gov/states/tx/tanf/tx_tanf_payment_standard.py:25`): unrecognized call select
 - **used_clean_vehicle_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_credit_limit.py:4`): add() without literal variable list
-- **used_clean_vehicle_credit_eligible** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_eligible.py:7`): parameter 'gov.irs.credits.clean_vehicle.used.eligibility.in_effect' outside emitted subtrees
-- **used_clean_vehicle_credit_potential** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_potential.py:5`): parameter 'gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price' outside emitted subtrees
-- **ut_529_plan_credit** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_529_plan_credit.py:10`): unsupported parameter subscript on 'gov.states.ut.tax.income.credits.plan_529.cap'
+- **used_clean_vehicle_credit_eligible** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_eligible.py:13`): ExtRat breakdown 'gov.irs.credits.clean_vehicle.used.eligibility.income_limit' in value position
 - **ut_at_home_parent_credit** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_at_home_parent_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ut_at_home_parent_credit_agi_eligible** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_at_home_parent_credit_agi_eligible.py:4`): parameter 'gov.states.ut.tax.income.credits.at_home_parent.max_agi' outside emitted subtrees
-- **ut_at_home_parent_credit_earned_income_eligible_person** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_at_home_parent_credit_earned_income_eligible_person.py:6`): parameter 'gov.states.ut.tax.income.credits.at_home_parent.parent_max_earnings' outside emitted subtrees
-- **ut_at_home_parent_credit_potential** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_at_home_parent_credit_potential.py:6`): parameter 'gov.states.ut.tax.income.credits.at_home_parent.max_child_age' outside emitted subtrees
 - **ut_ctc** (`policyengine_us/variables/gov/states/ut/tax/income/credits/child_tax_credit/ut_ctc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ut_ctc_potential** (`policyengine_us/variables/gov/states/ut/tax/income/credits/child_tax_credit/ut_ctc_potential.py:6`): calc() on non-scale parameter 'gov.states.ut.tax.income.credits.ctc.child_age_threshold'
+- **ut_ctc_potential** (`policyengine_us/variables/gov/states/ut/tax/income/credits/child_tax_credit/ut_ctc_potential.py:7`): bitwise op on non-bool operands
 - **ut_eitc** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_eitc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ut_eitc_potential** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_eitc_potential.py:10`): parameter 'gov.states.ut.tax.income.credits.earned_income.rate' outside emitted subtrees
 - **ut_federal_deductions_for_taxpayer_credit** (`policyengine_us/variables/gov/states/ut/tax/income/credits/taxpayer_credit/ut_federal_deductions_for_taxpayer_credit.py:11`): unsupported syntax ListComp
-- **ut_fep_countable_earned_income** (`policyengine_us/variables/gov/states/ut/dwf/fep/income/ut_fep_countable_earned_income.py:10`): parameter 'gov.states.ut.dwf.fep.income.deductions.earned_income_disregard.rate' outside emitted subtrees
-- **ut_fep_earned_income_after_work_expense** (`policyengine_us/variables/gov/states/ut/dwf/fep/income/ut_fep_earned_income_after_work_expense.py:5`): parameter 'gov.states.ut.dwf.fep.income.deductions.work_expense_allowance.amount' outside emitted subtrees
-- **ut_fep_gross_income_eligible** (`policyengine_us/variables/gov/states/ut/dwf/fep/eligibility/ut_fep_gross_income_eligible.py:8`): parameter 'gov.states.ut.dwf.fep.payment_standard.max_unit_size' outside emitted subtrees
-- **ut_fep_net_income_eligible** (`policyengine_us/variables/gov/states/ut/dwf/fep/eligibility/ut_fep_net_income_eligible.py:6`): parameter 'gov.states.ut.dwf.fep.payment_standard.max_unit_size' outside emitted subtrees
-- **ut_fep_payment_standard** (`policyengine_us/variables/gov/states/ut/dwf/fep/ut_fep_payment_standard.py:4`): parameter 'gov.states.ut.dwf.fep.payment_standard.max_unit_size' outside emitted subtrees
-- **ut_fep_resources_eligible** (`policyengine_us/variables/gov/states/ut/dwf/fep/eligibility/ut_fep_resources_eligible.py:6`): parameter 'gov.states.ut.dwf.fep.resources.limit.amount' outside emitted subtrees
+- **ut_fep_gross_income_eligible** (`policyengine_us/variables/gov/states/ut/dwf/fep/eligibility/ut_fep_gross_income_eligible.py:11`): unsupported parameter subscript on 'gov.states.ut.dwf.fep.standard_needs_budget.amount'
+- **ut_fep_net_income_eligible** (`policyengine_us/variables/gov/states/ut/dwf/fep/eligibility/ut_fep_net_income_eligible.py:9`): unsupported parameter subscript on 'gov.states.ut.dwf.fep.standard_needs_budget.amount'
+- **ut_fep_payment_standard** (`policyengine_us/variables/gov/states/ut/dwf/fep/ut_fep_payment_standard.py:5`): unsupported parameter subscript on 'gov.states.ut.dwf.fep.payment_standard.amount'
 - **ut_homeowner_renter_relief** (`policyengine_us/variables/gov/states/ut/tax/property/homeowner_renter_relief/ut_homeowner_renter_relief.py:3`): person ref to non-person variable 'ut_homeowner_renter_relief_household_income'
-- **ut_homeowner_renter_relief_household_income** (`policyengine_us/variables/gov/states/ut/tax/property/homeowner_renter_relief/ut_homeowner_renter_relief_household_income.py:8`): parameter 'gov.states.ut.tax.property.homeowner_renter_relief.adult_age_threshold' outside emitted subtrees
+- **ut_homeowner_renter_relief_household_income** (`policyengine_us/variables/gov/states/ut/tax/property/homeowner_renter_relief/ut_homeowner_renter_relief_household_income.py:9`): attribute 'tax_unit' on value expression
 - **ut_homeowner_renter_relief_nontaxable_income** (`policyengine_us/variables/gov/states/ut/tax/property/homeowner_renter_relief/ut_homeowner_renter_relief_nontaxable_income.py:3`): add() without literal variable list
-- **ut_homeowner_renter_relief_pre_one_claimant_eligible** (`policyengine_us/variables/gov/states/ut/tax/property/homeowner_renter_relief/ut_homeowner_renter_relief_pre_one_claimant_eligible.py:7`): parameter 'gov.states.ut.tax.property.homeowner_renter_relief.age_threshold' outside emitted subtrees
+- **ut_homeowner_renter_relief_pre_one_claimant_eligible** (`policyengine_us/variables/gov/states/ut/tax/property/homeowner_renter_relief/ut_homeowner_renter_relief_pre_one_claimant_eligible.py:9`): person ref to non-person variable 'ut_homeowner_renter_relief_household_income'
 - **ut_homeowner_renter_relief_selected_claimant** (`policyengine_us/variables/gov/states/ut/tax/property/homeowner_renter_relief/ut_homeowner_renter_relief_selected_claimant.py:3`): person ref to non-person variable 'ut_homeowner_renter_relief_pre_one_claimant_eligible'
-- **ut_income_tax_before_credits** (`policyengine_us/variables/gov/states/ut/tax/income/ut_income_tax_before_credits.py:4`): parameter 'gov.states.ut.tax.income.rate' outside emitted subtrees
 - **ut_military_retirement_credit** (`policyengine_us/variables/gov/states/ut/tax/income/credits/military_retirement_credit/ut_military_retirement_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ut_military_retirement_credit_potential** (`policyengine_us/variables/gov/states/ut/tax/income/credits/military_retirement_credit/ut_military_retirement_credit_potential.py:4`): parameter 'gov.states.ut.tax.income.credits.military_retirement.rate' outside emitted subtrees
 - **ut_non_refundable_credits** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ut_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **ut_personal_exemption** (`policyengine_us/variables/gov/states/ut/tax/income/credits/taxpayer_credit/ut_personal_exemption.py:4`): parameter 'gov.states.ut.tax.income.credits.taxpayer.in_effect' outside emitted subtrees
+- **ut_personal_exemption** (`policyengine_us/variables/gov/states/ut/tax/income/credits/taxpayer_credit/ut_personal_exemption.py:8`): unsupported statement AugAssign
 - **ut_personal_exemption_additional_dependent_eligible** (`policyengine_us/variables/gov/states/ut/tax/income/credits/taxpayer_credit/ut_personal_exemption_additional_dependent_eligible.py:4`): unbound name 'period'
-- **ut_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.ut.tax.income.credits.refundable'
 - **ut_retirement_credit** (`policyengine_us/variables/gov/states/ut/tax/income/credits/retirement_credit/ut_retirement_credit.py:5`): unrecognized call applied_state_non_refundable_credit
 - **ut_retirement_credit_max** (`policyengine_us/variables/gov/states/ut/tax/income/credits/retirement_credit/ut_retirement_credit_max.py:8`): unrecognized call tax_unit.members
 - **ut_ss_benefits_credit** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ss_benefits_credit/ut_ss_benefits_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **ut_ss_benefits_credit_max** (`policyengine_us/variables/gov/states/ut/tax/income/credits/ss_benefits_credit/ut_ss_benefits_credit_max.py:18`): parameter 'gov.states.ut.tax.income.rate' outside emitted subtrees
-- **ut_taxpayer_credit_max** (`policyengine_us/variables/gov/states/ut/tax/income/credits/taxpayer_credit/ut_taxpayer_credit_max.py:14`): parameter 'gov.states.ut.tax.income.credits.taxpayer.rate' outside emitted subtrees
-- **ut_taxpayer_credit_phase_out_income** (`policyengine_us/variables/gov/states/ut/tax/income/credits/taxpayer_credit/ut_taxpayer_credit_phase_out_income.py:6`): unsupported parameter subscript on 'gov.states.ut.tax.income.credits.taxpayer.phase_out.threshold'
-- **ut_taxpayer_credit_reduction** (`policyengine_us/variables/gov/states/ut/tax/income/credits/taxpayer_credit/ut_taxpayer_credit_reduction.py:6`): parameter 'gov.states.ut.tax.income.credits.taxpayer.phase_out.rate' outside emitted subtrees
 - **ut_withheld_income_tax** (`policyengine_us/variables/gov/states/ut/tax/income/ut_withheld_income_tax.py:5`): non-value handle used as value
-- **va_529_plan_deduction** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/va_529_plan_deduction.py:9`): parameter 'gov.states.va.tax.income.subtractions.plan_529.cap' outside emitted subtrees
 - **va_age_deduction** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/age_deduction/va_age_deduction.py:8`): unbound name 'period'
-- **va_age_deduction_person** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/age_deduction/va_age_deduction_person.py:8`): parameter 'gov.states.va.tax.income.subtractions.age_deduction.age_minimum' outside emitted subtrees
 - **va_aged_blind_exemption_person** (`policyengine_us/variables/gov/states/va/tax/income/exemptions/va_aged_blind_exemption_person.py:3`): unrecognized call person('is_irs_aged', period).astype
 - **va_agi_share** (`policyengine_us/variables/gov/states/va/tax/income/va_agi_share.py:5`): np.zeros_like
 - **va_capped_state_and_local_sales_or_income_tax** (`policyengine_us/variables/gov/states/va/tax/income/deductions/va_capped_state_and_local_sales_or_income_tax.py:8`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
-- **va_ccsp_activity_eligible** (`policyengine_us/variables/gov/states/va/dss/ccsp/eligibility/va_ccsp_activity_eligible.py:8`): parameter 'gov.states.va.dss.ccsp.activity.min_hours_per_week' outside emitted subtrees
-- **va_ccsp_care_age_group** (`policyengine_us/variables/gov/states/va/dss/ccsp/rates/va_ccsp_care_age_group.py:4`): calc() on non-scale parameter 'gov.states.va.dss.ccsp.maximum_reimbursement_rate.care_age_group'
-- **va_ccsp_child_eligible** (`policyengine_us/variables/gov/states/va/dss/ccsp/eligibility/va_ccsp_child_eligible.py:5`): parameter 'gov.states.va.dss.ccsp.age_threshold.disabled_child' outside emitted subtrees
+- **va_ccsp_care_age_group** (`policyengine_us/variables/gov/states/va/dss/ccsp/rates/va_ccsp_care_age_group.py:0`): Enum-valued formula
 - **va_ccsp_copay** (`policyengine_us/variables/gov/states/va/dss/ccsp/copay/va_ccsp_copay.py:7`): np.divide
 - **va_ccsp_countable_income** (`policyengine_us/variables/gov/states/va/dss/ccsp/income/va_ccsp_countable_income.py:11`): add() without literal variable list
 - **va_ccsp_daily_mrr** (`policyengine_us/variables/gov/states/va/dss/ccsp/rates/va_ccsp_daily_mrr.py:9`): unsupported parameter subscript on 'gov.states.va.dss.ccsp.maximum_reimbursement_rate.center'
-- **va_ccsp_income_eligible** (`policyengine_us/variables/gov/states/va/dss/ccsp/eligibility/va_ccsp_income_eligible.py:10`): unsupported parameter subscript on 'gov.states.va.dss.ccsp.income.initial_eligibility_fpg_rate'
+- **va_ccsp_income_eligible** (`policyengine_us/variables/gov/states/va/dss/ccsp/eligibility/va_ccsp_income_eligible.py:14`): person ref to non-person variable 'county_str'
 - **va_ccsp_locality_group** (`policyengine_us/variables/gov/states/va/dss/ccsp/va_ccsp_locality_group.py:2`): person ref to non-person variable 'county_str'
 - **va_ccsp_ready_region** (`policyengine_us/variables/gov/states/va/dss/ccsp/rates/va_ccsp_ready_region.py:7`): np.isin outside enum idioms
 - **va_child_dependent_care_deduction_cdcc_limit** (`policyengine_us/variables/gov/states/va/tax/income/deductions/cdcc_expense/va_child_dependent_care_deduction_cdcc_limit.py:2`): unbound name 'period'
-- **va_disability_income_subtraction_person** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/va_disability_income_subtraction_person.py:3`): parameter 'gov.states.va.tax.income.subtractions.disability_income.amount' outside emitted subtrees
-- **va_educator_expense_deduction** (`policyengine_us/variables/gov/states/va/tax/income/deductions/educator_expense/va_educator_expense_deduction.py:10`): parameter 'gov.states.va.tax.income.deductions.educator_expense.cap' outside emitted subtrees
-- **va_federal_state_employees_subtraction_person** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/va_federal_state_employees_subtraction_person.py:5`): parameter 'gov.states.va.tax.income.subtractions.disability_income.amount' outside emitted subtrees
-- **va_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/va/tax/income/va_income_tax_before_non_refundable_credits.py:4`): calc() on non-scale parameter 'gov.states.va.tax.income.rates'
 - **va_income_tax_if_claiming_non_refundable_eitc** (`policyengine_us/variables/gov/states/va/tax/income/credits/eitc/refundability_calculation/va_income_tax_if_claiming_non_refundable_eitc.py:2`): attribute 'simulation' on value expression
 - **va_income_tax_if_claiming_refundable_eitc** (`policyengine_us/variables/gov/states/va/tax/income/credits/eitc/refundability_calculation/va_income_tax_if_claiming_refundable_eitc.py:2`): attribute 'simulation' on value expression
 - **va_itemized_deductions** (`policyengine_us/variables/gov/states/va/tax/income/deductions/va_itemized_deductions.py:16`): unsupported parameter subscript on 'gov.states.va.tax.income.deductions.itemized.applicable_amount'
-- **va_low_income_tax_credit** (`policyengine_us/variables/gov/states/va/tax/income/credits/low_income_credit/va_low_income_tax_credit.py:5`): parameter 'gov.states.va.tax.income.credits.eitc.low_income_tax.base' outside emitted subtrees
 - **va_low_income_tax_credit_eligible** (`policyengine_us/variables/gov/states/va/tax/income/credits/low_income_credit/va_low_income_tax_credit_eligible.py:4`): add() without literal variable list
-- **va_medicaid_lifc_income_limit** (`policyengine_us/variables/gov/states/va/dmas/medicaid/lifc/va_medicaid_lifc_income_limit.py:4`): parameter 'gov.states.va.dmas.medicaid.lifc.income_limit.max_household_size' outside emitted subtrees
+- **va_medicaid_lifc_income_limit** (`policyengine_us/variables/gov/states/va/dmas/medicaid/lifc/va_medicaid_lifc_income_limit.py:4`): unrecognized call min_(size, p.max_household_size).astype
 - **va_medicaid_lifc_locality_group** (`policyengine_us/variables/gov/states/va/dmas/medicaid/lifc/va_medicaid_lifc_locality_group.py:6`): unrecognized call select
-- **va_military_basic_pay_subtraction_person** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/va_military_basic_pay/va_military_basic_pay_subtraction_person.py:6`): parameter 'gov.states.va.tax.income.subtractions.military_basic_pay.threshold' outside emitted subtrees
-- **va_military_benefit_subtraction_person** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/va_military_benefit_subtraction_person.py:3`): parameter 'gov.states.va.tax.income.subtractions.military_benefit.amount' outside emitted subtrees
-- **va_must_file** (`policyengine_us/variables/gov/states/va/tax/income/va_must_file.py:5`): unsupported parameter subscript on 'gov.states.va.tax.income.filing_requirement'
-- **va_national_guard_subtraction** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/va_national_guard_subtraction.py:4`): parameter 'gov.states.va.tax.income.subtractions.national_guard_pay.cap' outside emitted subtrees
+- **va_military_benefit_subtraction_person** (`policyengine_us/variables/gov/states/va/tax/income/subtractions/va_military_benefit_subtraction_person.py:5`): if arm without return
 - **va_non_refundable_credits** (`policyengine_us/variables/gov/states/va/tax/income/va_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **va_non_refundable_eitc** (`policyengine_us/variables/gov/states/va/tax/income/credits/eitc/va_non_refundable_eitc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **va_non_refundable_eitc_if_claimed** (`policyengine_us/variables/gov/states/va/tax/income/credits/eitc/va_non_refundable_eitc_if_claimed.py:5`): parameter 'gov.states.va.tax.income.credits.eitc.match.non_refundable' outside emitted subtrees
 - **va_personal_exemption_person** (`policyengine_us/variables/gov/states/va/tax/income/exemptions/va_personal_exemption_person.py:1`): returns a non-value
-- **va_rebate** (`policyengine_us/variables/gov/states/va/tax/income/va_rebate.py:4`): unsupported parameter subscript on 'gov.states.va.tax.income.rebate.amount'
 - **va_reduced_itemized_deductions** (`policyengine_us/variables/gov/states/va/tax/income/deductions/va_reduced_itemized_deductions.py:8`): add() without literal variable list
-- **va_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.va.tax.income.credits.refundable'
-- **va_refundable_eitc_if_claimed** (`policyengine_us/variables/gov/states/va/tax/income/credits/eitc/va_refundable_eitc_if_claimed.py:4`): parameter 'gov.states.va.tax.income.credits.eitc.match.refundable' outside emitted subtrees
 - **va_spouse_tax_adjustment** (`policyengine_us/variables/gov/states/va/tax/income/spouse_tax_adjustment/va_spouse_tax_adjustment.py:12`): unrecognized call tax_unit.min
 - **va_spouse_tax_adjustment_eligible** (`policyengine_us/variables/gov/states/va/tax/income/spouse_tax_adjustment/va_spouse_tax_adjustment_eligible.py:5`): unbound name 'np'
-- **va_standard_deduction** (`policyengine_us/variables/gov/states/va/tax/income/deductions/va_standard_deduction.py:4`): unsupported parameter subscript on 'gov.states.va.tax.income.deductions.standard'
 - **va_subtractions** (`policyengine_us/variables/gov/states/va/tax/income/va_subtractions.py:3`): add() without literal variable list
 - **va_subtractions_person** (`policyengine_us/variables/gov/states/va/tax/income/va_subtractions_person.py:8`): add() without literal variable list
 - **va_tanf** (`policyengine_us/variables/gov/states/va/dss/tanf/va_tanf.py:13`): unrecognized call parameters.gov.states.va.dss.tanf.payment
-- **va_tanf_childcare_deduction** (`policyengine_us/variables/gov/states/va/dss/tanf/income/va_tanf_childcare_deduction.py:17`): calc() on non-scale parameter 'gov.states.va.dss.tanf.income.deductions.dependent_care.full_time'
-- **va_tanf_countable_earned_income** (`policyengine_us/variables/gov/states/va/dss/tanf/income/va_tanf_countable_earned_income.py:6`): calc() on non-scale parameter 'gov.states.va.dss.tanf.income.deductions.earned.flat'
-- **va_tanf_countable_unearned_income** (`policyengine_us/variables/gov/states/va/dss/tanf/income/va_tanf_countable_unearned_income.py:6`): parameter 'gov.states.va.dss.tanf.income.deductions.child_support' outside emitted subtrees
 - **va_tanf_grant_standard** (`policyengine_us/variables/gov/states/va/dss/tanf/va_tanf_grant_standard.py:5`): unrecognized call parameters.gov.states.va.dss.tanf.payment.grant_standard
 - **va_tanf_need_standard** (`policyengine_us/variables/gov/states/va/dss/tanf/va_tanf_need_standard.py:5`): unrecognized call parameters.gov.states.va.dss.tanf.need_standard
 - **va_tanf_up_grant_standard** (`policyengine_us/variables/gov/states/va/dss/tanf/va_tanf_up_grant_standard.py:6`): unrecognized call parameters.gov.states.va.dss.tanf.payment.up_grant_standard
 - **va_withheld_income_tax** (`policyengine_us/variables/gov/states/va/tax/income/va_withheld_income_tax.py:4`): non-value handle used as value
-- **vita_eligible** (`policyengine_us/variables/gov/irs/vita/vita_eligible.py:4`): parameter 'gov.irs.vita.eligibility.income_limit' outside emitted subtrees
-- **vt_529_plan_credit** (`policyengine_us/variables/gov/states/vt/tax/income/credits/vt_529_plan_credit.py:5`): unsupported parameter subscript on 'gov.states.vt.tax.income.credits.plan_529.cap'
-- **vt_amt** (`policyengine_us/variables/gov/states/vt/tax/income/vt_amt.py:10`): calc() on non-scale parameter 'gov.states.vt.tax.income.rates.amt'
-- **vt_capital_gains_exclusion** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/vt_capital_gain_exclusion/vt_capital_gains_exclusion.py:11`): parameter 'gov.states.vt.tax.income.agi.exclusions.capital_gain.flat.cap' outside emitted subtrees
-- **vt_ccfap_age_group** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/vt_ccfap_age_group.py:5`): calc() on non-scale parameter 'gov.states.vt.dcf.ccfap.age_group.months'
-- **vt_ccfap_care_schedule** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/vt_ccfap_care_schedule.py:4`): calc() on non-scale parameter 'gov.states.vt.dcf.ccfap.care_schedule.hours'
-- **vt_ccfap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.vt.dcf.ccfap.income.sources'
-- **vt_ccfap_eligible_child** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/eligibility/vt_ccfap_eligible_child.py:5`): parameter 'gov.states.vt.dcf.ccfap.age_threshold.special_needs' outside emitted subtrees
-- **vt_ccfap_family_share** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/vt_ccfap_family_share.py:9`): calc() on non-scale parameter 'gov.states.vt.dcf.ccfap.family_share.scale'
-- **vt_ccfap_income_eligible** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/eligibility/vt_ccfap_income_eligible.py:5`): parameter 'gov.states.vt.dcf.ccfap.income.fpl_limit' outside emitted subtrees
+- **vt_ccfap_age_group** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/vt_ccfap_age_group.py:0`): Enum-valued formula
+- **vt_ccfap_care_schedule** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/vt_ccfap_care_schedule.py:0`): Enum-valued formula
+- **vt_ccfap_family_share** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/vt_ccfap_family_share.py:9`): ExtRat scale 'gov.states.vt.dcf.ccfap.family_share.scale' in value position
 - **vt_ccfap_state_rate** (`policyengine_us/variables/gov/states/vt/dcf/ccfap/vt_ccfap_state_rate.py:7`): unsupported parameter subscript on 'gov.states.vt.dcf.ccfap.rates.licensed_center'
 - **vt_cdcc** (`policyengine_us/variables/gov/states/vt/tax/income/credits/cdcc/vt_cdcc.py:9`): unbound name 'period'
-- **vt_charitable_contribution_credit** (`policyengine_us/variables/gov/states/vt/tax/income/credits/vt_charitable_contributions_credit.py:8`): calc() on non-scale parameter 'gov.states.vt.tax.income.credits.charitable'
-- **vt_child_care_contributions** (`policyengine_us/variables/gov/states/vt/tax/income/vt_child_care_contributions.py:3`): parameter 'gov.states.vt.tax.income.child_care_contributions.applies' outside emitted subtrees
-- **vt_csrs_retirement_pay_exclusion** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/retirement_income_exemption/vt_csrs_retirement_pay_exclusion.py:9`): parameter 'gov.states.vt.tax.income.agi.retirement_income_exemption.csrs.amount' outside emitted subtrees
-- **vt_ctc** (`policyengine_us/variables/gov/states/vt/tax/income/credits/ctc/vt_ctc.py:6`): parameter 'gov.states.vt.tax.income.credits.ctc.age_limit' outside emitted subtrees
-- **vt_eitc** (`policyengine_us/variables/gov/states/vt/tax/income/vt_eitc.py:7`): parameter 'gov.states.vt.tax.income.credits.eitc.enhanced_structure.in_effect' outside emitted subtrees
-- **vt_elderly_or_disabled_credit** (`policyengine_us/variables/gov/states/vt/tax/income/credits/vt_elderly_or_disabled_credit.py:4`): parameter 'gov.states.vt.tax.income.credits.elderly_or_disabled' outside emitted subtrees
-- **vt_employee_child_care_contribution** (`policyengine_us/variables/gov/states/vt/tax/payroll/child_care/vt_employee_child_care_contribution.py:3`): parameter 'gov.states.vt.tax.payroll.child_care.employee_rate' outside emitted subtrees
-- **vt_employer_child_care_contribution** (`policyengine_us/variables/gov/states/vt/tax/payroll/child_care/vt_employer_child_care_contribution.py:3`): parameter 'gov.states.vt.tax.payroll.child_care.employer_rate' outside emitted subtrees
 - **vt_low_income_cdcc** (`policyengine_us/variables/gov/states/vt/tax/income/credits/cdcc/vt_low_income_cdcc.py:6`): unbound name 'period'
-- **vt_low_income_cdcc_eligible** (`policyengine_us/variables/gov/states/vt/tax/income/credits/cdcc/vt_low_income_cdcc_eligible.py:4`): unsupported parameter subscript on 'gov.states.vt.tax.income.credits.cdcc.low_income.income_threshold'
-- **vt_military_retirement_cap_based_exemption** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/retirement_income_exemption/vt_military_retirement_cap_based_exemption.py:12`): parameter 'gov.states.vt.tax.income.agi.retirement_income_exemption.military_retirement.amount' outside emitted subtrees
 - **vt_military_retirement_income_based_exemption** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/retirement_income_exemption/vt_military_retirement_income_based_exemption.py:14`): np.isinf
-- **vt_military_retirement_pay_exclusion** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/retirement_income_exemption/vt_military_retirement_pay_exclusion.py:21`): parameter 'gov.states.vt.tax.income.agi.retirement_income_exemption.military_retirement.income_based_structure.in_effect' outside emitted subtrees
-- **vt_non_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.vt.tax.income.credits.non_refundable'
-- **vt_nonrefundable_cdcc** (`policyengine_us/variables/gov/states/vt/tax/income/credits/cdcc/vt_nonrefundable_cdcc.py:11`): parameter 'gov.states.vt.tax.income.credits.cdcc.nonrefundable.rate' outside emitted subtrees
+- **vt_non_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.vt.tax.income.credits.non_refundable'
 - **vt_normal_income_tax** (`policyengine_us/variables/gov/states/vt/tax/income/vt_normal_income_tax.py:6`): unrecognized call select
-- **vt_percentage_capital_gains_exclusion** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/vt_capital_gain_exclusion/vt_percentage_capital_gains_exclusion.py:13`): parameter 'gov.states.vt.tax.income.agi.exclusions.capital_gain.percentage.rate' outside emitted subtrees
 - **vt_personal_exemptions** (`policyengine_us/variables/gov/states/vt/tax/income/exemptions/vt_personal_exemptions.py:6`): unrecognized call (~elsewhere_head).astype
-- **vt_reach_up_basic_needs_allowance** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/vt_reach_up_basic_needs_allowance.py:7`): parameter 'gov.states.vt.dcf.reach_up.allowance.basic_needs.max_size' outside emitted subtrees
-- **vt_reach_up_countable_earned_income_person** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/income/vt_reach_up_countable_earned_income_person.py:5`): parameter 'gov.states.vt.dcf.reach_up.income.earned_disregard.flat' outside emitted subtrees
-- **vt_reach_up_countable_unearned_income** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/income/vt_reach_up_countable_unearned_income.py:7`): parameter 'gov.states.vt.dcf.reach_up.income.deductions.child_support' outside emitted subtrees
-- **vt_reach_up_dependent_care_deduction** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/income/deductions/vt_reach_up_dependent_care_deduction.py:11`): parameter 'gov.states.vt.dcf.reach_up.income.deductions.dependent_care' outside emitted subtrees
+- **vt_reach_up_basic_needs_allowance** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/vt_reach_up_basic_needs_allowance.py:8`): unsupported parameter subscript on 'gov.states.vt.dcf.reach_up.allowance.basic_needs.amount'
 - **vt_reach_up_housing_allowance** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/vt_reach_up_housing_allowance.py:4`): person ref to non-person variable 'county'
-- **vt_reach_up_max_benefit_standard** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/vt_reach_up_max_benefit_standard.py:4`): parameter 'gov.states.vt.dcf.reach_up.allowance.housing.non_chittenden' outside emitted subtrees
-- **vt_reach_up_payment_standard** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/vt_reach_up_payment_standard.py:15`): parameter 'gov.states.vt.dcf.reach_up.allowance.ratable_reduction' outside emitted subtrees
-- **vt_reach_up_resources_eligible** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/eligibility/vt_reach_up_resources_eligible.py:7`): parameter 'gov.states.vt.dcf.reach_up.resources.limit' outside emitted subtrees
 - **vt_reach_up_special_housing_allowance** (`policyengine_us/variables/gov/states/vt/dcf/reach_up/vt_reach_up_special_housing_allowance.py:25`): person ref to non-person variable 'county'
-- **vt_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.vt.tax.income.credits.refundable'
+- **vt_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.states.vt.tax.income.credits.refundable'
 - **vt_renter_credit** (`policyengine_us/variables/gov/states/vt/tax/income/credits/renter/vt_renter_credit.py:5`): person ref to non-person variable 'county'
-- **vt_renter_credit_countable_tax_exempt_ss** (`policyengine_us/variables/gov/states/vt/tax/income/credits/renter/vt_renter_credit_countable_tax_exempt_ss.py:5`): parameter 'gov.states.vt.tax.income.credits.renter.countable_tax_exempt_ss_fraction' outside emitted subtrees
-- **vt_retirement_income_exemption** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/retirement_income_exemption/vt_retirement_income_exemption.py:36`): unsupported parameter subscript on 'gov.states.vt.tax.income.agi.retirement_income_exemption.social_security.reduction.start'
-- **vt_retirement_income_exemption_eligible** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/retirement_income_exemption/vt_retirement_income_exemption_eligible.py:42`): unsupported parameter subscript on 'gov.states.vt.tax.income.agi.retirement_income_exemption.social_security.reduction.end'
+- **vt_retirement_income_exemption** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/retirement_income_exemption/vt_retirement_income_exemption.py:53`): unrecognized call round_
 - **vt_standard_deduction** (`policyengine_us/variables/gov/states/vt/tax/income/deductions/vt_standard_deduction.py:5`): unsupported parameter subscript on 'gov.states.vt.tax.income.deductions.standard.base'
 - **vt_subtractions** (`policyengine_us/variables/gov/states/vt/tax/income/adjusted_gross_income/subtractions/vt_subtractions.py:3`): add() without literal variable list
-- **vt_veteran_tax_credit** (`policyengine_us/variables/gov/states/vt/tax/income/credits/vt_veteran_tax_credit.py:17`): parameter 'gov.states.vt.tax.income.credits.veteran.full_credit_threshold' outside emitted subtrees
 - **vt_withheld_income_tax** (`policyengine_us/variables/gov/states/vt/tax/income/vt_withheld_income_tax.py:5`): non-value handle used as value
 - **wa_apple_health_cost_if_enrolled** (`policyengine_us/variables/gov/states/wa/hca/apple_health/costs/wa_apple_health_cost_if_enrolled.py:6`): unbound name 'MedicaidGroup'
-- **wa_apple_health_expansion_eligible** (`policyengine_us/variables/gov/states/wa/hca/apple_health/expansion/eligibility/wa_apple_health_expansion_eligible.py:9`): parameter 'gov.states.wa.hca.apple_health.expansion.eligibility.min_age' outside emitted subtrees
-- **wa_apple_health_expansion_income_eligible** (`policyengine_us/variables/gov/states/wa/hca/apple_health/expansion/eligibility/wa_apple_health_expansion_income_eligible.py:8`): parameter 'gov.states.wa.hca.apple_health.expansion.eligibility.income_limit' outside emitted subtrees
 - **wa_apple_health_group** (`policyengine_us/variables/gov/states/wa/hca/apple_health/costs/wa_apple_health_group.py:5`): unrecognized call select
-- **wa_apple_health_kids_eligible** (`policyengine_us/variables/gov/states/wa/hca/apple_health/kids/eligibility/wa_apple_health_kids_eligible.py:9`): parameter 'gov.states.wa.hca.apple_health.kids.eligibility.age_limit' outside emitted subtrees
-- **wa_apple_health_kids_income_eligible** (`policyengine_us/variables/gov/states/wa/hca/apple_health/kids/eligibility/wa_apple_health_kids_income_eligible.py:8`): parameter 'gov.states.wa.hca.apple_health.kids.income_limit.tier_2' outside emitted subtrees
 - **wa_birth_to_three_eceap** (`?:0`): adds list mixes parameter paths: 'gov.states.wa.dcyf.eceap.birth_to_three_eceap.per_slot_rate'
-- **wa_birth_to_three_eceap_age_eligible** (`policyengine_us/variables/gov/states/wa/dcyf/eceap/birth_to_three_eceap/wa_birth_to_three_eceap_age_eligible.py:4`): parameter 'gov.states.wa.dcyf.eceap.birth_to_three_eceap.age_limit' outside emitted subtrees
 - **wa_birth_to_three_eceap_income_eligible** (`policyengine_us/variables/gov/states/wa/dcyf/eceap/birth_to_three_eceap/wa_birth_to_three_eceap_income_eligible.py:6`): attribute 'spm_unit' on value expression
-- **wa_capital_gains_tax** (`policyengine_us/variables/gov/states/wa/tax/income/wa_capital_gains_tax.py:3`): parameter 'gov.states.wa.tax.income.in_effect' outside emitted subtrees
-- **wa_eceap** (`policyengine_us/variables/gov/states/wa/dcyf/eceap/wa_eceap.py:4`): unsupported parameter subscript on 'gov.states.wa.dcyf.eceap.per_slot_rate'
-- **wa_eceap_age_eligible** (`policyengine_us/variables/gov/states/wa/dcyf/eceap/wa_eceap_age_eligible.py:10`): calc() on non-scale parameter 'gov.states.wa.dcyf.eceap.age_range'
-- **wa_eceap_family_income** (`?:0`): adds via unknown parameter path 'gov.states.wa.dcyf.eceap.income_sources'
 - **wa_eceap_income_eligible** (`policyengine_us/variables/gov/states/wa/dcyf/eceap/wa_eceap_income_eligible.py:3`): attribute 'spm_unit' on value expression
-- **wa_eceap_risk_factor_eligible** (`policyengine_us/variables/gov/states/wa/dcyf/eceap/wa_eceap_risk_factor_eligible.py:6`): parameter 'gov.states.wa.dcyf.eceap.income.risk_factor_pathway.in_effect' outside emitted subtrees
-- **wa_employee_long_term_care_contribution** (`policyengine_us/variables/gov/states/wa/tax/payroll/long_term_care/wa_employee_long_term_care_contribution.py:3`): parameter 'gov.states.wa.tax.payroll.long_term_care.employee_rate' outside emitted subtrees
-- **wa_employee_paid_leave_contribution** (`policyengine_us/variables/gov/states/wa/tax/payroll/paid_leave/wa_employee_paid_leave_contribution.py:4`): parameter 'gov.states.wa.tax.payroll.paid_leave.total_rate' outside emitted subtrees
-- **wa_employer_paid_leave_contribution** (`policyengine_us/variables/gov/states/wa/tax/payroll/paid_leave/wa_employer_paid_leave_contribution.py:3`): parameter 'gov.states.wa.tax.payroll.paid_leave.employer_headcount_threshold' outside emitted subtrees
-- **wa_millionaires_tax** (`policyengine_us/variables/gov/states/wa/tax/income/millionaires_tax/wa_millionaires_tax.py:4`): parameter 'gov.states.wa.tax.income.millionaires_tax.rate' outside emitted subtrees
+- **wa_eceap_risk_factor_eligible** (`policyengine_us/variables/gov/states/wa/dcyf/eceap/wa_eceap_risk_factor_eligible.py:9`): attribute 'spm_unit' on value expression
 - **wa_millionaires_tax_applies** (`policyengine_us/variables/gov/states/wa/tax/income/millionaires_tax/wa_millionaires_tax_applies.py:1`): returns a non-value
-- **wa_millionaires_tax_base_income** (`policyengine_us/variables/gov/states/wa/tax/income/millionaires_tax/wa_millionaires_tax_base_income.py:13`): parameter 'gov.states.wa.tax.income.capital_gains.deductions.charitable.exemption' outside emitted subtrees
-- **wa_millionaires_tax_charitable_deduction** (`policyengine_us/variables/gov/states/wa/tax/income/millionaires_tax/wa_millionaires_tax_charitable_deduction.py:13`): parameter 'gov.states.wa.tax.income.millionaires_tax.deductions.charitable.cap' outside emitted subtrees
-- **wa_millionaires_tax_standard_deduction** (`policyengine_us/variables/gov/states/wa/tax/income/millionaires_tax/wa_millionaires_tax_standard_deduction.py:6`): parameter 'gov.states.wa.tax.income.millionaires_tax.deductions.standard' outside emitted subtrees
-- **wa_paid_leave_taxable_wages** (`policyengine_us/variables/gov/states/wa/tax/payroll/paid_leave/wa_paid_leave_taxable_wages.py:4`): parameter 'gov.irs.payroll.social_security.cap' outside emitted subtrees
 - **wa_pfml_average_weekly_wage** (`policyengine_us/variables/gov/states/wa/pfml/wa_pfml_average_weekly_wage.py:3`): np.floor
-- **wa_pfml_eligible** (`policyengine_us/variables/gov/states/wa/pfml/wa_pfml_eligible.py:6`): parameter 'gov.states.wa.pfml.hours_threshold' outside emitted subtrees
 - **wa_pfml_max_leave_weeks** (`policyengine_us/variables/gov/states/wa/pfml/wa_pfml_max_leave_weeks.py:5`): unrecognized call select
-- **wa_pfml_weekly_benefit_amount** (`policyengine_us/variables/gov/states/wa/pfml/wa_pfml_weekly_benefit_amount.py:4`): parameter 'gov.states.wa.pfml.lower_threshold_fraction' outside emitted subtrees
-- **wa_pte_categorical_eligible** (`policyengine_us/variables/gov/states/wa/dor/property_tax_exemption/senior_disabled/wa_pte_categorical_eligible.py:14`): parameter 'gov.states.wa.dor.property_tax_exemption.senior_disabled.age_threshold' outside emitted subtrees
+- **wa_pfml_weekly_benefit_amount** (`policyengine_us/variables/gov/states/wa/pfml/wa_pfml_weekly_benefit_amount.py:7`): np.floor
 - **wa_pte_combined_disposable_income** (`policyengine_us/variables/gov/states/wa/dor/property_tax_exemption/senior_disabled/income/wa_pte_combined_disposable_income.py:15`): add() without literal variable list
 - **wa_pte_eligible** (`policyengine_us/variables/gov/states/wa/dor/property_tax_exemption/senior_disabled/wa_pte_eligible.py:11`): person ref to non-person variable 'tax_unit_is_joint'
 - **wa_pte_income_eligible** (`policyengine_us/variables/gov/states/wa/dor/property_tax_exemption/senior_disabled/income/wa_pte_income_eligible.py:3`): person ref to non-person variable 'county_str'
 - **wa_pte_tier** (`policyengine_us/variables/gov/states/wa/dor/property_tax_exemption/senior_disabled/income/wa_pte_tier.py:3`): person ref to non-person variable 'county_str'
-- **wa_rca_immigration_status_eligible** (`policyengine_us/variables/gov/states/wa/dshs/rca/eligibility/wa_rca_immigration_status_eligible.py:5`): isin against non-list param 'gov.states.wa.dshs.rca.eligible_immigration_statuses'
-- **wa_rca_immigration_window_eligible** (`policyengine_us/variables/gov/states/wa/dshs/rca/eligibility/wa_rca_immigration_window_eligible.py:6`): parameter 'gov.hhs.orr.refugee_assistance_window_years' outside emitted subtrees
-- **wa_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.wa.tax.income.credits.refundable'
-- **wa_seattle_total_payroll_expense_tax** (`policyengine_us/variables/gov/local/wa/seattle/tax/payroll/payroll_expense/wa_seattle_total_payroll_expense_tax.py:18`): calc() on non-scale parameter 'gov.local.wa.seattle.tax.payroll.payroll_expense.rates.lower_band'
+- **wa_seattle_total_payroll_expense_tax** (`policyengine_us/variables/gov/local/wa/seattle/tax/payroll/payroll_expense/wa_seattle_total_payroll_expense_tax.py:21`): unbound name 'StateCode'
 - **wa_seattle_total_social_housing_tax** (`policyengine_us/variables/gov/local/wa/seattle/tax/payroll/social_housing/wa_seattle_total_social_housing_tax.py:7`): unbound name 'StateCode'
-- **wa_senior_disabled_property_tax_exemption** (`policyengine_us/variables/gov/states/wa/dor/property_tax_exemption/senior_disabled/wa_senior_disabled_property_tax_exemption.py:12`): parameter 'gov.states.wa.dor.property_tax_exemption.senior_disabled.benefit.tier_3_exempt_share' outside emitted subtrees
-- **wa_sfa_student_pathway_eligible** (`policyengine_us/variables/gov/states/wa/dshs/sfa/eligibility/wa_sfa_student_pathway_eligible.py:4`): calc() on non-scale parameter 'gov.states.wa.dshs.sfa.student_pathway.age_eligible'
-- **wa_ssp** (`policyengine_us/variables/gov/states/wa/dshs/ssp/wa_ssp.py:11`): unsupported parameter subscript on 'gov.states.wa.dshs.ssp.amount'
-- **wa_ssp_payment_category** (`policyengine_us/variables/gov/states/wa/dshs/ssp/wa_ssp_payment_category.py:20`): parameter 'gov.states.wa.dshs.ssp.eligibility.disabled_category.in_effect' outside emitted subtrees
-- **wa_tanf_countable_earned_income** (`policyengine_us/variables/gov/states/wa/dshs/tanf/income/wa_tanf_countable_earned_income.py:7`): parameter 'gov.states.wa.dshs.tanf.income.deductions.earned_income_disregard.in_effect' outside emitted subtrees
+- **wa_senior_disabled_property_tax_exemption** (`policyengine_us/variables/gov/states/wa/dor/property_tax_exemption/senior_disabled/wa_senior_disabled_property_tax_exemption.py:45`): unrecognized call select
+- **wa_sfa_student_pathway_eligible** (`policyengine_us/variables/gov/states/wa/dshs/sfa/eligibility/wa_sfa_student_pathway_eligible.py:7`): bitwise op on non-bool operands
+- **wa_ssp_payment_category** (`policyengine_us/variables/gov/states/wa/dshs/ssp/wa_ssp_payment_category.py:24`): attribute 'marital_unit' on value expression
+- **wa_tanf_countable_earned_income** (`policyengine_us/variables/gov/states/wa/dshs/tanf/income/wa_tanf_countable_earned_income.py:7`): if arm without return
 - **wa_tanf_countable_resources** (`policyengine_us/variables/gov/states/wa/dshs/tanf/wa_tanf_countable_resources.py:3`): person ref to non-person variable 'household_vehicles_owned'
-- **wa_tanf_immigration_status_eligible** (`policyengine_us/variables/gov/states/wa/dshs/tanf/eligibility/wa_tanf_immigration_status_eligible.py:7`): isin against non-list param 'gov.hhs.tanf.bar_exempt_immigration_statuses'
-- **wa_tanf_income_eligible** (`policyengine_us/variables/gov/states/wa/dshs/tanf/eligibility/wa_tanf_income_eligible.py:5`): parameter 'gov.states.wa.dshs.tanf.maximum_family_size' outside emitted subtrees
-- **wa_tanf_payment_standard** (`policyengine_us/variables/gov/states/wa/dshs/tanf/benefit/wa_tanf_payment_standard.py:4`): parameter 'gov.states.wa.dshs.tanf.maximum_family_size' outside emitted subtrees
-- **wa_tanf_resources_eligible** (`policyengine_us/variables/gov/states/wa/dshs/tanf/wa_tanf_resources_eligible.py:4`): parameter 'gov.states.wa.dshs.tanf.resource_limit' outside emitted subtrees
+- **wa_tanf_income_eligible** (`policyengine_us/variables/gov/states/wa/dshs/tanf/eligibility/wa_tanf_income_eligible.py:6`): unsupported parameter subscript on 'gov.states.wa.dshs.tanf.income.limit'
+- **wa_tanf_payment_standard** (`policyengine_us/variables/gov/states/wa/dshs/tanf/benefit/wa_tanf_payment_standard.py:5`): unsupported parameter subscript on 'gov.states.wa.dshs.tanf.payment_standard.amount'
 - **wa_wccc_center_age_group** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/payment/wa_wccc_center_age_group.py:5`): unrecognized call select
 - **wa_wccc_center_region** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/payment/wa_wccc_center_region.py:5`): np.isin outside enum idioms
-- **wa_wccc_copay** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/copay/wa_wccc_copay.py:4`): calc() on non-scale parameter 'gov.states.wa.dcyf.wccc.copay.amount'
-- **wa_wccc_copay_waived** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/copay/wa_wccc_copay_waived.py:11`): parameter 'gov.states.wa.dcyf.wccc.copay.teen_parent_age_limit' outside emitted subtrees
-- **wa_wccc_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.wa.dcyf.wccc.sources'
-- **wa_wccc_eligible_child** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/eligibility/wa_wccc_eligible_child.py:9`): parameter 'gov.states.wa.dcyf.wccc.eligibility.age_threshold.child' outside emitted subtrees
 - **wa_wccc_family_home_age_group** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/payment/wa_wccc_family_home_age_group.py:5`): unrecognized call select
 - **wa_wccc_hgp_eligible** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/eligibility/wa_wccc_hgp_eligible.py:2`): person ref to non-person variable 'is_homeless'
 - **wa_wccc_max_monthly_reimbursement** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/payment/wa_wccc_max_monthly_reimbursement.py:15`): unsupported parameter subscript on 'gov.states.wa.dcyf.wccc.rates.center'
@@ -3134,101 +1729,52 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **wa_wccc_smi_limit** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/eligibility/wa_wccc_smi_limit.py:2`): unbound name 'period'
 - **wa_wccc_smi_rate** (`policyengine_us/variables/gov/states/wa/dcyf/wccc/eligibility/wa_wccc_smi_rate.py:13`): person ref to non-person variable 'is_homeless'
 - **wa_working_families_tax_credit** (`policyengine_us/variables/gov/states/wa/tax/income/credits/wa_working_families_tax_credit.py:10`): unrecognized call parameters.gov.irs.credits.eitc
-- **wa_working_families_tax_credit_age_expansion_eligible** (`policyengine_us/variables/gov/states/wa/tax/income/credits/wa_working_families_tax_credit_age_expansion_eligible.py:23`): parameter 'gov.states.wa.tax.income.credits.working_families_tax_credit.age_expansion.min_age' outside emitted subtrees
+- **wa_working_families_tax_credit_age_expansion_eligible** (`policyengine_us/variables/gov/states/wa/tax/income/credits/wa_working_families_tax_credit_age_expansion_eligible.py:35`): unrecognized call parameters.gov.irs.credits.eitc
 - **wa_working_families_tax_credit_maximum_qualifying_income** (`policyengine_us/variables/gov/states/wa/tax/income/credits/wa_working_families_tax_credit_maximum_qualifying_income.py:5`): unrecognized call parameters.gov.irs.credits.eitc
 - **weekly_hours_worked_behavioural_response_income_elasticity** (`policyengine_us/variables/household/income/person/weekly_hours_worked.py:5`): unrecognized call (lsr != 0).any
 - **weekly_hours_worked_behavioural_response_substitution_elasticity** (`policyengine_us/variables/household/income/person/weekly_hours_worked.py:4`): unrecognized call (lsr != 0).any
 - **weeks_worked** (`?:0`): dependency cycle
-- **wi_529_plan_deduction** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_529_plan_deduction.py:10`): unsupported parameter subscript on 'gov.states.wi.tax.income.subtractions.plan_529.cap'
-- **wi_additional_exemption** (`policyengine_us/variables/gov/states/wi/tax/income/exemptions/wi_additional_exemption.py:4`): parameter 'gov.states.wi.tax.income.exemption.old_age' outside emitted subtrees
-- **wi_additions** (`?:0`): adds via unknown parameter path 'gov.states.wi.tax.income.additions.sources'
-- **wi_base_exemption** (`policyengine_us/variables/gov/states/wi/tax/income/exemptions/wi_base_exemption.py:4`): parameter 'gov.states.wi.tax.income.exemption.base' outside emitted subtrees
-- **wi_capital_gain_loss_subtraction** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_capital_gain_loss_subtraction.py:11`): parameter 'gov.states.wi.tax.income.subtractions.capital_gain.fraction' outside emitted subtrees
-- **wi_capital_loss** (`policyengine_us/variables/gov/states/wi/tax/income/additions/wi_capital_loss.py:8`): unsupported parameter subscript on 'gov.states.wi.tax.income.additions.capital_loss.limit'
+- **wi_additional_exemption** (`policyengine_us/variables/gov/states/wi/tax/income/exemptions/wi_additional_exemption.py:4`): unrecognized call (tax_unit('age_head', period) >= p.exemption.old_age).astype
 - **wi_childcare_expense_credit** (`policyengine_us/variables/gov/states/wi/tax/income/credits/childcare_expense/wi_childcare_expense_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **wi_childcare_expense_credit_potential** (`policyengine_us/variables/gov/states/wi/tax/income/credits/childcare_expense/wi_childcare_expense_credit_potential.py:7`): parameter 'gov.states.wi.tax.income.credits.childcare_expense.max_expense' outside emitted subtrees
-- **wi_childcare_expense_subtraction** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_childcare_expense_subtraction.py:11`): parameter 'gov.states.wi.tax.income.subtractions.childcare_expense.max_dependents' outside emitted subtrees
-- **wi_chip_premium** (`policyengine_us/variables/gov/states/wi/hhs/chip/wi_chip_premium.py:5`): calc() on non-scale parameter 'gov.states.wi.hhs.chip.premium.per_child'
-- **wi_earned_income_credit** (`policyengine_us/variables/gov/states/wi/tax/income/credits/earned_income/wi_earned_income_credit.py:5`): parameter 'gov.states.wi.tax.income.credits.earned_income.apply_federal_investment_income_limit' outside emitted subtrees
-- **wi_homestead_credit** (`policyengine_us/variables/gov/states/wi/tax/income/credits/homestead/wi_homestead_credit.py:4`): parameter 'gov.states.wi.tax.income.credits.homestead.property_tax.max' outside emitted subtrees
-- **wi_homestead_eligible** (`policyengine_us/variables/gov/states/wi/tax/income/credits/homestead/wi_homestead_eligible.py:7`): parameter 'gov.states.wi.tax.income.credits.homestead.eligible.min_age' outside emitted subtrees
+- **wi_chip_premium** (`policyengine_us/variables/gov/states/wi/hhs/chip/wi_chip_premium.py:5`): ExtRat scale 'gov.states.wi.hhs.chip.premium.per_child' in value position
+- **wi_earned_income_credit** (`policyengine_us/variables/gov/states/wi/tax/income/credits/earned_income/wi_earned_income_credit.py:5`): if arm without return
+- **wi_homestead_eligible** (`policyengine_us/variables/gov/states/wi/tax/income/credits/homestead/wi_homestead_eligible.py:9`): add() without literal variable list
 - **wi_homestead_income** (`policyengine_us/variables/gov/states/wi/tax/income/credits/homestead/wi_homestead_income.py:3`): add() without literal variable list
-- **wi_homestead_property_tax** (`policyengine_us/variables/gov/states/wi/tax/income/credits/homestead/wi_homestead_property_tax.py:5`): parameter 'gov.states.wi.tax.income.credits.homestead.property_tax.rent_ratio' outside emitted subtrees
 - **wi_income_subtractions** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_income_subtractions.py:3`): add() without literal variable list
-- **wi_income_tax** (`policyengine_us/variables/gov/states/wi/tax/income/wi_income_tax.py:8`): parameter 'gov.states.wi.tax.income.subtractions.retirement_income.exclusion.in_effect' outside emitted subtrees
 - **wi_income_tax_before_credits** (`policyengine_us/variables/gov/states/wi/tax/income/wi_income_before_credits.py:5`): unrecognized call select
 - **wi_itemized_deduction_credit** (`policyengine_us/variables/gov/states/wi/tax/income/credits/itemized_deduction/wi_itemized_deduction_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **wi_itemized_deduction_credit_potential** (`policyengine_us/variables/gov/states/wi/tax/income/credits/itemized_deduction/wi_itemized_deduction_credit_potential.py:6`): parameter 'gov.states.wi.tax.income.credits.itemized_deduction.rate' outside emitted subtrees
 - **wi_married_couple_credit** (`policyengine_us/variables/gov/states/wi/tax/income/credits/married_couple/wi_married_couple_credit.py:5`): unrecognized call applied_state_non_refundable_credit
 - **wi_married_couple_credit_potential** (`policyengine_us/variables/gov/states/wi/tax/income/credits/married_couple/wi_married_couple_credit_potential.py:6`): add() without literal variable list
 - **wi_non_refundable_credits** (`policyengine_us/variables/gov/states/wi/tax/income/credits/wi_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
 - **wi_property_tax_credit** (`policyengine_us/variables/gov/states/wi/tax/income/credits/property_tax/wi_property_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
-- **wi_property_tax_credit_potential** (`policyengine_us/variables/gov/states/wi/tax/income/credits/property_tax/wi_property_tax_credit_potential.py:5`): parameter 'gov.states.wi.tax.income.credits.property_tax.rent_fraction' outside emitted subtrees
-- **wi_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.wi.tax.income.credits.refundable'
-- **wi_retirement_income_exclusion_amount** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_retirement_income_exclusion_amount.py:13`): parameter 'gov.states.wi.tax.income.subtractions.retirement_income.exclusion.min_age' outside emitted subtrees
-- **wi_retirement_income_exclusion_eligible** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_retirement_income_exclusion_eligible.py:8`): parameter 'gov.states.wi.tax.income.subtractions.retirement_income.exclusion.min_age' outside emitted subtrees
 - **wi_retirement_income_exclusion_tax** (`policyengine_us/variables/gov/states/wi/tax/income/wi_retirement_income_exclusion_tax.py:20`): unrecognized call wi_standard_deduction_for_income
-- **wi_retirement_income_subtraction** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_retirement_income_subtraction.py:6`): parameter 'gov.states.wi.tax.income.subtractions.retirement_income.min_age' outside emitted subtrees
-- **wi_retirement_income_subtraction_agi_eligible** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_retirement_income_subtraction_agi_eligible.py:5`): unsupported parameter subscript on 'gov.states.wi.tax.income.subtractions.retirement_income.max_agi'
 - **wi_standard_deduction** (`policyengine_us/variables/gov/states/wi/tax/income/wi_standard_deduction.py:4`): unrecognized call wi_standard_deduction_for_income
 - **wi_unemployment_compensation_subtraction** (`policyengine_us/variables/gov/states/wi/tax/income/subtractions/wi_unemployment_compensation_subtraction.py:6`): unsupported parameter subscript on 'gov.states.wi.tax.income.subtractions.unemployment_compensation.income_phase_out.base'
 - **wi_withheld_income_tax** (`policyengine_us/variables/gov/states/wi/tax/income/wi_withheld_income_tax.py:5`): non-value handle used as value
-- **wi_works** (`policyengine_us/variables/gov/states/wi/dcf/works/wi_works.py:4`): unsupported parameter subscript on 'gov.states.wi.dcf.works.placement.amount'
 - **wi_works_countable_resources** (`policyengine_us/variables/gov/states/wi/dcf/works/resources/wi_works_countable_resources.py:3`): person ref to non-person variable 'household_vehicles_value'
-- **wi_works_income_eligible** (`policyengine_us/variables/gov/states/wi/dcf/works/eligibility/wi_works_income_eligible.py:5`): parameter 'gov.states.wi.dcf.works.income_limit.rate' outside emitted subtrees
-- **wi_works_placement** (`policyengine_us/variables/gov/states/wi/dcf/works/wi_works_placement.py:7`): parameter 'gov.states.wi.dcf.works.placement.cmc_infant_age_limit' outside emitted subtrees
-- **wi_works_resources_eligible** (`policyengine_us/variables/gov/states/wi/dcf/works/eligibility/wi_works_resources_eligible.py:4`): parameter 'gov.states.wi.dcf.works.asset.limit' outside emitted subtrees
+- **wi_works_placement** (`policyengine_us/variables/gov/states/wi/dcf/works/wi_works_placement.py:17`): unrecognized call select
 - **wic_category** (`policyengine_us/variables/gov/usda/wic/wic_category.py:7`): attribute 'family' on value expression
 - **wic_category_str** (`policyengine_us/variables/gov/usda/wic/wic_category_str.py:1`): returns a non-value
 - **wic_countable_income** (`policyengine_us/variables/gov/usda/wic/wic_countable_income.py:4`): add() without literal variable list
 - **wic_food_package** (`policyengine_us/variables/gov/usda/wic/wic_food_package.py:24`): unrecognized call select
 - **wic_food_package_str** (`policyengine_us/variables/gov/usda/wic/wic_food_package_str.py:1`): returns a non-value
 - **wic_fpg** (`policyengine_us/variables/gov/usda/wic/wic_fpg.py:3`): unrecognized call spm_unit.members
-- **wic_if_takes_up** (`policyengine_us/variables/gov/usda/wic/wic_if_takes_up.py:4`): unsupported parameter subscript on 'gov.usda.wic.value'
 - **wic_income_limit** (`policyengine_us/variables/gov/usda/wic/wic_income_limit.py:4`): unrecognized call spm_unit.members
-- **wv_ccap** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap.py:18`): parameter 'gov.states.wv.dhhr.ccap.billing.monthly_rate_min_days' outside emitted subtrees
-- **wv_ccap_activity_eligible** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/eligibility/wv_ccap_activity_eligible.py:12`): parameter 'gov.states.wv.dhhr.ccap.eligibility.activity_hours' outside emitted subtrees
-- **wv_ccap_child_age_category** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_child_age_category.py:4`): calc() on non-scale parameter 'gov.states.wv.dhhr.ccap.age_group.months'
+- **wv_ccap_child_age_category** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_child_age_category.py:0`): Enum-valued formula
 - **wv_ccap_copay** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_copay.py:13`): unrecognized call select
-- **wv_ccap_countable_income** (`?:0`): adds via unknown parameter path 'gov.states.wv.dhhr.ccap.income.countable_income.sources'
-- **wv_ccap_daily_benefit** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_daily_benefit.py:6`): parameter 'gov.states.wv.dhhr.ccap.supplements.special_needs' outside emitted subtrees
+- **wv_ccap_daily_benefit** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_daily_benefit.py:16`): np.divide
 - **wv_ccap_daily_rate** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_daily_rate.py:8`): unsupported parameter subscript on 'gov.states.wv.dhhr.ccap.rates.family_home'
-- **wv_ccap_eligible_child** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/eligibility/wv_ccap_eligible_child.py:9`): parameter 'gov.states.wv.dhhr.ccap.eligibility.special_needs_child_age_limit' outside emitted subtrees
-- **wv_ccap_income_eligible** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/eligibility/wv_ccap_income_eligible.py:10`): parameter 'gov.states.wv.dhhr.ccap.income.fpl_limit' outside emitted subtrees
-- **wv_ccap_informal_age_group** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_informal_age_group.py:4`): calc() on non-scale parameter 'gov.states.wv.dhhr.ccap.age_group.informal_months'
+- **wv_ccap_informal_age_group** (`policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_informal_age_group.py:0`): Enum-valued formula
 - **wv_cdcc** (`policyengine_us/variables/gov/states/wv/tax/income/credits/wv_cdcc.py:5`): unrecognized call applied_state_non_refundable_credit
-- **wv_cdcc_potential** (`policyengine_us/variables/gov/states/wv/tax/income/credits/wv_cdcc_potential.py:5`): parameter 'gov.states.wv.tax.income.credits.cdcc.match' outside emitted subtrees
-- **wv_gross_household_income** (`?:0`): adds via unknown parameter path 'gov.states.wv.tax.income.credits.heptc.gross_household_income.sources'
-- **wv_homestead_excess_property_tax_credit** (`policyengine_us/variables/gov/states/wv/tax/income/credits/heptc/wv_homestead_excess_property_tax_credit.py:10`): parameter 'gov.states.wv.tax.income.credits.heptc.rate.household_income' outside emitted subtrees
-- **wv_homestead_excess_property_tax_credit_eligible** (`policyengine_us/variables/gov/states/wv/tax/income/credits/heptc/wv_homestead_excess_property_tax_credit_eligible.py:8`): parameter 'gov.states.wv.tax.income.credits.heptc.rate.fpg' outside emitted subtrees
-- **wv_homestead_exemption** (`policyengine_us/variables/gov/states/wv/tax/income/exemptions/homestead_exemption/wv_homestead_exemption.py:5`): parameter 'gov.states.wv.tax.income.exemptions.homestead_exemption.max_amount' outside emitted subtrees
 - **wv_income_tax_before_non_refundable_credits** (`policyengine_us/variables/gov/states/wv/tax/income/wv_income_tax_before_non_refundable_credits.py:7`): unrecognized call select
-- **wv_low_income_earned_income_exclusion** (`policyengine_us/variables/gov/states/wv/tax/income/subtractions/low_income_earned_income/wv_low_income_earned_income_exclusion.py:11`): unsupported parameter subscript on 'gov.states.wv.tax.income.subtractions.low_income_earned_income.amount'
-- **wv_low_income_earned_income_exclusion_eligible** (`policyengine_us/variables/gov/states/wv/tax/income/subtractions/low_income_earned_income/wv_low_income_earned_income_exclusion_eligible.py:9`): unsupported parameter subscript on 'gov.states.wv.tax.income.subtractions.low_income_earned_income.income_limit'
 - **wv_low_income_family_tax_credit** (`policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit.py:5`): unrecognized call applied_state_non_refundable_credit
 - **wv_low_income_family_tax_credit_fpg** (`policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit_fpg.py:8`): person ref to non-person variable 'state_group_str'
-- **wv_low_income_family_tax_credit_potential** (`policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit_potential.py:11`): unsupported parameter subscript on 'gov.states.wv.tax.income.credits.liftc.fpg_percent'
+- **wv_low_income_family_tax_credit_potential** (`policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit_potential.py:15`): unrecognized call select
 - **wv_non_refundable_credits** (`policyengine_us/variables/gov/states/wv/tax/income/wv_non_refundable_credits.py:5`): unrecognized call ordered_capped_state_non_refundable_credits
-- **wv_personal_exemption** (`policyengine_us/variables/gov/states/wv/tax/income/exemptions/wv_personal_exemption.py:4`): parameter 'gov.states.wv.tax.income.exemptions.base_personal' outside emitted subtrees
-- **wv_public_pension_subtraction_person** (`policyengine_us/variables/gov/states/wv/tax/income/subtractions/public_pension/wv_public_pension_subtraction_person.py:7`): parameter 'gov.states.wv.tax.income.subtractions.public_pension.max_amount' outside emitted subtrees
-- **wv_refundable_credits** (`?:0`): adds via unknown parameter path 'gov.states.wv.tax.income.credits.refundable'
-- **wv_sctc** (`policyengine_us/variables/gov/states/wv/tax/income/credits/sctc/wv_sctc.py:5`): parameter 'gov.states.wv.tax.income.credits.sctc.max_amount' outside emitted subtrees
-- **wv_sctc_eligible** (`policyengine_us/variables/gov/states/wv/tax/income/credits/sctc/wv_sctc_eligible.py:11`): parameter 'gov.states.wv.tax.income.credits.sctc.fpg_percentage' outside emitted subtrees
-- **wv_senior_citizen_disability_deduction_eligible_person** (`policyengine_us/variables/gov/states/wv/tax/income/subtractions/senior_citizen_disability/wv_senior_citizen_disability_deduction_eligible_person.py:8`): parameter 'gov.states.wv.tax.income.subtractions.senior_citizen_disability_deduction.age_threshold' outside emitted subtrees
-- **wv_senior_citizen_disability_deduction_person** (`policyengine_us/variables/gov/states/wv/tax/income/subtractions/senior_citizen_disability/wv_senior_citizen_disability_deduction_person.py:7`): parameter 'gov.states.wv.tax.income.subtractions.senior_citizen_disability_deduction.cap' outside emitted subtrees
-- **wv_senior_citizen_disability_deduction_total_modifications** (`?:0`): adds via unknown parameter path 'gov.states.wv.tax.income.subtractions.senior_citizen_disability_deduction.modification_sources'
-- **wv_social_security_benefits_subtraction_eligible** (`policyengine_us/variables/gov/states/wv/tax/income/subtractions/social_security/wv_social_security_benefits_subtraction_eligible.py:7`): unsupported parameter subscript on 'gov.states.wv.tax.income.subtractions.social_security_benefits.income_limit'
-- **wv_social_security_benefits_subtraction_person** (`policyengine_us/variables/gov/states/wv/tax/income/subtractions/social_security/wv_social_security_benefits_subtraction_person.py:10`): parameter 'gov.states.wv.tax.income.subtractions.social_security_benefits.rate' outside emitted subtrees
 - **wv_subtractions** (`policyengine_us/variables/gov/states/wv/tax/income/wv_subtractions.py:3`): add() without literal variable list
-- **wv_withheld_income_tax** (`policyengine_us/variables/gov/states/wv/tax/income/wv_withheld_income_tax.py:6`): parameter 'gov.states.wv.tax.income.exemptions.base_personal' outside emitted subtrees
-- **wv_works** (`policyengine_us/variables/gov/states/wv/dhhr/works/wv_works.py:4`): parameter 'gov.states.wv.dhhr.works.max_household_size' outside emitted subtrees
-- **wv_works_countable_earned_income** (`policyengine_us/variables/gov/states/wv/dhhr/works/income/earned/wv_works_countable_earned_income.py:6`): parameter 'gov.states.wv.dhhr.works.income.earned_income_disregard.rate' outside emitted subtrees
-- **wv_works_countable_unearned_income** (`policyengine_us/variables/gov/states/wv/dhhr/works/income/unearned/wv_works_countable_unearned_income.py:6`): calc() on non-scale parameter 'gov.states.wv.dhhr.works.income.child_support_disregard'
-- **wv_works_income_eligible** (`policyengine_us/variables/gov/states/wv/dhhr/works/eligibility/wv_works_income_eligible.py:9`): parameter 'gov.states.wv.dhhr.works.max_household_size' outside emitted subtrees
-- **wv_works_resources_eligible** (`policyengine_us/variables/gov/states/wv/dhhr/works/eligibility/wv_works_resources_eligible.py:5`): parameter 'gov.states.wv.dhhr.works.resources.limit' outside emitted subtrees
-- **wy_power_earned_income_disregard** (`policyengine_us/variables/gov/states/wy/dfs/power/income/wy_power_earned_income_disregard.py:6`): parameter 'gov.states.wy.dfs.power.income.disregard.married_couple' outside emitted subtrees
-- **wy_power_payment_standard** (`policyengine_us/variables/gov/states/wy/dfs/power/wy_power_payment_standard.py:4`): parameter 'gov.states.wy.dfs.power.payment_standard.max_unit_size' outside emitted subtrees
-- **wy_power_resources_eligible** (`policyengine_us/variables/gov/states/wy/dfs/power/eligibility/wy_power_resources_eligible.py:4`): parameter 'gov.states.wy.dfs.power.resources.limit' outside emitted subtrees
+- **wv_works** (`policyengine_us/variables/gov/states/wv/dhhr/works/wv_works.py:6`): unsupported parameter subscript on 'gov.states.wv.dhhr.works.payment_standard.amount'
+- **wv_works_income_eligible** (`policyengine_us/variables/gov/states/wv/dhhr/works/eligibility/wv_works_income_eligible.py:10`): unsupported parameter subscript on 'gov.states.wv.dhhr.works.income.standard_of_need.amount'
+- **wy_power_payment_standard** (`policyengine_us/variables/gov/states/wy/dfs/power/wy_power_payment_standard.py:10`): unsupported parameter subscript on 'gov.states.wy.dfs.power.payment_standard.shelter_qualified'
 - **zip_code_payment_standard** (`policyengine_us/variables/gov/hud/zip_code_payment_standard.py:4`): np.clip
 
 ## Pruned (deliberate scope cuts)

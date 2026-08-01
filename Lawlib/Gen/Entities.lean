@@ -20,12 +20,13 @@ structure Person_Aca where
   lcbp_age_curve_amount_person : Rat := 0
   offered_aca_disqualifying_esi : Bool := false
   pays_aca_premium : Bool := false
-  qualifying_non_marketplace_health_coverage_type_count_at_interview : Rat := 0
   slcsp_age_curve_multiplier : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
-structure Person_Core where
+structure Person_Core_p1 where
   able_contributions_person : Rat := 0
+  adopted_this_year : Bool := false
+  adult_index : Rat := 0
   after_school_expenses : Rat := 0
   age : Rat := 0
   alimony_expense : Rat := 0
@@ -33,6 +34,10 @@ structure Person_Core where
   bank_account_assets : Rat := 0
   bond_assets : Rat := 0
   business_is_sstb : Bool := false
+  casualty_loss : Rat := 0
+  charitable_cash_donations : Rat := 0
+  charitable_non_cash_donations : Rat := 0
+  charitable_non_cash_donations_non_50_pct_orgs : Rat := 0
   child_support_expense : Rat := 0
   child_support_received : Rat := 0
   childcare_attending_days_per_month : Rat := 0
@@ -40,11 +45,21 @@ structure Person_Core where
   childcare_hours_per_day : Rat := 0
   childcare_provider_type_group : ChildcareProviderTypeGroup := .DCC_SACC
   claimed_as_dependent_on_another_return : Bool := false
-  cliff_gap : Rat := 0
+  count_529_contribution_beneficiaries : Rat := 0
+  count_days_postpartum : Rat := 0
+  csrs_retirement_pay : Rat := 0
+  current_pregnancy_month : Rat := 0
+  debt_relief : Rat := 0
+  dependent_care_employer_benefits : Rat := 0
   disability_benefits : Rat := 0
+  divorce_year : Rat := 0
+  early_withdrawal_penalty : Rat := 0
+  educational_assistance : Rat := 0
   elective_deferral_limit : Rat := 0
   employer_contribution_to_health_insurance_premiums_category : EmployerPremiumContribution := .NONE
   employer_headcount : Rat := 0
+  employer_ny_mctmt_zone_1_quarterly_payroll_expense : Rat := 0
+  employer_ny_mctmt_zone_2_quarterly_payroll_expense : Rat := 0
   employer_quarterly_payroll_expense_override : Rat := 0
   employer_state_unemployment_tax_rate_override : Rat := 0
   employer_total_payroll_tax_gross_wages : Rat := 0
@@ -52,68 +67,95 @@ structure Person_Core where
   employer_total_taxable_earnings_for_social_security : Rat := 0
   employer_total_taxable_earnings_for_state_unemployment_tax : Rat := 0
   employment_income : Rat := 0
+  employment_income_before_lsr : Rat := 0
   employment_income_last_year : Rat := 0
+  estate_income : Rat := 0
   farm_income : Rat := 0
   farm_operations_income : Rat := 0
   farm_rent_income : Rat := 0
   financial_assistance : Rat := 0
+  fsla_overtime_premium : Rat := 0
   fsla_overtime_salary_threshold : Rat := 0
   gambling_losses : Rat := 0
   gambling_winnings : Rat := 0
   gi_cash_assistance : Rat := 0
   has_bcc_qualifying_coverage : Bool := false
+  has_champva_health_coverage_at_interview : Bool := false
+  has_chip_health_coverage_at_interview : Bool := false
   has_developmental_delay : Bool := false
   has_individualized_education_program : Bool := false
   has_marketplace_health_coverage_at_interview : Bool := false
+  has_medicaid_health_coverage_at_interview : Bool := false
+  has_other_means_tested_health_coverage_at_interview : Bool := false
   has_tin : Bool := false
+  has_tricare_health_coverage_at_interview : Bool := false
+  has_va_health_coverage_at_interview : Bool := false
   health_insurance_premiums : Rat := 0
   health_insurance_premiums_without_medicare_part_b : Rat := 0
   health_savings_account_payroll_contributions : Rat := 0
   heating_expense_person : Rat := 0
+  home_equity : Rat := 0
+  home_is_on_agricultural_land : Bool := false
   home_mortgage_interest : Rat := 0
   home_mortgage_interest_share : Rat := 0
   hours_worked_last_week : Rat := 0
   illicit_income : Rat := 0
   immigration_status : ImmigrationStatus := .CITIZEN
+  in_out_of_home_care_facility : Bool := false
   investment_expenses : Rat := 0
   investment_in_529_plan_indv : Rat := 0
   investment_income_elected_form_4952 : Rat := 0
   investment_interest_expense : Rat := 0
-  ira_contribution_limit : Rat := 0
   is_blind : Bool := false
   is_breastfeeding : Bool := false
-  is_citizen_or_legal_immigrant : Bool := false
+  is_deaf : Bool := false
   is_disabled : Bool := false
+  is_english_proficient : Bool := false
   is_enrolled_in_head_start : Bool := false
   is_female : Bool := false
   is_full_time_college_student : Bool := false
   is_fully_disabled_service_connected_veteran : Bool := false
   is_grandparent_of_filer_or_spouse : Bool := false
   is_in_foster_care : Bool := false
+  is_in_foster_care_group_home : Bool := false
+  is_in_residential_care_facility : Bool := false
+  is_in_secondary_school : Bool := false
   is_incapable_of_self_care : Bool := false
   is_incarcerated : Bool := false
+  is_migratory_child : Bool := false
   is_military : Bool := false
   is_paid_hourly : Bool := false
   is_parent_of_filer_or_spouse : Bool := false
   is_part_time_college_student : Bool := false
   is_permanently_and_totally_disabled : Bool := false
+  is_permanently_disabled_veteran : Bool := false
   is_pregnant : Bool := false
   is_qualifying_relative_dependent : Bool := false
   is_related_to_head_or_spouse : Bool := false
+  is_runaway_child : Bool := false
   is_self_employed : Bool := false
   is_separated : Bool := false
   is_surviving_spouse : Bool := false
   is_tax_unit_head : Bool := false
   is_tax_unit_spouse : Bool := false
   keogh_distributions : Rat := 0
+  life_insurance_benefits : Rat := 0
+  long_term_capital_gains_on_assets_eligible_for_vt_exclusion : Rat := 0
   long_term_capital_gains_on_collectibles : Rat := 0
   long_term_capital_gains_on_small_business_stock : Rat := 0
   long_term_health_insurance_premiums : Rat := 0
+  marginal_tax_rate : Rat := 0
   military_basic_pay : Rat := 0
   military_retirement_pay : Rat := 0
   military_retirement_pay_survivors : Rat := 0
   military_service_income : Rat := 0
   miscellaneous_income : Rat := 0
+  mo_kansas_city_earnings_tax_taxable_earnings : Rat := 0
+  mo_st_louis_earnings_tax_credit : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure Person_Core_p2 where
+  mo_st_louis_earnings_tax_taxable_earnings : Rat := 0
   non_qualified_dividend_income : Rat := 0
   non_sch_d_capital_gains : Rat := 0
   other_health_insurance_premiums : Rat := 0
@@ -122,12 +164,17 @@ structure Person_Core where
   own_children_in_household : Rat := 0
   partnership_income : Rat := 0
   partnership_self_employment_net_earnings : Rat := 0
+  pension_survivors : Rat := 0
   person_count : Rat := 0
   personal_property : Rat := 0
   pre_subsidy_care_expenses : Rat := 0
   pre_subsidy_childcare_expenses : Rat := 0
   pre_subsidy_rent : Rat := 0
+  pre_subsidy_transportation_expense : Rat := 0
+  pre_tax_health_insurance_premiums : Rat := 0
+  qualified_adoption_assistance_expense : Rat := 0
   qualified_dividend_income : Rat := 0
+  qualified_tuition_expenses : Rat := 0
   railroad_benefits : Rat := 0
   real_estate_taxes : Rat := 0
   receives_or_needs_protective_services : Bool := false
@@ -140,18 +187,21 @@ structure Person_Core where
   roth_ira_contributions_desired : Rat := 0
   s_corp_income : Rat := 0
   schedule_d_capital_gain_distributions : Rat := 0
-  self_employed_pension_contribution_limit : Rat := 0
   self_employed_pension_contributions_desired : Rat := 0
   self_employment_income : Rat := 0
   self_employment_income_before_lsr : Rat := 0
   self_employment_income_last_year : Rat := 0
+  share_of_care_and_support_costs_paid_by_tax_filer : Rat := 0
   short_term_capital_gains : Rat := 0
   ssi_qualifying_quarters_earnings : Rat := 0
   ssi_reported : Rat := 0
   ssn_card_type : SSNCardType := .CITIZEN
   sstb_self_employment_income : Rat := 0
+  sstb_self_employment_income_before_lsr : Rat := 0
+  state_or_federal_salary : Rat := 0
   stock_assets : Rat := 0
   strike_benefits : Rat := 0
+  student_loan_interest : Rat := 0
   survivor_benefits : Rat := 0
   tax_exempt_401k_distributions : Rat := 0
   tax_exempt_403b_distributions : Rat := 0
@@ -160,8 +210,11 @@ structure Person_Core where
   tax_exempt_private_pension_income : Rat := 0
   tax_exempt_public_pension_income : Rat := 0
   tax_exempt_sep_distributions : Rat := 0
+  tax_preparation_fees : Rat := 0
   taxable_401k_distributions : Rat := 0
   taxable_403b_distributions : Rat := 0
+  taxable_estate_value : Rat := 0
+  taxable_federal_pension_income : Rat := 0
   taxable_interest_income : Rat := 0
   taxable_ira_distributions : Rat := 0
   taxable_private_pension_income : Rat := 0
@@ -172,6 +225,7 @@ structure Person_Core where
   traditional_401k_contributions_desired : Rat := 0
   traditional_403b_contributions_desired : Rat := 0
   traditional_ira_contributions_desired : Rat := 0
+  unreimbursed_business_employee_expenses : Rat := 0
   us_govt_interest_person : Rat := 0
   use_reported_ssi : Bool := false
   veterans_benefits : Rat := 0
@@ -180,33 +234,42 @@ structure Person_Core where
   weekly_hours_worked_behavioural_response_income_elasticity : Rat := 0
   weekly_hours_worked_behavioural_response_substitution_elasticity : Rat := 0
   weeks_unemployed : Rat := 0
+  year_of_retirement : Rat := 0
+  years_in_military : Rat := 0
+  years_since_us_entry : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Ed where
   is_federal_work_study_participant : Bool := false
+  pell_grant : Rat := 0
   pell_grant_countable_assets : Rat := 0
+  pell_grant_dependent_available_income : Rat := 0
+  pell_grant_dependent_other_allowances : Rat := 0
+  pell_grant_eligibility_type : PellGrantEligibilityType := .INELIGIBLE
+  pell_grant_formula : PellGrantFormula := .A
+  pell_grant_head_allowances : Rat := 0
+  pell_grant_head_contribution : Rat := 0
+  pell_grant_household_type : PellGrantHouseholdType := .INDEPENDENT_SINGLE
+  pell_grant_simplified_formula_applies : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Hhs where
-  base_part_a_premium : Rat := 0
-  base_part_b_premium : Rat := 0
   ccdf_market_rate : Rat := 0
   chip_category : CHIPCategory := .NONE
   chip_federal_share : Rat := 0
   gross_medicare_part_b_premium : Rat := 0
+  has_emergency_medical_condition : Bool := false
   income_adjusted_part_d_premium_surcharge : Rat := 0
+  is_209b_ssi_recipient_income_eligible_for_medicaid : Bool := false
   is_basic_health_program_eligible : Bool := false
-  is_ccdf_age_eligible : Bool := false
-  is_ccdf_immigration_eligible_child : Bool := false
   is_chip_eligible_standard_pregnant_person : Bool := false
   is_chip_fcep_eligible_person : Bool := false
+  is_enrolled_in_ccdf : Bool := false
+  is_head_start_eligible : Bool := false
+  is_head_start_income_eligible : Bool := false
   is_medicaid_eligible : Bool := false
-  is_medicaid_immigration_status_eligible : Bool := false
-  is_medicaid_long_term_care_home_equity_eligible : Bool := false
-  is_medicare_eligible : Bool := false
   is_optional_senior_or_disabled_asset_eligible : Bool := false
   is_optional_senior_or_disabled_income_eligible : Bool := false
-  is_person_demographic_tanf_eligible : Bool := false
   medicaid_category : MedicaidCategory := .NONE
   medicaid_community_engagement_community_service_hours : Rat := 0
   medicaid_community_engagement_less_than_half_time_education_hours : Rat := 0
@@ -214,17 +277,23 @@ structure Person_Hhs where
   medicaid_cost_if_enrolled : Rat := 0
   medicaid_federal_share : Rat := 0
   medicaid_has_known_claiming_tax_unit : Bool := false
+  medicaid_home_equity_limit_family_exception : Bool := false
   medicaid_income_level : Rat := 0
   medicaid_magi_person : Rat := 0
-  medicaid_non_filer_child_age_eligible : Bool := false
   medicaid_parent_income_limit : Rat := 0
   medicaid_person_is_required_to_file : Bool := false
   medicaid_slcsp_cost_index : Rat := 0
   medicaid_slcsp_state_average_cost_index : Rat := 0
+  medicaid_ssi_recipient_state_classification : MedicaidSSIRecipientStateClassification := .UNKNOWN
   medicaid_tax_dependent_exception_non_custodial_parent : Bool := false
+  medicare_gross_cost : Rat := 0
+  medicare_quarters_of_coverage : Rat := 0
+  months_receiving_social_security_disability : Rat := 0
+  msp_asset_eligible : Bool := false
   msp_benefit_value : Rat := 0
   msp_category : MSPCategory := .NONE
   msp_cost : Rat := 0
+  msp_countable_income : Rat := 0
   msp_federal_cost : Rat := 0
   msp_part_a_premium_coverage : Rat := 0
   msp_part_b_premium_coverage : Rat := 0
@@ -235,70 +304,35 @@ structure Person_Hhs where
   takes_up_chip_if_eligible : Bool := false
   takes_up_medicaid_if_eligible : Bool := false
   takes_up_medicare_if_eligible : Bool := false
-  tanf_gross_earned_income : Rat := 0
-  tanf_gross_unearned_income : Rat := 0
   tanf_person : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Hud where
-  hud_unearned_income : Rat := 0
+  is_hud_dependent : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Irs where
-  adjusted_earnings : Rat := 0
   adjusted_gross_income_person : Rat := 0
-  employee_medicare_tax : Rat := 0
-  employee_social_security_tax : Rat := 0
-  employer_federal_unemployment_tax_rate : Rat := 0
-  employer_medicare_tax : Rat := 0
   employer_payroll_tax : Rat := 0
-  employer_social_security_tax : Rat := 0
   employer_total_payroll_tax : Rat := 0
-  estate_tax_before_credits : Rat := 0
   estate_tax_credit : Rat := 0
-  fica_pre_tax_contributions : Rat := 0
   irs_gross_income : Rat := 0
-  is_cdcc_eligible : Bool := false
+  is_eligible_for_american_opportunity_credit : Bool := false
+  is_eligible_for_lifetime_learning_credit : Bool := false
   loss_limited_net_capital_gains_person : Rat := 0
-  meets_american_opportunity_credit_identification_requirements : Bool := false
-  meets_lifetime_learning_credit_identification_requirements : Bool := false
-  pre_tax_contributions : Rat := 0
   qualified_business_income : Rat := 0
-  savers_credit_person : Rat := 0
-  self_employment_tax : Rat := 0
+  retired_on_total_disability : Bool := false
+  savers_credit_qualified_contributions : Rat := 0
   sstb_qualified_business_income : Rat := 0
-  taxable_earnings_for_federal_unemployment_tax : Rat := 0
+  student_loan_interest_ald : Rat := 0
   taxable_social_security : Rat := 0
+  total_disability_payments : Rat := 0
   treasury_tipped_occupation_code : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Local_ca where
-  ca_ala_general_assistance_age_eligible : Bool := false
-  ca_ala_general_assistance_countable_income_person : Rat := 0
-  ca_ala_general_assistance_immigration_status_eligible : Bool := false
-  ca_cc_general_assistance_age_eligible : Bool := false
-  ca_cc_general_assistance_countable_income_person : Rat := 0
-  ca_cc_general_assistance_immigration_status_eligible : Bool := false
-  ca_marin_general_relief_gross_income : Rat := 0
-  ca_marin_general_relief_immigration_status_eligible_person : Bool := false
-  ca_oc_general_relief_countable_earned_income : Rat := 0
-  ca_oc_general_relief_eligible_person : Bool := false
-  ca_oc_general_relief_gross_unearned_income : Rat := 0
-  ca_riv_general_relief_earned_income : Rat := 0
-  ca_riv_general_relief_earned_income_deductions : Rat := 0
   ca_riv_general_relief_excluded_income : Rat := 0
-  ca_riv_general_relief_immigration_status_eligible : Bool := false
-  ca_riv_general_relief_meets_work_requirements : Bool := false
-  ca_riv_general_relief_unearned_income : Rat := 0
-  ca_scc_general_assistance_age_eligible : Bool := false
   ca_scc_general_assistance_countable_income_person : Rat := 0
-  ca_scc_general_assistance_immigration_status_eligible : Bool := false
-  ca_sf_caap_earned_income : Rat := 0
-  ca_sf_caap_earned_income_disregard : Rat := 0
-  ca_sf_caap_immigration_status_eligible : Bool := false
-  ca_sf_caap_unearned_income : Rat := 0
-  ca_smc_general_assistance_eligible_person : Bool := false
-  la_general_relief_gross_income : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Local_co where
@@ -306,7 +340,6 @@ structure Person_Local_co where
   co_glendale_total_business_occupational_privilege_tax : Rat := 0
   co_greenwood_village_total_business_occupational_privilege_tax : Rat := 0
   co_sheridan_total_business_occupational_privilege_tax : Rat := 0
-  is_co_denver_dhs_elderly : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Local_mo where
@@ -315,7 +348,6 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Local_ny where
   ny_mctmt_employer_tax : Rat := 0
-  ny_mctmt_total_employer_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Local_or where
@@ -341,6 +373,7 @@ structure Person_Ssa where
   is_in_medicaid_facility : Bool := false
   is_ssi_aged_blind_disabled : Bool := false
   meets_ssi_disability_criteria : Bool := false
+  never_eligible_for_social_security_benefits : Bool := false
   receives_ssi : Bool := false
   social_security_dependents : Rat := 0
   social_security_disability : Rat := 0
@@ -349,12 +382,10 @@ structure Person_Ssa where
   ss_full_retirement_age_months : Rat := 0
   ss_pia : Rat := 0
   ss_retirement_age_adjustment_factor : Rat := 0
-  ss_retirement_eligible : Bool := false
   ssi_amount_if_eligible : Rat := 0
   ssi_countable_income : Rat := 0
   ssi_couple_computation_applies : Bool := false
   ssi_earned_income_deemed_from_ineligible_spouse : Rat := 0
-  ssi_engaged_in_sga : Bool := false
   ssi_federal_living_arrangement : SSIFederalLivingArrangement := .OWN_HOUSEHOLD
   ssi_income_deemed_from_ineligible_spouse : Rat := 0
   ssi_pmv_applies : Bool := false
@@ -370,221 +401,164 @@ structure Person_States where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ak where
-  ak_atap_countable_earned_income_person : Rat := 0
   ak_ccap_charged_rate : Rat := 0
-  ak_ccap_child_age_eligible : Bool := false
   ak_ccap_max_provider_rate_per_child : Rat := 0
-  ak_ccap_special_needs_supplement : Rat := 0
+  ak_permanent_fund_dividend : Rat := 0
   ak_ssp_claim_type : AKSSPClaimType := .INDIVIDUAL
-  ak_ssp_eligible : Bool := false
   ak_ssp_payment_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_al where
-  al_ccsp_eligible_child : Bool := false
   al_meets_snf_criteria : Bool := false
   al_receives_elderly_disabled_medicaid_waiver : Bool := false
-  al_retirement_exemption_person : Rat := 0
   al_ssp_grandfathered : Bool := false
   al_ssp_payment_category : ALSSPPaymentCategory := .NONE
+  al_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ar where
-  ar_additional_tax_credit_for_qualified_individuals_person : Rat := 0
-  ar_capped_retirement_or_disability_benefits_exemption_person : Rat := 0
-  ar_exemptions : Rat := 0
-  ar_gross_income_indiv : Rat := 0
-  ar_gross_income_joint : Rat := 0
   ar_income_tax_before_non_refundable_credits_indiv : Rat := 0
   ar_income_tax_before_non_refundable_credits_joint : Rat := 0
-  ar_inflation_relief_credit_person : Rat := 0
   ar_itemized_deductions_indiv : Rat := 0
   ar_itemized_deductions_joint : Rat := 0
-  ar_personal_credit_dependent : Rat := 0
-  ar_personal_credit_disabled_dependent : Rat := 0
+  ar_medicaid_work_requirement_subject : Bool := false
   ar_post_secondary_education_tuition_deduction_person : Rat := 0
   ar_sra_daily_base_rate : Rat := 0
   ar_sra_state_share : Rat := 0
-  ar_standard_deduction_indiv : Rat := 0
-  ar_standard_deduction_joint : Rat := 0
-  is_ar_sra_age_eligible : Bool := false
+  ar_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_az where
   az_530a_distribution : Rat := 0
-  az_aged_exemption : Rat := 0
+  az_aged_exemption_eligible_person : Rat := 0
   az_ccap_daily_rate : Rat := 0
-  az_ccap_eligible_child : Bool := false
-  az_parents_grandparents_exemption : Rat := 0
-  az_tanf_earned_income_after_disregard_person : Rat := 0
+  az_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ca where
-  ca_calworks_child_care_child_age_eligible : Bool := false
-  ca_calworks_child_care_immigration_status_eligible_person : Bool := false
   ca_calworks_child_care_payment_factor : Rat := 0
   ca_calworks_child_care_payment_standard : Rat := 0
+  ca_calworks_child_care_time_category : CaCalworksChildCareTimeCategory := .WEEKLY
   ca_calworks_child_care_time_coefficient : Rat := 0
   ca_calworks_child_care_welfare_to_work : Rat := 0
-  ca_employee_state_disability_insurance_contribution : Rat := 0
-  ca_employer_employment_training_tax : Rat := 0
-  ca_foster_care_minor_dependent : Bool := false
-  ca_foster_youth_tax_credit_person : Rat := 0
-  ca_snap_immigration_status_eligible : Bool := false
+  ca_cvrp_vehicle_rebate_amount : Rat := 0
+  ca_in_home_supportive_services : Rat := 0
+  ca_in_medical_care_facility : Bool := false
   ca_state_disability_insurance : Rat := 0
-  ca_tanf_earned_income_person : Rat := 0
   ca_wdp_asset_eligible : Bool := false
-  ca_wdp_income_eligible : Bool := false
-  ca_wdp_premium : Rat := 0
+  ca_wdp_countable_income : Rat := 0
   ca_wdp_ssi_ssp_income_eligible : Bool := false
+  ca_withheld_income_tax : Rat := 0
+  is_ca_cvrp_increased_rebate_eligible : Bool := false
+  is_ca_medicaid_immigration_status_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_co where
   co_care_worker_credit_eligible_care_worker : Bool := false
   co_ccap_child_eligible : Bool := false
   co_ctc_eligible_child : Bool := false
-  co_ctc_qualifying_child : Bool := false
-  co_employee_famli_contribution : Rat := 0
-  co_employer_famli_contribution : Rat := 0
+  co_oap_eligible : Bool := false
   co_pension_subtraction_indv : Rat := 0
   co_sales_tax_refund_person_eligible : Bool := false
   co_social_security_subtraction_indv : Rat := 0
+  co_state_supplement_eligible : Bool := false
+  co_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ct where
-  ct_c4k_eligible_child : Bool := false
   ct_c4k_payment_rate : Rat := 0
-  ct_employee_paid_leave_contribution : Rat := 0
-  ct_ssp_earned_income_disregard : Rat := 0
-  ct_ssp_income_eligible : Bool := false
-  ct_ssp_personal_needs_allowance : Rat := 0
-  ct_ssp_resource_eligible : Bool := false
-  ct_ssp_shelter_allowance : Rat := 0
-  ct_ssp_special_needs : Rat := 0
-  ct_ssp_unearned_income_disregard : Rat := 0
-  ct_tfa_countable_earned_income_at_application : Rat := 0
+  ct_ssp_has_therapeutic_diet : Bool := false
+  ct_ssp_living_arrangement : CTSSPLivingArrangement := .COMMUNITY_ALONE
+  ct_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_dc where
-  dc_additions : Rat := 0
-  dc_ccsp_eligible_child : Bool := false
+  dc_ccsp_attending_days_per_month : Rat := 0
+  dc_ccsp_is_second_youngest_child : Bool := false
+  dc_ccsp_is_youngest_child : Bool := false
   dc_ccsp_maximum_subsidy_amount : Rat := 0
+  dc_ccsp_schedule_type : DCCCSPSCHEDULETYPE := .FULL_TIME_TRADITIONAL
   dc_deduction_indiv : Rat := 0
-  dc_employer_paid_leave_tax : Rat := 0
-  dc_gac_earned_income_after_disregard_person : Rat := 0
   dc_income_subtractions : Rat := 0
   dc_ossp_eligible : Bool := false
-  dc_ossp_payment_amount : Rat := 0
-  dc_pap_eligible_child : Bool := false
+  dc_ossp_living_arrangement : DCOSSPLivingArrangement := .NONE
   dc_power_head_or_spouse_eligible : Bool := false
-  dc_tanf_earned_income_after_disregard_person : Rat := 0
-  dc_tanf_gross_unearned_income : Rat := 0
-  dc_tanf_immigration_status_eligible_person : Bool := false
+  dc_self_employment_loss_addition : Rat := 0
   dc_tanf_is_working : Bool := false
-  dc_tanf_work_requirement_exempt : Bool := false
+  dc_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_de where
   de_additional_standard_deduction : Rat := 0
   de_additions : Rat := 0
-  de_aged_personal_credit_indv : Rat := 0
-  de_base_standard_deduction_indv : Rat := 0
-  de_base_standard_deduction_joint : Rat := 0
-  de_elderly_or_disabled_income_exclusion_indiv : Rat := 0
   de_elderly_or_disabled_income_exclusion_joint : Rat := 0
-  de_employee_paid_leave_contribution : Rat := 0
-  de_employer_paid_leave_contribution : Rat := 0
-  de_income_tax_before_non_refundable_credits_indv : Rat := 0
-  de_income_tax_before_non_refundable_credits_joint : Rat := 0
   de_itemized_deductions_indv : Rat := 0
+  de_paid_leave_contribution_rate : Rat := 0
   de_personal_credit_indv : Rat := 0
-  de_poc_eligible_child : Bool := false
   de_poc_maximum_weekly_benefit : Rat := 0
   de_subtractions : Rat := 0
-  de_tanf_countable_earned_income_person : Rat := 0
+  de_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_fl where
+  fl_oss_living_arrangement : FLOSSLivingArrangement := .NONE
+  fl_oss_max_oss : Rat := 0
+  fl_oss_program_track : FLOSSProgramTrack := .NONE
+  fl_oss_provider_rate : Rat := 0
   fl_sr_max_daily_rate : Rat := 0
-  is_fl_sr_age_eligible : Bool := false
+  fl_sr_time_category : FLSRTimeCategory := .PART_TIME
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ga where
-  ga_caps_eligible_child : Bool := false
-  ga_military_retirement_exclusion_person : Rat := 0
-  ga_retirement_exclusion_person : Rat := 0
+  ga_retirement_income_exclusion_retirement_income : Rat := 0
   ga_ssp_in_nursing_home_or_institutionalized_hospice : Bool := false
   ga_ssp_person : Rat := 0
-  ga_tanf_earned_income_after_disregard : Rat := 0
+  ga_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_hi where
-  hi_ccap_eligible_child : Bool := false
   hi_ccap_maximum_monthly_rate : Rat := 0
+  hi_food_excise_credit_child_receiving_public_support : Bool := false
+  hi_oss_couple_rate_applies : Bool := false
   hi_oss_eligible : Bool := false
-  hi_oss_payment_amount : Rat := 0
-  hi_tanf_countable_earned_income_person : Rat := 0
+  hi_oss_living_arrangement : HIOSSLivingArrangement := .NONE
+  hi_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ia where
   ia_amt_indiv : Rat := 0
-  ia_amt_joint : Rat := 0
-  ia_cca_eligible_child : Bool := false
   ia_cca_max_rate : Rat := 0
   ia_cca_monthly_units : Rat := 0
-  ia_gross_income : Rat := 0
-  ia_income_adjustments : Rat := 0
+  ia_pension_exclusion : Rat := 0
   ia_prorate_fraction : Rat := 0
   ia_regular_tax_indiv : Rat := 0
   ia_regular_tax_joint : Rat := 0
   ia_standard_deduction_indiv : Rat := 0
   ia_standard_deduction_joint : Rat := 0
+  ia_taxable_income_joint : Rat := 0
+  ia_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_id where
   id_iccp_copay_per_child : Rat := 0
-  id_iccp_eligible_child : Bool := false
   id_iccp_maximum_monthly_benefit : Rat := 0
+  id_retirement_benefits_deduction_relevant_income : Rat := 0
+  id_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_il where
-  il_aabd_countable_unearned_income : Rat := 0
-  il_aabd_earned_income_after_exemption_person : Rat := 0
   il_aabd_grant_amount : Rat := 0
-  il_aabd_immigration_status_eligible_person : Bool := false
   il_aabd_personal_allowance : Rat := 0
-  il_aabd_shelter_allowance : Rat := 0
-  il_bcc_age_eligible : Bool := false
-  il_ccap_eligible_child : Bool := false
-  il_cta_children_reduced_fare_eligible : Bool := false
+  il_bap_eligible : Bool := false
   il_cta_free_ride_benefit : Rat := 0
-  il_cta_reduced_fare_benefit : Rat := 0
-  il_cta_rta_reduced_fare_eligible : Bool := false
-  il_cta_student_reduced_fare_eligible : Bool := false
-  il_fpp_income_eligible : Bool := false
-  il_hbwd_age_eligible : Bool := false
-  il_hbwd_asset_eligible : Bool := false
-  il_hbwd_countable_unearned_income : Rat := 0
-  il_hbwd_gross_earned_income : Rat := 0
-  il_hbwd_income_eligible : Bool := false
-  il_hbwd_premium : Rat := 0
-  il_hfs_immigration_status_eligible : Bool := false
+  il_fpp_income_level : Rat := 0
+  il_hbi_income_eligible : Bool := false
   il_isbe_income_eligible : Bool := false
-  il_mpe_income_eligible : Bool := false
-  il_pfae_age_eligible_child : Bool := false
   il_pfae_is_deep_poverty : Bool := false
   il_pfae_secondary_priority_factor_count : Rat := 0
-  il_pi_demographic_eligible : Bool := false
   il_pi_highest_priority_score : Rat := 0
   il_pi_lower_priority_score : Rat := 0
   il_pi_other_priority_score : Rat := 0
-  il_pi_risk_eligible : Bool := false
-  il_scretd_age_eligible : Bool := false
-  il_tanf_eligible_child : Bool := false
-  il_tanf_gross_earned_income : Rat := 0
-  il_tanf_gross_unearned_income : Rat := 0
-  il_tanf_immigration_status_eligible_person : Bool := false
-  il_tanf_initial_employment_deduction_person : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_in where
@@ -595,30 +569,21 @@ structure Person_States_in where
   in_ssp_rcap_eligible : Bool := false
   in_ssp_sapn : Rat := 0
   in_ssp_sapn_eligible : Bool := false
+  in_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ks where
-  ks_ccap_eligible_child : Bool := false
   ks_ccap_hourly_rate : Rat := 0
   ks_ccap_monthly_hours : Rat := 0
-  ks_tanf_child_earned_income_exempt : Bool := false
-  ks_tanf_earned_income_after_deductions : Rat := 0
+  ks_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ky where
   ky_additions : Rat := 0
-  ky_aged_personal_tax_credits : Rat := 0
-  ky_blind_personal_tax_credits : Rat := 0
   ky_ccap_daily_benefit : Rat := 0
-  ky_ccap_eligible_child : Bool := false
-  ky_income_tax_before_non_refundable_credits_indiv : Rat := 0
-  ky_income_tax_before_non_refundable_credits_joint : Rat := 0
   ky_itemized_deductions_indiv : Rat := 0
-  ky_military_personal_tax_credits : Rat := 0
   ky_ssp_category : KYSSPCategory := .NONE
   ky_ssp_payment_standard : Rat := 0
-  ky_standard_deduction_indiv : Rat := 0
-  ky_standard_deduction_joint : Rat := 0
   ky_subtractions : Rat := 0
   retired_from_ky_government : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -626,139 +591,112 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 structure Person_States_la where
   la_blind_exemption_person : Rat := 0
   la_ccap_daily_rate : Rat := 0
-  la_ccap_eligible_child : Bool := false
-  la_ccap_monthly_days : Rat := 0
-  la_fitap_earned_income_after_disregard : Rat := 0
+  la_oss_eligible : Bool := false
+  la_quality_rating_of_child_care_facility : Rat := 0
+  la_receives_blind_exemption : Bool := false
+  la_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ma where
-  ma_ccfa_eligible_child : Bool := false
-  ma_ccfa_reimbursement_ratio : Rat := 0
+  is_tafdc_related_to_head_or_spouse : Bool := false
+  ma_ccfa_is_in_relatives_home_care : Bool := false
   ma_ccfa_uncapped_daily_payment : Rat := 0
-  ma_eaedc_dependent_care_deduction_person : Rat := 0
   ma_eaedc_earned_income_after_disregard_person : Rat := 0
-  ma_employee_paid_leave_contribution : Rat := 0
-  ma_employer_paid_leave_contribution : Rat := 0
   ma_maximum_state_supplement : Rat := 0
-  ma_tafdc_age_limit : Rat := 0
-  ma_tafdc_child_support_deduction : Rat := 0
-  ma_tafdc_clothing_allowance : Rat := 0
-  ma_tafdc_countable_earned_income : Rat := 0
-  ma_tafdc_dependent_care_deduction_person : Rat := 0
-  ma_tafdc_infant_benefit : Rat := 0
   ma_tafdc_work_related_expense_deduction : Rat := 0
-  ma_tcap_gross_earned_income : Rat := 0
-  ma_tcap_gross_unearned_income : Rat := 0
+  ma_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_md where
-  md_ccs_eligible_child : Bool := false
   md_ccs_payment_rate : Rat := 0
-  md_hundred_year_subtraction_eligible : Bool := false
+  md_ccs_service_unit : MDCCSServiceUnit := .UNIT_3
   md_hundred_year_subtraction_person : Rat := 0
   md_paa_countable_income : Rat := 0
   md_paa_living_arrangement : MDPAALivingArrangement := .NONE
   md_paa_pending_federal_benefit : Bool := false
   md_paa_personal_needs_allowance : Rat := 0
-  md_paa_provider_rate : Rat := 0
-  md_pension_subtraction_amount : Rat := 0
-  md_snap_is_elderly : Bool := false
+  md_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_me where
-  me_ccap_eligible_child : Bool := false
   me_ccap_market_rate : Rat := 0
-  me_employee_paid_leave_contribution : Rat := 0
-  me_employer_paid_leave_contribution : Rat := 0
   me_ssp_payment_category : MESSPCategory := .LIVING_ALONE_OR_WITH_OTHERS
-  me_tanf_earned_income_after_disregard_person : Rat := 0
+  me_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_mi where
   mi_ccap_block_payment : Rat := 0
-  mi_ccap_eligible_child : Bool := false
-  mi_disabled_exemption_eligible_person : Rat := 0
-  mi_fip_earned_income_after_deductions_for_benefit_person : Rat := 0
-  mi_fip_earned_income_after_deductions_for_eligibility_person : Rat := 0
-  mi_ssp_couple_amount : Rat := 0
   mi_ssp_couple_eligible : Bool := false
   mi_ssp_eligible : Bool := false
-  mi_ssp_individual_amount : Rat := 0
+  mi_ssp_payment_category : MISSPLivingArrangement := .INDEPENDENT_LIVING
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_mn where
-  mn_ccap_eligible_child : Bool := false
-  mn_ccap_max_rate : Rat := 0
-  mn_employee_paid_leave_contribution : Rat := 0
-  mn_msa_gross_income_eligible : Bool := false
-  mn_msa_guardian_fee : Rat := 0
-  mn_msa_housing_assistance : Rat := 0
+  mn_ccap_provider_rate : Rat := 0
+  mn_ccap_quality_rating : MNCCAPQualityRating := .NONE
+  mn_msa_has_guardian : Bool := false
+  mn_msa_housing_assistance_eligible : Bool := false
   mn_msa_net_income_eligible : Bool := false
   mn_msa_payment_category : MNMSALivingArrangement := .INDIVIDUAL_LIVING_ALONE
   mn_msa_person : Rat := 0
-  mn_msa_representative_payee_fee : Rat := 0
-  mn_msa_resource_eligible : Bool := false
+  mn_msa_uses_representative_payee : Bool := false
+  mn_paid_leave_taxable_wages : Rat := 0
+  mn_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_mo where
-  mo_ccs_eligible_child : Bool := false
+  mo_ccs_maximum_daily_benefit : Rat := 0
   mo_income_tax_before_credits : Rat := 0
   mo_pension_and_ss_or_ssd_deduction_section_a : Rat := 0
   mo_pension_and_ss_or_ssd_deduction_section_b : Rat := 0
   mo_pension_and_ss_or_ssd_deduction_section_c : Rat := 0
+  mo_sab_countable_income : Rat := 0
+  mo_snc_facility_base_charge : Rat := 0
+  mo_ssp_age_eligible : Bool := false
   mo_ssp_living_arrangement : MOSSPLivingArrangement := .NONE
+  mo_taxable_income : Rat := 0
+  mo_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ms where
+  ms_529_deduction : Rat := 0
   ms_agi : Rat := 0
-  ms_ccpp_eligible_child : Bool := false
   ms_ccpp_maximum_weekly_rate : Rat := 0
+  ms_hmw_income_eligible : Bool := false
+  ms_hmw_other_coverage_ineligible : Bool := false
+  ms_hmw_resource_eligible : Bool := false
   ms_income_tax_before_credits_indiv : Rat := 0
   ms_income_tax_before_credits_joint : Rat := 0
   ms_itemized_deductions_indiv : Rat := 0
   ms_prorate_fraction : Rat := 0
-  ms_standard_deduction_indiv : Rat := 0
-  ms_standard_deduction_joint : Rat := 0
-  ms_wd_earned_income_eligible : Bool := false
+  ms_wd_fpg : Rat := 0
   ms_wd_premium : Rat := 0
   ms_wd_resource_eligible : Bool := false
-  ms_wd_unearned_income_eligible : Bool := false
-  ms_wd_work_eligible : Bool := false
+  ms_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_mt where
   mt_agi_indiv : Rat := 0
   mt_capital_gains_tax_indiv : Rat := 0
-  mt_ccap_eligible_child : Bool := false
   mt_ccap_max_rate : Rat := 0
-  mt_dependent_exemptions_person : Rat := 0
-  mt_disability_income_exclusion_person : Rat := 0
-  mt_elderly_homeowner_or_renter_credit : Rat := 0
+  mt_elderly_homeowner_or_renter_credit_gross_household_income : Rat := 0
   mt_federal_income_tax_deduction_for_federal_itemization_indiv : Rat := 0
-  mt_itemized_deductions_indiv : Rat := 0
+  mt_federal_income_tax_deduction_indiv : Rat := 0
   mt_married_filing_separately_on_same_return_eligible : Bool := false
-  mt_medical_expense_deduction_indiv : Rat := 0
-  mt_medical_expense_deduction_joint : Rat := 0
   mt_misc_deductions : Rat := 0
   mt_non_refundable_credits : Rat := 0
   mt_personal_exemptions_indiv : Rat := 0
-  mt_refundable_credits_before_renter_credit : Rat := 0
   mt_regular_income_tax_indiv : Rat := 0
   mt_salt_deduction : Rat := 0
   mt_standard_deduction_indiv : Rat := 0
   mt_standard_deduction_joint : Rat := 0
-  mt_tanf_earned_income_after_disregard_person : Rat := 0
-  mt_tanf_eligible_child : Bool := false
-  mt_tanf_gross_earned_income_person : Rat := 0
-  mt_tanf_gross_unearned_income_person : Rat := 0
-  mt_tanf_immigration_status_eligible_person : Bool := false
+  mt_subtractions : Rat := 0
   mt_tanf_is_working : Bool := false
-  mt_tuition_subtraction_person : Rat := 0
+  mt_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_nc where
-  nc_scca_child_age_eligible : Bool := false
-  nc_scca_market_rate : Rat := 0
+  nc_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_nd where
@@ -767,63 +705,68 @@ structure Person_States_nd where
   nd_ccap_qris_step_bonus : Rat := 0
   nd_ccap_state_max_rate : Rat := 0
   nd_tanf_countable_earned_income_person : Rat := 0
+  nd_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ne where
   ne_aabd_standard_of_need : Rat := 0
-  ne_child_care_subsidy_eligible_child : Bool := false
   ne_child_care_subsidy_eligible_parent : Bool := false
+  ne_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_nh where
-  nh_ccap_eligible_child : Bool := false
+  nh_ccap_service_level : NHCCAPServiceLevel := .FULL_TIME
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_nj where
   nj_529_deduction : Rat := 0
-  nj_additions : Rat := 0
   nj_agi_subtractions : Rat := 0
-  nj_ccap_eligible_child : Bool := false
   nj_ccap_maximum_weekly_benefit : Rat := 0
-  nj_employee_family_leave_insurance_contribution : Rat := 0
-  nj_employee_temporary_disability_insurance_contribution : Rat := 0
   nj_gross_income : Rat := 0
   nj_unemployment_insurance_base_period_wages : Rat := 0
   nj_unemployment_insurance_base_period_weeks : Rat := 0
+  nj_unemployment_insurance_qualifying_dependents : Rat := 0
+  nj_unemployment_insurance_spouse_employed_when_claim_established : Bool := false
   nj_wfnj_countable_earned_income_person : Rat := 0
+  nj_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_nm where
-  nm_ccap_eligible_child : Bool := false
+  is_in_adult_residential_care : Bool := false
   nm_ccap_monthly_rate : Rat := 0
+  nm_withheld_income_tax : Rat := 0
   nm_works_earned_income_deduction_person : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_nv where
-  nv_ccdp_eligible_child : Bool := false
-  nv_tanf_earned_income_after_disregard : Rat := 0
+  nv_ccdp_provider_rate : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ny where
-  ny_employee_disability_benefits_contribution : Rat := 0
-  ny_employee_paid_family_leave_contribution : Rat := 0
-  ny_tanf_countable_earned_income : Rat := 0
+  ny_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_oh where
-  oh_additions : Rat := 0
-  oh_adoption_credit_person : Rat := 0
-  oh_ccap_eligible_child : Bool := false
-  oh_ccap_rate_with_addons : Rat := 0
-  oh_deductions : Rat := 0
-  oh_joint_filing_credit_agi_subtractions : Rat := 0
+  oh_529_plan_deduction_person : Rat := 0
+  oh_bonus_depreciation_add_back : Rat := 0
+  oh_ccap_base_rate : Rat := 0
+  oh_ccap_has_special_accommodations : Bool := false
+  oh_ccap_is_accredited : Bool := false
+  oh_ccap_non_traditional_hours : Bool := false
+  oh_ccap_owf_transitional : Bool := false
+  oh_ccap_quality_tier : OHCCAPQualityTier := .NONE
+  oh_educator_expense_deduction_person : Rat := 0
+  oh_has_taken_oh_lump_sum_credits : Bool := false
   oh_lump_sum_distribution_credit_person : Rat := 0
+  oh_other_add_backs : Rat := 0
+  oh_section_179_expense_add_back : Rat := 0
+  oh_uniformed_services_retirement_income_deduction : Rat := 0
+  oh_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ok where
   ok_ccs_daily_rate : Rat := 0
-  ok_ccs_eligible_child : Bool := false
-  ok_tanf_work_expense_person : Rat := 0
+  ok_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_or where
@@ -832,50 +775,36 @@ structure Person_States_or where
   or_employer_paid_leave_contribution : Rat := 0
   or_healthier_oregon_cost_if_enrolled : Rat := 0
   or_healthier_oregon_eligible : Bool := false
+  or_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_pa where
-  pa_ccw_eligible_child : Bool := false
   pa_ccw_market_rate : Rat := 0
-  pa_employee_unemployment_compensation_contribution : Rat := 0
-  pa_tanf_earned_income_after_deductions_person : Rat := 0
   pa_uc_base_year_wages : Rat := 0
-  pa_uc_dependent_allowance : Rat := 0
+  pa_uc_credit_weeks : Rat := 0
+  pa_uc_dependent_children_count : Rat := 0
   pa_uc_gross_weekly_earnings : Rat := 0
+  pa_uc_has_dependent_spouse : Bool := false
   pa_uc_highest_quarter_wages : Rat := 0
-  pa_uc_maximum_weeks : Rat := 0
-  pa_uc_meets_credit_weeks_test : Bool := false
-  pa_uc_meets_high_quarter_test : Bool := false
-  pa_uc_meets_wages_outside_high_quarter_test : Bool := false
   pa_uc_partial_benefit_credit : Rat := 0
-  pa_uc_qualifying_wages : Rat := 0
-  pa_uc_weekly_benefit_rate : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ri where
-  ri_ccap_eligible_child : Bool := false
   ri_ccap_maximum_weekly_benefit : Rat := 0
-  ri_ctc_eligible_child : Bool := false
-  ri_employee_temporary_disability_insurance_contribution : Rat := 0
-  ri_employer_job_development_fund_tax : Rat := 0
-  ri_works_earned_income_after_disregard_person : Rat := 0
+  ri_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_sc where
-  sc_ccap_eligible_child : Bool := false
   sc_ccap_maximum_weekly_benefit : Rat := 0
-  sc_retirement_deduction_indv : Rat := 0
-  sc_retirement_deduction_survivors : Rat := 0
-  sc_senior_exemption_person : Rat := 0
+  sc_gross_earned_income : Rat := 0
   sc_tanf_countable_earned_income_person : Rat := 0
-  sc_tanf_gross_earned_income : Rat := 0
-  sc_tanf_gross_unearned_income : Rat := 0
+  sc_tuition_credit : Rat := 0
+  sc_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_sd where
   sd_cca_eligible_child : Bool := false
-  sd_cca_parent_in_eligible_activity : Bool := false
-  sd_tanf_countable_earned_income_person : Rat := 0
+  sd_cca_weekly_rate : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_tax where
@@ -886,76 +815,55 @@ structure Person_States_tax where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_tx where
-  tx_ccs_eligible_child : Bool := false
   tx_ccs_payment_rate : Rat := 0
   tx_ceap_countable_income_person : Rat := 0
-  tx_dart_free_ride_benefit : Rat := 0
+  tx_dart_free_ride_eligible_young_child : Bool := false
   tx_dart_reduced_fare_age_eligible : Bool := false
-  tx_dart_reduced_fare_benefit : Rat := 0
-  tx_dart_reduced_fare_program_eligible : Bool := false
-  tx_fpp_age_eligible : Bool := false
-  tx_tanf_age_eligible_child : Bool := false
   tx_tanf_earned_income_after_disregard_person : Rat := 0
-  tx_tanf_gross_unearned_income : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ut where
   ut_personal_exemption_additional_dependent_eligible : Bool := false
+  ut_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_va where
   va_aged_blind_exemption_person : Rat := 0
   va_agi_share : Rat := 0
-  va_ccsp_child_eligible : Bool := false
   va_ccsp_daily_mrr : Rat := 0
-  va_disability_income_subtraction_person : Rat := 0
-  va_federal_state_employees_subtraction_person : Rat := 0
-  va_military_basic_pay_subtraction_person : Rat := 0
+  va_educator_expenses : Rat := 0
   va_military_benefit_subtraction_person : Rat := 0
   va_personal_exemption_person : Rat := 0
   va_subtractions_person : Rat := 0
+  va_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_vt where
-  vt_ccfap_eligible_child : Bool := false
   vt_ccfap_state_rate : Rat := 0
-  vt_employee_child_care_contribution : Rat := 0
-  vt_employer_child_care_contribution : Rat := 0
-  vt_reach_up_countable_earned_income_person : Rat := 0
+  vt_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_wa where
-  wa_birth_to_three_eceap_age_eligible : Bool := false
   wa_birth_to_three_eceap_income_eligible : Bool := false
-  wa_eceap_age_eligible : Bool := false
   wa_eceap_income_eligible : Bool := false
   wa_eceap_risk_factor_eligible : Bool := false
-  wa_employee_long_term_care_contribution : Rat := 0
-  wa_employee_paid_leave_contribution : Rat := 0
-  wa_employer_paid_leave_contribution : Rat := 0
-  wa_pfml_eligible : Bool := false
+  wa_eceap_slot_type : WAECEAPSlotType := .SCHOOL_DAY
   wa_pfml_max_leave_weeks : Rat := 0
+  wa_pfml_qualifying_period_hours_worked : Rat := 0
   wa_pfml_weekly_benefit_amount : Rat := 0
-  wa_rca_immigration_window_eligible : Bool := false
   wa_sfa_student_pathway_eligible : Bool := false
-  wa_tanf_immigration_status_eligible : Bool := false
-  wa_wccc_eligible_child : Bool := false
+  wa_ssp_payment_category : WAStateSupplementaryPaymentCategory := .NONE
   wa_wccc_max_monthly_reimbursement : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
-structure Person_States_wv where
-  wv_ccap_eligible_child : Bool := false
-  wv_public_pension_subtraction_person : Rat := 0
-  wv_senior_citizen_disability_deduction_person : Rat := 0
-  wv_social_security_benefits_subtraction_person : Rat := 0
+structure Person_States_wi where
+  wi_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
-structure Person_Territories_pr where
-  pr_earned_income_credit_eligible_person : Bool := false
-  pr_exemptions_is_eligible_nonstudent : Bool := false
-  pr_exemptions_is_eligible_student : Bool := false
-  pr_gross_income_person : Rat := 0
-  pr_low_income_credit_eligible_person : Bool := false
+structure Person_States_wv where
+  wv_ccap_daily_benefit : Rat := 0
+  wv_ccap_daily_rate : Rat := 0
+  wv_ccap_non_traditional_hours : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Usda where
@@ -966,7 +874,6 @@ structure Person_Usda where
   is_snap_employment_training_student : Bool := false
   is_snap_work_incentive_student : Bool := false
   is_usda_disabled : Bool := false
-  is_usda_elderly : Bool := false
   is_wic_at_nutritional_risk : Bool := false
   meets_snap_abawd_work_requirements : Bool := false
   meets_snap_general_work_requirements : Bool := false
@@ -978,12 +885,13 @@ structure Person_Usda where
   snap_income_counted_share : Rat := 0
   takes_up_wic_if_eligible : Bool := false
   wic_category : WICCategory := .NONE
-  wic_if_takes_up : Rat := 0
+  wic_food_package_str : String := ""
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person where
   aca : Person_Aca := {}
-  core : Person_Core := {}
+  core_p1 : Person_Core_p1 := {}
+  core_p2 : Person_Core_p2 := {}
   ed : Person_Ed := {}
   hhs : Person_Hhs := {}
   hud : Person_Hud := {}
@@ -1046,16 +954,16 @@ structure Person where
   states_va : Person_States_va := {}
   states_vt : Person_States_vt := {}
   states_wa : Person_States_wa := {}
+  states_wi : Person_States_wi := {}
   states_wv : Person_States_wv := {}
-  territories_pr : Person_Territories_pr := {}
   usda : Person_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Aca where
+  aca_magi_fraction : Rat := 0
   aca_required_contribution_percentage : Rat := 0
   lcbp_family_tier_amount : Rat := 0
   marketplace_csr_actuarial_value : Rat := 0
-  selected_marketplace_plan_actuarial_value : Rat := 0
   selected_marketplace_plan_benchmark_ratio : Rat := 0
   selected_marketplace_plan_category : MarketplacePlanCategory := .SILVER
   slcsp_age_0 : Rat := 0
@@ -1120,41 +1028,55 @@ structure TaxUnit_Core where
   WI : Bool := false
   WV : Bool := false
   WY : Bool := false
+  air_sealing_ventilation_expenditures : Rat := 0
   basic_income_before_phase_out : Rat := 0
-  basic_income_eligible : Bool := false
-  basic_income_phase_out : Rat := 0
   bonus_guaranteed_deduction : Rat := 0
   broadband_cost : Rat := 0
-  cbo_household_federal_taxes : Rat := 0
+  cbo_corporate_income_tax : Rat := 0
+  cbo_excise_tax : Rat := 0
   cbo_household_market_income : Rat := 0
-  cbo_household_means_tested_transfers : Rat := 0
-  cbo_household_social_insurance_benefits : Rat := 0
+  cohabitating_spouses : Bool := false
+  county_str : String := ""
   deductible_mortgage_interest_tax_unit : Rat := 0
+  electric_heat_pump_clothes_dryer_expenditures : Rat := 0
+  electric_load_service_center_upgrade_expenditures : Rat := 0
+  electric_stove_cooktop_range_or_oven_expenditures : Rat := 0
+  electric_wiring_expenditures : Rat := 0
   electricity_expense : Rat := 0
+  energy_efficient_insulation_expenditures : Rat := 0
   filing_status : FilingStatus := .SINGLE
   first_home_mortgage_interest : Rat := 0
-  flat_tax : Rat := 0
   form_4972_lumpsum_distributions : Rat := 0
   gas_expense : Rat := 0
+  heat_expense_included_in_rent : Bool := false
+  heat_pump_expenditures : Rat := 0
+  heat_pump_water_heater_expenditures : Rat := 0
   heating_cooling_expense : Rat := 0
+  home_energy_audit_expenditures : Rat := 0
   homeowners_association_fees : Rat := 0
   homeowners_insurance : Rat := 0
   household_benefits : Rat := 0
   household_health_costs : Rat := 0
   household_income_decile : Rat := 0
-  household_market_income : Rat := 0
-  household_refundable_state_tax_credits : Rat := 0
+  household_size : Rat := 0
   household_vehicles_owned : Rat := 0
   household_weight : Rat := 0
   in_nyc : Bool := false
   is_homeless : Bool := false
-  mi_surtax : Rat := 0
+  k12_tuition_and_fees : Rat := 0
   mortgage_payments : Rat := 0
+  older_spouse_birth_year : Rat := 0
   phone_cost : Rat := 0
+  pre_subsidy_electricity_expense : Rat := 0
+  property_sales_net_capital_gain : Rat := 0
+  qualified_passenger_vehicle_loan_interest : Rat := 0
+  qualified_retirement_penalty : Rat := 0
   second_home_mortgage_interest : Rat := 0
   sewage_expense : Rat := 0
+  spm_unit_assets : Rat := 0
   spm_unit_benefits : Rat := 0
   spm_unit_capped_work_childcare_expenses : Rat := 0
+  spm_unit_energy_subsidy : Rat := 0
   spm_unit_federal_tax : Rat := 0
   spm_unit_geographic_adjustment : Rat := 0
   spm_unit_payroll_tax : Rat := 0
@@ -1163,11 +1085,25 @@ structure TaxUnit_Core where
   spm_unit_spm_threshold_housing_portion : Rat := 0
   spm_unit_state_tax : Rat := 0
   spm_unit_unadjusted_spm_threshold : Rat := 0
+  state_code : StateCode := .CA
+  state_code_str : String := ""
+  state_group_str : String := ""
   tax_unit_childcare_expenses : Rat := 0
   tax_unit_id : Rat := 0
+  tax_unit_stillborn_children : Rat := 0
   trash_expense : Rat := 0
   unrecaptured_section_1250_gain : Rat := 0
+  used_clean_vehicle_sale_price : Rat := 0
+  utilities_included_in_rent : Bool := false
   water_expense : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_Doe where
+  high_efficiency_electric_home_rebate_percent_covered : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_Ed where
+  pell_grant_primary_income : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Fcc where
@@ -1179,11 +1115,8 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 structure TaxUnit_Hhs where
   basic_health_program : Rat := 0
   basic_health_program_family_tier_amount : Rat := 0
-  child_care_subsidies : Rat := 0
   chip_premium : Rat := 0
   hhs_smi : Rat := 0
-  is_ccdf_asset_eligible : Bool := false
-  is_ccdf_income_eligible : Bool := false
   medicaid_magi : Rat := 0
   medicaid_working_disabled_buy_in_premium : Rat := 0
   meets_ccdf_activity_test : Bool := false
@@ -1195,25 +1128,24 @@ structure TaxUnit_Hhs where
   spm_unit_fpg : Rat := 0
   spm_unit_total_ccdf_copay : Rat := 0
   takes_up_tanf_if_eligible : Bool := false
+  tanf_fpg : Rat := 0
   tanf_if_takes_up : Rat := 0
   tax_unit_fpg : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hud where
-  housing_assistance : Rat := 0
-  hud_countable_earned_income : Rat := 0
   hud_max_subsidy : Rat := 0
   hud_ttp : Rat := 0
   hud_utility_allowance : Rat := 0
+  is_eligible_for_housing_assistance : Bool := false
   receives_housing_assistance : Bool := false
+  takes_up_housing_assistance_if_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Irs where
   above_the_line_deductions : Rat := 0
-  additional_medicare_tax : Rat := 0
-  additional_senior_deduction : Rat := 0
-  additional_standard_deduction : Rat := 0
   adjusted_gross_income : Rat := 0
+  aged_blind_count : Rat := 0
   american_opportunity_credit : Rat := 0
   amt_excluded_deductions : Rat := 0
   amt_exemption : Rat := 0
@@ -1221,20 +1153,17 @@ structure TaxUnit_Irs where
   amt_lower_base_tax : Rat := 0
   amt_separate_addition : Rat := 0
   amt_tax_including_cg : Rat := 0
-  auto_loan_interest_deduction : Rat := 0
   basic_standard_deduction : Rat := 0
+  capital_gains_excluded_from_taxable_income : Rat := 0
   capital_gains_tax : Rat := 0
+  capped_cdcc : Rat := 0
   capped_property_taxes : Rat := 0
-  casualty_loss_deduction : Rat := 0
   cdcc : Rat := 0
   cdcc_credit_limit : Rat := 0
-  cdcc_limit : Rat := 0
   cdcc_rate : Rat := 0
-  charitable_deduction : Rat := 0
   ctc_limiting_tax_liability : Rat := 0
   dwks19 : Rat := 0
   elderly_disabled_credit_credit_limit : Rat := 0
-  elderly_disabled_credit_potential : Rat := 0
   employee_payroll_tax : Rat := 0
   energy_efficient_home_improvement_credit_credit_limit : Rat := 0
   energy_efficient_home_improvement_credit_potential : Rat := 0
@@ -1244,8 +1173,6 @@ structure TaxUnit_Irs where
   foreign_tax_credit_potential : Rat := 0
   has_qdiv_or_ltcg : Bool := false
   health_savings_account_ald : Rat := 0
-  income_tax : Rat := 0
-  income_tax_before_refundable_credits : Rat := 0
   income_tax_main_rates : Rat := 0
   income_tax_non_refundable_credits : Rat := 0
   income_tax_refundable_credits : Rat := 0
@@ -1253,29 +1180,21 @@ structure TaxUnit_Irs where
   itemized_deductions_less_salt : Rat := 0
   itemized_taxable_income_deductions_reduction : Rat := 0
   lifetime_learning_credit_credit_limit : Rat := 0
-  lifetime_learning_credit_potential : Rat := 0
-  limited_capital_loss : Rat := 0
   loss_limited_net_capital_gains : Rat := 0
-  medical_expense_deduction : Rat := 0
-  min_head_spouse_earned : Rat := 0
-  misc_deduction : Rat := 0
   net_investment_income : Rat := 0
+  net_investment_income_tax : Rat := 0
   new_clean_vehicle_credit_credit_limit : Rat := 0
   new_clean_vehicle_credit_eligible : Bool := false
   new_clean_vehicle_credit_potential : Rat := 0
   non_refundable_american_opportunity_credit_credit_limit : Rat := 0
-  overtime_income_deduction : Rat := 0
-  pre_obbba_cdcc_potential : Rat := 0
   puerto_rico_income : Rat := 0
   qualified_business_income_deduction : Rat := 0
-  refundable_american_opportunity_credit : Rat := 0
+  recapture_of_investment_credit : Rat := 0
   regular_tax_before_credits : Rat := 0
   residential_clean_energy_credit_credit_limit : Rat := 0
   residential_clean_energy_credit_potential : Rat := 0
-  rrc_arpa : Rat := 0
-  rrc_caa : Rat := 0
-  rrc_cares : Rat := 0
   savers_credit_credit_limit : Rat := 0
+  section_22_income : Rat := 0
   specified_possession_income : Rat := 0
   takes_up_eitc : Bool := false
   tax_unit_earned_income : Rat := 0
@@ -1283,43 +1202,42 @@ structure TaxUnit_Irs where
   tax_unit_itemizes : Bool := false
   tax_unit_size : Rat := 0
   tax_unit_taxable_social_security : Rat := 0
-  tax_unit_taxable_unemployment_compensation : Rat := 0
   taxable_income_deductions_if_itemizing : Rat := 0
   taxable_income_deductions_if_not_itemizing : Rat := 0
   taxable_social_security_tier_1 : Rat := 0
-  tip_income_deduction : Rat := 0
+  taxable_ss_magi : Rat := 0
+  taxable_uc_agi : Rat := 0
   total_itemized_taxable_income_deductions : Rat := 0
   unreported_payroll_tax : Rat := 0
+  used_clean_vehicle_credit_eligible : Bool := false
   would_file_if_eligible_for_refundable_credit : Bool := false
   would_file_taxes_voluntarily : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Local_ca where
   ca_ala_general_assistance_base_amount : Rat := 0
-  ca_ala_general_assistance_personal_property_eligible : Bool := false
+  ca_cc_general_assistance_countable_vehicle_value : Rat := 0
   ca_cc_general_assistance_maximum_grant : Rat := 0
-  ca_cc_general_assistance_personal_property_eligible : Bool := false
-  ca_marin_general_relief_age_eligible : Bool := false
+  ca_la_ez_save_fpg : Rat := 0
   ca_marin_general_relief_countable_vehicle_value : Rat := 0
-  ca_marin_general_relief_liquid_asset_limit : Rat := 0
-  ca_marin_general_relief_max_grant : Rat := 0
-  ca_marin_general_relief_personal_property_limit : Rat := 0
   ca_oc_general_relief_countable_vehicle_value : Rat := 0
   ca_oc_general_relief_max_aid_payment : Rat := 0
-  ca_oc_general_relief_resources_eligible : Bool := false
+  ca_riv_general_relief_countable_vehicle_value : Rat := 0
   ca_riv_general_relief_eligible : Bool := false
   ca_riv_general_relief_needs_standards : Rat := 0
   ca_riv_general_relief_special_needs_amount : Rat := 0
+  ca_riv_share_eligible_for_emergency_payment : Bool := false
   ca_scc_general_assistance_base_amount : Rat := 0
-  ca_scc_general_assistance_personal_property_eligible : Bool := false
+  ca_scc_general_assistance_countable_vehicle_value : Rat := 0
   ca_sf_caap_age_eligible : Bool := false
   ca_sf_caap_countable_income : Rat := 0
+  ca_sf_caap_income_in_kind : Rat := 0
+  ca_sf_caap_is_recipient : Bool := false
   ca_sf_caap_max_grant : Rat := 0
-  ca_sf_caap_personal_property_eligible : Bool := false
   ca_sf_caap_vehicle_eligible : Bool := false
   ca_smc_general_assistance_countable_income : Rat := 0
-  ca_smc_general_assistance_payment_standard : Rat := 0
-  ca_smc_general_assistance_property_eligible : Bool := false
+  ca_smc_general_assistance_countable_vehicle_value : Rat := 0
+  ca_smc_general_assistance_living_arrangement : CaSMCGeneralAssistanceLivingArrangement := .INDEPENDENT_LIVING
   in_ala : Bool := false
   in_cc : Bool := false
   in_la : Bool := false
@@ -1329,14 +1247,11 @@ structure TaxUnit_Local_ca where
   in_san_francisco : Bool := false
   in_scc : Bool := false
   in_smc : Bool := false
-  la_general_relief_age_eligible : Bool := false
-  la_general_relief_base_amount : Rat := 0
   la_general_relief_cash_asset_limit : Rat := 0
   la_general_relief_disability_eligible : Bool := false
-  la_general_relief_home_value_eligible : Bool := false
   la_general_relief_motor_vehicle_value_eligible : Bool := false
   la_general_relief_net_income_limit : Rat := 0
-  la_general_relief_personal_property_eligible : Bool := false
+  la_general_relief_recipient : Bool := false
   la_general_relief_rent_contribution : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -1358,21 +1273,17 @@ structure TaxUnit_Local_ky where
   ky_jefferson_occupational_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
-structure TaxUnit_Local_mo where
-  mo_kansas_city_earnings_tax : Rat := 0
-  mo_st_louis_earnings_tax : Rat := 0
+structure TaxUnit_Local_md where
+  md_montgomery_eitc : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Local_ny where
   ny_yonkers_income_tax : Rat := 0
-  nyc_cdcc_applicable_percentage : Rat := 0
-  nyc_cdcc_eligible : Bool := false
   nyc_cdcc_share_qualifying_childcare_expenses : Rat := 0
+  nyc_household_credit : Rat := 0
   nyc_income_tax_before_credits : Rat := 0
-  nyc_non_refundable_credits : Rat := 0
-  nyc_refundable_credits : Rat := 0
-  nyc_school_tax_credit_fixed_amount : Rat := 0
   nyc_school_tax_credit_rate_reduction_amount : Rat := 0
+  nyc_unincorporated_business_credit : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Local_pa where
@@ -1383,110 +1294,91 @@ structure TaxUnit_Local_tax where
   salt_refund_last_year : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
+structure TaxUnit_Local_tx where
+  in_harris_county_tx : Bool := false
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States where
+  state_filing_status_if_married_filing_separately_on_same_return : StateFilingStatusIfMarriedFilingSeparatelyOnSameReturn := .SINGLE
+deriving Repr, Lean.FromJson, Lean.ToJson
+
 structure TaxUnit_States_ak where
-  ak_atap_childcare_deduction : Rat := 0
-  ak_atap_countable_unearned_income : Rat := 0
-  ak_atap_gross_income_limit : Rat := 0
   ak_atap_need_standard : Rat := 0
-  ak_atap_resources_eligible : Bool := false
-  ak_ccap_copay_rate : Rat := 0
   ak_ccap_countable_earned_income : Rat := 0
-  ak_ccap_countable_unearned_income : Rat := 0
-  ak_ccap_income_eligible : Bool := false
+  ak_ssp_excluded_institutional_setting : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_al where
-  al_529_plan_deduction : Rat := 0
   al_agi : Rat := 0
   al_ccsp : Rat := 0
-  al_ccsp_activity_eligible : Bool := false
-  al_ccsp_income_eligible : Bool := false
+  al_ccsp_enrolled : Bool := false
   al_ccsp_protective_services : Bool := false
   al_dependent_exemption : Rat := 0
   al_federal_income_tax_deduction : Rat := 0
   al_income_tax_before_non_refundable_credits : Rat := 0
-  al_itemized_deductions : Rat := 0
   al_non_refundable_credits : Rat := 0
-  al_personal_exemption : Rat := 0
   al_refundable_credits : Rat := 0
   al_standard_deduction : Rat := 0
-  al_tanf_countable_earned_income : Rat := 0
   al_tanf_payment_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ar where
-  ar_files_separately : Bool := false
+  ar_months_since_tea_exit : Rat := 0
   ar_non_refundable_credits : Rat := 0
   ar_personal_credits_base : Rat := 0
-  ar_refundable_credits : Rat := 0
-  ar_sra : Rat := 0
-  ar_tea_countable_earned_income : Rat := 0
-  ar_tea_income_eligible : Bool := false
-  ar_tea_resources_eligible : Bool := false
+  ar_sra_countable_income : Rat := 0
+  ar_tea_maximum_benefit : Rat := 0
   ar_uses_low_income_tax_tables : Bool := false
+  ar_was_tea_recipient : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_az where
   az_additions : Rat := 0
-  az_base_standard_deduction : Rat := 0
   az_blind_exemption : Rat := 0
-  az_ccap_activity_eligible : Bool := false
   az_ccap_copay : Rat := 0
   az_ccap_countable_income : Rat := 0
   az_ccap_income_limit : Rat := 0
+  az_charitable_contributions_to_qualifying_charitable_organizations : Rat := 0
+  az_charitable_contributions_to_qualifying_foster_care_organizations : Rat := 0
+  az_family_tax_credit_eligible : Bool := false
+  az_filing_status : ArizonaFilingStatus := .SINGLE
   az_income_tax_before_non_refundable_credits : Rat := 0
-  az_increased_standard_deduction_for_charitable_contributions : Rat := 0
   az_itemized_deductions : Rat := 0
   az_non_refundable_credits : Rat := 0
   az_refundable_credits : Rat := 0
-  az_stillborn_exemption : Rat := 0
   az_subtractions : Rat := 0
-  az_tanf_dependent_care_deduction : Rat := 0
-  az_tanf_fpg_rate : Rat := 0
-  az_tanf_max_benefit_standard : Rat := 0
-  az_tanf_payment_standard : Rat := 0
-  az_tanf_resources_eligible : Bool := false
+  az_tanf_fpg_baseline : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ca where
   ca_agi_subtractions : Rat := 0
-  ca_amt : Rat := 0
+  ca_amt_exemption : Rat := 0
+  ca_amti : Rat := 0
   ca_amti_adjustments : Rat := 0
-  ca_calworks_stage_2_eligible : Bool := false
-  ca_calworks_stage_3_eligible : Bool := false
-  ca_capi : Rat := 0
   ca_capi_countable_vehicle_value : Rat := 0
-  ca_capi_resource_eligible : Bool := false
-  ca_care_amount_if_eligible : Rat := 0
   ca_care_categorically_eligible : Bool := false
-  ca_care_income_eligible : Bool := false
+  ca_care_poverty_line : Rat := 0
+  ca_cdcc : Rat := 0
   ca_cdcc_rate : Rat := 0
   ca_cdcc_relevant_expenses : Rat := 0
-  ca_child_care_family_fee : Rat := 0
-  ca_child_care_income_eligible : Bool := false
+  ca_child_care_smi : Rat := 0
   ca_eitc_eligible : Bool := false
-  ca_fera_amount_if_eligible : Rat := 0
-  ca_fera_eligible : Bool := false
+  ca_exemptions : Rat := 0
   ca_income_tax_before_credits : Rat := 0
   ca_itemized_deductions : Rat := 0
-  ca_mental_health_services_tax : Rat := 0
-  ca_non_refundable_credits : Rat := 0
   ca_refundable_credits : Rat := 0
   ca_standard_deduction : Rat := 0
   ca_state_supplement_aged_disabled_amount : Rat := 0
   ca_state_supplement_blind_amount : Rat := 0
-  ca_state_supplement_dependent_amount : Rat := 0
-  ca_state_supplement_food_allowance : Rat := 0
-  ca_state_supplement_medical_care_facility_amount : Rat := 0
-  ca_state_supplement_out_of_home_care_facility_amount : Rat := 0
+  ca_state_supplement_food_allowance_eligible : Bool := false
   ca_tanf : Rat := 0
   ca_tanf_countable_income_applicant : Rat := 0
-  ca_tanf_countable_income_recipient : Rat := 0
+  ca_tanf_countable_vehicle_value : Rat := 0
   ca_tanf_income_limit : Rat := 0
   ca_tanf_max_benefit_standard : Rat := 0
   ca_tanf_maximum_payment : Rat := 0
-  ca_tanf_resources : Rat := 0
   ca_tanf_resources_limit : Rat := 0
+  months_since_calworks_exit : Rat := 0
   was_calworks_recipient : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -1498,163 +1390,118 @@ structure TaxUnit_States_co where
   co_ccap_parent_fee : Rat := 0
   co_ccap_re_determination_income_eligible : Bool := false
   co_ccap_smi_eligible : Bool := false
-  co_income_tax_before_non_refundable_credits : Rat := 0
   co_non_refundable_credits : Rat := 0
   co_omnisalud_tax_unit_eligible : Bool := false
-  co_qualified_business_income_deduction_addback_required : Bool := false
+  co_property_tax_exemption : Rat := 0
   co_refundable_credits : Rat := 0
   co_subtractions : Rat := 0
-  co_tanf_countable_earned_income_grant_standard : Rat := 0
-  co_tanf_countable_earned_income_need : Rat := 0
   co_tanf_countable_gross_unearned_income : Rat := 0
   co_tanf_grant_standard : Rat := 0
   co_tanf_need_standard : Rat := 0
-  co_tentative_minimum_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ct where
-  ct_additions : Rat := 0
   ct_agi_subtractions : Rat := 0
   ct_amt : Rat := 0
+  ct_c4k_countable_income : Rat := 0
   ct_c4k_family_fee : Rat := 0
-  ct_c4k_income_eligible : Bool := false
-  ct_c4k_meets_activity_test : Bool := false
   ct_income_tax_after_personal_credits : Rat := 0
-  ct_income_tax_high_tax_recapture : Rat := 0
-  ct_income_tax_low_tax_recapture : Rat := 0
-  ct_income_tax_middle_tax_recapture : Rat := 0
   ct_non_refundable_credits : Rat := 0
-  ct_personal_exemptions : Rat := 0
-  ct_refundable_credits : Rat := 0
-  ct_tfa_countable_unearned_income : Rat := 0
-  ct_tfa_income_eligible : Bool := false
+  ct_section_179_expense_add_back : Rat := 0
   ct_tfa_max_benefit_standard : Rat := 0
-  ct_tfa_resources_eligible : Bool := false
+  ct_tfa_payment_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_dc where
-  dc_ccsp_asset_eligible : Bool := false
-  dc_ccsp_copay : Rat := 0
-  dc_ccsp_income_eligible : Bool := false
+  dc_ccsp_enrolled : Bool := false
   dc_ccsp_income_test_waived : Bool := false
-  dc_ccsp_qualified_need_eligible : Bool := false
   dc_eitc_with_qualifying_child : Rat := 0
   dc_eitc_without_qualifying_child : Rat := 0
-  dc_files_separately : Bool := false
   dc_gac_standard_payment : Rat := 0
   dc_income_tax_before_credits_indiv : Rat := 0
   dc_income_tax_before_credits_joint : Rat := 0
-  dc_itemized_deductions : Rat := 0
   dc_non_refundable_credits : Rat := 0
-  dc_power_has_disqualifying_benefits : Bool := false
   dc_refundable_credits : Rat := 0
-  dc_snap_temporary_local_benefit : Rat := 0
+  dc_senior_disabled_property_tax_relief_eligible : Bool := false
   dc_standard_deduction : Rat := 0
-  dc_tanf_childcare_deduction : Rat := 0
-  dc_tanf_countable_unearned_income : Rat := 0
-  dc_tanf_resources_eligible : Bool := false
   dc_tanf_standard_payment : Rat := 0
-  dc_tanf_work_sanction_rate : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_de where
+  de_capped_real_estate_tax : Rat := 0
   de_cdcc : Rat := 0
   de_income_tax_before_refundable_credits_separate : Rat := 0
   de_income_tax_if_claiming_non_refundable_eitc : Rat := 0
   de_income_tax_if_claiming_refundable_eitc : Rat := 0
-  de_itemized_deductions_unit : Rat := 0
   de_non_refundable_credits : Rat := 0
   de_non_refundable_eitc : Rat := 0
-  de_non_refundable_eitc_if_claimed : Rat := 0
-  de_poc_copay : Rat := 0
-  de_poc_income_eligible : Bool := false
+  de_poc_enrolled : Bool := false
   de_refundable_credits : Rat := 0
-  de_refundable_eitc_if_claimed : Rat := 0
   de_ssp_living_arrangement : DESSPLivingArrangement := .NONE
-  de_tanf_countable_unearned_income : Rat := 0
-  de_tanf_dependent_care_deduction : Rat := 0
-  de_tanf_earned_income_deduction : Rat := 0
-  de_tanf_gross_income_eligible : Bool := false
   de_tanf_payment_standard : Rat := 0
-  de_tanf_resources_eligible : Bool := false
-  de_tanf_standard_of_need : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_fl where
-  fl_sr_copay : Rat := 0
-  fl_tca_countable_earned_income : Rat := 0
-  fl_tca_gross_income_eligible : Bool := false
+  fl_sr_copay_waived : Bool := false
+  fl_sr_countable_income : Rat := 0
+  fl_sr_enrolled : Bool := false
+  fl_sr_smi : Rat := 0
   fl_tca_max_benefit_standard : Rat := 0
   fl_tca_payment_standard : Rat := 0
-  fl_tca_resources_eligible : Bool := false
-  is_fl_sr_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ga where
-  ga_additions : Rat := 0
   ga_caps : Rat := 0
-  ga_caps_activity_eligible : Bool := false
-  ga_caps_income_eligible : Bool := false
+  ga_caps_countable_income : Rat := 0
+  ga_caps_enrolled : Bool := false
   ga_deductions : Rat := 0
-  ga_exemptions : Rat := 0
   ga_income_tax_before_non_refundable_credits : Rat := 0
   ga_non_refundable_credits : Rat := 0
-  ga_refundable_credits : Rat := 0
   ga_subtractions : Rat := 0
-  ga_tanf_childcare_deduction : Rat := 0
   ga_tanf_family_maximum : Rat := 0
-  ga_tanf_gross_income_ceiling : Rat := 0
-  ga_tanf_resources_eligible : Bool := false
   ga_tanf_standard_of_need : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_hi where
-  hi_additions : Rat := 0
   hi_ccap_authorized_activity_hours : Rat := 0
-  hi_ccap_copay_rate : Rat := 0
+  hi_ccap_countable_income : Rat := 0
   hi_ccap_income_eligible : Bool := false
-  hi_deductions : Rat := 0
-  hi_disabled_exemptions : Rat := 0
-  hi_food_excise_credit_minor_child_amount : Rat := 0
+  hi_cdcc_min_head_spouse_earned : Rat := 0
   hi_food_excise_exemption_amount : Rat := 0
   hi_income_tax_before_non_refundable_credits : Rat := 0
+  hi_itemized_deductions : Rat := 0
+  hi_modified_agi : Rat := 0
   hi_non_refundable_credits : Rat := 0
   hi_refundable_credits : Rat := 0
-  hi_regular_exemptions : Rat := 0
   hi_student_loan_interest_adjustment : Rat := 0
   hi_subtractions : Rat := 0
-  hi_tanf_dependent_care_deduction : Rat := 0
   hi_tanf_gross_income_eligible : Bool := false
   hi_tanf_maximum_benefit : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ia where
-  ia_additions_consolidated : Rat := 0
-  ia_alternate_tax_consolidated : Rat := 0
-  ia_alternate_tax_unit : Rat := 0
   ia_cca_activity_eligible : Bool := false
-  ia_cca_asset_eligible : Bool := false
   ia_cca_copay : Rat := 0
-  ia_cca_income_eligible : Bool := false
-  ia_fip_countable_earned_income : Rat := 0
-  ia_fip_gross_income_eligible : Bool := false
-  ia_fip_net_income_eligible : Bool := false
+  ia_cca_countable_income : Rat := 0
+  ia_cca_enrolled : Bool := false
+  ia_cca_smi : Rat := 0
+  ia_cdcc : Rat := 0
+  ia_exemption_credit : Rat := 0
   ia_fip_payment_standard : Rat := 0
-  ia_fip_resources_eligible : Bool := false
-  ia_income_tax_before_credits : Rat := 0
-  ia_is_tax_exempt : Bool := false
+  ia_fip_standard_of_need : Rat := 0
   ia_itemized_deductions_unit : Rat := 0
-  ia_non_refundable_credits : Rat := 0
+  ia_modified_income : Rat := 0
   ia_reduced_tax : Rat := 0
-  ia_refundable_credits : Rat := 0
   ia_regular_tax_consolidated : Rat := 0
   ia_subtractions_consolidated : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_id where
   id_additions : Rat := 0
+  id_cdcc_limit : Rat := 0
   id_iccp_activity_eligible : Bool := false
-  id_iccp_income_eligible : Bool := false
+  id_iccp_countable_income : Rat := 0
+  id_iccp_enrolled : Bool := false
   id_income_tax_before_non_refundable_credits : Rat := 0
   id_income_tax_if_receiving_aged_or_disabled_credit : Rat := 0
   id_income_tax_if_receiving_aged_or_disabled_deduction : Rat := 0
@@ -1664,35 +1511,28 @@ structure TaxUnit_States_id where
   id_refundable_credits : Rat := 0
   id_salt_deduction : Rat := 0
   id_subtractions : Rat := 0
-  id_tafi_grant_standard : Rat := 0
-  id_tafi_resources_eligible : Bool := false
+  id_tafi_work_incentive_amount : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_il where
   il_aabd_asset_value_eligible : Bool := false
   il_aabd_countable_vehicle_value : Rat := 0
   il_aabd_utility_allowance : Rat := 0
-  il_aged_blind_exemption : Rat := 0
-  il_base_income_additions : Rat := 0
   il_base_income_subtractions : Rat := 0
-  il_ccap_income_eligible : Bool := false
-  il_dependent_exemption : Rat := 0
-  il_ihwap_categorically_eligible : Bool := false
+  il_ccap_enrolled : Bool := false
+  il_eitc : Rat := 0
   il_ihwap_income_eligible : Bool := false
-  il_income_tax_before_non_refundable_credits : Rat := 0
-  il_ipass_assist_income_eligible : Bool := false
-  il_is_exemption_eligible : Bool := false
+  il_income_tax_rebate_eligible : Rat := 0
+  il_k12_education_expense_credit : Rat := 0
   il_liheap_base_payment : Rat := 0
   il_liheap_crisis_assistance_amount : Rat := 0
-  il_liheap_eligible : Bool := false
-  il_non_refundable_credits : Rat := 0
   il_personal_exemption : Rat := 0
+  il_property_tax_credit : Rat := 0
   il_refundable_credits : Rat := 0
-  il_scretd_income_eligible : Bool := false
-  il_tanf_childcare_deduction : Rat := 0
-  il_tanf_countable_earned_income_for_grant_calculation : Rat := 0
-  il_tanf_income_eligible : Bool := false
-  il_use_tax : Rat := 0
+  il_schedule_m_additions : Rat := 0
+  il_tanf : Rat := 0
+  il_tanf_initial_employment_deduction_fpg : Rat := 0
+  il_tanf_payment_level_for_initial_eligibility : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_in where
@@ -1706,7 +1546,6 @@ structure TaxUnit_States_in where
   in_bonus_depreciation_add_back : Rat := 0
   in_ccdf_asset_eligible : Bool := false
   in_ccdf_copay : Rat := 0
-  in_ccdf_gross_income : Rat := 0
   in_ccdf_income_eligible : Bool := false
   in_deductions : Rat := 0
   in_eitc : Rat := 0
@@ -1722,26 +1561,20 @@ structure TaxUnit_States_in where
   in_tanf_resources_eligible : Bool := false
   in_tax_add_back : Rat := 0
   in_unified_elderly_tax_credit : Rat := 0
+  in_use_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ks where
   ks_additions : Rat := 0
-  ks_agi_subtractions : Rat := 0
-  ks_ccap_activity_eligible : Bool := false
   ks_ccap_family_share : Rat := 0
   ks_ccap_income_eligible : Bool := false
-  ks_exemptions : Rat := 0
   ks_income_tax_before_credits : Rat := 0
   ks_non_refundable_credits : Rat := 0
   ks_nonrefundable_eitc : Rat := 0
-  ks_refundable_credits : Rat := 0
-  ks_standard_deduction : Rat := 0
   ks_tanf_assistance_unit_size : Rat := 0
   ks_tanf_gross_income_eligible : Bool := false
   ks_tanf_max_benefit_standard : Rat := 0
   ks_tanf_maximum_benefit : Rat := 0
-  ks_tanf_resources_eligible : Bool := false
-  ks_total_eitc : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ky where
@@ -1751,80 +1584,61 @@ structure TaxUnit_States_ky where
   ky_family_size_tax_credit_rate : Rat := 0
   ky_filing_status : KyFilingStatus := .SINGLE
   ky_ktap_countable_earned_income : Rat := 0
-  ky_ktap_countable_unearned_income : Rat := 0
   ky_ktap_dependent_care_disregard : Rat := 0
-  ky_ktap_income_eligible : Bool := false
-  ky_ktap_resource_eligible : Bool := false
+  ky_ktap_payment_maximum : Rat := 0
+  ky_ktap_standard_of_need : Rat := 0
   ky_non_refundable_credits : Rat := 0
   ky_personal_tax_credits : Rat := 0
   ky_refundable_credits : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_la where
-  la_529_plan_deduction : Rat := 0
-  la_aged_exemption : Rat := 0
   la_agi_exempt_income : Rat := 0
   la_ccap : Rat := 0
   la_ccap_activity_eligible : Bool := false
-  la_ccap_daily_copay : Rat := 0
-  la_ccap_income_eligible : Bool := false
-  la_dependents_exemption : Rat := 0
+  la_ccap_copay_waived : Bool := false
+  la_ccap_countable_income : Rat := 0
+  la_ccap_smi : Rat := 0
   la_fitap_flat_grant : Rat := 0
   la_income_tax_before_non_refundable_credits : Rat := 0
+  la_non_refundable_cdcc : Rat := 0
   la_non_refundable_credits : Rat := 0
-  la_personal_exemption : Rat := 0
-  la_refundable_credits : Rat := 0
-  la_school_readiness_credit : Rat := 0
-  la_school_readiness_credit_refundable_eligible : Bool := false
-  la_surviving_spouse_exemption : Rat := 0
+  la_taxable_income : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ma where
   ma_ccfa_activity_eligible : Bool := false
-  ma_ccfa_asset_eligible : Bool := false
-  ma_ccfa_income_eligible : Bool := false
+  ma_ccfa_enrolled : Bool := false
+  ma_ccfa_region : MassachusettsCCFARegion := .WESTERN_CENTRAL_AND_SOUTHEAST
   ma_ccfa_total_copay : Rat := 0
-  ma_eaedc_assets_limit_eligible : Bool := false
-  ma_eaedc_eligible_caretaker_family : Bool := false
-  ma_eaedc_eligible_disabled_dependent_present : Bool := false
-  ma_eaedc_eligible_elderly_present : Bool := false
-  ma_eaedc_standard_assistance : Rat := 0
-  ma_income_tax_before_credits : Rat := 0
-  ma_income_tax_exemption_threshold : Rat := 0
-  ma_liheap_eligible_subsidized_housing : Bool := false
-  ma_liheap_state_median_income_threshold : Rat := 0
+  ma_child_and_family_credit : Rat := 0
+  ma_eaedc_living_arrangement : MassachusettsEAEDCLivingArrangement := .A
+  ma_liheap_fpg : Rat := 0
   ma_non_refundable_credits : Rat := 0
-  ma_part_a_agi : Rat := 0
   ma_part_b_agi : Rat := 0
   ma_part_b_taxable_income_deductions : Rat := 0
-  ma_part_b_taxable_income_exemption : Rat := 0
   ma_refundable_credits : Rat := 0
+  ma_scb_total_income : Rat := 0
   ma_tafdc_dependent_criteria_eligible : Bool := false
   ma_tafdc_immigration_status_eligible : Bool := false
   ma_tafdc_payment_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_md where
-  md_aged_dependent_exemption : Rat := 0
   md_aged_exemption : Rat := 0
   md_anne_arundel_county_tax : Rat := 0
   md_applicable_local_tax_rate : Rat := 0
   md_blind_exemption : Rat := 0
+  md_ccs_countable_income : Rat := 0
   md_ccs_income_eligible : Bool := false
-  md_ccs_weekly_copay : Rat := 0
+  md_ctc : Rat := 0
   md_flat_rate_county_tax : Rat := 0
   md_frederick_county_tax_rate : Rat := 0
   md_income_tax_before_credits : Rat := 0
-  md_itemized_deductions : Rat := 0
-  md_local_eitc : Rat := 0
-  md_married_or_has_child_non_refundable_eitc : Rat := 0
-  md_married_or_has_child_refundable_eitc : Rat := 0
   md_non_refundable_credits : Rat := 0
   md_non_refundable_eitc : Rat := 0
   md_personal_exemption : Rat := 0
-  md_refundable_credits : Rat := 0
   md_standard_deduction : Rat := 0
-  md_tca_countable_earned_income : Rat := 0
   md_tca_maximum_benefit : Rat := 0
   md_total_additions : Rat := 0
   md_total_subtractions : Rat := 0
@@ -1832,294 +1646,217 @@ structure TaxUnit_States_md where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_me where
-  me_529_plan_subtraction : Rat := 0
   me_additions : Rat := 0
-  me_affordability_payment_subtraction : Rat := 0
-  me_ccap_income_eligible : Bool := false
+  me_affordability_payment_eligible : Bool := false
+  me_affordability_payment_subtraction_reported : Rat := 0
   me_ccap_parent_fee : Rat := 0
+  me_ccap_smi : Rat := 0
   me_child_care_credit : Rat := 0
-  me_childless_eitc_age_eligible : Bool := false
   me_deduction_phaseout_percentage : Rat := 0
   me_income_tax_before_credits : Rat := 0
-  me_itemized_deductions_pre_phaseout : Rat := 0
   me_non_refundable_credits : Rat := 0
   me_pension_income_deduction : Rat := 0
   me_personal_exemption_deduction : Rat := 0
-  me_property_tax_fairness_credit_base_cap : Rat := 0
-  me_property_tax_fairness_credit_countable_rent : Rat := 0
-  me_property_tax_fairness_credit_veterans_cap : Rat := 0
-  me_refundable_child_care_credit : Rat := 0
+  me_property_tax_fairness_credit_benefit_base : Rat := 0
   me_refundable_credits : Rat := 0
-  me_standard_deduction : Rat := 0
   me_tanf_child_care_deduction : Rat := 0
-  me_tanf_countable_unearned_income : Rat := 0
   me_tanf_maximum_benefit : Rat := 0
-  me_tanf_resources_eligible : Bool := false
   me_tanf_standard_of_need : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mi where
-  mi_additions : Rat := 0
+  mi_allowable_homestead_property_tax_credit : Rat := 0
   mi_ccap_family_contribution : Rat := 0
   mi_ccap_income_eligible : Bool := false
   mi_ccap_income_waived : Bool := false
-  mi_exemptions : Rat := 0
-  mi_fip_payment_standard : Rat := 0
-  mi_fip_resources_eligible : Bool := false
   mi_healthy_michigan_contribution : Rat := 0
-  mi_homestead_property_tax_credit_alternate_senior_amount : Rat := 0
-  mi_homestead_property_tax_credit_eligible : Bool := false
-  mi_homestead_property_tax_credit_pre_alternate_senior_amount : Rat := 0
-  mi_income_tax_before_non_refundable_credits : Rat := 0
+  mi_home_heating_credit_eligible_rate : Rat := 0
+  mi_household_resources : Rat := 0
   mi_non_refundable_credits : Rat := 0
-  mi_refundable_credits : Rat := 0
-  mi_retirement_benefits_deduction_tier_one_amount : Rat := 0
-  mi_retirement_benefits_deduction_tier_one_eligible : Bool := false
-  mi_retirement_benefits_deduction_tier_three_eligible : Bool := false
-  mi_retirement_benefits_deduction_tier_three_ss_exempt_not_retired : Rat := 0
   mi_retirement_benefits_deduction_tier_three_ss_exempt_retired : Rat := 0
-  mi_standard_deduction_tier_three : Rat := 0
-  mi_standard_deduction_tier_two : Rat := 0
   mi_subtractions : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mn where
-  mn_additions : Rat := 0
+  mn_basic_tax : Rat := 0
   mn_ccap_activity_eligible : Bool := false
   mn_ccap_copay : Rat := 0
+  mn_ccap_enrolled : Bool := false
   mn_ccap_gross_earned_income : Rat := 0
-  mn_ccap_gross_unearned_income : Rat := 0
-  mn_ccap_income_deductions : Rat := 0
-  mn_ccap_income_eligible : Bool := false
   mn_ccap_registration_fee : Rat := 0
-  mn_charity_subtraction : Rat := 0
-  mn_child_and_working_families_credits : Rat := 0
   mn_exemptions : Rat := 0
-  mn_income_tax_before_credits : Rat := 0
   mn_itemized_deductions : Rat := 0
+  mn_k12_qualifying_children : Rat := 0
+  mn_marriage_credit : Rat := 0
   mn_mfip_cash_portion : Rat := 0
-  mn_mfip_child_support_income_exclusion : Rat := 0
-  mn_mfip_countable_earned_income : Rat := 0
-  mn_mfip_countable_earned_income_for_eligibility : Rat := 0
-  mn_mfip_family_wage_level : Rat := 0
   mn_mfip_food_portion : Rat := 0
-  mn_mfip_resources_eligible : Bool := false
-  mn_non_refundable_credits : Rat := 0
   mn_refundable_credits : Rat := 0
   mn_social_security_subtraction : Rat := 0
   mn_standard_deduction : Rat := 0
   mn_subtractions : Rat := 0
-  mn_wfc : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mo where
-  mo_ccs : Rat := 0
   mo_ccs_activity_eligible : Bool := false
-  mo_ccs_countable_income : Rat := 0
-  mo_ccs_income_eligible : Bool := false
+  mo_ccs_copay : Rat := 0
+  mo_ccs_enrolled : Bool := false
   mo_non_refundable_credits : Rat := 0
   mo_ptc_gross_income : Rat := 0
-  mo_ptc_income_offset : Rat := 0
-  mo_refundable_credits : Rat := 0
-  mo_tanf_earned_income_deductions : Rat := 0
-  mo_tanf_gross_income_eligible : Bool := false
-  mo_tanf_income_for_need_test : Rat := 0
-  mo_tanf_percentage_of_need_test : Bool := false
-  mo_tanf_resources_eligible : Bool := false
+  mo_tanf_child_care_deduction : Rat := 0
   mo_tanf_standard_of_need : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ms where
   ms_aged_exemption : Rat := 0
   ms_blind_exemption : Rat := 0
-  ms_ccpp_activity_eligible : Bool := false
   ms_ccpp_categorically_eligible : Bool := false
-  ms_ccpp_copay : Rat := 0
-  ms_ccpp_income_eligible : Bool := false
-  ms_dependents_exemption : Rat := 0
+  ms_ccpp_copay_waived : Bool := false
+  ms_ccpp_countable_income : Rat := 0
+  ms_charitable_contributions_to_qualifying_foster_care_organizations : Rat := 0
   ms_non_refundable_credits : Rat := 0
   ms_real_estate_tax_deduction : Rat := 0
-  ms_regular_exemption : Rat := 0
+  ms_refundable_credits : Rat := 0
   ms_tanf_income_eligible : Bool := false
-  ms_tanf_maximum_benefit : Rat := 0
-  ms_tanf_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mt where
   mt_agi_joint : Rat := 0
   mt_capital_gains_tax_joint : Rat := 0
   mt_ccap_activity_eligible : Bool := false
-  mt_ccap_copay : Rat := 0
-  mt_ccap_income_eligible : Bool := false
-  mt_federal_income_tax_deduction_for_federal_itemization : Rat := 0
-  mt_federal_income_tax_deduction_unit : Rat := 0
-  mt_files_separately : Bool := false
+  mt_ccap_enrolled : Bool := false
   mt_help_premium : Rat := 0
   mt_regular_income_tax_joint : Rat := 0
   mt_tanf_benefit_standard : Rat := 0
-  mt_tanf_dependent_care_deduction : Rat := 0
-  mt_tanf_gross_income_standard : Rat := 0
+  mt_tanf_countable_resources : Rat := 0
   mt_tanf_payment_standard : Rat := 0
-  mt_tanf_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nc where
   nc_additions : Rat := 0
   nc_deductions : Rat := 0
-  nc_demographic_tanf_eligible : Bool := false
-  nc_income_tax_before_credits : Rat := 0
   nc_itemized_deductions : Rat := 0
   nc_non_refundable_credits : Rat := 0
   nc_scca_entry_income_eligible : Bool := false
   nc_scca_parent_fee : Rat := 0
-  nc_standard_deduction : Rat := 0
-  nc_tanf_countable_earned_income : Rat := 0
   nc_tanf_countable_gross_unearned_income : Rat := 0
+  nc_tanf_household_size : Rat := 0
   nc_tanf_income_eligible : Bool := false
   nc_tanf_need_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nd where
-  nd_additions : Rat := 0
-  nd_ccap_copay : Rat := 0
-  nd_ccap_income_eligible : Bool := false
+  is_nd_ccap_enrolled : Bool := false
   nd_income_tax_before_credits : Rat := 0
   nd_non_refundable_credits : Rat := 0
   nd_refundable_credits : Rat := 0
+  nd_renters_refund_income : Rat := 0
+  nd_renters_refund_property_tax_exempt : Bool := false
   nd_subtractions : Rat := 0
   nd_tanf_resources_eligible : Bool := false
   nd_tanf_standard_of_need : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ne where
-  ne_adc_countable_earned_income : Rat := 0
   ne_adc_need_standard : Rat := 0
-  ne_adc_payment_standard : Rat := 0
-  ne_adc_resources_eligible : Bool := false
   ne_additions : Rat := 0
   ne_agi_subtractions : Rat := 0
-  ne_child_care_subsidy : Rat := 0
-  ne_child_care_subsidy_income_eligible : Bool := false
-  ne_income_tax_before_refundable_credits : Rat := 0
+  ne_child_care_subsidy_countable_income : Rat := 0
+  ne_income_tax_before_credits : Rat := 0
   ne_refundable_credits : Rat := 0
   ne_standard_deduction : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nh where
-  nh_base_exemption : Rat := 0
   nh_blind_exemption : Rat := 0
   nh_ccap : Rat := 0
-  nh_ccap_income_eligible : Bool := false
   nh_disabled_exemption : Rat := 0
-  nh_fanf_countable_earned_income : Rat := 0
-  nh_fanf_payment_standard : Rat := 0
-  nh_fanf_resources_eligible : Bool := false
-  nh_income_tax_before_refundable_credits : Rat := 0
+  nh_fanf_child_care_deduction : Rat := 0
   nh_old_age_exemption : Rat := 0
   nh_refundable_credits : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nj where
   nj_agi : Rat := 0
-  nj_anchor : Rat := 0
   nj_blind_or_disabled_exemption : Rat := 0
   nj_ccap_activity_eligible : Bool := false
   nj_ccap_copay : Rat := 0
-  nj_ccap_income_eligible : Bool := false
+  nj_ccap_countable_income : Rat := 0
+  nj_ccap_enrolled : Bool := false
+  nj_ccap_smi : Rat := 0
   nj_cdcc : Rat := 0
-  nj_ctc : Rat := 0
-  nj_dependents_attending_college_exemption : Rat := 0
-  nj_dependents_exemption : Rat := 0
   nj_eitc : Rat := 0
-  nj_medical_expense_deduction : Rat := 0
-  nj_potential_property_tax_deduction : Rat := 0
-  nj_property_tax_credit : Rat := 0
-  nj_regular_exemption : Rat := 0
+  nj_main_income_tax : Rat := 0
+  nj_non_refundable_credits : Rat := 0
+  nj_property_tax_relief_income : Rat := 0
+  nj_retirement_exclusion_fraction : Rat := 0
   nj_senior_exemption : Rat := 0
   nj_senior_freeze : Rat := 0
   nj_staynj : Rat := 0
   nj_taking_property_tax_deduction : Bool := false
-  nj_wfnj_countable_unearned_income : Rat := 0
   nj_wfnj_gross_income_eligible : Bool := false
   nj_wfnj_payment_levels : Rat := 0
-  nj_wfnj_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nm where
   nm_additions : Rat := 0
-  nm_ccap_copay : Rat := 0
   nm_ccap_income_eligible : Bool := false
-  nm_deduction_for_certain_dependents : Rat := 0
-  nm_eitc_demographic_eligible : Bool := false
   nm_exemptions : Rat := 0
   nm_income_tax_before_non_refundable_credits : Rat := 0
   nm_medical_care_expense_deduction : Rat := 0
-  nm_net_capital_gains_deduction : Rat := 0
+  nm_modified_gross_income : Rat := 0
   nm_non_refundable_credits : Rat := 0
-  nm_other_deductions_and_exemptions : Rat := 0
   nm_refundable_credits : Rat := 0
   nm_salt_add_back : Rat := 0
-  nm_works_child_support_deduction : Rat := 0
-  nm_works_childcare_deduction : Rat := 0
-  nm_works_gross_income_eligible : Bool := false
   nm_works_maximum_benefit : Rat := 0
-  nm_works_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nv where
-  nv_ccdp : Rat := 0
   nv_ccdp_activity_eligible : Bool := false
-  nv_ccdp_income_eligible : Bool := false
-  nv_tanf_income_eligible : Bool := false
-  nv_tanf_resources_eligible : Bool := false
+  nv_ccdp_copay : Rat := 0
+  nv_ccdp_countable_income : Rat := 0
+  nv_ccdp_enrolled : Bool := false
+  nv_ccdp_smi : Rat := 0
+  nv_tanf_need_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ny where
   ny_additions : Rat := 0
   ny_agi_subtractions : Rat := 0
-  ny_casualty_loss_deduction : Rat := 0
-  ny_cdcc_max : Rat := 0
-  ny_cdcc_rate : Rat := 0
-  ny_college_tuition_deduction : Rat := 0
-  ny_ctc_post_2024_base : Rat := 0
   ny_ctc_post_2024_phase_out : Rat := 0
   ny_ctc_pre_2024 : Rat := 0
-  ny_exemptions : Rat := 0
-  ny_itemized_deductions_higher_incremental_reduction : Rat := 0
   ny_itemized_deductions_lower_incremental_reduction : Rat := 0
   ny_itemized_deductions_phase_out : Rat := 0
   ny_itemized_deductions_reduction_applies : Bool := false
-  ny_itemized_deductions_reduction_based_on_charitable_deduction : Rat := 0
   ny_itemized_deductions_reduction_based_on_charitable_deduction_applies : Bool := false
   ny_main_income_tax : Rat := 0
-  ny_misc_deduction : Rat := 0
   ny_non_refundable_credits : Rat := 0
+  ny_qualified_geothermal_energy_system_expenditures : Rat := 0
+  ny_qualified_solar_energy_systems_equipment_expenditures : Rat := 0
   ny_refundable_credits : Rat := 0
-  ny_standard_deduction : Rat := 0
   ny_supplemental_tax : Rat := 0
   ny_tanf_basic_monthly_allowance : Rat := 0
   ny_tanf_home_energy_allowance : Rat := 0
-  ny_tanf_income_eligible : Bool := false
   ny_tanf_max_benefit_standard : Rat := 0
-  ny_tanf_resources_eligible : Bool := false
   ny_tanf_shelter_allowance : Rat := 0
   ny_tanf_supplemental_home_energy_allowance : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_oh where
   oh_ccap_copay : Rat := 0
+  oh_ccap_countable_income : Rat := 0
   oh_ccap_eligible : Bool := false
+  oh_ccap_enrolled : Bool := false
+  oh_ccap_fpg : Rat := 0
+  oh_cdcc : Rat := 0
+  oh_exemption_credit : Rat := 0
   oh_income_tax_before_non_refundable_credits : Rat := 0
-  oh_insured_unreimbursed_medical_care_expenses : Rat := 0
-  oh_lump_sum_retirement_credit : Rat := 0
   oh_non_refundable_credits : Rat := 0
-  oh_owf_countable_income : Rat := 0
-  oh_owf_initial_income_eligible : Bool := false
+  oh_owf_fpg : Rat := 0
   oh_owf_payment_standard : Rat := 0
-  oh_partial_non_refundable_credits : Rat := 0
-  oh_pension_based_retirement_income_credit : Rat := 0
   oh_personal_exemptions : Rat := 0
   oh_refundable_credits : Rat := 0
+  oh_retirement_credit : Rat := 0
+  oh_senior_citizen_credit : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ok where
@@ -2128,28 +1865,23 @@ structure TaxUnit_States_ok where
   ok_agi_subtractions : Rat := 0
   ok_ccs_activity_eligible : Bool := false
   ok_ccs_copay : Rat := 0
-  ok_ccs_income_eligible : Bool := false
+  ok_ccs_countable_income : Rat := 0
   ok_child_care_child_tax_credit : Rat := 0
-  ok_exemptions : Rat := 0
+  ok_federal_ctc : Rat := 0
   ok_federal_eitc_eligible : Bool := false
+  ok_gross_income : Rat := 0
   ok_income_tax_before_credits : Rat := 0
-  ok_itemized_deductions : Rat := 0
   ok_non_refundable_credits : Rat := 0
   ok_refundable_credits : Rat := 0
-  ok_standard_deduction : Rat := 0
-  ok_tanf_countable_earned_income : Rat := 0
-  ok_tanf_dependent_care_deduction : Rat := 0
-  ok_tanf_income_eligible : Bool := false
-  ok_tanf_resources_eligible : Bool := false
-  taxsim_ok_child_tax_credit_component : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_or where
   or_additions : Rat := 0
+  or_exemption_credit : Rat := 0
   or_income_subtractions : Rat := 0
   or_income_tax_before_credits : Rat := 0
-  or_non_refundable_credits : Rat := 0
   or_refundable_credits : Rat := 0
+  or_retirement_credit : Rat := 0
   or_standard_deduction : Rat := 0
   or_tanf_adjusted_income_eligible : Bool := false
   or_tanf_child_support_disregard : Rat := 0
@@ -2162,231 +1894,172 @@ structure TaxUnit_States_or where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_pa where
-  pa_529_plan_deduction : Rat := 0
-  pa_ccw : Rat := 0
-  pa_ccw_activity_eligible : Bool := false
-  pa_ccw_income_eligible : Bool := false
-  pa_income_tax_before_forgiveness : Rat := 0
+  pa_ccw_copay : Rat := 0
+  pa_ccw_enrolled : Bool := false
+  pa_ccw_stepparent_deduction : Rat := 0
   pa_refundable_tax_credits : Rat := 0
   pa_tanf_maximum_benefit : Rat := 0
-  pa_tanf_resources_eligible : Bool := false
-  pa_tax_forgiveness_rate : Rat := 0
+  pa_tanf_standard_of_need : Rat := 0
   pa_total_taxable_income : Rat := 0
+  pa_use_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ri where
   ri_additions : Rat := 0
-  ri_ccap_activity_eligible : Bool := false
   ri_ccap_copay : Rat := 0
-  ri_ccap_income_eligible : Bool := false
-  ri_exemptions : Rat := 0
-  ri_income_tax_before_non_refundable_credits : Rat := 0
+  ri_ccap_enrolled : Bool := false
   ri_non_refundable_credits : Rat := 0
   ri_refundable_credits : Rat := 0
+  ri_retirement_income_subtraction_eligible : Bool := false
   ri_standard_deduction : Rat := 0
   ri_subtractions : Rat := 0
-  ri_works_countable_unearned_income : Rat := 0
-  ri_works_dependent_care_deduction : Rat := 0
   ri_works_payment_standard : Rat := 0
-  ri_works_resource_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_sc where
-  sc_ccap_activity_eligible : Bool := false
+  sc_additions : Rat := 0
   sc_ccap_copay : Rat := 0
-  sc_ccap_income_eligible : Bool := false
   sc_ccap_protective_services : Bool := false
   sc_income_tax_before_non_refundable_credits : Rat := 0
   sc_non_refundable_credits : Rat := 0
-  sc_refundable_credits : Rat := 0
-  sc_tanf_countable_income_eligible : Bool := false
-  sc_tanf_gross_income_eligible : Bool := false
-  sc_tanf_resources_eligible : Bool := false
+  sc_subtractions : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_sd where
-  sd_cca : Rat := 0
-  sd_cca_income_eligible : Bool := false
+  is_sd_cca_enrolled : Bool := false
+  sd_cca_copay : Rat := 0
   sd_tanf_payment_standard : Rat := 0
-  sd_tanf_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_tax where
+  ar_taxable_income : Rat := 0
+  dc_taxable_income : Rat := 0
+  de_taxable_income : Rat := 0
+  ia_taxable_income : Rat := 0
+  ky_taxable_income : Rat := 0
+  ms_taxable_income : Rat := 0
+  mt_taxable_income : Rat := 0
   state_income_tax : Rat := 0
-  state_income_tax_before_refundable_credits : Rat := 0
   state_sales_tax : Rat := 0
-  state_use_tax : Rat := 0
-  state_withheld_income_tax : Rat := 0
   taxsim_state_agi : Rat := 0
   taxsim_state_cdcc : Rat := 0
   taxsim_state_ctc : Rat := 0
   taxsim_state_eitc : Rat := 0
   taxsim_state_property_tax_credit : Rat := 0
-  taxsim_state_taxable_income : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_tn where
-  tn_ff_child_care_deduction : Rat := 0
-  tn_ff_earned_income_after_disregard : Rat := 0
+  tn_ff_countable_resources : Rat := 0
   tn_ff_income_eligible : Bool := false
-  tn_ff_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_tx where
-  tx_ccs_asset_eligible : Bool := false
   tx_ccs_copay : Rat := 0
-  tx_ccs_income_eligible : Bool := false
-  tx_ccs_work_requirement_eligible : Bool := false
   tx_fpp_countable_earned_income : Rat := 0
   tx_fpp_countable_unearned_income : Rat := 0
   tx_fpp_dependent_care_deduction : Rat := 0
-  tx_fpp_income_limit : Rat := 0
-  tx_ottanf : Rat := 0
-  tx_over_65_or_disabled_school_district_homestead_exemption : Rat := 0
-  tx_regular_tanf : Rat := 0
-  tx_school_district_homestead_exemption : Rat := 0
+  tx_ottanf_crisis_criteria : Bool := false
   tx_tanf_budgetary_needs : Rat := 0
-  tx_tanf_child_support_deduction : Rat := 0
-  tx_tanf_dependent_care_deduction : Rat := 0
-  tx_tanf_income_for_budgetary_needs_test : Rat := 0
-  tx_tanf_recognizable_needs_test : Bool := false
-  tx_tanf_resources_eligible : Bool := false
+  tx_tanf_countable_resources : Rat := 0
+  tx_tanf_payment_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ut where
   ut_additions : Rat := 0
-  ut_fep_countable_earned_income : Rat := 0
+  ut_federal_deductions_for_taxpayer_credit : Rat := 0
   ut_fep_gross_income_eligible : Bool := false
   ut_fep_net_income_eligible : Bool := false
   ut_fep_payment_standard : Rat := 0
-  ut_fep_resources_eligible : Bool := false
   ut_homeowner_renter_relief_pre_one_claimant_eligible : Bool := false
   ut_homeowner_renter_relief_selected_claimant : Bool := false
-  ut_income_tax_before_credits : Rat := 0
   ut_non_refundable_credits : Rat := 0
-  ut_refundable_credits : Rat := 0
+  ut_personal_exemption : Rat := 0
   ut_retirement_credit_max : Rat := 0
-  ut_ss_benefits_credit_max : Rat := 0
-  ut_taxpayer_credit_max : Rat := 0
-  ut_taxpayer_credit_reduction : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_va where
-  va_529_plan_deduction : Rat := 0
   va_additions : Rat := 0
-  va_ccsp_activity_eligible : Bool := false
+  va_age_deduction : Rat := 0
   va_ccsp_copay : Rat := 0
   va_ccsp_income_eligible : Bool := false
   va_child_dependent_care_deduction_cdcc_limit : Rat := 0
-  va_educator_expense_deduction : Rat := 0
-  va_income_tax_before_non_refundable_credits : Rat := 0
   va_income_tax_if_claiming_non_refundable_eitc : Rat := 0
   va_income_tax_if_claiming_refundable_eitc : Rat := 0
   va_itemized_deductions : Rat := 0
   va_low_income_tax_credit_eligible : Bool := false
-  va_national_guard_subtraction : Rat := 0
   va_non_refundable_credits : Rat := 0
   va_non_refundable_eitc : Rat := 0
-  va_non_refundable_eitc_if_claimed : Rat := 0
-  va_refundable_credits : Rat := 0
-  va_refundable_eitc_if_claimed : Rat := 0
   va_spouse_tax_adjustment : Rat := 0
-  va_standard_deduction : Rat := 0
   va_subtractions : Rat := 0
-  va_tanf_countable_earned_income : Rat := 0
-  va_tanf_countable_unearned_income : Rat := 0
   va_tanf_grant_standard : Rat := 0
   va_tanf_need_standard : Rat := 0
   va_tanf_up_grant_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_vt where
-  vt_amt : Rat := 0
   vt_ccfap_family_share : Rat := 0
-  vt_ccfap_income_eligible : Bool := false
-  vt_child_care_contributions : Rat := 0
+  vt_military_retirement_income_based_exemption : Rat := 0
   vt_non_refundable_credits : Rat := 0
   vt_normal_income_tax : Rat := 0
   vt_personal_exemptions : Rat := 0
-  vt_reach_up_countable_unearned_income : Rat := 0
-  vt_reach_up_dependent_care_deduction : Rat := 0
-  vt_reach_up_max_benefit_standard : Rat := 0
-  vt_reach_up_payment_standard : Rat := 0
-  vt_reach_up_resources_eligible : Bool := false
+  vt_reach_up_basic_needs_allowance : Rat := 0
+  vt_reach_up_housing_allowance : Rat := 0
+  vt_reach_up_special_housing_allowance : Rat := 0
   vt_refundable_credits : Rat := 0
-  vt_renter_credit_countable_tax_exempt_ss : Rat := 0
   vt_standard_deduction : Rat := 0
   vt_subtractions : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_wa where
-  wa_capital_gains_tax : Rat := 0
-  wa_millionaires_tax : Rat := 0
   wa_millionaires_tax_applies : Bool := false
-  wa_millionaires_tax_base_income : Rat := 0
-  wa_millionaires_tax_charitable_deduction : Rat := 0
-  wa_millionaires_tax_standard_deduction : Rat := 0
-  wa_refundable_credits : Rat := 0
   wa_show_all_cash_assistance_programs : Bool := false
   wa_tanf_countable_earned_income : Rat := 0
+  wa_tanf_countable_resources : Rat := 0
   wa_tanf_income_eligible : Bool := false
   wa_tanf_payment_standard : Rat := 0
-  wa_tanf_resources_eligible : Bool := false
-  wa_wccc_copay : Rat := 0
-  wa_wccc_countable_income : Rat := 0
   wa_wccc_hgp_eligible : Bool := false
+  wa_wccc_smi_fraction : Rat := 0
   wa_wccc_smi_limit : Rat := 0
+  wa_working_families_tax_credit : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_wi where
   wi_additional_exemption : Rat := 0
-  wi_additions : Rat := 0
-  wi_base_exemption : Rat := 0
-  wi_capital_loss : Rat := 0
+  wi_earned_income_credit : Rat := 0
+  wi_homestead_eligible : Bool := false
+  wi_homestead_income : Rat := 0
   wi_income_subtractions : Rat := 0
   wi_income_tax_before_credits : Rat := 0
   wi_non_refundable_credits : Rat := 0
+  wi_retirement_income_exclusion_tax : Rat := 0
   wi_standard_deduction : Rat := 0
-  wi_works_income_eligible : Bool := false
-  wi_works_resources_eligible : Bool := false
+  wi_works_countable_resources : Rat := 0
+  wi_works_placement : WIWorksPlacement := .CSJ
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_wv where
   wv_additions : Rat := 0
-  wv_ccap : Rat := 0
-  wv_ccap_activity_eligible : Bool := false
-  wv_ccap_income_eligible : Bool := false
-  wv_homestead_exemption : Rat := 0
+  wv_ccap_copay : Rat := 0
   wv_income_tax_before_non_refundable_credits : Rat := 0
-  wv_low_income_earned_income_exclusion : Rat := 0
   wv_non_refundable_credits : Rat := 0
-  wv_personal_exemption : Rat := 0
-  wv_refundable_credits : Rat := 0
   wv_subtractions : Rat := 0
-  wv_works_countable_earned_income : Rat := 0
-  wv_works_countable_unearned_income : Rat := 0
   wv_works_income_eligible : Bool := false
-  wv_works_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_wy where
-  wy_power_earned_income_disregard : Rat := 0
   wy_power_payment_standard : Rat := 0
-  wy_power_resources_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Territories_pr where
-  pr_deductions : Rat := 0
-  pr_exemptions : Rat := 0
   pr_refundable_credits : Rat := 0
-  pr_regular_tax_before_credits : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Usda where
+  fdpir : Rat := 0
   meets_snap_categorical_eligibility : Bool := false
   receives_snap : Bool := false
-  school_meal_countable_income : Rat := 0
-  school_meal_net_subsidy : Rat := 0
+  school_meal_daily_subsidy : Rat := 0
+  school_meal_paid_daily_subsidy : Rat := 0
   school_meal_tier : SchoolMealTier := .PAID
   snap_child_support_gross_income_deduction : Rat := 0
   snap_emergency_allotment : Rat := 0
@@ -2412,6 +2085,8 @@ structure TaxUnit where
   members : List Person := []
   aca : TaxUnit_Aca := {}
   core : TaxUnit_Core := {}
+  doe : TaxUnit_Doe := {}
+  ed : TaxUnit_Ed := {}
   fcc : TaxUnit_Fcc := {}
   hhs : TaxUnit_Hhs := {}
   hud : TaxUnit_Hud := {}
@@ -2420,10 +2095,12 @@ structure TaxUnit where
   local_co : TaxUnit_Local_co := {}
   local_de : TaxUnit_Local_de := {}
   local_ky : TaxUnit_Local_ky := {}
-  local_mo : TaxUnit_Local_mo := {}
+  local_md : TaxUnit_Local_md := {}
   local_ny : TaxUnit_Local_ny := {}
   local_pa : TaxUnit_Local_pa := {}
   local_tax : TaxUnit_Local_tax := {}
+  local_tx : TaxUnit_Local_tx := {}
+  states : TaxUnit_States := {}
   states_ak : TaxUnit_States_ak := {}
   states_al : TaxUnit_States_al := {}
   states_ar : TaxUnit_States_ar := {}
@@ -2479,5 +2156,8 @@ structure TaxUnit where
   territories_pr : TaxUnit_Territories_pr := {}
   usda : TaxUnit_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
+
+instance : Inhabited Person := ⟨{}⟩
+instance : Inhabited TaxUnit := ⟨{}⟩
 
 end Lawlib.Gen

@@ -90,7 +90,12 @@ macro "eitc_normalize" : tactic =>
       is_qualifying_child_dependent, is_tax_unit_dependent,
       is_tax_unit_head_or_spouse, is_full_time_student, is_in_k12_school,
       tax_unit_is_joint, net_capital_gains, long_term_capital_gains,
-      self_employment_tax_ald_person, sumBy, anyBy, boolToRat, trap]
+      self_employment_tax_ald_person, self_employment_tax,
+      self_employment_medicare_tax, self_employment_social_security_tax,
+      social_security_taxable_self_employment_income,
+      taxable_self_employment_income, taxable_earnings_for_social_security,
+      payroll_tax_gross_wages, fica_pre_tax_contributions,
+      sumBy, anyBy, boolToRat, trap]
     simp +decide [DatedParam.atDate, DatedParam.atDate.go, Scale.atDate,
       ExtRat.leCap,
       Params.gov.irs.dependent.ineligible_age.student,
