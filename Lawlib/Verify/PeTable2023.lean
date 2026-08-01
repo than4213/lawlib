@@ -2,29 +2,13 @@ import Lawlib.Verify.EicTable2023
 import Lawlib.Claims
 
 /-!
-# QUARANTINED: theorems that evaluate the full generated twin
+# PE-formula vs table theorems (evaluated via the memoized evaluator)
 
-**Not imported by the library root — do not add an import without
-reading this.**
-
-Every `native_decide`/`#eval` that executes the *generated variable
-closure* (3,225 defs as of pe2lean v0.8.0) crashes the Lean 4.32.1
-runtime: reproducible segfaults with wandering crash sites
-(`lean::utf8_char_pos` null-deref, null field reads inside generated
-native code), in both the interpreter and precompiled-dynlib
-configurations. The same theorems were green at v0.7.1 scale
-(1,771 defs) — this is a scale-triggered toolchain bug, not a change in
-the twin's semantics (the differential harness still validates the twin
-against PolicyEngine with zero mismatches).
-
-Tracked in docs/FINDINGS.md (finding 16). Restore by re-importing this
-module from `Lawlib.lean` once either (a) the toolchain bug is fixed
-upstream, or (b) pe2lean emits a memoized evaluator (fused let-chain)
-that native_decide can execute without the full call-graph closure.
-
-Also quarantined for the same reason (whole modules, still on disk,
-unimported): `Lawlib/Theorems/Eitc2023.lean`,
-`Lawlib/Theorems/Ctc2023.lean`, `Lawlib/Verify/Catala2023.lean`.
+Grid theorems are stated over `Verify.peM` — the fused evaluator in
+`Lawlib.Gen.Memo` — because per-variable evaluation recomputes shared
+dependencies (finding 17). Formerly quarantined behind the Lean
+≥156-field `FromJson` codegen bug (finding 16, now worked around by
+capping generated structures at 128 fields).
 -/
 
 namespace Lawlib.Verify
@@ -37,9 +21,10 @@ theorem pe_within_1150_of_table :
     Gen.Irs.eicTable2023.all (rowDevOk (23/2)) = true := by
   native_decide
 
-/-- The $11.50 bound is sharp: earned income $50, three children. -/
+/-- The $11.50 bound is sharp: earned income $50, three children.
+(Stated over `peM`, the memoized evaluator — see `Verify.Scan`.) -/
 theorem pe_table_gap_reaches_1150 :
-    rabs (pe .single 3 50 - 34) = 23/2 := by
+    rabs (peM .single 3 50 - 34) = 23/2 := by
   native_decide
 
 /-- At bracket midpoints the gap is at most $5.297. -/
@@ -66,7 +51,7 @@ theorem pe_executed_matches_real_table_at_20k
   have hpe : pe .single 1 20025 = 3995 := by native_decide
   have hb :=
     (show ∀ g n x, 0 ≤ x → rabs (peEitcExecuted g n x - pe g n x) ≤ 1/50
-      from hw) .single 1 20025 (by positivity)
+      from hw) .single 1 20025 (by decide)
   rw [hpe] at hb
   exact hb
 

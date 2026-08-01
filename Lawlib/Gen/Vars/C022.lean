@@ -245,12 +245,12 @@ def tx_tanf (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ca/cpuc/ca_cpuc_countable_income.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
 def ca_cpuc_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.CA then (((((((((((((((((((((((((((sumBy t.members fun p => p.core.employment_income) + (sumBy t.members fun p => p.core.self_employment_income)) + (sumBy t.members fun p => p.core.sstb_self_employment_income)) + (sumBy t.members fun p => (partnership_s_corp_income t p d))) + (sumBy t.members fun p => p.core.farm_operations_income)) + (sumBy t.members fun p => (interest_income t p d))) + (sumBy t.members fun p => (dividend_income t p d))) + (sumBy t.members fun p => p.core.alimony_income)) + (sumBy t.members fun p => p.core.child_support_received)) + (tanf t d)) + (sumBy t.members fun p => ((ssi t p d) * 12))) + ((snap t d) * 12)) + (sumBy t.members fun p => ((wic t p d) * 12))) + (sumBy t.members fun p => (social_security t p d))) + (sumBy t.members fun p => (pension_income t p d))) + (sumBy t.members fun p => (retirement_distributions t p d))) + (spm_unit_capped_housing_subsidy t d)) + (sumBy t.members fun p => p.core.veterans_benefits)) + (sumBy t.members fun p => p.core.military_service_income)) + (sumBy t.members fun p => p.core.rental_income)) + (sumBy t.members fun p => p.core.farm_rent_income)) + (sumBy t.members fun p => (capital_gains t p d))) + (sumBy t.members fun p => p.states.unemployment_compensation)) + (sumBy t.members fun p => p.core.miscellaneous_income)) + (sumBy t.members fun p => p.core.gi_cash_assistance)) + (sumBy t.members fun p => p.core.debt_relief)) + (sumBy t.members fun p => p.core.illicit_income)) else 0)
+  (if t.core.CA then (((((((((((((((((((((((((((sumBy t.members fun p => p.core_p1.employment_income) + (sumBy t.members fun p => p.core_p2.self_employment_income)) + (sumBy t.members fun p => p.core_p2.sstb_self_employment_income)) + (sumBy t.members fun p => (partnership_s_corp_income t p d))) + (sumBy t.members fun p => p.core_p1.farm_operations_income)) + (sumBy t.members fun p => (interest_income t p d))) + (sumBy t.members fun p => (dividend_income t p d))) + (sumBy t.members fun p => p.core_p1.alimony_income)) + (sumBy t.members fun p => p.core_p1.child_support_received)) + (tanf t d)) + (sumBy t.members fun p => ((ssi t p d) * 12))) + ((snap t d) * 12)) + (sumBy t.members fun p => ((wic t p d) * 12))) + (sumBy t.members fun p => (social_security t p d))) + (sumBy t.members fun p => (pension_income t p d))) + (sumBy t.members fun p => (retirement_distributions t p d))) + (spm_unit_capped_housing_subsidy t d)) + (sumBy t.members fun p => p.core_p2.veterans_benefits)) + (sumBy t.members fun p => p.core_p1.military_service_income)) + (sumBy t.members fun p => p.core_p2.rental_income)) + (sumBy t.members fun p => p.core_p1.farm_rent_income)) + (sumBy t.members fun p => (capital_gains t p d))) + (sumBy t.members fun p => p.states.unemployment_compensation)) + (sumBy t.members fun p => p.core_p1.miscellaneous_income)) + (sumBy t.members fun p => p.core_p1.gi_cash_assistance)) + (sumBy t.members fun p => p.core_p1.debt_relief)) + (sumBy t.members fun p => p.core_p1.illicit_income)) else 0)
 
 /-- `policyengine_us/variables/gov/local/ca/la/dwp/ez_save/ca_la_ez_save_countable_income.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
 def ca_la_ez_save_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.local_ca.in_la then ((((((((((((sumBy t.members fun p => (irs_employment_income t p d)) + (sumBy t.members fun p => p.core.self_employment_income)) + (sumBy t.members fun p => p.core.sstb_self_employment_income)) + (sumBy t.members fun p => p.core.child_support_received)) + (sumBy t.members fun p => p.core.alimony_income)) + (sumBy t.members fun p => (social_security t p d))) + (sumBy t.members fun p => ((ssi t p d) * 12))) + (tanf t d)) + ((snap t d) * 12)) + (sumBy t.members fun p => p.core.veterans_benefits)) + (sumBy t.members fun p => p.states.unemployment_compensation)) + (sumBy t.members fun p => (pension_income t p d))) else 0)
+  (if t.local_ca.in_la then ((((((((((((sumBy t.members fun p => (irs_employment_income t p d)) + (sumBy t.members fun p => p.core_p2.self_employment_income)) + (sumBy t.members fun p => p.core_p2.sstb_self_employment_income)) + (sumBy t.members fun p => p.core_p1.child_support_received)) + (sumBy t.members fun p => p.core_p1.alimony_income)) + (sumBy t.members fun p => (social_security t p d))) + (sumBy t.members fun p => ((ssi t p d) * 12))) + (tanf t d)) + ((snap t d) * 12)) + (sumBy t.members fun p => p.core_p2.veterans_benefits)) + (sumBy t.members fun p => p.states.unemployment_compensation)) + (sumBy t.members fun p => (pension_income t p d))) else 0)
 
 /-- `policyengine_us/variables/household/income/household/cbo_household_means_tested_transfers.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
@@ -260,7 +260,7 @@ def cbo_household_means_tested_transfers (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/id/tax/income/credits/grocery/eligible/id_grocery_credit_qualifying_month.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def id_grocery_credit_qualifying_month (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.ID then ((!p.core.is_incarcerated) && (!((decide ((snap t d) > 0)) || t.usda.receives_snap))) else false)
+  (if t.core.ID then ((!p.core_p1.is_incarcerated) && (!((decide ((snap t d) > 0)) || t.usda.receives_snap))) else false)
 
 /-- `policyengine_us/variables/gov/states/il/hfs/hbwd/il_hbwd.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -285,7 +285,7 @@ def il_smib (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/hhs/head_start/is_head_start_categorically_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_head_start_categorically_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((decide ((((tanf t d) + ((ssi t p d) * 12)) + ((snap t d) * 12)) > 0)) || (decide (((boolToRat t.hhs.receives_tanf + boolToRat p.ssa.receives_ssi) + boolToRat t.usda.receives_snap) > 0))) || (t.core.is_homeless || p.core.was_in_foster_care))
+  (((decide ((((tanf t d) + ((ssi t p d) * 12)) + ((snap t d) * 12)) > 0)) || (decide (((boolToRat t.hhs.receives_tanf + boolToRat p.ssa.receives_ssi) + boolToRat t.usda.receives_snap) > 0))) || (t.core.is_homeless || p.core_p2.was_in_foster_care))
 
 /-- `policyengine_us/variables/gov/states/ma/dot/mbta/income_eligible_reduced_fares/ma_mbta_enrolled_in_applicable_programs.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -300,7 +300,7 @@ def medicaid_community_engagement_pass_through_eligible (t : TaxUnit) (p : Perso
 /-- `policyengine_us/variables/gov/usda/school_meals/meets_school_meal_categorical_eligibility.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def meets_school_meal_categorical_eligibility (t : TaxUnit) (d : Date) : Bool :=
-  (decide ((((((((((snap t d) * 12) + (tanf t d)) + t.usda.fdpir) + (sumBy t.members fun p => boolToRat p.core.was_in_foster_care)) + boolToRat t.core.is_homeless) + (sumBy t.members fun p => boolToRat p.core.is_runaway_child)) + (sumBy t.members fun p => boolToRat p.core.is_migratory_child)) + (sumBy t.members fun p => boolToRat p.hhs.is_head_start_eligible)) ≠ 0))
+  (decide ((((((((((snap t d) * 12) + (tanf t d)) + t.usda.fdpir) + (sumBy t.members fun p => boolToRat p.core_p2.was_in_foster_care)) + boolToRat t.core.is_homeless) + (sumBy t.members fun p => boolToRat p.core_p1.is_runaway_child)) + (sumBy t.members fun p => boolToRat p.core_p1.is_migratory_child)) + (sumBy t.members fun p => boolToRat p.hhs.is_head_start_eligible)) ≠ 0))
 
 /-- `policyengine_us/variables/gov/states/tx/dart/reduced_fare/eligibility/tx_dart_reduced_fare_program_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -335,17 +335,17 @@ def il_ipass_assist_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/hhs/head_start/is_early_head_start_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_early_head_start_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((decide (p.core.age < (Params.gov.hhs.head_start.early_head_start.age_limit.atDate d))) || p.core.is_pregnant) && (p.hhs.is_head_start_income_eligible || (is_head_start_categorically_eligible t p d)))
+  (((decide (p.core_p1.age < (Params.gov.hhs.head_start.early_head_start.age_limit.atDate d))) || p.core_p1.is_pregnant) && (p.hhs.is_head_start_income_eligible || (is_head_start_categorically_eligible t p d)))
 
 /-- `policyengine_us/variables/gov/states/ma/dot/mbta/income_eligible_reduced_fares/ma_mbta_income_eligible_reduced_fare_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ma_mbta_income_eligible_reduced_fare_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (ma_mbta_enrolled_in_applicable_programs t p d) then (decide ((Params.gov.states.ma.dot.mbta.income_eligible_reduced_fares.age_threshold.atDate d p.core.age) ≠ 0)) else false)
+  (if (ma_mbta_enrolled_in_applicable_programs t p d) then (decide ((Params.gov.states.ma.dot.mbta.income_eligible_reduced_fares.age_threshold.atDate d p.core_p1.age) ≠ 0)) else false)
 
 /-- `policyengine_us/variables/gov/states/tx/dart/reduced_fare/eligibility/tx_dart_reduced_fare_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def tx_dart_reduced_fare_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.TX then ((((p.states_tx.tx_dart_reduced_fare_age_eligible || p.core.is_disabled) || (is_veteran t p d)) || (is_full_time_student t p d)) || (tx_dart_reduced_fare_program_eligible t p d)) else false)
+  (if t.core.TX then ((((p.states_tx.tx_dart_reduced_fare_age_eligible || p.core_p1.is_disabled) || (is_veteran t p d)) || (is_full_time_student t p d)) || (tx_dart_reduced_fare_program_eligible t p d)) else false)
 
 /-- `policyengine_us/variables/gov/states/ca/cpuc/care/eligibility/ca_care_eligible.py`
     policyengine-us 1.783.0, entity household, value_type bool. -/

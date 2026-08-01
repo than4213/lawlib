@@ -1,44 +1,33 @@
-# Phase B2 status: full-tree formula sweep (3,224 defs) — parked on this branch
+# Phase B2: LANDED (v0.8.0)
 
-*2026-07-28. Branch `phase-b2`; main remains at the v0.7.1 state (1,771
-defs, all theorems green).*
+*Updated 2026-08-01. Originally parked on this branch behind what turned
+out to be a Lean codegen bug; fully landed after root-causing it.*
 
-## What B2 is
+## Final state
 
-Feeding the parser the **entire 10,362-parameter tree** (instead of the
-curated subtrees) unlocks ~1,450 additional formulas: 3,224 translated
-defs, 1,576 boundary inputs. Extractor work is merged on pe2lean main
-(commit "Phase B2 extractor"); this branch carries the generated Lean.
+- **3,224 translated formulas** from the full 10,362-parameter tree
+  (15x → 27x the original curated closure).
+- **Root cause of the crashes** (findings 16): Lean ≤ 4.32.2 compiled
+  code corrupts the heap decoding structures with ≥ 156 fields via
+  derived `FromJson` — exact boundary bisected, 20-line standalone
+  repro in docs/lean-fromjson-crash-repro.md. Worked around by capping
+  all generated structures at 128 fields (`_pN` part-splitting).
+- **Fused memoized evaluator** (`Lawlib/Gen/Memo.lean`): the validated
+  closure as one topologically-ordered let-chain, each variable
+  computed once (person-level vars as index-aligned arrays). Fixes the
+  exponential recomputation cost (finding 17); `native_decide` runs
+  243k full-household evaluations in ~90 s.
+- **Validated tier: 278 variables diff-clean** (was 65) at 300
+  households across multiple seeds; ~40 child-care-subsidy chain
+  variables are translated but demoted to `DIFF_PENDING`
+  (pe2lean extract.py) until their input conventions are hardened.
+- **All theorem modules restored**: EIC table generator, PE-vs-table
+  bounds (restated over `peM`, the memoized evaluator), trapezoid
+  closed forms + continuity (unfold list extended for the deeper
+  federal chain), CTC cliff atlas, Catala §32 comparison.
 
-## Why it is not on main
+## Remaining follow-ups
 
-Evaluating the 3,224-def closure crashes the Lean 4.32.1 runtime.
-Reproducible, scale-triggered (identical machinery is green at v0.7.1's
-1,771 defs):
-
-- interpreter (`#eval`, `native_decide`): segfaults — null-deref in
-  `lean::utf8_char_pos` (single-module combos of the EIC table
-  constants + any generated-variable call), plus wandering crash sites
-  in generated native code under `--load-dynlib`;
-- fully compiled evaluator (`lake exe lawlib`): segfault inside
-  mimalloc (`mi_segment_alloc`, ~92 MB RSS — not OOM) on any household,
-  including an all-zero one, ~23 s into the un-memoized federal chain.
-
-Also independent of the crash: un-memoized evaluation cost is
-exponential in member-nesting depth. `is_qualifying_relative_dependent`
-is PRUNEd on this branch for that reason; the general fix is below.
-
-## The path to landing (post-vacation)
-
-1. **Memoized evaluator emission**: emit a fused per-entity evaluator
-   (topologically ordered `let` chain; person-level vars as per-member
-   arrays) so each variable is computed once per household. This fixes
-   the exponential cost, makes `native_decide` over the full closure
-   feasible again, and — because it collapses the call graph into a few
-   large defs — most likely sidesteps the toolchain crash entirely.
-2. Minimal reproducer for the Lean crash → upstream issue.
-3. Re-run the differential harness (the B2 twin has NOT yet passed a
-   diff run end-to-end — the evaluator crashes first), then re-enable
-   the quarantined theorem modules (`Verify/PendingLeanBug2023.lean`,
-   `Theorems/Eitc2023.lean`, `Theorems/Ctc2023.lean`,
-   `Verify/Catala2023.lean`) and ship as v0.8.0.
+1. Harden the child-care chains and drain DIFF_PENDING.
+2. File the Lean bug upstream (report draft: docs/zulip-draft-bug.md).
+3. Enacted-vs-projection split (laws only — see FINDINGS 4).

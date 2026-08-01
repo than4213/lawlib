@@ -1,6 +1,3 @@
--- QUARANTINED (unimported from Lawlib.lean): evaluating the generated
--- twin at v0.8.0 scale (3,225 defs) crashes the Lean 4.32.1 runtime.
--- See Lawlib/Verify/PendingLeanBug2023.lean and docs/FINDINGS.md #16.
 import Lawlib.Catala.Section32
 import Lawlib.Theorems.Eitc2023
 

@@ -24,7 +24,7 @@ to the kernel):
 
 * `eic_table_2023_generator_verified` — the model reproduces every cell
   of the parsed table (`Lawlib.Gen.Irs.eicTable2023`).
-* (in `Verify/PendingLeanBug2023.lean`, temporarily unimported —
+* (in `Verify/PeTable2023.lean`, temporarily unimported —
   see that file's header) `pe_within_1150_of_table` — PolicyEngine's
   smooth formula (the
   translated `eitc`, evaluated on the canonical scan household) never
@@ -110,7 +110,7 @@ def rowDevOk (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
     | none => true
     | some t =>
       [(r.lo : Rat), ((r.lo : Rat) + (r.hi : Rat)) / 2, (r.hi : Rat) - 1].all
-        fun x => decide (rabs (pe g n x - (t : Rat)) ≤ bound)
+        fun x => decide (rabs (peM g n x - (t : Rat)) ≤ bound)
 
 def rowDevOkMid (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
   (List.range 8).all fun i =>
@@ -118,7 +118,7 @@ def rowDevOkMid (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
     match r.credits.getD i none with
     | none => true
     | some t =>
-      decide (rabs (pe g n (((r.lo : Rat) + (r.hi : Rat)) / 2) - (t : Rat)) ≤ bound)
+      decide (rabs (peM g n (((r.lo : Rat) + (r.hi : Rat)) / 2) - (t : Rat)) ≤ bound)
 
 /-- The reverse-engineered generator reproduces every cell of the 2023
 IRS EIC table. -/

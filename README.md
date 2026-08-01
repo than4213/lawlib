@@ -1,7 +1,11 @@
 # Lawlib
 
-**A formal library of law in Lean 4** — starting with the US federal Earned
-Income Tax Credit (26 U.S.C. §32).
+**A formal library of law in Lean 4**: the computable core of the US
+tax-and-transfer system — **10,362 exact-rational, date-indexed
+parameters** (the entire PolicyEngine parameter tree) and **~3,200
+mechanically translated formulas** spanning federal tax credits (EITC,
+CTC), SNAP, SSI, the ACA premium tax credit, and a long tail of state
+and local programs.
 
 Lawlib is a *verified twin* of [PolicyEngine US](https://github.com/PolicyEngine/policyengine-us),
 the largest living formalization of US tax-benefit law. PolicyEngine's
@@ -28,8 +32,8 @@ one checkout computes any covered tax year.
 ## Build
 
 ```
-lake build          # zero dependencies beyond Lean core
-lake build lawlib   # the JSONL evaluator binary
+lake build          # Lean core + mathlib (for the ∀-theorems)
+lake build lawlib   # the JSONL evaluator binary (fused memoized evaluator)
 ```
 
 ```
@@ -60,7 +64,26 @@ Form 1040 instructions):
   credit by more than **$11.50** — and that bound is sharp;
 - at bracket midpoints the gap is at most $5.297.
 
-See [docs/findings-m5.md](docs/findings-m5.md) for the full findings.
+[`Lawlib/Theorems/`](Lawlib/Theorems/) adds symbolic results: the
+EITC's closed trapezoid form per (filing status × children) cell,
+continuity in income (no benefit cliffs — a kernel proof, no
+computation), monotonicity on the phase-in, and the CTC's complete
+$50-cliff atlas. [`Lawlib/Verify/Catala2023.lean`](Lawlib/Verify/Catala2023.lean)
+compares an independent, statute-first [Catala](https://catala-lang.org)
+encoding of §32 against the PolicyEngine twin and proves the statute's
+literal arithmetic differs from administered practice by **exactly
+24¢/50¢** (the Rev.-Proc. rounding the statute never mentions).
+
+**TCB note**: table/grid results use `native_decide` (trusts the Lean
+compiler); the symbolic theorems are ordinary kernel proofs. Statements
+*about reality* (the printed table, executed PolicyEngine) are
+never-asserted claim `Prop`s with evidence tiers
+([`Lawlib/Claims.lean`](Lawlib/Claims.lean), [docs/CLAIMS.md](docs/CLAIMS.md));
+`#print axioms` stays clean for the whole library.
+
+See [docs/FINDINGS.md](docs/FINDINGS.md) — 17 findings so far, from
+PolicyEngine's float32 residue to a Lean codegen bug with a 20-line
+repro ([docs/lean-fromjson-crash-repro.md](docs/lean-fromjson-crash-repro.md)).
 
 ## Why
 
@@ -75,3 +98,10 @@ proofs will localize real benefit cliffs.
 
 See [docs/design.md](docs/design.md) and
 [docs/lawlib-handoff.md](docs/lawlib-handoff.md).
+
+## License
+
+Lawlib is **AGPL-3.0**: the generated content derives from
+[policyengine-us](https://github.com/PolicyEngine/policyengine-us)
+(AGPL-3.0). The [pe2lean](https://github.com/than4213/pe2lean)
+transpiler is separately Apache-2.0.

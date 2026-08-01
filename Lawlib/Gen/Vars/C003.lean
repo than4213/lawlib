@@ -25,12 +25,12 @@ def ky_agi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ky/tax/income/exclusions/pension_income/ky_pension_income_exclusion_exemption_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ky_pension_income_exclusion_exemption_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.KY then (decide (((boolToRat p.core.retired_from_federal_government + boolToRat p.states_ky.retired_from_ky_government) + p.core.railroad_benefits) ≠ 0)) else false)
+  (if t.core.KY then (decide (((boolToRat p.core_p2.retired_from_federal_government + boolToRat p.states_ky.retired_from_ky_government) + p.core_p2.railroad_benefits) ≠ 0)) else false)
 
 /-- `policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_standard_deduction_joint.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ky_standard_deduction_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.KY then ((boolToRat p.core.is_tax_unit_head) * (Params.gov.states.ky.tax.income.deductions.standard.atDate d)) else 0)
+  (if t.core.KY then ((boolToRat p.core_p1.is_tax_unit_head) * (Params.gov.states.ky.tax.income.deductions.standard.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ky/tax/income/credits/tuition_tax/ky_tuition_tax_credit_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -65,7 +65,7 @@ def la_general_relief_home_value_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/la_general_relief_personal_property_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def la_general_relief_personal_property_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.local_ca.in_la then (decide ((sumBy t.members fun p => p.core.personal_property) < (Params.gov.local.ca.la.general_relief.eligibility.limit.personal_property.atDate d))) else false)
+  (if t.local_ca.in_la then (decide ((sumBy t.members fun p => p.core_p2.personal_property) < (Params.gov.local.ca.la.general_relief.eligibility.limit.personal_property.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/states/la/tax/income/la_income_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -75,7 +75,7 @@ def la_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/la/tax/income/exempt_income/military_pay_exclusion/la_military_pay_exclusion.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def la_military_pay_exclusion (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.LA then (min ((Params.gov.states.la.tax.income.exempt_income.military_pay_exclusion.max_amount.atDate d) : Rat) (sumBy t.members fun p => p.core.military_service_income)) else 0)
+  (if t.core.LA then (min ((Params.gov.states.la.tax.income.exempt_income.military_pay_exclusion.max_amount.atDate d) : Rat) (sumBy t.members fun p => p.core_p1.military_service_income)) else 0)
 
 /-- `policyengine_us/variables/gov/states/la/tax/income/credits/cdcc/la_non_refundable_cdcc_potential.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -100,7 +100,7 @@ def la_standard_deduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/la/tax/income/exemptions/personal/la_widow_exemption.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def la_surviving_spouse_exemption (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.LA then ((boolToRat (anyBy t.members fun p => p.core.is_surviving_spouse)) * (Params.gov.states.la.tax.income.exemptions.surviving_spouse.atDate d)) else 0)
+  (if t.core.LA then ((boolToRat (anyBy t.members fun p => p.core_p1.is_surviving_spouse)) * (Params.gov.states.la.tax.income.exemptions.surviving_spouse.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/aca/lcbp/lcbp.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -135,7 +135,7 @@ def ma_ccfa_asset_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_immigration_status_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ma_ccfa_immigration_status_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MA then ((Params.gov.states.ma.eec.ccfa.qualified_immigration_statuses.atDate d).contains (ImmigrationStatus.asStr p.core.immigration_status)) else false)
+  (if t.core.MA then ((Params.gov.states.ma.eec.ccfa.qualified_immigration_statuses.atDate d).contains (ImmigrationStatus.asStr p.core_p1.immigration_status)) else false)
 
 /-- `policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_informal_child_care_reimbursement.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -145,7 +145,7 @@ def ma_ccfa_informal_child_care_reimbursement (t : TaxUnit) (p : Person) (d : Da
 /-- `policyengine_us/variables/gov/states/ma/eec/ccfa/reimbursement/ma_ccfa_reimbursement_ratio.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ma_ccfa_reimbursement_ratio (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MA then (Params.gov.states.ma.eec.ccfa.reimbursement_rates.amount_ratio.atDate d p.core.childcare_hours_per_day) else 0)
+  (if t.core.MA then (Params.gov.states.ma.eec.ccfa.reimbursement_rates.amount_ratio.atDate d p.core_p1.childcare_hours_per_day) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/income/ma_eaedc_standard_assistance.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -165,12 +165,12 @@ def ma_liheap_state_median_income_threshold (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ma/dot/mbta/senior_charlie_card/ma_mbta_senior_charlie_card_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ma_mbta_senior_charlie_card_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MA then (decide (p.core.age ≥ (Params.gov.states.ma.dot.mbta.senior_charlie_card.age_threshold.atDate d))) else false)
+  (if t.core.MA then (decide (p.core_p1.age ≥ (Params.gov.states.ma.dot.mbta.senior_charlie_card.age_threshold.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/states/ma/tax/payroll/paid_leave/ma_paid_leave_taxable_wages.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ma_paid_leave_taxable_wages (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MA then (min ((max (0 : Rat) p.core.employment_income) : Rat) (Params.gov.irs.payroll.social_security.cap.atDate d)) else 0)
+  (if t.core.MA then (min ((max (0 : Rat) p.core_p1.employment_income) : Rat) (Params.gov.irs.payroll.social_security.cap.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/tax/income/taxable_income/ma_part_b_taxable_income_before_exemption.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -180,12 +180,12 @@ def ma_part_b_taxable_income_before_exemption (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/eligibility/non_financial/ma_tafdc_age_limit.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ma_tafdc_age_limit (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MA then (if p.core.is_pregnant then (Params.gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.teen_parent.atDate d) else (if p.core.is_in_secondary_school then (Params.gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.student_dependent.atDate d) else (Params.gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.dependent.atDate d))) else 0)
+  (if t.core.MA then (if p.core_p1.is_pregnant then (Params.gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.teen_parent.atDate d) else (if p.core_p1.is_in_secondary_school then (Params.gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.student_dependent.atDate d) else (Params.gov.states.ma.dta.tcap.tafdc.eligibility.age_limit.dependent.atDate d))) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/income/deductions/ma_tafdc_child_support_deduction.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ma_tafdc_child_support_deduction (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MA then (min ((p.core.alimony_income / 12) : Rat) (Params.gov.states.ma.dta.tcap.deductions.child_support_received.atDate d)) else 0)
+  (if t.core.MA then (min ((p.core_p1.alimony_income / 12) : Rat) (Params.gov.states.ma.dta.tcap.deductions.child_support_received.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/eligibility/non_financial/ma_tafdc_non_financial_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -195,12 +195,12 @@ def ma_tafdc_non_financial_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/ma/tax/payroll/unemployment/ma_taxable_earnings_for_state_unemployment_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ma_taxable_earnings_for_state_unemployment_tax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MA then (min ((max (0 : Rat) p.core.employment_income) : Rat) (Params.gov.states.ma.tax.payroll.unemployment.taxable_wage_base.atDate d)) else 0)
+  (if t.core.MA then (min ((max (0 : Rat) p.core_p1.employment_income) : Rat) (Params.gov.states.ma.tax.payroll.unemployment.taxable_wage_base.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/ma_tcap_gross_earned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ma_tcap_gross_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MA then (((p.core.employment_income_before_lsr / 12) + (p.core.self_employment_income_before_lsr / 12)) + (p.core.sstb_self_employment_income_before_lsr / 12)) else 0)
+  (if t.core.MA then (((p.core_p1.employment_income_before_lsr / 12) + (p.core_p2.self_employment_income_before_lsr / 12)) + (p.core_p2.sstb_self_employment_income_before_lsr / 12)) else 0)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/agi/md_agi.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -215,7 +215,7 @@ def md_cdcc_potential (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/hundred_year/md_hundred_year_subtraction_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def md_hundred_year_subtraction_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MD then (decide (p.core.age ≥ (Params.gov.states.md.tax.income.agi.subtractions.hundred_year.age_threshold.atDate d))) else false)
+  (if t.core.MD then (decide (p.core_p1.age ≥ (Params.gov.states.md.tax.income.agi.subtractions.hundred_year.age_threshold.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/md_income_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -230,7 +230,7 @@ def md_itemized_deductions (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_military_retirement_subtraction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def md_military_retirement_subtraction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MD then (sumBy t.members fun p => (min (((sumBy t.members fun p => p.core.military_retirement_pay) + (sumBy t.members fun p => p.core.military_retirement_pay_survivors)) : Rat) (if (decide (p.core.age ≥ (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.age_threshold.atDate d))) then (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.at_or_above_age_threshold.atDate d) else (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.under_age_threshold.atDate d)))) else 0)
+  (if t.core.MD then (sumBy t.members fun p => (min (((sumBy t.members fun p => p.core_p1.military_retirement_pay) + (sumBy t.members fun p => p.core_p1.military_retirement_pay_survivors)) : Rat) (if (decide (p.core_p1.age ≥ (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.age_threshold.atDate d))) then (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.at_or_above_age_threshold.atDate d) else (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.under_age_threshold.atDate d)))) else 0)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/credits/senior_tax/md_senior_tax_credit_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -240,7 +240,7 @@ def md_senior_tax_credit_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/md/usda/snap/min_allotment/md_snap_is_elderly.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def md_snap_is_elderly (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MD then (decide (p.core.age ≥ (Params.gov.states.md.usda.snap.min_allotment.age_threshold.atDate d))) else false)
+  (if t.core.MD then (decide (p.core_p1.age ≥ (Params.gov.states.md.usda.snap.min_allotment.age_threshold.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_socsec_subtraction_amount.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -255,7 +255,7 @@ def md_total_personal_exemptions (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/me/tax/income/credits/me_affordability_payment.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def me_affordability_payment (t : TaxUnit) (d : Date) : Rat :=
-  (if t.states_me.me_affordability_payment_eligible then ((sumBy t.members fun p => (boolToRat ((p.core.is_tax_unit_head || p.core.is_tax_unit_spouse) && (!p.core.claimed_as_dependent_on_another_return)))) * (Params.gov.states.me.tax.income.credits.affordability_payment.amount.atDate d)) else 0)
+  (if t.states_me.me_affordability_payment_eligible then ((sumBy t.members fun p => (boolToRat ((p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) && (!p.core_p1.claimed_as_dependent_on_another_return)))) * (Params.gov.states.me.tax.income.credits.affordability_payment.amount.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/me/tax/income/adjusted_gross_income/me_affordability_payment_subtraction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -275,7 +275,7 @@ def me_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/me/tax/payroll/paid_leave/me_paid_leave_taxable_wages.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def me_paid_leave_taxable_wages (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.ME then (min ((max (0 : Rat) p.core.employment_income) : Rat) (Params.gov.irs.payroll.social_security.cap.atDate d)) else 0)
+  (if t.core.ME then (min ((max (0 : Rat) p.core_p1.employment_income) : Rat) (Params.gov.irs.payroll.social_security.cap.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/me/tax/income/credits/fairness/property_tax_fairness_credit/me_property_tax_fairness_credit_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -315,32 +315,32 @@ def medicaid_slcsp_cost_index_filled (t : TaxUnit) (p : Person) (d : Date) : Rat
 /-- `policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/meets_american_opportunity_credit_identification_requirements.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_american_opportunity_credit_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (!(Params.gov.irs.credits.education.american_opportunity_credit.eligibility.requires_qualifying_ssn.atDate d)) then p.core.has_tin else ((p.core.ssn_card_type == SSNCardType.CITIZEN) || (p.core.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD)))
+  (if (!(Params.gov.irs.credits.education.american_opportunity_credit.eligibility.requires_qualifying_ssn.atDate d)) then p.core_p1.has_tin else ((p.core_p2.ssn_card_type == SSNCardType.CITIZEN) || (p.core_p2.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD)))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/meets_ctc_child_identification_requirements.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_ctc_child_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (Params.gov.irs.credits.ctc.child_ssn_requirement_applies.atDate d) then ((Params.gov.irs.credits.ctc.eligible_ssn_card_type.atDate d).contains (SSNCardType.asStr p.core.ssn_card_type)) else true)
+  (if (Params.gov.irs.credits.ctc.child_ssn_requirement_applies.atDate d) then ((Params.gov.irs.credits.ctc.eligible_ssn_card_type.atDate d).contains (SSNCardType.asStr p.core_p2.ssn_card_type)) else true)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/meets_ctc_identification_requirements.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_ctc_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((Params.gov.irs.credits.ctc.eligible_ssn_card_type.atDate d).contains (SSNCardType.asStr p.core.ssn_card_type))
+  ((Params.gov.irs.credits.ctc.eligible_ssn_card_type.atDate d).contains (SSNCardType.asStr p.core_p2.ssn_card_type))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/meets_eitc_identification_requirements.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_eitc_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((p.core.ssn_card_type == SSNCardType.CITIZEN) || (p.core.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD))
+  ((p.core_p2.ssn_card_type == SSNCardType.CITIZEN) || (p.core_p2.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD))
 
 /-- `policyengine_us/variables/gov/irs/credits/education/meets_lifetime_learning_credit_identification_requirements.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_lifetime_learning_credit_identification_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (!(Params.gov.irs.credits.education.lifetime_learning_credit.eligibility.requires_qualifying_ssn.atDate d)) then p.core.has_tin else ((p.core.ssn_card_type == SSNCardType.CITIZEN) || (p.core.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD)))
+  (if (!(Params.gov.irs.credits.education.lifetime_learning_credit.eligibility.requires_qualifying_ssn.atDate d)) then p.core_p1.has_tin else ((p.core_p2.ssn_card_type == SSNCardType.CITIZEN) || (p.core_p2.ssn_card_type == SSNCardType.NON_CITIZEN_VALID_EAD)))
 
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_work_exception.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_snap_work_exception (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((decide (p.core.weekly_hours_worked_before_lsr ≥ (Params.gov.usda.snap.student.working_hours_threshold.atDate d))) || p.ed.is_federal_work_study_participant)
+  ((decide (p.core_p2.weekly_hours_worked_before_lsr ≥ (Params.gov.usda.snap.student.working_hours_threshold.atDate d))) || p.ed.is_federal_work_study_participant)
 
 /-- `policyengine_us/variables/gov/usda/wic/meets_wic_income_test.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -355,7 +355,7 @@ def mi_ccap_program_group_size (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/mi/tax/income/exemptions/mi_disabled_exemption_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def mi_disabled_exemption_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MI then (boolToRat ((p.core.is_blind || p.core.is_deaf) || (p.core.is_permanently_and_totally_disabled && (decide (p.core.age < (Params.gov.states.mi.tax.income.exemptions.disabled.age_limit.atDate d)))))) else 0)
+  (if t.core.MI then (boolToRat ((p.core_p1.is_blind || p.core_p1.is_deaf) || (p.core_p1.is_permanently_and_totally_disabled && (decide (p.core_p1.age < (Params.gov.states.mi.tax.income.exemptions.disabled.age_limit.atDate d)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/mi/tax/income/deductions/retirement/expanded/mi_expanded_retirement_benefits_deduction_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -370,7 +370,7 @@ def mi_fip_payment_standard (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_homestead_property_tax_credit_countable_property_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mi_homestead_property_tax_credit_countable_property_tax (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MI then ((sumBy t.members fun p => p.core.real_estate_taxes) + ((sumBy t.members fun p => p.core.rent) * (Params.gov.states.mi.tax.income.credits.homestead_property_tax.rent_equivalization.atDate d))) else 0)
+  (if t.core.MI then ((sumBy t.members fun p => p.core_p2.real_estate_taxes) + ((sumBy t.members fun p => p.core_p2.rent) * (Params.gov.states.mi.tax.income.credits.homestead_property_tax.rent_equivalization.atDate d))) else 0)
 
 /-- `policyengine_us/variables/gov/states/mi/tax/income/credits/homestead_property_tax/mi_homestead_property_tax_credit_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -425,17 +425,17 @@ def mi_withheld_income_tax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/household/demographic/tax_unit/military_disabled_head.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def military_disabled_head (t : TaxUnit) (d : Date) : Bool :=
-  (anyBy t.members fun p => (p.core.is_fully_disabled_service_connected_veteran && p.core.is_tax_unit_head))
+  (anyBy t.members fun p => (p.core_p1.is_fully_disabled_service_connected_veteran && p.core_p1.is_tax_unit_head))
 
 /-- `policyengine_us/variables/household/demographic/tax_unit/military_disabled_spouse.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def military_disabled_spouse (t : TaxUnit) (d : Date) : Bool :=
-  (anyBy t.members fun p => (p.core.is_fully_disabled_service_connected_veteran && p.core.is_tax_unit_spouse))
+  (anyBy t.members fun p => (p.core_p1.is_fully_disabled_service_connected_veteran && p.core_p1.is_tax_unit_spouse))
 
 /-- `policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_active_duty_military_pay_subtraction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mn_active_duty_military_pay_subtraction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MN then (sumBy t.members fun p => p.core.military_service_income) else 0)
+  (if t.core.MN then (sumBy t.members fun p => p.core_p1.military_service_income) else 0)
 
 /-- `policyengine_us/variables/gov/states/mn/tax/income/additions/mn_additions.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -445,7 +445,7 @@ def mn_additions (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/mn/dcyf/ccap/mn_ccap_income_deductions.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def mn_ccap_income_deductions (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MN then ((sumBy t.members fun p => p.core.child_support_expense) + (sumBy t.members fun p => p.core.alimony_expense)) else 0)
+  (if t.core.MN then ((sumBy t.members fun p => p.core_p1.child_support_expense) + (sumBy t.members fun p => p.core_p1.alimony_expense)) else 0)
 
 /-- `policyengine_us/variables/gov/states/mn/tax/income/credits/cdcc/mn_cdcc_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -480,7 +480,7 @@ def mn_mfip_full_transitional_standard (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/mn/tax/income/subtractions/mn_military_pension_subtraction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mn_military_pension_subtraction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MN then ((sumBy t.members fun p => p.core.military_retirement_pay) + (sumBy t.members fun p => p.core.military_retirement_pay_survivors)) else 0)
+  (if t.core.MN then ((sumBy t.members fun p => p.core_p1.military_retirement_pay) + (sumBy t.members fun p => p.core_p1.military_retirement_pay_survivors)) else 0)
 
 /-- `policyengine_us/variables/gov/states/mn/dhs/msa/mn_msa.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -520,7 +520,7 @@ def mo_business_income_deduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/mo/dese/ccs/eligibility/mo_ccs_protective_services.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def mo_ccs_protective_services (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MO then (p.core.is_in_foster_care || p.core.receives_or_needs_protective_services) else false)
+  (if t.core.MO then (p.core_p1.is_in_foster_care || p.core_p2.receives_or_needs_protective_services) else false)
 
 /-- `policyengine_us/variables/gov/states/mo/tax/income/exemptions/mo_head_of_household_exemption.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -540,7 +540,7 @@ def mo_income_tax_exempt (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/local/mo/kansas_city/tax/income/mo_kansas_city_earnings_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mo_kansas_city_earnings_tax (t : TaxUnit) (d : Date) : Rat :=
-  (sumBy t.members fun p => (p.core.mo_kansas_city_earnings_tax_taxable_earnings * (Params.gov.local.mo.kansas_city.tax.income.rate.atDate d)))
+  (sumBy t.members fun p => (p.core_p1.mo_kansas_city_earnings_tax_taxable_earnings * (Params.gov.local.mo.kansas_city.tax.income.rate.atDate d)))
 
 /-- `policyengine_us/variables/gov/states/mo/tax/income/deductions/mo_pension_and_ss_or_ssd_deduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -550,17 +550,17 @@ def mo_pension_and_ss_or_ssd_deduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/mo/dss/ssp/eligibility/mo_ssp_category_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def mo_ssp_category_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MO then ((((((p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.RCF_LEVEL_I) || (p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.RCF_LEVEL_II_OR_ALF)) || (p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.INTERMEDIATE_OR_SKILLED_NO_LOC)) || (p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.SNF_OR_ICF_NON_MEDICAID)) && p.ssa.is_ssi_aged_blind_disabled) || ((p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.SAB) && p.core.is_blind)) else false)
+  (if t.core.MO then ((((((p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.RCF_LEVEL_I) || (p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.RCF_LEVEL_II_OR_ALF)) || (p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.INTERMEDIATE_OR_SKILLED_NO_LOC)) || (p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.SNF_OR_ICF_NON_MEDICAID)) && p.ssa.is_ssi_aged_blind_disabled) || ((p.states_mo.mo_ssp_living_arrangement == MOSSPLivingArrangement.SAB) && p.core_p1.is_blind)) else false)
 
 /-- `policyengine_us/variables/gov/local/mo/st_louis/tax/income/mo_st_louis_earnings_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mo_st_louis_earnings_tax (t : TaxUnit) (d : Date) : Rat :=
-  (sumBy t.members fun p => (max (0 : Rat) ((p.core.mo_st_louis_earnings_tax_taxable_earnings * (Params.gov.local.mo.st_louis.tax.income.rate.atDate d)) - p.core.mo_st_louis_earnings_tax_credit)))
+  (sumBy t.members fun p => (max (0 : Rat) ((p.core_p2.mo_st_louis_earnings_tax_taxable_earnings * (Params.gov.local.mo.st_louis.tax.income.rate.atDate d)) - p.core_p1.mo_st_louis_earnings_tax_credit)))
 
 /-- `policyengine_us/variables/gov/local/mo/st_louis/tax/income/mo_st_louis_earnings_tax_before_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mo_st_louis_earnings_tax_before_credit (t : TaxUnit) (d : Date) : Rat :=
-  (sumBy t.members fun p => (p.core.mo_st_louis_earnings_tax_taxable_earnings * (Params.gov.local.mo.st_louis.tax.income.rate.atDate d)))
+  (sumBy t.members fun p => (p.core_p2.mo_st_louis_earnings_tax_taxable_earnings * (Params.gov.local.mo.st_louis.tax.income.rate.atDate d)))
 
 /-- `policyengine_us/variables/gov/states/mo/dss/tanf/mo_tanf_maximum_benefit.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -570,12 +570,12 @@ def mo_tanf_maximum_benefit (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/household/demographic/age/monthly_age.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def monthly_age (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((p.core.age / 12) * 12)
+  ((p.core_p1.age / 12) * 12)
 
 /-- `policyengine_us/variables/household/income/person/monthly_hours_worked.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def monthly_hours_worked (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((p.core.hours_worked_last_week * 52) / 12)
+  ((p.core_p1.hours_worked_last_week * 52) / 12)
 
 /-- `policyengine_us/variables/gov/states/ms/dhs/ccpp/copay/ms_ccpp_income_based_copay.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -605,12 +605,12 @@ def ms_files_separately (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/ms/dom/hmw/eligibility/ms_hmw_demographic_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ms_hmw_demographic_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MS then ((p.ssa.is_ssi_aged_blind_disabled && (!p.core.is_pregnant)) && (!p.ssa.is_in_medicaid_facility)) else false)
+  (if t.core.MS then ((p.ssa.is_ssi_aged_blind_disabled && (!p.core_p1.is_pregnant)) && (!p.ssa.is_in_medicaid_facility)) else false)
 
 /-- `policyengine_us/variables/gov/states/ms/tax/income/adjustments/ms_national_guard_or_reserve_pay_adjustment.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ms_national_guard_or_reserve_pay_adjustment (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MS then (min (p.core.military_service_income : Rat) (Params.gov.states.ms.tax.income.adjustments.national_guard_or_reserve_pay.cap.atDate d)) else 0)
+  (if t.core.MS then (min (p.core_p1.military_service_income : Rat) (Params.gov.states.ms.tax.income.adjustments.national_guard_or_reserve_pay.cap.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ms/tax/income/exemptions/ms_regular_exemption.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -630,12 +630,12 @@ def ms_tanf_maximum_benefit (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ms/dom/wd/eligibility/ms_wd_disability_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ms_wd_disability_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MS then ((p.ssa.meets_ssi_disability_criteria || p.core.is_blind) || (decide ((p.ssa.social_security_disability / 12) > 0))) else false)
+  (if t.core.MS then ((p.ssa.meets_ssi_disability_criteria || p.core_p1.is_blind) || (decide ((p.ssa.social_security_disability / 12) > 0))) else false)
 
 /-- `policyengine_us/variables/gov/states/ms/dom/wd/income/ms_wd_gross_earned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ms_wd_gross_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MS then (((p.core.employment_income / 12) + (p.core.self_employment_income / 12)) + (p.core.sstb_self_employment_income / 12)) else 0)
+  (if t.core.MS then (((p.core_p1.employment_income / 12) + (p.core_p2.self_employment_income / 12)) + (p.core_p2.sstb_self_employment_income / 12)) else 0)
 
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -670,27 +670,27 @@ def mt_income_tax_before_non_refundable_credits_joint (t : TaxUnit) (d : Date) :
 /-- `policyengine_us/variables/gov/states/mt/tax/income/subtractions/old_age/mt_old_age_subtraction.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def mt_old_age_subtraction (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MT then (Params.gov.states.mt.tax.income.subtractions.old_age.amount.atDate d p.core.age) else 0)
+  (if t.core.MT then (Params.gov.states.mt.tax.income.subtractions.old_age.amount.atDate d p.core_p1.age) else 0)
 
 /-- `policyengine_us/variables/gov/states/mt/tax/income/exemptions/personal/mt_personal_exemptions_joint.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def mt_personal_exemptions_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MT then (p.states_mt.mt_personal_exemptions_indiv * (boolToRat p.core.is_tax_unit_head)) else 0)
+  (if t.core.MT then (p.states_mt.mt_personal_exemptions_indiv * (boolToRat p.core_p1.is_tax_unit_head)) else 0)
 
 /-- `policyengine_us/variables/gov/states/mt/tax/income/credits/rebate/mt_property_tax_rebate.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mt_property_tax_rebate (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MT then (min ((Params.gov.states.mt.tax.income.credits.rebate.property.amount.atDate d) : Rat) (sumBy t.members fun p => p.core.real_estate_taxes)) else 0)
+  (if t.core.MT then (min ((Params.gov.states.mt.tax.income.credits.rebate.property.amount.atDate d) : Rat) (sumBy t.members fun p => p.core_p2.real_estate_taxes)) else 0)
 
 /-- `policyengine_us/variables/gov/states/mt/dhs/tanf/income/earned/mt_tanf_gross_earned_income_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def mt_tanf_gross_earned_income_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MT then (((p.core.employment_income_before_lsr / 12) + (p.core.self_employment_income_before_lsr / 12)) + (p.core.sstb_self_employment_income_before_lsr / 12)) else 0)
+  (if t.core.MT then (((p.core_p1.employment_income_before_lsr / 12) + (p.core_p2.self_employment_income_before_lsr / 12)) + (p.core_p2.sstb_self_employment_income_before_lsr / 12)) else 0)
 
 /-- `policyengine_us/variables/gov/states/mt/dhs/tanf/eligibility/mt_tanf_immigration_status_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def mt_tanf_immigration_status_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MT then (((Params.gov.states.mt.dhs.tanf.qualified_noncitizen_status.atDate d).contains (ImmigrationStatus.asStr p.core.immigration_status)) || (p.core.immigration_status == ImmigrationStatus.CITIZEN)) else false)
+  (if t.core.MT then (((Params.gov.states.mt.dhs.tanf.qualified_noncitizen_status.atDate d).contains (ImmigrationStatus.asStr p.core_p1.immigration_status)) || (p.core_p1.immigration_status == ImmigrationStatus.CITIZEN)) else false)
 
 /-- `policyengine_us/variables/gov/states/mt/dhs/tanf/income_standards/mt_tanf_net_income_standard.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -705,22 +705,22 @@ def mt_tanf_resources_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/nc/ncdhhs/tanf/nc_demographic_tanf_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def nc_demographic_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.NC then ((anyBy t.members fun p => (decide (p.core.age < (Params.gov.states.nc.ncdhhs.tanf.eligibility.age_limit.atDate d)))) && (decide (t.states_nc.nc_tanf_household_size > 0))) else false)
+  (if t.core.NC then ((anyBy t.members fun p => (decide (p.core_p1.age < (Params.gov.states.nc.ncdhhs.tanf.eligibility.age_limit.atDate d)))) && (decide (t.states_nc.nc_tanf_household_size > 0))) else false)
 
 /-- `policyengine_us/variables/gov/states/nc/tax/income/deductions/military_retirement/nc_military_retirement_deduction_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def nc_military_retirement_deduction_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.NC then (p.core.is_permanently_disabled_veteran || (decide (p.core.years_in_military ≥ (Params.gov.states.nc.tax.income.deductions.military_retirement.minimum_years.atDate d)))) else false)
+  (if t.core.NC then (p.core_p1.is_permanently_disabled_veteran || (decide (p.core_p2.years_in_military ≥ (Params.gov.states.nc.tax.income.deductions.military_retirement.minimum_years.atDate d)))) else false)
 
 /-- `policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_child_age_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def nc_scca_child_age_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.NC then (decide (p.core.age < (if p.core.is_disabled then (Params.gov.states.nc.ncdhhs.scca.age.limit.disabled.atDate d) else (Params.gov.states.nc.ncdhhs.scca.age.limit.non_disabled.atDate d)))) else false)
+  (if t.core.NC then (decide (p.core_p1.age < (if p.core_p1.is_disabled then (Params.gov.states.nc.ncdhhs.scca.age.limit.disabled.atDate d) else (Params.gov.states.nc.ncdhhs.scca.age.limit.non_disabled.atDate d)))) else false)
 
 /-- `policyengine_us/variables/gov/states/nc/ncdhhs/scca/nc_scca_is_school_age.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def nc_scca_is_school_age (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.NC then (decide (p.core.age ≥ (Params.gov.states.nc.ncdhhs.scca.age.school.atDate d))) else false)
+  (if t.core.NC then (decide (p.core_p1.age ≥ (Params.gov.states.nc.ncdhhs.scca.age.school.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/states/nc/tax/income/deductions/nc_standard_deduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -730,7 +730,7 @@ def nc_standard_deduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/nc/ncdhhs/tanf/income/nc_tanf_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def nc_tanf_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.NC then (((sumBy t.members fun p => p.core.employment_income) + (sumBy t.members fun p => p.core.self_employment_income)) + (sumBy t.members fun p => p.core.sstb_self_employment_income)) else 0)
+  (if t.core.NC then (((sumBy t.members fun p => p.core_p1.employment_income) + (sumBy t.members fun p => p.core_p2.self_employment_income)) + (sumBy t.members fun p => p.core_p2.sstb_self_employment_income)) else 0)
 
 /-- `policyengine_us/variables/gov/states/nc/tax/income/nc_taxable_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -750,7 +750,7 @@ def nd_additions (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/nd/dhs/ccap/income/nd_ccap_child_support_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def nd_ccap_child_support_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.ND then ((sumBy t.members fun p => (p.core.child_support_expense / 12)) + (sumBy t.members fun p => (p.core.alimony_expense / 12))) else 0)
+  (if t.core.ND then ((sumBy t.members fun p => (p.core_p1.child_support_expense / 12)) + (sumBy t.members fun p => (p.core_p1.alimony_expense / 12))) else 0)
 
 /-- `policyengine_us/variables/gov/states/nd/tax/income/nd_income_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -760,6 +760,6 @@ def nd_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/nd/tax/property/primary_residence_credit/nd_primary_residence_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def nd_primary_residence_credit (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.ND then (min ((Params.gov.states.nd.tax.property.primary_residence_credit.amount.atDate d) : Rat) (sumBy t.members fun p => p.core.real_estate_taxes)) else 0)
+  (if t.core.ND then (min ((Params.gov.states.nd.tax.property.primary_residence_credit.amount.atDate d) : Rat) (sumBy t.members fun p => p.core_p2.real_estate_taxes)) else 0)
 
 end Lawlib.Gen.Vars

@@ -65015,7 +65015,7 @@
       "name": "de_poc_activity_eligible",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/de/dss/poc/eligibility/de_poc_activity_eligible.py",
       "sha256": "e37305f8cffa972ce86abaed4ba37e5a0b6b0ceedb3190ed2dfa63f209fabc7a"
@@ -65105,7 +65105,7 @@
       "name": "fl_sr_copay",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/fl/doe/sr/copay/fl_sr_copay.py",
       "sha256": "c4fef6ade884ab7168bb1a611834d13c5e09a45f1e4c9048366db261656a2b4d"
@@ -69398,7 +69398,7 @@
       "name": "nd_ccap_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/nd/dhs/ccap/income/nd_ccap_countable_income.py",
       "sha256": "f4e668622132b85663f9c160e9dc0b5b785e993a296d3792f27b0f3bdb89168e"
@@ -69866,7 +69866,7 @@
       "name": "sd_cca_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/sd/dss/cca/income/sd_cca_countable_income.py",
       "sha256": "5fb99abc7ed4eb8f8ea23c5a67b6af2251228cdfaea30e2b38d47e68f6fb67f2"
@@ -70793,7 +70793,7 @@
       "name": "fl_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/fl/doe/sr/fl_child_care_subsidies.py",
       "sha256": "f5dac412779b64a812c7621525017a109839515a20c88117065b7cbb31af5761"
@@ -71459,7 +71459,7 @@
       "name": "nd_ccap_income_eligible",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/nd/dhs/ccap/eligibility/nd_ccap_income_eligible.py",
       "sha256": "431d4ce40f55ce3c75f21bb1c421df4265cf7248d8cf08074144982cad978629"
@@ -72845,7 +72845,7 @@
       "name": "nd_ccap_eligible",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/nd/dhs/ccap/eligibility/nd_ccap_eligible.py",
       "sha256": "225541075feb66e530f7df4ccfbbd6349f84ed8f125be1a2025736ed5e9bb24d"
@@ -72908,7 +72908,7 @@
       "name": "nm_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/nm/ececd/ccap/nm_child_care_subsidies.py",
       "sha256": "fdc4fe52c770239051b9cfcbedd86a033beea18cdc167e07ee4583a2780b61d5"
@@ -73790,7 +73790,7 @@
       "name": "nd_ccap_copay",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/nd/dhs/ccap/copay/nd_ccap_copay.py",
       "sha256": "a1893cf3ca23fa07cb191d19c574c7d1ff2320f76c496e23ca519c530b1bf2d6"
@@ -74816,7 +74816,7 @@
       "name": "ak_ccap_countable_unearned_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ak/dpa/ccap/income/ak_ccap_countable_unearned_income.py",
       "sha256": "b19d8d9613d27678f334a133ea45bcc61062d8b38b9afd1d823ad1dd421df5d0"
@@ -75104,7 +75104,7 @@
       "name": "de_poc_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/de/dss/poc/de_poc_countable_income.py",
       "sha256": "3869dd21ebe584cca6ec19ae27b4bbedf0635f97e30761a9512a440384b2def0"
@@ -75320,7 +75320,7 @@
       "name": "ma_ccfa_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_countable_income.py",
       "sha256": "10891ee4d6e6c9a1d74534bf51544b914b88856ff182b9f7940dd91207de8bc1"
@@ -75365,7 +75365,7 @@
       "name": "md_ccs_eligible",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/md/msde/ccs/eligibility/md_ccs_eligible.py",
       "sha256": "1f30911a5d6389d24430a01b640fad35b612ea54558d05c10b36d954e2fec6b3"
@@ -75392,7 +75392,7 @@
       "name": "me_ccap_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/me/dhhs/ccap/income/me_ccap_countable_income.py",
       "sha256": "0628e05e4f96770ef07565693d9af05dce6d8d8592d605d62169cd6b8199b711"
@@ -75527,7 +75527,7 @@
       "name": "nd_ccap",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/nd/dhs/ccap/nd_ccap.py",
       "sha256": "ef1e56260a9ba15db60da1f69c8bcdfa569a30bd710cd50f2d683d18a7dd7b06"
@@ -75572,7 +75572,7 @@
       "name": "ok_ccs_predetermined_eligible",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_predetermined_eligible.py",
       "sha256": "e13a03fb59b7008e4986ff0eef54c1d930db921847662955052e108b31eda4c0"
@@ -75599,7 +75599,7 @@
       "name": "pa_ccw_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_countable_income.py",
       "sha256": "80531d5707c7aad7f068d118ad6a98ca153e24d3a7b8b4ba6c0db2c095811973"
@@ -75671,7 +75671,7 @@
       "name": "ri_ccap_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ri/dhs/ccap/ri_ccap_countable_income.py",
       "sha256": "49674623a1dc640d9591a67313f7119aee7f327a29f115bf2c9348f039648607"
@@ -75752,7 +75752,7 @@
       "name": "wa_wccc_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/wa/dcyf/wccc/income/wa_wccc_countable_income.py",
       "sha256": "531c9701ccc6d15878dd65d7f7a941de3e84a466a173f5e43d14de7b4559459f"
@@ -75761,7 +75761,7 @@
       "name": "wv_ccap_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_countable_income.py",
       "sha256": "ecfe323f6250996030c5da537e7d531fc2736ab585c370866010a11a82356648"
@@ -75779,7 +75779,7 @@
       "name": "ak_ccap_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ak/dpa/ccap/income/ak_ccap_countable_income.py",
       "sha256": "ce5e53becf51772923424206c56a912da79ddc3bc07178713c0a3dd6ac4af21a"
@@ -75986,7 +75986,7 @@
       "name": "de_poc_copay",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/de/dss/poc/de_poc_copay.py",
       "sha256": "c3ea4988fc87f568704772d207e8e26eb611a4a4bff4dfeadd66b56d4887eeac"
@@ -76202,7 +76202,7 @@
       "name": "md_ccs",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/md/msde/ccs/md_ccs.py",
       "sha256": "8414ffaeff17c1da8afe86c2030ea6a5b24003134c0bd7a09893bad3092149b3"
@@ -76328,7 +76328,7 @@
       "name": "nd_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/nd/dhs/ccap/nd_child_care_subsidies.py",
       "sha256": "f2e0449da077ac0d6748f33a1496a80af06308d468c63f797cf8c01d433312b7"
@@ -76400,7 +76400,7 @@
       "name": "ok_ccs_eligible",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_eligible.py",
       "sha256": "e35ece1c1fb92e3a202d1dcd90319cb0903e14ce3fdb1e611f9180ec034471f2"
@@ -76418,7 +76418,7 @@
       "name": "pa_ccw_adjusted_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_adjusted_income.py",
       "sha256": "23467f3c15daaa93459b2b388332e9495b64ff8c960b7db231284a5db60360a7"
@@ -76634,7 +76634,7 @@
       "name": "ar_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/ar/ade/oec/sra/ar_child_care_subsidies.py",
       "sha256": "33dccab257d263be58b43f6e27da4f117b2110657154113217e1e56df76e598a"
@@ -76751,7 +76751,7 @@
       "name": "ct_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/ct/oec/c4k/ct_child_care_subsidies.py",
       "sha256": "83bf4c0e92650c1a275444a5d7ff384fa68c6b0dcf01b85d617020b60baa440c"
@@ -77021,7 +77021,7 @@
       "name": "md_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/md/msde/ccs/md_child_care_subsidies.py",
       "sha256": "d0f721d6ac360118093407a82213609698a90e97b20473e0a0838f806981567c"
@@ -77264,7 +77264,7 @@
       "name": "ok_ccs",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ok/dhs/ccs/ok_ccs.py",
       "sha256": "ea8e46391a72307c5fbe604780a3220a632f9545b8153241abec1319043839bc"
@@ -77426,7 +77426,7 @@
       "name": "ak_ccap_copay",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/ak/dpa/ccap/copay/ak_ccap_copay.py",
       "sha256": "f0ec4c533c75fe237c8aa0125aac88f1e22118b865b257bc3d0bd0294d5886b4"
@@ -77759,7 +77759,7 @@
       "name": "mo_ccs",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs.py",
       "sha256": "799e8c753c8e8f8117d24d497bafa64a103e46a5814e1ee6700b8501e895e3ed"
@@ -77876,7 +77876,7 @@
       "name": "ok_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/ok/dhs/ccs/ok_child_care_subsidies.py",
       "sha256": "23a495024a6d535c758584129013f8ff72384191803f78e5db3491b93f3a81fc"
@@ -78263,7 +78263,7 @@
       "name": "mo_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/states/mo/dese/ccs/mo_child_care_subsidies.py",
       "sha256": "211516a22a08b1746474dbc59e40b15015d2504d247bd0fbafa543f1dc813a4a"
@@ -78794,7 +78794,7 @@
       "name": "child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/ccdf/child_care_subsidies.py",
       "sha256": "c834f7631bdc24b9d154911b6897731c1d155bb96c02e9904b088977fcd586a5"
@@ -78929,7 +78929,7 @@
       "name": "childcare_expenses",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "year",
       "source": "policyengine_us/variables/household/expense/childcare/childcare_expenses.py",
       "sha256": "0d00a7288ddf5e3c781c7fd716b0a45174f6f79bd1e3112e493bfa386f0ae1c0"
@@ -79217,7 +79217,7 @@
       "name": "snap_dependent_care_deduction",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/deductions/snap_dependent_care_deduction.py",
       "sha256": "bfcbe08e1dd8e315a4092937e5d4ecfe52d39c3f1365d97dd3d2d484f1e00d72"
@@ -79478,7 +79478,7 @@
       "name": "snap_deductions",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/deductions/snap_deductions.py",
       "sha256": "248ebb513cddc7d0ff04ae6a1914e71c60d558ac4e51e3a4a39f03003fce5d08"
@@ -79739,7 +79739,7 @@
       "name": "snap_net_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income.py",
       "sha256": "9cfcb37afdb1efd8db4d987052a8168785f48b2aa1ec67c0fb5e1a6af7494c66"
@@ -79991,7 +79991,7 @@
       "name": "snap_net_income_fpg_ratio",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py",
       "sha256": "62316892a3456ce3c61743134715d5eea2de4d157243e604384c3450a12c1524"
@@ -81359,7 +81359,7 @@
       "name": "able_contributions_person",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -81422,7 +81422,7 @@
       "name": "adopted_this_year",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -81431,7 +81431,7 @@
       "name": "adult_index",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call person.get_rank"
@@ -81440,7 +81440,7 @@
       "name": "after_school_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -81449,7 +81449,7 @@
       "name": "age",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -81710,7 +81710,7 @@
       "name": "alimony_expense",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -81719,7 +81719,7 @@
       "name": "alimony_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82132,7 +82132,7 @@
       "name": "bank_account_assets",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82177,7 +82177,7 @@
       "name": "bond_assets",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82204,7 +82204,7 @@
       "name": "business_is_sstb",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82859,7 +82859,7 @@
       "name": "casualty_loss",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82931,7 +82931,7 @@
       "name": "charitable_cash_donations",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82940,7 +82940,7 @@
       "name": "charitable_non_cash_donations",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82949,7 +82949,7 @@
       "name": "charitable_non_cash_donations_non_50_pct_orgs",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82958,7 +82958,7 @@
       "name": "child_support_expense",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82967,7 +82967,7 @@
       "name": "child_support_received",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82976,7 +82976,7 @@
       "name": "childcare_attending_days_per_month",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82985,7 +82985,7 @@
       "name": "childcare_days_per_week",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -82994,7 +82994,7 @@
       "name": "childcare_hours_per_day",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -83003,7 +83003,7 @@
       "name": "childcare_provider_type_group",
       "entity": "person",
       "value_type": "Enum",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": "",
@@ -83056,7 +83056,7 @@
       "name": "claimed_as_dependent_on_another_return",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -83380,7 +83380,7 @@
       "name": "count_529_contribution_beneficiaries",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -83389,7 +83389,7 @@
       "name": "count_days_postpartum",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call select"
@@ -83407,7 +83407,7 @@
       "name": "csrs_retirement_pay",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -83550,7 +83550,7 @@
       "name": "current_pregnancy_month",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "month",
       "kind": "input",
       "note": ""
@@ -84015,7 +84015,7 @@
       "name": "debt_relief",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84033,7 +84033,7 @@
       "name": "dependent_care_employer_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84042,7 +84042,7 @@
       "name": "disability_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84051,7 +84051,7 @@
       "name": "divorce_year",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84069,7 +84069,7 @@
       "name": "early_withdrawal_penalty",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84087,7 +84087,7 @@
       "name": "educational_assistance",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84105,7 +84105,7 @@
       "name": "elective_deferral_limit",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call getattr"
@@ -84168,7 +84168,7 @@
       "name": "employer_contribution_to_health_insurance_premiums_category",
       "entity": "person",
       "value_type": "Enum",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": "",
@@ -84185,7 +84185,7 @@
       "name": "employer_headcount",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84194,7 +84194,7 @@
       "name": "employer_ny_mctmt_zone_1_quarterly_payroll_expense",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84203,7 +84203,7 @@
       "name": "employer_ny_mctmt_zone_2_quarterly_payroll_expense",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84221,7 +84221,7 @@
       "name": "employer_quarterly_payroll_expense_override",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84248,7 +84248,7 @@
       "name": "employer_state_unemployment_tax_rate_override",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84275,7 +84275,7 @@
       "name": "employer_total_payroll_tax_gross_wages",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84284,7 +84284,7 @@
       "name": "employer_total_taxable_earnings_for_federal_unemployment_tax",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84293,7 +84293,7 @@
       "name": "employer_total_taxable_earnings_for_social_security",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84302,7 +84302,7 @@
       "name": "employer_total_taxable_earnings_for_state_unemployment_tax",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84311,7 +84311,7 @@
       "name": "employment_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "pruned",
       "note": "behavioral-response chain (gov/simulation) out of scope"
@@ -84320,7 +84320,7 @@
       "name": "employment_income_before_lsr",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84329,7 +84329,7 @@
       "name": "employment_income_last_year",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call employment_income_target"
@@ -84365,7 +84365,7 @@
       "name": "estate_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84401,7 +84401,7 @@
       "name": "farm_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84410,7 +84410,7 @@
       "name": "farm_operations_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84419,7 +84419,7 @@
       "name": "farm_rent_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84455,7 +84455,7 @@
       "name": "financial_assistance",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84629,7 +84629,7 @@
       "name": "fsla_overtime_premium",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84638,7 +84638,7 @@
       "name": "fsla_overtime_salary_threshold",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "np.full_like"
@@ -84764,7 +84764,7 @@
       "name": "gambling_losses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84773,7 +84773,7 @@
       "name": "gambling_winnings",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84800,7 +84800,7 @@
       "name": "gi_cash_assistance",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84827,7 +84827,7 @@
       "name": "has_bcc_qualifying_coverage",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84836,7 +84836,7 @@
       "name": "has_champva_health_coverage_at_interview",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84845,7 +84845,7 @@
       "name": "has_chip_health_coverage_at_interview",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84854,7 +84854,7 @@
       "name": "has_developmental_delay",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84881,7 +84881,7 @@
       "name": "has_individualized_education_program",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84890,7 +84890,7 @@
       "name": "has_marketplace_health_coverage_at_interview",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84899,7 +84899,7 @@
       "name": "has_medicaid_health_coverage_at_interview",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84908,7 +84908,7 @@
       "name": "has_other_means_tested_health_coverage_at_interview",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84926,7 +84926,7 @@
       "name": "has_tin",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "attribute 'simulation' on value expression"
@@ -84935,7 +84935,7 @@
       "name": "has_tricare_health_coverage_at_interview",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84944,7 +84944,7 @@
       "name": "has_va_health_coverage_at_interview",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84953,7 +84953,7 @@
       "name": "health_insurance_premiums",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84962,7 +84962,7 @@
       "name": "health_insurance_premiums_without_medicare_part_b",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -84980,7 +84980,7 @@
       "name": "health_savings_account_payroll_contributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -85025,7 +85025,7 @@
       "name": "heating_expense_person",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -85250,7 +85250,7 @@
       "name": "home_equity",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -85259,7 +85259,7 @@
       "name": "home_is_on_agricultural_land",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -85268,7 +85268,7 @@
       "name": "home_mortgage_interest",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -85277,7 +85277,7 @@
       "name": "home_mortgage_interest_share",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "np.zeros_like"
@@ -85304,7 +85304,7 @@
       "name": "hours_worked_last_week",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86069,7 +86069,7 @@
       "name": "illicit_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86078,7 +86078,7 @@
       "name": "immigration_status",
       "entity": "person",
       "value_type": "Enum",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "pruned",
       "note": "str->enum conversion formula \u2014 enum input",
@@ -86345,7 +86345,7 @@
       "name": "in_out_of_home_care_facility",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86552,7 +86552,7 @@
       "name": "investment_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86561,7 +86561,7 @@
       "name": "investment_in_529_plan_indv",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86570,7 +86570,7 @@
       "name": "investment_income_elected_form_4952",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86588,7 +86588,7 @@
       "name": "investment_interest_expense",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86633,7 +86633,7 @@
       "name": "is_blind",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86642,7 +86642,7 @@
       "name": "is_breastfeeding",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86696,7 +86696,7 @@
       "name": "is_deaf",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86705,7 +86705,7 @@
       "name": "is_disabled",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86741,7 +86741,7 @@
       "name": "is_english_proficient",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86759,7 +86759,7 @@
       "name": "is_enrolled_in_head_start",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86777,7 +86777,7 @@
       "name": "is_female",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86786,7 +86786,7 @@
       "name": "is_full_time_college_student",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86795,7 +86795,7 @@
       "name": "is_fully_disabled_service_connected_veteran",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86804,7 +86804,7 @@
       "name": "is_grandparent_of_filer_or_spouse",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86858,7 +86858,7 @@
       "name": "is_in_foster_care",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "month",
       "kind": "input",
       "note": ""
@@ -86867,7 +86867,7 @@
       "name": "is_in_foster_care_group_home",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "month",
       "kind": "input",
       "note": ""
@@ -86885,7 +86885,7 @@
       "name": "is_in_residential_care_facility",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "month",
       "kind": "input",
       "note": ""
@@ -86894,7 +86894,7 @@
       "name": "is_in_secondary_school",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86912,7 +86912,7 @@
       "name": "is_incapable_of_self_care",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86921,7 +86921,7 @@
       "name": "is_incarcerated",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "month",
       "kind": "input",
       "note": ""
@@ -86939,7 +86939,7 @@
       "name": "is_migratory_child",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86948,7 +86948,7 @@
       "name": "is_military",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86984,7 +86984,7 @@
       "name": "is_paid_hourly",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -86993,7 +86993,7 @@
       "name": "is_parent_of_filer_or_spouse",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87002,7 +87002,7 @@
       "name": "is_part_time_college_student",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87011,7 +87011,7 @@
       "name": "is_permanently_and_totally_disabled",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87020,7 +87020,7 @@
       "name": "is_permanently_disabled_veteran",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87029,7 +87029,7 @@
       "name": "is_pregnant",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87038,7 +87038,7 @@
       "name": "is_qualifying_relative_dependent",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87047,7 +87047,7 @@
       "name": "is_related_to_head_or_spouse",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87056,7 +87056,7 @@
       "name": "is_runaway_child",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87074,7 +87074,7 @@
       "name": "is_self_employed",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87083,7 +87083,7 @@
       "name": "is_separated",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87128,7 +87128,7 @@
       "name": "is_surviving_spouse",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87146,7 +87146,7 @@
       "name": "is_tax_unit_head",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "attribute 'tax_unit' on value expression"
@@ -87155,7 +87155,7 @@
       "name": "is_tax_unit_spouse",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "attribute 'tax_unit' on value expression"
@@ -87209,7 +87209,7 @@
       "name": "keogh_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87765,7 +87765,7 @@
       "name": "life_insurance_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87801,7 +87801,7 @@
       "name": "long_term_capital_gains_on_assets_eligible_for_vt_exclusion",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87810,7 +87810,7 @@
       "name": "long_term_capital_gains_on_collectibles",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87819,7 +87819,7 @@
       "name": "long_term_capital_gains_on_small_business_stock",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -87828,7 +87828,7 @@
       "name": "long_term_health_insurance_premiums",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -88063,7 +88063,7 @@
       "name": "marginal_tax_rate",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "rejected",
       "note": "attribute 'simulation' on value expression"
@@ -88968,7 +88968,7 @@
       "name": "military_basic_pay",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -88977,7 +88977,7 @@
       "name": "military_retirement_pay",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -88986,7 +88986,7 @@
       "name": "military_retirement_pay_survivors",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -88995,7 +88995,7 @@
       "name": "military_service_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -89004,7 +89004,7 @@
       "name": "miscellaneous_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -89309,7 +89309,7 @@
       "name": "mo_kansas_city_earnings_tax_taxable_earnings",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -89409,7 +89409,7 @@
       "name": "mo_st_louis_earnings_tax_credit",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p1",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -89418,7 +89418,7 @@
       "name": "mo_st_louis_earnings_tax_taxable_earnings",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -90864,7 +90864,7 @@
       "name": "non_qualified_dividend_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -90882,7 +90882,7 @@
       "name": "non_sch_d_capital_gains",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -91835,7 +91835,7 @@
       "name": "other_health_insurance_premiums",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -91844,7 +91844,7 @@
       "name": "other_medical_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -91853,7 +91853,7 @@
       "name": "over_the_counter_health_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -91862,7 +91862,7 @@
       "name": "own_children_in_household",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92024,7 +92024,7 @@
       "name": "partnership_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92033,7 +92033,7 @@
       "name": "partnership_self_employment_net_earnings",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92172,7 +92172,7 @@
       "name": "pension_survivors",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92199,7 +92199,7 @@
       "name": "person_count",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92208,7 +92208,7 @@
       "name": "personal_property",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92235,7 +92235,7 @@
       "name": "pre_subsidy_care_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92244,7 +92244,7 @@
       "name": "pre_subsidy_childcare_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "rejected",
       "note": "attribute 'spm_unit' on value expression"
@@ -92262,7 +92262,7 @@
       "name": "pre_subsidy_rent",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92271,7 +92271,7 @@
       "name": "pre_subsidy_transportation_expense",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92280,7 +92280,7 @@
       "name": "pre_tax_health_insurance_premiums",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92307,7 +92307,7 @@
       "name": "qualified_adoption_assistance_expense",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92334,7 +92334,7 @@
       "name": "qualified_dividend_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92361,7 +92361,7 @@
       "name": "qualified_tuition_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92370,7 +92370,7 @@
       "name": "railroad_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92379,7 +92379,7 @@
       "name": "real_estate_taxes",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92415,7 +92415,7 @@
       "name": "receives_or_needs_protective_services",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92469,7 +92469,7 @@
       "name": "rent",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "rejected",
       "note": "np.zeros_like"
@@ -92478,7 +92478,7 @@
       "name": "rental_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92505,7 +92505,7 @@
       "name": "retired_from_federal_government",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92532,7 +92532,7 @@
       "name": "retirement_benefits_from_ss_exempt_employment",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92640,7 +92640,7 @@
       "name": "roth_401k_contributions_desired",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92649,7 +92649,7 @@
       "name": "roth_403b_contributions_desired",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92658,7 +92658,7 @@
       "name": "roth_ira_contributions_desired",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92667,7 +92667,7 @@
       "name": "s_corp_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92802,7 +92802,7 @@
       "name": "schedule_d_capital_gain_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92923,7 +92923,7 @@
       "name": "self_employed_pension_contributions_desired",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92932,7 +92932,7 @@
       "name": "self_employment_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "pruned",
       "note": "behavioral-response chain out of scope"
@@ -92941,7 +92941,7 @@
       "name": "self_employment_income_before_lsr",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92950,7 +92950,7 @@
       "name": "self_employment_income_last_year",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -92968,7 +92968,7 @@
       "name": "share_of_care_and_support_costs_paid_by_tax_filer",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "rejected",
       "note": "np.zeros_like"
@@ -92977,7 +92977,7 @@
       "name": "short_term_capital_gains",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93471,7 +93471,7 @@
       "name": "ssi_qualifying_quarters_earnings",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93480,7 +93480,7 @@
       "name": "ssi_reported",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93507,7 +93507,7 @@
       "name": "ssn_card_type",
       "entity": "person",
       "value_type": "Enum",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": "",
@@ -93533,7 +93533,7 @@
       "name": "sstb_self_employment_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "pruned",
       "note": "behavioral-response chain out of scope"
@@ -93542,7 +93542,7 @@
       "name": "sstb_self_employment_income_before_lsr",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93667,7 +93667,7 @@
       "name": "state_or_federal_salary",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93685,7 +93685,7 @@
       "name": "stock_assets",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93694,7 +93694,7 @@
       "name": "strike_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93703,7 +93703,7 @@
       "name": "student_loan_interest",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93721,7 +93721,7 @@
       "name": "survivor_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93856,7 +93856,7 @@
       "name": "tax_exempt_401k_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93865,7 +93865,7 @@
       "name": "tax_exempt_403b_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93874,7 +93874,7 @@
       "name": "tax_exempt_interest_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93883,7 +93883,7 @@
       "name": "tax_exempt_ira_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93892,7 +93892,7 @@
       "name": "tax_exempt_private_pension_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93901,7 +93901,7 @@
       "name": "tax_exempt_public_pension_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93910,7 +93910,7 @@
       "name": "tax_exempt_sep_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -93919,7 +93919,7 @@
       "name": "tax_preparation_fees",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94009,7 +94009,7 @@
       "name": "taxable_401k_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94018,7 +94018,7 @@
       "name": "taxable_403b_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94036,7 +94036,7 @@
       "name": "taxable_estate_value",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94045,7 +94045,7 @@
       "name": "taxable_federal_pension_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94072,7 +94072,7 @@
       "name": "taxable_interest_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94081,7 +94081,7 @@
       "name": "taxable_ira_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94090,7 +94090,7 @@
       "name": "taxable_private_pension_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94099,7 +94099,7 @@
       "name": "taxable_public_pension_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94108,7 +94108,7 @@
       "name": "taxable_roth_conversions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94117,7 +94117,7 @@
       "name": "taxable_sep_distributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94207,7 +94207,7 @@
       "name": "tip_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94252,7 +94252,7 @@
       "name": "traditional_401k_contributions_desired",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94261,7 +94261,7 @@
       "name": "traditional_403b_contributions_desired",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94270,7 +94270,7 @@
       "name": "traditional_ira_contributions_desired",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94432,7 +94432,7 @@
       "name": "unreimbursed_business_employee_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94450,7 +94450,7 @@
       "name": "us_govt_interest_person",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94459,7 +94459,7 @@
       "name": "use_reported_ssi",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -94819,7 +94819,7 @@
       "name": "veterans_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -95166,7 +95166,7 @@
       "name": "was_in_foster_care",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -95184,7 +95184,7 @@
       "name": "weekly_hours_worked_before_lsr",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -95193,7 +95193,7 @@
       "name": "weekly_hours_worked_behavioural_response_income_elasticity",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call (lsr != 0).any"
@@ -95202,7 +95202,7 @@
       "name": "weekly_hours_worked_behavioural_response_substitution_elasticity",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call (lsr != 0).any"
@@ -95211,7 +95211,7 @@
       "name": "weeks_unemployed",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -95500,7 +95500,7 @@
       "name": "year_of_retirement",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -95509,7 +95509,7 @@
       "name": "years_in_military",
       "entity": "person",
       "value_type": "int",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -95518,7 +95518,7 @@
       "name": "years_since_us_entry",
       "entity": "person",
       "value_type": "float",
-      "domain": "core",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""

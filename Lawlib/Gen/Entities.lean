@@ -23,7 +23,7 @@ structure Person_Aca where
   slcsp_age_curve_multiplier : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
-structure Person_Core where
+structure Person_Core_p1 where
   able_contributions_person : Rat := 0
   adopted_this_year : Bool := false
   adult_index : Rat := 0
@@ -152,6 +152,9 @@ structure Person_Core where
   miscellaneous_income : Rat := 0
   mo_kansas_city_earnings_tax_taxable_earnings : Rat := 0
   mo_st_louis_earnings_tax_credit : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure Person_Core_p2 where
   mo_st_louis_earnings_tax_taxable_earnings : Rat := 0
   non_qualified_dividend_income : Rat := 0
   non_sch_d_capital_gains : Rat := 0
@@ -887,7 +890,8 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person where
   aca : Person_Aca := {}
-  core : Person_Core := {}
+  core_p1 : Person_Core_p1 := {}
+  core_p2 : Person_Core_p2 := {}
   ed : Person_Ed := {}
   hhs : Person_Hhs := {}
   hud : Person_Hud := {}
@@ -2152,5 +2156,8 @@ structure TaxUnit where
   territories_pr : TaxUnit_Territories_pr := {}
   usda : TaxUnit_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
+
+instance : Inhabited Person := ⟨{}⟩
+instance : Inhabited TaxUnit := ⟨{}⟩
 
 end Lawlib.Gen

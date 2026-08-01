@@ -74,7 +74,7 @@ reproduces every cell of the **real printed table** (interior: T1
 `eic_table_2023_generator_verified`). Further certified conditionals
 (`pe_formula_within_1150_of_real_table`,
 `pe_executed_matches_real_table_at_20k`) live in
-`Verify/PendingLeanBug2023.lean` pending a Lean toolchain fix. -/
+`Verify/PeTable2023.lean` pending a Lean toolchain fix. -/
 theorem real_table_generator (h : claim_table_transcription) :
     irsEicTable2023.all rowOk = true := by
   rw [h]; exact eic_table_2023_generator_verified

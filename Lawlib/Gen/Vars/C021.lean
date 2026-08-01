@@ -15,7 +15,7 @@ set_option maxRecDepth 8192
 /-- `policyengine_us/variables/gov/states/mt/tax/income/tax_calculation/mt_taxable_income_joint.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def mt_taxable_income_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MT then ((boolToRat p.core.is_tax_unit_head) * (max (0 : Rat) ((t.states_mt.mt_agi_joint - (max ((mt_itemized_deductions_joint t p d) : Rat) p.states_mt.mt_standard_deduction_joint)) - ((mt_personal_exemptions_joint t p d) + (mt_dependent_exemptions_person t p d))))) else 0)
+  (if t.core.MT then ((boolToRat p.core_p1.is_tax_unit_head) * (max (0 : Rat) ((t.states_mt.mt_agi_joint - (max ((mt_itemized_deductions_joint t p d) : Rat) p.states_mt.mt_standard_deduction_joint)) - ((mt_personal_exemptions_joint t p d) + (mt_dependent_exemptions_person t p d))))) else 0)
 
 /-- `policyengine_us/variables/gov/local/ny/nyc/tax/income/credits/cdcc/nyc_cdcc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -55,7 +55,7 @@ def ca_oc_general_relief (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/household/expense/childcare/childcare_expenses.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def childcare_expenses (t : TaxUnit) (d : Date) : Rat :=
-  (max (((sumBy t.members fun p => p.core.pre_subsidy_childcare_expenses) - (child_care_subsidies t d)) : Rat) 0)
+  (max (((sumBy t.members fun p => p.core_p2.pre_subsidy_childcare_expenses) - (child_care_subsidies t d)) : Rat) 0)
 
 /-- `policyengine_us/variables/household/income/household/household_state_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
@@ -90,7 +90,7 @@ def used_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ak/dpa/atap/income/earned/ak_atap_childcare_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ak_atap_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.AK then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ak.dpa.atap.income.deductions.childcare.atDate d p.core.age) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_tax_unit_head_or_spouse t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.AK then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ak.dpa.atap.income.deductions.childcare.atDate d p.core_p1.age) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_tax_unit_head_or_spouse t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/al/dhs/tanf/income/al_tanf_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -100,22 +100,22 @@ def al_tanf_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/az/hhs/tanf/income/az_tanf_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def az_tanf_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.AZ then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.az.hhs.tanf.income.deductions.care_expenses.amounts.atDate d p.core.age) * (boolToRat (is_tax_unit_dependent t p d))))) else 0)
+  (if t.core.AZ then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.az.hhs.tanf.income.deductions.care_expenses.amounts.atDate d p.core_p1.age) * (boolToRat (is_tax_unit_dependent t p d))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/dc/dhs/tanf/income/deductions/dc_tanf_childcare_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def dc_tanf_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.DC then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.dc.dhs.tanf.income.deductions.child_care.amount.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.DC then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.dc.dhs.tanf.income.deductions.child_care.amount.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/de/dhss/tanf/income/earned/de_tanf_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def de_tanf_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.DE then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.de.dhss.tanf.income.deductions.dependent_care.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.DE then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.de.dhss.tanf.income.deductions.dependent_care.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/ga/dfcs/tanf/income/deductions/ga_tanf_childcare_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ga_tanf_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.GA then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ga.dfcs.tanf.income.deductions.childcare.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.GA then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ga.dfcs.tanf.income.deductions.childcare.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/household/healthcare_benefit_value.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
@@ -125,7 +125,7 @@ def healthcare_benefit_value (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/hi/dhs/tanf/income/hi_tanf_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hi_tanf_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.HI then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) ((sumBy t.members fun p => (boolToRat ((is_child t p d) || ((!(is_child t p d)) && p.core.is_disabled)))) * (Params.gov.states.hi.dhs.tanf.deductions.dependent_care.amount.atDate d (maxBy t.members fun p => (if (!(is_child t p d)) then p.core.weekly_hours_worked_before_lsr else 0))))) else 0)
+  (if t.core.HI then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) ((sumBy t.members fun p => (boolToRat ((is_child t p d) || ((!(is_child t p d)) && p.core_p1.is_disabled)))) * (Params.gov.states.hi.dhs.tanf.deductions.dependent_care.amount.atDate d (maxBy t.members fun p => (if (!(is_child t p d)) then p.core_p2.weekly_hours_worked_before_lsr else 0))))) else 0)
 
 /-- `policyengine_us/variables/household/income/household/household_refundable_state_tax_credits.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
@@ -150,7 +150,7 @@ def il_aabd_child_care_expense_exemption (t : TaxUnit) (p : Person) (d : Date) :
 /-- `policyengine_us/variables/gov/states/il/dhs/tanf/income/deductions/il_tanf_childcare_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def il_tanf_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IL then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.il.dhs.tanf.income.child_care_deduction.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.IL then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.il.dhs.tanf.income.child_care_deduction.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/income_tax_excluding_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -175,22 +175,22 @@ def marketplace_net_premium (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/md/tca/income/md_tca_childcare_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def md_tca_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MD then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) ((Params.gov.states.md.tca.income.deductions.childcare_expenses.cap.atDate d (maxBy t.members fun p => (monthly_hours_worked t p d))) * (sumBy t.members fun p => (boolToRat ((is_child t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.MD then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) ((Params.gov.states.md.tca.income.deductions.childcare_expenses.cap.atDate d (maxBy t.members fun p => (monthly_hours_worked t p d))) * (sumBy t.members fun p => (boolToRat ((is_child t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/mn/dcyf/mfip/income/earned/mn_mfip_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def mn_mfip_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MN then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.mn.dcyf.mfip.income.deductions.dependent_care.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_disabled)))))) else 0)
+  (if t.core.MN then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.mn.dcyf.mfip.income.deductions.dependent_care.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_disabled)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/mt/dhs/tanf/income/deductions/mt_tanf_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def mt_tanf_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MT then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.mt.dhs.tanf.income.deductions.dependent_care.amount.atDate d) * (boolToRat (((is_tax_unit_dependent t p d) && (mt_tanf_eligible_child t p d)) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.MT then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.mt.dhs.tanf.income.deductions.dependent_care.amount.atDate d) * (boolToRat (((is_tax_unit_dependent t p d) && (mt_tanf_eligible_child t p d)) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/nm/hca/nm_works/income/deductions/nm_works_childcare_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def nm_works_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.NM then (min (((childcare_expenses t d) / 12) : Rat) (sumBy t.members fun p => ((Params.gov.states.nm.hca.nm_works.income.deductions.childcare.amount.atDate d p.core.age) * (boolToRat (is_tax_unit_dependent t p d))))) else 0)
+  (if t.core.NM then (min (((childcare_expenses t d) / 12) : Rat) (sumBy t.members fun p => ((Params.gov.states.nm.hca.nm_works.income.deductions.childcare.amount.atDate d p.core_p1.age) * (boolToRat (is_tax_unit_dependent t p d))))) else 0)
 
 /-- `policyengine_us/variables/gov/local/ny/nyc/tax/income/nyc_income_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -200,7 +200,7 @@ def nyc_income_tax (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ok/dhs/tanf/income/ok_tanf_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ok_tanf_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.OK then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ok.dhs.tanf.income.deductions.dependent_care.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.OK then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ok.dhs.tanf.income.deductions.dependent_care.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/aca/ptc/premium_tax_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -210,7 +210,7 @@ def premium_tax_credit (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ri/dhs/works/income/deductions/ri_works_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ri_works_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.RI then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ri.dhs.works.income.dependent_care.amount.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.RI then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.ri.dhs.works.income.dependent_care.amount.atDate d (monthly_age t p d)) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -230,7 +230,7 @@ def tn_ff_child_care_deduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/tx/tanf/income/deductions/tx_tanf_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def tx_tanf_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.TX then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => (if ((is_tax_unit_dependent t p d) || p.core.is_incapable_of_self_care) then (Params.gov.states.tx.tanf.income.deductions.dependent_care.atDate d (monthly_age t p d)) else 0))) else 0)
+  (if t.core.TX then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => (if ((is_tax_unit_dependent t p d) || p.core_p1.is_incapable_of_self_care) then (Params.gov.states.tx.tanf.income.deductions.dependent_care.atDate d (monthly_age t p d)) else 0))) else 0)
 
 /-- `policyengine_us/variables/gov/aca/ptc/unused_aca_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -240,7 +240,7 @@ def unused_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/va/dss/tanf/income/va_tanf_childcare_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def va_tanf_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.VA then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.va.dss.tanf.income.deductions.dependent_care.full_time.atDate d p.core.age) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core.is_incapable_of_self_care)))))) else 0)
+  (if t.core.VA then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.va.dss.tanf.income.deductions.dependent_care.full_time.atDate d p.core_p1.age) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/vt/dcf/reach_up/income/deductions/vt_reach_up_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -365,7 +365,7 @@ def snap_deductions (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/household/income/spm_unit/spm_unit_health_insurance_premiums.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def spm_unit_health_insurance_premiums (t : TaxUnit) (d : Date) : Rat :=
-  (((((((sumBy t.members fun p => p.core.other_health_insurance_premiums) + t.hhs.chip_premium) + (medicaid_premium t d)) + (marketplace_net_premium t d)) + (sumBy t.members fun p => (medicare_part_a_premium t p d))) + (sumBy t.members fun p => (medicare_part_b_premium t p d))) + (sumBy t.members fun p => p.hhs.income_adjusted_part_d_premium_surcharge))
+  (((((((sumBy t.members fun p => p.core_p2.other_health_insurance_premiums) + t.hhs.chip_premium) + (medicaid_premium t d)) + (marketplace_net_premium t d)) + (sumBy t.members fun p => (medicare_part_a_premium t p d))) + (sumBy t.members fun p => (medicare_part_b_premium t p d))) + (sumBy t.members fun p => p.hhs.income_adjusted_part_d_premium_surcharge))
 
 /-- `policyengine_us/variables/gov/states/tn/dhs/ff/income/tn_ff_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -450,7 +450,7 @@ def household_tax (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/income/earned/il_aabd_earned_income_after_exemption_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def il_aabd_earned_income_after_exemption_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.IL then ((max (((max (((il_aabd_gross_earned_income t p d) - (il_aabd_expense_exemption_person t p d)) : Rat) 0) - (il_aabd_flat_exemption_excess_over_unearned_income t p d)) : Rat) 0) - (if p.core.is_blind then (Params.gov.states.il.dhs.aabd.income.exemption.blind.atDate d (max (((max (((il_aabd_gross_earned_income t p d) - (il_aabd_expense_exemption_person t p d)) : Rat) 0) - (il_aabd_flat_exemption_excess_over_unearned_income t p d)) : Rat) 0)) else (Params.gov.states.il.dhs.aabd.income.exemption.elderly_or_disabled.atDate d (max (((max (((il_aabd_gross_earned_income t p d) - (il_aabd_expense_exemption_person t p d)) : Rat) 0) - (il_aabd_flat_exemption_excess_over_unearned_income t p d)) : Rat) 0)))) else 0)
+  (if t.core.IL then ((max (((max (((il_aabd_gross_earned_income t p d) - (il_aabd_expense_exemption_person t p d)) : Rat) 0) - (il_aabd_flat_exemption_excess_over_unearned_income t p d)) : Rat) 0) - (if p.core_p1.is_blind then (Params.gov.states.il.dhs.aabd.income.exemption.blind.atDate d (max (((max (((il_aabd_gross_earned_income t p d) - (il_aabd_expense_exemption_person t p d)) : Rat) 0) - (il_aabd_flat_exemption_excess_over_unearned_income t p d)) : Rat) 0)) else (Params.gov.states.il.dhs.aabd.income.exemption.elderly_or_disabled.atDate d (max (((max (((il_aabd_gross_earned_income t p d) - (il_aabd_expense_exemption_person t p d)) : Rat) 0) - (il_aabd_flat_exemption_excess_over_unearned_income t p d)) : Rat) 0)))) else 0)
 
 /-- `policyengine_us/variables/gov/states/il/dhs/tanf/income/il_tanf_countable_income_for_grant_calculation.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -575,7 +575,7 @@ def ga_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_salt_deduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def hi_salt_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.HI then ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core.real_estate_taxes)) else 0)
+  (if t.core.HI then ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) else 0)
 
 /-- `policyengine_us/variables/gov/states/hi/dhs/tanf/hi_tanf.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -600,7 +600,7 @@ def il_hbi_senior_countable_income (t : TaxUnit) (p : Person) (d : Date) : Rat :
 /-- `policyengine_us/variables/gov/states/il/hfs/hbwd/income/earned/il_hbwd_countable_earned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def il_hbwd_countable_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.IL then (if (p.core.is_disabled || p.core.is_blind) then (il_aabd_earned_income_after_exemption_person t p d) else (il_hbwd_gross_earned_income t p d)) else 0)
+  (if t.core.IL then (if (p.core_p1.is_disabled || p.core_p1.is_blind) then (il_aabd_earned_income_after_exemption_person t p d) else (il_hbwd_gross_earned_income t p d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/il/dhs/tanf/eligibility/il_tanf_income_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -640,7 +640,7 @@ def ri_works_income_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def salt (t : TaxUnit) (d : Date) : Rat :=
-  ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core.real_estate_taxes))
+  ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core_p2.real_estate_taxes))
 
 /-- `policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -650,7 +650,7 @@ def snap_net_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/household/income/spm_unit/spm_unit_spm_expenses.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def spm_unit_spm_expenses (t : TaxUnit) (d : Date) : Rat :=
-  (((sumBy t.members fun p => p.core.child_support_expense) + (spm_unit_medical_out_of_pocket_expenses t d)) + t.core.spm_unit_capped_work_childcare_expenses)
+  (((sumBy t.members fun p => p.core_p1.child_support_expense) + (spm_unit_medical_out_of_pocket_expenses t d)) + t.core.spm_unit_capped_work_childcare_expenses)
 
 /-- `policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_recognizable_needs_test.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -725,7 +725,7 @@ def il_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/ks/dcf/tanf/ks_tanf.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ks_tanf (t : TaxUnit) (d : Date) : Rat :=
-  (if (ks_tanf_eligible t d) then (max ((t.states_ks.ks_tanf_maximum_benefit - ((ks_tanf_countable_income t d) - (sumBy t.members fun p => ((p.core.child_support_received / 12) * (boolToRat (ks_tanf_is_assistance_unit_member t p d)))))) : Rat) 0) else 0)
+  (if (ks_tanf_eligible t d) then (max ((t.states_ks.ks_tanf_maximum_benefit - ((ks_tanf_countable_income t d) - (sumBy t.members fun p => ((p.core_p1.child_support_received / 12) * (boolToRat (ks_tanf_is_assistance_unit_member t p d)))))) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/md/tca/eligibility/md_tca_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
