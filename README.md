@@ -11,8 +11,10 @@ Lawlib is a *verified twin* of [PolicyEngine US](https://github.com/PolicyEngine
 the largest living formalization of US tax-benefit law. PolicyEngine's
 Python formulas are mechanically translated into Lean 4 definitions by the
 [pe2lean](https://github.com/than4213/pe2lean) extractor, then validated by
-differential testing: 100,000 randomized households per night, evaluated in
-both engines, must agree exactly (up to PolicyEngine's own float32 noise —
+differential testing: thousands of randomized households nightly (a deep
+soak of the five root programs plus a sweep of every validated variable),
+evaluated in both engines, must agree exactly (up to PolicyEngine's own
+float32 noise —
 which we log as findings, because Lawlib computes in exact rationals).
 
 ```lean

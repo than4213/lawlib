@@ -16,9 +16,10 @@ table in [PolicyEngine US](https://github.com/PolicyEngine/policyengine-us),
 as exact rationals from the YAML source text — floats never touch the
 data) and **~3,200 formulas** mechanically translated from PolicyEngine's
 Python into plain Lean defs. Five programs — EITC, CTC, SNAP, SSI, and
-the ACA premium tax credit — are *differentially validated*: 100k
-randomized households nightly, evaluated by both engines, must agree to
-within PolicyEngine's own float32 noise. Translation is
+the ACA premium tax credit — are *differentially validated* nightly: thousands of randomized
+households (a deep soak of the root programs plus a full-tier sweep),
+evaluated by both engines, must agree to within PolicyEngine's own
+float32 noise. Translation is
 rejection-based: anything the typed IR can't faithfully express becomes
 a documented boundary input, never a guess (`rejection_report.md`).
 
