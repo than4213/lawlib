@@ -2,7 +2,7 @@ import Lawlib.Core.Money
 import Lawlib.Core.Date
 import Lawlib.Gen.Entities
 import Lawlib.Gen.Params
-import Lawlib.Gen.Vars
+import Lawlib.Gen.Vars.Trunk
 import Lawlib.Gen.Memo
 
 /-!

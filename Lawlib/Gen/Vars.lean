@@ -1,2 +1,2 @@
-/- Generated umbrella for the variable chunks. DO NOT EDIT. -/
-import Lawlib.Gen.Vars.C022
+/- Generated umbrella for the clustered variable modules. DO NOT EDIT. -/
+import Lawlib.Gen.Vars.Rollups.P003
