@@ -46,3 +46,19 @@ exactly as PE does today, or be flagged; **open question for Nathanael**).
 3. Is "last referenced publication year" per-file metadata reliable
    enough, or do we pin the IRS uprating boundary globally (last Rev.
    Proc. year = 2026)?
+
+## Resolution (2026-08-01, decided with Nathanael)
+
+A projection is not law — it is a forecast of a future administrative
+act (projection = enacted adjustment rule x forecast CPI; the rule is
+law and stays, the forecast number is not and goes). Implemented in
+pe2lean v0.8.1:
+
+- Uprating-bearing series drop entries dated >= 2027-01-01 except the
+  statutory seed (series-first) entry: 429 entries / 55 parameters.
+- Ledger in EXTRACTION_MANIFEST.json (projected_dropped) and the
+  rejection report; future-year estimates can re-enter via the claims
+  layer as T5 claims.
+- atDate stays total (carry-forward is how law works for non-uprated
+  parameters); Params.enactedHorizon (2026-12-31) is exported and the
+  evaluator fails fast on later dates.

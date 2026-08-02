@@ -1570,7 +1570,7 @@ def gov.contrib.states.ny.s9110.rates.surviving_spouse : ScaleX :=
     `gov/contrib/states/ny/wftc/amount/max.yaml` (policyengine-us).
     * New York Senate Bill S277C §3(c-2)(2)(C): https://legislation.nysenate.gov/pdf/bills/2023/S277C -/
 def gov.contrib.states.ny.wftc.amount.max : DatedParam USD :=
-  ⟨(⟨2025, 1, 1⟩, 550), [(⟨2026, 1, 1⟩, 800), (⟨2027, 1, 1⟩, 1000), (⟨2028, 1, 1⟩, 1200), (⟨2029, 1, 1⟩, 1600)]⟩
+  ⟨(⟨2025, 1, 1⟩, 550), [(⟨2026, 1, 1⟩, 800)]⟩
 
 /-- New York provides the following minimum Working Families Tax Credit amount per child.
     `gov/contrib/states/ny/wftc/amount/min.yaml` (policyengine-us).
@@ -1935,23 +1935,23 @@ def gov.contrib.states.ri.social_security_exemption.in_effect : DatedParam Bool 
 
 /-- `gov/contrib/states/ri/social_security_exemption/income_limit.yaml` (policyengine-us). -/
 def gov.contrib.states.ri.social_security_exemption.income_limit.SINGLE : DatedParam Rat :=
-  ⟨(⟨2027, 1, 1⟩, 80000), [(⟨2028, 1, 1⟩, 165200)]⟩
+  ⟨(⟨2027, 1, 1⟩, 80000), []⟩
 
 /-- `gov/contrib/states/ri/social_security_exemption/income_limit.yaml` (policyengine-us). -/
 def gov.contrib.states.ri.social_security_exemption.income_limit.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2027, 1, 1⟩, 80000), [(⟨2028, 1, 1⟩, 165200)]⟩
+  ⟨(⟨2027, 1, 1⟩, 80000), []⟩
 
 /-- `gov/contrib/states/ri/social_security_exemption/income_limit.yaml` (policyengine-us). -/
 def gov.contrib.states.ri.social_security_exemption.income_limit.SEPARATE : DatedParam Rat :=
-  ⟨(⟨2027, 1, 1⟩, 80000), [(⟨2028, 1, 1⟩, 165200)]⟩
+  ⟨(⟨2027, 1, 1⟩, 80000), []⟩
 
 /-- `gov/contrib/states/ri/social_security_exemption/income_limit.yaml` (policyengine-us). -/
 def gov.contrib.states.ri.social_security_exemption.income_limit.JOINT : DatedParam Rat :=
-  ⟨(⟨2027, 1, 1⟩, 100000), [(⟨2028, 1, 1⟩, 206550)]⟩
+  ⟨(⟨2027, 1, 1⟩, 100000), []⟩
 
 /-- `gov/contrib/states/ri/social_security_exemption/income_limit.yaml` (policyengine-us). -/
 def gov.contrib.states.ri.social_security_exemption.income_limit.SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2027, 1, 1⟩, 100000), [(⟨2028, 1, 1⟩, 206550)]⟩
+  ⟨(⟨2027, 1, 1⟩, 100000), []⟩
 
 /-- If true, Rhode Island repeals the income limit for the Social Security modification, making it a universal exemption.
     `gov/contrib/states/ri/social_security_exemption/income_limit_applies.yaml` (policyengine-us). -/

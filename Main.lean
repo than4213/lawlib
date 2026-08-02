@@ -15,6 +15,8 @@ def results (t : TaxUnit) (d : Date) : Json :=
 def processLine (line : String) : Except String Json := do
   let j ← Json.parse line
   let d ← fromJson? (α := Date) (← j.getObjVal? "date")
+  if Date.ble Gen.Params.enactedHorizon d ∧ d ≠ Gen.Params.enactedHorizon then
+    throw s!"date {d.year}-{d.month}-{d.day} is beyond the enacted horizon ({Gen.Params.enactedHorizon.year}-{Gen.Params.enactedHorizon.month}-{Gen.Params.enactedHorizon.day}): no law here, only forecasts"
   let t ← fromJson? (α := TaxUnit) (← j.getObjVal? "tax_unit")
   pure (results t d)
 

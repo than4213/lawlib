@@ -878,7 +878,7 @@ def gov.states.ri.tax.income.credits.ctc.age_limit : DatedParam Rat :=
     `gov/states/ri/tax/income/credits/ctc/amount.yaml` (policyengine-us).
     * 2026 R.I. H 7127 Substitute A as amended, Article 6, Section 4, § 44-30-104(b): https://webserver.rilegislature.gov/BillText/BillText26/HouseText26/H7127Aaa.html#:~:text=the%20amount%20of%20three%20hundred%20thirty%20dollars%20(%24330) -/
 def gov.states.ri.tax.income.credits.ctc.amount : DatedParam USD :=
-  ⟨(⟨2026, 1, 1⟩, 0), [(⟨2027, 1, 1⟩, 330)]⟩
+  ⟨(⟨2026, 1, 1⟩, 0), []⟩
 
 /-- `gov/states/ri/tax/income/credits/ctc/phase_out/increment.yaml` (policyengine-us). -/
 def gov.states.ri.tax.income.credits.ctc.phase_out.increment.SINGLE : DatedParam Rat :=

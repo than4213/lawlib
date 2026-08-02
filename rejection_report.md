@@ -1777,6 +1777,14 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **wy_power_payment_standard** (`policyengine_us/variables/gov/states/wy/dfs/power/wy_power_payment_standard.py:10`): unsupported parameter subscript on 'gov.states.wy.dfs.power.payment_standard.shelter_qualified'
 - **zip_code_payment_standard** (`policyengine_us/variables/gov/hud/zip_code_payment_standard.py:4`): np.clip
 
+## Projected values dropped (forecasts, not law)
+
+429 dated entries in 55 uprating-bearing parameters on/after 2027-01-01 are inflation
+forecasts of future administrative acts and are excluded from the law namespace.
+The adjustment rules themselves are enacted law and remain. Future-year estimates
+belong in the claims layer (T5), not in parameter files.
+
+
 ## Pruned (deliberate scope cuts)
 
 - **adjusted_gross_income**: AGI machinery out of Phase-1 subtree scope

@@ -5589,7 +5589,7 @@ def gov.hhs.medicaid.eligibility.five_year_bar_years : DatedParam Rat :=
     * CMCS Informational Bulletin, Nov. 18, 2025: https://www.medicaid.gov/federal-policy-guidance/downloads/cib11182025.pdf#page=8
     * H.R. 1, 119th Congress, Sec. 71108 - Revising home equity limit for determining eligibility for long-term care services under the Medicaid program: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
 def gov.hhs.medicaid.eligibility.long_term_care.home_equity.agricultural_limit : DatedParam USD :=
-  ⟨(⟨2025, 1, 1⟩, 1097000), [(⟨2026, 1, 1⟩, 1130000), (⟨2027, 1, 1⟩, 1159000), (⟨2028, 1, 1⟩, 1189000)]⟩
+  ⟨(⟨2025, 1, 1⟩, 1097000), [(⟨2026, 1, 1⟩, 1130000)]⟩
 
 /-- The Department of Health and Human Services exempts Medicaid long-term care applicants with a resident child below this age from the home equity limit.
     `gov/hhs/medicaid/eligibility/long_term_care/home_equity/family_exception/child_age_threshold.yaml` (policyengine-us).

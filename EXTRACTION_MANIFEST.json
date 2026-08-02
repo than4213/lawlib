@@ -80870,6 +80870,552 @@
       "sha256": "0e27b1cf0724dc0f7036a01cb3e3792133b6bf4e6e6ed0b8dbe5be93fc6e5908"
     }
   ],
+  "projection_cutoff": "2027-01-01",
+  "enacted_horizon": "2026-12-31",
+  "projected_dropped": {
+    "entries": 429,
+    "parameters": {
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.1.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.1.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.1.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.1.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.1.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.2.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.2.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.2.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.2.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.2.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.3.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.3.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.3.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.3.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.3.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.4.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.4.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.4.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.4.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.4.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.5.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.5.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.5.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.5.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.5.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.6.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.6.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.6.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.6.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.additional_tax_bracket.bracket.thresholds.6.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.contrib.states.ny.wftc.amount.max": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01"
+      ],
+      "gov.contrib.states.ri.social_security_exemption.income_limit.HEAD_OF_HOUSEHOLD": [
+        "2028-01-01"
+      ],
+      "gov.contrib.states.ri.social_security_exemption.income_limit.JOINT": [
+        "2028-01-01"
+      ],
+      "gov.contrib.states.ri.social_security_exemption.income_limit.SEPARATE": [
+        "2028-01-01"
+      ],
+      "gov.contrib.states.ri.social_security_exemption.income_limit.SINGLE": [
+        "2028-01-01"
+      ],
+      "gov.contrib.states.ri.social_security_exemption.income_limit.SURVIVING_SPOUSE": [
+        "2028-01-01"
+      ],
+      "gov.hhs.medicaid.eligibility.long_term_care.home_equity.agricultural_limit": [
+        "2027-01-01",
+        "2028-01-01"
+      ],
+      "gov.irs.credits.ctc.refundable.individual_max": [
+        "2027-01-01",
+        "2029-01-01",
+        "2032-01-01",
+        "2034-01-01"
+      ],
+      "gov.irs.deductions.itemized.limitation.applicable_amount.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.deductions.itemized.limitation.applicable_amount.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.deductions.itemized.limitation.applicable_amount.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.deductions.itemized.limitation.applicable_amount.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.deductions.itemized.limitation.applicable_amount.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.deductions.standard.dependent.amount": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.amt.exemption.separate_limit": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.bracket.thresholds.4.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.bracket.thresholds.5.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.bracket.thresholds.5.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.exemption.phase_out.start.HEAD_OF_HOUSEHOLD": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.exemption.phase_out.start.JOINT": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.exemption.phase_out.start.SEPARATE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.exemption.phase_out.start.SINGLE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.income.exemption.phase_out.start.SURVIVING_SPOUSE": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.irs.payroll.social_security.cap": [
+        "2027-01-01",
+        "2028-01-01",
+        "2029-01-01",
+        "2030-01-01",
+        "2031-01-01",
+        "2032-01-01",
+        "2033-01-01",
+        "2034-01-01",
+        "2035-01-01"
+      ],
+      "gov.states.ri.tax.income.credits.ctc.amount": [
+        "2027-01-01"
+      ]
+    }
+  },
   "validated_roots": [
     "eitc",
     "ctc",

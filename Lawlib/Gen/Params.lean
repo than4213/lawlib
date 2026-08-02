@@ -110,3 +110,14 @@ import Lawlib.Gen.Params.Simulation.De
 import Lawlib.Gen.Params.Simulation.Marginal_tax_rate_adults
 import Lawlib.Gen.Params.Simulation.Marginal_tax_rate_delta
 import Lawlib.Gen.Params.Simulation.Va
+
+namespace Lawlib.Gen.Params
+
+/-- Last date with enacted inflation adjustments (the year of
+the last published Rev.-Proc.-level values). Uprated series
+carry no law beyond this; the evaluator refuses later dates.
+Non-uprated parameters remain valid indefinitely
+(carry-forward is how law works). -/
+def enactedHorizon : Lawlib.Date := ⟨2026, 12, 31⟩
+
+end Lawlib.Gen.Params
