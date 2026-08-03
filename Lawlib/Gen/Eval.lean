@@ -312,8 +312,6 @@ def evalJson (t : TaxUnit) (d : Date) : Lean.Json :=
     ("pa_child_care_subsidies", Lean.toJson o.p3.pa_child_care_subsidies),
     ("tax_unit_is_filer", Lean.toJson o.p3.tax_unit_is_filer),
     ("aca_ptc", Lean.toJson o.p3.aca_ptc),
-    ("snap_net_income", Lean.toJson o.p3.snap_net_income),
-    ("snap_net_income_fpg_ratio", Lean.toJson o.p3.snap_net_income_fpg_ratio),
     ("meets_snap_net_income_test", Lean.toJson o.p3.meets_snap_net_income_test),
     ("is_snap_eligible", Lean.toJson o.p3.is_snap_eligible),
     ("dc_snap_temporary_local_benefit", Lean.toJson o.p3.dc_snap_temporary_local_benefit),

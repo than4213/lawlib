@@ -79595,7 +79595,7 @@
       "name": "snap_net_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income.py",
       "sha256": "9cfcb37afdb1efd8db4d987052a8168785f48b2aa1ec67c0fb5e1a6af7494c66"
@@ -79829,7 +79829,7 @@
       "name": "snap_net_income_fpg_ratio",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": true,
+      "validated": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py",
       "sha256": "62316892a3456ce3c61743134715d5eea2de4d157243e604384c3450a12c1524"
