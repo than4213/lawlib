@@ -12,6 +12,26 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_base_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def amt_base_tax (t : TaxUnit) (d : Date) : Rat :=
+  ((amt_lower_base_tax t d) + (amt_higher_base_tax t d))
+
+/-- `policyengine_us/variables/gov/hud/hud_adjusted_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def hud_adjusted_income (t : TaxUnit) (d : Date) : Rat :=
+  (max ((((((hud_annual_income t d) - ((Params.gov.hud.adjusted_income.deductions.dependent.amount.atDate d) * (sumBy t.members fun p => boolToRat p.hud.is_hud_dependent))) - ((Params.gov.hud.adjusted_income.deductions.elderly_disabled.amount.atDate d) * (boolToRat (is_hud_elderly_disabled_family t d)))) - (min (t.core.childcare_expenses : Rat) (max ((hud_countable_earned_income t d) : Rat) 0))) - (max (0 : Rat) ((((hud_medical_expenses t d) * (boolToRat (is_hud_elderly_disabled_family t d))) + (min ((sumBy t.members fun p => p.core_p1.care_expenses) : Rat) (max ((hud_countable_earned_income t d) : Rat) 0))) - ((Params.gov.hud.adjusted_income.deductions.moop.threshold.atDate d) * (hud_annual_income t d))))) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/hud/hud_income_level.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type Enum. -/
+def hud_income_level (t : TaxUnit) (d : Date) : HUDIncomeLevel :=
+  (if ((decide ((if (decide (t.hud.hud_extremely_low_income_limit > 0)) then t.hud.hud_extremely_low_income_limit else (t.hud.hud_especially_low_income_factor * t.hud.ami)) > 0)) && (decide ((hud_annual_income t d) ≤ (if (decide (t.hud.hud_extremely_low_income_limit > 0)) then t.hud.hud_extremely_low_income_limit else (t.hud.hud_especially_low_income_factor * t.hud.ami))))) then HUDIncomeLevel.ESPECIALLY_LOW else (if ((decide ((if (decide (t.hud.hud_very_low_income_limit > 0)) then t.hud.hud_very_low_income_limit else (t.hud.hud_very_low_income_factor * t.hud.ami)) > 0)) && (decide ((hud_annual_income t d) ≤ (if (decide (t.hud.hud_very_low_income_limit > 0)) then t.hud.hud_very_low_income_limit else (t.hud.hud_very_low_income_factor * t.hud.ami))))) then HUDIncomeLevel.VERY_LOW else (if ((decide ((if (decide (t.hud.hud_low_income_limit > 0)) then t.hud.hud_low_income_limit else (t.hud.hud_low_income_factor * t.hud.ami)) > 0)) && (decide ((hud_annual_income t d) ≤ (if (decide (t.hud.hud_low_income_limit > 0)) then t.hud.hud_low_income_limit else (t.hud.hud_low_income_factor * t.hud.ami))))) then HUDIncomeLevel.LOW else (if ((decide ((t.hud.hud_moderate_income_factor * t.hud.ami) > 0)) && (decide ((hud_annual_income t d) ≤ (t.hud.hud_moderate_income_factor * t.hud.ami)))) then HUDIncomeLevel.MODERATE else HUDIncomeLevel.ABOVE_MODERATE))))
+
+/-- `policyengine_us/variables/gov/hud/ttp/hud_ttp_income_share.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def hud_ttp_income_share (t : TaxUnit) (d : Date) : Rat :=
+  ((Params.gov.hud.total_tenant_payment.income_share.atDate d) * (hud_annual_income t d))
+
 /-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def marketplace_csr_actuarial_value (t : TaxUnit) (d : Date) : Rat :=
@@ -42,20 +62,15 @@ def tax_unit_is_filer (t : TaxUnit) (d : Date) : Bool :=
 def aca_ptc (t : TaxUnit) (d : Date) : Rat :=
   (if (anyBy t.members fun p => p.aca.is_aca_ptc_eligible) then (if Date.ble ⟨2018, 1, 1⟩ d then ((max (0 : Rat) (((slcsp t d) * 12) - ((aca_magi t d) * t.aca.aca_required_contribution_percentage))) * (boolToRat (tax_unit_is_filer t d))) else 0) else 0)
 
-/-- `policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit_credit_limit.py`
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/alternative_minimum_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def foreign_tax_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (income_tax_before_credits t d)
+def alternative_minimum_tax (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) (((if (amt_part_iii_required t d) then (min ((amt_base_tax t d) : Rat) (amt_tax_including_cg t d)) else (amt_base_tax t d)) - t.irs.foreign_tax_credit_potential) - (max (0 : Rat) ((((regular_tax_before_credits t d) + (capital_gains_tax t d)) - t.irs.foreign_tax_credit_potential) - t.core.form_4972_lumpsum_distributions))))
 
 /-- `policyengine_us/variables/gov/hud/ttp/hud_ttp_adjusted_income_share.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hud_ttp_adjusted_income_share (t : TaxUnit) (d : Date) : Rat :=
   ((Params.gov.hud.total_tenant_payment.adjusted_income_share.atDate d) * (hud_adjusted_income t d))
-
-/-- `policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def income_tax_unavailable_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
-  ((0 - (min ((income_tax_before_credits t d) : Rat) t.irs.income_tax_non_refundable_credits)) + t.irs.income_tax_non_refundable_credits)
 
 /-- `policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -92,20 +107,15 @@ def snap_net_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
 def assigned_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
   ((aca_ptc t d) * (boolToRat t.aca.takes_up_aca_if_eligible))
 
-/-- `policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def foreign_tax_credit (t : TaxUnit) (d : Date) : Rat :=
-  (min (t.irs.foreign_tax_credit_potential : Rat) (foreign_tax_credit_credit_limit t d))
-
 /-- `policyengine_us/variables/gov/hud/housing_assistance.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def housing_assistance (t : TaxUnit) (d : Date) : Rat :=
   (if (is_eligible_for_housing_assistance t d) then (if (Params.gov.hud.abolition.atDate d) then 0 else ((hud_hap t d) * (boolToRat t.hud.takes_up_housing_assistance_if_eligible))) else 0)
 
-/-- `policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py`
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_before_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def income_tax_capped_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
-  (t.irs.income_tax_non_refundable_credits - (income_tax_unavailable_non_refundable_credits t d))
+def income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
+  (((income_tax_main_rates t d) + (capital_gains_tax t d)) + (alternative_minimum_tax t d))
 
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_gross_income_test.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -127,10 +137,10 @@ def meets_tanf_non_cash_net_income_test (t : TaxUnit) (d : Date) : Bool :=
 def used_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
   (min ((aca_ptc t d) : Rat) (selected_marketplace_plan_premium_proxy t d))
 
-/-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_credit_limit.py`
+/-- `policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit_credit_limit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def cdcc_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (max (((income_tax_before_credits t d) - (foreign_tax_credit t d)) : Rat) 0)
+def foreign_tax_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (income_tax_before_credits t d)
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/income_tax_excluding_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -152,11 +162,6 @@ def is_tanf_non_cash_eligible (t : TaxUnit) (d : Date) : Bool :=
 def marketplace_net_premium (t : TaxUnit) (d : Date) : Rat :=
   (max (((selected_marketplace_plan_premium_proxy t d) - (used_aca_ptc t d)) : Rat) 0)
 
-/-- `policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/non_refundable_american_opportunity_credit_credit_limit.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def non_refundable_american_opportunity_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (max (((income_tax_before_credits t d) - ((foreign_tax_credit t d) + t.irs.cdcc)) : Rat) 0)
-
 /-- `policyengine_us/variables/gov/aca/ptc/premium_tax_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def premium_tax_credit (t : TaxUnit) (d : Date) : Rat :=
@@ -166,6 +171,31 @@ def premium_tax_credit (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def unused_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) ((aca_ptc t d) - (used_aca_ptc t d)))
+
+/-- `policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def foreign_tax_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min (t.irs.foreign_tax_credit_potential : Rat) (foreign_tax_credit_credit_limit t d))
+
+/-- `policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_normal_allotment (t : TaxUnit) (d : Date) : Rat :=
+  (if (is_snap_eligible t d) then (max (t.usda.snap_min_allotment : Rat) ((snap_max_allotment t d) - (snap_expected_contribution t d))) else 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_credit_limit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def cdcc_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max (((income_tax_before_credits t d) - (foreign_tax_credit t d)) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/non_refundable_american_opportunity_credit_credit_limit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def non_refundable_american_opportunity_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max (((income_tax_before_credits t d) - ((foreign_tax_credit t d) + t.irs.cdcc)) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_if_takes_up (t : TaxUnit) (d : Date) : Rat :=
+  (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else (((snap_normal_allotment t d) + t.usda.snap_emergency_allotment) + t.states_dc.dc_snap_temporary_local_benefit))
 
 /-- `policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/non_refundable_american_opportunity_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -177,45 +207,20 @@ def non_refundable_american_opportunity_credit (t : TaxUnit) (d : Date) : Rat :=
 def pre_obbba_cdcc (t : TaxUnit) (d : Date) : Rat :=
   (min ((cdcc_credit_limit t d) : Rat) (pre_obbba_cdcc_potential t d))
 
-/-- `policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_normal_allotment (t : TaxUnit) (d : Date) : Rat :=
-  (if (is_snap_eligible t d) then (max (t.usda.snap_min_allotment : Rat) ((snap_max_allotment t d) - (snap_expected_contribution t d))) else 0)
-
-/-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_credit_limit.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def lifetime_learning_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (max (((income_tax_before_credits t d) - (((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d))) : Rat) 0)
-
-/-- `policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def pre_obbba_capped_cdcc (t : TaxUnit) (d : Date) : Rat :=
-  (min ((pre_obbba_cdcc t d) : Rat) (max (((income_tax_before_credits t d) - (foreign_tax_credit t d)) : Rat) 0))
-
-/-- `policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_if_takes_up (t : TaxUnit) (d : Date) : Rat :=
-  (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else (((snap_normal_allotment t d) + t.usda.snap_emergency_allotment) + t.states_dc.dc_snap_temporary_local_benefit))
-
-/-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def lifetime_learning_credit (t : TaxUnit) (d : Date) : Rat :=
-  (min ((lifetime_learning_credit_credit_limit t d) : Rat) (lifetime_learning_credit_potential t d))
-
 /-- `policyengine_us/variables/gov/usda/snap/snap.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap (t : TaxUnit) (d : Date) : Rat :=
   (if t.usda.takes_up_snap_if_eligible then (snap_if_takes_up t d) else 0)
 
-/-- `policyengine_us/variables/gov/irs/credits/education/education_tax_credits.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def education_tax_credits (t : TaxUnit) (d : Date) : Rat :=
-  ((non_refundable_american_opportunity_credit t d) + (lifetime_learning_credit t d))
-
 /-- `policyengine_us/variables/gov/hhs/head_start/is_head_start_categorically_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_head_start_categorically_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((decide ((((tanf t d) + ((ssi t p d) * 12)) + ((snap t d) * 12)) > 0)) || (decide (((boolToRat t.hhs.receives_tanf + boolToRat p.ssa.receives_ssi) + boolToRat t.usda.receives_snap) > 0))) || (t.core.is_homeless || p.core_p2.was_in_foster_care))
+
+/-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_credit_limit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def lifetime_learning_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max (((income_tax_before_credits t d) - (((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d))) : Rat) 0)
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_community_engagement_pass_through_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -232,10 +237,10 @@ def meets_school_meal_categorical_eligibility (t : TaxUnit) (d : Date) : Bool :=
 def meets_wic_categorical_eligibility (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((((decide (((snap t d) + ((tanf t d) / 12)) > 0)) || t.usda.receives_snap) || t.hhs.receives_tanf) || (medicaid_enrolled t p d)) || (anyBy t.members fun p => ((medicaid_enrolled t p d) && (p.core_p1.is_pregnant || (p.usda.wic_category == WICCategory.INFANT)))))
 
-/-- `policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_credit_limit.py`
+/-- `policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def savers_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (max (((income_tax_before_credits t d) - ((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d))) : Rat) 0)
+def pre_obbba_capped_cdcc (t : TaxUnit) (d : Date) : Rat :=
+  (min ((pre_obbba_cdcc t d) : Rat) (max (((income_tax_before_credits t d) - (foreign_tax_credit t d)) : Rat) 0))
 
 /-- `policyengine_us/variables/gov/hhs/head_start/is_early_head_start_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -247,10 +252,10 @@ def is_early_head_start_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def is_wic_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((!(p.usda.wic_category == WICCategory.NONE)) && ((meets_wic_income_test t d) || (meets_wic_categorical_eligibility t p d))) && p.usda.is_wic_at_nutritional_risk)
 
-/-- `policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit.py`
+/-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def savers_credit (t : TaxUnit) (d : Date) : Rat :=
-  (min ((savers_credit_credit_limit t d) : Rat) (savers_credit_potential t d))
+def lifetime_learning_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min ((lifetime_learning_credit_credit_limit t d) : Rat) (lifetime_learning_credit_potential t d))
 
 /-- `policyengine_us/variables/gov/usda/school_meals/school_meal_tier.py`
     policyengine-us 1.783.0, entity spm_unit, value_type Enum. -/
@@ -262,6 +267,11 @@ def school_meal_tier (t : TaxUnit) (d : Date) : SchoolMealTier :=
 def early_head_start (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (is_early_head_start_eligible t p d) then ((if (decide ((if t.core.state_code_str == "AK" then (Params.gov.hhs.head_start.early_head_start.enrollment.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.head_start.early_head_start.enrollment.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.head_start.early_head_start.enrollment.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.head_start.early_head_start.enrollment.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.head_start.early_head_start.enrollment.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.head_start.early_head_start.enrollment.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.head_start.early_head_start.enrollment.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.head_start.early_head_start.enrollment.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.head_start.early_head_start.enrollment.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.head_start.early_head_start.enrollment.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.head_start.early_head_start.enrollment.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.head_start.early_head_start.enrollment.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.head_start.early_head_start.enrollment.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.head_start.early_head_start.enrollment.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.head_start.early_head_start.enrollment.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.head_start.early_head_start.enrollment.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.head_start.early_head_start.enrollment.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.head_start.early_head_start.enrollment.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.head_start.early_head_start.enrollment.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.head_start.early_head_start.enrollment.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.head_start.early_head_start.enrollment.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.head_start.early_head_start.enrollment.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.head_start.early_head_start.enrollment.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.head_start.early_head_start.enrollment.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.head_start.early_head_start.enrollment.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.head_start.early_head_start.enrollment.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.head_start.early_head_start.enrollment.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.head_start.early_head_start.enrollment.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.head_start.early_head_start.enrollment.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.head_start.early_head_start.enrollment.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.head_start.early_head_start.enrollment.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.head_start.early_head_start.enrollment.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.head_start.early_head_start.enrollment.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.head_start.early_head_start.enrollment.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.head_start.early_head_start.enrollment.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.head_start.early_head_start.enrollment.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.head_start.early_head_start.enrollment.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.head_start.early_head_start.enrollment.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.head_start.early_head_start.enrollment.PA.atDate d) else (if t.core.state_code_str == "PR" then (Params.gov.hhs.head_start.early_head_start.enrollment.PR.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.head_start.early_head_start.enrollment.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.head_start.early_head_start.enrollment.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.head_start.early_head_start.enrollment.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.head_start.early_head_start.enrollment.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.head_start.early_head_start.enrollment.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.head_start.early_head_start.enrollment.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.head_start.early_head_start.enrollment.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.head_start.early_head_start.enrollment.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.head_start.early_head_start.enrollment.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.head_start.early_head_start.enrollment.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.head_start.early_head_start.enrollment.WV.atDate d) else (Params.gov.hhs.head_start.early_head_start.enrollment.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))) > 0)) then ((if t.core.state_code_str == "AK" then (Params.gov.hhs.head_start.early_head_start.spending.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.head_start.early_head_start.spending.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.head_start.early_head_start.spending.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.head_start.early_head_start.spending.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.head_start.early_head_start.spending.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.head_start.early_head_start.spending.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.head_start.early_head_start.spending.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.head_start.early_head_start.spending.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.head_start.early_head_start.spending.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.head_start.early_head_start.spending.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.head_start.early_head_start.spending.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.head_start.early_head_start.spending.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.head_start.early_head_start.spending.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.head_start.early_head_start.spending.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.head_start.early_head_start.spending.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.head_start.early_head_start.spending.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.head_start.early_head_start.spending.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.head_start.early_head_start.spending.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.head_start.early_head_start.spending.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.head_start.early_head_start.spending.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.head_start.early_head_start.spending.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.head_start.early_head_start.spending.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.head_start.early_head_start.spending.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.head_start.early_head_start.spending.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.head_start.early_head_start.spending.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.head_start.early_head_start.spending.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.head_start.early_head_start.spending.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.head_start.early_head_start.spending.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.head_start.early_head_start.spending.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.head_start.early_head_start.spending.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.head_start.early_head_start.spending.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.head_start.early_head_start.spending.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.head_start.early_head_start.spending.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.head_start.early_head_start.spending.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.head_start.early_head_start.spending.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.head_start.early_head_start.spending.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.head_start.early_head_start.spending.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.head_start.early_head_start.spending.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.head_start.early_head_start.spending.PA.atDate d) else (if t.core.state_code_str == "PR" then (Params.gov.hhs.head_start.early_head_start.spending.PR.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.head_start.early_head_start.spending.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.head_start.early_head_start.spending.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.head_start.early_head_start.spending.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.head_start.early_head_start.spending.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.head_start.early_head_start.spending.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.head_start.early_head_start.spending.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.head_start.early_head_start.spending.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.head_start.early_head_start.spending.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.head_start.early_head_start.spending.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.head_start.early_head_start.spending.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.head_start.early_head_start.spending.WV.atDate d) else (Params.gov.hhs.head_start.early_head_start.spending.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))) / (if t.core.state_code_str == "AK" then (Params.gov.hhs.head_start.early_head_start.enrollment.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.head_start.early_head_start.enrollment.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.head_start.early_head_start.enrollment.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.head_start.early_head_start.enrollment.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.head_start.early_head_start.enrollment.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.head_start.early_head_start.enrollment.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.head_start.early_head_start.enrollment.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.head_start.early_head_start.enrollment.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.head_start.early_head_start.enrollment.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.head_start.early_head_start.enrollment.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.head_start.early_head_start.enrollment.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.head_start.early_head_start.enrollment.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.head_start.early_head_start.enrollment.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.head_start.early_head_start.enrollment.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.head_start.early_head_start.enrollment.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.head_start.early_head_start.enrollment.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.head_start.early_head_start.enrollment.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.head_start.early_head_start.enrollment.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.head_start.early_head_start.enrollment.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.head_start.early_head_start.enrollment.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.head_start.early_head_start.enrollment.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.head_start.early_head_start.enrollment.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.head_start.early_head_start.enrollment.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.head_start.early_head_start.enrollment.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.head_start.early_head_start.enrollment.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.head_start.early_head_start.enrollment.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.head_start.early_head_start.enrollment.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.head_start.early_head_start.enrollment.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.head_start.early_head_start.enrollment.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.head_start.early_head_start.enrollment.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.head_start.early_head_start.enrollment.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.head_start.early_head_start.enrollment.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.head_start.early_head_start.enrollment.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.head_start.early_head_start.enrollment.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.head_start.early_head_start.enrollment.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.head_start.early_head_start.enrollment.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.head_start.early_head_start.enrollment.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.head_start.early_head_start.enrollment.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.head_start.early_head_start.enrollment.PA.atDate d) else (if t.core.state_code_str == "PR" then (Params.gov.hhs.head_start.early_head_start.enrollment.PR.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.head_start.early_head_start.enrollment.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.head_start.early_head_start.enrollment.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.head_start.early_head_start.enrollment.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.head_start.early_head_start.enrollment.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.head_start.early_head_start.enrollment.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.head_start.early_head_start.enrollment.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.head_start.early_head_start.enrollment.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.head_start.early_head_start.enrollment.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.head_start.early_head_start.enrollment.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.head_start.early_head_start.enrollment.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.head_start.early_head_start.enrollment.WV.atDate d) else (Params.gov.hhs.head_start.early_head_start.enrollment.WY.atDate d))))))))))))))))))))))))))))))))))))))))))))))))))))) else 0) * (boolToRat p.hhs.takes_up_early_head_start_if_eligible)) else 0)
 
+/-- `policyengine_us/variables/gov/irs/credits/education/education_tax_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def education_tax_credits (t : TaxUnit) (d : Date) : Rat :=
+  ((non_refundable_american_opportunity_credit t d) + (lifetime_learning_credit t d))
+
 /-- `policyengine_us/variables/gov/usda/school_meals/free_school_meals.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def free_school_meals (t : TaxUnit) (d : Date) : Rat :=
@@ -272,40 +282,35 @@ def free_school_meals (t : TaxUnit) (d : Date) : Rat :=
 def reduced_price_school_meals (t : TaxUnit) (d : Date) : Rat :=
   ((boolToRat ((school_meal_tier t d) == SchoolMealTier.REDUCED)) * (school_meal_net_subsidy t d))
 
-/-- `policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_credit_limit.py`
+/-- `policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_credit_limit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def residential_clean_energy_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (max (((income_tax_before_credits t d) - (((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d))) : Rat) 0)
+def savers_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max (((income_tax_before_credits t d) - ((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d))) : Rat) 0)
 
 /-- `policyengine_us/variables/gov/usda/wic/wic_if_takes_up.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def wic_if_takes_up (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (is_wic_eligible t p d) then (if (Params.gov.usda.wic.abolish_wic.atDate d) then 0 else (max (0 : Rat) ((if p.usda.wic_food_package_str == "BREASTFEEDING" then (Params.gov.usda.wic.value.BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "CHILD" then (Params.gov.usda.wic.value.CHILD.atDate d) else (if p.usda.wic_food_package_str == "CHILD_12_23_MONTHS" then (Params.gov.usda.wic.value.CHILD_12_23_MONTHS.atDate d) else (if p.usda.wic_food_package_str == "CHILD_24_59_MONTHS" then (Params.gov.usda.wic.value.CHILD_24_59_MONTHS.atDate d) else (if p.usda.wic_food_package_str == "FULLY_BREASTFEEDING" then (Params.gov.usda.wic.value.FULLY_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "FULLY_BREASTFEEDING_MULTIPLES" then (Params.gov.usda.wic.value.FULLY_BREASTFEEDING_MULTIPLES.atDate d) else (if p.usda.wic_food_package_str == "I-BF-A" then (Params.gov.usda.wic.value.«I-BF-A».atDate d) else (if p.usda.wic_food_package_str == "I-BF-B" then (Params.gov.usda.wic.value.«I-BF-B».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-A" then (Params.gov.usda.wic.value.«I-BF/FF-A».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-B" then (Params.gov.usda.wic.value.«I-BF/FF-B».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-C" then (Params.gov.usda.wic.value.«I-BF/FF-C».atDate d) else (if p.usda.wic_food_package_str == "I-FF-A" then (Params.gov.usda.wic.value.«I-FF-A».atDate d) else (if p.usda.wic_food_package_str == "I-FF-B" then (Params.gov.usda.wic.value.«I-FF-B».atDate d) else (if p.usda.wic_food_package_str == "II-BF" then (Params.gov.usda.wic.value.«II-BF».atDate d) else (if p.usda.wic_food_package_str == "II-BF/FF" then (Params.gov.usda.wic.value.«II-BF/FF».atDate d) else (if p.usda.wic_food_package_str == "II-FF" then (Params.gov.usda.wic.value.«II-FF».atDate d) else (if p.usda.wic_food_package_str == "INFANT" then (Params.gov.usda.wic.value.INFANT.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_3_FULLY_FORMULA_FED" then (Params.gov.usda.wic.value.INFANT_0_3_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_3_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.value.INFANT_0_3_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_5_FULLY_BREASTFED" then (Params.gov.usda.wic.value.INFANT_0_5_FULLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_4_5_FULLY_FORMULA_FED" then (Params.gov.usda.wic.value.INFANT_4_5_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_4_5_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.value.INFANT_4_5_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_FULLY_BREASTFED" then (Params.gov.usda.wic.value.INFANT_6_11_FULLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_FULLY_FORMULA_FED" then (Params.gov.usda.wic.value.INFANT_6_11_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.value.INFANT_6_11_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_AVERAGE" then (Params.gov.usda.wic.value.INFANT_AVERAGE.atDate d) else (if p.usda.wic_food_package_str == "IV-A" then (Params.gov.usda.wic.value.«IV-A».atDate d) else (if p.usda.wic_food_package_str == "IV-B" then (Params.gov.usda.wic.value.«IV-B».atDate d) else (if p.usda.wic_food_package_str == "NONE" then (Params.gov.usda.wic.value.NONE.atDate d) else (if p.usda.wic_food_package_str == "PARTIALLY_BREASTFEEDING" then (Params.gov.usda.wic.value.PARTIALLY_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "POSTPARTUM" then (Params.gov.usda.wic.value.POSTPARTUM.atDate d) else (if p.usda.wic_food_package_str == "POSTPARTUM_NON_BREASTFEEDING" then (Params.gov.usda.wic.value.POSTPARTUM_NON_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT" then (Params.gov.usda.wic.value.PREGNANT.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT_MULTIPLE_FETUSES" then (Params.gov.usda.wic.value.PREGNANT_MULTIPLE_FETUSES.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT_SINGLETON" then (Params.gov.usda.wic.value.PREGNANT_SINGLETON.atDate d) else (if p.usda.wic_food_package_str == "V" then (Params.gov.usda.wic.value.V.atDate d) else (if p.usda.wic_food_package_str == "VI" then (Params.gov.usda.wic.value.VI.atDate d) else (Params.gov.usda.wic.value.VII.atDate d)))))))))))))))))))))))))))))))))))))) + ((boolToRat (Params.gov.usda.wic.cvb.replaces_included_value.atDate d)) * ((if p.usda.wic_food_package_str == "BREASTFEEDING" then (Params.gov.usda.wic.cvb.current.BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "CHILD" then (Params.gov.usda.wic.cvb.current.CHILD.atDate d) else (if p.usda.wic_food_package_str == "CHILD_12_23_MONTHS" then (Params.gov.usda.wic.cvb.current.CHILD_12_23_MONTHS.atDate d) else (if p.usda.wic_food_package_str == "CHILD_24_59_MONTHS" then (Params.gov.usda.wic.cvb.current.CHILD_24_59_MONTHS.atDate d) else (if p.usda.wic_food_package_str == "FULLY_BREASTFEEDING" then (Params.gov.usda.wic.cvb.current.FULLY_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "FULLY_BREASTFEEDING_MULTIPLES" then (Params.gov.usda.wic.cvb.current.FULLY_BREASTFEEDING_MULTIPLES.atDate d) else (if p.usda.wic_food_package_str == "I-BF-A" then (Params.gov.usda.wic.cvb.current.«I-BF-A».atDate d) else (if p.usda.wic_food_package_str == "I-BF-B" then (Params.gov.usda.wic.cvb.current.«I-BF-B».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-A" then (Params.gov.usda.wic.cvb.current.«I-BF/FF-A».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-B" then (Params.gov.usda.wic.cvb.current.«I-BF/FF-B».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-C" then (Params.gov.usda.wic.cvb.current.«I-BF/FF-C».atDate d) else (if p.usda.wic_food_package_str == "I-FF-A" then (Params.gov.usda.wic.cvb.current.«I-FF-A».atDate d) else (if p.usda.wic_food_package_str == "I-FF-B" then (Params.gov.usda.wic.cvb.current.«I-FF-B».atDate d) else (if p.usda.wic_food_package_str == "II-BF" then (Params.gov.usda.wic.cvb.current.«II-BF».atDate d) else (if p.usda.wic_food_package_str == "II-BF/FF" then (Params.gov.usda.wic.cvb.current.«II-BF/FF».atDate d) else (if p.usda.wic_food_package_str == "II-FF" then (Params.gov.usda.wic.cvb.current.«II-FF».atDate d) else (if p.usda.wic_food_package_str == "INFANT" then (Params.gov.usda.wic.cvb.current.INFANT.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_3_FULLY_FORMULA_FED" then (Params.gov.usda.wic.cvb.current.INFANT_0_3_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_3_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.cvb.current.INFANT_0_3_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_5_FULLY_BREASTFED" then (Params.gov.usda.wic.cvb.current.INFANT_0_5_FULLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_4_5_FULLY_FORMULA_FED" then (Params.gov.usda.wic.cvb.current.INFANT_4_5_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_4_5_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.cvb.current.INFANT_4_5_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_FULLY_BREASTFED" then (Params.gov.usda.wic.cvb.current.INFANT_6_11_FULLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_FULLY_FORMULA_FED" then (Params.gov.usda.wic.cvb.current.INFANT_6_11_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.cvb.current.INFANT_6_11_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_AVERAGE" then (Params.gov.usda.wic.cvb.current.INFANT_AVERAGE.atDate d) else (if p.usda.wic_food_package_str == "IV-A" then (Params.gov.usda.wic.cvb.current.«IV-A».atDate d) else (if p.usda.wic_food_package_str == "IV-B" then (Params.gov.usda.wic.cvb.current.«IV-B».atDate d) else (if p.usda.wic_food_package_str == "NONE" then (Params.gov.usda.wic.cvb.current.NONE.atDate d) else (if p.usda.wic_food_package_str == "PARTIALLY_BREASTFEEDING" then (Params.gov.usda.wic.cvb.current.PARTIALLY_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "POSTPARTUM" then (Params.gov.usda.wic.cvb.current.POSTPARTUM.atDate d) else (if p.usda.wic_food_package_str == "POSTPARTUM_NON_BREASTFEEDING" then (Params.gov.usda.wic.cvb.current.POSTPARTUM_NON_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT" then (Params.gov.usda.wic.cvb.current.PREGNANT.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT_MULTIPLE_FETUSES" then (Params.gov.usda.wic.cvb.current.PREGNANT_MULTIPLE_FETUSES.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT_SINGLETON" then (Params.gov.usda.wic.cvb.current.PREGNANT_SINGLETON.atDate d) else (if p.usda.wic_food_package_str == "V" then (Params.gov.usda.wic.cvb.current.V.atDate d) else (if p.usda.wic_food_package_str == "VI" then (Params.gov.usda.wic.cvb.current.VI.atDate d) else (Params.gov.usda.wic.cvb.current.VII.atDate d)))))))))))))))))))))))))))))))))))))) - (if p.usda.wic_food_package_str == "BREASTFEEDING" then (Params.gov.usda.wic.cvb.included_in_value.BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "CHILD" then (Params.gov.usda.wic.cvb.included_in_value.CHILD.atDate d) else (if p.usda.wic_food_package_str == "CHILD_12_23_MONTHS" then (Params.gov.usda.wic.cvb.included_in_value.CHILD_12_23_MONTHS.atDate d) else (if p.usda.wic_food_package_str == "CHILD_24_59_MONTHS" then (Params.gov.usda.wic.cvb.included_in_value.CHILD_24_59_MONTHS.atDate d) else (if p.usda.wic_food_package_str == "FULLY_BREASTFEEDING" then (Params.gov.usda.wic.cvb.included_in_value.FULLY_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "FULLY_BREASTFEEDING_MULTIPLES" then (Params.gov.usda.wic.cvb.included_in_value.FULLY_BREASTFEEDING_MULTIPLES.atDate d) else (if p.usda.wic_food_package_str == "I-BF-A" then (Params.gov.usda.wic.cvb.included_in_value.«I-BF-A».atDate d) else (if p.usda.wic_food_package_str == "I-BF-B" then (Params.gov.usda.wic.cvb.included_in_value.«I-BF-B».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-A" then (Params.gov.usda.wic.cvb.included_in_value.«I-BF/FF-A».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-B" then (Params.gov.usda.wic.cvb.included_in_value.«I-BF/FF-B».atDate d) else (if p.usda.wic_food_package_str == "I-BF/FF-C" then (Params.gov.usda.wic.cvb.included_in_value.«I-BF/FF-C».atDate d) else (if p.usda.wic_food_package_str == "I-FF-A" then (Params.gov.usda.wic.cvb.included_in_value.«I-FF-A».atDate d) else (if p.usda.wic_food_package_str == "I-FF-B" then (Params.gov.usda.wic.cvb.included_in_value.«I-FF-B».atDate d) else (if p.usda.wic_food_package_str == "II-BF" then (Params.gov.usda.wic.cvb.included_in_value.«II-BF».atDate d) else (if p.usda.wic_food_package_str == "II-BF/FF" then (Params.gov.usda.wic.cvb.included_in_value.«II-BF/FF».atDate d) else (if p.usda.wic_food_package_str == "II-FF" then (Params.gov.usda.wic.cvb.included_in_value.«II-FF».atDate d) else (if p.usda.wic_food_package_str == "INFANT" then (Params.gov.usda.wic.cvb.included_in_value.INFANT.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_3_FULLY_FORMULA_FED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_0_3_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_3_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_0_3_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_0_5_FULLY_BREASTFED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_0_5_FULLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_4_5_FULLY_FORMULA_FED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_4_5_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_4_5_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_4_5_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_FULLY_BREASTFED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_6_11_FULLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_FULLY_FORMULA_FED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_6_11_FULLY_FORMULA_FED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_6_11_PARTIALLY_BREASTFED" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_6_11_PARTIALLY_BREASTFED.atDate d) else (if p.usda.wic_food_package_str == "INFANT_AVERAGE" then (Params.gov.usda.wic.cvb.included_in_value.INFANT_AVERAGE.atDate d) else (if p.usda.wic_food_package_str == "IV-A" then (Params.gov.usda.wic.cvb.included_in_value.«IV-A».atDate d) else (if p.usda.wic_food_package_str == "IV-B" then (Params.gov.usda.wic.cvb.included_in_value.«IV-B».atDate d) else (if p.usda.wic_food_package_str == "NONE" then (Params.gov.usda.wic.cvb.included_in_value.NONE.atDate d) else (if p.usda.wic_food_package_str == "PARTIALLY_BREASTFEEDING" then (Params.gov.usda.wic.cvb.included_in_value.PARTIALLY_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "POSTPARTUM" then (Params.gov.usda.wic.cvb.included_in_value.POSTPARTUM.atDate d) else (if p.usda.wic_food_package_str == "POSTPARTUM_NON_BREASTFEEDING" then (Params.gov.usda.wic.cvb.included_in_value.POSTPARTUM_NON_BREASTFEEDING.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT" then (Params.gov.usda.wic.cvb.included_in_value.PREGNANT.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT_MULTIPLE_FETUSES" then (Params.gov.usda.wic.cvb.included_in_value.PREGNANT_MULTIPLE_FETUSES.atDate d) else (if p.usda.wic_food_package_str == "PREGNANT_SINGLETON" then (Params.gov.usda.wic.cvb.included_in_value.PREGNANT_SINGLETON.atDate d) else (if p.usda.wic_food_package_str == "V" then (Params.gov.usda.wic.cvb.included_in_value.V.atDate d) else (if p.usda.wic_food_package_str == "VI" then (Params.gov.usda.wic.cvb.included_in_value.VI.atDate d) else (Params.gov.usda.wic.cvb.included_in_value.VII.atDate d))))))))))))))))))))))))))))))))))))))))))) else 0)
 
-/-- `policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit.py`
+/-- `policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def residential_clean_energy_credit (t : TaxUnit) (d : Date) : Rat :=
-  (min ((residential_clean_energy_credit_credit_limit t d) : Rat) t.irs.residential_clean_energy_credit_potential)
+def savers_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min ((savers_credit_credit_limit t d) : Rat) (savers_credit_potential t d))
 
 /-- `policyengine_us/variables/gov/usda/wic/wic.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def wic (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if p.usda.takes_up_wic_if_eligible then (wic_if_takes_up t p d) else 0)
 
-/-- `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_credit_limit.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def energy_efficient_home_improvement_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (max (((income_tax_before_credits t d) - ((((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d))) : Rat) 0)
-
 /-- `policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_simplified_formula_applies.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def pell_grant_simplified_formula_applies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((decide (t.ed.pell_grant_primary_income < (Params.gov.ed.pell_grant.efc.simplified.income_limit.atDate d))) && (decide ((((((((snap t d) * 12) + (school_meal_net_subsidy t d)) + (tanf t d)) + ((wic t p d) * 12)) + boolToRat (medicaid_enrolled t p d)) + ((ssi t p d) * 12)) > 0))) && (Params.gov.ed.pell_grant.efc.simplified.applies.atDate d))
 
-/-- `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit.py`
+/-- `policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_credit_limit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def energy_efficient_home_improvement_credit (t : TaxUnit) (d : Date) : Rat :=
-  (min ((energy_efficient_home_improvement_credit_credit_limit t d) : Rat) t.irs.energy_efficient_home_improvement_credit_potential)
+def residential_clean_energy_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max (((income_tax_before_credits t d) - (((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d))) : Rat) 0)
 
 /-- `policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution_from_assets.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -317,20 +322,25 @@ def pell_grant_contribution_from_assets (t : TaxUnit) (p : Person) (d : Date) : 
 def pell_grant_dependent_contribution (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (((p.ed.pell_grant_dependent_available_income - (pell_grant_dependent_allowances t p d)) * (Params.gov.ed.pell_grant.dependent.income_assessment_rate.atDate d)) + ((p.ed.pell_grant_countable_assets * (Params.gov.ed.pell_grant.dependent.asset_assessment_rate.atDate d)) * (boolToRat (!(pell_grant_simplified_formula_applies t p d)))))
 
-/-- `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_credit_limit.py`
+/-- `policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def elderly_disabled_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
-  (max (((income_tax_before_credits t d) - (((((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d)) + (energy_efficient_home_improvement_credit t d))) : Rat) 0)
+def residential_clean_energy_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min ((residential_clean_energy_credit_credit_limit t d) : Rat) t.irs.residential_clean_energy_credit_potential)
+
+/-- `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_credit_limit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def energy_efficient_home_improvement_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max (((income_tax_before_credits t d) - ((((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d))) : Rat) 0)
 
 /-- `policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def pell_grant_head_contribution (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (Params.gov.ed.pell_grant.uses_sai.atDate d) then (if ((pell_grant_formula t p d) == PellGrantFormula.B) then ((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d)) else (if (decide (((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d)) ≥ 0)) then (Params.gov.ed.pell_grant.head.marginal_rate.atDate d ((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d))) else (max ((((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d)) * (Params.gov.ed.pell_grant.head.negative_rate.atDate d)) : Rat) (Params.gov.ed.pell_grant.head.min_contribution.atDate d)))) else (if (decide ((pell_grant_dependents_in_college t d) > 0)) then ((if ((pell_grant_formula t p d) == PellGrantFormula.B) then ((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d)) else (if (decide (((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d)) ≥ 0)) then (Params.gov.ed.pell_grant.head.marginal_rate.atDate d ((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d))) else (max ((((pell_grant_head_available_income t p d) + (pell_grant_contribution_from_assets t p d)) * (Params.gov.ed.pell_grant.head.negative_rate.atDate d)) : Rat) (Params.gov.ed.pell_grant.head.min_contribution.atDate d)))) / (pell_grant_dependents_in_college t d)) else 0))
 
-/-- `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit.py`
+/-- `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def elderly_disabled_credit (t : TaxUnit) (d : Date) : Rat :=
-  (min ((elderly_disabled_credit_credit_limit t d) : Rat) (elderly_disabled_credit_potential t d))
+def energy_efficient_home_improvement_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min ((energy_efficient_home_improvement_credit_credit_limit t d) : Rat) t.irs.energy_efficient_home_improvement_credit_potential)
 
 /-- `policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_efc.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -342,6 +352,16 @@ def pell_grant_efc (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 def pell_grant_sai (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (max ((min (((pell_grant_head_contribution t p d) + ((boolToRat ((pell_grant_formula t p d) == PellGrantFormula.A)) * (pell_grant_dependent_contribution t p d))) : Rat) (if ((pell_grant_eligibility_type t p d) == PellGrantEligibilityType.MAXIMUM) then 0 else (Params.gov.ed.pell_grant.sai.limits.max_sai.atDate d))) : Rat) (Params.gov.ed.pell_grant.sai.limits.min_sai.atDate d))
 
+/-- `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_credit_limit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def elderly_disabled_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max (((income_tax_before_credits t d) - (((((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d)) + (energy_efficient_home_improvement_credit t d))) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def elderly_disabled_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min ((elderly_disabled_credit_credit_limit t d) : Rat) (elderly_disabled_credit_potential t d))
+
 /-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_credit_limit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def new_clean_vehicle_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
@@ -352,9 +372,24 @@ def new_clean_vehicle_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
 def new_clean_vehicle_credit (t : TaxUnit) (d : Date) : Rat :=
   (if t.irs.new_clean_vehicle_credit_eligible then (min ((new_clean_vehicle_credit_credit_limit t d) : Rat) (new_clean_vehicle_credit_potential t d)) else 0)
 
+/-- `policyengine_us/variables/gov/irs/credits/income_tax_non_refundable_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def income_tax_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
+  (if Date.ble ⟨2022, 1, 1⟩ d then (((((((((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d)) + (energy_efficient_home_improvement_credit t d)) + (elderly_disabled_credit t d)) + (new_clean_vehicle_credit t d)) + (used_clean_vehicle_credit t d)) + (non_refundable_ctc t d)) else (if Date.ble ⟨2021, 1, 1⟩ d then ((((((((elderly_disabled_credit t d) + (non_refundable_ctc t d)) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d)) + (energy_efficient_home_improvement_credit t d)) + (new_clean_vehicle_credit t d)) else (((((((t.irs.cdcc + (elderly_disabled_credit t d)) + (non_refundable_ctc t d)) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d)) + (energy_efficient_home_improvement_credit t d))))
+
 /-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_credit_limit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def used_clean_vehicle_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
   (if t.irs.used_clean_vehicle_credit_eligible then (max (((income_tax_before_credits t d) - (((((((((foreign_tax_credit t d) + t.irs.cdcc) + (non_refundable_american_opportunity_credit t d)) + (lifetime_learning_credit t d)) + (savers_credit t d)) + (residential_clean_energy_credit t d)) + (energy_efficient_home_improvement_credit t d)) + (elderly_disabled_credit t d)) + (new_clean_vehicle_credit t d))) : Rat) 0) else 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def income_tax_unavailable_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
+  ((0 - (min ((income_tax_before_credits t d) : Rat) (income_tax_non_refundable_credits t d))) + (income_tax_non_refundable_credits t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def income_tax_capped_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
+  ((income_tax_non_refundable_credits t d) - (income_tax_unavailable_non_refundable_credits t d))
 
 end Lawlib.Gen.Vars

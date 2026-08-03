@@ -22,6 +22,7 @@ structure Person_Aca where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Core_p1 where
+  able_contributions_person : Rat := 0
   age : Rat := 0
   alimony_expense : Rat := 0
   alimony_income : Rat := 0
@@ -51,7 +52,9 @@ structure Person_Core_p1 where
   disability_benefits : Rat := 0
   dividend_income : Rat := 0
   divorce_year : Rat := 0
+  early_withdrawal_penalty : Rat := 0
   educational_assistance : Rat := 0
+  educator_expense : Rat := 0
   employer_total_payroll_tax_gross_wages : Rat := 0
   employer_total_taxable_earnings_for_federal_unemployment_tax : Rat := 0
   employer_total_taxable_earnings_for_social_security : Rat := 0
@@ -124,6 +127,7 @@ structure Person_Core_p1 where
   person_count : Rat := 0
   pre_subsidy_rent : Rat := 0
   pre_tax_health_insurance_premiums : Rat := 0
+  qualified_adoption_assistance_expense : Rat := 0
   qualified_dividend_income : Rat := 0
   qualified_tuition_expenses : Rat := 0
   railroad_benefits : Rat := 0
@@ -131,6 +135,9 @@ structure Person_Core_p1 where
   receives_or_needs_protective_services : Bool := false
   rental_income : Rat := 0
   retirement_distributions : Rat := 0
+  roth_401k_contributions : Rat := 0
+  roth_403b_contributions : Rat := 0
+  roth_ira_contributions : Rat := 0
   self_employed_health_insurance_premiums : Rat := 0
   self_employed_pension_contributions : Rat := 0
   self_employment_income : Rat := 0
@@ -143,6 +150,9 @@ structure Person_Core_p1 where
   sstb_self_employment_income_before_lsr : Rat := 0
   stock_assets : Rat := 0
   strike_benefits : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure Person_Core_p2 where
   survivor_benefits : Rat := 0
   tax_exempt_interest_income : Rat := 0
   tax_preparation_fees : Rat := 0
@@ -150,12 +160,11 @@ structure Person_Core_p1 where
   taxable_pension_income : Rat := 0
   tip_income : Rat := 0
   total_self_employment_income : Rat := 0
-deriving Repr, Lean.FromJson, Lean.ToJson
-
-structure Person_Core_p2 where
   traditional_401k_contributions : Rat := 0
   traditional_403b_contributions : Rat := 0
+  traditional_ira_contributions : Rat := 0
   unreimbursed_business_employee_expenses : Rat := 0
+  us_bonds_for_higher_ed : Rat := 0
   veterans_benefits : Rat := 0
   was_in_foster_care : Bool := false
   weekly_hours_worked_before_lsr : Rat := 0
@@ -241,8 +250,8 @@ structure Person_Irs where
   is_pursuing_credential_for_american_opportunity_credit : Bool := false
   qbid_amount : Rat := 0
   retired_on_total_disability : Bool := false
-  savers_credit_qualified_contributions : Rat := 0
   self_employment_tax : Rat := 0
+  student_loan_interest_ald : Rat := 0
   total_disability_payments : Rat := 0
   treasury_tipped_occupation_code : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -459,38 +468,40 @@ structure TaxUnit_Irs where
   adjusted_gross_income : Rat := 0
   aged_blind_count : Rat := 0
   american_opportunity_credit : Rat := 0
+  capped_qualified_tuition_expenses_ald : Rat := 0
   cdcc : Rat := 0
   cdcc_rate : Rat := 0
   ctc_limiting_tax_liability : Rat := 0
+  domestic_production_ald : Rat := 0
   energy_efficient_home_improvement_credit_potential : Rat := 0
   excess_payroll_tax_withheld : Rat := 0
   exemptions : Rat := 0
   foreign_earned_income_exclusion : Rat := 0
   foreign_tax_credit_potential : Rat := 0
   has_qdiv_or_ltcg : Bool := false
+  health_savings_account_ald : Rat := 0
   income_tax : Rat := 0
-  income_tax_non_refundable_credits : Rat := 0
   investment_income_form_4952 : Rat := 0
   is_barred_from_american_opportunity_credit_due_to_improper_claims : Bool := false
   is_nonresident_alien_for_american_opportunity_credit : Bool := false
   is_nonresident_alien_for_lifetime_learning_credit : Bool := false
   itemized_taxable_income_deductions_reduction : Rat := 0
+  loss_ald : Rat := 0
   loss_limited_net_capital_gains : Rat := 0
   net_investment_income : Rat := 0
   new_clean_vehicle_credit_eligible : Bool := false
   puerto_rico_income : Rat := 0
   qualified_business_income_deduction : Rat := 0
+  refundable_payroll_tax_credit : Rat := 0
   residential_clean_energy_credit_potential : Rat := 0
   salt_deduction : Rat := 0
   specified_possession_income : Rat := 0
   takes_up_eitc : Bool := false
   tax_unit_itemizes : Bool := false
   tax_unit_size : Rat := 0
-  taxable_income_deductions_if_itemizing : Rat := 0
-  taxable_income_deductions_if_not_itemizing : Rat := 0
   taxable_ss_magi : Rat := 0
   taxable_uc_agi : Rat := 0
-  total_itemized_taxable_income_deductions : Rat := 0
+  tuition_and_fees_deduction : Rat := 0
   unreported_payroll_tax : Rat := 0
   used_clean_vehicle_credit_eligible : Bool := false
   would_file_if_eligible_for_refundable_credit : Bool := false

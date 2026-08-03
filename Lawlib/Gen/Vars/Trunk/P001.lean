@@ -436,7 +436,7 @@ def earned_income_last_year (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_relevant_investment_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def eitc_relevant_investment_income (t : TaxUnit) (d : Date) : Rat :=
-  (((t.irs.net_investment_income + (sumBy t.members fun p => p.core_p1.tax_exempt_interest_income)) - t.irs.loss_limited_net_capital_gains) + (max (0 : Rat) t.core.net_capital_gains))
+  (((t.irs.net_investment_income + (sumBy t.members fun p => p.core_p2.tax_exempt_interest_income)) - t.irs.loss_limited_net_capital_gains) + (max (0 : Rat) t.core.net_capital_gains))
 
 /-- `policyengine_us/variables/gov/irs/tax/payroll/unemployment/employer_federal_unemployment_tax_rate.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -456,7 +456,7 @@ def employer_total_social_security_tax (t : TaxUnit) (p : Person) (d : Date) : R
 /-- `policyengine_us/variables/gov/irs/tax/estate/estate_tax_before_credits.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def estate_tax_before_credits (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (Params.gov.irs.tax.estate.rate.atDate d p.core_p1.taxable_estate_value)
+  (Params.gov.irs.tax.estate.rate.atDate d p.core_p2.taxable_estate_value)
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/exemptions/exemptions_count.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
@@ -758,14 +758,14 @@ def is_young_child_for_medicaid_nfc (t : TaxUnit) (p : Person) (d : Date) : Bool
 def itemized_medical_expenses (t : TaxUnit) (d : Date) : Rat :=
   ((sumBy t.members fun p => p.core_p1.medical_expense_health_insurance_premiums) + (sumBy t.members fun p => p.core_p1.other_medical_expenses))
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def itemized_taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
-  (max (0 : Rat) (t.irs.total_itemized_taxable_income_deductions - t.irs.itemized_taxable_income_deductions_reduction))
-
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/retirement/k401_catch_up_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def k401_catch_up_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide (p.core_p1.age ≥ (Params.gov.irs.gross_income.retirement_contributions.catch_up.age_threshold.atDate d)))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/limited_capital_loss.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def limited_capital_loss (t : TaxUnit) (d : Date) : Rat :=
+  (min ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.ald.loss.capital.max.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.ald.loss.capital.max.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.ald.loss.capital.max.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.ald.loss.capital.max.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.ald.loss.capital.max.SURVIVING_SPOUSE.atDate d)) : Rat) (sumBy t.members fun p => p.core_p1.capital_losses))
 
 end Lawlib.Gen.Vars

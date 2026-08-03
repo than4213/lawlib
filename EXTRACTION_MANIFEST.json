@@ -6470,16 +6470,6 @@
       "sha256": "f66e1fe57217d1bda498b466c86856dbc1ebc62dea133f59f68c770e66d77075"
     },
     {
-      "name": "itemized_taxable_income_deductions",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions.py",
-      "sha256": "f50ba51fcfbba69745b761e9a33a455c8e1047d261d8d2ecb0fee07e059cd7ff"
-    },
-    {
       "name": "k401_catch_up_eligible",
       "entity": "person",
       "value_type": "bool",
@@ -6858,6 +6848,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/refundable_american_opportunity_credit.py",
       "sha256": "22e79316b0a62833bdbe5c72d25c20d8c0df9014931a3f7e28ddcac63d543cba"
+    },
+    {
+      "name": "savers_credit_qualified_contributions",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_qualified_contributions.py",
+      "sha256": "27c6bbc9e7caf403e81959bfa2746483ce3a166c3ad569dfdf2f8bb6104e2dc0"
     },
     {
       "name": "self_employed_health_insurance_ald_person",
@@ -7268,16 +7268,6 @@
       "period": "year",
       "source": "policyengine_us/variables/household/demographic/weights/tax_unit_weight.py",
       "sha256": "b3d8db2b7bd0929766cc6081fbbd932d0bd16a646fe10ccdf4e683a7bd468127"
-    },
-    {
-      "name": "taxable_income_deductions",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions.py",
-      "sha256": "dee00bd7a0be75a0844bb93a58c0c8d695e6de78e5f8ef6d504964365a786ccb"
     },
     {
       "name": "taxable_self_employment_income",
@@ -8350,16 +8340,6 @@
       "sha256": "5bdae277baa84095d30192b1674b090e4cc653287fe4b782841da7966611a0e8"
     },
     {
-      "name": "taxable_income",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/income/taxable_income/taxable_income.py",
-      "sha256": "fac9511f92363e58e98baa39ed14aa9a68e3a4a424459449d76e0e4c291cc8ba"
-    },
-    {
       "name": "taxpayer_has_tin",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -8378,6 +8358,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/tip_income/tip_income_deduction_ssn_requirement_met.py",
       "sha256": "e48269c8d82da937f3c2e226ff80219389280277f63e2279751e391298f4a31d"
+    },
+    {
+      "name": "above_the_line_deductions",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/above_the_line_deductions.py",
+      "sha256": "f710d514f28d8a5148118f763789a2480b0ed83210613931833038b89ed6f982"
     },
     {
       "name": "additional_medicare_tax",
@@ -8458,16 +8448,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/basic_standard_deduction.py",
       "sha256": "58f5e48299fea087f227d311053a354d202a9e5bd3fd0319725de606d49f9c13"
-    },
-    {
-      "name": "capital_gains_excluded_from_taxable_income",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_excluded_from_taxable_income.py",
-      "sha256": "b8e03e2c859761daf1a14e7e2ac509d8f4be7de9ed272a1573a9f9a545b7ab83"
     },
     {
       "name": "cdcc_filing_status_eligible",
@@ -9120,6 +9100,16 @@
       "sha256": "1e5a52f44445b14e8a07b497f1857c22e43436d8c02f60311cfdb0ae6aacfc82"
     },
     {
+      "name": "total_itemized_taxable_income_deductions",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/total_itemized_taxable_income_deductions.py",
+      "sha256": "ff299011215af9e1df9328986eed430e2e1413e583ead59b6b964037a870a55f"
+    },
+    {
       "name": "basic_health_program_family_tier_category",
       "entity": "tax_unit",
       "value_type": "Enum",
@@ -9128,16 +9118,6 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_category.py",
       "sha256": "126cd7147c8f744b6799a428abdd32e7d51417703c84038161ffa76ac3e6107e"
-    },
-    {
-      "name": "capital_gains_tax",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_tax.py",
-      "sha256": "1426c8737753bbaa929d47130793ad7146ad160f1373ac32d4d700142c2362d0"
     },
     {
       "name": "capped_count_cdcc_eligible",
@@ -9188,16 +9168,6 @@
       "period": "year",
       "source": "policyengine_us/variables/household/demographic/tax_unit/disabled_spouse.py",
       "sha256": "4894de24e2692563faa1865bcd4cbcdb16f51ea44563e61eba8d95da0992e9d8"
-    },
-    {
-      "name": "dwks14",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks14.py",
-      "sha256": "4529fc12557d6ab088fa9f352cf18b5bbe58b40a844c9d152173a8bb09217f1a"
     },
     {
       "name": "eitc_child_count",
@@ -9270,16 +9240,6 @@
       "sha256": "2f2d642c1968cead95b4d06e43af7dd88f950c8823c8a519455a27fa5f945888"
     },
     {
-      "name": "income_tax_main_rates",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_main_rates.py",
-      "sha256": "528c269861fb58f92a0c15a7bcf6e7d1032b3d8eba3c61f68ba68aa46ba67e75"
-    },
-    {
       "name": "is_ccdf_eligible",
       "entity": "person",
       "value_type": "bool",
@@ -9318,6 +9278,16 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/ssa/ssi/is_ssi_eligible.py",
       "sha256": "ec0f7b7a77c274da2f9e133fe44772d8e2fb5a0ff2b9c1c60da51d3a96831822"
+    },
+    {
+      "name": "itemized_taxable_income_deductions",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions.py",
+      "sha256": "f50ba51fcfbba69745b761e9a33a455c8e1047d261d8d2ecb0fee07e059cd7ff"
     },
     {
       "name": "lifetime_learning_credit_potential",
@@ -9640,16 +9610,6 @@
       "sha256": "9888c0715b673542b20965f90676c03f87b45285bd25a7d13728f545a87e3b7f"
     },
     {
-      "name": "dwks19",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks19.py",
-      "sha256": "2897c9b87deeedfe6c476a9404e3b441ee77238782cd54a3453bbb17bd3046e2"
-    },
-    {
       "name": "eitc_demographic_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -9900,6 +9860,26 @@
       "sha256": "6abde3f112dcee8c852afeff9e8d9ee5a5b7b24a82c0e1cd932f41719fec8bae"
     },
     {
+      "name": "taxable_income_deductions_if_itemizing",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions_if_itemizing.py",
+      "sha256": "f3174fd6ea4d326dd4275b71d34145ae621b15f266aa849c1e28e78c477f69be"
+    },
+    {
+      "name": "taxable_income_deductions_if_not_itemizing",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions_if_not_itemizing.py",
+      "sha256": "892a3cb6ae1f1cbe49710101a7e216a2cb8a52390c3fd3ad9748159640b77cc2"
+    },
+    {
       "name": "tuition_and_fees_deduction_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -9908,26 +9888,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/tuition_and_fees_deduction_eligible.py",
       "sha256": "31af7e1c4d46882f5314b052dcd80db26fb6d9f4fa528ba805b0628314dd4c6e"
-    },
-    {
-      "name": "amt_part_iii_required",
-      "entity": "tax_unit",
-      "value_type": "bool",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/amt_part_iii_required.py",
-      "sha256": "4313dca9df6a5058e4262f91a64a8a073415756267219daebc7de6514b52290b"
-    },
-    {
-      "name": "amt_separate_addition",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_separate_addition.py",
-      "sha256": "44ad960a4951435b194cfff32aa8325d3dca74cd45afe1f21994f3d72e8bd70f"
     },
     {
       "name": "basic_health_program_family_tier_amount",
@@ -10070,16 +10030,6 @@
       "sha256": "4478eb7ea8095988a198d3a959a1b8acdb0243dbc10fdfa16622bb3410679ae0"
     },
     {
-      "name": "regular_tax_before_credits",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/regular_tax_before_credits.py",
-      "sha256": "2d6711ab385bee88961d861a500ec2d7f44ca96542de4b967335eb761c382350"
-    },
-    {
       "name": "selected_marketplace_plan_actuarial_value",
       "entity": "tax_unit",
       "value_type": "float",
@@ -10150,6 +10100,16 @@
       "sha256": "8f02ade960b1e50ca8faf4ffb98941f5cde404826a64cf25ba8be2c30fdc36b2"
     },
     {
+      "name": "taxable_income_deductions",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions.py",
+      "sha256": "dee00bd7a0be75a0844bb93a58c0c8d695e6de78e5f8ef6d504964365a786ccb"
+    },
+    {
       "name": "taxable_social_security_tier_1",
       "entity": "tax_unit",
       "value_type": "float",
@@ -10158,16 +10118,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security_tier_1.py",
       "sha256": "c2a2fd028821c88b816b378746bc680d147634622235f6f24033cade504c191b"
-    },
-    {
-      "name": "amt_income",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_income.py",
-      "sha256": "13f306f3b223018df5cf9ae0f898b030a3de3bcec6759dc0a4e6ed71a5222710"
     },
     {
       "name": "basic_health_program_reference_premium",
@@ -10330,6 +10280,16 @@
       "sha256": "bbd220272e96ce81cbf329d04f50c6904bd6b8805ac573cfbe2cd47909b84a26"
     },
     {
+      "name": "taxable_income",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/income/taxable_income/taxable_income.py",
+      "sha256": "fac9511f92363e58e98baa39ed14aa9a68e3a4a424459449d76e0e4c291cc8ba"
+    },
+    {
       "name": "taxable_social_security",
       "entity": "person",
       "value_type": "float",
@@ -10360,14 +10320,14 @@
       "sha256": "55c18ba6fbc3d9159fe2e92437396a5fe5d9c324a8292343a2fb2cc4e337c3f1"
     },
     {
-      "name": "amt_exemption",
+      "name": "amt_separate_addition",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/exemption/amt_exemption.py",
-      "sha256": "28e20fa2e65f6d69f76fc392e1097155c06fe1e36209f863b90df2725edb1cf8"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_separate_addition.py",
+      "sha256": "44ad960a4951435b194cfff32aa8325d3dca74cd45afe1f21994f3d72e8bd70f"
     },
     {
       "name": "basic_health_program_adjusted_reference_premium",
@@ -10378,6 +10338,16 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_adjusted_reference_premium.py",
       "sha256": "e118f18918ddad470035e39ac6c7ebe449428494459eb29a4b7e8e8caec623dd"
+    },
+    {
+      "name": "capital_gains_excluded_from_taxable_income",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_excluded_from_taxable_income.py",
+      "sha256": "b8e03e2c859761daf1a14e7e2ac509d8f4be7de9ed272a1573a9f9a545b7ab83"
     },
     {
       "name": "cdcc_potential",
@@ -10408,6 +10378,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_phase_in.py",
       "sha256": "c85744828c4ef57c23b3b56dc493c4d14c18443a67e073997243063aaec8593f"
+    },
+    {
+      "name": "dwks14",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks14.py",
+      "sha256": "4529fc12557d6ab088fa9f352cf18b5bbe58b40a844c9d152173a8bb09217f1a"
     },
     {
       "name": "elderly_disabled_credit_potential",
@@ -10530,14 +10510,24 @@
       "sha256": "be8954642a921bf5b84461c192331204c65891fa75696fbde411857a81f59915"
     },
     {
-      "name": "amt_income_less_exemptions",
+      "name": "amt_income",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_income_less_exemptions.py",
-      "sha256": "d5d756efb9d2c6b0c99c3086042b8b9f017591b380d412b2b1b89f2cf7d26434"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_income.py",
+      "sha256": "13f306f3b223018df5cf9ae0f898b030a3de3bcec6759dc0a4e6ed71a5222710"
+    },
+    {
+      "name": "capital_gains_tax",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_tax.py",
+      "sha256": "1426c8737753bbaa929d47130793ad7146ad160f1373ac32d4d700142c2362d0"
     },
     {
       "name": "chip_premium",
@@ -10558,6 +10548,26 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum_with_arpa_addition.py",
       "sha256": "886b92ca6e7c675d4feb638cd21b251424eac7d9f7e42d9c1f82eecc2bc4b53b"
+    },
+    {
+      "name": "dwks19",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks19.py",
+      "sha256": "2897c9b87deeedfe6c476a9404e3b441ee77238782cd54a3453bbb17bd3046e2"
+    },
+    {
+      "name": "income_tax_main_rates",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_main_rates.py",
+      "sha256": "528c269861fb58f92a0c15a7bcf6e7d1032b3d8eba3c61f68ba68aa46ba67e75"
     },
     {
       "name": "lcbp_family_tier_multiplier",
@@ -10620,34 +10630,24 @@
       "sha256": "26f4ec60766f261f9d8c852efc7f603be17b38f2d15606c01a78a4e02888154d"
     },
     {
-      "name": "amt_higher_base_tax",
+      "name": "amt_exemption",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_higher_base_tax.py",
-      "sha256": "504818d6c7ad9d4ce3ee075561dde7a07c874671c2a6560c74fc7d87bec6efca"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/exemption/amt_exemption.py",
+      "sha256": "28e20fa2e65f6d69f76fc392e1097155c06fe1e36209f863b90df2725edb1cf8"
     },
     {
-      "name": "amt_lower_base_tax",
+      "name": "amt_part_iii_required",
       "entity": "tax_unit",
-      "value_type": "float",
+      "value_type": "bool",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_lower_base_tax.py",
-      "sha256": "53897cbb6ea9441b175f1e75c443584bc7b50944bed1c43633026976e99692a8"
-    },
-    {
-      "name": "amt_tax_including_cg",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/amt_tax_including_cg.py",
-      "sha256": "15873f02cf91560e0a2748cec8b18e7e3ea5a44b49061fc51984085e0ba27b3b"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/amt_part_iii_required.py",
+      "sha256": "4313dca9df6a5058e4262f91a64a8a073415756267219daebc7de6514b52290b"
     },
     {
       "name": "ctc",
@@ -10688,6 +10688,16 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py",
       "sha256": "11d7a70b0b22f196725aa5b6a5565d0d1f935bbb810bef82cb729c6d390e26b6"
+    },
+    {
+      "name": "regular_tax_before_credits",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/regular_tax_before_credits.py",
+      "sha256": "2d6711ab385bee88961d861a500ec2d7f44ca96542de4b967335eb761c382350"
     },
     {
       "name": "school_meal_countable_income",
@@ -10760,14 +10770,14 @@
       "sha256": "77b326db59c1114c9efc09c53de3db13997522037e97161dca3d1f646642526f"
     },
     {
-      "name": "amt_base_tax",
+      "name": "amt_income_less_exemptions",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_base_tax.py",
-      "sha256": "c42f123c17218a8b4ea6ea50d82a93048eb6b02bab5a282045717bb5fc60a61e"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_income_less_exemptions.py",
+      "sha256": "d5d756efb9d2c6b0c99c3086042b8b9f017591b380d412b2b1b89f2cf7d26434"
     },
     {
       "name": "hud_countable_unearned_income",
@@ -10860,14 +10870,34 @@
       "sha256": "0dcdf7e71cdb539b2d45e031a38bef6535e8c0636a6177816fc1303ab3cb2b4f"
     },
     {
-      "name": "alternative_minimum_tax",
+      "name": "amt_higher_base_tax",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/alternative_minimum_tax.py",
-      "sha256": "e721d553974b11eebfa03750516c89c0fa6d174a0b67993e3d431fab587d4e47"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_higher_base_tax.py",
+      "sha256": "504818d6c7ad9d4ce3ee075561dde7a07c874671c2a6560c74fc7d87bec6efca"
+    },
+    {
+      "name": "amt_lower_base_tax",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_lower_base_tax.py",
+      "sha256": "53897cbb6ea9441b175f1e75c443584bc7b50944bed1c43633026976e99692a8"
+    },
+    {
+      "name": "amt_tax_including_cg",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/amt_tax_including_cg.py",
+      "sha256": "15873f02cf91560e0a2748cec8b18e7e3ea5a44b49061fc51984085e0ba27b3b"
     },
     {
       "name": "commodity_supplemental_food_program_eligible",
@@ -10910,6 +10940,16 @@
       "sha256": "189860a2eec32d6f8fd6f98a8d129919682f3ff55b55cd76dc634d57b4567c05"
     },
     {
+      "name": "income_tax_refundable_credits",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/income_tax_refundable_credits.py",
+      "sha256": "c3e7cefe15b1930b2c1d40d6cfd864202e780c16459eb05f91fe8b381b1951c5"
+    },
+    {
       "name": "marketplace_csr_category",
       "entity": "tax_unit",
       "value_type": "Enum",
@@ -10950,6 +10990,16 @@
       "sha256": "15c53c773297245f9593b334e7f6a77ec9b6b33dd038a2c3a8a3a966c52bad99"
     },
     {
+      "name": "amt_base_tax",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_base_tax.py",
+      "sha256": "c42f123c17218a8b4ea6ea50d82a93048eb6b02bab5a282045717bb5fc60a61e"
+    },
+    {
       "name": "hud_adjusted_income",
       "entity": "spm_unit",
       "value_type": "float",
@@ -10978,16 +11028,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/ttp/hud_ttp_income_share.py",
       "sha256": "277bcc81d1c2c1dd79d71cdf2a2836fc39de3ef2d6fdb42297a708b80c4be052"
-    },
-    {
-      "name": "income_tax_before_credits",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_before_credits.py",
-      "sha256": "6f73b0965e6658d3f3e961ee51109e497a5546094978a8b6c81394423349633c"
     },
     {
       "name": "marketplace_csr_actuarial_value",
@@ -11050,14 +11090,14 @@
       "sha256": "dde7726417d2f38598d876185bee9f3a6db369ec81e81a21fef4bfc9e2ffc28d"
     },
     {
-      "name": "foreign_tax_credit_credit_limit",
+      "name": "alternative_minimum_tax",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit_credit_limit.py",
-      "sha256": "0e13fe840f3ac7a42ca4370a704b7973de37ac6299a68cb71867947d89cf201d"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/alternative_minimum_tax.py",
+      "sha256": "e721d553974b11eebfa03750516c89c0fa6d174a0b67993e3d431fab587d4e47"
     },
     {
       "name": "hud_ttp_adjusted_income_share",
@@ -11068,16 +11108,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/ttp/hud_ttp_adjusted_income_share.py",
       "sha256": "5ce49df01a4e912c4eafa09f8f077ab79d555517d0e6cc7b59e1c6372bfbde77"
-    },
-    {
-      "name": "income_tax_unavailable_non_refundable_credits",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py",
-      "sha256": "cb8bf5618811d427be81f0e69f2cfe04611241e8472fa120549f63e9add68e16"
     },
     {
       "name": "is_eligible_for_housing_assistance",
@@ -11150,16 +11180,6 @@
       "sha256": "a36cf466b89082cffb7c0f06e8ca973b503715672cf4d22311614b0212f681ba"
     },
     {
-      "name": "foreign_tax_credit",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit.py",
-      "sha256": "94de157e8d88b3ecde555b42f1e6dbd9a15e4643ba848590f6ab5c356891533e"
-    },
-    {
       "name": "housing_assistance",
       "entity": "spm_unit",
       "value_type": "float",
@@ -11170,14 +11190,14 @@
       "sha256": "b38f3fd38946ad10d3c13a7a100deacfe03c2716da9269491cb52d081af512cf"
     },
     {
-      "name": "income_tax_capped_non_refundable_credits",
+      "name": "income_tax_before_credits",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py",
-      "sha256": "735c8c46a8b993d33af6750d12257592a3c5a4d5afa7fcba41b90c1bfe6755bb"
+      "source": "policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_before_credits.py",
+      "sha256": "6f73b0965e6658d3f3e961ee51109e497a5546094978a8b6c81394423349633c"
     },
     {
       "name": "meets_snap_gross_income_test",
@@ -11220,14 +11240,14 @@
       "sha256": "c1164a834a7ebea0a6a003547899ac5ab9b1b28478f73068ff6fa933dd9b8ab8"
     },
     {
-      "name": "cdcc_credit_limit",
+      "name": "foreign_tax_credit_credit_limit",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/cdcc/cdcc_credit_limit.py",
-      "sha256": "a6078d164a5479687e6292630d4f5df459158eb16576aa2a873de4085895bca4"
+      "source": "policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit_credit_limit.py",
+      "sha256": "0e13fe840f3ac7a42ca4370a704b7973de37ac6299a68cb71867947d89cf201d"
     },
     {
       "name": "income_tax_excluding_ptc",
@@ -11270,16 +11290,6 @@
       "sha256": "6694b4eb017507d3845eaf143aedf7a81a5d87a4610a69ff91d32167b7110ae3"
     },
     {
-      "name": "non_refundable_american_opportunity_credit_credit_limit",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/non_refundable_american_opportunity_credit_credit_limit.py",
-      "sha256": "0600e3c92543e3597653c00eb5d2c771b0fda3c9d6b6bfe5f1aae0bf999dcee9"
-    },
-    {
       "name": "premium_tax_credit",
       "entity": "tax_unit",
       "value_type": "float",
@@ -11298,6 +11308,56 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/aca/ptc/unused_aca_ptc.py",
       "sha256": "bbd4a923cc0218b94aa19aaf620e4bdec855e7ab92c9bc28d6e286ed86a7bd24"
+    },
+    {
+      "name": "foreign_tax_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit.py",
+      "sha256": "94de157e8d88b3ecde555b42f1e6dbd9a15e4643ba848590f6ab5c356891533e"
+    },
+    {
+      "name": "snap_normal_allotment",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": true,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py",
+      "sha256": "531911ba6a7c6f7dd9b95e3fe222205f65dd7e986d007e48446f6480f36cfa41"
+    },
+    {
+      "name": "cdcc_credit_limit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/cdcc/cdcc_credit_limit.py",
+      "sha256": "a6078d164a5479687e6292630d4f5df459158eb16576aa2a873de4085895bca4"
+    },
+    {
+      "name": "non_refundable_american_opportunity_credit_credit_limit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/non_refundable_american_opportunity_credit_credit_limit.py",
+      "sha256": "0600e3c92543e3597653c00eb5d2c771b0fda3c9d6b6bfe5f1aae0bf999dcee9"
+    },
+    {
+      "name": "snap_if_takes_up",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": true,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py",
+      "sha256": "994824cf5adc294aa1debdcb0fa6b3137d9ee77f04c9c251d1a6d21edfa079b8"
     },
     {
       "name": "non_refundable_american_opportunity_credit",
@@ -11320,56 +11380,6 @@
       "sha256": "4580c0878c1e5436020ce1bb65d371d117bde019736c6b0eede78666bab56f0a"
     },
     {
-      "name": "snap_normal_allotment",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "validated": true,
-      "quantized": false,
-      "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py",
-      "sha256": "531911ba6a7c6f7dd9b95e3fe222205f65dd7e986d007e48446f6480f36cfa41"
-    },
-    {
-      "name": "lifetime_learning_credit_credit_limit",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_credit_limit.py",
-      "sha256": "902da20f7d4207ed075d5183132d2e091bb9f9487f797afd9bf53ae89c5fdff3"
-    },
-    {
-      "name": "pre_obbba_capped_cdcc",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py",
-      "sha256": "1152b899710f6a9b76819aa7e9fa4f732f886fb6b416285b8b35c78ea335f76d"
-    },
-    {
-      "name": "snap_if_takes_up",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "validated": true,
-      "quantized": false,
-      "period": "month",
-      "source": "policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py",
-      "sha256": "994824cf5adc294aa1debdcb0fa6b3137d9ee77f04c9c251d1a6d21edfa079b8"
-    },
-    {
-      "name": "lifetime_learning_credit",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit.py",
-      "sha256": "97ac07ad4ed30e2142e807aefeb854899f5a86443c4867547e38d1d846e40a45"
-    },
-    {
       "name": "snap",
       "entity": "spm_unit",
       "value_type": "float",
@@ -11380,16 +11390,6 @@
       "sha256": "1d0a0747cec0e880062afc154f0eb70ef76f315e840420d19181ed3824a97863"
     },
     {
-      "name": "education_tax_credits",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/education/education_tax_credits.py",
-      "sha256": "5a071c7534c05e3d949ea245d065e8db938751dc54c6d345533f6a06eb8e9d47"
-    },
-    {
       "name": "is_head_start_categorically_eligible",
       "entity": "person",
       "value_type": "bool",
@@ -11398,6 +11398,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/head_start/is_head_start_categorically_eligible.py",
       "sha256": "cf4622170dd1342331c2d391563cca782a793192c28a2c41e4640cf08071dfe8"
+    },
+    {
+      "name": "lifetime_learning_credit_credit_limit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_credit_limit.py",
+      "sha256": "902da20f7d4207ed075d5183132d2e091bb9f9487f797afd9bf53ae89c5fdff3"
     },
     {
       "name": "medicaid_community_engagement_pass_through_eligible",
@@ -11430,14 +11440,14 @@
       "sha256": "370980b02e77ce2a3abce0c20a7331fd497e777f91f023c656e2435babd43e9b"
     },
     {
-      "name": "savers_credit_credit_limit",
+      "name": "pre_obbba_capped_cdcc",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_credit_limit.py",
-      "sha256": "35dba8e6c02865b205d130aaf68359fabe9c2bcd1bbd3d28119d74378f897fc3"
+      "source": "policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py",
+      "sha256": "1152b899710f6a9b76819aa7e9fa4f732f886fb6b416285b8b35c78ea335f76d"
     },
     {
       "name": "is_early_head_start_eligible",
@@ -11460,14 +11470,14 @@
       "sha256": "ce11607c17c89c6fbe23d71db82c2ecf5fd636cf8ed83f32dd8f25ea06d5ef18"
     },
     {
-      "name": "savers_credit",
+      "name": "lifetime_learning_credit",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit.py",
-      "sha256": "5b8753d469fa8b0fb2b5c540f5f838308e7ab37f0b7bcdbee50838bd47fb7bd8"
+      "source": "policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit.py",
+      "sha256": "97ac07ad4ed30e2142e807aefeb854899f5a86443c4867547e38d1d846e40a45"
     },
     {
       "name": "school_meal_tier",
@@ -11490,6 +11500,16 @@
       "sha256": "7b014f32ba0eb89b54cb5023419f3b2618cc3e6eb82bac9a1622a7e5a45bda5a"
     },
     {
+      "name": "education_tax_credits",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/education/education_tax_credits.py",
+      "sha256": "5a071c7534c05e3d949ea245d065e8db938751dc54c6d345533f6a06eb8e9d47"
+    },
+    {
       "name": "free_school_meals",
       "entity": "spm_unit",
       "value_type": "float",
@@ -11510,14 +11530,14 @@
       "sha256": "1b781af22bc8d95a590b8643e6b1ce2cd8b34a2566c61c9e58194627aae18450"
     },
     {
-      "name": "residential_clean_energy_credit_credit_limit",
+      "name": "savers_credit_credit_limit",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_credit_limit.py",
-      "sha256": "b2ca3e7c3d24242926d40cd3fb38f2b0cda74cd9f570f0f387bf83ba0bf4eab3"
+      "source": "policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_credit_limit.py",
+      "sha256": "35dba8e6c02865b205d130aaf68359fabe9c2bcd1bbd3d28119d74378f897fc3"
     },
     {
       "name": "wic_if_takes_up",
@@ -11530,14 +11550,14 @@
       "sha256": "8224ff151475c41047c8fc27670f8bc39bfd34c00b0c8ef859f335e973ae0535"
     },
     {
-      "name": "residential_clean_energy_credit",
+      "name": "savers_credit",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit.py",
-      "sha256": "95cb9d7f7e969b29ebd76c0e1b4a01cff6ce7a19c3ddae197d1fc5d2d1ef5791"
+      "source": "policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit.py",
+      "sha256": "5b8753d469fa8b0fb2b5c540f5f838308e7ab37f0b7bcdbee50838bd47fb7bd8"
     },
     {
       "name": "wic",
@@ -11550,16 +11570,6 @@
       "sha256": "210ae51eab43b768be413fb104a5addb5db890e2230b3a872367f02b294ab3c8"
     },
     {
-      "name": "energy_efficient_home_improvement_credit_credit_limit",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_credit_limit.py",
-      "sha256": "22fa195916e5b64d5444d0343a86b9d03a48a8625d76a6b59509c7fb25e03f1d"
-    },
-    {
       "name": "pell_grant_simplified_formula_applies",
       "entity": "person",
       "value_type": "bool",
@@ -11570,14 +11580,14 @@
       "sha256": "775d3588d9a2b19e4fc288bf7741e92f9c0f958dae7db90de1c910df1ca9b0af"
     },
     {
-      "name": "energy_efficient_home_improvement_credit",
+      "name": "residential_clean_energy_credit_credit_limit",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit.py",
-      "sha256": "7f4710a0319c03245803caf73c8a77b808324387a7093494414876ab82b4db48"
+      "source": "policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_credit_limit.py",
+      "sha256": "b2ca3e7c3d24242926d40cd3fb38f2b0cda74cd9f570f0f387bf83ba0bf4eab3"
     },
     {
       "name": "pell_grant_contribution_from_assets",
@@ -11600,14 +11610,24 @@
       "sha256": "df1680e5c9d4ac7ebe853dacb633eb9796ee58862572325af45b12d6a39900bf"
     },
     {
-      "name": "elderly_disabled_credit_credit_limit",
+      "name": "residential_clean_energy_credit",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_credit_limit.py",
-      "sha256": "e170c517a2eb0622968963aad872a8520c5107cf0cc96d9785a93f374bd3d757"
+      "source": "policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit.py",
+      "sha256": "95cb9d7f7e969b29ebd76c0e1b4a01cff6ce7a19c3ddae197d1fc5d2d1ef5791"
+    },
+    {
+      "name": "energy_efficient_home_improvement_credit_credit_limit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_credit_limit.py",
+      "sha256": "22fa195916e5b64d5444d0343a86b9d03a48a8625d76a6b59509c7fb25e03f1d"
     },
     {
       "name": "pell_grant_head_contribution",
@@ -11620,14 +11640,14 @@
       "sha256": "3fa70679b869975fa38c185d177aecea792b939cc97115cd7e2476b2557037ea"
     },
     {
-      "name": "elderly_disabled_credit",
+      "name": "energy_efficient_home_improvement_credit",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit.py",
-      "sha256": "934f240ad9601fd81b1fe4d6cbb90988076c460bbe9ee5ba4cc743434205d21c"
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit.py",
+      "sha256": "7f4710a0319c03245803caf73c8a77b808324387a7093494414876ab82b4db48"
     },
     {
       "name": "pell_grant_efc",
@@ -11650,6 +11670,26 @@
       "sha256": "38e9b07c2153a80d82d5ca381d42a3833cc2e55b35a9add90c6d9b5bb10c0354"
     },
     {
+      "name": "elderly_disabled_credit_credit_limit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_credit_limit.py",
+      "sha256": "e170c517a2eb0622968963aad872a8520c5107cf0cc96d9785a93f374bd3d757"
+    },
+    {
+      "name": "elderly_disabled_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit.py",
+      "sha256": "934f240ad9601fd81b1fe4d6cbb90988076c460bbe9ee5ba4cc743434205d21c"
+    },
+    {
       "name": "new_clean_vehicle_credit_credit_limit",
       "entity": "tax_unit",
       "value_type": "float",
@@ -11670,6 +11710,16 @@
       "sha256": "04abce7803c29cbbe3451a88af86e28817df4726cd597d9a2ab03dca82596587"
     },
     {
+      "name": "income_tax_non_refundable_credits",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/income_tax_non_refundable_credits.py",
+      "sha256": "ed0ad2b57ed4143ec0ed71c4fd66acd007b1b49b3539fcfc605b56a64e5cabe8"
+    },
+    {
       "name": "used_clean_vehicle_credit_credit_limit",
       "entity": "tax_unit",
       "value_type": "float",
@@ -11678,6 +11728,26 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_credit_limit.py",
       "sha256": "86764920ce40bdb216d48840a2afc6145aa4baad68fae470e26c8f0ee919c2ee"
+    },
+    {
+      "name": "income_tax_unavailable_non_refundable_credits",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py",
+      "sha256": "cb8bf5618811d427be81f0e69f2cfe04611241e8472fa120549f63e9add68e16"
+    },
+    {
+      "name": "income_tax_capped_non_refundable_credits",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py",
+      "sha256": "735c8c46a8b993d33af6750d12257592a3c5a4d5afa7fcba41b90c1bfe6755bb"
     }
   ],
   "projection_cutoff": "2027-01-01",
@@ -11881,6 +11951,15 @@
     "aca_ptc"
   ],
   "input_boundary": [
+    {
+      "name": "able_contributions_person",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
     {
       "name": "aca_child_index",
       "entity": "person",
@@ -12213,6 +12292,15 @@
       "period": "year",
       "kind": "input",
       "note": ""
+    },
+    {
+      "name": "capped_qualified_tuition_expenses_ald",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "irs",
+      "period": "year",
+      "kind": "rejected",
+      "note": "comparison NotIn"
     },
     {
       "name": "care_and_support_costs",
@@ -12593,7 +12681,34 @@
       "note": ""
     },
     {
+      "name": "domestic_production_ald",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "irs",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "early_withdrawal_penalty",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "educational_assistance",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "educator_expense",
       "entity": "person",
       "value_type": "float",
       "domain": "core_p1",
@@ -12734,7 +12849,7 @@
       "domain": "irs",
       "period": "year",
       "kind": "rejected",
-      "note": "adds via DATED parameter list 'gov.irs.credits.energy_efficient_home_improvement.qualified_expenditures.credits'"
+      "note": "type error: cannot coerce ext to rat at ParamValue"
     },
     {
       "name": "energy_efficient_insulation_expenditures",
@@ -13151,6 +13266,15 @@
       "note": "state/local/territory or modeling namespace"
     },
     {
+      "name": "health_savings_account_ald",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "irs",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "health_savings_account_payroll_contributions",
       "entity": "person",
       "value_type": "float",
@@ -13542,15 +13666,6 @@
       "period": "year",
       "kind": "rejected",
       "note": "parameter 'gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax' outside emitted subtrees"
-    },
-    {
-      "name": "income_tax_non_refundable_credits",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "domain": "irs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "adds via DATED parameter list 'gov.irs.credits.non_refundable'"
     },
     {
       "name": "interest_income",
@@ -14316,6 +14431,15 @@
       "period": "year",
       "kind": "input",
       "note": ""
+    },
+    {
+      "name": "loss_ald",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "irs",
+      "period": "year",
+      "kind": "rejected",
+      "note": "ExtRat member of enum-indexed 'gov.irs.ald.loss.max'"
     },
     {
       "name": "loss_limited_net_capital_gains",
@@ -15398,6 +15522,15 @@
       "note": "np.divide"
     },
     {
+      "name": "qualified_adoption_assistance_expense",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "qualified_business_income_deduction",
       "entity": "tax_unit",
       "value_type": "float",
@@ -15506,6 +15639,15 @@
       "note": ""
     },
     {
+      "name": "refundable_payroll_tax_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "irs",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "rental_income",
       "entity": "person",
       "value_type": "float",
@@ -15560,6 +15702,33 @@
       "note": "state/local/territory or modeling namespace"
     },
     {
+      "name": "roth_401k_contributions",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "roth_403b_contributions",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "roth_ira_contributions",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "safmr_used_for_hcv",
       "entity": "household",
       "value_type": "bool",
@@ -15576,15 +15745,6 @@
       "period": "year",
       "kind": "rejected",
       "note": "parameter 'gov.simulation.limit_itemized_deductions_to_taxable_income' outside emitted subtrees"
-    },
-    {
-      "name": "savers_credit_qualified_contributions",
-      "entity": "person",
-      "value_type": "float",
-      "domain": "irs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "adds via DATED parameter list 'gov.irs.credits.retirement_saving.qualified_retirement_savings_contributions'"
     },
     {
       "name": "sc_child_care_subsidies",
@@ -16255,10 +16415,19 @@
       "note": ""
     },
     {
+      "name": "student_loan_interest_ald",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "irs",
+      "period": "year",
+      "kind": "rejected",
+      "note": "np.divide"
+    },
+    {
       "name": "survivor_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "out-of-scope",
       "note": "state/local/territory or modeling namespace"
@@ -16393,7 +16562,7 @@
       "name": "tax_exempt_interest_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "out-of-scope",
       "note": "state/local/territory or modeling namespace"
@@ -16402,7 +16571,7 @@
       "name": "tax_preparation_fees",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16447,34 +16616,16 @@
       "name": "taxable_estate_value",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
     },
     {
-      "name": "taxable_income_deductions_if_itemizing",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "domain": "irs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "adds via DATED parameter list 'gov.irs.deductions.deductions_if_itemizing'"
-    },
-    {
-      "name": "taxable_income_deductions_if_not_itemizing",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "domain": "irs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "adds via DATED parameter list 'gov.irs.deductions.deductions_if_not_itemizing'"
-    },
-    {
       "name": "taxable_pension_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16501,7 +16652,7 @@
       "name": "tip_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16525,19 +16676,10 @@
       "note": ""
     },
     {
-      "name": "total_itemized_taxable_income_deductions",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "domain": "irs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "adds via DATED parameter list 'gov.irs.deductions.itemized_deductions'"
-    },
-    {
       "name": "total_self_employment_income",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16561,6 +16703,15 @@
       "note": ""
     },
     {
+      "name": "traditional_ira_contributions",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p2",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "treasury_tipped_occupation_code",
       "entity": "person",
       "value_type": "int",
@@ -16568,6 +16719,15 @@
       "period": "year",
       "kind": "input",
       "note": ""
+    },
+    {
+      "name": "tuition_and_fees_deduction",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "irs",
+      "period": "year",
+      "kind": "rejected",
+      "note": "ExtRat scale 'gov.irs.deductions.tuition_and_fees.joint' in value position"
     },
     {
       "name": "tx_chip_premium",
@@ -16628,6 +16788,15 @@
       "entity": "tax_unit",
       "value_type": "float",
       "domain": "irs",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "us_bonds_for_higher_ed",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""

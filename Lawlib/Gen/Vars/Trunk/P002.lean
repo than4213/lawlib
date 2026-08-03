@@ -12,11 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/limited_capital_loss.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def limited_capital_loss (t : TaxUnit) (d : Date) : Rat :=
-  (min ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.ald.loss.capital.max.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.ald.loss.capital.max.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.ald.loss.capital.max.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.ald.loss.capital.max.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.ald.loss.capital.max.SURVIVING_SPOUSE.atDate d)) : Rat) (sumBy t.members fun p => p.core_p1.capital_losses))
-
 /-- `policyengine_us/variables/household/demographic/geographic/lives_in_vehicle.py`
     policyengine-us 1.783.0, entity household, value_type bool. -/
 def lives_in_vehicle (t : TaxUnit) (d : Date) : Bool :=
@@ -197,15 +192,20 @@ def receives_medicaid_long_term_care_services (t : TaxUnit) (p : Person) (d : Da
 def refundable_american_opportunity_credit (t : TaxUnit) (d : Date) : Rat :=
   ((Params.gov.irs.credits.education.american_opportunity_credit.refundability.atDate d) * t.irs.american_opportunity_credit)
 
+/-- `policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_qualified_contributions.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def savers_credit_qualified_contributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (max (((if Date.ble ⟨2026, 1, 1⟩ d then ((((((p.core_p2.traditional_ira_contributions + p.core_p1.roth_ira_contributions) + p.core_p2.traditional_401k_contributions) + p.core_p2.traditional_403b_contributions) + p.core_p1.roth_401k_contributions) + p.core_p1.roth_403b_contributions) + p.core_p1.self_employed_pension_contributions) else (((((((p.core_p2.traditional_ira_contributions + p.core_p1.roth_ira_contributions) + p.core_p2.traditional_401k_contributions) + p.core_p2.traditional_403b_contributions) + p.core_p1.roth_401k_contributions) + p.core_p1.roth_403b_contributions) + p.core_p1.self_employed_pension_contributions) + p.core_p1.able_contributions_person)) - p.core_p1.retirement_distributions) : Rat) 0)
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employed_health_insurance_ald_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def self_employed_health_insurance_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (min ((max (0 : Rat) p.core_p1.total_self_employment_income) : Rat) p.core_p1.self_employed_health_insurance_premiums)
+  (min ((max (0 : Rat) p.core_p2.total_self_employment_income) : Rat) p.core_p1.self_employed_health_insurance_premiums)
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employed_pension_contribution_ald_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def self_employed_pension_contribution_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (min ((max (0 : Rat) p.core_p1.total_self_employment_income) : Rat) p.core_p1.self_employed_pension_contributions)
+  (min ((max (0 : Rat) p.core_p2.total_self_employment_income) : Rat) p.core_p1.self_employed_pension_contributions)
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -305,7 +305,7 @@ def ss_claiming_age (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/ssa/social_security/ss_covered_earnings_this_year.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ss_covered_earnings_this_year (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (min ((p.core_p1.employment_income + p.core_p1.total_self_employment_income) : Rat) (Params.gov.ssa.social_security.wage_base.atDate d))
+  (min ((p.core_p1.employment_income + p.core_p2.total_self_employment_income) : Rat) (Params.gov.ssa.social_security.wage_base.atDate d))
 
 /-- `policyengine_us/variables/gov/ssa/social_security/ss_pia.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -402,11 +402,6 @@ def tax_unit_unemployment_compensation (t : TaxUnit) (d : Date) : Rat :=
 def tax_unit_weight (t : TaxUnit) (d : Date) : Rat :=
   t.core.household_weight
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
-  (if t.irs.tax_unit_itemizes then t.irs.taxable_income_deductions_if_itemizing else t.irs.taxable_income_deductions_if_not_itemizing)
-
 /-- `policyengine_us/variables/gov/irs/tax/self_employment/taxable_self_employment_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def taxable_self_employment_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -420,7 +415,7 @@ def tip_income_deduction_occupation_requirement_met (t : TaxUnit) (p : Person) (
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/total_misc_deductions.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def total_misc_deductions (t : TaxUnit) (d : Date) : Rat :=
-  ((sumBy t.members fun p => p.core_p2.unreimbursed_business_employee_expenses) + (sumBy t.members fun p => p.core_p1.tax_preparation_fees))
+  ((sumBy t.members fun p => p.core_p2.unreimbursed_business_employee_expenses) + (sumBy t.members fun p => p.core_p2.tax_preparation_fees))
 
 /-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -761,5 +756,10 @@ def medicaid_is_tax_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def medical_expense_deduction (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) ((itemized_medical_expenses t d) - ((Params.gov.irs.deductions.itemized.medical.floor.atDate d) * (positive_agi t d))))
+
+/-- `policyengine_us/variables/gov/hhs/medicare/costs/medicare_enrolled.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def medicare_enrolled (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if (is_medicare_eligible t p d) then (decide (boolToRat p.hhs.takes_up_medicare_if_eligible ≠ 0)) else false)
 
 end Lawlib.Gen.Vars

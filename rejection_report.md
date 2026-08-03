@@ -1,11 +1,10 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc'].
-669 translated, 540 boundary inputs, 222 rejections.
+676 translated, 551 boundary inputs, 215 rejections.
 
 ## Rejections
 
-- **above_the_line_deductions** (`?:0`): adds via DATED parameter list 'gov.irs.ald.deductions'
 - **aca_child_index** (`policyengine_us/variables/gov/aca/eligibility/aca_child_index.py:4`): unrecognized call person.get_rank
 - **aca_required_contribution_percentage** (`policyengine_us/variables/gov/aca/ptc/aca_required_contribution_percentage.py:6`): np.array
 - **adjusted_gross_income_person** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/adjusted_gross_income_person.py:13`): set() of non-static value
@@ -40,7 +39,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **employee_payroll_tax** (`policyengine_us/variables/gov/irs/tax/payroll/employee_payroll_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_payroll_tax' outside emitted subtrees
 - **employer_medicare_tax_income_tax_revenue** (`policyengine_us/variables/gov/ssa/revenue/employer_medicare_tax_income_tax_revenue.py:14`): attribute 'simulation' on value expression
 - **employer_ss_tax_income_tax_revenue** (`policyengine_us/variables/gov/ssa/revenue/employer_ss_tax_income_tax_revenue.py:14`): attribute 'simulation' on value expression
-- **energy_efficient_home_improvement_credit_potential** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_potential.py:10`): adds via DATED parameter list 'gov.irs.credits.energy_efficient_home_improvement.qualified_expenditures.credits'
+- **energy_efficient_home_improvement_credit_potential** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_potential.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **estate_tax_credit** (`policyengine_us/variables/gov/irs/credits/estate/estate_tax_credit.py:1`): returns a non-value
 - **exemptions** (`policyengine_us/variables/gov/irs/income/taxable_income/exemptions/exemptions.py:9`): ExtRat breakdown 'gov.irs.income.exemption.phase_out.start' in value position
 - **first_county_in_state** (`policyengine_us/variables/household/demographic/geographic/county/first_county_in_state.py:6`): unsupported syntax Dict
@@ -66,8 +65,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **income_adjusted_part_d_premium_surcharge** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_d/income_adjusted_part_d_premium_surcharge.py:8`): non-string list element
 - **income_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/income_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax' outside emitted subtrees
 - **income_tax_before_refundable_credits** (`policyengine_us/variables/gov/irs/tax/federal_income/income_tax_before_refundable_credits.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax' outside emitted subtrees
-- **income_tax_non_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.irs.credits.non_refundable'
-- **income_tax_refundable_credits** (`?:0`): adds via DATED parameter list 'gov.irs.credits.refundable'
 - **irs_gross_income** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/irs_gross_income.py:5`): for over non-static list
 - **is_aca_ptc_eligible** (`policyengine_us/variables/gov/aca/eligibility/is_aca_ptc_eligible.py:12`): bitwise op on non-bool operands
 - **is_acp_eligible** (`policyengine_us/variables/gov/fcc/acp/is_acp_eligible.py:3`): np.any
@@ -155,7 +152,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **safmr_used_for_hcv** (`policyengine_us/variables/household/demographic/geographic/safmr_used_for_hcv.py:3`): unbound name 'pd'
 - **salt_cap** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt_cap.py:0`): ExtRat member of enum-indexed 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
 - **salt_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt_deduction.py:4`): parameter 'gov.simulation.limit_itemized_deductions_to_taxable_income' outside emitted subtrees
-- **savers_credit_qualified_contributions** (`policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_qualified_contributions.py:3`): adds via DATED parameter list 'gov.irs.credits.retirement_saving.qualified_retirement_savings_contributions'
 - **school_meal_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_daily_subsidy.py:6`): unsupported parameter subscript on 'gov.usda.school_meals.amount.nslp'
 - **school_meal_paid_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_paid_daily_subsidy.py:5`): unsupported parameter subscript on 'gov.usda.school_meals.amount.nslp'
 - **self_employment_tax** (`policyengine_us/variables/gov/irs/tax/self_employment/self_employment_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax' outside emitted subtrees
@@ -208,8 +204,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **tax_unit_medicaid_income_level** (`policyengine_us/variables/gov/hhs/medicaid/income/tax_unit_medicaid_income_level.py:6`): unrecognized call fpg
 - **tax_unit_size** (`policyengine_us/variables/gov/irs/tax_unit/tax_unit_size.py:2`): unrecognized call tax_unit.nb_persons
 - **tax_unit_state** (`policyengine_us/variables/household/demographic/geographic/tax_unit_state.py:0`): type error: cannot coerce str to rat at VarRef
-- **taxable_income_deductions_if_itemizing** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.deductions_if_itemizing'
-- **taxable_income_deductions_if_not_itemizing** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.deductions_if_not_itemizing'
 - **taxable_income_less_qbid** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/taxable_income_less_qbid.py:4`): comprehension over non-static list
 - **taxable_ss_magi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_ss_magi.py:14`): comparison In
 - **taxable_uc_agi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/taxable_uc_agi.py:7`): non-value handle used as value
@@ -217,7 +211,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **tob_revenue_medicare_hi** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_medicare_hi.py:13`): attribute 'simulation' on value expression
 - **tob_revenue_oasdi** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_oasdi.py:13`): attribute 'simulation' on value expression
 - **tob_revenue_total** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_total.py:8`): attribute 'simulation' on value expression
-- **total_itemized_taxable_income_deductions** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.itemized_deductions'
 - **tuition_and_fees_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tuition_and_fees_deduction.py:11`): ExtRat scale 'gov.irs.deductions.tuition_and_fees.joint' in value position
 - **used_clean_vehicle_credit_eligible** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_eligible.py:13`): ExtRat breakdown 'gov.irs.credits.clean_vehicle.used.eligibility.income_limit' in value position
 - **weeks_worked** (`?:0`): dependency cycle
