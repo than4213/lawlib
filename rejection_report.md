@@ -1,7 +1,7 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc'].
-693 translated, 558 boundary inputs, 198 rejections.
+697 translated, 560 boundary inputs, 194 rejections.
 
 ## Rejections
 
@@ -74,7 +74,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **is_lifeline_income_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_income_eligible.py:15`): parameter 'gov.states.tx.uct.lifeline.fpg_limit' outside emitted subtrees
 - **is_medicaid_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_eligible.py:26`): parameter 'gov.states.ar.dhs.medicaid.work_requirements.applies' outside emitted subtrees
 - **is_medicaid_ineligible_due_to_work_requirement** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_ineligible_due_to_work_requirement.py:24`): parameter 'gov.states.ar.dhs.medicaid.work_requirements.applies' outside emitted subtrees
-- **is_medically_needy_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medically_needy/is_medically_needy_for_medicaid.py:28`): non-value handle used as value
+- **is_medically_needy_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medically_needy/is_medically_needy_for_medicaid.py:0`): type error: cannot coerce ext to rat at ParamStrIndex
 - **is_older_child_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/older_child/is_older_child_for_medicaid.py:8`): bitwise op on non-bool operands
 - **is_snap_abawd_hr1_in_effect** (`policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_abawd_hr1_in_effect.py:21`): parameter 'gov.states.ca.cdss.snap.work_requirements.abawd.hr1_in_effect' outside emitted subtrees
 - **is_snap_gross_test_full_income_count_alien** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_gross_test_full_income_count_alien.py:5`): np.isin outside enum idioms
@@ -116,9 +116,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicaid_working_disabled_buy_in_premium** (`policyengine_us/variables/gov/hhs/medicaid/medicaid_working_disabled_buy_in_premium.py:2`): unrecognized call tax_unit.members
 - **medicare_gross_cost** (`policyengine_us/variables/gov/hhs/medicare/costs/medicare_gross_cost.py:1`): returns a non-value
 - **medicare_irmaa_magi_two_years_prior** (`policyengine_us/variables/gov/hhs/medicare/eligibility/medicare_irmaa_magi_two_years_prior.py:2`): unbound name 'period'
-- **meets_snap_categorical_eligibility** (`policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_categorical_eligibility.py:3`): non-value handle used as value
 - **meets_snap_parent_exception** (`policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_parent_exception.py:12`): unrecognized call spm_unit.members
-- **meets_tanf_non_cash_gross_income_test** (`?:0`): crash: 'Where' object has no attribute 'var'
 - **mi_surtax** (`policyengine_us/reforms/states/mi/surtax.py:8`): calc() on non-scale parameter 'gov.contrib.states.mi.surtax.rate.joint'
 - **msp_asset_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_asset_eligible.py:16`): where condition not bool
 - **msp_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_cost.py:3`): unbound name 'period'
@@ -151,7 +149,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **snap_limited_utility_allowance** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_limited_utility_allowance.py:16`): non-value handle used as value
 - **snap_limited_utility_allowance_by_household_size** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_limited_utility_allowance_by_household_size.py:4`): unrecognized call is_in
 - **snap_min_allotment** (`policyengine_us/variables/gov/usda/snap/snap_min_allotment.py:9`): str() of non-literal
-- **snap_net_income_pre_shelter** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_net_income_pre_shelter.py:15`): non-value handle used as value
 - **snap_region** (`policyengine_us/variables/gov/usda/snap/snap_region.py:4`): unbound name 'pd'
 - **snap_region_str** (`policyengine_us/variables/gov/usda/snap/snap_region_str.py:1`): returns a non-value
 - **snap_self_employment_expense_deduction** (`policyengine_us/variables/gov/usda/snap/income/deductions/self_employment/snap_self_employment_expense_deduction.py:15`): where condition not bool
@@ -190,7 +187,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **tax_unit_state** (`policyengine_us/variables/household/demographic/geographic/tax_unit_state.py:0`): type error: cannot coerce str to rat at VarRef
 - **taxable_income_less_qbid** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/taxable_income_less_qbid.py:4`): comprehension over non-static list
 - **taxable_ss_magi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_ss_magi.py:14`): comparison In
-- **taxable_uc_agi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/taxable_uc_agi.py:7`): non-value handle used as value
 - **three_digit_zip_code** (`policyengine_us/variables/household/demographic/geographic/zip_code/three_digit_zip_code.py:2`): unbound name 'pd'
 - **tob_revenue_medicare_hi** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_medicare_hi.py:13`): attribute 'simulation' on value expression
 - **tob_revenue_oasdi** (`policyengine_us/variables/gov/ssa/revenue/tob_revenue_oasdi.py:13`): attribute 'simulation' on value expression

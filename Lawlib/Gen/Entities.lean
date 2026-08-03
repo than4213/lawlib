@@ -47,6 +47,7 @@ structure Person_Core_p1 where
   count_days_postpartum : Rat := 0
   cps_race : Rat := 0
   current_pregnancies : Rat := 0
+  debt_relief : Rat := 0
   deductible_interest_expense : Rat := 0
   dependent_care_employer_benefits : Rat := 0
   disability_benefits : Rat := 0
@@ -149,15 +150,19 @@ structure Person_Core_p1 where
   sstb_self_employment_income : Rat := 0
   sstb_self_employment_income_before_lsr : Rat := 0
   stock_assets : Rat := 0
-  strike_benefits : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Core_p2 where
+  strike_benefits : Rat := 0
   survivor_benefits : Rat := 0
   tax_exempt_interest_income : Rat := 0
   tax_preparation_fees : Rat := 0
+  taxable_alimony_income : Rat := 0
   taxable_estate_value : Rat := 0
+  taxable_interest_income : Rat := 0
   taxable_pension_income : Rat := 0
+  taxable_retirement_distributions : Rat := 0
+  taxable_roth_conversions : Rat := 0
   tip_income : Rat := 0
   total_self_employment_income : Rat := 0
   traditional_401k_contributions : Rat := 0
@@ -284,6 +289,10 @@ structure Person_States where
   workers_compensation : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
+structure Person_States_ak where
+  ak_permanent_fund_dividend : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
 structure Person_States_ca where
   ca_snap_immigration_status_eligible : Bool := false
   ca_wdp_eligible : Bool := false
@@ -349,6 +358,7 @@ structure Person where
   local_tax : Person_Local_tax := {}
   ssa : Person_Ssa := {}
   states : Person_States := {}
+  states_ak : Person_States_ak := {}
   states_ca : Person_States_ca := {}
   states_il : Person_States_il := {}
   states_ms : Person_States_ms := {}
@@ -446,7 +456,6 @@ structure TaxUnit_Hhs where
   is_tanf_non_cash_hheod : Bool := false
   medicaid_working_disabled_buy_in_premium : Rat := 0
   meets_ccdf_activity_test : Bool := false
-  meets_tanf_non_cash_gross_income_test : Bool := false
   receives_tanf : Bool := false
   spm_unit_total_ccdf_copay : Rat := 0
   takes_up_tanf_if_eligible : Bool := false
@@ -507,7 +516,6 @@ structure TaxUnit_Irs where
   tax_liability_if_not_itemizing : Rat := 0
   tax_unit_size : Rat := 0
   taxable_ss_magi : Rat := 0
-  taxable_uc_agi : Rat := 0
   tuition_and_fees_deduction : Rat := 0
   unreported_payroll_tax : Rat := 0
   would_file_if_eligible_for_refundable_credit : Bool := false
@@ -813,7 +821,6 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Usda where
   fdpir : Rat := 0
-  meets_snap_categorical_eligibility : Bool := false
   receives_snap : Bool := false
   school_meal_daily_subsidy : Rat := 0
   school_meal_paid_daily_subsidy : Rat := 0
@@ -822,7 +829,6 @@ structure TaxUnit_Usda where
   snap_individual_utility_allowance : Rat := 0
   snap_limited_utility_allowance : Rat := 0
   snap_min_allotment : Rat := 0
-  snap_net_income_pre_shelter : Rat := 0
   snap_region_str : String := ""
   snap_self_employment_expense_deduction : Rat := 0
   snap_standard_utility_allowance : Rat := 0

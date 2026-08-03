@@ -212,11 +212,6 @@ def tax_unit_earned_income_last_year (t : TaxUnit) (d : Date) : Rat :=
 def tax_unit_social_security (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => (social_security t p d))
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/tax_unit_taxable_unemployment_compensation.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def tax_unit_taxable_unemployment_compensation (t : TaxUnit) (d : Date) : Rat :=
-  ((tax_unit_unemployment_compensation t d) - (if (decide ((t.irs.taxable_uc_agi - (tax_unit_unemployment_compensation t d)) < (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.unemployment_compensation.exemption.cutoff.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.unemployment_compensation.exemption.cutoff.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.unemployment_compensation.exemption.cutoff.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.unemployment_compensation.exemption.cutoff.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.unemployment_compensation.exemption.cutoff.SURVIVING_SPOUSE.atDate d)))) then (min ((tax_unit_unemployment_compensation t d) : Rat) (Params.gov.irs.unemployment_compensation.exemption.amount.atDate d)) else 0))
-
 /-- `policyengine_us/variables/household/demographic/tax_unit/taxpayer_has_tin.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def taxpayer_has_tin (t : TaxUnit) (d : Date) : Bool :=
@@ -572,11 +567,6 @@ def taxable_earnings_for_federal_unemployment_tax (t : TaxUnit) (p : Person) (d 
 def taxable_earnings_for_social_security (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (min ((Params.gov.irs.payroll.social_security.cap.atDate d) : Rat) (payroll_tax_gross_wages t p d))
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/taxable_unemployment_insurance.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def taxable_unemployment_compensation (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((tax_unit_taxable_unemployment_compensation t d) * (if (decide ((sumBy t.members fun p => p.states.unemployment_compensation) > 0)) then (p.states.unemployment_compensation / (sumBy t.members fun p => p.states.unemployment_compensation)) else 0))
-
 /-- `policyengine_us/variables/household/demographic/tax_unit/taxpayer_has_itin.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def taxpayer_has_itin (t : TaxUnit) (d : Date) : Bool :=
@@ -761,5 +751,15 @@ def ssi_marital_unearned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssi_unearned_income_deemed_from_ineligible_spouse (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (max (0 : Rat) (((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((boolToRat (is_ssi_ineligible_spouse t q d)) * (ssi_unearned_income t q d)) else 0) else ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - (ssi_ineligible_child_allocation t p d)))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/standard_deduction.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def standard_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (((basic_standard_deduction t d) + (additional_standard_deduction t d)) + t.core.bonus_guaranteed_deduction)
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_combined_income_for_social_security_taxability.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def tax_unit_combined_income_for_social_security_taxability (t : TaxUnit) (d : Date) : Rat :=
+  (t.irs.taxable_ss_magi + ((Params.gov.irs.social_security.taxability.combined_income_ss_fraction.atDate d) * (tax_unit_social_security_for_taxability t d)))
 
 end Lawlib.Gen.Vars
