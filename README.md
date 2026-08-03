@@ -1,22 +1,38 @@
 # Lawlib
 
-**A formal library of United States federal law in Lean 4**: the
-computable core of the federal tax-and-transfer system — every
-enacted, exact-rational, date-indexed parameter and ~500 mechanically
-translated formulas spanning the EITC, CTC, SNAP, SSI, the ACA premium
-tax credit, Medicare/Medicaid eligibility, and payroll taxation.
-Scope and authority taxonomy: [docs/scope.md](docs/scope.md); state
-and local programs are parked in [parked/states/](parked/states/).
+**The formal logic of law, in Lean 4.**
 
-Lawlib is a *verified twin* of [PolicyEngine US](https://github.com/PolicyEngine/policyengine-us),
-the largest living formalization of US tax-benefit law. PolicyEngine's
-Python formulas are mechanically translated into Lean 4 definitions by the
-[pe2lean](https://github.com/than4213/pe2lean) extractor, then validated by
-differential testing: thousands of randomized households nightly (a deep
-soak of the five root programs plus a sweep of every validated variable),
-evaluated in both engines, must agree exactly (up to PolicyEngine's own
-float32 noise —
-which we log as findings, because Lawlib computes in exact rationals).
+Law is a formal system: a body of enacted texts whose consequences
+follow from the texts themselves. Lawlib holds law the way Mathlib
+holds mathematics — as exact definitions and machine-checked theorems.
+Anything that is law belongs here — statutes, regulations, agency
+tables, court-made rules, any jurisdiction — as long as each piece
+declares exactly what it depends on.
+
+**What's in it today**: United States federal tax and benefit law —
+about 1,000 parameters (every rate, threshold, and bracket table, as
+exact fractions with the date each value took effect) and ~700
+formulas spanning the income tax, the EITC, the Child Tax Credit,
+SNAP, SSI, the ACA premium credit, Medicare/Medicaid eligibility, and
+payroll taxation. Current sources: mechanically imported from
+[PolicyEngine US](https://github.com/PolicyEngine/policyengine-us)
+(the largest living model of US tax-benefit law), plus an independent
+hand-encoding of 26 U.S.C. §32 in [Catala](https://catala-lang.org).
+Those are where we started, not where it ends. Scope and the taxonomy
+of legal sources: [docs/scope.md](docs/scope.md); the design doctrine
+(why law is provable territory and data is not welcome here):
+[docs/categories.md](docs/categories.md). State and local programs are
+parked in [parked/states/](parked/states/) pending their own pass.
+
+The import rule is strict — **translate exactly or not at all**.
+A formula the translator cannot express faithfully becomes a declared
+input, and the refusal is logged with its reason in
+[`rejection_report.md`](rejection_report.md). And the translation is
+checked from outside: every night, thousands of randomized households
+are computed by both lawlib and PolicyEngine, and about a hundred
+variables must agree on every one (up to the rounding noise of
+PolicyEngine's own 32-bit floats — which lawlib, computing exactly,
+gets to measure and log).
 
 ```lean
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc.py`
@@ -26,17 +42,17 @@ def eitc (t : TaxUnit) (d : Date) : Rat :=
     (max 0 ((eitc_maximum t d) - (eitc_reduction t d)))) * ...
 ```
 
-Money is exact `Rat`, never `Float` — the law's semantics is exact decimal
-arithmetic with statutory rounding; IEEE 754 is an implementation accident.
-Every generated definition carries its upstream source path and statutory
-citations. Parameters (rates, thresholds, maximums) are date-keyed data:
-one checkout computes any covered tax year.
+Money is an exact rational, never a float — the law's arithmetic is
+exact decimal with statutory rounding; IEEE 754 is an implementation
+accident. Every generated definition carries its upstream source path
+and statutory citations. Parameters are dated data: one checkout
+computes any covered tax year.
 
 ## Build
 
 ```
-lake build          # Lean core + mathlib (for the ∀-theorems)
-lake build lawlib   # the JSONL evaluator binary (fused memoized evaluator)
+lake build          # the library, the test layer, and the theorems
+lake build lawlib   # the household evaluator binary
 ```
 
 ```
@@ -47,57 +63,61 @@ echo '{"date":"2023-01-01","tax_unit":{...}}' | ./.lake/build/bin/lawlib
 
 | Path | What |
 |---|---|
-| `Lawlib/Core/` | hand-written semantic domain: `USD`/`Rate` (exact rationals), `Date`, `DatedParam`, `Scale`, `ExtRat`, aggregation helpers |
-| `Lawlib/Gen/` | **generated — never hand-edited** (CI-enforced): parameters, enums, entities, variable defs |
-| `EXTRACTION_MANIFEST.json` | pins (policyengine-us, pe2lean), source hashes, the classified input boundary, law-date coverage |
-| `rejection_report.md` | what the extractor refused to translate, and why — a deliverable, not a failure |
-| `docs/` | design, handoff, findings |
+| `Lawlib/Core/` | hand-written foundations: exact money and rates, dates, dated parameters, bracket scales |
+| `Lawlib/Gen/` | **generated — never hand-edited** (CI-enforced): parameters, entities, the law's formulas |
+| `Lawlib/Verify/`, `Lawlib/Theorems/` | machine-checked results about the law |
+| `Tests/` | everything that touches the world: the transcribed IRS table (a fixture — the law generates it), claims about printed artifacts and executed PolicyEngine, and their certified conditionals. Imports the library; never the reverse |
+| `EXTRACTION_MANIFEST.json` | version pins, per-source hashes, the declared input boundary, date coverage |
+| `rejection_report.md` | what the translator refused, and why — a deliverable, not a failure |
+| `docs/` | design, doctrine, findings |
 
 ## Machine-checked results
 
-[`Lawlib/Verify/EicTable2023.lean`](Lawlib/Verify/EicTable2023.lean)
-proves (by `native_decide` over the table data extracted from the 2023
-Form 1040 instructions):
+- **The printed 2023 EIC table is generated by law.**
+  [`Lawlib/Verify/EicTable2023.lean`](Lawlib/Verify/EicTable2023.lean)
+  holds the five-line rule (evaluate the credit formula at each $50
+  bracket's midpoint, anchor the phase-out at the IRS's internal
+  *unrounded* endpoints, round half-up); the 10,120-cell transcription
+  of the printed table and the proof that the rule reproduces every
+  cell live in [`Tests/`](Tests/). The smooth formula everyone models
+  never differs from the legal (table) credit by more than **$11.50**
+  — and that bound is sharp.
+- **The EITC has no benefit cliffs** — continuity in income, an
+  ordinary kernel proof — with closed trapezoid forms per filing
+  status and number of children. The Child Tax Credit's $50 cliffs are
+  real, and [`Lawlib/Theorems/`](Lawlib/Theorems/) enumerates all of
+  them.
+- **Two sources of law, proven 24¢ apart.**
+  [`Lawlib/Verify/Catala2023.lean`](Lawlib/Verify/Catala2023.lean)
+  compares an independent, statute-first Catala encoding of §32
+  against the administered version and proves the statute's literal
+  arithmetic differs from practice by exactly 24¢/50¢ — rounding the
+  statute never mentions. Where sources of law diverge, the divergence
+  is a theorem.
 
-- the 2023 IRS EIC table is exactly reproduced by a five-line generator:
-  bracket-midpoint evaluation of the phase formula, **phase-out anchored
-  at the IRS-internal *unrounded* completed-phaseout amounts**, rounded
-  half up, with the plateau maximum for kink-straddling brackets;
-- PolicyEngine's smooth formula never differs from the legal (table)
-  credit by more than **$11.50** — and that bound is sharp;
-- at bracket midpoints the gap is at most $5.297.
+**What you have to trust**: symbolic theorems are ordinary kernel
+proofs; whole-table computations use `native_decide` (adds the Lean
+compiler). Statements about the world — the printed page, executed
+PolicyEngine — are never asserted: they are named `Prop`s taken as
+explicit hypotheses, kept in [`Tests/`](Tests/)
+([docs/CLAIMS.md](docs/CLAIMS.md)); `#print axioms` is clean for the
+whole library.
 
-[`Lawlib/Theorems/`](Lawlib/Theorems/) adds symbolic results: the
-EITC's closed trapezoid form per (filing status × children) cell,
-continuity in income (no benefit cliffs — a kernel proof, no
-computation), monotonicity on the phase-in, and the CTC's complete
-$50-cliff atlas. [`Lawlib/Verify/Catala2023.lean`](Lawlib/Verify/Catala2023.lean)
-compares an independent, statute-first [Catala](https://catala-lang.org)
-encoding of §32 against the PolicyEngine twin and proves the statute's
-literal arithmetic differs from administered practice by **exactly
-24¢/50¢** (the Rev.-Proc. rounding the statute never mentions).
-
-**TCB note**: table/grid results use `native_decide` (trusts the Lean
-compiler); the symbolic theorems are ordinary kernel proofs. Statements
-*about reality* (the printed table, executed PolicyEngine) are
-never-asserted claim `Prop`s with evidence tiers
-([`Lawlib/Claims.lean`](Lawlib/Claims.lean), [docs/CLAIMS.md](docs/CLAIMS.md));
-`#print axioms` stays clean for the whole library.
-
-See [docs/FINDINGS.md](docs/FINDINGS.md) — 17 findings so far, from
-PolicyEngine's float32 residue to a Lean codegen bug with a 20-line
-repro ([docs/lean-fromjson-crash-repro.md](docs/lean-fromjson-crash-repro.md)).
+See [docs/FINDINGS.md](docs/FINDINGS.md) — 20 findings so far, from
+PolicyEngine's float32 residue to a Lean compiler bug with a 20-line
+reproduction ([docs/lean-fromjson-crash-repro.md](docs/lean-fromjson-crash-repro.md)).
 
 ## Why
 
-Deep embeddings of law (Catala, s(CASP)) can be *reasoned about* but cover
-little; shallow embeddings (PolicyEngine) cover much but can only be *run*.
-Lawlib bridges them: recover inspectable, provable structure from the
-largest maintained encoding of US law. A wrong translation is worse than no
-translation — the extractor rejects what it cannot faithfully express, and
-the differential suite is the trust anchor. Phase 2 adds theorems
-(phase-out monotonicity, continuity except at enumerated cliffs); failed
-proofs will localize real benefit cliffs.
+Hand-built formalizations of law (Catala, s(CASP)) can be *reasoned
+about* but cover little; production models (PolicyEngine) cover much
+but can only be *run*. Lawlib bridges them: recover inspectable,
+provable structure from the largest maintained encoding of US law,
+faithfully or not at all. A wrong translation is worse than none — the
+translator rejects what it cannot express exactly, and the nightly
+cross-check is the trust anchor. The goal is completeness: every rule
+of the covered law present, exact, and provable, with the remaining
+gap explicitly listed.
 
 See [docs/design.md](docs/design.md) and
 [docs/lawlib-handoff.md](docs/lawlib-handoff.md).
@@ -107,4 +127,4 @@ See [docs/design.md](docs/design.md) and
 Lawlib is **AGPL-3.0**: the generated content derives from
 [policyengine-us](https://github.com/PolicyEngine/policyengine-us)
 (AGPL-3.0). The [pe2lean](https://github.com/than4213/pe2lean)
-transpiler is separately Apache-2.0.
+translator is separately Apache-2.0.

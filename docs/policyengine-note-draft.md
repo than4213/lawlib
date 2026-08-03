@@ -7,11 +7,11 @@ you may want
 
 Hi PolicyEngine team,
 
-I've been building **lawlib** (github.com/than4213/lawlib), a Lean 4
-formalization of US tax-benefit law created by mechanically translating
-policyengine-us (pinned 1.783.0) into a proof assistant, with
-differential testing between the two engines as the validation loop —
-effectively an independent, machine-checked audit of your model. It's
+I've been building **lawlib** (github.com/than4213/lawlib), a library of US law in the
+Lean proof assistant, currently populated by mechanically translating
+policyengine-us (pinned 1.783.0), with nightly cross-checking between
+the two engines as the validation loop — effectively an independent,
+machine-checked audit of your model. It's
 AGPL-3.0, same as upstream.
 
 First: thank you — policyengine-us is an extraordinary artifact, and
@@ -21,7 +21,7 @@ In the process we found a few things you may want to know about before
 we write about them publicly (nothing here is a vulnerability; it's
 correctness/precision engineering):
 
-1. **float32 residue**: money pipelines in float32 accumulate up to
+1. **32-bit float residue**: money pipelines in float32 accumulate up to
    ~1.6¢ of error vs exact-rational evaluation, and the EITC chain
    applies no rounding at all (fractional-cent credits).
 2. **The smooth EITC vs the IRS table**: the legal credit is the step

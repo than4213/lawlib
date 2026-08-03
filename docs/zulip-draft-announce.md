@@ -1,64 +1,87 @@
 # Zulip draft 2: lawlib announcement
 *(post after the bug thread has landed and Nathanael has reviewed this
-text; suggested stream: #general or #lean4, topic "Lawlib: US tax and
-benefit law as a Lean library")*
+text; suggested stream: #general or #lean4, topic "Lawlib: the formal
+logic of law")*
 
 ---
 
 Hi everyone! I'd like to introduce **lawlib**
-(https://github.com/than4213/lawlib): US tax-and-transfer law as a
-Lean 4 library — and get your advice on making it a good citizen of
+(https://github.com/than4213/lawlib): a Lean 4 library whose subject
+is **law** — and to ask your advice on making it a good citizen of
 this ecosystem.
 
-**What's in it.** The computable core of the US tax-benefit system:
-**10,362 date-indexed parameters** (every rate, threshold, and bracket
-table in [PolicyEngine US](https://github.com/PolicyEngine/policyengine-us),
-as exact rationals from the YAML source text — floats never touch the
-data) and **~3,200 formulas** mechanically translated from PolicyEngine's
-Python into plain Lean defs. Five programs — EITC, CTC, SNAP, SSI, and
-the ACA premium tax credit — are *differentially validated* nightly: thousands of randomized
-households (a deep soak of the root programs plus a full-tier sweep),
-evaluated by both engines, must agree to within PolicyEngine's own
-float32 noise. Translation is
-rejection-based: translation is all-or-nothing per formula — anything the extractor
-cannot express *exactly* in its small typed IR is refused rather than
-approximated; the variable becomes an explicit input supplied from
-outside, and the refusal is logged with its reason in
-`rejection_report.md`. Nothing in the library is a guess, never a guess (`rejection_report.md`).
+**The idea.** Law is a formal system. A statute's consequences follow
+from its text the way a theorem follows from axioms: no experiment can
+confirm or refute what 26 U.S.C. §32 says the Earned Income Credit is
+— the text *settles* it. So law can live in a proof assistant the same
+way mathematics does: definitions that are exact, and facts about the
+law that are machine-checked theorems rather than opinions. Lawlib is
+that library. Anything that is law belongs in it — statutes,
+regulations, agency tables, court-made rules, any jurisdiction — as
+long as each piece declares exactly what it depends on.
 
-**Some theorems.** The 2023 IRS EIC table — 10,120 cells parsed from
-the Form 1040 instructions PDF — is reproduced cell-for-cell by a
-five-line reverse-engineered generator (`native_decide`); PolicyEngine's
-smooth formula is within $11.50 of the printed table everywhere, and
-that bound is sharp. On the kernel side: the EITC is *continuous* in
-income (no benefit cliffs), with closed trapezoid forms per filing
-cell; the CTC's $50 cliffs are completely enumerated. And an
-independent statute-first Catala encoding of 26 U.S.C. §32 proves the
-statute's literal arithmetic differs from administered practice by
-exactly 24¢/50¢ — the Rev.-Proc. rounding the statute never mentions.
+**What's in it today.** United States federal tax and benefit law:
+roughly 1,000 parameters (every rate, threshold, and bracket table,
+kept as exact fractions together with the date each value took effect
+— floating point never touches the data) and about 700 formulas
+covering the major programs: the income tax itself, the Earned Income
+Tax Credit, the Child Tax Credit, food assistance (SNAP), Supplemental
+Security Income, and the ACA premium credit. These were imported
+mechanically from [PolicyEngine US](https://github.com/PolicyEngine/policyengine-us),
+a large, actively maintained model of US tax-benefit law written in
+Python, plus one independent hand-encoding of a statute in
+[Catala](https://catala-lang.org). Those are the first sources, not
+the definition of the project.
 
-**Trust story, honestly.** Table/grid results use `native_decide`
-(compiler in the TCB); the symbolic theorems are ordinary proofs.
-Statements about *reality* (the printed table, executed PolicyEngine)
-are never-asserted claim `Prop`s with graded evidence tiers, so
-`#print axioms` is clean for the whole library and every
-reality-facing conclusion carries its hypotheses explicitly. The
-library contains *law only*: inflation-projected values in the source
-data are classified out (a projection is a forecast of a future
-administrative act, not law), and the evaluator fails fast past the
-enacted horizon.
+The import rule is strict: a formula is translated *exactly or not at
+all*. Anything the translator cannot express faithfully becomes a
+declared input instead, and the refusal is logged with its reason
+(`rejection_report.md`). Nothing in the library is a guess.
 
-**Toolchain war story.** Scaling to 3,200 generated defs found the
-`FromJson` codegen bug I posted about in [link bug thread] (structures
-≥ 156 fields corrupt the heap in compiled code — bisected to the exact
-boundary) and taught us to emit a fused, memoized evaluator instead of
-naive per-definition recursion.
+**How we know the translation is right.** Every night, thousands of
+randomized households are computed by both lawlib and PolicyEngine,
+and about a hundred variables must agree on every one of them (up to
+the rounding noise of PolicyEngine's own 32-bit floats — which lawlib,
+computing in exact arithmetic, gets to measure).
 
-**What I'd love from you.** Naming/idiom review (the generated-code
-conventions especially), opinions on the claims-as-Props pattern for
-empirical uncertainty, and pointers if any of this duplicates existing
-work. The transpiler (pe2lean, Apache-2.0) generalizes to any
-OpenFisca-style system; lawlib itself is AGPL-3.0 (upstream is).
+**Some things we've proven.**
+- The 2023 IRS EIC table — 10,120 numbers parsed from the Form 1040
+  instructions — is reproduced *cell for cell* by a five-line rule
+  (evaluate the formula at each $50 bracket's midpoint and round),
+  recovered from the table and verified by computation.
+- The EITC has **no benefit cliffs**: the credit is continuous in
+  income, proved as an ordinary kernel theorem. The Child Tax Credit's
+  $50 cliffs, by contrast, are real — and we enumerate every one.
+- The statute's literal arithmetic and the IRS's administered practice
+  **disagree by exactly 24 cents** (50¢ at the phase-out end): the
+  statute never mentions the rounding the published figures use. Two
+  sources of law, formalized separately, divergence proven — not a bug
+  report, a theorem.
 
-*Longer writeup: docs/writeup-phase1.md in the repo; findings index
-(17 so far): docs/FINDINGS.md.*
+**What you have to trust.** The symbolic theorems are ordinary kernel
+proofs. Whole-table computations use `native_decide`, which
+additionally trusts the Lean compiler. Statements about the physical
+world — "this transcription matches the printed page", "PolicyEngine
+run on the same household returns the same number" — are never
+asserted: they are named `Prop`s carried as explicit hypotheses,
+housed in a separate test layer, so `#print axioms` stays clean for
+the whole library. And the library contains *law only*: pre-computed
+inflation projections in the source data are classified out (a
+forecast of a future administrative act is not law).
+
+**A war story.** Scaling to hundreds of generated definitions
+uncovered a Lean compiler bug — derived `FromJson` on structures with
+156 or more fields corrupts the heap in compiled code (155 is fine;
+the boundary is exact). Details and a 20-line reproduction in the bug
+thread: [link].
+
+**What I'd love from you.** Review of naming and idioms (especially
+the generated-code conventions), opinions on the claims-as-hypotheses
+pattern for statements about the world, and pointers if any of this
+duplicates existing work. The translator
+([pe2lean](https://github.com/than4213/pe2lean), Apache-2.0)
+generalizes to any OpenFisca-style system; lawlib itself is AGPL-3.0
+(the upstream data is).
+
+*Findings index (20 so far): docs/FINDINGS.md; the "law is math"
+design doctrine: docs/categories.md.*
