@@ -242,11 +242,6 @@ def self_employed_health_insurance_ald_person (t : TaxUnit) (p : Person) (d : Da
 def self_employed_pension_contribution_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (min ((max (0 : Rat) p.core_p2.total_self_employment_income) : Rat) p.core_p1.self_employed_pension_contributions)
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald_person.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def self_employment_tax_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (p.irs.self_employment_tax * (Params.gov.irs.ald.self_employment_tax.percent_deductible.atDate d))
-
 /-- `policyengine_us/variables/household/demographic/person/share_of_care_and_support_costs_paid_by_tax_filer.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def share_of_care_and_support_costs_paid_by_tax_filer (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -482,11 +477,6 @@ def acp (t : TaxUnit) (d : Date) : Rat :=
 def additional_senior_deduction_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((((Params.gov.irs.deductions.senior_deduction.eligible_ssn_card_type.atDate d).contains (SSNCardType.asStr p.core_p1.ssn_card_type)) && (!(t.core.filing_status == FilingStatus.SEPARATE))) && (is_tax_unit_head_or_spouse t p d)) && (decide (p.core_p1.age ≥ (Params.gov.irs.deductions.standard.aged_or_blind.age_threshold.atDate d))))
 
-/-- `policyengine_us/variables/gov/irs/income/adjusted_earnings.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def adjusted_earnings (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (max (0 : Rat) ((earned_income t p d) - (((1 - (Params.gov.irs.ald.misc.self_emp_tax_adj.atDate d)) * (Params.gov.irs.ald.misc.employer_share.atDate d)) * p.irs.self_employment_tax)))
-
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/adjusted_net_capital_gain.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def adjusted_net_capital_gain (t : TaxUnit) (d : Date) : Rat :=
@@ -571,11 +561,6 @@ def ebb (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def education_credit_phase_out (t : TaxUnit) (d : Date) : Rat :=
   (min (1 : Rat) ((max (0 : Rat) (t.irs.adjusted_gross_income - (if (tax_unit_is_joint t d) then (Params.gov.irs.credits.education.phase_out.start.joint.atDate d) else (Params.gov.irs.credits.education.phase_out.start.single.atDate d)))) / (if (tax_unit_is_joint t d) then (Params.gov.irs.credits.education.phase_out.length.joint.atDate d) else (Params.gov.irs.credits.education.phase_out.length.single.atDate d))))
-
-/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_earned_income.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def eitc_earned_income (t : TaxUnit) (d : Date) : Rat :=
-  (max (0 : Rat) ((((((sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.core_p1.employment_income) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.core_p1.self_employment_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.core_p1.sstb_self_employment_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.core_p1.farm_operations_income)) + (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else p.core_p1.partnership_self_employment_net_earnings)) - (sumBy t.members fun p => if (is_tax_unit_dependent t p d) then 0 else (self_employment_tax_ald_person t p d))))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_investment_income_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -761,5 +746,20 @@ def is_ssi_ineligible_parent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_wa_adult (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((!(is_child t p d)) && (!(is_senior t p d)))
+
+/-- `policyengine_us/model_api.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_young_adult_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((true && (decide (boolToRat (is_young_adult_for_medicaid_fc t p d) > 0))) && (decide (boolToRat (is_young_adult_for_medicaid_nfc t p d) > 0)))
+
+/-- `policyengine_us/model_api.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_young_child_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((true && (decide (boolToRat (is_young_child_for_medicaid_fc t p d) > 0))) && (decide (boolToRat (is_young_child_for_medicaid_nfc t p d) > 0)))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/retirement/k401_catch_up_limit.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def k401_catch_up_limit (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (k401_catch_up_eligible t p d) then (Params.gov.irs.gross_income.retirement_contributions.catch_up.limit.k401.atDate d p.core_p1.age) else 0)
 
 end Lawlib.Gen.Vars

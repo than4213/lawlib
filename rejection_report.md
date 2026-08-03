@@ -1,7 +1,7 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc'].
-688 translated, 555 boundary inputs, 203 rejections.
+693 translated, 558 boundary inputs, 198 rejections.
 
 ## Rejections
 
@@ -30,7 +30,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **county_str** (`policyengine_us/variables/household/demographic/geographic/county/county_str.py:1`): returns a non-value
 - **ctc_limiting_tax_liability** (`policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_limiting_tax_liability.py:2`): attribute 'simulation' on value expression
 - **dependent_gross_income** (`policyengine_us/variables/gov/irs/income/dependent_gross_income.py:5`): for over non-static list
-- **employee_payroll_tax** (`policyengine_us/variables/gov/irs/tax/payroll/employee_payroll_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_payroll_tax' outside emitted subtrees
 - **employer_medicare_tax_income_tax_revenue** (`policyengine_us/variables/gov/ssa/revenue/employer_medicare_tax_income_tax_revenue.py:14`): attribute 'simulation' on value expression
 - **employer_ss_tax_income_tax_revenue** (`policyengine_us/variables/gov/ssa/revenue/employer_ss_tax_income_tax_revenue.py:14`): attribute 'simulation' on value expression
 - **energy_efficient_home_improvement_credit_potential** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_potential.py:0`): type error: cannot coerce ext to rat at ParamValue
@@ -57,8 +56,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **in_ny_mctd_zone_2** (`policyengine_us/variables/household/demographic/geographic/in_ny_mctd_zone_2.py:13`): np.isin outside enum idioms
 - **in_nyc** (`policyengine_us/variables/household/demographic/geographic/in_nyc.py:11`): np.isin outside enum idioms
 - **income_adjusted_part_d_premium_surcharge** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_d/income_adjusted_part_d_premium_surcharge.py:8`): non-string list element
-- **income_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/income_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax' outside emitted subtrees
-- **income_tax_before_refundable_credits** (`policyengine_us/variables/gov/irs/tax/federal_income/income_tax_before_refundable_credits.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax' outside emitted subtrees
+- **income_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/income_tax.py:1`): person-level result in group formula (unaggregated member array)
 - **irs_gross_income** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/irs_gross_income.py:5`): for over non-static list
 - **is_aca_ptc_eligible** (`policyengine_us/variables/gov/aca/eligibility/is_aca_ptc_eligible.py:12`): bitwise op on non-bool operands
 - **is_acp_eligible** (`policyengine_us/variables/gov/fcc/acp/is_acp_eligible.py:3`): np.any
@@ -140,10 +138,8 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **residential_efficiency_electrification_rebate** (`policyengine_us/variables/gov/doe/residential_efficiency_electrification_rebate/residential_efficiency_electrification_rebate.py:17`): ExtRat scale 'gov.doe.residential_efficiency_electrification_rebate.cap.high' in value position
 - **safmr_used_for_hcv** (`policyengine_us/variables/household/demographic/geographic/safmr_used_for_hcv.py:3`): unbound name 'pd'
 - **salt_cap** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt_cap.py:0`): type error: cannot coerce ext to rat at ParamEnumIndex
-- **salt_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt_deduction.py:4`): parameter 'gov.simulation.limit_itemized_deductions_to_taxable_income' outside emitted subtrees
 - **school_meal_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_daily_subsidy.py:6`): unsupported parameter subscript on 'gov.usda.school_meals.amount.nslp'
 - **school_meal_paid_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_paid_daily_subsidy.py:5`): unsupported parameter subscript on 'gov.usda.school_meals.amount.nslp'
-- **self_employment_tax** (`policyengine_us/variables/gov/irs/tax/self_employment/self_employment_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax' outside emitted subtrees
 - **slcsp_age_0** (`policyengine_us/variables/gov/aca/slspc/slcsp_age_0.py:12`): subscript on non-parameter
 - **slcsp_family_tier_applies** (`policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_applies.py:0`): enum-indexed parameter 'gov.aca.family_tier_states' lacks members ['GU', 'MP', 'PW', 'PR']
 - **slcsp_rating_area_default** (`policyengine_us/variables/gov/aca/slspc/slcsp_rating_area_default.py:6`): non-simple assignment target
@@ -189,7 +185,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **tax_liability_if_not_itemizing** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_liability_if_not_itemizing.py:2`): attribute 'simulation' on value expression
 - **tax_unit_fpg** (`policyengine_us/variables/gov/hhs/tax_unit_fpg.py:4`): unrecognized call fpg
 - **tax_unit_household_id** (`policyengine_us/variables/household/demographic/tax_unit/tax_unit_household_id.py:3`): unrecognized call tax_unit.value_from_first_person
-- **tax_unit_itemizes** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_unit_itemizes.py:4`): parameter 'gov.simulation.branch_to_determine_itemization' outside emitted subtrees
 - **tax_unit_medicaid_income_level** (`policyengine_us/variables/gov/hhs/medicaid/income/tax_unit_medicaid_income_level.py:6`): unrecognized call fpg
 - **tax_unit_size** (`policyengine_us/variables/gov/irs/tax_unit/tax_unit_size.py:2`): unrecognized call tax_unit.nb_persons
 - **tax_unit_state** (`policyengine_us/variables/household/demographic/geographic/tax_unit_state.py:0`): type error: cannot coerce str to rat at VarRef

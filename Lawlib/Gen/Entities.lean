@@ -247,7 +247,6 @@ structure Person_Irs where
   is_pursuing_credential_for_american_opportunity_credit : Bool := false
   qbid_amount : Rat := 0
   retired_on_total_disability : Bool := false
-  self_employment_tax : Rat := 0
   student_loan_interest_ald : Rat := 0
   total_disability_payments : Rat := 0
   treasury_tipped_occupation_code : Rat := 0
@@ -413,6 +412,7 @@ structure TaxUnit_Core where
   purchased_qualifying_used_clean_vehicle : Bool := false
   qualified_furnace_or_hot_water_boiler_expenditures : Rat := 0
   qualified_passenger_vehicle_loan_interest : Rat := 0
+  qualified_retirement_penalty : Rat := 0
   safmr_used_for_hcv : Bool := false
   separate_filer_itemizes : Bool := false
   small_area_fair_market_rent : Rat := 0
@@ -497,12 +497,14 @@ structure TaxUnit_Irs where
   net_investment_income : Rat := 0
   puerto_rico_income : Rat := 0
   qualified_business_income_deduction : Rat := 0
+  recapture_of_investment_credit : Rat := 0
   refundable_payroll_tax_credit : Rat := 0
   residential_clean_energy_credit_potential : Rat := 0
-  salt_deduction : Rat := 0
+  salt_cap : Rat := 0
   specified_possession_income : Rat := 0
   takes_up_eitc : Bool := false
-  tax_unit_itemizes : Bool := false
+  tax_liability_if_itemizing : Rat := 0
+  tax_liability_if_not_itemizing : Rat := 0
   tax_unit_size : Rat := 0
   taxable_ss_magi : Rat := 0
   taxable_uc_agi : Rat := 0
@@ -760,6 +762,7 @@ structure TaxUnit_States_sd where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_tax where
+  employee_state_payroll_tax : Rat := 0
   state_income_tax : Rat := 0
   state_sales_tax : Rat := 0
   state_withheld_income_tax : Rat := 0
