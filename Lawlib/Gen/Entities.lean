@@ -167,16 +167,12 @@ structure Person_Hhs where
   chip_federal_share : Rat := 0
   gross_medicare_part_b_premium : Rat := 0
   has_emergency_medical_condition : Bool := false
-  is_209b_ssi_recipient_income_eligible_for_medicaid : Bool := false
   is_basic_health_program_eligible : Bool := false
   is_chip_eligible_standard_pregnant_person : Bool := false
   is_chip_fcep_eligible_person : Bool := false
-  is_head_start_categorically_eligible : Bool := false
   is_head_start_eligible : Bool := false
-  is_head_start_income_eligible : Bool := false
   is_medicaid_eligible : Bool := false
   is_optional_senior_or_disabled_asset_eligible : Bool := false
-  is_optional_senior_or_disabled_income_eligible : Bool := false
   medicaid_category : MedicaidCategory := .NONE
   medicaid_community_engagement_community_service_hours : Rat := 0
   medicaid_community_engagement_less_than_half_time_education_hours : Rat := 0
@@ -187,6 +183,7 @@ structure Person_Hhs where
   medicaid_home_equity_limit_family_exception : Bool := false
   medicaid_income_level : Rat := 0
   medicaid_magi_person : Rat := 0
+  medicaid_optional_senior_or_disabled_countable_income : Rat := 0
   medicaid_parent_income_limit : Rat := 0
   medicaid_person_is_required_to_file : Bool := false
   medicaid_slcsp_cost_index : Rat := 0
@@ -210,6 +207,7 @@ structure Person_Hhs where
   takes_up_chip_if_eligible : Bool := false
   takes_up_medicaid_if_eligible : Bool := false
   takes_up_medicare_if_eligible : Bool := false
+  tanf_person : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Hud where
@@ -217,16 +215,27 @@ structure Person_Hud where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Irs where
-  employer_payroll_tax : Rat := 0
-  employer_total_payroll_tax : Rat := 0
+  american_opportunity_credit_claimed_prior_years : Rat := 0
+  attends_eligible_educational_institution_for_american_opportunity_credit : Bool := false
+  attends_eligible_educational_institution_for_lifetime_learning_credit : Bool := false
   estate_tax_credit : Rat := 0
+  has_american_opportunity_credit_1098_t_or_exception : Bool := false
+  has_american_opportunity_credit_institution_ein : Bool := false
+  has_completed_first_four_years_of_postsecondary_education : Bool := false
+  has_felony_drug_conviction : Bool := false
+  has_lifetime_learning_credit_1098_t_or_exception : Bool := false
   irs_gross_income : Rat := 0
-  is_eligible_for_american_opportunity_credit : Bool := false
-  is_eligible_for_lifetime_learning_credit : Bool := false
+  is_enrolled_at_least_half_time_for_american_opportunity_credit : Bool := false
+  is_pursuing_credential_for_american_opportunity_credit : Bool := false
   retired_on_total_disability : Bool := false
   savers_credit_qualified_contributions : Rat := 0
   self_employment_tax : Rat := 0
   treasury_tipped_occupation_code : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure Person_Local_tax where
+  employer_local_payroll_tax : Rat := 0
+  employer_total_local_payroll_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Ssa where
@@ -244,10 +253,8 @@ structure Person_Ssa where
   ssi_amount_if_eligible : Rat := 0
   ssi_countable_income : Rat := 0
   ssi_couple_computation_applies : Bool := false
-  ssi_earned_income_deemed_from_ineligible_spouse : Rat := 0
   ssi_pmv_applies : Bool := false
   ssi_shelter_support_value : Rat := 0
-  ssi_unearned_income_deemed_from_ineligible_spouse : Rat := 0
   takes_up_ssi_if_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -274,20 +281,24 @@ structure Person_States_ms where
   ms_wd_premium : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
+structure Person_States_tax where
+  employer_state_payroll_tax : Rat := 0
+  employer_total_state_payroll_tax : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
 structure Person_Usda where
   has_applied_for_unemployment_compensation : Bool := false
   is_complying_with_tanf_work_requirements : Bool := false
   is_in_substance_use_treatment_program : Bool := false
   is_snap_abawd_hr1_in_effect : Bool := false
   is_snap_employment_training_student : Bool := false
-  is_snap_ineligible_student : Bool := false
   is_snap_prorated_income_member : Bool := false
   is_snap_work_incentive_student : Bool := false
   is_usda_disabled : Bool := false
   is_wic_at_nutritional_risk : Bool := false
   meets_snap_abawd_work_requirements : Bool := false
   meets_snap_general_work_requirements : Bool := false
-  meets_wic_categorical_eligibility : Bool := false
+  meets_snap_parent_exception : Bool := false
   snap_excluded_child_earner : Bool := false
   snap_gross_self_employment_income_person : Rat := 0
   takes_up_wic_if_eligible : Bool := false
@@ -302,11 +313,13 @@ structure Person where
   hhs : Person_Hhs := {}
   hud : Person_Hud := {}
   irs : Person_Irs := {}
+  local_tax : Person_Local_tax := {}
   ssa : Person_Ssa := {}
   states : Person_States := {}
   states_ca : Person_States_ca := {}
   states_il : Person_States_il := {}
   states_ms : Person_States_ms := {}
+  states_tax : Person_States_tax := {}
   usda : Person_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -353,6 +366,7 @@ structure TaxUnit_Core where
   new_clean_vehicle_battery_capacity : Rat := 0
   new_clean_vehicle_battery_components_made_in_north_america : Rat := 0
   new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country : Rat := 0
+  other_net_gain : Rat := 0
   qualified_passenger_vehicle_loan_interest : Rat := 0
   safmr_used_for_hcv : Bool := false
   separate_filer_itemizes : Bool := false
@@ -390,11 +404,9 @@ structure TaxUnit_Hhs where
   meets_ccdf_activity_test : Bool := false
   meets_tanf_non_cash_asset_test : Bool := false
   meets_tanf_non_cash_gross_income_test : Bool := false
-  meets_tanf_work_requirements : Bool := false
   receives_tanf : Bool := false
   spm_unit_total_ccdf_copay : Rat := 0
   takes_up_tanf_if_eligible : Bool := false
-  tanf_if_takes_up : Rat := 0
   tax_unit_fpg : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -434,6 +446,9 @@ structure TaxUnit_Irs where
   income_tax_main_rates : Rat := 0
   income_tax_non_refundable_credits : Rat := 0
   investment_income_form_4952 : Rat := 0
+  is_barred_from_american_opportunity_credit_due_to_improper_claims : Bool := false
+  is_nonresident_alien_for_american_opportunity_credit : Bool := false
+  is_nonresident_alien_for_lifetime_learning_credit : Bool := false
   itemized_taxable_income_deductions_reduction : Rat := 0
   lifetime_learning_credit_credit_limit : Rat := 0
   loss_limited_net_capital_gains : Rat := 0
@@ -472,98 +487,138 @@ structure TaxUnit_Local_tax where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ak where
+  ak_atap : Rat := 0
   ak_child_care_subsidies : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_al where
   al_child_care_subsidies : Rat := 0
+  al_chip_premium : Rat := 0
+  al_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ar where
   ar_child_care_subsidies : Rat := 0
+  ar_tea : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_az where
   az_child_care_subsidies : Rat := 0
+  az_tanf : Rat := 0
   az_tanf_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ca where
   ca_child_care_subsidies : Rat := 0
+  ca_tanf : Rat := 0
   ca_tanf_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_co where
   co_child_care_subsidies : Rat := 0
+  co_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ct where
   ct_child_care_subsidies : Rat := 0
+  ct_chip_premium : Rat := 0
+  ct_tfa : Rat := 0
   ct_tfa_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_dc where
   dc_snap_temporary_local_benefit : Rat := 0
+  dc_tanf : Rat := 0
+  dc_tanf_meets_work_requirements : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_de where
   de_child_care_subsidies : Rat := 0
+  de_chip_premium : Rat := 0
+  de_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_fl where
   fl_child_care_subsidies : Rat := 0
+  fl_chip_premium : Rat := 0
+  fl_tca : Rat := 0
   fl_tca_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ga where
   ga_child_care_subsidies : Rat := 0
+  ga_chip_premium : Rat := 0
+  ga_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_hi where
   hi_child_care_subsidies : Rat := 0
+  hi_tanf : Rat := 0
   hi_tanf_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ia where
   ia_child_care_subsidies : Rat := 0
+  ia_chip_premium : Rat := 0
+  ia_fip : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_id where
   id_child_care_subsidies : Rat := 0
+  id_chip_premium : Rat := 0
+  id_tafi : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States_il where
+  il_chip_premium : Rat := 0
+  il_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_in where
   in_child_care_subsidies : Rat := 0
+  in_chip_premium : Rat := 0
   in_hip_power_account_contribution : Rat := 0
+  in_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ks where
   ks_child_care_subsidies : Rat := 0
+  ks_chip_premium : Rat := 0
+  ks_tanf : Rat := 0
   ks_tanf_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ky where
   ky_child_care_subsidies : Rat := 0
+  ky_ktap : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_la where
   la_child_care_subsidies : Rat := 0
+  la_chip_premium : Rat := 0
+  la_fitap : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ma where
   ma_child_care_subsidies : Rat := 0
+  ma_chip_premium : Rat := 0
+  ma_tafdc : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_md where
   md_child_care_subsidies : Rat := 0
+  md_tca : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_me where
   me_child_care_subsidies : Rat := 0
+  me_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mi where
   mi_child_care_subsidies : Rat := 0
+  mi_chip_premium : Rat := 0
+  mi_fip : Rat := 0
   mi_healthy_michigan_contribution : Rat := 0
   mi_income_tax_before_refundable_credits : Rat := 0
   mi_refundable_credits : Rat := 0
@@ -571,71 +626,99 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mn where
   mn_child_care_subsidies : Rat := 0
+  mn_mfip : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mo where
   mo_child_care_subsidies : Rat := 0
+  mo_chip_premium : Rat := 0
+  mo_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ms where
   ms_child_care_subsidies : Rat := 0
+  ms_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mt where
   mt_child_care_subsidies : Rat := 0
   mt_help_premium : Rat := 0
+  mt_tanf : Rat := 0
+  mt_tanf_meets_work_requirements : Bool := false
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States_nc where
+  nc_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nd where
   nd_child_care_subsidies : Rat := 0
+  nd_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ne where
+  ne_adc : Rat := 0
   ne_child_care_subsidies : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nh where
   nh_child_care_subsidies : Rat := 0
+  nh_fanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nj where
   nj_child_care_subsidies : Rat := 0
+  nj_wfnj : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nm where
   nm_child_care_subsidies : Rat := 0
+  nm_works : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_nv where
   nv_child_care_subsidies : Rat := 0
+  nv_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ny where
+  ny_chip_premium : Rat := 0
+  ny_tanf : Rat := 0
   ny_tanf_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_oh where
   oh_child_care_subsidies : Rat := 0
+  oh_owf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ok where
   ok_child_care_subsidies : Rat := 0
+  ok_tanf : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States_or where
+  or_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_pa where
   pa_child_care_subsidies : Rat := 0
+  pa_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_ri where
   ri_child_care_subsidies : Rat := 0
+  ri_works : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_sc where
   sc_child_care_subsidies : Rat := 0
+  sc_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_sd where
   sd_child_care_subsidies : Rat := 0
+  sd_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_tax where
@@ -644,21 +727,47 @@ structure TaxUnit_States_tax where
   state_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
+structure TaxUnit_States_tn where
+  tn_ff : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States_tx where
+  tx_chip_premium : Rat := 0
+  tx_tanf : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States_ut where
+  ut_fep : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
 structure TaxUnit_States_va where
   va_child_care_subsidies : Rat := 0
+  va_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_vt where
   vt_child_care_subsidies : Rat := 0
+  vt_reach_up : Rat := 0
   vt_reach_up_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_wa where
   wa_child_care_subsidies : Rat := 0
+  wa_tanf : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States_wi where
+  wi_chip_premium : Rat := 0
+  wi_works : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_wv where
   wv_child_care_subsidies : Rat := 0
+  wv_works : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure TaxUnit_States_wy where
+  wy_power : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Usda where
@@ -710,6 +819,7 @@ structure TaxUnit where
   states_hi : TaxUnit_States_hi := {}
   states_ia : TaxUnit_States_ia := {}
   states_id : TaxUnit_States_id := {}
+  states_il : TaxUnit_States_il := {}
   states_in : TaxUnit_States_in := {}
   states_ks : TaxUnit_States_ks := {}
   states_ky : TaxUnit_States_ky := {}
@@ -722,6 +832,7 @@ structure TaxUnit where
   states_mo : TaxUnit_States_mo := {}
   states_ms : TaxUnit_States_ms := {}
   states_mt : TaxUnit_States_mt := {}
+  states_nc : TaxUnit_States_nc := {}
   states_nd : TaxUnit_States_nd := {}
   states_ne : TaxUnit_States_ne := {}
   states_nh : TaxUnit_States_nh := {}
@@ -731,15 +842,21 @@ structure TaxUnit where
   states_ny : TaxUnit_States_ny := {}
   states_oh : TaxUnit_States_oh := {}
   states_ok : TaxUnit_States_ok := {}
+  states_or : TaxUnit_States_or := {}
   states_pa : TaxUnit_States_pa := {}
   states_ri : TaxUnit_States_ri := {}
   states_sc : TaxUnit_States_sc := {}
   states_sd : TaxUnit_States_sd := {}
   states_tax : TaxUnit_States_tax := {}
+  states_tn : TaxUnit_States_tn := {}
+  states_tx : TaxUnit_States_tx := {}
+  states_ut : TaxUnit_States_ut := {}
   states_va : TaxUnit_States_va := {}
   states_vt : TaxUnit_States_vt := {}
   states_wa : TaxUnit_States_wa := {}
+  states_wi : TaxUnit_States_wi := {}
   states_wv : TaxUnit_States_wv := {}
+  states_wy : TaxUnit_States_wy := {}
   usda : TaxUnit_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
 
