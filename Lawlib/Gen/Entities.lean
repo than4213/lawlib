@@ -15,22 +15,25 @@ set_option maxHeartbeats 4000000
 namespace Lawlib.Gen
 
 structure Person_Aca where
+  aca_child_index : Rat := 0
   has_esi : Bool := false
   is_aca_ptc_eligible : Bool := false
   lcbp_age_curve_amount_person : Rat := 0
   offered_aca_disqualifying_esi : Bool := false
-  pays_aca_premium : Bool := false
   slcsp_age_curve_multiplier : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
-structure Person_Core where
+structure Person_Core_p1 where
   age : Rat := 0
   alimony_expense : Rat := 0
   alimony_income : Rat := 0
   bank_account_assets : Rat := 0
   bond_assets : Rat := 0
   business_is_sstb : Bool := false
+  capital_gains : Rat := 0
   capital_losses : Rat := 0
+  care_and_support_costs : Rat := 0
+  care_and_support_payments_from_tax_filer : Rat := 0
   care_expenses : Rat := 0
   casualty_loss : Rat := 0
   charitable_cash_donations : Rat := 0
@@ -62,8 +65,10 @@ structure Person_Core where
   gi_cash_assistance : Rat := 0
   has_champva_health_coverage_at_interview : Bool := false
   has_chip_health_coverage_at_interview : Bool := false
+  has_health_coverage_other_than_chip : Bool := false
   has_marketplace_health_coverage_at_interview : Bool := false
   has_medicaid_health_coverage_at_interview : Bool := false
+  has_non_marketplace_direct_purchase_health_coverage_at_interview : Bool := false
   has_other_means_tested_health_coverage_at_interview : Bool := false
   has_tin : Bool := false
   has_tricare_health_coverage_at_interview : Bool := false
@@ -104,6 +109,7 @@ structure Person_Core where
   long_term_capital_gains_on_small_business_stock : Rat := 0
   market_income : Rat := 0
   medical_expense_health_insurance_premiums : Rat := 0
+  military_service_income : Rat := 0
   miscellaneous_income : Rat := 0
   monthly_hours_worked : Rat := 0
   non_sch_d_capital_gains : Rat := 0
@@ -117,6 +123,7 @@ structure Person_Core where
   pre_tax_health_insurance_premiums : Rat := 0
   qualified_dividend_income : Rat := 0
   qualified_tuition_expenses : Rat := 0
+  railroad_benefits : Rat := 0
   real_estate_taxes : Rat := 0
   receives_or_needs_protective_services : Bool := false
   rental_income : Rat := 0
@@ -145,6 +152,9 @@ structure Person_Core where
   veterans_benefits : Rat := 0
   was_in_foster_care : Bool := false
   weekly_hours_worked_before_lsr : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure Person_Core_p2 where
   years_since_us_entry : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -156,9 +166,7 @@ structure Person_Ed where
   pell_grant_eligibility_type : PellGrantEligibilityType := .INELIGIBLE
   pell_grant_formula : PellGrantFormula := .A
   pell_grant_head_allowances : Rat := 0
-  pell_grant_head_contribution : Rat := 0
   pell_grant_household_type : PellGrantHouseholdType := .INDEPENDENT_SINGLE
-  pell_grant_simplified_formula_applies : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Hhs where
@@ -167,12 +175,16 @@ structure Person_Hhs where
   chip_federal_share : Rat := 0
   gross_medicare_part_b_premium : Rat := 0
   has_emergency_medical_condition : Bool := false
+  is_adult_for_medicaid_fc : Bool := false
   is_basic_health_program_eligible : Bool := false
   is_chip_eligible_standard_pregnant_person : Bool := false
   is_chip_fcep_eligible_person : Bool := false
   is_head_start_eligible : Bool := false
+  is_infant_for_medicaid_fc : Bool := false
   is_medicaid_eligible : Bool := false
+  is_medicaid_ineligible_due_to_work_requirement : Bool := false
   is_optional_senior_or_disabled_asset_eligible : Bool := false
+  is_young_adult_for_medicaid_fc : Bool := false
   medicaid_category : MedicaidCategory := .NONE
   medicaid_community_engagement_community_service_hours : Rat := 0
   medicaid_community_engagement_less_than_half_time_education_hours : Rat := 0
@@ -205,6 +217,8 @@ structure Person_Hhs where
   receives_medicaid : Bool := false
   takes_up_basic_health_program_if_eligible : Bool := false
   takes_up_chip_if_eligible : Bool := false
+  takes_up_early_head_start_if_eligible : Bool := false
+  takes_up_head_start_if_eligible : Bool := false
   takes_up_medicaid_if_eligible : Bool := false
   takes_up_medicare_if_eligible : Bool := false
   tanf_person : Rat := 0
@@ -227,6 +241,7 @@ structure Person_Irs where
   irs_gross_income : Rat := 0
   is_enrolled_at_least_half_time_for_american_opportunity_credit : Bool := false
   is_pursuing_credential_for_american_opportunity_credit : Bool := false
+  qbid_amount : Rat := 0
   retired_on_total_disability : Bool := false
   savers_credit_qualified_contributions : Rat := 0
   self_employment_tax : Rat := 0
@@ -281,6 +296,10 @@ structure Person_States_ms where
   ms_wd_premium : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
+structure Person_States_or where
+  or_healthier_oregon_eligible : Bool := false
+deriving Repr, Lean.FromJson, Lean.ToJson
+
 structure Person_States_tax where
   employer_state_payroll_tax : Rat := 0
   employer_total_state_payroll_tax : Rat := 0
@@ -292,6 +311,7 @@ structure Person_Usda where
   is_in_substance_use_treatment_program : Bool := false
   is_snap_abawd_hr1_in_effect : Bool := false
   is_snap_employment_training_student : Bool := false
+  is_snap_gross_test_full_income_count_alien : Bool := false
   is_snap_prorated_income_member : Bool := false
   is_snap_work_incentive_student : Bool := false
   is_usda_disabled : Bool := false
@@ -308,7 +328,8 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person where
   aca : Person_Aca := {}
-  core : Person_Core := {}
+  core_p1 : Person_Core_p1 := {}
+  core_p2 : Person_Core_p2 := {}
   ed : Person_Ed := {}
   hhs : Person_Hhs := {}
   hud : Person_Hud := {}
@@ -319,6 +340,7 @@ structure Person where
   states_ca : Person_States_ca := {}
   states_il : Person_States_il := {}
   states_ms : Person_States_ms := {}
+  states_or : Person_States_or := {}
   states_tax : Person_States_tax := {}
   usda : Person_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -399,7 +421,6 @@ structure TaxUnit_Hhs where
   basic_health_program_family_tier_multiplier : Rat := 0
   hhs_smi : Rat := 0
   is_tanf_non_cash_hheod : Bool := false
-  medicaid_magi : Rat := 0
   medicaid_working_disabled_buy_in_premium : Rat := 0
   meets_ccdf_activity_test : Bool := false
   meets_tanf_non_cash_asset_test : Bool := false
@@ -423,19 +444,16 @@ structure TaxUnit_Irs where
   adjusted_gross_income : Rat := 0
   aged_blind_count : Rat := 0
   american_opportunity_credit : Rat := 0
-  amt_excluded_deductions : Rat := 0
   amt_exemption : Rat := 0
   amt_higher_base_tax : Rat := 0
   amt_lower_base_tax : Rat := 0
   amt_separate_addition : Rat := 0
   amt_tax_including_cg : Rat := 0
   capital_gains_tax : Rat := 0
-  cdcc_credit_limit : Rat := 0
+  cdcc : Rat := 0
   cdcc_rate : Rat := 0
   ctc_limiting_tax_liability : Rat := 0
   dwks19 : Rat := 0
-  elderly_disabled_credit_credit_limit : Rat := 0
-  energy_efficient_home_improvement_credit_credit_limit : Rat := 0
   energy_efficient_home_improvement_credit_potential : Rat := 0
   excess_payroll_tax_withheld : Rat := 0
   exemptions : Rat := 0
@@ -450,17 +468,14 @@ structure TaxUnit_Irs where
   is_nonresident_alien_for_american_opportunity_credit : Bool := false
   is_nonresident_alien_for_lifetime_learning_credit : Bool := false
   itemized_taxable_income_deductions_reduction : Rat := 0
-  lifetime_learning_credit_credit_limit : Rat := 0
   loss_limited_net_capital_gains : Rat := 0
   net_investment_income : Rat := 0
-  new_clean_vehicle_credit_credit_limit : Rat := 0
   new_clean_vehicle_credit_eligible : Bool := false
-  non_refundable_american_opportunity_credit_credit_limit : Rat := 0
   puerto_rico_income : Rat := 0
+  qualified_business_income_deduction : Rat := 0
   regular_tax_before_credits : Rat := 0
-  residential_clean_energy_credit_credit_limit : Rat := 0
   residential_clean_energy_credit_potential : Rat := 0
-  savers_credit_credit_limit : Rat := 0
+  salt_deduction : Rat := 0
   section_22_income : Rat := 0
   specified_possession_income : Rat := 0
   takes_up_eitc : Bool := false
@@ -779,7 +794,6 @@ structure TaxUnit_Usda where
   school_meal_tier : SchoolMealTier := .PAID
   snap_emergency_allotment : Rat := 0
   snap_fpg : Rat := 0
-  snap_gross_test_income : Rat := 0
   snap_individual_utility_allowance : Rat := 0
   snap_limited_utility_allowance : Rat := 0
   snap_min_allotment : Rat := 0
@@ -787,9 +801,7 @@ structure TaxUnit_Usda where
   snap_region_str : String := ""
   snap_self_employment_expense_deduction : Rat := 0
   snap_standard_utility_allowance : Rat := 0
-  snap_unearned_income : Rat := 0
   takes_up_snap_if_eligible : Bool := false
-  wic_countable_income : Rat := 0
   wic_income_limit : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
