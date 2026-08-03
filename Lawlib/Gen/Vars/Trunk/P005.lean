@@ -12,6 +12,11 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def marketplace_csr_actuarial_value (t : TaxUnit) (d : Date) : Rat :=
+  (if (marketplace_csr_eligible t d) then (if ((marketplace_csr_category t d) == MarketplaceCSRCategory.AV_94) then (Params.gov.aca.csr.actuarial_value.highest.atDate d) else (if ((marketplace_csr_category t d) == MarketplaceCSRCategory.AV_87) then (Params.gov.aca.csr.actuarial_value.middle.atDate d) else (if ((marketplace_csr_category t d) == MarketplaceCSRCategory.AV_73) then (Params.gov.aca.csr.actuarial_value.lowest.atDate d) else 0))) else 0)
+
 /-- `policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income_fpg_ratio.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_gross_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=

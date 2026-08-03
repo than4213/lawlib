@@ -9340,16 +9340,6 @@
       "sha256": "e58987641c42c555d177705e2cf2048a3b9c6dea8c30a7b844b7617b618f723b"
     },
     {
-      "name": "medicaid_household_income_member",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/medicaid/income/medicaid_household_income_member.py",
-      "sha256": "5f3b5fe4716559b220025f826c6ed2f68cad6d4197036c0740b095f8f75fdbeb"
-    },
-    {
       "name": "medicare_cost",
       "entity": "person",
       "value_type": "float",
@@ -10450,6 +10440,16 @@
       "sha256": "ba45145cd8fa6f889c9b57cf134bf6b4555051adc39246575835f784f3be8f2e"
     },
     {
+      "name": "medicaid_magi_person",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/income/medicaid_magi_person.py",
+      "sha256": "47bed255749a598fb2137498cb2a0cd761c98cdad48c320140d91780258c5ae2"
+    },
+    {
       "name": "pre_obbba_cdcc_potential",
       "entity": "tax_unit",
       "value_type": "float",
@@ -10568,6 +10568,16 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_multiplier.py",
       "sha256": "39b610747b9476e483e98ed16fdf5ed59483828322f67265eedd4973507b2993"
+    },
+    {
+      "name": "medicaid_household_income_member",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/income/medicaid_household_income_member.py",
+      "sha256": "5f3b5fe4716559b220025f826c6ed2f68cad6d4197036c0740b095f8f75fdbeb"
     },
     {
       "name": "slcsp_family_tier_multiplier",
@@ -14398,6 +14408,15 @@
       "note": "state/local/territory or modeling namespace"
     },
     {
+      "name": "medicaid_adjusted_gross_income_person",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "hhs",
+      "period": "year",
+      "kind": "rejected",
+      "note": "comprehension over non-static list"
+    },
+    {
       "name": "medicaid_category",
       "entity": "person",
       "value_type": "Enum",
@@ -14495,15 +14514,6 @@
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call fpg"
-    },
-    {
-      "name": "medicaid_magi_person",
-      "entity": "person",
-      "value_type": "float",
-      "domain": "hhs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "unsupported syntax ListComp"
     },
     {
       "name": "medicaid_optional_senior_or_disabled_countable_income",
@@ -14611,7 +14621,7 @@
       "domain": "usda",
       "period": "month",
       "kind": "rejected",
-      "note": "unsupported syntax ListComp"
+      "note": "non-value handle used as value"
     },
     {
       "name": "meets_snap_general_work_requirements",
@@ -15511,7 +15521,7 @@
       "domain": "irs",
       "period": "year",
       "kind": "rejected",
-      "note": "unsupported syntax ListComp"
+      "note": "comprehension over non-static list"
     },
     {
       "name": "retired_on_total_disability",
@@ -15760,7 +15770,7 @@
       "domain": "aca",
       "period": "year",
       "kind": "rejected",
-      "note": "unrecognized call set"
+      "note": "unrecognized call la_zip_params._children.keys"
     },
     {
       "name": "small_area_fair_market_rent",
@@ -15841,7 +15851,7 @@
       "domain": "usda",
       "period": "month",
       "kind": "rejected",
-      "note": "unsupported syntax ListComp"
+      "note": "non-value handle used as value"
     },
     {
       "name": "snap_region_str",
@@ -16476,7 +16486,7 @@
       "domain": "irs",
       "period": "year",
       "kind": "rejected",
-      "note": "unsupported syntax ListComp"
+      "note": "comparison In"
     },
     {
       "name": "taxable_uc_agi",
@@ -16485,7 +16495,7 @@
       "domain": "irs",
       "period": "year",
       "kind": "rejected",
-      "note": "unsupported syntax ListComp"
+      "note": "non-value handle used as value"
     },
     {
       "name": "tip_income",

@@ -12,11 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/marital/ssi_marital_earned_income.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ssi_marital_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (ssi_couple_computation_applies t p d) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (ssi_earned_income t q d) else 0) else (ssi_earned_income t p d)) else (ssi_earned_income t p d))
-
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/marital/ssi_marital_unearned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssi_marital_unearned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -492,6 +487,11 @@ def lcbp_family_tier_category (t : TaxUnit) (d : Date) : FamilyTierCategory :=
 def medicaid_magi (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) (t.irs.adjusted_gross_income + ((t.irs.foreign_earned_income_exclusion + (sumBy t.members fun p => p.core_p1.tax_exempt_interest_income)) + (tax_exempt_social_security t d))))
 
+/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_magi_person.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def medicaid_magi_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (max (0 : Rat) ((p.hhs.medicaid_adjusted_gross_income_person + p.core_p1.tax_exempt_interest_income) + (((boolToRat (is_tax_unit_head_or_spouse t p d)) * (t.irs.foreign_earned_income_exclusion + (tax_exempt_social_security t d))) * (if (t.core.filing_status == FilingStatus.JOINT) then (mkRat 1 2) else (mkRat 1 1)))))
+
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def pre_obbba_cdcc_potential (t : TaxUnit) (d : Date) : Rat :=
@@ -551,6 +551,11 @@ def ctc_maximum_with_arpa_addition (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def lcbp_family_tier_multiplier (t : TaxUnit) (d : Date) : Rat :=
   (if t.aca.slcsp_family_tier_applies then (((if ((lcbp_family_tier_category t d) == FamilyTierCategory.ONE_ADULT) then (if (t.core.state_code == StateCode.NY) then (Params.gov.aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else (Params.gov.aca.family_tier_ratings.vt.ONE_ADULT.atDate d)) else (if ((lcbp_family_tier_category t d) == FamilyTierCategory.TWO_ADULTS) then (if (t.core.state_code == StateCode.NY) then (Params.gov.aca.family_tier_ratings.ny.TWO_ADULTS.atDate d) else (Params.gov.aca.family_tier_ratings.vt.TWO_ADULTS.atDate d)) else (if ((lcbp_family_tier_category t d) == FamilyTierCategory.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN) then (if (t.core.state_code == StateCode.NY) then (Params.gov.aca.family_tier_ratings.ny.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d) else (Params.gov.aca.family_tier_ratings.vt.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if ((lcbp_family_tier_category t d) == FamilyTierCategory.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN) then (if (t.core.state_code == StateCode.NY) then (Params.gov.aca.family_tier_ratings.ny.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d) else (Params.gov.aca.family_tier_ratings.vt.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if (((lcbp_family_tier_category t d) == FamilyTierCategory.CHILD_ONLY) && (t.core.state_code == StateCode.NY)) then (Params.gov.aca.family_tier_ratings.ny.CHILD_ONLY.atDate d) else 0))))) * (if (anyBy t.members fun p => (is_aca_ny_age_29_dependent_child t p d)) then (Params.gov.aca.ny_age_29_dependent_child_tier_multiplier.atDate d) else 1)) + ((max (((sumBy t.members fun p => (boolToRat ((pays_aca_premium t p d) && (!(is_aca_family_tier_dependent_child t p d))))) - 2) : Rat) 0) * (if (t.core.state_code == StateCode.NY) then (Params.gov.aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else (Params.gov.aca.family_tier_ratings.vt.ONE_ADULT.atDate d)))) else 0)
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_household_income_member.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def medicaid_household_income_member (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if ((medicaid_non_filer_child_age_eligible t p d) && (!p.hhs.medicaid_person_is_required_to_file)) then 0 else (medicaid_magi_person t p d))
 
 /-- `policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_multiplier.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -756,10 +761,5 @@ def hud_ttp_income_share (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
   (((income_tax_main_rates t d) + (capital_gains_tax t d)) + (alternative_minimum_tax t d))
-
-/-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def marketplace_csr_actuarial_value (t : TaxUnit) (d : Date) : Rat :=
-  (if (marketplace_csr_eligible t d) then (if ((marketplace_csr_category t d) == MarketplaceCSRCategory.AV_94) then (Params.gov.aca.csr.actuarial_value.highest.atDate d) else (if ((marketplace_csr_category t d) == MarketplaceCSRCategory.AV_87) then (Params.gov.aca.csr.actuarial_value.middle.atDate d) else (if ((marketplace_csr_category t d) == MarketplaceCSRCategory.AV_73) then (Params.gov.aca.csr.actuarial_value.lowest.atDate d) else 0))) else 0)
 
 end Lawlib.Gen.Vars

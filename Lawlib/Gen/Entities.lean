@@ -186,6 +186,7 @@ structure Person_Hhs where
   is_medicaid_ineligible_due_to_work_requirement : Bool := false
   is_optional_senior_or_disabled_asset_eligible : Bool := false
   is_young_adult_for_medicaid_fc : Bool := false
+  medicaid_adjusted_gross_income_person : Rat := 0
   medicaid_category : MedicaidCategory := .NONE
   medicaid_community_engagement_community_service_hours : Rat := 0
   medicaid_community_engagement_less_than_half_time_education_hours : Rat := 0
@@ -195,7 +196,6 @@ structure Person_Hhs where
   medicaid_has_known_claiming_tax_unit : Bool := false
   medicaid_home_equity_limit_family_exception : Bool := false
   medicaid_income_level : Rat := 0
-  medicaid_magi_person : Rat := 0
   medicaid_optional_senior_or_disabled_countable_income : Rat := 0
   medicaid_parent_income_limit : Rat := 0
   medicaid_person_is_required_to_file : Bool := false

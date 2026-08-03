@@ -687,11 +687,6 @@ def lifetime_learning_credit_potential (t : TaxUnit) (d : Date) : Rat :=
 def medicaid_claimed_by_parent_in_tax_unit (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((is_tax_unit_dependent t p d) && ((is_qualifying_child_dependent t p d) || (anyBy t.members fun p => ((is_parent t p d) && (is_tax_unit_head_or_spouse t p d)))))
 
-/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_household_income_member.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def medicaid_household_income_member (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if ((medicaid_non_filer_child_age_eligible t p d) && (!p.hhs.medicaid_person_is_required_to_file)) then 0 else p.hhs.medicaid_magi_person)
-
 /-- `policyengine_us/variables/gov/hhs/medicare/costs/medicare_cost.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def medicare_cost (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -761,5 +756,10 @@ def ssi_category (t : TaxUnit) (p : Person) (d : Date) : SSICategory :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssi_earned_income_deemed_from_ineligible_spouse (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (max (0 : Rat) (((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((boolToRat (is_ssi_ineligible_spouse t q d)) * (ssi_earned_income t q d)) else 0) else ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_earned_income t p d))) - ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_earned_income t p d))) - (max (0 : Rat) (((ssi_ineligible_child_allocation t p d) * (boolToRat p.ssa.is_ssi_aged_blind_disabled)) - ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((boolToRat (is_ssi_ineligible_spouse t q d)) * (ssi_unearned_income t q d)) else 0) else ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d)))))))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/marital/ssi_marital_earned_income.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_marital_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (ssi_couple_computation_applies t p d) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (ssi_earned_income t q d) else 0) else (ssi_earned_income t p d)) else (ssi_earned_income t p d))
 
 end Lawlib.Gen.Vars
