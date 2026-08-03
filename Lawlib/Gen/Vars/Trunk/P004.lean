@@ -12,6 +12,296 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/usda/wic/wic.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def wic (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if p.usda.takes_up_wic_if_eligible then (wic_if_takes_up t p d) else 0)
+
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/amt_part_iii_required.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def amt_part_iii_required (t : TaxUnit) (d : Date) : Bool :=
+  (decide ((((((dwks10 t d) + (dwks13 t d)) + (dwks14 t d)) + t.irs.dwks19) + t.core.unrecaptured_section_1250_gain) > 0))
+
+/-- `policyengine_us/variables/gov/aca/eligibility/coverage_report_model_conflict.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def coverage_report_model_conflict (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (p.core.has_marketplace_health_coverage_at_interview && (has_qualifying_non_marketplace_health_coverage_at_interview t p d))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_adult_individual_maximum.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ctc_adult_individual_maximum (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (is_tax_unit_dependent t p d) then ((((boolToRat (decide ((ctc_child_individual_maximum t p d) = 0))) * (boolToRat p.core.has_tin)) * (boolToRat (filer_meets_ctc_identification_requirements t d))) * (Params.gov.irs.credits.ctc.amount.adult_dependent.atDate d)) else 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_max_addition.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_arpa_max_addition (t : TaxUnit) (d : Date) : Rat :=
+  (if (!(Params.gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else ((sumBy t.members fun p => (ctc_child_individual_maximum_arpa t p d)) - (sumBy t.members fun p => (ctc_child_individual_maximum t p d))))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_refundable_maximum.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_refundable_maximum (t : TaxUnit) (d : Date) : Rat :=
+  (if (Params.gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then (sumBy t.members fun p => (max ((ctc_child_individual_maximum t p d) : Rat) (ctc_child_individual_maximum_arpa t p d))) else (sumBy t.members fun p => (min ((max ((ctc_child_individual_maximum t p d) : Rat) (ctc_child_individual_maximum_arpa t p d)) : Rat) (Params.gov.irs.credits.ctc.refundable.individual_max.atDate d))))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_social_security_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_social_security_tax (t : TaxUnit) (d : Date) : Rat :=
+  ((((((sumBy t.members fun p => (employee_social_security_tax t p d)) + (sumBy t.members fun p => (employee_medicare_tax t p d))) + t.irs.unreported_payroll_tax) + (self_employment_tax_ald t d)) + (additional_medicare_tax t d)) - t.irs.excess_payroll_tax_withheld)
+
+/-- `policyengine_us/variables/gov/irs/credits/cdcc/dependent_care_assistance_exclusion.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def dependent_care_assistance_exclusion (t : TaxUnit) (d : Date) : Rat :=
+  (min ((sumBy t.members fun p => p.core.dependent_care_employer_benefits) : Rat) (min ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SURVIVING_SPOUSE.atDate d)) : Rat) (min_head_spouse_earned t d)))
+
+/-- `policyengine_us/variables/gov/irs/credits/education/education_tax_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def education_tax_credits (t : TaxUnit) (d : Date) : Rat :=
+  ((non_refundable_american_opportunity_credit t d) + (lifetime_learning_credit t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_demographic_eligible.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def eitc_demographic_eligible (t : TaxUnit) (d : Date) : Bool :=
+  ((decide ((eitc_child_count t d) > 0)) || (anyBy t.members fun p => (((decide (p.core.age ≥ (if (is_full_time_student t p d) then (Params.gov.irs.credits.eitc.eligibility.age.min_student.atDate d) else (Params.gov.irs.credits.eitc.eligibility.age.min.atDate d)))) && ExtRat.leCap p.core.age (Params.gov.irs.credits.eitc.eligibility.age.max.atDate d)) && (!(is_tax_unit_dependent t p d)))))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_maximum (t : TaxUnit) (d : Date) : Rat :=
+  (Params.gov.irs.credits.eitc.max.atDate d (eitc_child_count t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_in_rate.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_phase_in_rate (t : TaxUnit) (d : Date) : Rat :=
+  (Params.gov.irs.credits.eitc.phase_in_rate.atDate d (eitc_child_count t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_rate.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_phase_out_rate (t : TaxUnit) (d : Date) : Rat :=
+  (Params.gov.irs.credits.eitc.phase_out.rate.atDate d (eitc_child_count t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_start.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_phase_out_start (t : TaxUnit) (d : Date) : Rat :=
+  ((Params.gov.irs.credits.eitc.phase_out.start.atDate d (eitc_child_count t d)) + ((boolToRat (tax_unit_is_joint t d)) * (Params.gov.irs.credits.eitc.phase_out.joint_bonus.atDate d (eitc_child_count t d))))
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_tax_dependent_exception_living_with_both_parents.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def medicaid_tax_dependent_exception_living_with_both_parents (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (((((is_tax_unit_dependent t p d) && (medicaid_non_filer_child_age_eligible t p d)) && (medicaid_claimed_by_parent_in_tax_unit t p d)) && (decide ((sumBy t.members fun p => (boolToRat (is_parent t p d))) > 1))) && (decide ((sumBy t.members fun p => (boolToRat (is_parent t p d))) = 1)))
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_tax_dependent_exception_other_than_spouse_or_child.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def medicaid_tax_dependent_exception_other_than_spouse_or_child (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((is_tax_unit_dependent t p d) && (!(medicaid_claimed_by_parent_in_tax_unit t p d)))
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_asset_test.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_snap_asset_test (t : TaxUnit) (d : Date) : Bool :=
+  (decide ((snap_assets t d) ≤ (if (has_snap_elderly_disabled_member t d) then (Params.gov.usda.snap.asset_test.limit.elderly_disabled.atDate d) else (Params.gov.usda.snap.asset_test.limit.standard.atDate d))))
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_gross_income_test.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_snap_gross_income_test (t : TaxUnit) (d : Date) : Bool :=
+  ((has_snap_elderly_disabled_member t d) || (decide ((snap_gross_test_income_fpg_ratio t d) ≤ (Params.gov.usda.snap.income.limit.gross.atDate d))))
+
+/-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/recovery_rebate_credit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def recovery_rebate_credit (t : TaxUnit) (d : Date) : Rat :=
+  (((rrc_cares t d) + (rrc_caa t d)) + (rrc_arpa t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_potential.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def savers_credit_potential (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => (savers_credit_person t p d))
+
+/-- `policyengine_us/variables/gov/irs/tax/self_employment/self_employment_social_security_tax.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def self_employment_social_security_tax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((Params.gov.irs.self_employment.rate.social_security.atDate d) * (social_security_taxable_self_employment_income t p d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_prorated_income_fraction.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_prorated_income_fraction (t : TaxUnit) (d : Date) : Rat :=
+  (if (decide ((t.core.spm_unit_size - (sumBy t.members fun p => boolToRat p.usda.is_snap_ineligible_student)) > 0)) then ((snap_unit_size t d) / (max ((t.core.spm_unit_size - (sumBy t.members fun p => boolToRat p.usda.is_snap_ineligible_student)) : Rat) 1)) else 0)
+
+/-- `policyengine_us/variables/gov/hhs/ccdf/spm_unit_ccdf_subsidy.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def spm_unit_ccdf_subsidy (t : TaxUnit) (d : Date) : Rat :=
+  (max (((sumBy t.members fun p => (p.hhs.ccdf_market_rate * (boolToRat (is_ccdf_eligible t p d)))) - t.hhs.spm_unit_total_ccdf_copay) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_pmv_amount.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_pmv_amount (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((if (is_ssi_spousal_deeming_applies t p d) then ((((if (p.ssa.ssi_couple_computation_applies || (is_ssi_spousal_deeming_applies t p d)) then (Params.gov.ssa.ssi.amount.couple.atDate d) else (Params.gov.ssa.ssi.amount.individual.atDate d)) * (Params.gov.ssa.ssi.income.ism.pmv_fbr_fraction.atDate d)) + (Params.gov.ssa.ssi.income.exclusions.general.atDate d)) / 2) else (((if (p.ssa.ssi_couple_computation_applies || (is_ssi_spousal_deeming_applies t p d)) then (Params.gov.ssa.ssi.amount.couple.atDate d) else (Params.gov.ssa.ssi.amount.individual.atDate d)) * (Params.gov.ssa.ssi.income.ism.pmv_fbr_fraction.atDate d)) + (Params.gov.ssa.ssi.income.exclusions.general.atDate d))) * 12)
+
+/-- `policyengine_us/variables/household/demographic/tax_unit/tax_unit_child_dependents.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type int. -/
+def tax_unit_child_dependents (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => boolToRat (is_child_dependent t p d))
+
+/-- `policyengine_us/variables/gov/irs/tax_unit_is_required_to_file.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def tax_unit_is_required_to_file (t : TaxUnit) (d : Date) : Bool :=
+  ((decide ((sumBy t.members fun p => p.irs.irs_gross_income) > (if (t.core.filing_status == FilingStatus.SEPARATE) then (if (Params.gov.irs.income.exemption.suspended.atDate d) then 0 else (Params.gov.irs.income.exemption.amount.atDate d)) else ((standard_deduction t d) + (if (Params.gov.irs.income.exemption.suspended.atDate d) then 0 else (Params.gov.irs.income.exemption.amount.atDate d)))))) || (decide (((sumBy t.members fun p => p.irs.irs_gross_income) - (sumBy t.members fun p => (earned_income t p d))) > (500 + (additional_standard_deduction t d)))))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_ss_combined_income_excess.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def tax_unit_ss_combined_income_excess (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) ((tax_unit_combined_income_for_social_security_taxability t d) - (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d)))))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/uncapped_ssi.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def uncapped_ssi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (is_ssi_eligible t p d) then (p.ssa.ssi_amount_if_eligible - (p.ssa.ssi_countable_income / 12)) else 0)
+
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/alternative_minimum_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def alternative_minimum_tax (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) (((if (amt_part_iii_required t d) then (min ((amt_base_tax t d) : Rat) t.irs.amt_tax_including_cg) else (amt_base_tax t d)) - t.irs.foreign_tax_credit_potential) - (max (0 : Rat) (((t.irs.regular_tax_before_credits + t.irs.capital_gains_tax) - t.irs.foreign_tax_credit_potential) - t.core.form_4972_lumpsum_distributions))))
+
+/-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_limit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def cdcc_limit (t : TaxUnit) (d : Date) : Rat :=
+  (max ((((Params.gov.irs.credits.cdcc.max.atDate d) * (capped_count_cdcc_eligible t d)) - (dependent_care_assistance_exclusion t d)) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_cap.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_arpa_phase_out_cap (t : TaxUnit) (d : Date) : Rat :=
+  (if (!(Params.gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else (min ((((ctc_phase_out_threshold t d) - (ctc_arpa_phase_out_threshold t d)) * (Params.gov.irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff.atDate d)) : Rat) (ctc_arpa_max_addition t d)))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_individual_maximum.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ctc_individual_maximum (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((ctc_child_individual_maximum t p d) + (ctc_adult_individual_maximum t p d))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_agi_limit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_agi_limit (t : TaxUnit) (d : Date) : Rat :=
+  ((eitc_phase_out_start t d) + ((eitc_maximum t d) / (eitc_phase_out_rate t d)))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/eitc_eligible.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def eitc_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if (Params.gov.irs.credits.eitc.eligibility.separate_filer.atDate d) then (((eitc_demographic_eligible t d) && (eitc_investment_income_eligible t d)) && (filer_meets_eitc_identification_requirements t d)) else ((((eitc_demographic_eligible t d) && (eitc_investment_income_eligible t d)) && (filer_meets_eitc_identification_requirements t d)) && (!(t.core.filing_status == FilingStatus.SEPARATE))))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phased_in.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_phased_in (t : TaxUnit) (d : Date) : Rat :=
+  (min ((eitc_maximum t d) : Rat) ((eitc_earned_income t d) * (eitc_phase_in_rate t d)))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_reduction.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc_reduction (t : TaxUnit) (d : Date) : Rat :=
+  ((eitc_phase_out_rate t d) * (max (0 : Rat) ((max ((eitc_earned_income t d) : Rat) t.irs.adjusted_gross_income) - (eitc_phase_out_start t d))))
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_uses_missing_claimant_fallback.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def medicaid_uses_missing_claimant_fallback (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((p.core.claimed_as_dependent_on_another_return && (!p.hhs.medicaid_has_known_claiming_tax_unit)) && (!(((medicaid_tax_dependent_exception_other_than_spouse_or_child t p d) || (medicaid_tax_dependent_exception_living_with_both_parents t p d)) || p.hhs.medicaid_tax_dependent_exception_non_custodial_parent)))
+
+/-- `policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def savers_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min (t.irs.savers_credit_credit_limit : Rat) (savers_credit_potential t d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_income_counted_share.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def snap_income_counted_share (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if p.usda.is_snap_ineligible_student then 0 else (if p.usda.is_snap_prorated_income_member then (snap_prorated_income_fraction t d) else 1))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/ssi_if_takes_up.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_if_takes_up (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (Params.gov.ssa.ssi.abolish_ssi.atDate d) then 0 else (if (is_ssi_spousal_deeming_applies t p d) then (min ((max (0 : Rat) (uncapped_ssi t p d)) : Rat) (Params.gov.ssa.ssi.amount.individual.atDate d)) else (max (0 : Rat) (uncapped_ssi t p d))))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_in_kind_support_and_maintenance.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_in_kind_support_and_maintenance (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((boolToRat p.ssa.ssi_pmv_applies) * (if (decide (p.ssa.ssi_shelter_support_value > 0)) then (min ((ssi_pmv_amount t p d) : Rat) p.ssa.ssi_shelter_support_value) else (ssi_pmv_amount t p d)))
+
+/-- `policyengine_us/variables/household/demographic/tax_unit/surviving_spouse_eligible.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def surviving_spouse_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (((anyBy t.members fun p => (p.core.is_tax_unit_head && p.core.is_surviving_spouse)) && (decide ((tax_unit_child_dependents t d) > 0))) && (!(tax_unit_married t d)))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_taxable_social_security.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def tax_unit_taxable_social_security (t : TaxUnit) (d : Date) : Rat :=
+  (if (decide ((tax_unit_combined_income_for_social_security_taxability t d) < (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d))))) then 0 else (if (decide ((tax_unit_combined_income_for_social_security_taxability t d) < (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate d))))) then (min (((Params.gov.irs.social_security.taxability.rate.base.benefit_cap.atDate d) * (tax_unit_social_security_for_taxability t d)) : Rat) ((Params.gov.irs.social_security.taxability.rate.base.excess.atDate d) * (tax_unit_ss_combined_income_excess t d))) else (min ((((Params.gov.irs.social_security.taxability.rate.additional.excess.atDate d) * (max (0 : Rat) ((tax_unit_combined_income_for_social_security_taxability t d) - (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate d)))))) + (min ((min (((Params.gov.irs.social_security.taxability.rate.base.benefit_cap.atDate d) * (tax_unit_social_security_for_taxability t d)) : Rat) ((Params.gov.irs.social_security.taxability.rate.base.excess.atDate d) * (tax_unit_ss_combined_income_excess t d))) : Rat) ((Params.gov.irs.social_security.taxability.rate.additional.bracket.atDate d) * ((if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate d))) - (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d))))))) : Rat) ((Params.gov.irs.social_security.taxability.rate.additional.benefit_cap.atDate d) * (tax_unit_social_security_for_taxability t d)))))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security_tier_1.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def taxable_social_security_tier_1 (t : TaxUnit) (d : Date) : Rat :=
+  (if (decide ((tax_unit_combined_income_for_social_security_taxability t d) < (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d))))) then 0 else (if (decide ((tax_unit_combined_income_for_social_security_taxability t d) < (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate d))))) then (min (((Params.gov.irs.social_security.taxability.rate.base.benefit_cap.atDate d) * (tax_unit_social_security_for_taxability t d)) : Rat) ((Params.gov.irs.social_security.taxability.rate.base.excess.atDate d) * (tax_unit_ss_combined_income_excess t d))) else (min ((min (((Params.gov.irs.social_security.taxability.rate.base.benefit_cap.atDate d) * (tax_unit_social_security_for_taxability t d)) : Rat) ((Params.gov.irs.social_security.taxability.rate.base.excess.atDate d) * (tax_unit_ss_combined_income_excess t d))) : Rat) ((Params.gov.irs.social_security.taxability.rate.additional.bracket.atDate d) * ((if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate d))) - (if ((t.core.filing_status == FilingStatus.SEPARATE) && t.core.cohabitating_spouses) then (Params.gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d))))))))
+
+/-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_relevant_expenses.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def cdcc_relevant_expenses (t : TaxUnit) (d : Date) : Rat :=
+  (min ((min ((t.core.tax_unit_childcare_expenses + (sumBy t.members fun p => p.core.care_expenses)) : Rat) (cdcc_limit t d)) : Rat) (min_head_spouse_earned t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_arpa_phase_out (t : TaxUnit) (d : Date) : Rat :=
+  (min ((ctc_arpa_phase_out_cap t d) : Rat) (ctc_arpa_uncapped_phase_out t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ctc_maximum (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => (ctc_individual_maximum t p d))
+
+/-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def eitc (t : TaxUnit) (d : Date) : Rat :=
+  (if (eitc_eligible t d) then (((min ((eitc_phased_in t d) : Rat) (max (0 : Rat) ((eitc_maximum t d) - (eitc_reduction t d)))) * (boolToRat t.irs.takes_up_eitc)) * (boolToRat (((tax_unit_is_required_to_file t d) || t.irs.would_file_taxes_voluntarily) || t.irs.would_file_if_eligible_for_refundable_credit))) else 0)
+
+/-- `policyengine_us/variables/household/demographic/tax_unit/head_of_household_eligible.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def head_of_household_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (((((decide ((sumBy t.members fun p => (boolToRat (((is_qualifying_child_dependent t p d) || (p.core.is_permanently_and_totally_disabled && (is_tax_unit_dependent t p d))) || (p.core.is_qualifying_relative_dependent && p.core.is_related_to_head_or_spouse)))) > 0)) && (!(tax_unit_married t d))) && (!(anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && p.core.is_separated)))) || (((decide ((sumBy t.members fun p => (boolToRat (is_qualifying_child_dependent t p d))) > 0)) && (anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && p.core.is_separated))) && (!(tax_unit_married t d)))) && (!(surviving_spouse_eligible t d)))
+
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_before_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
+  ((t.irs.income_tax_main_rates + t.irs.capital_gains_tax) + (alternative_minimum_tax t d))
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_missing_claimant_fallback_person_count.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def medicaid_missing_claimant_fallback_person_count (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (p.core.person_count * (boolToRat (medicaid_uses_missing_claimant_fallback t p d)))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_countable_child_support_expense.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_countable_child_support_expense (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => ((p.core.child_support_expense / 12) * (snap_income_counted_share t p d)))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_earned_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_earned_income (t : TaxUnit) (d : Date) : Rat :=
+  (max (((sumBy t.members fun p => ((snap_earned_income_person t p d) * (snap_income_counted_share t p d))) + ((((snap_self_employment_income_after_expense_deduction t d) / 12) * (sumBy t.members fun p => ((p.usda.snap_gross_self_employment_income_person * (boolToRat (snap_countable_earner t p d))) * (snap_income_counted_share t p d)))) / (if (decide ((sumBy t.members fun p => p.usda.snap_gross_self_employment_income_person) > 0)) then (sumBy t.members fun p => p.usda.snap_gross_self_employment_income_person) else 1))) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_expense_counted_share.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_expense_counted_share (t : TaxUnit) (d : Date) : Rat :=
+  (max ((1 - ((sumBy t.members fun p => (1 - (snap_income_counted_share t p d))) / (max (t.core.spm_unit_size : Rat) 1))) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/ssa/ssi/ssi.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if p.ssa.takes_up_ssi_if_eligible then (ssi_if_takes_up t p d) else 0)
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_exempt_social_security.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def tax_exempt_social_security (t : TaxUnit) (d : Date) : Rat :=
+  ((tax_unit_social_security t d) - (tax_unit_taxable_social_security t d))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security_tier_2.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def taxable_social_security_tier_2 (t : TaxUnit) (d : Date) : Rat :=
+  (max (((tax_unit_taxable_social_security t d) - (taxable_social_security_tier_1 t d)) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_potential.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def cdcc_potential (t : TaxUnit) (d : Date) : Rat :=
+  (((boolToRat (cdcc_filing_status_eligible t d)) * (cdcc_relevant_expenses t d)) * t.irs.cdcc_rate)
+
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_addition.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctc_arpa_addition (t : TaxUnit) (d : Date) : Rat :=
@@ -42,11 +332,6 @@ def income_tax_unavailable_non_refundable_credits (t : TaxUnit) (d : Date) : Rat
 def is_209b_ssi_recipient_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((((((decide (((ssi t p d) * 12) > 0)) || (decide (boolToRat p.ssa.receives_ssi > 0))) && (p.hhs.medicaid_ssi_recipient_state_classification == MedicaidSSIRecipientStateClassification.SECTION_209B)) && (!(((decide ((boolToRat (if t.core.state_code_str == "AK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.PA.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WV.atDate d) else (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))) ≠ 0)) && (is_child t p d)) && (!p.core.is_blind)))) && p.hhs.is_209b_ssi_recipient_income_eligible_for_medicaid) && p.hhs.is_optional_senior_or_disabled_asset_eligible)
 
-/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_net_income_test.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def meets_snap_net_income_test (t : TaxUnit) (d : Date) : Bool :=
-  (decide ((snap_net_income_fpg_ratio t d) ≤ (Params.gov.usda.snap.income.limit.net.atDate d)))
-
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def pre_obbba_cdcc_potential (t : TaxUnit) (d : Date) : Rat :=
@@ -56,6 +341,26 @@ def pre_obbba_cdcc_potential (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def school_meal_countable_income (t : TaxUnit) (d : Date) : Rat :=
   (((((((((((((((((((sumBy t.members fun p => p.core.employment_income) + (sumBy t.members fun p => p.core.self_employment_income)) + (sumBy t.members fun p => p.core.sstb_self_employment_income)) + (sumBy t.members fun p => p.core.dividend_income)) + (sumBy t.members fun p => p.core.interest_income)) + (sumBy t.members fun p => p.core.gi_cash_assistance)) + (sumBy t.members fun p => (social_security t p d))) + (sumBy t.members fun p => ((ssi t p d) * 12))) + (tanf t d)) + (sumBy t.members fun p => p.core.pension_income)) + (sumBy t.members fun p => p.core.survivor_benefits)) + (sumBy t.members fun p => p.core.financial_assistance)) + (sumBy t.members fun p => p.core.miscellaneous_income)) + (sumBy t.members fun p => p.core.veterans_benefits)) + (sumBy t.members fun p => p.states.unemployment_compensation)) + (sumBy t.members fun p => p.core.strike_benefits)) + (sumBy t.members fun p => p.core.rental_income)) + (sumBy t.members fun p => p.core.retirement_distributions)) + (sumBy t.members fun p => p.core.educational_assistance))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_child_support_deduction.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_child_support_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (max (((snap_countable_child_support_expense t d) - t.usda.snap_child_support_gross_income_deduction) : Rat) 0)
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_dependent_care_deduction.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (((t.core.childcare_expenses / 12) + (sumBy t.members fun p => (p.core.care_expenses / 12))) * (snap_expense_counted_share t d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_earned_income_deduction.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_earned_income_deduction (t : TaxUnit) (d : Date) : Rat :=
+  ((snap_earned_income t d) * (Params.gov.usda.snap.income.deductions.earned_income.atDate d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_gross_income (t : TaxUnit) (d : Date) : Rat :=
+  (((snap_earned_income t d) + t.usda.snap_unearned_income) - t.usda.snap_child_support_gross_income_deduction)
 
 /-- `policyengine_us/variables/gov/usda/snap/income/snap_unearned_income_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -87,11 +392,6 @@ def hud_countable_unearned_income (t : TaxUnit) (d : Date) : Rat :=
 def income_tax_capped_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   (t.irs.income_tax_non_refundable_credits - (income_tax_unavailable_non_refundable_credits t d))
 
-/-- `policyengine_us/variables/gov/usda/snap/eligibility/is_snap_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def is_snap_eligible (t : TaxUnit) (d : Date) : Bool :=
-  ((((((meets_snap_net_income_test t d) && (meets_snap_gross_income_test t d)) && (meets_snap_asset_test t d)) || t.usda.meets_snap_categorical_eligibility) && (anyBy t.members fun p => ((!p.usda.is_snap_ineligible_student) && (is_snap_immigration_status_eligible t p d)))) && (meets_snap_work_requirements t d))
-
 /-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_ssi_recipient_for_medicaid.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_ssi_recipient_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -106,6 +406,16 @@ def pre_obbba_cdcc (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def school_meal_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
   ((school_meal_countable_income t d) / t.hhs.spm_unit_fpg)
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_deductions.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_deductions (t : TaxUnit) (d : Date) : Rat :=
+  (((((t.usda.snap_standard_deduction + (snap_earned_income_deduction t d)) + (snap_dependent_care_deduction t d)) + (snap_child_support_deduction t d)) + t.usda.snap_excess_medical_expense_deduction) + t.usda.snap_excess_shelter_expense_deduction)
+
+/-- `policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income_fpg_ratio.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_gross_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
+  ((snap_gross_income t d) / t.usda.snap_fpg)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/ctc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -122,10 +432,10 @@ def hud_annual_income (t : TaxUnit) (d : Date) : Rat :=
 def pre_obbba_capped_cdcc (t : TaxUnit) (d : Date) : Rat :=
   (min ((pre_obbba_cdcc t d) : Rat) (max (((income_tax_before_credits t d) - (foreign_tax_credit t d)) : Rat) 0))
 
-/-- `policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py`
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_net_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_normal_allotment (t : TaxUnit) (d : Date) : Rat :=
-  (if (is_snap_eligible t d) then (max (t.usda.snap_min_allotment : Rat) (t.usda.snap_max_allotment - t.usda.snap_expected_contribution)) else 0)
+def snap_net_income (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) ((snap_gross_income t d) - (snap_deductions t d)))
 
 /-- `policyengine_us/variables/gov/hud/hud_adjusted_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -142,10 +452,15 @@ def hud_ttp_income_share (t : TaxUnit) (d : Date) : Rat :=
 def refundable_ctc (t : TaxUnit) (d : Date) : Rat :=
   (if (Params.gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then (min ((max (0 : Rat) ((ctc_refundable_maximum t d) - (ctc_phase_out t d))) : Rat) (ctc t d)) else (min ((min ((ctc_refundable_maximum t d) : Rat) (ctc t d)) : Rat) ((min ((ctc t d) : Rat) (t.irs.ctc_limiting_tax_liability + (ctc_phase_in t d))) - (min ((ctc t d) : Rat) t.irs.ctc_limiting_tax_liability))))
 
-/-- `policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py`
+/-- `policyengine_us/variables/gov/usda/snap/snap_expected_contribution.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_if_takes_up (t : TaxUnit) (d : Date) : Rat :=
-  (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else (((snap_normal_allotment t d) + t.usda.snap_emergency_allotment) + t.states_dc.dc_snap_temporary_local_benefit))
+def snap_expected_contribution (t : TaxUnit) (d : Date) : Rat :=
+  (((ratFloor (snap_net_income t d)) : Rat) * (Params.gov.usda.snap.expected_contribution.atDate d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_net_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
+  ((snap_net_income t d) / t.usda.snap_fpg)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/ctc_value.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -162,30 +477,25 @@ def eligible_for_refundable_credits (t : TaxUnit) (d : Date) : Bool :=
 def hud_ttp_adjusted_income_share (t : TaxUnit) (d : Date) : Rat :=
   ((Params.gov.hud.total_tenant_payment.adjusted_income_share.atDate d) * (hud_adjusted_income t d))
 
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_net_income_test.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_snap_net_income_test (t : TaxUnit) (d : Date) : Bool :=
+  (decide ((snap_net_income_fpg_ratio t d) ≤ (Params.gov.usda.snap.income.limit.net.atDate d)))
+
 /-- `policyengine_us/variables/gov/irs/credits/ctc/non_refundable_ctc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def non_refundable_ctc (t : TaxUnit) (d : Date) : Rat :=
   ((ctc t d) - (refundable_ctc t d))
 
-/-- `policyengine_us/variables/gov/usda/snap/snap.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap (t : TaxUnit) (d : Date) : Rat :=
-  (if t.usda.takes_up_snap_if_eligible then (snap_if_takes_up t d) else 0)
-
-/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_community_engagement_pass_through_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def medicaid_community_engagement_pass_through_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((((((decide ((snap t d) > 0)) || t.usda.receives_snap) && (!(decide ((Params.gov.usda.snap.work_requirements.general.age_threshold.exempted.atDate d (monthly_age t p d)) ≠ 0)))) && (!(is_snap_work_registration_exempt_non_age t p d))) && (if (anyBy t.members fun p => (decide ((monthly_age t p d) < (if p.usda.is_snap_abawd_hr1_in_effect then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩))))) then p.usda.meets_snap_general_work_requirements else (p.usda.meets_snap_general_work_requirements && p.usda.meets_snap_abawd_work_requirements))) || (((is_tanf_enrolled t d) || t.hhs.receives_tanf) && t.hhs.meets_tanf_work_requirements))
-
-/-- `policyengine_us/variables/gov/usda/school_meals/meets_school_meal_categorical_eligibility.py`
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/is_snap_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def meets_school_meal_categorical_eligibility (t : TaxUnit) (d : Date) : Bool :=
-  (decide ((((((((((snap t d) * 12) + (tanf t d)) + t.usda.fdpir) + (sumBy t.members fun p => boolToRat p.core.was_in_foster_care)) + boolToRat t.core.is_homeless) + (sumBy t.members fun p => boolToRat p.core.is_runaway_child)) + (sumBy t.members fun p => boolToRat p.core.is_migratory_child)) + (sumBy t.members fun p => boolToRat p.hhs.is_head_start_eligible)) ≠ 0))
+def is_snap_eligible (t : TaxUnit) (d : Date) : Bool :=
+  ((((((meets_snap_net_income_test t d) && (meets_snap_gross_income_test t d)) && (meets_snap_asset_test t d)) || t.usda.meets_snap_categorical_eligibility) && (anyBy t.members fun p => ((!p.usda.is_snap_ineligible_student) && (is_snap_immigration_status_eligible t p d)))) && (meets_snap_work_requirements t d))
 
 /-- `policyengine_us/variables/gov/irs/tax_unit_is_filer.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def tax_unit_is_filer (t : TaxUnit) (d : Date) : Bool :=
-  ((t.irs.tax_unit_is_required_to_file || ((eligible_for_refundable_credits t d) && t.irs.would_file_if_eligible_for_refundable_credit)) || t.irs.would_file_taxes_voluntarily)
+  (((tax_unit_is_required_to_file t d) || ((eligible_for_refundable_credits t d) && t.irs.would_file_if_eligible_for_refundable_credit)) || t.irs.would_file_taxes_voluntarily)
 
 /-- `policyengine_us/variables/gov/aca/ptc/aca_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -197,10 +507,20 @@ def aca_ptc (t : TaxUnit) (d : Date) : Rat :=
 def medicaid_uses_non_filer_rules (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((((!((tax_unit_is_filer t d) && (!(medicaid_is_tax_dependent t p d)))) && (!(medicaid_is_tax_dependent t p d))) || (medicaid_uses_missing_claimant_fallback t p d)) || (((medicaid_tax_dependent_exception_other_than_spouse_or_child t p d) || (medicaid_tax_dependent_exception_living_with_both_parents t p d)) || p.hhs.medicaid_tax_dependent_exception_non_custodial_parent))
 
+/-- `policyengine_us/variables/gov/usda/snap/snap_normal_allotment.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_normal_allotment (t : TaxUnit) (d : Date) : Rat :=
+  (if (is_snap_eligible t d) then (max (t.usda.snap_min_allotment : Rat) (t.usda.snap_max_allotment - (snap_expected_contribution t d))) else 0)
+
 /-- `policyengine_us/variables/gov/aca/ptc/assigned_aca_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def assigned_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
   ((aca_ptc t d) * (boolToRat t.aca.takes_up_aca_if_eligible))
+
+/-- `policyengine_us/variables/gov/usda/snap/snap_if_takes_up.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_if_takes_up (t : TaxUnit) (d : Date) : Rat :=
+  (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else (((snap_normal_allotment t d) + t.usda.snap_emergency_allotment) + t.states_dc.dc_snap_temporary_local_benefit))
 
 /-- `policyengine_us/variables/gov/aca/ptc/used_aca_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -222,9 +542,24 @@ def marketplace_net_premium (t : TaxUnit) (d : Date) : Rat :=
 def premium_tax_credit (t : TaxUnit) (d : Date) : Rat :=
   ((assigned_aca_ptc t d) / 12)
 
+/-- `policyengine_us/variables/gov/usda/snap/snap.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap (t : TaxUnit) (d : Date) : Rat :=
+  (if t.usda.takes_up_snap_if_eligible then (snap_if_takes_up t d) else 0)
+
 /-- `policyengine_us/variables/gov/aca/ptc/unused_aca_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def unused_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) ((aca_ptc t d) - (used_aca_ptc t d)))
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_community_engagement_pass_through_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def medicaid_community_engagement_pass_through_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((((((decide ((snap t d) > 0)) || t.usda.receives_snap) && (!(decide ((Params.gov.usda.snap.work_requirements.general.age_threshold.exempted.atDate d (monthly_age t p d)) ≠ 0)))) && (!(is_snap_work_registration_exempt_non_age t p d))) && (if (anyBy t.members fun p => (decide ((monthly_age t p d) < (if p.usda.is_snap_abawd_hr1_in_effect then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩))))) then p.usda.meets_snap_general_work_requirements else (p.usda.meets_snap_general_work_requirements && p.usda.meets_snap_abawd_work_requirements))) || (((is_tanf_enrolled t d) || t.hhs.receives_tanf) && t.hhs.meets_tanf_work_requirements))
+
+/-- `policyengine_us/variables/gov/usda/school_meals/meets_school_meal_categorical_eligibility.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meets_school_meal_categorical_eligibility (t : TaxUnit) (d : Date) : Bool :=
+  (decide ((((((((((snap t d) * 12) + (tanf t d)) + t.usda.fdpir) + (sumBy t.members fun p => boolToRat p.core.was_in_foster_care)) + boolToRat t.core.is_homeless) + (sumBy t.members fun p => boolToRat p.core.is_runaway_child)) + (sumBy t.members fun p => boolToRat p.core.is_migratory_child)) + (sumBy t.members fun p => boolToRat p.hhs.is_head_start_eligible)) ≠ 0))
 
 end Lawlib.Gen.Vars

@@ -26,13 +26,13 @@ open Lawlib Lawlib.Gen
 
 structure Out_p1 where
   aca_magi : Rat
+  additional_standard_deduction : Rat
   ctc_arpa_phase_out_threshold : Rat
   ctc_phase_out_threshold : Rat
   eitc_relevant_investment_income : Rat
+  head_is_dependent_elsewhere : Bool
   slcsp_age_curve_applies : Bool
   snap_assets : Rat
-  snap_countable_child_support_expense : Rat
-  snap_expense_counted_share : Rat
   snap_gross_test_income_fpg_ratio : Rat
   snap_self_employment_income_after_expense_deduction : Rat
   tax_unit_is_joint : Bool
@@ -43,19 +43,18 @@ structure Out_p1 where
   filer_meets_ctc_identification_requirements : Bool
   filer_meets_eitc_identification_requirements : Bool
   self_employment_tax_ald : Rat
-  snap_child_support_deduction : Rat
-  snap_dependent_care_deduction : Rat
+  tax_unit_earned_income : Rat
   additional_medicare_tax : Rat
+  basic_standard_deduction : Rat
   ctc_phase_in_relevant_earnings : Rat
   ctc_qualifying_children : Rat
   filer_meets_child_ctc_identification_requirements : Bool
   meets_snap_work_requirements : Bool
   slcsp : Rat
-  snap_earned_income : Rat
   eitc_child_count : Rat
   has_snap_elderly_disabled_member : Bool
-  snap_earned_income_deduction : Rat
-  snap_gross_income : Rat
+  snap_unit_size : Rat
+  standard_deduction : Rat
   ctc_arpa_max_addition : Rat
   ctc_refundable_maximum : Rat
   ctc_social_security_tax : Rat
@@ -66,29 +65,39 @@ structure Out_p1 where
   eitc_phase_out_start : Rat
   meets_snap_asset_test : Bool
   meets_snap_gross_income_test : Bool
-  snap_deductions : Rat
+  snap_prorated_income_fraction : Rat
+  tax_unit_is_required_to_file : Bool
   ctc_arpa_phase_out_cap : Rat
   eitc_eligible : Bool
   eitc_phased_in : Rat
   eitc_reduction : Rat
-  snap_net_income : Rat
   ctc_arpa_phase_out : Rat
   ctc_maximum : Rat
   eitc : Rat
-  snap_net_income_fpg_ratio : Rat
+  snap_countable_child_support_expense : Rat
+  snap_earned_income : Rat
+  snap_expense_counted_share : Rat
   ctc_arpa_addition : Rat
   ctc_phase_in : Rat
-  meets_snap_net_income_test : Bool
+  snap_child_support_deduction : Rat
+  snap_dependent_care_deduction : Rat
+  snap_earned_income_deduction : Rat
+  snap_gross_income : Rat
   ctc_maximum_with_arpa_addition : Rat
-  is_snap_eligible : Bool
+  snap_deductions : Rat
   ctc : Rat
-  snap_normal_allotment : Rat
+  snap_net_income : Rat
   refundable_ctc : Rat
-  snap_if_takes_up : Rat
+  snap_expected_contribution : Rat
+  snap_net_income_fpg_ratio : Rat
   eligible_for_refundable_credits : Bool
-  snap : Rat
+  meets_snap_net_income_test : Bool
+  is_snap_eligible : Bool
   tax_unit_is_filer : Bool
   aca_ptc : Rat
+  snap_normal_allotment : Rat
+  snap_if_takes_up : Rat
+  snap : Rat
 deriving Repr
 
 /-- Group-level outputs of the validated closure. -/
@@ -101,10 +110,13 @@ def eval (t : TaxUnit) (d : Date) : Out :=
   let ms : Array Person := t.members.toArray
   let n : Nat := ms.size
   let v_aca_magi : Rat := t.hhs.medicaid_magi
+  let v_additional_standard_deduction : Rat := ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.deductions.standard.aged_or_blind.amount.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.deductions.standard.aged_or_blind.amount.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.deductions.standard.aged_or_blind.amount.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.deductions.standard.aged_or_blind.amount.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.deductions.standard.aged_or_blind.amount.SURVIVING_SPOUSE.atDate d)) * t.irs.aged_blind_count)
   let v_ctc_arpa_phase_out_threshold : Rat := (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.credits.ctc.phase_out.arpa.threshold.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.credits.ctc.phase_out.arpa.threshold.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.credits.ctc.phase_out.arpa.threshold.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.credits.ctc.phase_out.arpa.threshold.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.credits.ctc.phase_out.arpa.threshold.SURVIVING_SPOUSE.atDate d))
   let v_ctc_phase_out_threshold : Rat := (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.credits.ctc.phase_out.threshold.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.credits.ctc.phase_out.threshold.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.credits.ctc.phase_out.threshold.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.credits.ctc.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.credits.ctc.phase_out.threshold.SURVIVING_SPOUSE.atDate d))
+  let v_earned_income : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((p.core.employment_income + p.core.self_employment_income) + p.core.sstb_self_employment_income)
   let v_eitc_relevant_investment_income : Rat := (((t.irs.net_investment_income + ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.core.tax_exempt_interest_income).foldl (· + ·) 0)) - t.irs.loss_limited_net_capital_gains) + (max (0 : Rat) t.core.net_capital_gains))
   let v_fica_pre_tax_contributions : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (p.core.pre_tax_health_insurance_premiums + p.core.health_savings_account_payroll_contributions)
+  let v_head_is_dependent_elsewhere : Bool := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (p.core.claimed_as_dependent_on_another_return && p.core.is_tax_unit_head)).any id)
   let v_is_in_k12_school : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((decide (p.core.age ≥ 5)) && (decide (p.core.age ≤ 17)))
   let v_is_snap_immigration_status_eligible : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (((Params.gov.usda.snap.eligibility.eligible_immigration_statuses.atDate d).contains (ImmigrationStatus.asStr p.core.immigration_status)) || p.states_ca.ca_snap_immigration_status_eligible)
   let v_is_ssi_qualified_noncitizen : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (((Params.gov.ssa.ssi.eligibility.status.qualified_noncitizen_status.atDate d).contains (ImmigrationStatus.asStr p.core.immigration_status)) && ((!(p.core.immigration_status == ImmigrationStatus.LEGAL_PERMANENT_RESIDENT)) || (decide (p.core.ssi_qualifying_quarters_earnings ≥ (Params.gov.ssa.ssi.income.sources.qualifying_quarters_threshold.atDate d)))))
@@ -118,9 +130,7 @@ def eval (t : TaxUnit) (d : Date) : Out :=
   let v_self_employment_tax_ald_person : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (p.irs.self_employment_tax * (Params.gov.irs.ald.self_employment_tax.percent_deductible.atDate d))
   let v_slcsp_age_curve_applies : Bool := (!t.aca.slcsp_family_tier_applies)
   let v_snap_assets : Rat := ((((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.core.bank_account_assets).foldl (· + ·) 0) + ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.core.stock_assets).foldl (· + ·) 0)) + ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.core.bond_assets).foldl (· + ·) 0))
-  let v_snap_countable_child_support_expense : Rat := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((p.core.child_support_expense / 12) * p.usda.snap_income_counted_share)).foldl (· + ·) 0)
   let v_snap_countable_earner : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (!(p.usda.snap_excluded_child_earner || p.ed.is_federal_work_study_participant))
-  let v_snap_expense_counted_share : Rat := (max ((1 - (((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (1 - p.usda.snap_income_counted_share)).foldl (· + ·) 0) / (max (t.core.spm_unit_size : Rat) 1))) : Rat) 0)
   let v_snap_gross_test_income_fpg_ratio : Rat := (t.usda.snap_gross_test_income / t.usda.snap_fpg)
   let v_snap_self_employment_income_after_expense_deduction : Rat := (max ((((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (p.usda.snap_gross_self_employment_income_person * 12)).foldl (· + ·) 0) - t.usda.snap_self_employment_expense_deduction) : Rat) 0)
   let v_ssi_countable_resources : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((p.core.bank_account_assets + p.core.stock_assets) + p.core.bond_assets)
@@ -140,11 +150,11 @@ def eval (t : TaxUnit) (d : Date) : Out :=
   let v_payroll_tax_gross_wages : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (max (0 : Rat) (p.core.employment_income - (v_fica_pre_tax_contributions.getD i.val 0)))
   let v_self_employment_tax_ald : Rat := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_self_employment_tax_ald_person.getD i.val 0)).foldl (· + ·) 0)
   let v_slcsp_age_curve_amount_person : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if p.aca.pays_aca_premium then ((t.aca.slcsp_age_0 * p.aca.slcsp_age_curve_multiplier) * (boolToRat v_slcsp_age_curve_applies)) else 0)
-  let v_snap_child_support_deduction : Rat := (max ((v_snap_countable_child_support_expense - t.usda.snap_child_support_gross_income_deduction) : Rat) 0)
-  let v_snap_dependent_care_deduction : Rat := (((t.core.childcare_expenses / 12) + ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (p.core.care_expenses / 12)).foldl (· + ·) 0)) * v_snap_expense_counted_share)
   let v_snap_earned_income_person : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if (v_snap_countable_earner.getD i.val false) then (p.core.employment_income / 12) else 0)
   let v_ssi_claim_is_joint : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (decide ((if (p.core.is_tax_unit_head || p.core.is_tax_unit_spouse) then ((Array.ofFn (n := n) fun j => let q := ms[j.val]!; if (q.core.is_tax_unit_head || q.core.is_tax_unit_spouse) then (boolToRat (q.ssa.is_ssi_aged_blind_disabled && (v_is_tax_unit_head_or_spouse.getD j.val false))) else 0).foldl (· + ·) 0) else (boolToRat (p.ssa.is_ssi_aged_blind_disabled && (v_is_tax_unit_head_or_spouse.getD i.val false)))) > 1))
+  let v_tax_unit_earned_income : Rat := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; if (v_is_tax_unit_dependent.getD i.val false) then 0 else (v_earned_income.getD i.val 0)).foldl (· + ·) 0)
   let v_additional_medicare_tax : Rat := ((Params.gov.irs.payroll.medicare.additional.rate.atDate d) * (max (0 : Rat) ((((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_payroll_tax_gross_wages.getD i.val 0)).foldl (· + ·) 0) + ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_taxable_self_employment_income.getD i.val 0)).foldl (· + ·) 0)) - (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.payroll.medicare.additional.exclusion.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.payroll.medicare.additional.exclusion.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.payroll.medicare.additional.exclusion.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.payroll.medicare.additional.exclusion.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.payroll.medicare.additional.exclusion.SURVIVING_SPOUSE.atDate d)))))
+  let v_basic_standard_deduction : Rat := (if t.core.separate_filer_itemizes then 0 else (if v_head_is_dependent_elsewhere then (min ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.deductions.standard.amount.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.deductions.standard.amount.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.deductions.standard.amount.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.deductions.standard.amount.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.deductions.standard.amount.SURVIVING_SPOUSE.atDate d)) : Rat) (max (((Params.gov.irs.deductions.standard.dependent.additional_earned_income.atDate d) + v_tax_unit_earned_income) : Rat) (Params.gov.irs.deductions.standard.dependent.amount.atDate d))) else (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.deductions.standard.amount.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.deductions.standard.amount.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.deductions.standard.amount.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.deductions.standard.amount.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.deductions.standard.amount.SURVIVING_SPOUSE.atDate d))))
   let v_ctc_child_individual_maximum_arpa : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if (v_ctc_qualifying_child.getD i.val false) then (Params.gov.irs.credits.ctc.amount.arpa.atDate d p.core.age) else 0)
   let v_ctc_phase_in_relevant_earnings : Rat := ((max (0 : Rat) (v_eitc_earned_income - (Params.gov.irs.credits.ctc.refundable.phase_in.threshold.atDate d))) * (Params.gov.irs.credits.ctc.refundable.phase_in.rate.atDate d))
   let v_ctc_qualifying_children : Rat := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; boolToRat (v_ctc_qualifying_child.getD i.val false)).foldl (· + ·) 0)
@@ -156,7 +166,6 @@ def eval (t : TaxUnit) (d : Date) : Out :=
   let v_meets_snap_work_requirements : Bool := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_meets_snap_work_requirements_person.getD i.val false)).any id)
   let v_meets_ssi_resource_test : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (decide ((if (v_ssi_claim_is_joint.getD i.val false) then (if (p.core.is_tax_unit_head || p.core.is_tax_unit_spouse) then ((Array.ofFn (n := n) fun j => let q := ms[j.val]!; if (q.core.is_tax_unit_head || q.core.is_tax_unit_spouse) then (v_ssi_countable_resources.getD j.val 0) else 0).foldl (· + ·) 0) else (v_ssi_countable_resources.getD i.val 0)) else (v_ssi_countable_resources.getD i.val 0)) ≤ (if (v_ssi_claim_is_joint.getD i.val false) then (Params.gov.ssa.ssi.eligibility.resources.limit.couple.atDate d) else (Params.gov.ssa.ssi.eligibility.resources.limit.individual.atDate d))))
   let v_slcsp : Rat := (((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_slcsp_age_curve_amount_person.getD i.val 0)).foldl (· + ·) 0) + t.aca.slcsp_family_tier_amount)
-  let v_snap_earned_income : Rat := (max ((((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((v_snap_earned_income_person.getD i.val 0) * p.usda.snap_income_counted_share)).foldl (· + ·) 0) + (((v_snap_self_employment_income_after_expense_deduction / 12) * ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((p.usda.snap_gross_self_employment_income_person * (boolToRat (v_snap_countable_earner.getD i.val false))) * p.usda.snap_income_counted_share)).foldl (· + ·) 0)) / (if (decide (((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.usda.snap_gross_self_employment_income_person).foldl (· + ·) 0) > 0)) then ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.usda.snap_gross_self_employment_income_person).foldl (· + ·) 0) else 1))) : Rat) 0)
   let v_taxable_earnings_for_social_security : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (min ((Params.gov.irs.payroll.social_security.cap.atDate d) : Rat) (v_payroll_tax_gross_wages.getD i.val 0))
   let v_ctc_child_individual_maximum : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if (v_is_tax_unit_dependent.getD i.val false) then (((boolToRat (v_ctc_qualifying_child.getD i.val false)) * (boolToRat v_filer_meets_child_ctc_identification_requirements)) * (Params.gov.irs.credits.ctc.amount.base.atDate d p.core.age)) else 0)
   let v_eitc_child_count : Rat := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (boolToRat (((v_is_qualifying_child_dependent.getD i.val false) || ((v_is_tax_unit_dependent.getD i.val false) && p.core.is_permanently_and_totally_disabled)) && (v_meets_eitc_identification_requirements.getD i.val false)))).foldl (· + ·) 0)
@@ -164,8 +173,8 @@ def eval (t : TaxUnit) (d : Date) : Out :=
   let v_has_snap_elderly_disabled_member : Bool := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (((v_is_usda_elderly.getD i.val false) || p.usda.is_usda_disabled) && (!(v_is_snap_excluded_member.getD i.val false)))).any id)
   let v_is_ssi_eligible : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((p.ssa.is_ssi_aged_blind_disabled && (v_meets_ssi_resource_test.getD i.val false)) && ((v_is_ssi_qualified_noncitizen.getD i.val false) || (p.core.immigration_status == ImmigrationStatus.CITIZEN)))
   let v_is_ssi_spousal_deeming_applies : Array Bool := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if (v_is_ssi_eligible_individual.getD i.val false) then (decide ((p.ssa.ssi_earned_income_deemed_from_ineligible_spouse + p.ssa.ssi_unearned_income_deemed_from_ineligible_spouse) > (((Params.gov.ssa.ssi.amount.couple.atDate d) - (Params.gov.ssa.ssi.amount.individual.atDate d)) * 12))) else false)
-  let v_snap_earned_income_deduction : Rat := (v_snap_earned_income * (Params.gov.usda.snap.income.deductions.earned_income.atDate d))
-  let v_snap_gross_income : Rat := ((v_snap_earned_income + t.usda.snap_unearned_income) - t.usda.snap_child_support_gross_income_deduction)
+  let v_snap_unit_size : Rat := (max ((t.core.spm_unit_size - ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; boolToRat (v_is_snap_excluded_member.getD i.val false)).foldl (· + ·) 0)) : Rat) 0)
+  let v_standard_deduction : Rat := ((v_basic_standard_deduction + v_additional_standard_deduction) + t.core.bonus_guaranteed_deduction)
   let v_ctc_adult_individual_maximum : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if (v_is_tax_unit_dependent.getD i.val false) then ((((boolToRat (decide ((v_ctc_child_individual_maximum.getD i.val 0) = 0))) * (boolToRat p.core.has_tin)) * (boolToRat v_filer_meets_ctc_identification_requirements)) * (Params.gov.irs.credits.ctc.amount.adult_dependent.atDate d)) else 0)
   let v_ctc_arpa_max_addition : Rat := (if (!(Params.gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else (((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_ctc_child_individual_maximum_arpa.getD i.val 0)).foldl (· + ·) 0) - ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_ctc_child_individual_maximum.getD i.val 0)).foldl (· + ·) 0)))
   let v_ctc_refundable_maximum : Rat := (if (Params.gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (max ((v_ctc_child_individual_maximum.getD i.val 0) : Rat) (v_ctc_child_individual_maximum_arpa.getD i.val 0))).foldl (· + ·) 0) else ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (min ((max ((v_ctc_child_individual_maximum.getD i.val 0) : Rat) (v_ctc_child_individual_maximum_arpa.getD i.val 0)) : Rat) (Params.gov.irs.credits.ctc.refundable.individual_max.atDate d))).foldl (· + ·) 0))
@@ -177,34 +186,45 @@ def eval (t : TaxUnit) (d : Date) : Out :=
   let v_eitc_phase_out_start : Rat := ((Params.gov.irs.credits.eitc.phase_out.start.atDate d v_eitc_child_count) + ((boolToRat v_tax_unit_is_joint) * (Params.gov.irs.credits.eitc.phase_out.joint_bonus.atDate d v_eitc_child_count)))
   let v_meets_snap_asset_test : Bool := (decide (v_snap_assets ≤ (if v_has_snap_elderly_disabled_member then (Params.gov.usda.snap.asset_test.limit.elderly_disabled.atDate d) else (Params.gov.usda.snap.asset_test.limit.standard.atDate d))))
   let v_meets_snap_gross_income_test : Bool := (v_has_snap_elderly_disabled_member || (decide (v_snap_gross_test_income_fpg_ratio ≤ (Params.gov.usda.snap.income.limit.gross.atDate d))))
-  let v_snap_deductions : Rat := (((((t.usda.snap_standard_deduction + v_snap_earned_income_deduction) + v_snap_dependent_care_deduction) + v_snap_child_support_deduction) + t.usda.snap_excess_medical_expense_deduction) + t.usda.snap_excess_shelter_expense_deduction)
+  let v_snap_prorated_income_fraction : Rat := (if (decide ((t.core.spm_unit_size - ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; boolToRat p.usda.is_snap_ineligible_student).foldl (· + ·) 0)) > 0)) then (v_snap_unit_size / (max ((t.core.spm_unit_size - ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; boolToRat p.usda.is_snap_ineligible_student).foldl (· + ·) 0)) : Rat) 1)) else 0)
+  let v_tax_unit_is_required_to_file : Bool := ((decide (((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.irs.irs_gross_income).foldl (· + ·) 0) > (if (t.core.filing_status == FilingStatus.SEPARATE) then (if (Params.gov.irs.income.exemption.suspended.atDate d) then 0 else (Params.gov.irs.income.exemption.amount.atDate d)) else (v_standard_deduction + (if (Params.gov.irs.income.exemption.suspended.atDate d) then 0 else (Params.gov.irs.income.exemption.amount.atDate d)))))) || (decide ((((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.irs.irs_gross_income).foldl (· + ·) 0) - ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_earned_income.getD i.val 0)).foldl (· + ·) 0)) > (500 + v_additional_standard_deduction))))
   let v_uncapped_ssi : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if (v_is_ssi_eligible.getD i.val false) then (p.ssa.ssi_amount_if_eligible - (p.ssa.ssi_countable_income / 12)) else 0)
   let v_ctc_arpa_phase_out_cap : Rat := (if (!(Params.gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else (min (((v_ctc_phase_out_threshold - v_ctc_arpa_phase_out_threshold) * (Params.gov.irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff.atDate d)) : Rat) v_ctc_arpa_max_addition))
   let v_ctc_individual_maximum : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((v_ctc_child_individual_maximum.getD i.val 0) + (v_ctc_adult_individual_maximum.getD i.val 0))
   let v_eitc_eligible : Bool := (if (Params.gov.irs.credits.eitc.eligibility.separate_filer.atDate d) then ((v_eitc_demographic_eligible && v_eitc_investment_income_eligible) && v_filer_meets_eitc_identification_requirements) else (((v_eitc_demographic_eligible && v_eitc_investment_income_eligible) && v_filer_meets_eitc_identification_requirements) && (!(t.core.filing_status == FilingStatus.SEPARATE))))
   let v_eitc_phased_in : Rat := (min (v_eitc_maximum : Rat) (v_eitc_earned_income * v_eitc_phase_in_rate))
   let v_eitc_reduction : Rat := (v_eitc_phase_out_rate * (max (0 : Rat) ((max (v_eitc_earned_income : Rat) t.irs.adjusted_gross_income) - v_eitc_phase_out_start)))
-  let v_snap_net_income : Rat := (max (0 : Rat) (v_snap_gross_income - v_snap_deductions))
+  let v_snap_income_counted_share : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if p.usda.is_snap_ineligible_student then 0 else (if p.usda.is_snap_prorated_income_member then v_snap_prorated_income_fraction else 1))
   let v_ssi_if_takes_up : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if (Params.gov.ssa.ssi.abolish_ssi.atDate d) then 0 else (if (v_is_ssi_spousal_deeming_applies.getD i.val false) then (min ((max (0 : Rat) (v_uncapped_ssi.getD i.val 0)) : Rat) (Params.gov.ssa.ssi.amount.individual.atDate d)) else (max (0 : Rat) (v_uncapped_ssi.getD i.val 0))))
   let v_ctc_arpa_phase_out : Rat := (min (v_ctc_arpa_phase_out_cap : Rat) v_ctc_arpa_uncapped_phase_out)
   let v_ctc_maximum : Rat := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (v_ctc_individual_maximum.getD i.val 0)).foldl (· + ·) 0)
-  let v_eitc : Rat := (if v_eitc_eligible then (((min (v_eitc_phased_in : Rat) (max (0 : Rat) (v_eitc_maximum - v_eitc_reduction))) * (boolToRat t.irs.takes_up_eitc)) * (boolToRat ((t.irs.tax_unit_is_required_to_file || t.irs.would_file_taxes_voluntarily) || t.irs.would_file_if_eligible_for_refundable_credit))) else 0)
-  let v_snap_net_income_fpg_ratio : Rat := (v_snap_net_income / t.usda.snap_fpg)
+  let v_eitc : Rat := (if v_eitc_eligible then (((min (v_eitc_phased_in : Rat) (max (0 : Rat) (v_eitc_maximum - v_eitc_reduction))) * (boolToRat t.irs.takes_up_eitc)) * (boolToRat ((v_tax_unit_is_required_to_file || t.irs.would_file_taxes_voluntarily) || t.irs.would_file_if_eligible_for_refundable_credit))) else 0)
+  let v_snap_countable_child_support_expense : Rat := ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((p.core.child_support_expense / 12) * (v_snap_income_counted_share.getD i.val 0))).foldl (· + ·) 0)
+  let v_snap_earned_income : Rat := (max ((((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((v_snap_earned_income_person.getD i.val 0) * (v_snap_income_counted_share.getD i.val 0))).foldl (· + ·) 0) + (((v_snap_self_employment_income_after_expense_deduction / 12) * ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((p.usda.snap_gross_self_employment_income_person * (boolToRat (v_snap_countable_earner.getD i.val false))) * (v_snap_income_counted_share.getD i.val 0))).foldl (· + ·) 0)) / (if (decide (((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.usda.snap_gross_self_employment_income_person).foldl (· + ·) 0) > 0)) then ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.usda.snap_gross_self_employment_income_person).foldl (· + ·) 0) else 1))) : Rat) 0)
+  let v_snap_expense_counted_share : Rat := (max ((1 - (((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (1 - (v_snap_income_counted_share.getD i.val 0))).foldl (· + ·) 0) / (max (t.core.spm_unit_size : Rat) 1))) : Rat) 0)
   let v_ssi : Array Rat := Array.ofFn (n := n) fun i => let p := ms[i.val]!; (if p.ssa.takes_up_ssi_if_eligible then (v_ssi_if_takes_up.getD i.val 0) else 0)
   let v_ctc_arpa_addition : Rat := (v_ctc_arpa_max_addition - v_ctc_arpa_phase_out)
   let v_ctc_phase_in : Rat := (if (decide (v_ctc_qualifying_children < (Params.gov.irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc.atDate d))) then v_ctc_phase_in_relevant_earnings else (max (v_ctc_phase_in_relevant_earnings : Rat) (max (0 : Rat) (v_ctc_social_security_tax - v_eitc))))
-  let v_meets_snap_net_income_test : Bool := (decide (v_snap_net_income_fpg_ratio ≤ (Params.gov.usda.snap.income.limit.net.atDate d)))
+  let v_snap_child_support_deduction : Rat := (max ((v_snap_countable_child_support_expense - t.usda.snap_child_support_gross_income_deduction) : Rat) 0)
+  let v_snap_dependent_care_deduction : Rat := (((t.core.childcare_expenses / 12) + ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; (p.core.care_expenses / 12)).foldl (· + ·) 0)) * v_snap_expense_counted_share)
+  let v_snap_earned_income_deduction : Rat := (v_snap_earned_income * (Params.gov.usda.snap.income.deductions.earned_income.atDate d))
+  let v_snap_gross_income : Rat := ((v_snap_earned_income + t.usda.snap_unearned_income) - t.usda.snap_child_support_gross_income_deduction)
   let v_ctc_maximum_with_arpa_addition : Rat := (v_ctc_maximum + v_ctc_arpa_addition)
-  let v_is_snap_eligible : Bool := (((((v_meets_snap_net_income_test && v_meets_snap_gross_income_test) && v_meets_snap_asset_test) || t.usda.meets_snap_categorical_eligibility) && ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((!p.usda.is_snap_ineligible_student) && (v_is_snap_immigration_status_eligible.getD i.val false))).any id)) && v_meets_snap_work_requirements)
+  let v_snap_deductions : Rat := (((((t.usda.snap_standard_deduction + v_snap_earned_income_deduction) + v_snap_dependent_care_deduction) + v_snap_child_support_deduction) + t.usda.snap_excess_medical_expense_deduction) + t.usda.snap_excess_shelter_expense_deduction)
   let v_ctc : Rat := (if v_filer_meets_ctc_identification_requirements then (max (0 : Rat) (v_ctc_maximum_with_arpa_addition - v_ctc_phase_out)) else 0)
-  let v_snap_normal_allotment : Rat := (if v_is_snap_eligible then (max (t.usda.snap_min_allotment : Rat) (t.usda.snap_max_allotment - t.usda.snap_expected_contribution)) else 0)
+  let v_snap_net_income : Rat := (max (0 : Rat) (v_snap_gross_income - v_snap_deductions))
   let v_refundable_ctc : Rat := (if (Params.gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then (min ((max (0 : Rat) (v_ctc_refundable_maximum - v_ctc_phase_out)) : Rat) v_ctc) else (min ((min (v_ctc_refundable_maximum : Rat) v_ctc) : Rat) ((min (v_ctc : Rat) (t.irs.ctc_limiting_tax_liability + v_ctc_phase_in)) - (min (v_ctc : Rat) t.irs.ctc_limiting_tax_liability))))
-  let v_snap_if_takes_up : Rat := (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else ((v_snap_normal_allotment + t.usda.snap_emergency_allotment) + t.states_dc.dc_snap_temporary_local_benefit))
+  let v_snap_expected_contribution : Rat := (((ratFloor v_snap_net_income) : Rat) * (Params.gov.usda.snap.expected_contribution.atDate d))
+  let v_snap_net_income_fpg_ratio : Rat := (v_snap_net_income / t.usda.snap_fpg)
   let v_eligible_for_refundable_credits : Bool := (decide ((v_eitc + v_refundable_ctc) > 0))
-  let v_snap : Rat := (if t.usda.takes_up_snap_if_eligible then v_snap_if_takes_up else 0)
-  let v_tax_unit_is_filer : Bool := ((t.irs.tax_unit_is_required_to_file || (v_eligible_for_refundable_credits && t.irs.would_file_if_eligible_for_refundable_credit)) || t.irs.would_file_taxes_voluntarily)
+  let v_meets_snap_net_income_test : Bool := (decide (v_snap_net_income_fpg_ratio ≤ (Params.gov.usda.snap.income.limit.net.atDate d)))
+  let v_is_snap_eligible : Bool := (((((v_meets_snap_net_income_test && v_meets_snap_gross_income_test) && v_meets_snap_asset_test) || t.usda.meets_snap_categorical_eligibility) && ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; ((!p.usda.is_snap_ineligible_student) && (v_is_snap_immigration_status_eligible.getD i.val false))).any id)) && v_meets_snap_work_requirements)
+  let v_tax_unit_is_filer : Bool := ((v_tax_unit_is_required_to_file || (v_eligible_for_refundable_credits && t.irs.would_file_if_eligible_for_refundable_credit)) || t.irs.would_file_taxes_voluntarily)
   let v_aca_ptc : Rat := (if ((Array.ofFn (n := n) fun i => let p := ms[i.val]!; p.aca.is_aca_ptc_eligible).any id) then (if Date.ble ⟨2018, 1, 1⟩ d then ((max (0 : Rat) ((v_slcsp * 12) - (v_aca_magi * t.aca.aca_required_contribution_percentage))) * (boolToRat v_tax_unit_is_filer)) else 0) else 0)
-  { p1 := { aca_magi := v_aca_magi, ctc_arpa_phase_out_threshold := v_ctc_arpa_phase_out_threshold, ctc_phase_out_threshold := v_ctc_phase_out_threshold, eitc_relevant_investment_income := v_eitc_relevant_investment_income, slcsp_age_curve_applies := v_slcsp_age_curve_applies, snap_assets := v_snap_assets, snap_countable_child_support_expense := v_snap_countable_child_support_expense, snap_expense_counted_share := v_snap_expense_counted_share, snap_gross_test_income_fpg_ratio := v_snap_gross_test_income_fpg_ratio, snap_self_employment_income_after_expense_deduction := v_snap_self_employment_income_after_expense_deduction, tax_unit_is_joint := v_tax_unit_is_joint, ctc_arpa_uncapped_phase_out := v_ctc_arpa_uncapped_phase_out, ctc_phase_out := v_ctc_phase_out, eitc_earned_income := v_eitc_earned_income, eitc_investment_income_eligible := v_eitc_investment_income_eligible, filer_meets_ctc_identification_requirements := v_filer_meets_ctc_identification_requirements, filer_meets_eitc_identification_requirements := v_filer_meets_eitc_identification_requirements, self_employment_tax_ald := v_self_employment_tax_ald, snap_child_support_deduction := v_snap_child_support_deduction, snap_dependent_care_deduction := v_snap_dependent_care_deduction, additional_medicare_tax := v_additional_medicare_tax, ctc_phase_in_relevant_earnings := v_ctc_phase_in_relevant_earnings, ctc_qualifying_children := v_ctc_qualifying_children, filer_meets_child_ctc_identification_requirements := v_filer_meets_child_ctc_identification_requirements, meets_snap_work_requirements := v_meets_snap_work_requirements, slcsp := v_slcsp, snap_earned_income := v_snap_earned_income, eitc_child_count := v_eitc_child_count, has_snap_elderly_disabled_member := v_has_snap_elderly_disabled_member, snap_earned_income_deduction := v_snap_earned_income_deduction, snap_gross_income := v_snap_gross_income, ctc_arpa_max_addition := v_ctc_arpa_max_addition, ctc_refundable_maximum := v_ctc_refundable_maximum, ctc_social_security_tax := v_ctc_social_security_tax, eitc_demographic_eligible := v_eitc_demographic_eligible, eitc_maximum := v_eitc_maximum, eitc_phase_in_rate := v_eitc_phase_in_rate, eitc_phase_out_rate := v_eitc_phase_out_rate, eitc_phase_out_start := v_eitc_phase_out_start, meets_snap_asset_test := v_meets_snap_asset_test, meets_snap_gross_income_test := v_meets_snap_gross_income_test, snap_deductions := v_snap_deductions, ctc_arpa_phase_out_cap := v_ctc_arpa_phase_out_cap, eitc_eligible := v_eitc_eligible, eitc_phased_in := v_eitc_phased_in, eitc_reduction := v_eitc_reduction, snap_net_income := v_snap_net_income, ctc_arpa_phase_out := v_ctc_arpa_phase_out, ctc_maximum := v_ctc_maximum, eitc := v_eitc, snap_net_income_fpg_ratio := v_snap_net_income_fpg_ratio, ctc_arpa_addition := v_ctc_arpa_addition, ctc_phase_in := v_ctc_phase_in, meets_snap_net_income_test := v_meets_snap_net_income_test, ctc_maximum_with_arpa_addition := v_ctc_maximum_with_arpa_addition, is_snap_eligible := v_is_snap_eligible, ctc := v_ctc, snap_normal_allotment := v_snap_normal_allotment, refundable_ctc := v_refundable_ctc, snap_if_takes_up := v_snap_if_takes_up, eligible_for_refundable_credits := v_eligible_for_refundable_credits, snap := v_snap, tax_unit_is_filer := v_tax_unit_is_filer, aca_ptc := v_aca_ptc } }
+  let v_snap_normal_allotment : Rat := (if v_is_snap_eligible then (max (t.usda.snap_min_allotment : Rat) (t.usda.snap_max_allotment - v_snap_expected_contribution)) else 0)
+  let v_snap_if_takes_up : Rat := (if (Params.gov.usda.snap.abolish_snap.atDate d) then 0 else ((v_snap_normal_allotment + t.usda.snap_emergency_allotment) + t.states_dc.dc_snap_temporary_local_benefit))
+  let v_snap : Rat := (if t.usda.takes_up_snap_if_eligible then v_snap_if_takes_up else 0)
+  { p1 := { aca_magi := v_aca_magi, additional_standard_deduction := v_additional_standard_deduction, ctc_arpa_phase_out_threshold := v_ctc_arpa_phase_out_threshold, ctc_phase_out_threshold := v_ctc_phase_out_threshold, eitc_relevant_investment_income := v_eitc_relevant_investment_income, head_is_dependent_elsewhere := v_head_is_dependent_elsewhere, slcsp_age_curve_applies := v_slcsp_age_curve_applies, snap_assets := v_snap_assets, snap_gross_test_income_fpg_ratio := v_snap_gross_test_income_fpg_ratio, snap_self_employment_income_after_expense_deduction := v_snap_self_employment_income_after_expense_deduction, tax_unit_is_joint := v_tax_unit_is_joint, ctc_arpa_uncapped_phase_out := v_ctc_arpa_uncapped_phase_out, ctc_phase_out := v_ctc_phase_out, eitc_earned_income := v_eitc_earned_income, eitc_investment_income_eligible := v_eitc_investment_income_eligible, filer_meets_ctc_identification_requirements := v_filer_meets_ctc_identification_requirements, filer_meets_eitc_identification_requirements := v_filer_meets_eitc_identification_requirements, self_employment_tax_ald := v_self_employment_tax_ald, tax_unit_earned_income := v_tax_unit_earned_income, additional_medicare_tax := v_additional_medicare_tax, basic_standard_deduction := v_basic_standard_deduction, ctc_phase_in_relevant_earnings := v_ctc_phase_in_relevant_earnings, ctc_qualifying_children := v_ctc_qualifying_children, filer_meets_child_ctc_identification_requirements := v_filer_meets_child_ctc_identification_requirements, meets_snap_work_requirements := v_meets_snap_work_requirements, slcsp := v_slcsp, eitc_child_count := v_eitc_child_count, has_snap_elderly_disabled_member := v_has_snap_elderly_disabled_member, snap_unit_size := v_snap_unit_size, standard_deduction := v_standard_deduction, ctc_arpa_max_addition := v_ctc_arpa_max_addition, ctc_refundable_maximum := v_ctc_refundable_maximum, ctc_social_security_tax := v_ctc_social_security_tax, eitc_demographic_eligible := v_eitc_demographic_eligible, eitc_maximum := v_eitc_maximum, eitc_phase_in_rate := v_eitc_phase_in_rate, eitc_phase_out_rate := v_eitc_phase_out_rate, eitc_phase_out_start := v_eitc_phase_out_start, meets_snap_asset_test := v_meets_snap_asset_test, meets_snap_gross_income_test := v_meets_snap_gross_income_test, snap_prorated_income_fraction := v_snap_prorated_income_fraction, tax_unit_is_required_to_file := v_tax_unit_is_required_to_file, ctc_arpa_phase_out_cap := v_ctc_arpa_phase_out_cap, eitc_eligible := v_eitc_eligible, eitc_phased_in := v_eitc_phased_in, eitc_reduction := v_eitc_reduction, ctc_arpa_phase_out := v_ctc_arpa_phase_out, ctc_maximum := v_ctc_maximum, eitc := v_eitc, snap_countable_child_support_expense := v_snap_countable_child_support_expense, snap_earned_income := v_snap_earned_income, snap_expense_counted_share := v_snap_expense_counted_share, ctc_arpa_addition := v_ctc_arpa_addition, ctc_phase_in := v_ctc_phase_in, snap_child_support_deduction := v_snap_child_support_deduction, snap_dependent_care_deduction := v_snap_dependent_care_deduction, snap_earned_income_deduction := v_snap_earned_income_deduction, snap_gross_income := v_snap_gross_income, ctc_maximum_with_arpa_addition := v_ctc_maximum_with_arpa_addition, snap_deductions := v_snap_deductions, ctc := v_ctc, snap_net_income := v_snap_net_income, refundable_ctc := v_refundable_ctc, snap_expected_contribution := v_snap_expected_contribution, snap_net_income_fpg_ratio := v_snap_net_income_fpg_ratio, eligible_for_refundable_credits := v_eligible_for_refundable_credits, meets_snap_net_income_test := v_meets_snap_net_income_test, is_snap_eligible := v_is_snap_eligible, tax_unit_is_filer := v_tax_unit_is_filer, aca_ptc := v_aca_ptc, snap_normal_allotment := v_snap_normal_allotment, snap_if_takes_up := v_snap_if_takes_up, snap := v_snap } }
 
 /-- Stable accessor for validated root `eitc` (Out part indices are an emission detail). -/
 def eitc (t : TaxUnit) (d : Date) : Rat := (eval t d).p1.eitc

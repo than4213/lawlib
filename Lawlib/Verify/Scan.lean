@@ -41,7 +41,7 @@ def mkTaxUnit (g : Group) (n : Nat) (income : Rat) : TaxUnit :=
     core := { filing_status := if g = .joint then .JOINT else .SINGLE }
     irs := { adjusted_gross_income := income
              takes_up_eitc := true
-             tax_unit_is_required_to_file := true } }
+             would_file_if_eligible_for_refundable_credit := true } }
 
 /-- PolicyEngine semantics (the translated `eitc`) on that household —
 per-variable definition, used by the *symbolic* theorems. -/

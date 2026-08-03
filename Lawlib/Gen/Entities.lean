@@ -238,8 +238,8 @@ structure Person_Ssa where
   social_security_disability : Rat := 0
   social_security_retirement : Rat := 0
   social_security_survivors : Rat := 0
+  ss_aime : Rat := 0
   ss_full_retirement_age_months : Rat := 0
-  ss_pia : Rat := 0
   ss_retirement_age_adjustment_factor : Rat := 0
   ssi_amount_if_eligible : Rat := 0
   ssi_countable_income : Rat := 0
@@ -281,6 +281,7 @@ structure Person_Usda where
   is_snap_abawd_hr1_in_effect : Bool := false
   is_snap_employment_training_student : Bool := false
   is_snap_ineligible_student : Bool := false
+  is_snap_prorated_income_member : Bool := false
   is_snap_work_incentive_student : Bool := false
   is_usda_disabled : Bool := false
   is_wic_at_nutritional_risk : Bool := false
@@ -289,7 +290,6 @@ structure Person_Usda where
   meets_wic_categorical_eligibility : Bool := false
   snap_excluded_child_earner : Bool := false
   snap_gross_self_employment_income_person : Rat := 0
-  snap_income_counted_share : Rat := 0
   takes_up_wic_if_eligible : Bool := false
   wic_category : WICCategory := .NONE
   wic_food_package_str : String := ""
@@ -311,7 +311,6 @@ structure Person where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Aca where
-  aca_magi_fraction : Rat := 0
   aca_required_contribution_percentage : Rat := 0
   lcbp_family_tier_amount : Rat := 0
   marketplace_csr_actuarial_value : Rat := 0
@@ -326,8 +325,8 @@ structure TaxUnit_Aca where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Core where
-  MI : Bool := false
   air_sealing_ventilation_expenditures : Rat := 0
+  bedrooms : Rat := 0
   bonus_guaranteed_deduction : Rat := 0
   broadband_cost : Rat := 0
   childcare_expenses : Rat := 0
@@ -345,9 +344,16 @@ structure TaxUnit_Core where
   household_vehicles_owned : Rat := 0
   household_weight : Rat := 0
   is_homeless : Bool := false
+  is_sro : Bool := false
   mi_surtax : Rat := 0
   net_capital_gains : Rat := 0
+  new_clean_vehicle_battery_capacity : Rat := 0
+  new_clean_vehicle_battery_components_made_in_north_america : Rat := 0
+  new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country : Rat := 0
   qualified_passenger_vehicle_loan_interest : Rat := 0
+  safmr_used_for_hcv : Bool := false
+  separate_filer_itemizes : Bool := false
+  small_area_fair_market_rent : Rat := 0
   spm_unit_assets : Rat := 0
   spm_unit_size : Rat := 0
   state_code : StateCode := .CA
@@ -385,14 +391,17 @@ structure TaxUnit_Hhs where
   spm_unit_total_ccdf_copay : Rat := 0
   takes_up_tanf_if_eligible : Bool := false
   tanf_if_takes_up : Rat := 0
+  tax_unit_fpg : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hud where
+  hud_fair_market_rent : Rat := 0
   hud_max_subsidy : Rat := 0
   hud_ttp : Rat := 0
   hud_utility_allowance : Rat := 0
   is_eligible_for_housing_assistance : Bool := false
   takes_up_housing_assistance_if_eligible : Bool := false
+  zip_code_payment_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Irs where
@@ -405,7 +414,6 @@ structure TaxUnit_Irs where
   amt_lower_base_tax : Rat := 0
   amt_separate_addition : Rat := 0
   amt_tax_including_cg : Rat := 0
-  basic_standard_deduction : Rat := 0
   capital_gains_tax : Rat := 0
   cdcc_credit_limit : Rat := 0
   cdcc_rate : Rat := 0
@@ -429,7 +437,6 @@ structure TaxUnit_Irs where
   net_investment_income : Rat := 0
   new_clean_vehicle_credit_credit_limit : Rat := 0
   new_clean_vehicle_credit_eligible : Bool := false
-  new_clean_vehicle_credit_potential : Rat := 0
   non_refundable_american_opportunity_credit_credit_limit : Rat := 0
   puerto_rico_income : Rat := 0
   regular_tax_before_credits : Rat := 0
@@ -439,13 +446,10 @@ structure TaxUnit_Irs where
   section_22_income : Rat := 0
   specified_possession_income : Rat := 0
   takes_up_eitc : Bool := false
-  tax_unit_is_required_to_file : Bool := false
   tax_unit_itemizes : Bool := false
   tax_unit_size : Rat := 0
-  tax_unit_taxable_social_security : Rat := 0
   taxable_income_deductions_if_itemizing : Rat := 0
   taxable_income_deductions_if_not_itemizing : Rat := 0
-  taxable_social_security_tier_1 : Rat := 0
   taxable_ss_magi : Rat := 0
   taxable_uc_agi : Rat := 0
   total_itemized_taxable_income_deductions : Rat := 0
@@ -665,7 +669,6 @@ structure TaxUnit_Usda where
   snap_emergency_allotment : Rat := 0
   snap_excess_medical_expense_deduction : Rat := 0
   snap_excess_shelter_expense_deduction : Rat := 0
-  snap_expected_contribution : Rat := 0
   snap_fpg : Rat := 0
   snap_gross_test_income : Rat := 0
   snap_individual_utility_allowance : Rat := 0

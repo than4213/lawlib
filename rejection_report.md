@@ -1,70 +1,16 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc'].
-493 translated, 451 boundary inputs, 399 rejections.
+560 translated, 454 boundary inputs, 332 rejections.
 
 ## Rejections
 
-- **AK** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **AL** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **AR** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **AZ** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **CA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **CO** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **CT** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **DC** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **DE** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **FL** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **GA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **HI** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **IA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **ID** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **IL** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **IN** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **KS** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **KY** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **LA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **MA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **MD** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **ME** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **MI** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **MN** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **MO** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **MS** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **MT** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **NC** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **ND** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **NE** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **NH** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **NJ** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **NM** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **NV** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **NY** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **OH** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **OK** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **OR** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **PA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **PR** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **RI** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **SC** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **SD** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **TN** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **TX** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **UT** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **VA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **VI** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **VT** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **WA** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **WI** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **WV** (`policyengine_us/tools/general.py:2`): unrecognized call population
-- **WY** (`policyengine_us/tools/general.py:2`): unrecognized call population
 - **above_the_line_deductions** (`?:0`): adds via DATED parameter list 'gov.irs.ald.deductions'
 - **aca_child_index** (`policyengine_us/variables/gov/aca/eligibility/aca_child_index.py:4`): unrecognized call person.get_rank
-- **aca_magi_fraction** (`policyengine_us/variables/gov/aca/eligibility/aca_magi_fraction.py:4`): np.floor
 - **aca_required_contribution_percentage** (`policyengine_us/variables/gov/aca/ptc/aca_required_contribution_percentage.py:6`): np.array
 - **acp** (`policyengine_us/variables/gov/fcc/acp/acp.py:3`): person ref to non-person variable 'is_on_tribal_land'
 - **adjusted_gross_income_person** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/adjusted_gross_income_person.py:9`): unsupported syntax ListComp
-- **age_group** (`policyengine_us/variables/household/demographic/age/age_group.py:2`): unrecognized call select
+- **age_group** (`policyengine_us/variables/household/demographic/age/age_group.py:8`): unbound name 'AgeGroup'
 - **aged_blind_count** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/aged_blind_count.py:2`): unrecognized call tax_unit('blind_head', period).astype
 - **american_opportunity_credit** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/american_opportunity_credit.py:8`): sum() over non-person expression
 - **ami** (`policyengine_us/variables/gov/hud/ami.py:3`): unrecognized call lookup_income_limit
@@ -79,7 +25,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **basic_health_program_family_tier_category** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_category.py:2`): person ref to non-person variable 'state_code'
 - **basic_health_program_family_tier_multiplier** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_multiplier.py:4`): person ref to non-person variable 'state_code'
 - **basic_health_program_tax_unit_enrolled** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_tax_unit_enrolled.py:2`): unrecognized call tax_unit.members
-- **basic_standard_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/basic_standard_deduction.py:15`): unrecognized call select
 - **birth_year** (`policyengine_us/variables/household/demographic/age/birth_year.py:3`): unbound name 'period'
 - **capital_gains_excluded_from_taxable_income** (`policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_excluded_from_taxable_income.py:8`): non-value handle used as value
 - **capital_gains_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_tax.py:17`): non-value handle used as value
@@ -94,25 +39,25 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **capped_property_taxes** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/capped_property_taxes.py:4`): unsupported parameter subscript on 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
 - **capped_qualified_furnace_or_hot_water_boiler_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_qualified_furnace_or_hot_water_boiler_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_qualified_tuition_expenses_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/capped_qualified_tuition_expenses_ald.py:6`): comparison NotIn
-- **ccdf_age_group** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_age_group.py:4`): unrecognized call select
-- **ccdf_county_cluster** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_county_cluster.py:4`): np.ones_like
-- **ccdf_duration_of_care** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_duration_of_care.py:5`): unrecognized call select
+- **ccdf_age_group** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_age_group.py:15`): unbound name 'CCDFAgeGroup'
+- **ccdf_county_cluster** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_county_cluster.py:5`): np.array
+- **ccdf_duration_of_care** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_duration_of_care.py:16`): unbound name 'CCDFDurationOfCare'
 - **ccdf_market_rate** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_market_rate.py:8`): unsupported parameter subscript on 'gov.hhs.ccdf.amount'
 - **cdcc** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc.py:6`): comparison In
 - **cdcc_credit_limit** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc_credit_limit.py:4`): add() without literal variable list
 - **cdcc_rate** (`policyengine_us/variables/gov/irs/credits/cdcc/cdcc_rate.py:0`): type error: cannot coerce ext to rat at ParamValue
-- **chip_category** (`policyengine_us/variables/gov/hhs/chip/chip_category.py:10`): unrecognized call select
+- **chip_category** (`policyengine_us/variables/gov/hhs/chip/chip_category.py:21`): unbound name 'CHIPCategory'
 - **chip_federal_share** (`policyengine_us/variables/gov/hhs/chip/chip_federal_share.py:0`): enum-indexed parameter 'gov.hhs.medicaid.cost_share.fmap' lacks members ['GU', 'MP', 'PW', 'PR']
 - **chip_premium** (`policyengine_us/variables/gov/hhs/chip/chip_premium.py:2`): unbound name 'STATE_CHIP_PREMIUM_VARIABLES'
 - **commodity_supplemental_food_program** (`?:0`): adds list mixes parameter paths: 'gov.usda.csfp.amount'
 - **commodity_supplemental_food_program_eligible** (`policyengine_us/variables/gov/usda/csfp/commodity_supplemental_food_program_eligible.py:12`): unbound name 'StateCode'
-- **count_days_postpartum** (`policyengine_us/variables/household/demographic/person/postpartum/count_days_postpartum.py:4`): unrecognized call select
+- **count_days_postpartum** (`policyengine_us/variables/household/demographic/person/postpartum/count_days_postpartum.py:7`): unbound name 'np'
 - **county** (`policyengine_us/variables/household/demographic/geographic/county/county.py:2`): attribute 'simulation' on value expression
 - **county_str** (`policyengine_us/variables/household/demographic/geographic/county/county_str.py:1`): returns a non-value
 - **ctc_limiting_tax_liability** (`policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_limiting_tax_liability.py:2`): attribute 'simulation' on value expression
 - **dependent_gross_income** (`policyengine_us/variables/gov/irs/income/dependent_gross_income.py:5`): unsupported statement For
 - **dwks19** (`policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks19.py:6`): non-value handle used as value
-- **early_head_start** (`policyengine_us/variables/gov/hhs/head_start/early_head_start.py:7`): np.zeros_like
+- **early_head_start** (`policyengine_us/variables/gov/hhs/head_start/early_head_start.py:8`): non-simple assignment target
 - **ebb** (`policyengine_us/variables/gov/fcc/ebb/ebb.py:3`): person ref to non-person variable 'is_on_tribal_land'
 - **elderly_disabled_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_credit_limit.py:4`): add() without literal variable list
 - **employee_payroll_tax** (`policyengine_us/variables/gov/irs/tax/payroll/employee_payroll_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_payroll_tax' outside emitted subtrees
@@ -124,13 +69,13 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **energy_efficient_home_improvement_credit_potential** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/energy_efficient_home_improvement_credit_potential.py:10`): add() without literal variable list
 - **estate_tax_credit** (`policyengine_us/variables/gov/irs/credits/estate/estate_tax_credit.py:1`): returns a non-value
 - **exemptions** (`policyengine_us/variables/gov/irs/income/taxable_income/exemptions/exemptions.py:9`): ExtRat breakdown 'gov.irs.income.exemption.phase_out.start' in value position
-- **filing_status** (`policyengine_us/variables/household/demographic/tax_unit/filing_status.py:7`): unrecognized call select
+- **filing_status** (`policyengine_us/variables/household/demographic/tax_unit/filing_status.py:20`): unbound name 'FilingStatus'
 - **first_county_in_state** (`policyengine_us/variables/household/demographic/geographic/county/first_county_in_state.py:6`): unsupported syntax Dict
 - **gross_medicare_part_b_premium** (`policyengine_us/variables/gov/hhs/medicare/eligibility/part_b/gross_medicare_part_b_premium.py:2`): attribute 'tax_unit' on value expression
 - **has_chip_disqualifying_health_coverage** (`policyengine_us/variables/gov/hhs/chip/has_chip_disqualifying_health_coverage.py:3`): add() without literal variable list
 - **has_qdiv_or_ltcg** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/has_qdiv_or_ltcg.py:10`): np.any
 - **has_tin** (`policyengine_us/variables/household/demographic/person/has_tin.py:2`): attribute 'simulation' on value expression
-- **head_start** (`policyengine_us/variables/gov/hhs/head_start/head_start.py:7`): np.zeros_like
+- **head_start** (`policyengine_us/variables/gov/hhs/head_start/head_start.py:8`): non-simple assignment target
 - **hhs_smi** (`policyengine_us/variables/gov/hhs/hhs_smi.py:3`): person ref to non-person variable 'state_code_str'
 - **high_efficiency_electric_home_rebate** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/high_efficiency_electric_home_rebate.py:4`): non-value handle used as value
 - **high_efficiency_electric_home_rebate_percent_covered** (`policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/high_efficiency_electric_home_rebate_percent_covered.py:4`): ExtRat scale 'gov.doe.high_efficiency_electric_home_rebate.percent_covered' in value position
@@ -176,7 +121,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **is_in_medicaid_medically_needy_category** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medically_needy/is_in_medicaid_medically_needy_category.py:6`): non-value handle used as value
 - **is_infant_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
 - **is_infant_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/infant/is_infant_for_medicaid_fc.py:8`): np.isclose
-- **is_infant_for_medicaid_nfc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/infant/is_infant_for_medicaid_nfc.py:8`): unrecognized call select
 - **is_irs_aged** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/is_irs_aged.py:3`): cross-entity ref tax_unit(...) in person formula
 - **is_lifeline_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_eligible.py:3`): attribute 'household' on value expression
 - **is_lifeline_income_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_income_eligible.py:6`): person ref to non-person variable 'state_code_str'
@@ -188,7 +132,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **is_optional_senior_or_disabled_income_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_optional_senior_or_disabled_income_eligible.py:5`): attribute 'tax_unit' on value expression
 - **is_parent_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
 - **is_pregnant_for_medicaid** (`policyengine_us/model_api.py:3`): unsupported statement For
-- **is_snap_abawd_hr1_in_effect** (`policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_abawd_hr1_in_effect.py:15`): unrecognized call select
+- **is_snap_abawd_hr1_in_effect** (`policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_abawd_hr1_in_effect.py:19`): unbound name 'StateCode'
 - **is_snap_gross_test_full_income_count_alien** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_gross_test_full_income_count_alien.py:5`): np.isin outside enum idioms
 - **is_snap_ineligible_student** (`policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_ineligible_student.py:40`): attribute 'spm_unit' on value expression
 - **is_snap_prorated_income_member** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_prorated_income_member.py:6`): np.isin outside enum idioms
@@ -203,7 +147,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **itemized_deductions_less_salt** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemized_deductions_less_salt.py:3`): unsupported syntax ListComp
 - **itemized_taxable_income_deductions_reduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions_reduction.py:7`): unsupported parameter subscript on 'gov.irs.deductions.itemized.limitation.applicable_amount'
 - **lcbp_age_0** (`policyengine_us/variables/gov/aca/lcbp/lcbp_age_0.py:9`): unsupported parameter subscript on 'gov.aca.lcbp.state_rating_area_cost'
-- **lcbp_age_curve_amount_person** (`policyengine_us/variables/gov/aca/lcbp/lcbp_age_curve_amount_person.py:8`): unrecognized call select
+- **lcbp_age_curve_amount_person** (`policyengine_us/variables/gov/aca/lcbp/lcbp_age_curve_amount_person.py:24`): non-value handle used as value
 - **lcbp_family_tier_amount** (`policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py:2`): person ref to non-person variable 'lcbp_age_0'
 - **lcbp_family_tier_category** (`policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_category.py:2`): person ref to non-person variable 'state_code_str'
 - **lcbp_family_tier_multiplier** (`policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_multiplier.py:4`): person ref to non-person variable 'state_code'
@@ -212,12 +156,12 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **loss_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/loss_ald.py:4`): unsupported parameter subscript on 'gov.irs.ald.loss.max'
 - **loss_limited_net_capital_gains_person** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/loss_limited_net_capital_gains_person.py:6`): attribute 'tax_unit' on value expression
 - **marital_unit_weight** (`policyengine_us/variables/household/demographic/marital_unit/marital_unit_weight.py:3`): person ref to non-person variable 'household_weight'
-- **marketplace_csr_actuarial_value** (`policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py:4`): unrecognized call select
-- **marketplace_csr_category** (`policyengine_us/variables/gov/aca/csr/marketplace_csr_category.py:5`): unrecognized call select
+- **marketplace_csr_actuarial_value** (`policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py:8`): unbound name 'MarketplaceCSRCategory'
+- **marketplace_csr_category** (`policyengine_us/variables/gov/aca/csr/marketplace_csr_category.py:16`): unbound name 'MarketplaceCSRCategory'
 - **medicaid_adjusted_gross_income_person** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_adjusted_gross_income_person.py:3`): unbound name 'PERSON_LEVEL_MEDICAID_AGI_ALDS'
 - **medicaid_category** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medicaid_category.py:16`): unrecognized call dict
 - **medicaid_cost_if_enrolled** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_cost_if_enrolled.py:7`): np.divide
-- **medicaid_federal_share** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_federal_share.py:7`): unrecognized call select
+- **medicaid_federal_share** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_federal_share.py:0`): enum-indexed parameter 'gov.hhs.medicaid.cost_share.fmap' lacks members ['GU', 'MP', 'PW', 'PR']
 - **medicaid_group** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_group.py:38`): parameter 'gov.states.il.hfs.hbi.eligibility.child.max_age' outside emitted subtrees
 - **medicaid_has_known_claiming_tax_unit** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_has_known_claiming_tax_unit.py:4`): unbound name 'NO_MEDICAID_CLAIMING_TAX_UNIT_ID'
 - **medicaid_home_equity_limit_family_exception** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_home_equity_limit_family_exception.py:7`): attribute 'marital_unit' on value expression
@@ -239,7 +183,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicaid_slcsp_family_tier_person_share** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_family_tier_person_share.py:2`): person ref to non-person variable 'slcsp_age_0'
 - **medicaid_slcsp_state_average_cost_index** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_state_average_cost_index.py:6`): unrecognized call sum_by_state
 - **medicaid_slcsp_state_denominator** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_state_denominator.py:2`): attribute 'simulation' on value expression
-- **medicaid_ssi_recipient_state_classification** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medicaid_ssi_recipient_state_classification.py:7`): unrecognized call select
+- **medicaid_ssi_recipient_state_classification** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medicaid_ssi_recipient_state_classification.py:18`): unbound name 'MedicaidSSIRecipientStateClassification'
 - **medicaid_work_requirement_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_work_requirement_eligible.py:103`): where condition not bool
 - **medicaid_working_disabled_buy_in_premium** (`policyengine_us/variables/gov/hhs/medicaid/medicaid_working_disabled_buy_in_premium.py:2`): unrecognized call tax_unit.members
 - **medicare_gross_cost** (`policyengine_us/variables/gov/hhs/medicare/costs/medicare_gross_cost.py:1`): returns a non-value
@@ -254,7 +198,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **mi_surtax** (`policyengine_us/reforms/states/mi/surtax.py:8`): calc() on non-scale parameter 'gov.contrib.states.mi.surtax.rate.joint'
 - **msp_asset_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_asset_eligible.py:16`): where condition not bool
 - **msp_benefit_value** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_benefit_value.py:12`): unbound name 'MSPCategory'
-- **msp_category** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/category/msp_category.py:7`): unrecognized call select
+- **msp_category** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/category/msp_category.py:10`): unbound name 'MSPCategory'
 - **msp_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_cost.py:3`): unsupported statement For
 - **msp_countable_income** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/income/msp_countable_income.py:2`): unbound name 'period'
 - **msp_federal_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_federal_cost.py:7`): unsupported statement For
@@ -263,29 +207,26 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **net_investment_income_tax** (`policyengine_us/variables/gov/irs/tax/federal_income/net_investment_income_tax.py:3`): unsupported parameter subscript on 'gov.irs.investment.net_investment_income_tax.threshold'
 - **new_clean_vehicle_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_credit_limit.py:4`): add() without literal variable list
 - **new_clean_vehicle_credit_eligible** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_eligible.py:14`): ExtRat breakdown 'gov.irs.credits.clean_vehicle.new.eligibility.income_limit' in value position
-- **new_clean_vehicle_credit_potential** (`policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_potential.py:32`): np.floor
 - **non_refundable_american_opportunity_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/non_refundable_american_opportunity_credit_credit_limit.py:4`): add() without literal variable list
 - **older_spouse_birth_year** (`policyengine_us/variables/household/demographic/tax_unit/older_spouse_birth_year.py:2`): unbound name 'period'
 - **other_net_gain_gross_income** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/other_net_gain_gross_income.py:2`): attribute 'tax_unit' on value expression
 - **pays_aca_premium** (`policyengine_us/variables/gov/aca/eligibility/pays_aca_premium.py:7`): add() without literal variable list
-- **pell_grant** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant.py:10`): unrecognized call select
-- **pell_grant_efc** (`policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_efc.py:8`): unrecognized call select
-- **pell_grant_eligibility_type** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_eligibility_type.py:10`): unrecognized call select
-- **pell_grant_formula** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant_formula.py:6`): unrecognized call select
-- **pell_grant_head_contribution** (`policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution.py:30`): np.zeros_like
-- **pell_grant_household_type** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_household_type.py:5`): unrecognized call select
+- **pell_grant** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant.py:5`): if arm without return
+- **pell_grant_eligibility_type** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_eligibility_type.py:16`): unbound name 'PellGrantEligibilityType'
+- **pell_grant_formula** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant_formula.py:15`): unbound name 'PellGrantFormula'
+- **pell_grant_head_contribution** (`policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution.py:32`): non-simple assignment target
+- **pell_grant_household_type** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_household_type.py:16`): unbound name 'PellGrantHouseholdType'
 - **pell_grant_min_fpg_percent_limit** (`policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_min_fpg_limit.py:14`): parameter 'gov.ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_NOT_PARENT' outside emitted subtrees
 - **pell_grant_simplified_formula_applies** (`policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_simplified_formula_applies.py:2`): attribute 'tax_unit' on value expression
-- **per_capita_chip** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip.py:8`): np.zeros_like
-- **per_capita_chip_gross** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip_gross.py:10`): np.zeros_like
+- **per_capita_chip** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip.py:10`): non-simple assignment target
+- **per_capita_chip_gross** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip_gross.py:12`): non-simple assignment target
 - **person_id** (`policyengine_us/variables/household/demographic/identifiers/person_id.py:2`): np.arange
-- **pha_payment_standard** (`policyengine_us/variables/gov/hud/pha_payment_standard.py:15`): unrecognized call select
 - **qbid_amount** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qbid_amount.py:19`): np.divide
 - **qmb_cost_sharing** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py:9`): unbound name 'MSPCategory'
 - **qualified_business_income** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income.py:4`): unsupported statement For
 - **qualified_business_income_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction.py:19`): ExtRat scale 'gov.irs.deductions.qbi.deduction_floor.amount' in value position
-- **qualified_business_income_deduction_person** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction_person.py:9`): np.zeros_like
-- **race** (`policyengine_us/variables/household/demographic/person/race.py:4`): unrecognized call select
+- **qualified_business_income_deduction_person** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction_person.py:11`): non-simple assignment target
+- **race** (`policyengine_us/variables/household/demographic/person/race.py:15`): unbound name 'Race'
 - **regular_tax_before_credits** (`policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/regular_tax_before_credits.py:6`): non-value handle used as value
 - **residential_clean_energy_credit_credit_limit** (`policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_credit_limit.py:4`): add() without literal variable list
 - **residential_clean_energy_credit_potential** (`policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_potential.py:7`): unsupported syntax ListComp
@@ -297,27 +238,25 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **savers_credit_qualified_contributions** (`policyengine_us/variables/gov/irs/credits/retirement_savings/savers_credit_qualified_contributions.py:3`): add() without literal variable list
 - **school_meal_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_daily_subsidy.py:3`): person ref to non-person variable 'state_group_str'
 - **school_meal_paid_daily_subsidy** (`policyengine_us/variables/gov/usda/school_meals/school_meal_paid_daily_subsidy.py:3`): person ref to non-person variable 'state_group_str'
-- **school_meal_tier** (`policyengine_us/variables/gov/usda/school_meals/school_meal_tier.py:11`): unrecognized call select
-- **section_22_income** (`policyengine_us/variables/gov/irs/credits/elderly_and_disabled/section_22_income.py:9`): unrecognized call select
+- **school_meal_tier** (`policyengine_us/variables/gov/usda/school_meals/school_meal_tier.py:19`): unbound name 'SchoolMealTier'
+- **section_22_income** (`policyengine_us/variables/gov/irs/credits/elderly_and_disabled/section_22_income.py:49`): unsupported parameter subscript on 'gov.irs.credits.elderly_or_disabled.phase_out.threshold'
 - **self_employment_tax** (`policyengine_us/variables/gov/irs/tax/self_employment/self_employment_tax.py:2`): parameter 'gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax' outside emitted subtrees
-- **share_of_care_and_support_costs_paid_by_tax_filer** (`policyengine_us/variables/household/demographic/person/share_of_care_and_support_costs_paid_by_tax_filer.py:6`): np.zeros_like
+- **share_of_care_and_support_costs_paid_by_tax_filer** (`policyengine_us/variables/household/demographic/person/share_of_care_and_support_costs_paid_by_tax_filer.py:8`): non-simple assignment target
 - **slcsp_age_0** (`policyengine_us/variables/gov/aca/slspc/slcsp_age_0.py:12`): unsupported parameter subscript on 'gov.aca.state_rating_area_cost'
-- **slcsp_age_curve_multiplier** (`policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_multiplier.py:6`): unrecognized call select
+- **slcsp_age_curve_multiplier** (`policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_multiplier.py:25`): non-value handle used as value
 - **slcsp_family_tier_amount** (`policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_amount.py:3`): person ref to non-person variable 'slcsp_age_0'
 - **slcsp_family_tier_applies** (`policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_applies.py:3`): person ref to non-person variable 'state_code'
 - **slcsp_family_tier_category** (`policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_category.py:14`): person ref to non-person variable 'state_code_str'
 - **slcsp_family_tier_multiplier** (`policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_multiplier.py:4`): person ref to non-person variable 'state_code'
 - **slcsp_rating_area_default** (`policyengine_us/variables/gov/aca/slspc/slcsp_rating_area_default.py:6`): non-simple assignment target
-- **slcsp_rating_area_la_county** (`policyengine_us/variables/gov/aca/slspc/slcsp_rating_area_la_county.py:4`): non-value handle used as value
+- **slcsp_rating_area_la_county** (`policyengine_us/variables/gov/aca/slspc/slcsp_rating_area_la_county.py:6`): unrecognized call set
 - **snap_child_support_gross_income_deduction** (`policyengine_us/variables/gov/usda/snap/income/gross/snap_child_support_gross_income_deduction.py:3`): person ref to non-person variable 'state_code_str'
 - **snap_emergency_allotment** (`policyengine_us/variables/gov/usda/snap/snap_emergency_allotment.py:13`): person ref to non-person variable 'state_code'
 - **snap_excess_medical_expense_deduction** (`policyengine_us/variables/gov/usda/snap/income/deductions/snap_excess_medical_expense_deduction.py:16`): person ref to non-person variable 'state_code_str'
 - **snap_excess_shelter_expense_deduction** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_excess_shelter_expense_deduction.py:17`): person ref to non-person variable 'snap_region_str'
 - **snap_excluded_child_earner** (`policyengine_us/variables/gov/usda/snap/income/snap_excluded_child_earner.py:2`): non-simple assignment target
-- **snap_expected_contribution** (`policyengine_us/variables/gov/usda/snap/snap_expected_contribution.py:6`): np.floor
 - **snap_fpg** (`policyengine_us/variables/gov/usda/snap/income/snap_fpg.py:3`): person ref to non-person variable 'state_group_str'
 - **snap_gross_test_income** (`policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_test_income.py:36`): add() without literal variable list
-- **snap_income_counted_share** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_income_counted_share.py:5`): unrecognized call select
 - **snap_individual_utility_allowance** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_individual_utility_allowance.py:5`): person ref to non-person variable 'snap_utility_region_str'
 - **snap_limited_utility_allowance** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_limited_utility_allowance.py:5`): person ref to non-person variable 'snap_utility_region_str'
 - **snap_limited_utility_allowance_by_household_size** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_limited_utility_allowance_by_household_size.py:3`): person ref to non-person variable 'snap_utility_region_str'
@@ -333,7 +272,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **snap_state_using_standard_utility_allowance** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_state_using_standard_utility_allowance.py:2`): person ref to non-person variable 'state_code'
 - **snap_unearned_income** (`policyengine_us/variables/gov/usda/snap/income/snap_unearned_income.py:6`): add() without literal variable list
 - **snap_utility_allowance_type** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_utility_allowance_type.py:4`): person ref to non-person variable 'snap_utility_region_str'
-- **snap_utility_region** (`policyengine_us/variables/gov/usda/snap/snap_utility_region.py:9`): non-value handle used as value
+- **snap_utility_region** (`policyengine_us/variables/gov/usda/snap/snap_utility_region.py:10`): unrecognized call is_ak.any
 - **snap_utility_region_str** (`policyengine_us/variables/gov/usda/snap/snap_utility_region_str.py:1`): returns a non-value
 - **spm_unit_count_adults** (`policyengine_us/variables/household/demographic/spm_unit/spm_unit_count_adults.py:2`): unrecognized call spm_unit.members
 - **spm_unit_fpg** (`policyengine_us/variables/gov/hhs/spm_unit_fpg.py:3`): person ref to non-person variable 'state_group_str'
@@ -342,11 +281,10 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **spm_unit_weight** (`policyengine_us/variables/household/demographic/weights/spm_unit_weight.py:3`): person ref to non-person variable 'household_weight'
 - **ss_aime** (`policyengine_us/variables/gov/ssa/social_security/ss_aime.py:7`): unrecognized call _compute_aime
 - **ss_full_retirement_age_months** (`policyengine_us/variables/gov/ssa/social_security/ss_full_retirement_age_months.py:3`): unbound name 'period'
-- **ss_pia** (`policyengine_us/variables/gov/ssa/social_security/ss_pia.py:11`): np.floor
-- **ss_quarters_of_coverage** (`policyengine_us/variables/gov/ssa/social_security/ss_quarters_of_coverage.py:10`): np.floor
+- **ss_quarters_of_coverage** (`policyengine_us/variables/gov/ssa/social_security/ss_quarters_of_coverage.py:10`): unrecognized call np.floor(total_earnings / p.quarters_of_coverage_threshold).astype
 - **ss_retirement_age_adjustment_factor** (`policyengine_us/variables/gov/ssa/social_security/ss_retirement_age_adjustment_factor.py:15`): unrecognized call abs
 - **ssi_amount_if_eligible** (`policyengine_us/variables/gov/ssa/ssi/ssi_amount_if_eligible.py:38`): unbound name 'SSIFederalLivingArrangement'
-- **ssi_category** (`policyengine_us/variables/gov/ssa/ssi/eligibility/status/ssi_category.py:8`): unrecognized call select
+- **ssi_category** (`policyengine_us/variables/gov/ssa/ssi/eligibility/status/ssi_category.py:11`): unbound name 'SSICategory'
 - **ssi_countable_income** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_countable_income.py:23`): non-value handle used as value
 - **ssi_couple_computation_applies** (`policyengine_us/variables/gov/ssa/ssi/ssi_couple_computation_applies.py:16`): unbound name 'SSIFederalLivingArrangement'
 - **ssi_earned_income_deemed_from_ineligible_spouse** (`policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/ssi_earned_income_deemed_from_ineligible_spouse.py:6`): attribute 'marital_unit' on value expression
@@ -369,22 +307,17 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **tanf_person** (`policyengine_us/variables/gov/hhs/tanf/cash/tanf_person.py:2`): attribute 'spm_unit' on value expression
 - **tax_liability_if_itemizing** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_liability_if_itemizing.py:2`): attribute 'simulation' on value expression
 - **tax_liability_if_not_itemizing** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_liability_if_not_itemizing.py:2`): attribute 'simulation' on value expression
-- **tax_unit_earned_income** (`policyengine_us/tools/general.py:2`): unbound name 'variable'
-- **tax_unit_earned_income_last_year** (`policyengine_us/tools/general.py:2`): unbound name 'variable'
 - **tax_unit_fpg** (`policyengine_us/variables/gov/hhs/tax_unit_fpg.py:3`): person ref to non-person variable 'state_group_str'
 - **tax_unit_household_id** (`policyengine_us/variables/household/demographic/tax_unit/tax_unit_household_id.py:3`): unrecognized call tax_unit.value_from_first_person
-- **tax_unit_is_required_to_file** (`policyengine_us/variables/gov/irs/tax_unit_is_required_to_file.py:8`): non-value handle used as value
 - **tax_unit_itemizes** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_unit_itemizes.py:4`): parameter 'gov.simulation.branch_to_determine_itemization' outside emitted subtrees
 - **tax_unit_medicaid_income_level** (`policyengine_us/variables/gov/hhs/medicaid/income/tax_unit_medicaid_income_level.py:5`): person ref to non-person variable 'state_group_str'
 - **tax_unit_size** (`policyengine_us/variables/gov/irs/tax_unit/tax_unit_size.py:2`): unrecognized call tax_unit.nb_persons
 - **tax_unit_state** (`policyengine_us/variables/household/demographic/geographic/tax_unit_state.py:2`): person ref to non-person variable 'state_code_str'
-- **tax_unit_taxable_social_security** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/tax_unit_taxable_social_security.py:63`): unrecognized call select
 - **tax_unit_weight** (`policyengine_us/variables/household/demographic/weights/tax_unit_weight.py:2`): person ref to non-person variable 'household_weight'
 - **taxable_income_deductions_if_itemizing** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.deductions_if_itemizing'
 - **taxable_income_deductions_if_not_itemizing** (`?:0`): adds via DATED parameter list 'gov.irs.deductions.deductions_if_not_itemizing'
 - **taxable_income_less_qbid** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/taxable_income_less_qbid.py:4`): unsupported syntax ListComp
-- **taxable_social_security** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security.py:8`): np.zeros_like
-- **taxable_social_security_tier_1** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security_tier_1.py:40`): unrecognized call select
+- **taxable_social_security** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_social_security.py:10`): non-simple assignment target
 - **taxable_ss_magi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/social_security/taxable_ss_magi.py:5`): unsupported syntax ListComp
 - **taxable_uc_agi** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/taxable_uc_agi.py:4`): unsupported syntax ListComp
 - **three_digit_zip_code** (`policyengine_us/variables/household/demographic/geographic/zip_code/three_digit_zip_code.py:2`): unbound name 'pd'
@@ -399,7 +332,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **wic_category** (`policyengine_us/variables/gov/usda/wic/wic_category.py:7`): attribute 'family' on value expression
 - **wic_category_str** (`policyengine_us/variables/gov/usda/wic/wic_category_str.py:1`): returns a non-value
 - **wic_countable_income** (`policyengine_us/variables/gov/usda/wic/wic_countable_income.py:4`): add() without literal variable list
-- **wic_food_package** (`policyengine_us/variables/gov/usda/wic/wic_food_package.py:24`): unrecognized call select
+- **wic_food_package** (`policyengine_us/variables/gov/usda/wic/wic_food_package.py:66`): unbound name 'WICFoodPackage'
 - **wic_food_package_str** (`policyengine_us/variables/gov/usda/wic/wic_food_package_str.py:1`): returns a non-value
 - **wic_fpg** (`policyengine_us/variables/gov/usda/wic/wic_fpg.py:3`): unrecognized call spm_unit.members
 - **wic_income_limit** (`policyengine_us/variables/gov/usda/wic/wic_income_limit.py:4`): unrecognized call spm_unit.members
