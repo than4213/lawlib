@@ -5630,6 +5630,16 @@
       "sha256": "2a2f8ac6aa33d62ed5968554ee0161e9f11671f5cbb6f5503e64be989f25b975"
     },
     {
+      "name": "capped_advanced_main_air_circulating_fan_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_advanced_main_air_circulating_fan_credit.py",
+      "sha256": "671e895f868dde9dc74e2de92fa3be43d86d72faf6934e9c92bc7fab510aea90"
+    },
+    {
       "name": "capped_electric_heat_pump_clothes_dryer_rebate",
       "entity": "tax_unit",
       "value_type": "float",
@@ -5670,6 +5680,36 @@
       "sha256": "0583d8262176c8e2ab6ef05058e58058d0cfe8ba96dd8a2b22f9cb9ce7569722"
     },
     {
+      "name": "capped_energy_efficient_central_air_conditioner_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_energy_efficient_central_air_conditioner_credit.py",
+      "sha256": "0b855afb8e3e593705fdd95ce5dd786d240ee378596050e8a1a90da7d3766b4c"
+    },
+    {
+      "name": "capped_energy_efficient_door_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_door_credit.py",
+      "sha256": "868169ddb13af68eb62fefe0c76a25c4b2984157a0ecec94ae21ac6b3c80fc0b"
+    },
+    {
+      "name": "capped_energy_efficient_roof_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_roof_credit.py",
+      "sha256": "655e990c3ca2c791d198ba7195974db74855a467655926b967929649f1354a84"
+    },
+    {
       "name": "capped_heat_pump_rebate",
       "entity": "tax_unit",
       "value_type": "float",
@@ -5708,6 +5748,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/capped_insulation_air_sealing_ventilation_rebate.py",
       "sha256": "228ffeebc3a70173d76a02ad7dec869fda550bd3a597a6840e51787024005b19"
+    },
+    {
+      "name": "capped_qualified_furnace_or_hot_water_boiler_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_qualified_furnace_or_hot_water_boiler_credit.py",
+      "sha256": "521953ea9c066d1a76eba9d4141130789d7f3cbe0a597efaf837cd1066112276"
     },
     {
       "name": "ccdf_duration_of_care",
@@ -7428,6 +7478,16 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_ny_age_29_dependent_child.py",
       "sha256": "2af462b3540eacebca06c6da7967b4c2b18e9103c0015df1c56fc2928d95220b"
+    },
+    {
+      "name": "capped_energy_efficient_insulation_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_insulation_credit.py",
+      "sha256": "f0d1c0776ceb7f0de383566404844acd3623314d9ac5856226681b3a94948242"
     },
     {
       "name": "casualty_loss_deduction",
@@ -11988,6 +12048,15 @@
       "note": "AGI machinery out of Phase-1 subtree scope"
     },
     {
+      "name": "advanced_main_air_circulating_fan_expenditures",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "age",
       "entity": "person",
       "value_type": "float",
@@ -12843,6 +12912,24 @@
       "note": ""
     },
     {
+      "name": "energy_efficient_central_air_conditioner_expenditures",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "energy_efficient_door_expenditures",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "energy_efficient_home_improvement_credit_potential",
       "entity": "tax_unit",
       "value_type": "float",
@@ -12853,6 +12940,15 @@
     },
     {
       "name": "energy_efficient_insulation_expenditures",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "energy_efficient_roof_expenditures",
       "entity": "tax_unit",
       "value_type": "float",
       "domain": "core",
@@ -15544,6 +15640,15 @@
       "entity": "person",
       "value_type": "float",
       "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "qualified_furnace_or_hot_water_boiler_expenditures",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "core",
       "period": "year",
       "kind": "input",
       "note": ""

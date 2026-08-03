@@ -12,6 +12,36 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/hud/income/hud_annual_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def hud_annual_income (t : TaxUnit) (d : Date) : Rat :=
+  ((hud_countable_earned_income t d) + (hud_countable_unearned_income t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/income_tax_refundable_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def income_tax_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
+  (if Date.ble ⟨2022, 1, 1⟩ d then (((((eitc t d) + (refundable_american_opportunity_credit t d)) + (refundable_ctc t d)) + (recovery_rebate_credit t d)) + t.irs.refundable_payroll_tax_credit) else (if Date.ble ⟨2021, 1, 1⟩ d then ((((((eitc t d) + (refundable_american_opportunity_credit t d)) + (refundable_ctc t d)) + (recovery_rebate_credit t d)) + t.irs.refundable_payroll_tax_credit) + t.irs.cdcc) else (((((eitc t d) + (refundable_american_opportunity_credit t d)) + (refundable_ctc t d)) + (recovery_rebate_credit t d)) + t.irs.refundable_payroll_tax_credit)))
+
+/-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_category.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type Enum. -/
+def marketplace_csr_category (t : TaxUnit) (d : Date) : MarketplaceCSRCategory :=
+  (if ((marketplace_csr_eligible t d) && (decide ((aca_magi_fraction t d) ≤ (Params.gov.aca.csr.income_threshold.highest_av_maximum.atDate d)))) then MarketplaceCSRCategory.AV_94 else (if ((marketplace_csr_eligible t d) && (decide ((aca_magi_fraction t d) ≤ (Params.gov.aca.csr.income_threshold.middle_av_maximum.atDate d)))) then MarketplaceCSRCategory.AV_87 else (if ((marketplace_csr_eligible t d) && (decide ((aca_magi_fraction t d) ≤ (Params.gov.aca.csr.income_threshold.maximum.atDate d)))) then MarketplaceCSRCategory.AV_73 else MarketplaceCSRCategory.NONE)))
+
+/-- `policyengine_us/variables/gov/irs/credits/ctc/non_refundable_ctc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def non_refundable_ctc (t : TaxUnit) (d : Date) : Rat :=
+  ((ctc t d) - (refundable_ctc t d))
+
+/-- `policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_premium_proxy.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def selected_marketplace_plan_premium_proxy (t : TaxUnit) (d : Date) : Rat :=
+  (if (t.aca.takes_up_aca_if_eligible && (decide ((sumBy t.members fun p => (boolToRat (pays_aca_premium t p d))) > 0))) then (if (t.aca.selected_marketplace_plan_category == MarketplacePlanCategory.BRONZE) then ((lcbp t d) * 12) else (((slcsp t d) * 12) * t.aca.selected_marketplace_plan_benchmark_ratio)) else 0)
+
+/-- `policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_gross_income (t : TaxUnit) (d : Date) : Rat :=
+  (((snap_earned_income t d) + (snap_unearned_income t d)) - (snap_child_support_gross_income_deduction t d))
+
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_base_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amt_base_tax (t : TaxUnit) (d : Date) : Rat :=

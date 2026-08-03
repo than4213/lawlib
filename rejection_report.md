@@ -1,7 +1,7 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc'].
-676 translated, 551 boundary inputs, 215 rejections.
+682 translated, 556 boundary inputs, 209 rejections.
 
 ## Rejections
 
@@ -14,16 +14,10 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **basic_health_program** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program.py:17`): where condition not bool
 - **basic_health_program_tax_unit_enrolled** (`policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_tax_unit_enrolled.py:2`): unrecognized call tax_unit.members
 - **birth_year** (`policyengine_us/variables/household/demographic/age/birth_year.py:3`): unbound name 'period'
-- **capped_advanced_main_air_circulating_fan_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_advanced_main_air_circulating_fan_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_cdcc** (`policyengine_us/variables/gov/irs/credits/cdcc/capped_cdcc.py:4`): comparison In
-- **capped_energy_efficient_central_air_conditioner_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_energy_efficient_central_air_conditioner_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
-- **capped_energy_efficient_door_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_door_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
-- **capped_energy_efficient_insulation_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_insulation_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
-- **capped_energy_efficient_roof_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_roof_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_energy_efficient_window_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/improvements/capped_energy_efficient_window_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit.py:6`): comprehension over non-static list
 - **capped_property_taxes** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/capped_property_taxes.py:0`): ExtRat member of enum-indexed 'gov.irs.deductions.itemized.salt_and_real_estate.cap'
-- **capped_qualified_furnace_or_hot_water_boiler_credit** (`policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/property/capped_qualified_furnace_or_hot_water_boiler_credit.py:0`): type error: cannot coerce ext to rat at ParamValue
 - **capped_qualified_tuition_expenses_ald** (`policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/capped_qualified_tuition_expenses_ald.py:6`): comparison NotIn
 - **ccdf_county_cluster** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_county_cluster.py:5`): np.array
 - **ccdf_market_rate** (`policyengine_us/variables/gov/hhs/ccdf/ccdf_market_rate.py:8`): unsupported parameter subscript on 'gov.hhs.ccdf.amount'

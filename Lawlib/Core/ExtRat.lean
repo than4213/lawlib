@@ -24,6 +24,14 @@ def leCap (x : Rat) : ExtRat → Bool
   | .negInf => false
   | .fin q => x ≤ q
 
+/-- `min x cap`, where `cap = posInf` means no cap applies. The
+extractor only emits this for parameters that are never `-∞`; the
+`negInf` arm is unreachable and returns `x` to stay total. -/
+def minCap (x : Rat) : ExtRat → Rat
+  | .posInf => x
+  | .negInf => x
+  | .fin q => min x q
+
 end ExtRat
 
 end Lawlib

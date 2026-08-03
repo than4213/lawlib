@@ -12,6 +12,36 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/status/ssi_category.py`
+    policyengine-us 1.783.0, entity person, value_type Enum. -/
+def ssi_category (t : TaxUnit) (p : Person) (d : Date) : SSICategory :=
+  (if p.core_p1.is_blind then SSICategory.BLIND else (if (is_ssi_aged t p d) then SSICategory.AGED else (if (is_ssi_disabled t p d) then SSICategory.DISABLED else SSICategory.NONE)))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/ssi_earned_income_deemed_from_ineligible_spouse.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_earned_income_deemed_from_ineligible_spouse (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (max (0 : Rat) (((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((boolToRat (is_ssi_ineligible_spouse t q d)) * (ssi_earned_income t q d)) else 0) else ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_earned_income t p d))) - ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_earned_income t p d))) - (max (0 : Rat) (((ssi_ineligible_child_allocation t p d) * (boolToRat p.ssa.is_ssi_aged_blind_disabled)) - ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((boolToRat (is_ssi_ineligible_spouse t q d)) * (ssi_unearned_income t q d)) else 0) else ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d)))))))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/marital/ssi_marital_earned_income.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_marital_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (ssi_couple_computation_applies t p d) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (ssi_earned_income t q d) else 0) else (ssi_earned_income t p d)) else (ssi_earned_income t p d))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/marital/ssi_marital_unearned_income.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_marital_unearned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (ssi_couple_computation_applies t p d) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (ssi_unearned_income t q d) else 0) else (ssi_unearned_income t p d)) else (ssi_unearned_income t p d))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/ssi_unearned_income_deemed_from_ineligible_spouse.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_unearned_income_deemed_from_ineligible_spouse (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (max (0 : Rat) (((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((boolToRat (is_ssi_ineligible_spouse t q d)) * (ssi_unearned_income t q d)) else 0) else ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - (ssi_ineligible_child_allocation t p d)))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/standard_deduction.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def standard_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (((basic_standard_deduction t d) + (additional_standard_deduction t d)) + t.core.bonus_guaranteed_deduction)
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/unemployment_insurance/tax_exempt_unemployment_compensation.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def tax_exempt_unemployment_compensation (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -731,35 +761,5 @@ def ctc_value (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def eligible_for_refundable_credits (t : TaxUnit) (d : Date) : Bool :=
   (decide (((eitc t d) + (refundable_ctc t d)) > 0))
-
-/-- `policyengine_us/variables/gov/hud/income/hud_annual_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def hud_annual_income (t : TaxUnit) (d : Date) : Rat :=
-  ((hud_countable_earned_income t d) + (hud_countable_unearned_income t d))
-
-/-- `policyengine_us/variables/gov/irs/credits/income_tax_refundable_credits.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def income_tax_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
-  (if Date.ble ⟨2022, 1, 1⟩ d then (((((eitc t d) + (refundable_american_opportunity_credit t d)) + (refundable_ctc t d)) + (recovery_rebate_credit t d)) + t.irs.refundable_payroll_tax_credit) else (if Date.ble ⟨2021, 1, 1⟩ d then ((((((eitc t d) + (refundable_american_opportunity_credit t d)) + (refundable_ctc t d)) + (recovery_rebate_credit t d)) + t.irs.refundable_payroll_tax_credit) + t.irs.cdcc) else (((((eitc t d) + (refundable_american_opportunity_credit t d)) + (refundable_ctc t d)) + (recovery_rebate_credit t d)) + t.irs.refundable_payroll_tax_credit)))
-
-/-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_category.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type Enum. -/
-def marketplace_csr_category (t : TaxUnit) (d : Date) : MarketplaceCSRCategory :=
-  (if ((marketplace_csr_eligible t d) && (decide ((aca_magi_fraction t d) ≤ (Params.gov.aca.csr.income_threshold.highest_av_maximum.atDate d)))) then MarketplaceCSRCategory.AV_94 else (if ((marketplace_csr_eligible t d) && (decide ((aca_magi_fraction t d) ≤ (Params.gov.aca.csr.income_threshold.middle_av_maximum.atDate d)))) then MarketplaceCSRCategory.AV_87 else (if ((marketplace_csr_eligible t d) && (decide ((aca_magi_fraction t d) ≤ (Params.gov.aca.csr.income_threshold.maximum.atDate d)))) then MarketplaceCSRCategory.AV_73 else MarketplaceCSRCategory.NONE)))
-
-/-- `policyengine_us/variables/gov/irs/credits/ctc/non_refundable_ctc.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def non_refundable_ctc (t : TaxUnit) (d : Date) : Rat :=
-  ((ctc t d) - (refundable_ctc t d))
-
-/-- `policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_premium_proxy.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def selected_marketplace_plan_premium_proxy (t : TaxUnit) (d : Date) : Rat :=
-  (if (t.aca.takes_up_aca_if_eligible && (decide ((sumBy t.members fun p => (boolToRat (pays_aca_premium t p d))) > 0))) then (if (t.aca.selected_marketplace_plan_category == MarketplacePlanCategory.BRONZE) then ((lcbp t d) * 12) else (((slcsp t d) * 12) * t.aca.selected_marketplace_plan_benchmark_ratio)) else 0)
-
-/-- `policyengine_us/variables/gov/usda/snap/income/gross/snap_gross_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_gross_income (t : TaxUnit) (d : Date) : Rat :=
-  (((snap_earned_income t d) + (snap_unearned_income t d)) - (snap_child_support_gross_income_deduction t d))
 
 end Lawlib.Gen.Vars

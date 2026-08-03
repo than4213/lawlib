@@ -375,6 +375,7 @@ structure TaxUnit_Aca where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Core where
+  advanced_main_air_circulating_fan_expenditures : Rat := 0
   air_sealing_ventilation_expenditures : Rat := 0
   bedrooms : Rat := 0
   bonus_guaranteed_deduction : Rat := 0
@@ -386,7 +387,10 @@ structure TaxUnit_Core where
   electric_load_service_center_upgrade_expenditures : Rat := 0
   electric_stove_cooktop_range_or_oven_expenditures : Rat := 0
   electric_wiring_expenditures : Rat := 0
+  energy_efficient_central_air_conditioner_expenditures : Rat := 0
+  energy_efficient_door_expenditures : Rat := 0
   energy_efficient_insulation_expenditures : Rat := 0
+  energy_efficient_roof_expenditures : Rat := 0
   filing_status : FilingStatus := .SINGLE
   form_4972_lumpsum_distributions : Rat := 0
   has_heating_cooling_expense : Bool := false
@@ -405,6 +409,7 @@ structure TaxUnit_Core where
   new_clean_vehicle_battery_components_made_in_north_america : Rat := 0
   new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country : Rat := 0
   other_net_gain : Rat := 0
+  qualified_furnace_or_hot_water_boiler_expenditures : Rat := 0
   qualified_passenger_vehicle_loan_interest : Rat := 0
   safmr_used_for_hcv : Bool := false
   separate_filer_itemizes : Bool := false
