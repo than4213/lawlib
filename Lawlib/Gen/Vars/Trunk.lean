@@ -1,2 +1,2 @@
 /- Generated alias for the federal trunk. DO NOT EDIT. -/
-import Lawlib.Gen.Vars.Trunk.P005
+import Lawlib.Gen.Vars.Trunk.P006

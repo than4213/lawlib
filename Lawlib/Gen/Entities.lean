@@ -495,7 +495,6 @@ structure TaxUnit_Irs where
   foreign_tax_credit_potential : Rat := 0
   has_qdiv_or_ltcg : Bool := false
   health_savings_account_ald : Rat := 0
-  income_tax : Rat := 0
   investment_income_form_4952 : Rat := 0
   is_barred_from_american_opportunity_credit_due_to_improper_claims : Bool := false
   is_nonresident_alien_for_american_opportunity_credit : Bool := false
@@ -512,8 +511,6 @@ structure TaxUnit_Irs where
   salt_cap : Rat := 0
   specified_possession_income : Rat := 0
   takes_up_eitc : Bool := false
-  tax_liability_if_itemizing : Rat := 0
-  tax_liability_if_not_itemizing : Rat := 0
   tax_unit_size : Rat := 0
   taxable_ss_magi : Rat := 0
   tuition_and_fees_deduction : Rat := 0
