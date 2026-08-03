@@ -6090,6 +6090,16 @@
       "sha256": "7bf90482e684aff313a905b173f5029c65a2eb9d36c3a3f03fd371364f100b04"
     },
     {
+      "name": "is_adult_for_medicaid_fc",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/adult/is_adult_for_medicaid_fc.py",
+      "sha256": "b5e99cba465852548a3bddde5a79daee742b11858eb2286dc0f9adcfe3f0e6d6"
+    },
+    {
       "name": "is_adult_for_medicaid_nfc",
       "entity": "person",
       "value_type": "bool",
@@ -6480,6 +6490,16 @@
       "sha256": "b422b12425382e533a6c81d8e294b006fd8542742a0684c22735564f216b0a94"
     },
     {
+      "name": "is_young_adult_for_medicaid_fc",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_adult/is_young_adult_for_medicaid_fc.py",
+      "sha256": "de3bb6cc323945a3de3cc22d64aa165fd3e34d18abdb5a6ac421a8cb24e6923d"
+    },
+    {
       "name": "is_young_adult_for_medicaid_nfc",
       "entity": "person",
       "value_type": "bool",
@@ -6760,14 +6780,14 @@
       "sha256": "94040929c92fe4b25182d2a57550c981b21087a6f02a3a055d2256ef851b0ceb"
     },
     {
-      "name": "new_clean_vehicle_credit_potential",
+      "name": "new_clean_vehicle_credit_eligible",
       "entity": "tax_unit",
-      "value_type": "float",
+      "value_type": "bool",
       "validated": false,
-      "quantized": true,
+      "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_potential.py",
-      "sha256": "bc63e27ec08d807caaaf80b77b3f4d392e318c7e0a0d467f4df69284ea445c14"
+      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_eligible.py",
+      "sha256": "69b2cd27e78d46789c01cc16a060fe6b34bf626ba858f6525c9dd2006c47139f"
     },
     {
       "name": "other_net_gain_gross_income",
@@ -7350,24 +7370,14 @@
       "sha256": "0d48cf323be366c218589ce84d01dd785a4563fb5fa79a607b036f341b504f5e"
     },
     {
-      "name": "used_clean_vehicle_credit",
+      "name": "used_clean_vehicle_credit_eligible",
       "entity": "tax_unit",
-      "value_type": "float",
+      "value_type": "bool",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit.py",
-      "sha256": "31eac2bfc113b328592a9dd013fd557763ada7b6336ef2b84e1af447b2e47a9c"
-    },
-    {
-      "name": "used_clean_vehicle_credit_potential",
-      "entity": "tax_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_potential.py",
-      "sha256": "05b4da5b61af31eca9ee42c176bc916bee7c15ed4163d42590fe53b3505e8381"
+      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_eligible.py",
+      "sha256": "6ec7e6c92ab41bd76b44a0dfa0da553485e7c8687c6c5d6136304fad77e9fba7"
     },
     {
       "name": "vita_eligible",
@@ -7880,6 +7890,16 @@
       "sha256": "ca146c9e07fea1f8ba8d242337773a95e20aaf384e675bc235719a47c277911e"
     },
     {
+      "name": "is_optional_senior_or_disabled_asset_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_optional_senior_or_disabled_asset_eligible.py",
+      "sha256": "1632bc2f6c9cc9f00daf4a1804120b332c6d63bd1bc96f8deb14b9cb017b9663"
+    },
+    {
       "name": "is_optional_senior_or_disabled_income_eligible",
       "entity": "person",
       "value_type": "bool",
@@ -8060,6 +8080,16 @@
       "sha256": "47b3d56518dad6f87f216e8953ca555ad3978f2646fa3879462a8478591e7dd7"
     },
     {
+      "name": "meets_tanf_non_cash_asset_test",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/tanf/non_cash/meets_tanf_non_cash_asset_test.py",
+      "sha256": "460b0c3bdb2fb80308388ffc88d28e0e0a26d5be9273543913c6a66720ff9f5f"
+    },
+    {
       "name": "mi_income_tax",
       "entity": "tax_unit",
       "value_type": "float",
@@ -8088,6 +8118,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/income/msp_fpg.py",
       "sha256": "35fa911718764d259b6fe1fb56336a89452c1fe12ae128c683b4155f11b3bcb5"
+    },
+    {
+      "name": "new_clean_vehicle_credit_potential",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": true,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_potential.py",
+      "sha256": "bc63e27ec08d807caaaf80b77b3f4d392e318c7e0a0d467f4df69284ea445c14"
     },
     {
       "name": "non_refundable_american_opportunity_credit_potential",
@@ -8418,6 +8458,26 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/tip_income/tip_income_deduction_ssn_requirement_met.py",
       "sha256": "e48269c8d82da937f3c2e226ff80219389280277f63e2279751e391298f4a31d"
+    },
+    {
+      "name": "used_clean_vehicle_credit",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit.py",
+      "sha256": "31eac2bfc113b328592a9dd013fd557763ada7b6336ef2b84e1af447b2e47a9c"
+    },
+    {
+      "name": "used_clean_vehicle_credit_potential",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_potential.py",
+      "sha256": "05b4da5b61af31eca9ee42c176bc916bee7c15ed4163d42590fe53b3505e8381"
     },
     {
       "name": "above_the_line_deductions",
@@ -12981,7 +13041,7 @@
       "domain": "irs",
       "period": "year",
       "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.irs.income.exemption.phase_out.start' in value position"
+      "note": "type error: cannot coerce ext to rat at ParamEnumIndex"
     },
     {
       "name": "farm_operations_income",
@@ -13479,6 +13539,15 @@
       "note": ""
     },
     {
+      "name": "household_vehicles_value",
+      "entity": "household",
+      "value_type": "float",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "household_weight",
       "entity": "household",
       "value_type": "float",
@@ -13818,15 +13887,6 @@
       "note": "np.any"
     },
     {
-      "name": "is_adult_for_medicaid_fc",
-      "entity": "person",
-      "value_type": "bool",
-      "domain": "hhs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.medicaid.eligibility.categories.adult.income_limit' in value position"
-    },
-    {
       "name": "is_barred_from_american_opportunity_credit_due_to_improper_claims",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -13878,7 +13938,7 @@
       "domain": "hhs",
       "period": "year",
       "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.chip.child.income_limit' in value position"
+      "note": "enum-indexed parameter 'gov.hhs.chip.child.income_limit' lacks members ['GU', 'MP', 'PW', 'PR']"
     },
     {
       "name": "is_chip_eligible_standard_pregnant_person",
@@ -13887,7 +13947,7 @@
       "domain": "hhs",
       "period": "year",
       "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.chip.pregnant.income_limit' in value position"
+      "note": "enum-indexed parameter 'gov.hhs.chip.pregnant.income_limit' lacks members ['GU', 'MP', 'PW', 'PR']"
     },
     {
       "name": "is_chip_fcep_eligible_person",
@@ -13896,7 +13956,7 @@
       "domain": "hhs",
       "period": "year",
       "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.chip.fcep.income_limit' in value position"
+      "note": "np.isin outside enum idioms"
     },
     {
       "name": "is_complying_with_tanf_work_requirements",
@@ -14142,15 +14202,6 @@
       "note": ""
     },
     {
-      "name": "is_optional_senior_or_disabled_asset_eligible",
-      "entity": "person",
-      "value_type": "bool",
-      "domain": "hhs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple' in value position"
-    },
-    {
       "name": "is_parent_of_filer_or_spouse",
       "entity": "person",
       "value_type": "bool",
@@ -14358,22 +14409,13 @@
       "note": ""
     },
     {
-      "name": "is_young_adult_for_medicaid_fc",
-      "entity": "person",
-      "value_type": "bool",
-      "domain": "hhs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.medicaid.eligibility.categories.young_adult.income_limit' in value position"
-    },
-    {
       "name": "itemized_taxable_income_deductions_reduction",
       "entity": "tax_unit",
       "value_type": "float",
       "domain": "irs",
       "period": "year",
       "kind": "rejected",
-      "note": "type error: cannot coerce ext to rat at ParamValue"
+      "note": "type error: cannot coerce ext to rat at ParamEnumIndex"
     },
     {
       "name": "ks_child_care_subsidies",
@@ -14535,7 +14577,7 @@
       "domain": "irs",
       "period": "year",
       "kind": "rejected",
-      "note": "ExtRat member of enum-indexed 'gov.irs.ald.loss.max'"
+      "note": "type error: cannot coerce ext to rat at ParamEnumIndex"
     },
     {
       "name": "loss_limited_net_capital_gains",
@@ -14871,22 +14913,13 @@
       "note": ""
     },
     {
-      "name": "meets_tanf_non_cash_asset_test",
-      "entity": "spm_unit",
-      "value_type": "bool",
-      "domain": "hhs",
-      "period": "month",
-      "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.tanf.non_cash.asset_limit' in value position"
-    },
-    {
       "name": "meets_tanf_non_cash_gross_income_test",
       "entity": "spm_unit",
       "value_type": "bool",
       "domain": "hhs",
       "period": "month",
       "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.hhs.tanf.non_cash.income_limit.gross' in value position"
+      "note": "'Where' object has no attribute 'var'"
     },
     {
       "name": "mi_child_care_subsidies",
@@ -15258,13 +15291,30 @@
       "note": ""
     },
     {
-      "name": "new_clean_vehicle_credit_eligible",
+      "name": "new_clean_vehicle_classification",
       "entity": "tax_unit",
-      "value_type": "bool",
-      "domain": "irs",
+      "value_type": "Enum",
+      "domain": "core",
       "period": "year",
-      "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.irs.credits.clean_vehicle.new.eligibility.income_limit' in value position"
+      "kind": "input",
+      "note": "",
+      "enum": "NewElectricVehicleClassification",
+      "members": [
+        "VAN",
+        "SUV",
+        "PICKUP",
+        "OTHER"
+      ],
+      "default": "OTHER"
+    },
+    {
+      "name": "new_clean_vehicle_msrp",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "nh_child_care_subsidies",
@@ -15604,6 +15654,24 @@
       "entity": "tax_unit",
       "value_type": "float",
       "domain": "irs",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "purchased_qualifying_new_clean_vehicle",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "purchased_qualifying_used_clean_vehicle",
+      "entity": "tax_unit",
+      "value_type": "bool",
+      "domain": "core",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16905,15 +16973,6 @@
       "period": "year",
       "kind": "input",
       "note": ""
-    },
-    {
-      "name": "used_clean_vehicle_credit_eligible",
-      "entity": "tax_unit",
-      "value_type": "bool",
-      "domain": "irs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "ExtRat breakdown 'gov.irs.credits.clean_vehicle.used.eligibility.income_limit' in value position"
     },
     {
       "name": "used_clean_vehicle_sale_price",

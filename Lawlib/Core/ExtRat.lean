@@ -24,6 +24,24 @@ def leCap (x : Rat) : ExtRat → Bool
   | .negInf => false
   | .fin q => x ≤ q
 
+/-- `x < cap`; `posInf` means the bound is absent. -/
+def ltCap (x : Rat) : ExtRat → Bool
+  | .posInf => true
+  | .negInf => false
+  | .fin q => x < q
+
+/-- `x ≥ cap`; `posInf` can never be reached, `negInf` always is. -/
+def geCap (x : Rat) : ExtRat → Bool
+  | .posInf => false
+  | .negInf => true
+  | .fin q => x ≥ q
+
+/-- `x > cap`; `posInf` can never be exceeded, `negInf` always is. -/
+def gtCap (x : Rat) : ExtRat → Bool
+  | .posInf => false
+  | .negInf => true
+  | .fin q => x > q
+
 /-- `min x cap`, where `cap = posInf` means no cap applies. The
 extractor only emits this for parameters that are never `-∞`; the
 `negInf` arm is unreachable and returns `x` to stay total. -/

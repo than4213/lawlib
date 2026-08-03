@@ -184,7 +184,6 @@ structure Person_Hhs where
   chip_federal_share : Rat := 0
   gross_medicare_part_b_premium : Rat := 0
   has_emergency_medical_condition : Bool := false
-  is_adult_for_medicaid_fc : Bool := false
   is_basic_health_program_eligible : Bool := false
   is_chip_eligible_child : Bool := false
   is_chip_eligible_standard_pregnant_person : Bool := false
@@ -193,8 +192,6 @@ structure Person_Hhs where
   is_infant_for_medicaid_fc : Bool := false
   is_medicaid_eligible : Bool := false
   is_medicaid_ineligible_due_to_work_requirement : Bool := false
-  is_optional_senior_or_disabled_asset_eligible : Bool := false
-  is_young_adult_for_medicaid_fc : Bool := false
   medicaid_adjusted_gross_income_person : Rat := 0
   medicaid_category : MedicaidCategory := .NONE
   medicaid_community_engagement_community_service_hours : Rat := 0
@@ -398,6 +395,7 @@ structure TaxUnit_Core where
   heat_pump_water_heater_expenditures : Rat := 0
   home_energy_audit_expenditures : Rat := 0
   household_vehicles_owned : Rat := 0
+  household_vehicles_value : Rat := 0
   household_weight : Rat := 0
   housing_cost : Rat := 0
   is_homeless : Bool := false
@@ -408,7 +406,11 @@ structure TaxUnit_Core where
   new_clean_vehicle_battery_capacity : Rat := 0
   new_clean_vehicle_battery_components_made_in_north_america : Rat := 0
   new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country : Rat := 0
+  new_clean_vehicle_classification : NewElectricVehicleClassification := .OTHER
+  new_clean_vehicle_msrp : Rat := 0
   other_net_gain : Rat := 0
+  purchased_qualifying_new_clean_vehicle : Bool := false
+  purchased_qualifying_used_clean_vehicle : Bool := false
   qualified_furnace_or_hot_water_boiler_expenditures : Rat := 0
   qualified_passenger_vehicle_loan_interest : Rat := 0
   safmr_used_for_hcv : Bool := false
@@ -444,7 +446,6 @@ structure TaxUnit_Hhs where
   is_tanf_non_cash_hheod : Bool := false
   medicaid_working_disabled_buy_in_premium : Rat := 0
   meets_ccdf_activity_test : Bool := false
-  meets_tanf_non_cash_asset_test : Bool := false
   meets_tanf_non_cash_gross_income_test : Bool := false
   receives_tanf : Bool := false
   spm_unit_total_ccdf_copay : Rat := 0
@@ -494,7 +495,6 @@ structure TaxUnit_Irs where
   loss_ald : Rat := 0
   loss_limited_net_capital_gains : Rat := 0
   net_investment_income : Rat := 0
-  new_clean_vehicle_credit_eligible : Bool := false
   puerto_rico_income : Rat := 0
   qualified_business_income_deduction : Rat := 0
   refundable_payroll_tax_credit : Rat := 0
@@ -508,7 +508,6 @@ structure TaxUnit_Irs where
   taxable_uc_agi : Rat := 0
   tuition_and_fees_deduction : Rat := 0
   unreported_payroll_tax : Rat := 0
-  used_clean_vehicle_credit_eligible : Bool := false
   would_file_if_eligible_for_refundable_credit : Bool := false
   would_file_taxes_voluntarily : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson

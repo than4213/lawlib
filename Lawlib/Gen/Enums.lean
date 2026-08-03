@@ -502,6 +502,36 @@ def MedicaidSSIRecipientStateClassification.asStr : MedicaidSSIRecipientStateCla
   | .SECTION_209B => "SECTION_209B"
   | .UNKNOWN => "UNKNOWN"
 
+inductive NewElectricVehicleClassification where
+  | VAN
+  | SUV
+  | PICKUP
+  | OTHER
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson NewElectricVehicleClassification where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "VAN" => pure .VAN
+    | "SUV" => pure .SUV
+    | "PICKUP" => pure .PICKUP
+    | "OTHER" => pure .OTHER
+    | s => throw s!"unknown NewElectricVehicleClassification: {s}"
+
+instance : Lean.ToJson NewElectricVehicleClassification where
+  toJson x := match x with
+    | .VAN => Lean.Json.str "VAN"
+    | .SUV => Lean.Json.str "SUV"
+    | .PICKUP => Lean.Json.str "PICKUP"
+    | .OTHER => Lean.Json.str "OTHER"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def NewElectricVehicleClassification.asStr : NewElectricVehicleClassification → String
+  | .VAN => "VAN"
+  | .SUV => "SUV"
+  | .PICKUP => "PICKUP"
+  | .OTHER => "OTHER"
+
 inductive PellGrantEligibilityType where
   | MAXIMUM
   | MINIMUM
