@@ -64,7 +64,7 @@ echo '{"date":"2023-01-01","tax_unit":{...}}' | ./.lake/build/bin/lawlib
 | Path | What |
 |---|---|
 | `Lawlib/Core/` | hand-written foundations: exact money and rates, dates, dated parameters, bracket scales |
-| `Lawlib/Gen/` | **generated — never hand-edited** (CI-enforced): parameters, entities, the law's formulas |
+| `Lawlib/Gen/` | the imported core: parameters, entities, the law's formulas. Regenerated from upstream by three-way merge — human improvements on the Lean side are preserved and reconciled, with every sync reviewed |
 | `Lawlib/Verify/`, `Lawlib/Theorems/` | machine-checked results about the law |
 | `Tests/` | everything that touches the world: the transcribed IRS table (a fixture — the law generates it), claims about printed artifacts and executed PolicyEngine, and their certified conditionals. Imports the library; never the reverse |
 | `EXTRACTION_MANIFEST.json` | version pins, per-source hashes, the declared input boundary, date coverage |
