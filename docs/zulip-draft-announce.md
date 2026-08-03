@@ -59,12 +59,8 @@ computing in exact arithmetic, gets to measure).
   report, a theorem.
 
 **What you have to trust.** The symbolic theorems are ordinary kernel
-proofs. Whole-table computations use `native_decide`, which
-additionally trusts the Lean compiler. Statements about the physical
-world — "this transcription matches the printed page", "PolicyEngine
-run on the same household returns the same number" — are never
-asserted: they are named `Prop`s carried as explicit hypotheses,
-housed in a separate test layer, so `#print axioms` stays clean for
+proofs; whole-table computations use `native_decide`, which
+additionally trusts the Lean compiler. `#print axioms` is clean for
 the whole library. And the library contains *law only*: pre-computed
 inflation projections in the source data are classified out (a
 forecast of a future administrative act is not law).
@@ -76,8 +72,7 @@ the boundary is exact). Details and a 20-line reproduction in the bug
 thread: [link].
 
 **What I'd love from you.** Review of naming and idioms (especially
-the generated-code conventions), opinions on the claims-as-hypotheses
-pattern for statements about the world, and pointers if any of this
+the generated-code conventions), and pointers if any of this
 duplicates existing work. The translator
 ([pe2lean](https://github.com/than4213/pe2lean), Apache-2.0)
 generalizes to any OpenFisca-style system; lawlib itself is AGPL-3.0

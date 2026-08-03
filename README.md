@@ -97,11 +97,9 @@ echo '{"date":"2023-01-01","tax_unit":{...}}' | ./.lake/build/bin/lawlib
 
 **What you have to trust**: symbolic theorems are ordinary kernel
 proofs; whole-table computations use `native_decide` (adds the Lean
-compiler). Statements about the world — the printed page, executed
-PolicyEngine — are never asserted: they are named `Prop`s taken as
-explicit hypotheses, kept in [`Tests/`](Tests/)
-([docs/CLAIMS.md](docs/CLAIMS.md)); `#print axioms` is clean for the
-whole library.
+compiler); `#print axioms` is clean for the whole library. How
+world-facing checks are quarantined in [`Tests/`](Tests/):
+[docs/categories.md](docs/categories.md).
 
 See [docs/FINDINGS.md](docs/FINDINGS.md) — 20 findings so far, from
 PolicyEngine's float32 residue to a Lean compiler bug with a 20-line
