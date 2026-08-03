@@ -328,6 +328,11 @@ def auto_loan_interest_deduction (t : TaxUnit) (d : Date) : Rat :=
 def basic_health_program_enrolled (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if p.hhs.is_basic_health_program_eligible then (decide (boolToRat p.hhs.takes_up_basic_health_program_if_eligible ≠ 0)) else false)
 
+/-- `policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_amount.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def basic_health_program_family_tier_amount (t : TaxUnit) (d : Date) : Rat :=
+  (if t.aca.slcsp_family_tier_applies then (t.aca.slcsp_age_0 * t.hhs.basic_health_program_family_tier_multiplier) else 0)
+
 /-- `policyengine_us/variables/household/demographic/tax_unit/blind_head.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def blind_head (t : TaxUnit) (d : Date) : Bool :=
@@ -477,11 +482,6 @@ def estate_tax_before_credits (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
 def exemptions_count (t : TaxUnit) (d : Date) : Rat :=
   t.irs.tax_unit_size
-
-/-- `policyengine_us/variables/gov/fcc/fcc_fpg_ratio.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def fcc_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
-  ((sumBy t.members fun p => p.irs.irs_gross_income) / t.hhs.spm_unit_fpg)
 
 /-- `policyengine_us/variables/gov/irs/total_income_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -733,11 +733,6 @@ def is_ssi_qualified_noncitizen (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def is_tanf_enrolled (t : TaxUnit) (d : Date) : Bool :=
   t.hhs.receives_tanf
 
-/-- `policyengine_us/variables/gov/hhs/tanf/non_cash/is_tanf_non_cash_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def is_tanf_non_cash_eligible (t : TaxUnit) (d : Date) : Bool :=
-  ((t.hhs.meets_tanf_non_cash_gross_income_test && t.hhs.meets_tanf_non_cash_net_income_test) && t.hhs.meets_tanf_non_cash_asset_test)
-
 /-- `policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_dependent.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_tax_unit_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -767,5 +762,10 @@ def is_veteran (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_working_disabled_buy_in_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((p.states_ca.ca_wdp_eligible || p.states_il.il_hbwd_eligible) || p.states_ms.ms_wd_eligible)
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_adult/is_young_adult_for_medicaid_nfc.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_young_adult_for_medicaid_nfc (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (decide ((Params.gov.hhs.medicaid.eligibility.categories.young_adult.age_range.atDate d p.core.age) ≠ 0))
 
 end Lawlib.Gen.Vars

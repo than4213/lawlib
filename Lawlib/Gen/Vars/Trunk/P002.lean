@@ -12,11 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_adult/is_young_adult_for_medicaid_nfc.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_young_adult_for_medicaid_nfc (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide ((Params.gov.hhs.medicaid.eligibility.categories.young_adult.age_range.atDate d p.core.age) ≠ 0))
-
 /-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/young_child/is_young_child_for_medicaid_fc.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_young_child_for_medicaid_fc (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -42,10 +37,10 @@ def itemized_taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
 def k401_catch_up_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide (p.core.age ≥ (Params.gov.irs.gross_income.retirement_contributions.catch_up.age_threshold.atDate d)))
 
-/-- `policyengine_us/variables/gov/aca/lcbp/lcbp.py`
+/-- `policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def lcbp (t : TaxUnit) (d : Date) : Rat :=
-  ((sumBy t.members fun p => p.aca.lcbp_age_curve_amount_person) + t.aca.lcbp_family_tier_amount)
+def lcbp_family_tier_amount (t : TaxUnit) (d : Date) : Rat :=
+  (if t.aca.slcsp_family_tier_applies then (t.aca.lcbp_age_0 * t.aca.lcbp_family_tier_multiplier) else 0)
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/limited_capital_loss.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -56,6 +51,11 @@ def limited_capital_loss (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity household, value_type bool. -/
 def lives_in_vehicle (t : TaxUnit) (d : Date) : Bool :=
   (t.core.is_homeless && (decide (t.core.household_vehicles_owned > 0)))
+
+/-- `policyengine_us/variables/household/demographic/marital_unit/marital_unit_weight.py`
+    policyengine-us 1.783.0, entity marital_unit, value_type float. -/
+def marital_unit_weight (t : TaxUnit) (d : Date) : Rat :=
+  t.core.household_weight
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_community_engagement_activity_hours.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -247,6 +247,11 @@ def self_employment_tax_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :
 def slcsp_age_curve_applies (t : TaxUnit) (d : Date) : Bool :=
   (!t.aca.slcsp_family_tier_applies)
 
+/-- `policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_amount.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def slcsp_family_tier_amount (t : TaxUnit) (d : Date) : Rat :=
+  (if t.aca.slcsp_family_tier_applies then (t.aca.slcsp_age_0 * t.aca.slcsp_family_tier_multiplier) else 0)
+
 /-- `policyengine_us/variables/gov/aca/slspc/slcsp_rating_area.py`
     policyengine-us 1.783.0, entity household, value_type int. -/
 def slcsp_rating_area (t : TaxUnit) (d : Date) : Rat :=
@@ -287,10 +292,20 @@ def snap_utility_allowance (t : TaxUnit) (d : Date) : Rat :=
 def social_security (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (((p.ssa.social_security_dependents + p.ssa.social_security_disability) + p.ssa.social_security_retirement) + p.ssa.social_security_survivors)
 
+/-- `policyengine_us/variables/gov/hhs/spm_unit_fpg.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def spm_unit_fpg (t : TaxUnit) (d : Date) : Rat :=
+  ((if t.core.state_group_str == "AK" then (Params.gov.hhs.fpg.first_person.AK.atDate d) else (if t.core.state_group_str == "CONTIGUOUS_US" then (Params.gov.hhs.fpg.first_person.CONTIGUOUS_US.atDate d) else (if t.core.state_group_str == "GU" then (Params.gov.hhs.fpg.first_person.GU.atDate d) else (if t.core.state_group_str == "HI" then (Params.gov.hhs.fpg.first_person.HI.atDate d) else (if t.core.state_group_str == "PR" then (Params.gov.hhs.fpg.first_person.PR.atDate d) else (Params.gov.hhs.fpg.first_person.VI.atDate d)))))) + ((if t.core.state_group_str == "AK" then (Params.gov.hhs.fpg.additional_person.AK.atDate d) else (if t.core.state_group_str == "CONTIGUOUS_US" then (Params.gov.hhs.fpg.additional_person.CONTIGUOUS_US.atDate d) else (if t.core.state_group_str == "GU" then (Params.gov.hhs.fpg.additional_person.GU.atDate d) else (if t.core.state_group_str == "HI" then (Params.gov.hhs.fpg.additional_person.HI.atDate d) else (if t.core.state_group_str == "PR" then (Params.gov.hhs.fpg.additional_person.PR.atDate d) else (Params.gov.hhs.fpg.additional_person.VI.atDate d)))))) * (t.core.spm_unit_size - 1)))
+
 /-- `policyengine_us/variables/household/demographic/spm_unit/spm_unit_is_married.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def spm_unit_is_married (t : TaxUnit) (d : Date) : Bool :=
   (anyBy t.members fun p => p.core.is_tax_unit_spouse)
+
+/-- `policyengine_us/variables/household/demographic/weights/spm_unit_weight.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def spm_unit_weight (t : TaxUnit) (d : Date) : Rat :=
+  t.core.household_weight
 
 /-- `policyengine_us/variables/household/demographic/tax_unit/spouse_is_dependent_elsewhere.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -347,6 +362,11 @@ def ssi_marital_both_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def state_and_local_sales_or_income_tax (t : TaxUnit) (d : Date) : Rat :=
   (max ((t.states_tax.state_withheld_income_tax + t.local_tax.local_income_tax) : Rat) (t.states_tax.state_sales_tax + t.local_tax.local_sales_tax))
 
+/-- `policyengine_us/variables/gov/usda/school_meals/state_has_universal_free_school_meals.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def state_has_universal_free_school_meals (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.state_code_str == "AA" then (Params.gov.usda.school_meals.state_universal_free_meals.AA.atDate d) else (if t.core.state_code_str == "AE" then (Params.gov.usda.school_meals.state_universal_free_meals.AE.atDate d) else (if t.core.state_code_str == "AK" then (Params.gov.usda.school_meals.state_universal_free_meals.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.usda.school_meals.state_universal_free_meals.AL.atDate d) else (if t.core.state_code_str == "AP" then (Params.gov.usda.school_meals.state_universal_free_meals.AP.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.usda.school_meals.state_universal_free_meals.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.usda.school_meals.state_universal_free_meals.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.usda.school_meals.state_universal_free_meals.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.usda.school_meals.state_universal_free_meals.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.usda.school_meals.state_universal_free_meals.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.usda.school_meals.state_universal_free_meals.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.usda.school_meals.state_universal_free_meals.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.usda.school_meals.state_universal_free_meals.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.usda.school_meals.state_universal_free_meals.GA.atDate d) else (if t.core.state_code_str == "GU" then (Params.gov.usda.school_meals.state_universal_free_meals.GU.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.usda.school_meals.state_universal_free_meals.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.usda.school_meals.state_universal_free_meals.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.usda.school_meals.state_universal_free_meals.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.usda.school_meals.state_universal_free_meals.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.usda.school_meals.state_universal_free_meals.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.usda.school_meals.state_universal_free_meals.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.usda.school_meals.state_universal_free_meals.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.usda.school_meals.state_universal_free_meals.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.usda.school_meals.state_universal_free_meals.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.usda.school_meals.state_universal_free_meals.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.usda.school_meals.state_universal_free_meals.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.usda.school_meals.state_universal_free_meals.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.usda.school_meals.state_universal_free_meals.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.usda.school_meals.state_universal_free_meals.MO.atDate d) else (if t.core.state_code_str == "MP" then (Params.gov.usda.school_meals.state_universal_free_meals.MP.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.usda.school_meals.state_universal_free_meals.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.usda.school_meals.state_universal_free_meals.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.usda.school_meals.state_universal_free_meals.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.usda.school_meals.state_universal_free_meals.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.usda.school_meals.state_universal_free_meals.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.usda.school_meals.state_universal_free_meals.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.usda.school_meals.state_universal_free_meals.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.usda.school_meals.state_universal_free_meals.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.usda.school_meals.state_universal_free_meals.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.usda.school_meals.state_universal_free_meals.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.usda.school_meals.state_universal_free_meals.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.usda.school_meals.state_universal_free_meals.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.usda.school_meals.state_universal_free_meals.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.usda.school_meals.state_universal_free_meals.PA.atDate d) else (if t.core.state_code_str == "PR" then (Params.gov.usda.school_meals.state_universal_free_meals.PR.atDate d) else (if t.core.state_code_str == "PW" then (Params.gov.usda.school_meals.state_universal_free_meals.PW.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.usda.school_meals.state_universal_free_meals.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.usda.school_meals.state_universal_free_meals.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.usda.school_meals.state_universal_free_meals.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.usda.school_meals.state_universal_free_meals.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.usda.school_meals.state_universal_free_meals.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.usda.school_meals.state_universal_free_meals.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.usda.school_meals.state_universal_free_meals.VA.atDate d) else (if t.core.state_code_str == "VI" then (Params.gov.usda.school_meals.state_universal_free_meals.VI.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.usda.school_meals.state_universal_free_meals.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.usda.school_meals.state_universal_free_meals.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.usda.school_meals.state_universal_free_meals.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.usda.school_meals.state_universal_free_meals.WV.atDate d) else (Params.gov.usda.school_meals.state_universal_free_meals.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
 /-- `policyengine_us/variables/gov/hhs/tanf/cash/tanf.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def tanf (t : TaxUnit) (d : Date) : Rat :=
@@ -402,6 +422,11 @@ def tax_unit_rental_income (t : TaxUnit) (d : Date) : Rat :=
 def tax_unit_unemployment_compensation (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => p.states.unemployment_compensation)
 
+/-- `policyengine_us/variables/household/demographic/weights/tax_unit_weight.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def tax_unit_weight (t : TaxUnit) (d : Date) : Rat :=
+  t.core.household_weight
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
@@ -446,6 +471,11 @@ def wagering_losses_deduction (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def aca_magi_fraction (t : TaxUnit) (d : Date) : Rat :=
   (((ratFloor ((100 * (max (0 : Rat) (aca_magi t d))) / t.hhs.tax_unit_fpg)) : Rat) / 100)
+
+/-- `policyengine_us/variables/gov/fcc/acp/acp.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def acp (t : TaxUnit) (d : Date) : Rat :=
+  (if t.fcc.is_acp_eligible then (min (((if t.core.is_on_tribal_land then (Params.gov.fcc.acp.amount.tribal.atDate d) else (Params.gov.fcc.acp.amount.standard.atDate d)) * 12) : Rat) (broadband_cost_after_lifeline t d)) else 0)
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/senior_deduction/additional_senior_deduction_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -537,6 +567,11 @@ def disabled_tax_unit_head_or_spouse (t : TaxUnit) (d : Date) : Bool :=
 def dwks10 (t : TaxUnit) (d : Date) : Rat :=
   (if t.irs.has_qdiv_or_ltcg then ((dividend_income_reduced_by_investment_income t d) + (dwks09 t d)) else ((max (0 : Rat) (min (((sumBy t.members fun p => p.core.long_term_capital_gains) + (sumBy t.members fun p => p.core.qualified_dividend_income)) : Rat) t.core.net_capital_gains)) + (sumBy t.members fun p => p.core.non_sch_d_capital_gains)))
 
+/-- `policyengine_us/variables/gov/fcc/ebb/ebb.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def ebb (t : TaxUnit) (d : Date) : Rat :=
+  (if t.fcc.is_ebb_eligible then (min (((if t.core.is_on_tribal_land then (Params.gov.fcc.ebb.amount.tribal.atDate d) else (Params.gov.fcc.ebb.amount.standard.atDate d)) * 12) : Rat) (broadband_cost_after_lifeline t d)) else 0)
+
 /-- `policyengine_us/variables/gov/irs/credits/education/education_credit_phase_out.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def education_credit_phase_out (t : TaxUnit) (d : Date) : Rat :=
@@ -566,6 +601,11 @@ def employer_total_federal_unemployment_tax (t : TaxUnit) (p : Person) (d : Date
     policyengine-us 1.783.0, entity person, value_type float. -/
 def estate_tax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (max (0 : Rat) ((estate_tax_before_credits t p d) - p.irs.estate_tax_credit))
+
+/-- `policyengine_us/variables/gov/fcc/fcc_fpg_ratio.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def fcc_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
+  ((sumBy t.members fun p => p.irs.irs_gross_income) / (spm_unit_fpg t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/filer_meets_american_opportunity_credit_identification_requirements.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -607,10 +647,10 @@ def has_disabled_spouse (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def has_usda_elderly_disabled (t : TaxUnit) (d : Date) : Bool :=
   (anyBy t.members fun p => ((is_usda_elderly t p d) || p.usda.is_usda_disabled))
 
-/-- `policyengine_us/variables/gov/hud/hud_hap.py`
+/-- `policyengine_us/variables/gov/hud/hud_max_subsidy.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def hud_hap (t : TaxUnit) (d : Date) : Rat :=
-  (min (t.hud.hud_max_subsidy : Rat) (max (0 : Rat) ((hud_gross_rent t d) - t.hud.hud_ttp)))
+def hud_max_subsidy (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) ((pha_payment_standard t d) - t.hud.hud_ttp))
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/irs_employment_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -717,49 +757,9 @@ def is_wic_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def k401_catch_up_limit (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (k401_catch_up_eligible t p d) then (Params.gov.irs.gross_income.retirement_contributions.catch_up.limit.k401.atDate d p.core.age) else 0)
 
-/-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_phase_out.py`
+/-- `policyengine_us/variables/gov/aca/lcbp/lcbp.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def lifetime_learning_credit_phase_out (t : TaxUnit) (d : Date) : Rat :=
-  (min (1 : Rat) ((max (0 : Rat) (t.irs.adjusted_gross_income - (if (tax_unit_is_joint t d) then (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.start.joint.atDate d) else (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.start.single.atDate d)))) / (if (tax_unit_is_joint t d) then (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.length.joint.atDate d) else (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.length.single.atDate d))))
-
-/-- `policyengine_us/variables/gov/aca/csr/marketplace_effective_actuarial_value.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def marketplace_effective_actuarial_value (t : TaxUnit) (d : Date) : Rat :=
-  (max ((selected_marketplace_plan_actuarial_value t d) : Rat) t.aca.marketplace_csr_actuarial_value)
-
-/-- `policyengine_us/variables/gov/hhs/medicaid/medicaid_cost.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def medicaid_cost (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (medicaid_enrolled t p d) then p.hhs.medicaid_cost_if_enrolled else 0)
-
-/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_is_tax_dependent.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def medicaid_is_tax_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((is_tax_unit_dependent t p d) || p.core.claimed_as_dependent_on_another_return) || p.hhs.medicaid_has_known_claiming_tax_unit)
-
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/medical_expense_deduction.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def medical_expense_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (max (0 : Rat) ((itemized_medical_expenses t d) - ((Params.gov.irs.deductions.itemized.medical.floor.atDate d) * (positive_agi t d))))
-
-/-- `policyengine_us/variables/gov/hhs/medicare/costs/medicare_enrolled.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def medicare_enrolled (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (is_medicare_eligible t p d) then (decide (boolToRat p.hhs.takes_up_medicare_if_eligible ≠ 0)) else false)
-
-/-- `policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/meets_snap_work_requirements_person.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def meets_snap_work_requirements_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (decide ((sumBy t.members fun p => (boolToRat (decide ((monthly_age t p d) < (if p.usda.is_snap_abawd_hr1_in_effect then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩)))))) = 0)) then (p.usda.meets_snap_abawd_work_requirements && p.usda.meets_snap_general_work_requirements) else p.usda.meets_snap_general_work_requirements)
-
-/-- `policyengine_us/reforms/states/mi/surtax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def mi_income_tax (t : TaxUnit) (d : Date) : Rat :=
-  (if (MI t d) then ((t.states_mi.mi_income_tax_before_refundable_credits + t.core.mi_surtax) - t.states_mi.mi_refundable_credits) else 0)
-
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/misc_deduction.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def misc_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if (Params.gov.irs.deductions.itemized.misc.applies.atDate d) then (max (0 : Rat) ((total_misc_deductions t d) - ((Params.gov.irs.deductions.itemized.misc.floor.atDate d) * (positive_agi t d)))) else 0)
+def lcbp (t : TaxUnit) (d : Date) : Rat :=
+  ((sumBy t.members fun p => p.aca.lcbp_age_curve_amount_person) + (lcbp_family_tier_amount t d))
 
 end Lawlib.Gen.Vars

@@ -312,13 +312,14 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Aca where
   aca_required_contribution_percentage : Rat := 0
-  lcbp_family_tier_amount : Rat := 0
+  lcbp_age_0 : Rat := 0
+  lcbp_family_tier_multiplier : Rat := 0
   marketplace_csr_actuarial_value : Rat := 0
   selected_marketplace_plan_benchmark_ratio : Rat := 0
   selected_marketplace_plan_category : MarketplacePlanCategory := .SILVER
   slcsp_age_0 : Rat := 0
-  slcsp_family_tier_amount : Rat := 0
   slcsp_family_tier_applies : Bool := false
+  slcsp_family_tier_multiplier : Rat := 0
   slcsp_rating_area_default : Rat := 0
   slcsp_rating_area_la_county : Rat := 0
   takes_up_aca_if_eligible : Bool := false
@@ -343,7 +344,9 @@ structure TaxUnit_Core where
   home_energy_audit_expenditures : Rat := 0
   household_vehicles_owned : Rat := 0
   household_weight : Rat := 0
+  housing_cost : Rat := 0
   is_homeless : Bool := false
+  is_on_tribal_land : Bool := false
   is_sro : Bool := false
   mi_surtax : Rat := 0
   net_capital_gains : Rat := 0
@@ -373,21 +376,22 @@ structure TaxUnit_Ed where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Fcc where
+  is_acp_eligible : Bool := false
+  is_ebb_eligible : Bool := false
   lifeline : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hhs where
-  basic_health_program_family_tier_amount : Rat := 0
+  basic_health_program_family_tier_multiplier : Rat := 0
   hhs_smi : Rat := 0
+  is_tanf_non_cash_hheod : Bool := false
   medicaid_magi : Rat := 0
   medicaid_working_disabled_buy_in_premium : Rat := 0
   meets_ccdf_activity_test : Bool := false
   meets_tanf_non_cash_asset_test : Bool := false
   meets_tanf_non_cash_gross_income_test : Bool := false
-  meets_tanf_non_cash_net_income_test : Bool := false
   meets_tanf_work_requirements : Bool := false
   receives_tanf : Bool := false
-  spm_unit_fpg : Rat := 0
   spm_unit_total_ccdf_copay : Rat := 0
   takes_up_tanf_if_eligible : Bool := false
   tanf_if_takes_up : Rat := 0
@@ -396,7 +400,6 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hud where
   hud_fair_market_rent : Rat := 0
-  hud_max_subsidy : Rat := 0
   hud_ttp : Rat := 0
   hud_utility_allowance : Rat := 0
   is_eligible_for_housing_assistance : Bool := false
@@ -665,18 +668,15 @@ structure TaxUnit_Usda where
   school_meal_daily_subsidy : Rat := 0
   school_meal_paid_daily_subsidy : Rat := 0
   school_meal_tier : SchoolMealTier := .PAID
-  snap_child_support_gross_income_deduction : Rat := 0
   snap_emergency_allotment : Rat := 0
-  snap_excess_medical_expense_deduction : Rat := 0
-  snap_excess_shelter_expense_deduction : Rat := 0
   snap_fpg : Rat := 0
   snap_gross_test_income : Rat := 0
   snap_individual_utility_allowance : Rat := 0
   snap_limited_utility_allowance : Rat := 0
-  snap_max_allotment : Rat := 0
   snap_min_allotment : Rat := 0
+  snap_net_income_pre_shelter : Rat := 0
+  snap_region_str : String := ""
   snap_self_employment_expense_deduction : Rat := 0
-  snap_standard_deduction : Rat := 0
   snap_standard_utility_allowance : Rat := 0
   snap_unearned_income : Rat := 0
   takes_up_snap_if_eligible : Bool := false
