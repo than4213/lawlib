@@ -1,4 +1,5 @@
 import Lawlib.Core.Date
+import Lawlib.Core.Unspecified
 import Lawlib.Core.ExtRat
 
 /-!
@@ -38,34 +39,35 @@ def atDate (s : Scale) (d : Date) (x : Rat) : Rat :=
     if b.threshold.atDate d ≤ x then b.amount.atDate d else acc
 
 /-- Last bracket's threshold at date `d` (PolicyEngine's
-`scale.thresholds[-1]` idiom, e.g. the CTC child age limit). `0` for an
-empty scale. -/
+`scale.thresholds[-1]` idiom, e.g. the CTC child age limit).
+`unspecified` for an empty scale. -/
 def lastThreshold (s : Scale) (d : Date) : Rat :=
   match s.brackets.getLast? with
   | some b => b.threshold.atDate d
-  | none => 0
+  | none => unspecified Rat
 
 /-- The `i`-th bracket's rate/amount at date `d` (PolicyEngine's
-`scale.rates[i]` idiom, e.g. the AMT 28% upper rate). `0` past the end. -/
+`scale.rates[i]` idiom, e.g. the AMT 28% upper rate).
+`unspecified` past the end. -/
 def rateAt (s : Scale) (d : Date) (i : Nat) : Rat :=
   match s.brackets[i]? with
   | some b => b.amount.atDate d
-  | none => 0
+  | none => unspecified Rat
 
 /-- The `i`-th bracket's threshold at date `d` (PolicyEngine's
-`scale.thresholds[i]` idiom). `0` past the end. -/
+`scale.thresholds[i]` idiom). `unspecified` past the end. -/
 def thresholdAt (s : Scale) (d : Date) (i : Nat) : Rat :=
   match s.brackets[i]? with
   | some b => b.threshold.atDate d
-  | none => 0
+  | none => unspecified Rat
 
 /-- Last bracket's rate/amount at date `d` (PolicyEngine's
-`scale.rates[-1]` idiom, e.g. the top AMT rate). `0` for an empty
-scale. -/
+`scale.rates[-1]` idiom, e.g. the top AMT rate).
+`unspecified` for an empty scale. -/
 def lastRate (s : Scale) (d : Date) : Rat :=
   match s.brackets.getLast? with
   | some b => b.amount.atDate d
-  | none => 0
+  | none => unspecified Rat
 
 end Scale
 

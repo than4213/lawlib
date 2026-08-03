@@ -1,3 +1,5 @@
+import Lawlib.Core.Unspecified
+
 /-!
 # Extended rationals
 
@@ -44,10 +46,10 @@ def gtCap (x : Rat) : ExtRat → Bool
 
 /-- `min x cap`, where `cap = posInf` means no cap applies. The
 extractor only emits this for parameters that are never `-∞`; the
-`negInf` arm is unreachable and returns `x` to stay total. -/
+`negInf` arm is unreachable; it returns `unspecified` to stay total. -/
 def minCap (x : Rat) : ExtRat → Rat
   | .posInf => x
-  | .negInf => x
+  | .negInf => unspecified Rat
   | .fin q => min x q
 
 end ExtRat
