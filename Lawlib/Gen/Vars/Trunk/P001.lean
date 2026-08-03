@@ -378,6 +378,11 @@ def capped_home_energy_audit_credit (t : TaxUnit) (d : Date) : Rat :=
 def capped_insulation_air_sealing_ventilation_rebate (t : TaxUnit) (d : Date) : Rat :=
   (min (((t.core.energy_efficient_insulation_expenditures + t.core.air_sealing_ventilation_expenditures) * t.doe.high_efficiency_electric_home_rebate_percent_covered) : Rat) (Params.gov.doe.high_efficiency_electric_home_rebate.cap.insulation_air_sealing_ventilation.atDate d))
 
+/-- `policyengine_us/variables/gov/hhs/ccdf/ccdf_duration_of_care.py`
+    policyengine-us 1.783.0, entity person, value_type Enum. -/
+def ccdf_duration_of_care (t : TaxUnit) (p : Person) (d : Date) : CCDFDurationOfCare :=
+  (if (decide ((p.core_p1.childcare_hours_per_day * p.core_p1.childcare_days_per_week) ≥ 30)) then CCDFDurationOfCare.WEEKLY else (if (decide (p.core_p1.childcare_hours_per_day ≥ 6)) then CCDFDurationOfCare.DAILY else (if (decide (p.core_p1.childcare_hours_per_day ≥ 3)) then CCDFDurationOfCare.PART_DAY else CCDFDurationOfCare.HOURLY)))
+
 /-- `policyengine_us/variables/gov/hhs/ccdf/ccdf_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ccdf_income (t : TaxUnit) (d : Date) : Rat :=
@@ -392,6 +397,11 @@ def charitable_deduction_for_non_itemizers (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
   ((((((((((((((((((((((((((((((((((((((((t.states_ak.ak_child_care_subsidies + t.states_ar.ar_child_care_subsidies) + t.states_al.al_child_care_subsidies) + t.states_az.az_child_care_subsidies) + (t.states_ca.ca_child_care_subsidies * 12)) + t.states_co.co_child_care_subsidies) + t.states_ct.ct_child_care_subsidies) + t.states_de.de_child_care_subsidies) + t.states_fl.fl_child_care_subsidies) + t.states_ga.ga_child_care_subsidies) + t.states_hi.hi_child_care_subsidies) + t.states_ia.ia_child_care_subsidies) + t.states_id.id_child_care_subsidies) + t.states_in.in_child_care_subsidies) + t.states_ks.ks_child_care_subsidies) + t.states_ky.ky_child_care_subsidies) + t.states_la.la_child_care_subsidies) + t.states_ma.ma_child_care_subsidies) + t.states_md.md_child_care_subsidies) + t.states_me.me_child_care_subsidies) + t.states_mi.mi_child_care_subsidies) + t.states_mn.mn_child_care_subsidies) + t.states_mo.mo_child_care_subsidies) + t.states_ms.ms_child_care_subsidies) + t.states_mt.mt_child_care_subsidies) + t.states_ne.ne_child_care_subsidies) + t.states_nm.nm_child_care_subsidies) + t.states_vt.vt_child_care_subsidies) + t.states_nh.nh_child_care_subsidies) + t.states_pa.pa_child_care_subsidies) + t.states_nj.nj_child_care_subsidies) + t.states_oh.oh_child_care_subsidies) + t.states_nv.nv_child_care_subsidies) + t.states_ri.ri_child_care_subsidies) + t.states_sc.sc_child_care_subsidies) + t.states_va.va_child_care_subsidies) + t.states_wa.wa_child_care_subsidies) + t.states_wv.wv_child_care_subsidies) + t.states_nd.nd_child_care_subsidies) + t.states_ok.ok_child_care_subsidies) + t.states_sd.sd_child_care_subsidies)
+
+/-- `policyengine_us/variables/gov/hhs/chip/chip_category.py`
+    policyengine-us 1.783.0, entity person, value_type Enum. -/
+def chip_category (t : TaxUnit) (p : Person) (d : Date) : CHIPCategory :=
+  (if p.hhs.is_chip_eligible_child then CHIPCategory.CHILD else (if p.hhs.is_chip_eligible_standard_pregnant_person then CHIPCategory.PREGNANT_STANDARD else (if p.hhs.is_chip_fcep_eligible_person then CHIPCategory.PREGNANT_FCEP else CHIPCategory.NONE)))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_threshold.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -573,11 +583,6 @@ def is_ccdf_reason_for_care_eligible (t : TaxUnit) (p : Person) (d : Date) : Boo
 def is_child (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide (p.core_p1.age < 18))
 
-/-- `policyengine_us/variables/gov/hhs/chip/is_chip_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_chip_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (!(p.hhs.chip_category == CHIPCategory.NONE))
-
 /-- `policyengine_us/variables/gov/hhs/chip/is_chip_eligible_pregnant.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_chip_eligible_pregnant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -587,11 +592,6 @@ def is_chip_eligible_pregnant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_citizen_or_legal_immigrant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((Params.gov.dhs.immigration.qualified_noncitizen_status.atDate d).contains (ImmigrationStatus.asStr p.core_p1.immigration_status)) || (p.core_p1.immigration_status == ImmigrationStatus.CITIZEN))
-
-/-- `policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def is_eligible_for_housing_assistance (t : TaxUnit) (d : Date) : Bool :=
-  (t.hud.receives_housing_assistance || ((t.core.spm_unit_tenure_type == SPMUnitTenureType.RENTER) && (((t.hud.hud_income_level == HUDIncomeLevel.ESPECIALLY_LOW) || (t.hud.hud_income_level == HUDIncomeLevel.VERY_LOW)) || (t.hud.hud_income_level == HUDIncomeLevel.LOW))))
 
 /-- `policyengine_us/variables/gov/hhs/head_start/is_head_start_income_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -731,7 +731,7 @@ def is_usda_elderly (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 /-- `policyengine_us/variables/household/demographic/person/is_veteran.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_veteran (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide (p.core_p1.veterans_benefits > 0))
+  (decide (p.core_p2.veterans_benefits > 0))
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_working_disabled_buy_in_for_medicaid.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/

@@ -39,9 +39,13 @@ structure Person_Core_p1 where
   charitable_non_cash_donations_non_50_pct_orgs : Rat := 0
   child_support_expense : Rat := 0
   child_support_received : Rat := 0
+  childcare_days_per_week : Rat := 0
+  childcare_hours_per_day : Rat := 0
   childcare_provider_type_group : ChildcareProviderTypeGroup := .DCC_SACC
   claimed_as_dependent_on_another_return : Bool := false
   count_days_postpartum : Rat := 0
+  cps_race : Rat := 0
+  current_pregnancies : Rat := 0
   deductible_interest_expense : Rat := 0
   dependent_care_employer_benefits : Rat := 0
   disability_benefits : Rat := 0
@@ -86,6 +90,7 @@ structure Person_Core_p1 where
   is_full_time_college_student : Bool := false
   is_fully_disabled_service_connected_veteran : Bool := false
   is_grandparent_of_filer_or_spouse : Bool := false
+  is_hispanic : Bool := false
   is_in_foster_care : Bool := false
   is_in_secondary_school : Bool := false
   is_incapable_of_self_care : Bool := false
@@ -145,14 +150,14 @@ structure Person_Core_p1 where
   taxable_pension_income : Rat := 0
   tip_income : Rat := 0
   total_self_employment_income : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure Person_Core_p2 where
   traditional_401k_contributions : Rat := 0
   traditional_403b_contributions : Rat := 0
   unreimbursed_business_employee_expenses : Rat := 0
   veterans_benefits : Rat := 0
   was_in_foster_care : Bool := false
-deriving Repr, Lean.FromJson, Lean.ToJson
-
-structure Person_Core_p2 where
   weekly_hours_worked_before_lsr : Rat := 0
   years_since_us_entry : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -162,20 +167,17 @@ structure Person_Ed where
   pell_grant_countable_assets : Rat := 0
   pell_grant_dependent_available_income : Rat := 0
   pell_grant_dependent_other_allowances : Rat := 0
-  pell_grant_eligibility_type : PellGrantEligibilityType := .INELIGIBLE
-  pell_grant_formula : PellGrantFormula := .A
   pell_grant_head_allowances : Rat := 0
-  pell_grant_household_type : PellGrantHouseholdType := .INDEPENDENT_SINGLE
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Hhs where
   ccdf_market_rate : Rat := 0
-  chip_category : CHIPCategory := .NONE
   chip_federal_share : Rat := 0
   gross_medicare_part_b_premium : Rat := 0
   has_emergency_medical_condition : Bool := false
   is_adult_for_medicaid_fc : Bool := false
   is_basic_health_program_eligible : Bool := false
+  is_chip_eligible_child : Bool := false
   is_chip_eligible_standard_pregnant_person : Bool := false
   is_chip_fcep_eligible_person : Bool := false
   is_head_start_eligible : Bool := false
@@ -199,12 +201,10 @@ structure Person_Hhs where
   medicaid_person_is_required_to_file : Bool := false
   medicaid_slcsp_cost_index : Rat := 0
   medicaid_slcsp_state_average_cost_index : Rat := 0
-  medicaid_ssi_recipient_state_classification : MedicaidSSIRecipientStateClassification := .UNKNOWN
   medicaid_tax_dependent_exception_non_custodial_parent : Bool := false
   medicare_quarters_of_coverage : Rat := 0
   months_receiving_social_security_disability : Rat := 0
   msp_asset_eligible : Bool := false
-  msp_category : MSPCategory := .NONE
   msp_cost : Rat := 0
   msp_countable_income : Rat := 0
   msp_federal_cost : Rat := 0
@@ -320,14 +320,17 @@ structure Person_Usda where
   is_snap_work_incentive_student : Bool := false
   is_usda_disabled : Bool := false
   is_wic_at_nutritional_risk : Bool := false
+  is_wic_fully_breastfeeding : Bool := false
   meets_snap_abawd_work_requirements : Bool := false
   meets_snap_general_work_requirements : Bool := false
   meets_snap_parent_exception : Bool := false
   snap_excluded_child_earner : Bool := false
   snap_gross_self_employment_income_person : Rat := 0
   takes_up_wic_if_eligible : Bool := false
+  wic_breastfeeding_infant_count : Rat := 0
   wic_category : WICCategory := .NONE
   wic_food_package_str : String := ""
+  wic_infant_feeding_category : WICInfantFeedingCategory := .AVERAGE
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person where
@@ -353,13 +356,10 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 structure TaxUnit_Aca where
   aca_required_contribution_percentage : Rat := 0
   lcbp_age_0 : Rat := 0
-  lcbp_family_tier_category : FamilyTierCategory := .INDIVIDUAL_AGE_RATED
-  marketplace_csr_category : MarketplaceCSRCategory := .NONE
   selected_marketplace_plan_benchmark_ratio : Rat := 0
   selected_marketplace_plan_category : MarketplacePlanCategory := .SILVER
   slcsp_age_0 : Rat := 0
   slcsp_family_tier_applies : Bool := false
-  slcsp_family_tier_category : FamilyTierCategory := .INDIVIDUAL_AGE_RATED
   slcsp_rating_area_default : Rat := 0
   slcsp_rating_area_la_county : Rat := 0
   takes_up_aca_if_eligible : Bool := false
@@ -372,6 +372,7 @@ structure TaxUnit_Core where
   broadband_cost : Rat := 0
   childcare_expenses : Rat := 0
   cohabitating_spouses : Bool := false
+  count_distinct_utility_expenses : Rat := 0
   electric_heat_pump_clothes_dryer_expenditures : Rat := 0
   electric_load_service_center_upgrade_expenditures : Rat := 0
   electric_stove_cooktop_range_or_oven_expenditures : Rat := 0
@@ -379,6 +380,7 @@ structure TaxUnit_Core where
   energy_efficient_insulation_expenditures : Rat := 0
   filing_status : FilingStatus := .SINGLE
   form_4972_lumpsum_distributions : Rat := 0
+  has_heating_cooling_expense : Bool := false
   heat_pump_expenditures : Rat := 0
   heat_pump_water_heater_expenditures : Rat := 0
   home_energy_audit_expenditures : Rat := 0
@@ -424,7 +426,6 @@ structure TaxUnit_Fcc where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hhs where
-  basic_health_program_family_tier_category : FamilyTierCategory := .INDIVIDUAL_AGE_RATED
   hhs_smi : Rat := 0
   is_tanf_non_cash_hheod : Bool := false
   medicaid_working_disabled_buy_in_premium : Rat := 0
@@ -438,10 +439,17 @@ structure TaxUnit_Hhs where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hud where
+  ami : Rat := 0
+  hud_especially_low_income_factor : Rat := 0
+  hud_extremely_low_income_limit : Rat := 0
   hud_fair_market_rent : Rat := 0
-  hud_income_level : HUDIncomeLevel := .ABOVE_MODERATE
+  hud_low_income_factor : Rat := 0
+  hud_low_income_limit : Rat := 0
+  hud_moderate_income_factor : Rat := 0
   hud_ttp : Rat := 0
   hud_utility_allowance : Rat := 0
+  hud_very_low_income_factor : Rat := 0
+  hud_very_low_income_limit : Rat := 0
   receives_housing_assistance : Bool := false
   takes_up_housing_assistance_if_eligible : Bool := false
   zip_code_payment_standard : Rat := 0
@@ -791,7 +799,6 @@ structure TaxUnit_Usda where
   receives_snap : Bool := false
   school_meal_daily_subsidy : Rat := 0
   school_meal_paid_daily_subsidy : Rat := 0
-  school_meal_tier : SchoolMealTier := .PAID
   snap_emergency_allotment : Rat := 0
   snap_fpg : Rat := 0
   snap_individual_utility_allowance : Rat := 0
@@ -801,6 +808,8 @@ structure TaxUnit_Usda where
   snap_region_str : String := ""
   snap_self_employment_expense_deduction : Rat := 0
   snap_standard_utility_allowance : Rat := 0
+  snap_state_using_standard_utility_allowance : Bool := false
+  snap_utility_region_str : String := ""
   takes_up_snap_if_eligible : Bool := false
   wic_income_limit : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson

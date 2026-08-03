@@ -5710,6 +5710,16 @@
       "sha256": "228ffeebc3a70173d76a02ad7dec869fda550bd3a597a6840e51787024005b19"
     },
     {
+      "name": "ccdf_duration_of_care",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/ccdf/ccdf_duration_of_care.py",
+      "sha256": "2892b7815e10c8ed78d906c6f299708bce7a7a8c634632b85248c833f08d5659"
+    },
+    {
       "name": "ccdf_income",
       "entity": "spm_unit",
       "value_type": "float",
@@ -5738,6 +5748,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/ccdf/child_care_subsidies.py",
       "sha256": "c834f7631bdc24b9d154911b6897731c1d155bb96c02e9904b088977fcd586a5"
+    },
+    {
+      "name": "chip_category",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": true,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/chip/chip_category.py",
+      "sha256": "e6eda0328bf34a23a86f88005e18987bb251816deb9e52c6b1ae86b3b56e02d9"
     },
     {
       "name": "ctc_arpa_phase_out_threshold",
@@ -6100,16 +6120,6 @@
       "sha256": "a6d4fb43ecb7e6b070586f7e6a967278080309fe9abec8200a4105c05a092ab7"
     },
     {
-      "name": "is_chip_eligible",
-      "entity": "person",
-      "value_type": "bool",
-      "validated": true,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/chip/is_chip_eligible.py",
-      "sha256": "ae5a640b193c2232ff0cf260156e9ec64668dabfcfbb8c0dd77c8a50e33dd294"
-    },
-    {
       "name": "is_chip_eligible_pregnant",
       "entity": "person",
       "value_type": "bool",
@@ -6128,16 +6138,6 @@
       "period": "year",
       "source": "policyengine_us/variables/household/demographic/person/is_citizen_or_legal_immigrant.py",
       "sha256": "28072505f81972a7fa97a6cac4feca3b8f941b2b951d66760ed13cb4bc2908bd"
-    },
-    {
-      "name": "is_eligible_for_housing_assistance",
-      "entity": "spm_unit",
-      "value_type": "bool",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py",
-      "sha256": "d99818653705cf444f25c726f8d7069a00e48098f428dfd113fff17a0f1566e5"
     },
     {
       "name": "is_head_start_income_eligible",
@@ -6570,6 +6570,16 @@
       "sha256": "174964fa46aaeb72c5a3b0d8f0c3ea4c67be11fd08a76822b84bc0629214825e"
     },
     {
+      "name": "medicaid_ssi_recipient_state_classification",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medicaid_ssi_recipient_state_classification.py",
+      "sha256": "bb0a07db431ea38e3540ebac7627b86ce90170bb5b75bec7423cab64e9f42da5"
+    },
+    {
       "name": "medicaid_working_disabled_buy_in_premium_person",
       "entity": "person",
       "value_type": "float",
@@ -6680,16 +6690,6 @@
       "sha256": "ac0b056ee401103c24d70fd84680b69bac77c163d7c7759f20ad40b21528d2c4"
     },
     {
-      "name": "msp_eligible",
-      "entity": "person",
-      "value_type": "bool",
-      "validated": false,
-      "quantized": false,
-      "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_eligible.py",
-      "sha256": "b30522dd34b804ae3bb645ce39cc3dc5dc5deef2cf7a7105306c79cc5d16ec82"
-    },
-    {
       "name": "msp_state_cost",
       "entity": "person",
       "value_type": "float",
@@ -6748,26 +6748,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_assets.py",
       "sha256": "2e44a42f56ae2c05326e5cd44cdff4ca321860629b94a26c8a42355a7495a299"
-    },
-    {
-      "name": "pell_grant_head_available_income",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_available_income.py",
-      "sha256": "da0aa4d5d2ab778fe3ee4d9879c34fbbe6b5062dcd52e0817351c02f450414df"
-    },
-    {
-      "name": "pell_grant_max_fpg_percent_limit",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_max_fpg_limit.py",
-      "sha256": "c4a32cf01010b06bdfe90fde5798e7702650d95f2d078635f187739f741952b0"
     },
     {
       "name": "person_receives_aca",
@@ -6830,16 +6810,6 @@
       "sha256": "6d716bbf7714fc5c8fe6497770a9868b23467231bef10e410dc81f2e98069186"
     },
     {
-      "name": "qmb_cost_sharing",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py",
-      "sha256": "76dbe4d8a327671e63c3e9451fb7d22771092e67618286492f6420cf34c52d67"
-    },
-    {
       "name": "qualified_business_income_deduction_person",
       "entity": "person",
       "value_type": "float",
@@ -6858,6 +6828,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/elderly_and_disabled/eligibility.py",
       "sha256": "cfc48e0d56e60efad4e5741c77ad9de69cd56e7302c83100fc0d8a353b7ebd1c"
+    },
+    {
+      "name": "race",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/household/demographic/person/race.py",
+      "sha256": "ed49edbbfba0ce5e7b6715ecc4c09af34a993cfccc4690bbf5a4abe89648f55b"
     },
     {
       "name": "receives_medicaid_long_term_care_services",
@@ -6988,6 +6968,16 @@
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_utility_allowance.py",
       "sha256": "65afa9b750f07105864c4d9c55bbed5d22bc5716ecb49d03756d94c72af06bac"
+    },
+    {
+      "name": "snap_utility_allowance_type",
+      "entity": "spm_unit",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_utility_allowance_type.py",
+      "sha256": "053814442f3f2df0620d1a964bc224852fdaa0b8ed3e8c0e8ed9919869964b4a"
     },
     {
       "name": "social_security",
@@ -7360,6 +7350,16 @@
       "sha256": "7111831bb468c2b32b4538457aa42c77ea3d8f2f83fc8fe09f7432f4550d9c36"
     },
     {
+      "name": "wic_food_package",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/wic/wic_food_package.py",
+      "sha256": "8ccb128e4fafba48089a79a0bc5cdb38223e54ef7ba91dcf7119b147a125d1ae"
+    },
+    {
       "name": "acp",
       "entity": "spm_unit",
       "value_type": "float",
@@ -7450,6 +7450,16 @@
       "sha256": "9c72c2e7155d208d5c11559b9e8c09c37d71659e247071b836f66679fdfe8b4b"
     },
     {
+      "name": "ccdf_age_group",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/ccdf/ccdf_age_group.py",
+      "sha256": "05f2d916647caa01f5cf3818a5f2a1d208a9180142fb0a4a7de14e0278b77853"
+    },
+    {
       "name": "ccdf_income_to_smi_ratio",
       "entity": "spm_unit",
       "value_type": "float",
@@ -7468,26 +7478,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/charitable_deduction.py",
       "sha256": "f287a37eadd803ce0c1e0f2d9820f198ded34591da9117feac427043ff72e816"
-    },
-    {
-      "name": "chip_enrolled",
-      "entity": "person",
-      "value_type": "bool",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/chip/chip_enrolled.py",
-      "sha256": "c7d12b8464c9df1e8228b707724d690108603aebd129004fb13b72d3bea96a81"
-    },
-    {
-      "name": "chip_gross",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/chip/chip_gross.py",
-      "sha256": "65402dd5755bf5831d82076c20af723dabc43b045851b6ed6be89603ed8626c4"
     },
     {
       "name": "ctc_arpa_uncapped_phase_out",
@@ -7738,6 +7728,16 @@
       "period": "year",
       "source": "policyengine_us/variables/household/demographic/tax_unit/is_child_of_tax_head.py",
       "sha256": "990c4d89c8d27dba14f2c898015c18a20f59c1bd8c6df73d8c6bcacb1818d3f6"
+    },
+    {
+      "name": "is_chip_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": true,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/chip/is_chip_eligible.py",
+      "sha256": "ae5a640b193c2232ff0cf260156e9ec64668dabfcfbb8c0dd77c8a50e33dd294"
     },
     {
       "name": "is_demographic_tanf_eligible",
@@ -8070,16 +8070,6 @@
       "sha256": "6161626e821b821e252a00d947de0beb0269adf2cf5b6bae9f6d8eb220643a46"
     },
     {
-      "name": "pell_grant_dependent_allowances",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/ed/pell_grant/dependent/pell_grant_dependent_allowances.py",
-      "sha256": "e3c22d0e2385e6fbd07ae27c0e31fb6de09066ee879cf73a059354a58217d395"
-    },
-    {
       "name": "pell_grant_dependents_in_college",
       "entity": "tax_unit",
       "value_type": "int",
@@ -8088,6 +8078,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/ed/pell_grant/efc/pell_grant_dependents_in_college.py",
       "sha256": "5d1f90083b9dcdea176f9f2da20d8589d883cca5980fdaab2e14a6b3dacd90ae"
+    },
+    {
+      "name": "pell_grant_household_type",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_household_type.py",
+      "sha256": "680c536ca3956d1d5e67f837bdab024a2d95be6f42eeb9cac4ace4483b09cf2c"
     },
     {
       "name": "rrc_adult_count_with_valid_ssn",
@@ -8400,6 +8400,16 @@
       "sha256": "85d00b07cebca5ea908c1512ae066a853ac5520866899e912687ad678e9651ef"
     },
     {
+      "name": "age_group",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/household/demographic/age/age_group.py",
+      "sha256": "608b6da3fd76d9ff40b7d501ac5694231011eae26722831739db28d849057150"
+    },
+    {
       "name": "amt_kiddie_tax_applies",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -8480,14 +8490,24 @@
       "sha256": "3daf123fb9e7453b828e5644f5822b6237e2cde081d211e0c5a97c9416156e94"
     },
     {
-      "name": "chip",
+      "name": "chip_enrolled",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/chip/chip_enrolled.py",
+      "sha256": "c7d12b8464c9df1e8228b707724d690108603aebd129004fb13b72d3bea96a81"
+    },
+    {
+      "name": "chip_gross",
       "entity": "person",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/chip/chip.py",
-      "sha256": "7f644454f2ee1b1afa78e81670408042a12e025292a92f7bcdff11c2e27b555e"
+      "source": "policyengine_us/variables/gov/hhs/chip/chip_gross.py",
+      "sha256": "65402dd5755bf5831d82076c20af723dabc43b045851b6ed6be89603ed8626c4"
     },
     {
       "name": "count_cdcc_eligible",
@@ -8588,16 +8608,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/filer_meets_child_ctc_identification_requirements.py",
       "sha256": "1cad753421203ee7ce44b591212a591e6ab829a7f014a38896fe5294e525dc14"
-    },
-    {
-      "name": "free_school_meals",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/usda/school_meals/free_school_meals.py",
-      "sha256": "6f37894ce6910e20b46674988f42f571b6d93a95313e3aa05ed9cfbb882e9315"
     },
     {
       "name": "gross_medicare_part_b_premium_if_enrolled",
@@ -8850,6 +8860,16 @@
       "sha256": "27c40314bb0660f71345f0aa3ab8e078b460d6958d45c1e1f8f8004472d8b37a"
     },
     {
+      "name": "medicaid_slcsp_family_tier_category",
+      "entity": "tax_unit",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_family_tier_category.py",
+      "sha256": "8d745710e5df5e2f4654e8e7c6d9fdc10b31d4a6ac07e61086e2d1e251e1f9b7"
+    },
+    {
       "name": "medicaid_state_cost",
       "entity": "person",
       "value_type": "float",
@@ -8910,6 +8930,26 @@
       "sha256": "5e8d564849ba14ea0fd9a19ee13af47d682fde114d4e90ad240e60281b05e3a4"
     },
     {
+      "name": "pell_grant_formula",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ed/pell_grant/pell_grant_formula.py",
+      "sha256": "a31d8b62b83e7dea0b8d08e59969bd3b86ea3e98c8456d015f8fd96c62a78f44"
+    },
+    {
+      "name": "pell_grant_max_fpg_percent_limit",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_max_fpg_limit.py",
+      "sha256": "c4a32cf01010b06bdfe90fde5798e7702650d95f2d078635f187739f741952b0"
+    },
+    {
       "name": "qualifying_non_marketplace_health_coverage_type_count_at_interview",
       "entity": "person",
       "value_type": "int",
@@ -8918,16 +8958,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/aca/eligibility/qualifying_non_marketplace_health_coverage_type_count_at_interview.py",
       "sha256": "06258fb7d24ec3c146159b5322f957a4718870d4180589ebec46da62e932d2a7"
-    },
-    {
-      "name": "reduced_price_school_meals",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/usda/school_meals/reduced_price_school_meals.py",
-      "sha256": "1b781af22bc8d95a590b8643e6b1ce2cd8b34a2566c61c9e58194627aae18450"
     },
     {
       "name": "rrc_arpa",
@@ -9090,14 +9120,14 @@
       "sha256": "1e5a52f44445b14e8a07b497f1857c22e43436d8c02f60311cfdb0ae6aacfc82"
     },
     {
-      "name": "basic_health_program_family_tier_multiplier",
+      "name": "basic_health_program_family_tier_category",
       "entity": "tax_unit",
-      "value_type": "float",
+      "value_type": "Enum",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_multiplier.py",
-      "sha256": "7d23121cf6aab7da49ede220a26e22ded7af224c7a7f401a282703f399229018"
+      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_category.py",
+      "sha256": "126cd7147c8f744b6799a428abdd32e7d51417703c84038161ffa76ac3e6107e"
     },
     {
       "name": "capital_gains_tax",
@@ -9120,24 +9150,14 @@
       "sha256": "523d7130f84d0f41c9ceff3634771679e0e68875f99bd198a14ca6a75782cca3"
     },
     {
-      "name": "chip_federal_cost",
+      "name": "chip",
       "entity": "person",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/chip/chip_federal_cost.py",
-      "sha256": "5408a9441ea31a8639801151c58ea91529c06d17142be7cb1818c4f8a5e2d92a"
-    },
-    {
-      "name": "chip_state_cost",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/chip/chip_state_cost.py",
-      "sha256": "e3490c9744a41a54ff0a173d8b1b77f925f55f70ad3276497b924677a3207d2b"
+      "source": "policyengine_us/variables/gov/hhs/chip/chip.py",
+      "sha256": "7f644454f2ee1b1afa78e81670408042a12e025292a92f7bcdff11c2e27b555e"
     },
     {
       "name": "ctc_child_individual_maximum",
@@ -9250,16 +9270,6 @@
       "sha256": "2f2d642c1968cead95b4d06e43af7dd88f950c8823c8a519455a27fa5f945888"
     },
     {
-      "name": "housing_assistance",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hud/housing_assistance.py",
-      "sha256": "b38f3fd38946ad10d3c13a7a100deacfe03c2716da9269491cb52d081af512cf"
-    },
-    {
       "name": "income_tax_main_rates",
       "entity": "tax_unit",
       "value_type": "float",
@@ -9370,14 +9380,24 @@
       "sha256": "63940aff285ec45c83c1f88a81be69cd631fcb73aa7b2bf3c4b36e18171e171a"
     },
     {
-      "name": "msp_benefit_value",
+      "name": "msp_category",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/category/msp_category.py",
+      "sha256": "05c6d22dc6231de0fd01c8b7a4e87696a503b0b9e57f0ddcc636602e74745534"
+    },
+    {
+      "name": "pell_grant_head_available_income",
       "entity": "person",
       "value_type": "float",
       "validated": false,
       "quantized": false,
-      "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_benefit_value.py",
-      "sha256": "88f39c645a18b4b6c359a9d61335422f3e1e1c9a81e689d0717f5c5224c16c05"
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_available_income.py",
+      "sha256": "da0aa4d5d2ab778fe3ee4d9879c34fbbe6b5062dcd52e0817351c02f450414df"
     },
     {
       "name": "rrc_caa",
@@ -9448,6 +9468,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_blind_or_disabled_working_student_exclusion.py",
       "sha256": "1fa019ae6526db1f19945e29c883994653745eebf717023a9c0cac5316573570"
+    },
+    {
+      "name": "ssi_category",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/status/ssi_category.py",
+      "sha256": "9c003d7e9ff137eb168cc42bd4766bb051f2767a5ebeaaaef8079a28c16f62cb"
     },
     {
       "name": "ssi_earned_income_deemed_from_ineligible_spouse",
@@ -9530,14 +9560,34 @@
       "sha256": "12d210a1d6e8be8d2a2cd282bf788cd4fa208611c4cf36ba78bc9710df69ea85"
     },
     {
-      "name": "basic_health_program_family_tier_amount",
+      "name": "basic_health_program_family_tier_multiplier",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_amount.py",
-      "sha256": "31ab2b0b676ad371d21c7a982b243f679da91364dc76fb227ac1caff3d850907"
+      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_multiplier.py",
+      "sha256": "7d23121cf6aab7da49ede220a26e22ded7af224c7a7f401a282703f399229018"
+    },
+    {
+      "name": "chip_federal_cost",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/chip/chip_federal_cost.py",
+      "sha256": "5408a9441ea31a8639801151c58ea91529c06d17142be7cb1818c4f8a5e2d92a"
+    },
+    {
+      "name": "chip_state_cost",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/chip/chip_state_cost.py",
+      "sha256": "e3490c9744a41a54ff0a173d8b1b77f925f55f70ad3276497b924677a3207d2b"
     },
     {
       "name": "coverage_report_model_conflict",
@@ -9720,14 +9770,14 @@
       "sha256": "b325797f5a71bc4394873916892375ba88148528170372fc1b365368cca23225"
     },
     {
-      "name": "msp",
+      "name": "msp_eligible",
       "entity": "person",
-      "value_type": "float",
+      "value_type": "bool",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/msp.py",
-      "sha256": "57e9fe64bd03bb499b0474f474bc890119215712a1a60b71db7e2df611d53e81"
+      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_eligible.py",
+      "sha256": "b30522dd34b804ae3bb645ce39cc3dc5dc5deef2cf7a7105306c79cc5d16ec82"
     },
     {
       "name": "pays_aca_premium",
@@ -9738,6 +9788,26 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/aca/eligibility/pays_aca_premium.py",
       "sha256": "17810a7944966f3a2857af911e8ee69ab35dee7fd8c26f9abf7530dfbbbbf228"
+    },
+    {
+      "name": "pell_grant_dependent_allowances",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ed/pell_grant/dependent/pell_grant_dependent_allowances.py",
+      "sha256": "e3c22d0e2385e6fbd07ae27c0e31fb6de09066ee879cf73a059354a58217d395"
+    },
+    {
+      "name": "qmb_cost_sharing",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py",
+      "sha256": "76dbe4d8a327671e63c3e9451fb7d22771092e67618286492f6420cf34c52d67"
     },
     {
       "name": "recovery_rebate_credit",
@@ -9870,14 +9940,14 @@
       "sha256": "44ad960a4951435b194cfff32aa8325d3dca74cd45afe1f21994f3d72e8bd70f"
     },
     {
-      "name": "basic_health_program_reference_premium",
+      "name": "basic_health_program_family_tier_amount",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_reference_premium.py",
-      "sha256": "2cb05fe5ce6ba6dfe2a250b82456252ed914a027d2fcf67ce4fdaf24159b2c3d"
+      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_amount.py",
+      "sha256": "31ab2b0b676ad371d21c7a982b243f679da91364dc76fb227ac1caff3d850907"
     },
     {
       "name": "cdcc_limit",
@@ -9990,6 +10060,16 @@
       "sha256": "5a8f6f60c4337bca72858f1bece8f876b59264690a2bf2803e945539b61e398b"
     },
     {
+      "name": "msp_benefit_value",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_benefit_value.py",
+      "sha256": "88f39c645a18b4b6c359a9d61335422f3e1e1c9a81e689d0717f5c5224c16c05"
+    },
+    {
       "name": "pell_grant_min_fpg_percent_limit",
       "entity": "person",
       "value_type": "float",
@@ -10100,14 +10180,14 @@
       "sha256": "13f306f3b223018df5cf9ae0f898b030a3de3bcec6759dc0a4e6ed71a5222710"
     },
     {
-      "name": "basic_health_program_adjusted_reference_premium",
+      "name": "basic_health_program_reference_premium",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_adjusted_reference_premium.py",
-      "sha256": "e118f18918ddad470035e39ac6c7ebe449428494459eb29a4b7e8e8caec623dd"
+      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_reference_premium.py",
+      "sha256": "2cb05fe5ce6ba6dfe2a250b82456252ed914a027d2fcf67ce4fdaf24159b2c3d"
     },
     {
       "name": "cdcc_relevant_expenses",
@@ -10178,6 +10258,26 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/medicaid/income/medicaid_missing_claimant_fallback_person_count.py",
       "sha256": "eaa3f5e15c5475093aebc90aa574a9c73258ef08b4e295ba364ac2a6964d1fe5"
+    },
+    {
+      "name": "msp",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/msp.py",
+      "sha256": "57e9fe64bd03bb499b0474f474bc890119215712a1a60b71db7e2df611d53e81"
+    },
+    {
+      "name": "pell_grant_eligibility_type",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/ed/pell_grant/sai/eligibility_type/pell_grant_eligibility_type.py",
+      "sha256": "7bcbc9f6ba2c3578fe786e636db3dcc9edec55755026422949cea40b84d37597"
     },
     {
       "name": "section_22_income",
@@ -10280,6 +10380,16 @@
       "sha256": "28e20fa2e65f6d69f76fc392e1097155c06fe1e36209f863b90df2725edb1cf8"
     },
     {
+      "name": "basic_health_program_adjusted_reference_premium",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_adjusted_reference_premium.py",
+      "sha256": "e118f18918ddad470035e39ac6c7ebe449428494459eb29a4b7e8e8caec623dd"
+    },
+    {
       "name": "cdcc_potential",
       "entity": "tax_unit",
       "value_type": "float",
@@ -10320,14 +10430,14 @@
       "sha256": "1eb20a09edc43a5fa5c9db0ec590959f4c3e8b9bb03723c3eb7c5734b2f9df5a"
     },
     {
-      "name": "lcbp_family_tier_multiplier",
+      "name": "lcbp_family_tier_category",
       "entity": "tax_unit",
-      "value_type": "float",
+      "value_type": "Enum",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_multiplier.py",
-      "sha256": "39b610747b9476e483e98ed16fdf5ed59483828322f67265eedd4973507b2993"
+      "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_category.py",
+      "sha256": "218fd9b2b03c796a4eac7ff483141f8a991e8dcab7ef564e4a285b1977d19198"
     },
     {
       "name": "medicaid_magi",
@@ -10350,14 +10460,14 @@
       "sha256": "91860d365791be444edbd982c92011a3e1fc4477948442b7e3441c96e1067084"
     },
     {
-      "name": "slcsp_family_tier_multiplier",
+      "name": "slcsp_family_tier_category",
       "entity": "tax_unit",
-      "value_type": "float",
+      "value_type": "Enum",
       "validated": true,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_multiplier.py",
-      "sha256": "fde81756e139e91751836df16f193ecee87f6eaca3053bd9cc9383ae90f65857"
+      "source": "policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_category.py",
+      "sha256": "61c35de787e6c74e4f7f0b973aea256f93a8220f5cec3f65c29240dd422beba9"
     },
     {
       "name": "snap_child_support_gross_income_deduction",
@@ -10450,24 +10560,24 @@
       "sha256": "886b92ca6e7c675d4feb638cd21b251424eac7d9f7e42d9c1f82eecc2bc4b53b"
     },
     {
-      "name": "lcbp_family_tier_amount",
+      "name": "lcbp_family_tier_multiplier",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py",
-      "sha256": "11d7a70b0b22f196725aa5b6a5565d0d1f935bbb810bef82cb729c6d390e26b6"
+      "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_multiplier.py",
+      "sha256": "39b610747b9476e483e98ed16fdf5ed59483828322f67265eedd4973507b2993"
     },
     {
-      "name": "slcsp_family_tier_amount",
+      "name": "slcsp_family_tier_multiplier",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": true,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_amount.py",
-      "sha256": "243a114cceec02b84e587bda6b88641b0a17afd269de3cb776db388c8c16ac79"
+      "source": "policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_multiplier.py",
+      "sha256": "fde81756e139e91751836df16f193ecee87f6eaca3053bd9cc9383ae90f65857"
     },
     {
       "name": "snap_child_support_deduction",
@@ -10560,14 +10670,14 @@
       "sha256": "7ddf71007b2c497fa8b25b8299bf2b854b1f15c9c9f650c5d2f747a832608e73"
     },
     {
-      "name": "lcbp",
+      "name": "lcbp_family_tier_amount",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/aca/lcbp/lcbp.py",
-      "sha256": "8a1324b9eb3c991f178288c8f5ca6d792ccc4d070fae90d81acca0b7c6d32566"
+      "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py",
+      "sha256": "11d7a70b0b22f196725aa5b6a5565d0d1f935bbb810bef82cb729c6d390e26b6"
     },
     {
       "name": "school_meal_countable_income",
@@ -10580,14 +10690,14 @@
       "sha256": "80a1e6466d368a9ed0bb0f8b1685c3a3ec71226d4dfee3b5639faa55c63ab680"
     },
     {
-      "name": "slcsp",
+      "name": "slcsp_family_tier_amount",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": true,
       "quantized": false,
       "period": "month",
-      "source": "policyengine_us/variables/gov/aca/slspc/slcsp.py",
-      "sha256": "b7076e4ef1aa3653afa0cdf675913e4f38fc15cbc874dbb89f898b43f776c12e"
+      "source": "policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_amount.py",
+      "sha256": "243a114cceec02b84e587bda6b88641b0a17afd269de3cb776db388c8c16ac79"
     },
     {
       "name": "snap_deductions",
@@ -10670,6 +10780,16 @@
       "sha256": "541a12040a35886f59726b8573ce634c54dd820781962daa2624be1ad5d4660c"
     },
     {
+      "name": "lcbp",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/aca/lcbp/lcbp.py",
+      "sha256": "8a1324b9eb3c991f178288c8f5ca6d792ccc4d070fae90d81acca0b7c6d32566"
+    },
+    {
       "name": "marketplace_csr_eligible",
       "entity": "tax_unit",
       "value_type": "bool",
@@ -10710,14 +10830,14 @@
       "sha256": "d9c107234e7af67aaa96088943243d3fd5f64b20b09e0f44c3f51767e6efdca2"
     },
     {
-      "name": "selected_marketplace_plan_premium_proxy",
+      "name": "slcsp",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_premium_proxy.py",
-      "sha256": "baf0cc42575cf64a2f4e38d95ad448916f81da3094dfded635436bd06d604d7c"
+      "period": "month",
+      "source": "policyengine_us/variables/gov/aca/slspc/slcsp.py",
+      "sha256": "b7076e4ef1aa3653afa0cdf675913e4f38fc15cbc874dbb89f898b43f776c12e"
     },
     {
       "name": "snap_unearned_income",
@@ -10780,14 +10900,14 @@
       "sha256": "189860a2eec32d6f8fd6f98a8d129919682f3ff55b55cd76dc634d57b4567c05"
     },
     {
-      "name": "marketplace_csr_actuarial_value",
+      "name": "marketplace_csr_category",
       "entity": "tax_unit",
-      "value_type": "float",
+      "value_type": "Enum",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py",
-      "sha256": "989eaf085477cc29a26d40479f2c9efdac1747411380b997d6084a53f8b5ed8c"
+      "source": "policyengine_us/variables/gov/aca/csr/marketplace_csr_category.py",
+      "sha256": "5e88b2be487c17334b9c43ac2684956f59c56ebe73dc9f66aa604a71434ec594"
     },
     {
       "name": "non_refundable_ctc",
@@ -10798,6 +10918,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/non_refundable_ctc.py",
       "sha256": "62608b2956b27fd8146301c9c2725acda7028c9c7e7d320299679df1b8fc2934"
+    },
+    {
+      "name": "selected_marketplace_plan_premium_proxy",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_premium_proxy.py",
+      "sha256": "baf0cc42575cf64a2f4e38d95ad448916f81da3094dfded635436bd06d604d7c"
     },
     {
       "name": "snap_gross_income",
@@ -10820,6 +10950,16 @@
       "sha256": "1e34ed1831d72b7cac85658e3e18917b346fdf51907fc86d6f65e165c43fd5c7"
     },
     {
+      "name": "hud_income_level",
+      "entity": "spm_unit",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hud/hud_income_level.py",
+      "sha256": "8aa9cbfac40dc1a231b33c586414024991d5fa19cc20d4b9052fc5138a301ba1"
+    },
+    {
       "name": "hud_ttp_income_share",
       "entity": "spm_unit",
       "value_type": "float",
@@ -10840,14 +10980,14 @@
       "sha256": "6f73b0965e6658d3f3e961ee51109e497a5546094978a8b6c81394423349633c"
     },
     {
-      "name": "marketplace_effective_actuarial_value",
+      "name": "marketplace_csr_actuarial_value",
       "entity": "tax_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/aca/csr/marketplace_effective_actuarial_value.py",
-      "sha256": "f8ef235b9d3c6a5e1193982c6ebab0fc66ba6d9a0ecfc0437a6d975aade27c63"
+      "source": "policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py",
+      "sha256": "989eaf085477cc29a26d40479f2c9efdac1747411380b997d6084a53f8b5ed8c"
     },
     {
       "name": "snap_gross_income_fpg_ratio",
@@ -10930,6 +11070,26 @@
       "sha256": "cb8bf5618811d427be81f0e69f2cfe04611241e8472fa120549f63e9add68e16"
     },
     {
+      "name": "is_eligible_for_housing_assistance",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py",
+      "sha256": "d99818653705cf444f25c726f8d7069a00e48098f428dfd113fff17a0f1566e5"
+    },
+    {
+      "name": "marketplace_effective_actuarial_value",
+      "entity": "tax_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/aca/csr/marketplace_effective_actuarial_value.py",
+      "sha256": "f8ef235b9d3c6a5e1193982c6ebab0fc66ba6d9a0ecfc0437a6d975aade27c63"
+    },
+    {
       "name": "medicaid_uses_non_filer_rules",
       "entity": "person",
       "value_type": "bool",
@@ -10988,6 +11148,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/foreign_tax/foreign_tax_credit.py",
       "sha256": "94de157e8d88b3ecde555b42f1e6dbd9a15e4643ba848590f6ab5c356891533e"
+    },
+    {
+      "name": "housing_assistance",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hud/housing_assistance.py",
+      "sha256": "b38f3fd38946ad10d3c13a7a100deacfe03c2716da9269491cb52d081af512cf"
     },
     {
       "name": "income_tax_capped_non_refundable_credits",
@@ -11290,6 +11460,16 @@
       "sha256": "5b8753d469fa8b0fb2b5c540f5f838308e7ab37f0b7bcdbee50838bd47fb7bd8"
     },
     {
+      "name": "school_meal_tier",
+      "entity": "spm_unit",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/school_meals/school_meal_tier.py",
+      "sha256": "65929dbc495be10f9a211b532b0f52e154703bb25cfa9e9c3e85fb4d4fd8525f"
+    },
+    {
       "name": "early_head_start",
       "entity": "person",
       "value_type": "float",
@@ -11298,6 +11478,26 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/head_start/early_head_start.py",
       "sha256": "7b014f32ba0eb89b54cb5023419f3b2618cc3e6eb82bac9a1622a7e5a45bda5a"
+    },
+    {
+      "name": "free_school_meals",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/school_meals/free_school_meals.py",
+      "sha256": "6f37894ce6910e20b46674988f42f571b6d93a95313e3aa05ed9cfbb882e9315"
+    },
+    {
+      "name": "reduced_price_school_meals",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/usda/school_meals/reduced_price_school_meals.py",
+      "sha256": "1b781af22bc8d95a590b8643e6b1ce2cd8b34a2566c61c9e58194627aae18450"
     },
     {
       "name": "residential_clean_energy_credit_credit_limit",
@@ -11807,6 +12007,15 @@
       "note": ""
     },
     {
+      "name": "ami",
+      "entity": "household",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unrecognized call lookup_income_limit"
+    },
+    {
       "name": "ar_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
@@ -11877,25 +12086,6 @@
       "period": "year",
       "kind": "out-of-scope",
       "note": "state/local/territory or modeling namespace"
-    },
-    {
-      "name": "basic_health_program_family_tier_category",
-      "entity": "tax_unit",
-      "value_type": "Enum",
-      "domain": "hhs",
-      "period": "month",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "FamilyTierCategory",
-      "members": [
-        "INDIVIDUAL_AGE_RATED",
-        "ONE_ADULT",
-        "TWO_ADULTS",
-        "ONE_ADULT_AND_ONE_OR_MORE_CHILDREN",
-        "TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN",
-        "CHILD_ONLY"
-      ],
-      "default": "INDIVIDUAL_AGE_RATED"
     },
     {
       "name": "bedrooms",
@@ -12123,6 +12313,15 @@
       "note": "state/local/territory or modeling namespace"
     },
     {
+      "name": "childcare_days_per_week",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "childcare_expenses",
       "entity": "spm_unit",
       "value_type": "float",
@@ -12130,6 +12329,15 @@
       "period": "year",
       "kind": "out-of-scope",
       "note": "state/local/territory or modeling namespace"
+    },
+    {
+      "name": "childcare_hours_per_day",
+      "entity": "person",
+      "value_type": "float",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "childcare_provider_type_group",
@@ -12148,23 +12356,6 @@
         "LE_ENH"
       ],
       "default": "DCC_SACC"
-    },
-    {
-      "name": "chip_category",
-      "entity": "person",
-      "value_type": "Enum",
-      "domain": "hhs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula (enum inputs only for now)",
-      "enum": "CHIPCategory",
-      "members": [
-        "CHILD",
-        "PREGNANT_STANDARD",
-        "PREGNANT_FCEP",
-        "NONE"
-      ],
-      "default": "NONE"
     },
     {
       "name": "chip_federal_share",
@@ -12221,6 +12412,24 @@
       "note": "non-value handle used as value"
     },
     {
+      "name": "count_distinct_utility_expenses",
+      "entity": "spm_unit",
+      "value_type": "int",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "cps_race",
+      "entity": "person",
+      "value_type": "int",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "ct_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
@@ -12264,6 +12473,15 @@
       "period": "year",
       "kind": "rejected",
       "note": "attribute 'simulation' on value expression"
+    },
+    {
+      "name": "current_pregnancies",
+      "entity": "person",
+      "value_type": "int",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "dc_snap_temporary_local_benefit",
@@ -12577,8 +12795,8 @@
       "value_type": "Enum",
       "domain": "core",
       "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula (enum inputs only for now)",
+      "kind": "pruned",
+      "note": "filing-status ELECTION: the statute defines eligibility for each status (head_of_household_eligible etc. translate as law) but the choice among eligible statuses is the taxpayer's; PE's formula hard-codes one election (married always JOINT) \u2014 kept as input",
       "enum": "FilingStatus",
       "members": [
         "SINGLE",
@@ -12833,6 +13051,15 @@
       "note": ""
     },
     {
+      "name": "has_heating_cooling_expense",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "domain": "core",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "has_lifetime_learning_credit_1098_t_or_exception",
       "entity": "person",
       "value_type": "bool",
@@ -13040,6 +13267,24 @@
       "note": "state/local/territory or modeling namespace"
     },
     {
+      "name": "hud_especially_low_income_factor",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "rejected",
+      "note": "non-simple assignment target"
+    },
+    {
+      "name": "hud_extremely_low_income_limit",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unrecognized call lookup_sized_income_limit"
+    },
+    {
       "name": "hud_fair_market_rent",
       "entity": "household",
       "value_type": "float",
@@ -13049,22 +13294,31 @@
       "note": "np.clip"
     },
     {
-      "name": "hud_income_level",
+      "name": "hud_low_income_factor",
       "entity": "spm_unit",
-      "value_type": "Enum",
+      "value_type": "float",
       "domain": "hud",
       "period": "year",
       "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "HUDIncomeLevel",
-      "members": [
-        "ABOVE_MODERATE",
-        "MODERATE",
-        "LOW",
-        "VERY_LOW",
-        "ESPECIALLY_LOW"
-      ],
-      "default": "ABOVE_MODERATE"
+      "note": "non-simple assignment target"
+    },
+    {
+      "name": "hud_low_income_limit",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unrecognized call lookup_sized_income_limit"
+    },
+    {
+      "name": "hud_moderate_income_factor",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "rejected",
+      "note": "non-simple assignment target"
     },
     {
       "name": "hud_ttp",
@@ -13083,6 +13337,24 @@
       "period": "year",
       "kind": "rejected",
       "note": "np.clip"
+    },
+    {
+      "name": "hud_very_low_income_factor",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "rejected",
+      "note": "non-simple assignment target"
+    },
+    {
+      "name": "hud_very_low_income_limit",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "rejected",
+      "note": "unrecognized call lookup_sized_income_limit"
     },
     {
       "name": "ia_child_care_subsidies",
@@ -13379,6 +13651,15 @@
       "note": ""
     },
     {
+      "name": "is_chip_eligible_child",
+      "entity": "person",
+      "value_type": "bool",
+      "domain": "hhs",
+      "period": "year",
+      "kind": "rejected",
+      "note": "ExtRat breakdown 'gov.hhs.chip.child.income_limit' in value position"
+    },
+    {
       "name": "is_chip_eligible_standard_pregnant_person",
       "entity": "person",
       "value_type": "bool",
@@ -13494,6 +13775,15 @@
       "period": "year",
       "kind": "rejected",
       "note": "bitwise op on non-bool operands"
+    },
+    {
+      "name": "is_hispanic",
+      "entity": "person",
+      "value_type": "bool",
+      "domain": "core_p1",
+      "period": "year",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "is_homeless",
@@ -13838,6 +14128,15 @@
       "note": ""
     },
     {
+      "name": "is_wic_fully_breastfeeding",
+      "entity": "person",
+      "value_type": "bool",
+      "domain": "usda",
+      "period": "month",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "is_young_adult_for_medicaid_fc",
       "entity": "person",
       "value_type": "bool",
@@ -13955,25 +14254,6 @@
       "note": "subscript on non-parameter"
     },
     {
-      "name": "lcbp_family_tier_category",
-      "entity": "tax_unit",
-      "value_type": "Enum",
-      "domain": "aca",
-      "period": "month",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "FamilyTierCategory",
-      "members": [
-        "INDIVIDUAL_AGE_RATED",
-        "ONE_ADULT",
-        "TWO_ADULTS",
-        "ONE_ADULT_AND_ONE_OR_MORE_CHILDREN",
-        "TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN",
-        "CHILD_ONLY"
-      ],
-      "default": "INDIVIDUAL_AGE_RATED"
-    },
-    {
       "name": "lifeline",
       "entity": "spm_unit",
       "value_type": "float",
@@ -14080,23 +14360,6 @@
       "period": "year",
       "kind": "input",
       "note": ""
-    },
-    {
-      "name": "marketplace_csr_category",
-      "entity": "tax_unit",
-      "value_type": "Enum",
-      "domain": "aca",
-      "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "MarketplaceCSRCategory",
-      "members": [
-        "NONE",
-        "AV_94",
-        "AV_87",
-        "AV_73"
-      ],
-      "default": "NONE"
     },
     {
       "name": "md_child_care_subsidies",
@@ -14286,23 +14549,6 @@
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call sum_by_state"
-    },
-    {
-      "name": "medicaid_ssi_recipient_state_classification",
-      "entity": "person",
-      "value_type": "Enum",
-      "domain": "hhs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "MedicaidSSIRecipientStateClassification",
-      "members": [
-        "SECTION_1634",
-        "SSI_CRITERIA",
-        "SECTION_209B",
-        "UNKNOWN"
-      ],
-      "default": "UNKNOWN"
     },
     {
       "name": "medicaid_tax_dependent_exception_non_custodial_parent",
@@ -14609,23 +14855,6 @@
       "period": "month",
       "kind": "rejected",
       "note": "where condition not bool"
-    },
-    {
-      "name": "msp_category",
-      "entity": "person",
-      "value_type": "Enum",
-      "domain": "hhs",
-      "period": "month",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "MSPCategory",
-      "members": [
-        "NONE",
-        "QMB",
-        "SLMB",
-        "QI"
-      ],
-      "default": "NONE"
     },
     {
       "name": "msp_cost",
@@ -15069,38 +15298,6 @@
       "note": ""
     },
     {
-      "name": "pell_grant_eligibility_type",
-      "entity": "person",
-      "value_type": "Enum",
-      "domain": "ed",
-      "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "PellGrantEligibilityType",
-      "members": [
-        "MAXIMUM",
-        "MINIMUM",
-        "INELIGIBLE"
-      ],
-      "default": "INELIGIBLE"
-    },
-    {
-      "name": "pell_grant_formula",
-      "entity": "person",
-      "value_type": "Enum",
-      "domain": "ed",
-      "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "PellGrantFormula",
-      "members": [
-        "A",
-        "B",
-        "C"
-      ],
-      "default": "A"
-    },
-    {
       "name": "pell_grant_head_allowances",
       "entity": "person",
       "value_type": "float",
@@ -15108,23 +15305,6 @@
       "period": "year",
       "kind": "input",
       "note": ""
-    },
-    {
-      "name": "pell_grant_household_type",
-      "entity": "person",
-      "value_type": "Enum",
-      "domain": "ed",
-      "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "PellGrantHouseholdType",
-      "members": [
-        "DEPENDENT_SINGLE",
-        "DEPENDENT_NOT_SINGLE",
-        "INDEPENDENT_SINGLE",
-        "INDEPENDENT_NOT_SINGLE"
-      ],
-      "default": "INDEPENDENT_SINGLE"
     },
     {
       "name": "pell_grant_primary_income",
@@ -15433,22 +15613,6 @@
       "note": "unsupported parameter subscript on 'gov.usda.school_meals.amount.nslp'"
     },
     {
-      "name": "school_meal_tier",
-      "entity": "spm_unit",
-      "value_type": "Enum",
-      "domain": "usda",
-      "period": "year",
-      "kind": "rejected",
-      "note": "Enum-valued formula",
-      "enum": "SchoolMealTier",
-      "members": [
-        "FREE",
-        "REDUCED",
-        "PAID"
-      ],
-      "default": "PAID"
-    },
-    {
       "name": "sd_child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
@@ -15581,25 +15745,6 @@
       "note": "enum-indexed parameter 'gov.aca.family_tier_states' lacks members ['GU', 'MP', 'PW', 'PR']"
     },
     {
-      "name": "slcsp_family_tier_category",
-      "entity": "tax_unit",
-      "value_type": "Enum",
-      "domain": "aca",
-      "period": "month",
-      "kind": "rejected",
-      "note": "Enum-valued formula (enum inputs only for now)",
-      "enum": "FamilyTierCategory",
-      "members": [
-        "INDIVIDUAL_AGE_RATED",
-        "ONE_ADULT",
-        "TWO_ADULTS",
-        "ONE_ADULT_AND_ONE_OR_MORE_CHILDREN",
-        "TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN",
-        "CHILD_ONLY"
-      ],
-      "default": "INDIVIDUAL_AGE_RATED"
-    },
-    {
       "name": "slcsp_rating_area_default",
       "entity": "household",
       "value_type": "int",
@@ -15724,6 +15869,24 @@
       "period": "month",
       "kind": "rejected",
       "note": "non-value handle used as value"
+    },
+    {
+      "name": "snap_state_using_standard_utility_allowance",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "domain": "usda",
+      "period": "month",
+      "kind": "rejected",
+      "note": "enum-indexed parameter 'gov.usda.snap.income.deductions.utility.always_standard' lacks members ['MP', 'PW', 'PR', 'AA']"
+    },
+    {
+      "name": "snap_utility_region_str",
+      "entity": "household",
+      "value_type": "str",
+      "domain": "usda",
+      "period": "year",
+      "kind": "rejected",
+      "note": "returns a non-value"
     },
     {
       "name": "social_security_dependents",
@@ -16373,7 +16536,7 @@
       "name": "traditional_401k_contributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16382,7 +16545,7 @@
       "name": "traditional_403b_contributions",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16445,7 +16608,7 @@
       "name": "unreimbursed_business_employee_expenses",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16508,7 +16671,7 @@
       "name": "veterans_benefits",
       "entity": "person",
       "value_type": "float",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "out-of-scope",
       "note": "state/local/territory or modeling namespace"
@@ -16562,7 +16725,7 @@
       "name": "was_in_foster_care",
       "entity": "person",
       "value_type": "bool",
-      "domain": "core_p1",
+      "domain": "core_p2",
       "period": "year",
       "kind": "input",
       "note": ""
@@ -16593,6 +16756,15 @@
       "period": "month",
       "kind": "out-of-scope",
       "note": "state/local/territory or modeling namespace"
+    },
+    {
+      "name": "wic_breastfeeding_infant_count",
+      "entity": "person",
+      "value_type": "int",
+      "domain": "usda",
+      "period": "month",
+      "kind": "input",
+      "note": ""
     },
     {
       "name": "wic_category",
@@ -16630,6 +16802,23 @@
       "period": "month",
       "kind": "rejected",
       "note": "unrecognized call spm_unit.members"
+    },
+    {
+      "name": "wic_infant_feeding_category",
+      "entity": "person",
+      "value_type": "Enum",
+      "domain": "usda",
+      "period": "month",
+      "kind": "input",
+      "note": "",
+      "enum": "WICInfantFeedingCategory",
+      "members": [
+        "AVERAGE",
+        "FULLY_FORMULA_FED",
+        "PARTIALLY_BREASTFED",
+        "FULLY_BREASTFED"
+      ],
+      "default": "AVERAGE"
     },
     {
       "name": "workers_compensation",

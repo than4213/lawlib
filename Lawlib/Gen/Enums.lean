@@ -6,6 +6,92 @@ import Lean.Data.Json
 
 namespace Lawlib.Gen
 
+inductive AgeGroup where
+  | CHILD
+  | WORKING_AGE
+  | SENIOR
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson AgeGroup where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "CHILD" => pure .CHILD
+    | "WORKING_AGE" => pure .WORKING_AGE
+    | "SENIOR" => pure .SENIOR
+    | s => throw s!"unknown AgeGroup: {s}"
+
+instance : Lean.ToJson AgeGroup where
+  toJson x := match x with
+    | .CHILD => Lean.Json.str "CHILD"
+    | .WORKING_AGE => Lean.Json.str "WORKING_AGE"
+    | .SENIOR => Lean.Json.str "SENIOR"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def AgeGroup.asStr : AgeGroup → String
+  | .CHILD => "CHILD"
+  | .WORKING_AGE => "WORKING_AGE"
+  | .SENIOR => "SENIOR"
+
+inductive CCDFAgeGroup where
+  | INFANT
+  | TODDLER
+  | PRESCHOOLER
+  | SCHOOL_AGE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson CCDFAgeGroup where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "INFANT" => pure .INFANT
+    | "TODDLER" => pure .TODDLER
+    | "PRESCHOOLER" => pure .PRESCHOOLER
+    | "SCHOOL_AGE" => pure .SCHOOL_AGE
+    | s => throw s!"unknown CCDFAgeGroup: {s}"
+
+instance : Lean.ToJson CCDFAgeGroup where
+  toJson x := match x with
+    | .INFANT => Lean.Json.str "INFANT"
+    | .TODDLER => Lean.Json.str "TODDLER"
+    | .PRESCHOOLER => Lean.Json.str "PRESCHOOLER"
+    | .SCHOOL_AGE => Lean.Json.str "SCHOOL_AGE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def CCDFAgeGroup.asStr : CCDFAgeGroup → String
+  | .INFANT => "INFANT"
+  | .TODDLER => "TODDLER"
+  | .PRESCHOOLER => "PRESCHOOLER"
+  | .SCHOOL_AGE => "SCHOOL_AGE"
+
+inductive CCDFDurationOfCare where
+  | WEEKLY
+  | DAILY
+  | PART_DAY
+  | HOURLY
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson CCDFDurationOfCare where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "WEEKLY" => pure .WEEKLY
+    | "DAILY" => pure .DAILY
+    | "PART_DAY" => pure .PART_DAY
+    | "HOURLY" => pure .HOURLY
+    | s => throw s!"unknown CCDFDurationOfCare: {s}"
+
+instance : Lean.ToJson CCDFDurationOfCare where
+  toJson x := match x with
+    | .WEEKLY => Lean.Json.str "WEEKLY"
+    | .DAILY => Lean.Json.str "DAILY"
+    | .PART_DAY => Lean.Json.str "PART_DAY"
+    | .HOURLY => Lean.Json.str "HOURLY"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def CCDFDurationOfCare.asStr : CCDFDurationOfCare → String
+  | .WEEKLY => "WEEKLY"
+  | .DAILY => "DAILY"
+  | .PART_DAY => "PART_DAY"
+  | .HOURLY => "HOURLY"
+
 inductive CHIPCategory where
   | CHILD
   | PREGNANT_STANDARD
@@ -498,6 +584,66 @@ def PellGrantHouseholdType.asStr : PellGrantHouseholdType → String
   | .INDEPENDENT_SINGLE => "INDEPENDENT_SINGLE"
   | .INDEPENDENT_NOT_SINGLE => "INDEPENDENT_NOT_SINGLE"
 
+inductive Race where
+  | WHITE
+  | BLACK
+  | HISPANIC
+  | OTHER
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson Race where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "WHITE" => pure .WHITE
+    | "BLACK" => pure .BLACK
+    | "HISPANIC" => pure .HISPANIC
+    | "OTHER" => pure .OTHER
+    | s => throw s!"unknown Race: {s}"
+
+instance : Lean.ToJson Race where
+  toJson x := match x with
+    | .WHITE => Lean.Json.str "WHITE"
+    | .BLACK => Lean.Json.str "BLACK"
+    | .HISPANIC => Lean.Json.str "HISPANIC"
+    | .OTHER => Lean.Json.str "OTHER"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def Race.asStr : Race → String
+  | .WHITE => "WHITE"
+  | .BLACK => "BLACK"
+  | .HISPANIC => "HISPANIC"
+  | .OTHER => "OTHER"
+
+inductive SNAPUtilityAllowanceType where
+  | SUA
+  | LUA
+  | IUA
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson SNAPUtilityAllowanceType where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "SUA" => pure .SUA
+    | "LUA" => pure .LUA
+    | "IUA" => pure .IUA
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown SNAPUtilityAllowanceType: {s}"
+
+instance : Lean.ToJson SNAPUtilityAllowanceType where
+  toJson x := match x with
+    | .SUA => Lean.Json.str "SUA"
+    | .LUA => Lean.Json.str "LUA"
+    | .IUA => Lean.Json.str "IUA"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def SNAPUtilityAllowanceType.asStr : SNAPUtilityAllowanceType → String
+  | .SUA => "SUA"
+  | .LUA => "LUA"
+  | .IUA => "IUA"
+  | .NONE => "NONE"
+
 inductive SPMUnitTenureType where
   | OWNER_WITH_MORTGAGE
   | OWNER_WITHOUT_MORTGAGE
@@ -523,6 +669,36 @@ def SPMUnitTenureType.asStr : SPMUnitTenureType → String
   | .OWNER_WITH_MORTGAGE => "OWNER_WITH_MORTGAGE"
   | .OWNER_WITHOUT_MORTGAGE => "OWNER_WITHOUT_MORTGAGE"
   | .RENTER => "RENTER"
+
+inductive SSICategory where
+  | AGED
+  | BLIND
+  | DISABLED
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson SSICategory where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "AGED" => pure .AGED
+    | "BLIND" => pure .BLIND
+    | "DISABLED" => pure .DISABLED
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown SSICategory: {s}"
+
+instance : Lean.ToJson SSICategory where
+  toJson x := match x with
+    | .AGED => Lean.Json.str "AGED"
+    | .BLIND => Lean.Json.str "BLIND"
+    | .DISABLED => Lean.Json.str "DISABLED"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def SSICategory.asStr : SSICategory → String
+  | .AGED => "AGED"
+  | .BLIND => "BLIND"
+  | .DISABLED => "DISABLED"
+  | .NONE => "NONE"
 
 inductive SSIFederalLivingArrangement where
   | OWN_HOUSEHOLD
@@ -897,5 +1073,121 @@ def WICCategory.asStr : WICCategory → String
   | .INFANT => "INFANT"
   | .CHILD => "CHILD"
   | .NONE => "NONE"
+
+inductive WICFoodPackage where
+  | NONE
+  | PREGNANT_SINGLETON
+  | PREGNANT_MULTIPLE_FETUSES
+  | PARTIALLY_BREASTFEEDING
+  | POSTPARTUM_NON_BREASTFEEDING
+  | FULLY_BREASTFEEDING
+  | FULLY_BREASTFEEDING_MULTIPLES
+  | INFANT_AVERAGE
+  | INFANT_0_3_FULLY_FORMULA_FED
+  | INFANT_4_5_FULLY_FORMULA_FED
+  | INFANT_0_3_PARTIALLY_BREASTFED
+  | INFANT_4_5_PARTIALLY_BREASTFED
+  | INFANT_6_11_PARTIALLY_BREASTFED
+  | INFANT_0_5_FULLY_BREASTFED
+  | INFANT_6_11_FULLY_FORMULA_FED
+  | INFANT_6_11_FULLY_BREASTFED
+  | CHILD_12_23_MONTHS
+  | CHILD_24_59_MONTHS
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson WICFoodPackage where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "NONE" => pure .NONE
+    | "PREGNANT_SINGLETON" => pure .PREGNANT_SINGLETON
+    | "PREGNANT_MULTIPLE_FETUSES" => pure .PREGNANT_MULTIPLE_FETUSES
+    | "PARTIALLY_BREASTFEEDING" => pure .PARTIALLY_BREASTFEEDING
+    | "POSTPARTUM_NON_BREASTFEEDING" => pure .POSTPARTUM_NON_BREASTFEEDING
+    | "FULLY_BREASTFEEDING" => pure .FULLY_BREASTFEEDING
+    | "FULLY_BREASTFEEDING_MULTIPLES" => pure .FULLY_BREASTFEEDING_MULTIPLES
+    | "INFANT_AVERAGE" => pure .INFANT_AVERAGE
+    | "INFANT_0_3_FULLY_FORMULA_FED" => pure .INFANT_0_3_FULLY_FORMULA_FED
+    | "INFANT_4_5_FULLY_FORMULA_FED" => pure .INFANT_4_5_FULLY_FORMULA_FED
+    | "INFANT_0_3_PARTIALLY_BREASTFED" => pure .INFANT_0_3_PARTIALLY_BREASTFED
+    | "INFANT_4_5_PARTIALLY_BREASTFED" => pure .INFANT_4_5_PARTIALLY_BREASTFED
+    | "INFANT_6_11_PARTIALLY_BREASTFED" => pure .INFANT_6_11_PARTIALLY_BREASTFED
+    | "INFANT_0_5_FULLY_BREASTFED" => pure .INFANT_0_5_FULLY_BREASTFED
+    | "INFANT_6_11_FULLY_FORMULA_FED" => pure .INFANT_6_11_FULLY_FORMULA_FED
+    | "INFANT_6_11_FULLY_BREASTFED" => pure .INFANT_6_11_FULLY_BREASTFED
+    | "CHILD_12_23_MONTHS" => pure .CHILD_12_23_MONTHS
+    | "CHILD_24_59_MONTHS" => pure .CHILD_24_59_MONTHS
+    | s => throw s!"unknown WICFoodPackage: {s}"
+
+instance : Lean.ToJson WICFoodPackage where
+  toJson x := match x with
+    | .NONE => Lean.Json.str "NONE"
+    | .PREGNANT_SINGLETON => Lean.Json.str "PREGNANT_SINGLETON"
+    | .PREGNANT_MULTIPLE_FETUSES => Lean.Json.str "PREGNANT_MULTIPLE_FETUSES"
+    | .PARTIALLY_BREASTFEEDING => Lean.Json.str "PARTIALLY_BREASTFEEDING"
+    | .POSTPARTUM_NON_BREASTFEEDING => Lean.Json.str "POSTPARTUM_NON_BREASTFEEDING"
+    | .FULLY_BREASTFEEDING => Lean.Json.str "FULLY_BREASTFEEDING"
+    | .FULLY_BREASTFEEDING_MULTIPLES => Lean.Json.str "FULLY_BREASTFEEDING_MULTIPLES"
+    | .INFANT_AVERAGE => Lean.Json.str "INFANT_AVERAGE"
+    | .INFANT_0_3_FULLY_FORMULA_FED => Lean.Json.str "INFANT_0_3_FULLY_FORMULA_FED"
+    | .INFANT_4_5_FULLY_FORMULA_FED => Lean.Json.str "INFANT_4_5_FULLY_FORMULA_FED"
+    | .INFANT_0_3_PARTIALLY_BREASTFED => Lean.Json.str "INFANT_0_3_PARTIALLY_BREASTFED"
+    | .INFANT_4_5_PARTIALLY_BREASTFED => Lean.Json.str "INFANT_4_5_PARTIALLY_BREASTFED"
+    | .INFANT_6_11_PARTIALLY_BREASTFED => Lean.Json.str "INFANT_6_11_PARTIALLY_BREASTFED"
+    | .INFANT_0_5_FULLY_BREASTFED => Lean.Json.str "INFANT_0_5_FULLY_BREASTFED"
+    | .INFANT_6_11_FULLY_FORMULA_FED => Lean.Json.str "INFANT_6_11_FULLY_FORMULA_FED"
+    | .INFANT_6_11_FULLY_BREASTFED => Lean.Json.str "INFANT_6_11_FULLY_BREASTFED"
+    | .CHILD_12_23_MONTHS => Lean.Json.str "CHILD_12_23_MONTHS"
+    | .CHILD_24_59_MONTHS => Lean.Json.str "CHILD_24_59_MONTHS"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def WICFoodPackage.asStr : WICFoodPackage → String
+  | .NONE => "NONE"
+  | .PREGNANT_SINGLETON => "PREGNANT_SINGLETON"
+  | .PREGNANT_MULTIPLE_FETUSES => "PREGNANT_MULTIPLE_FETUSES"
+  | .PARTIALLY_BREASTFEEDING => "PARTIALLY_BREASTFEEDING"
+  | .POSTPARTUM_NON_BREASTFEEDING => "POSTPARTUM_NON_BREASTFEEDING"
+  | .FULLY_BREASTFEEDING => "FULLY_BREASTFEEDING"
+  | .FULLY_BREASTFEEDING_MULTIPLES => "FULLY_BREASTFEEDING_MULTIPLES"
+  | .INFANT_AVERAGE => "INFANT_AVERAGE"
+  | .INFANT_0_3_FULLY_FORMULA_FED => "INFANT_0_3_FULLY_FORMULA_FED"
+  | .INFANT_4_5_FULLY_FORMULA_FED => "INFANT_4_5_FULLY_FORMULA_FED"
+  | .INFANT_0_3_PARTIALLY_BREASTFED => "INFANT_0_3_PARTIALLY_BREASTFED"
+  | .INFANT_4_5_PARTIALLY_BREASTFED => "INFANT_4_5_PARTIALLY_BREASTFED"
+  | .INFANT_6_11_PARTIALLY_BREASTFED => "INFANT_6_11_PARTIALLY_BREASTFED"
+  | .INFANT_0_5_FULLY_BREASTFED => "INFANT_0_5_FULLY_BREASTFED"
+  | .INFANT_6_11_FULLY_FORMULA_FED => "INFANT_6_11_FULLY_FORMULA_FED"
+  | .INFANT_6_11_FULLY_BREASTFED => "INFANT_6_11_FULLY_BREASTFED"
+  | .CHILD_12_23_MONTHS => "CHILD_12_23_MONTHS"
+  | .CHILD_24_59_MONTHS => "CHILD_24_59_MONTHS"
+
+inductive WICInfantFeedingCategory where
+  | AVERAGE
+  | FULLY_FORMULA_FED
+  | PARTIALLY_BREASTFED
+  | FULLY_BREASTFED
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson WICInfantFeedingCategory where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "AVERAGE" => pure .AVERAGE
+    | "FULLY_FORMULA_FED" => pure .FULLY_FORMULA_FED
+    | "PARTIALLY_BREASTFED" => pure .PARTIALLY_BREASTFED
+    | "FULLY_BREASTFED" => pure .FULLY_BREASTFED
+    | s => throw s!"unknown WICInfantFeedingCategory: {s}"
+
+instance : Lean.ToJson WICInfantFeedingCategory where
+  toJson x := match x with
+    | .AVERAGE => Lean.Json.str "AVERAGE"
+    | .FULLY_FORMULA_FED => Lean.Json.str "FULLY_FORMULA_FED"
+    | .PARTIALLY_BREASTFED => Lean.Json.str "PARTIALLY_BREASTFED"
+    | .FULLY_BREASTFED => Lean.Json.str "FULLY_BREASTFED"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def WICInfantFeedingCategory.asStr : WICInfantFeedingCategory → String
+  | .AVERAGE => "AVERAGE"
+  | .FULLY_FORMULA_FED => "FULLY_FORMULA_FED"
+  | .PARTIALLY_BREASTFED => "PARTIALLY_BREASTFED"
+  | .FULLY_BREASTFED => "FULLY_BREASTFED"
 
 end Lawlib.Gen
