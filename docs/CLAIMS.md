@@ -54,3 +54,25 @@ New assertions enter at their honest tier with evidence and a firm-up
 path — a T5 guess with a named Prop beats an unstated assumption inside
 a proof. Promotions are commits: better evidence moves a row up and the
 git history records when and why.
+
+## Data–logic membrane claims (Lawlib/Claims/Data.lean)
+
+| Claim | Tier | Evidence |
+|---|---|---|
+| `claim_cohort_hash` | T3 | `pe2lean-aggregate 1200 2000060` regenerates the artifact byte-for-byte; sha256 `24a0c235…` |
+| `claim_pe_cohort_eitc_total` | T4 | one pinned run (policyengine-us 1.783.0): PE EITC total over the 246-household year-2023 cohort = 3135523/4096 ≈ $765.51 |
+| `claim_twin_bound_on_cohort` | T2 | the same cohort diff-checked household-by-household; max observed \|PE − twin\| = 139847/4000000000 ≈ $0.000035 |
+
+Certified conditional: `lawlib_cohort_eitc_total` — under the two
+claims, lawlib's own cohort total is within 246 × $0.000035 ≈ $0.0086
+of PolicyEngine's number, by kernel-checked algebra alone
+(`sum_dev_bound`). The pattern (opaque artifact + hash claim + tiered
+numbers + triangle-inequality theorem) is the template for every
+external aggregate — survey statistics included.
+
+## Differential evidence ledger
+
+Nightly acceptance (roots tier 8k + full tier 500 per night, rotating
+seeds) accumulates fresh samples behind `claim_pe_twin_*`; deep-soak
+history before the ledger began: ~500k households across the M5/M6 and
+v0.6–v0.8 eras, zero mismatches beyond float32 tolerance.
