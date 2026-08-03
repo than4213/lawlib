@@ -77,8 +77,8 @@ ledger, never inside the library.
 ## The membrane rule
 
 The boundary is **typed, not walled**. There is exactly one
-sanctioned crossing: the certified conditional
-(`Lawlib/Claims/Data.lean`):
+sanctioned crossing: the certified conditional (pattern parked in
+`parked/claims/Data.lean`, destined for the claims layer):
 
 > IF this dataset is the artifact with hash H, and the external
 > computation reported total T, THEN lawlib's total is within ε of T.
@@ -87,11 +87,13 @@ The kernel certifies the arrow. It never certifies the antecedent.
 Data enters only as opaque symbols carrying tiered, provenance-tagged
 claims; trust is auditable at this membrane and nowhere else.
 
-For the current, law-focused phase the membrane is nearly idle by
-design: the only reality-touching artifacts are source-text
-provenance (hashes in the manifest) and the differential-testing
-evidence (QA about the translation, outside the formal object).
-Neither involves statistics. Statistics becomes necessary exactly
-when lawlib is asked to speak about the world — population
-aggregates, poverty and optimization studies — and it will live in
-the claims layer when that phase arrives.
+Held strictly, this puts population-facing content **outside lawlib
+entirely**: the cohort-membrane slice now lives in `parked/claims/`,
+and poverty or optimization studies will never enter this library —
+they are claims-layer objects for a separate home (claimlib). What
+remains inside lawlib is law-camp only: claims about *legal texts*
+(the printed EIC table — archival provenance of a source of law) and
+the kernel-checked interior. The differential-testing evidence (QA
+about the translation) stays in CI artifacts and docs, outside the
+formal object. None of it involves statistics; statistics arrives
+with the studies phase, in the claims layer.

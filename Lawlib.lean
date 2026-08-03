@@ -11,7 +11,6 @@ import Lawlib.Verify.PeTable2023
 import Lawlib.Theorems.Eitc2023
 import Lawlib.Theorems.Ctc2023
 import Lawlib.Claims
-import Lawlib.Claims.Data
 import Lawlib.Catala.Runtime
 import Lawlib.Catala.Section32
 import Lawlib.Verify.Catala2023

@@ -55,7 +55,7 @@ path — a T5 guess with a named Prop beats an unstated assumption inside
 a proof. Promotions are commits: better evidence moves a row up and the
 git history records when and why.
 
-## Data–logic membrane claims (Lawlib/Claims/Data.lean)
+## Data–logic membrane claims (parked/claims/Data.lean — outside the library per docs/categories.md; numbers stale, regenerate before reviving)
 
 | Claim | Tier | Evidence |
 |---|---|---|
