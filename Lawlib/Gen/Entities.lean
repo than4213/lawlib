@@ -18,9 +18,7 @@ structure Person_Aca where
   aca_child_index : Rat := 0
   has_esi : Bool := false
   is_aca_ptc_eligible : Bool := false
-  lcbp_age_curve_amount_person : Rat := 0
   offered_aca_disqualifying_esi : Bool := false
-  slcsp_age_curve_multiplier : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Core_p1 where
@@ -144,6 +142,7 @@ structure Person_Core_p1 where
   tax_exempt_interest_income : Rat := 0
   tax_preparation_fees : Rat := 0
   taxable_estate_value : Rat := 0
+  taxable_pension_income : Rat := 0
   tip_income : Rat := 0
   total_self_employment_income : Rat := 0
   traditional_401k_contributions : Rat := 0
@@ -151,10 +150,10 @@ structure Person_Core_p1 where
   unreimbursed_business_employee_expenses : Rat := 0
   veterans_benefits : Rat := 0
   was_in_foster_care : Bool := false
-  weekly_hours_worked_before_lsr : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Core_p2 where
+  weekly_hours_worked_before_lsr : Rat := 0
   years_since_us_entry : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -245,6 +244,7 @@ structure Person_Irs where
   retired_on_total_disability : Bool := false
   savers_credit_qualified_contributions : Rat := 0
   self_employment_tax : Rat := 0
+  total_disability_payments : Rat := 0
   treasury_tipped_occupation_code : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -444,16 +444,9 @@ structure TaxUnit_Irs where
   adjusted_gross_income : Rat := 0
   aged_blind_count : Rat := 0
   american_opportunity_credit : Rat := 0
-  amt_exemption : Rat := 0
-  amt_higher_base_tax : Rat := 0
-  amt_lower_base_tax : Rat := 0
-  amt_separate_addition : Rat := 0
-  amt_tax_including_cg : Rat := 0
-  capital_gains_tax : Rat := 0
   cdcc : Rat := 0
   cdcc_rate : Rat := 0
   ctc_limiting_tax_liability : Rat := 0
-  dwks19 : Rat := 0
   energy_efficient_home_improvement_credit_potential : Rat := 0
   excess_payroll_tax_withheld : Rat := 0
   exemptions : Rat := 0
@@ -461,7 +454,6 @@ structure TaxUnit_Irs where
   foreign_tax_credit_potential : Rat := 0
   has_qdiv_or_ltcg : Bool := false
   income_tax : Rat := 0
-  income_tax_main_rates : Rat := 0
   income_tax_non_refundable_credits : Rat := 0
   investment_income_form_4952 : Rat := 0
   is_barred_from_american_opportunity_credit_due_to_improper_claims : Bool := false
@@ -473,10 +465,8 @@ structure TaxUnit_Irs where
   new_clean_vehicle_credit_eligible : Bool := false
   puerto_rico_income : Rat := 0
   qualified_business_income_deduction : Rat := 0
-  regular_tax_before_credits : Rat := 0
   residential_clean_energy_credit_potential : Rat := 0
   salt_deduction : Rat := 0
-  section_22_income : Rat := 0
   specified_possession_income : Rat := 0
   takes_up_eitc : Bool := false
   tax_unit_itemizes : Bool := false

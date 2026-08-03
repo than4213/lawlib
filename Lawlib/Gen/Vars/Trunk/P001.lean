@@ -308,11 +308,6 @@ def age_spouse (t : TaxUnit) (d : Date) : Rat :=
 def alimony_expense_ald (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => (p.core_p1.alimony_expense * (Params.gov.irs.ald.alimony_expense.divorce_year_threshold.atDate d p.core_p1.divorce_year)))
 
-/-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/base_tax/amt_base_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def amt_base_tax (t : TaxUnit) (d : Date) : Rat :=
-  (t.irs.amt_lower_base_tax + t.irs.amt_higher_base_tax)
-
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/auto_loan_interest/auto_loan_interest_deduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def auto_loan_interest_deduction (t : TaxUnit) (d : Date) : Rat :=
@@ -437,11 +432,6 @@ def earned_income_last_year (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def eitc_relevant_investment_income (t : TaxUnit) (d : Date) : Rat :=
   (((t.irs.net_investment_income + (sumBy t.members fun p => p.core_p1.tax_exempt_interest_income)) - t.irs.loss_limited_net_capital_gains) + (max (0 : Rat) t.core.net_capital_gains))
-
-/-- `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/elderly_disabled_credit_potential.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def elderly_disabled_credit_potential (t : TaxUnit) (d : Date) : Rat :=
-  ((Params.gov.irs.credits.elderly_or_disabled.rate.atDate d) * t.irs.section_22_income)
 
 /-- `policyengine_us/variables/gov/irs/tax/payroll/unemployment/employer_federal_unemployment_tax_rate.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -767,5 +757,15 @@ def is_young_child_for_medicaid_nfc (t : TaxUnit) (p : Person) (d : Date) : Bool
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def itemized_medical_expenses (t : TaxUnit) (d : Date) : Rat :=
   ((sumBy t.members fun p => p.core_p1.medical_expense_health_insurance_premiums) + (sumBy t.members fun p => p.core_p1.other_medical_expenses))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def itemized_taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) (t.irs.total_itemized_taxable_income_deductions - t.irs.itemized_taxable_income_deductions_reduction))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/retirement/k401_catch_up_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def k401_catch_up_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (decide (p.core_p1.age ≥ (Params.gov.irs.gross_income.retirement_contributions.catch_up.age_threshold.atDate d)))
 
 end Lawlib.Gen.Vars

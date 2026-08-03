@@ -45,6 +45,28 @@ def lastThreshold (s : Scale) (d : Date) : Rat :=
   | some b => b.threshold.atDate d
   | none => 0
 
+/-- The `i`-th bracket's rate/amount at date `d` (PolicyEngine's
+`scale.rates[i]` idiom, e.g. the AMT 28% upper rate). `0` past the end. -/
+def rateAt (s : Scale) (d : Date) (i : Nat) : Rat :=
+  match s.brackets[i]? with
+  | some b => b.amount.atDate d
+  | none => 0
+
+/-- The `i`-th bracket's threshold at date `d` (PolicyEngine's
+`scale.thresholds[i]` idiom). `0` past the end. -/
+def thresholdAt (s : Scale) (d : Date) (i : Nat) : Rat :=
+  match s.brackets[i]? with
+  | some b => b.threshold.atDate d
+  | none => 0
+
+/-- Last bracket's rate/amount at date `d` (PolicyEngine's
+`scale.rates[-1]` idiom, e.g. the top AMT rate). `0` for an empty
+scale. -/
+def lastRate (s : Scale) (d : Date) : Rat :=
+  match s.brackets.getLast? with
+  | some b => b.amount.atDate d
+  | none => 0
+
 end Scale
 
 /-- A scale whose thresholds/amounts may be `±∞` (some state parameter

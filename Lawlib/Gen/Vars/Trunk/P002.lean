@@ -12,16 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def itemized_taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
-  (max (0 : Rat) (t.irs.total_itemized_taxable_income_deductions - t.irs.itemized_taxable_income_deductions_reduction))
-
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/retirement/k401_catch_up_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def k401_catch_up_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide (p.core_p1.age ≥ (Params.gov.irs.gross_income.retirement_contributions.catch_up.age_threshold.atDate d)))
-
 /-- `policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def lcbp_family_tier_amount (t : TaxUnit) (d : Date) : Rat :=
@@ -100,7 +90,7 @@ def meets_lifetime_learning_credit_identification_requirements (t : TaxUnit) (p 
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_work_exception.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_snap_work_exception (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((decide (p.core_p1.weekly_hours_worked_before_lsr ≥ (Params.gov.usda.snap.student.working_hours_threshold.atDate d))) || p.ed.is_federal_work_study_participant)
+  ((decide (p.core_p2.weekly_hours_worked_before_lsr ≥ (Params.gov.usda.snap.student.working_hours_threshold.atDate d))) || p.ed.is_federal_work_study_participant)
 
 /-- `policyengine_us/variables/gov/hhs/tanf/cash/eligibility/meets_tanf_work_requirements.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -136,6 +126,11 @@ def msp_state_cost (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def net_capital_gain (t : TaxUnit) (d : Date) : Rat :=
   (((max (0 : Rat) (((max (0 : Rat) (sumBy t.members fun p => p.core_p1.long_term_capital_gains)) - (max (0 : Rat) (0 - (sumBy t.members fun p => p.core_p1.short_term_capital_gains)))) - (sumBy t.members fun p => p.core_p1.investment_income_elected_form_4952))) + (sumBy t.members fun p => p.core_p1.qualified_dividend_income)) + (sumBy t.members fun p => p.core_p1.non_sch_d_capital_gains))
+
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/net_investment_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def net_investment_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  ((Params.gov.irs.investment.net_investment_income_tax.rate.atDate d) * (min ((max (0 : Rat) t.irs.net_investment_income) : Rat) (max (0 : Rat) (t.irs.adjusted_gross_income - (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.investment.net_investment_income_tax.threshold.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.investment.net_investment_income_tax.threshold.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.investment.net_investment_income_tax.threshold.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.investment.net_investment_income_tax.threshold.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.investment.net_investment_income_tax.threshold.SURVIVING_SPOUSE.atDate d))))))
 
 /-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/new/new_clean_vehicle_credit_potential.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -487,11 +482,6 @@ def aged_spouse (t : TaxUnit) (d : Date) : Bool :=
 def base_part_b_premium (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (is_medicare_eligible t p d) then ((Params.gov.hhs.medicare.part_b.base_premium.atDate d) * 12) else 0)
 
-/-- `policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_age_curve_amount_person.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def basic_health_program_age_curve_amount_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (basic_health_program_enrolled t p d) then ((t.aca.slcsp_age_0 * p.aca.slcsp_age_curve_multiplier) * (boolToRat (slcsp_age_curve_applies t d))) else 0)
-
 /-- `policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_ny_age_29_dependent_child.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def basic_health_program_ny_age_29_dependent_child (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -752,14 +742,24 @@ def is_young_child_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def k401_catch_up_limit (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (k401_catch_up_eligible t p d) then (Params.gov.irs.gross_income.retirement_contributions.catch_up.limit.k401.atDate d p.core_p1.age) else 0)
 
-/-- `policyengine_us/variables/gov/aca/lcbp/lcbp.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def lcbp (t : TaxUnit) (d : Date) : Rat :=
-  ((sumBy t.members fun p => p.aca.lcbp_age_curve_amount_person) + (lcbp_family_tier_amount t d))
-
 /-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_phase_out.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def lifetime_learning_credit_phase_out (t : TaxUnit) (d : Date) : Rat :=
   (min (1 : Rat) ((max (0 : Rat) (t.irs.adjusted_gross_income - (if (tax_unit_is_joint t d) then (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.start.joint.atDate d) else (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.start.single.atDate d)))) / (if (tax_unit_is_joint t d) then (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.length.joint.atDate d) else (Params.gov.irs.credits.education.lifetime_learning_credit.phase_out.length.single.atDate d))))
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/medicaid_cost.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def medicaid_cost (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (medicaid_enrolled t p d) then p.hhs.medicaid_cost_if_enrolled else 0)
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_is_tax_dependent.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def medicaid_is_tax_dependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (((is_tax_unit_dependent t p d) || p.core_p1.claimed_as_dependent_on_another_return) || p.hhs.medicaid_has_known_claiming_tax_unit)
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/medical_expense_deduction.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def medical_expense_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) ((itemized_medical_expenses t d) - ((Params.gov.irs.deductions.itemized.medical.floor.atDate d) * (positive_agi t d))))
 
 end Lawlib.Gen.Vars
