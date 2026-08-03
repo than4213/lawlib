@@ -59,12 +59,12 @@ git history records when and why.
 
 | Claim | Tier | Evidence |
 |---|---|---|
-| `claim_cohort_hash` | T3 | `pe2lean-aggregate 1200 2000060` regenerates the artifact byte-for-byte; sha256 `45d06b55…` |
-| `claim_pe_cohort_eitc_total` | T4 | one pinned run (policyengine-us 1.783.0): PE EITC total over the 246-household year-2023 cohort = 346373/128 ≈ $2,706.04 |
-| `claim_twin_bound_on_cohort` | T2 | the same cohort diff-checked household-by-household; max observed \|PE − twin\| = 3458751/20000000000 ≈ $0.000173 |
+| `claim_cohort_hash` | T3 | `pe2lean-aggregate 1200 2000060` regenerates the artifact byte-for-byte; sha256 `9575863e…` |
+| `claim_pe_cohort_eitc_total` | T4 | one pinned run (policyengine-us 1.783.0): PE EITC total over the 250-household year-2023 cohort ≈ $7,271.47 |
+| `claim_twin_bound_on_cohort` | T2 | the same cohort diff-checked household-by-household; max observed \|PE − twin\| = 377/1280000 ≈ $0.000295 |
 
 Certified conditional: `lawlib_cohort_eitc_total` — under the two
-claims, lawlib's own cohort total is within 246 × $0.000173 ≈ $0.043
+claims, lawlib's own cohort total is within 250 × $0.000295 ≈ $0.074
 of PolicyEngine's number, by kernel-checked algebra alone
 (`sum_dev_bound`). The pattern (opaque artifact + hash claim + tiered
 numbers + triangle-inequality theorem) is the template for every

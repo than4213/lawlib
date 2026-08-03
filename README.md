@@ -1,11 +1,12 @@
 # Lawlib
 
-**A formal library of law in Lean 4**: the computable core of the US
-tax-and-transfer system — **10,362 exact-rational, date-indexed
-parameters** (the entire PolicyEngine parameter tree) and **~3,200
-mechanically translated formulas** spanning federal tax credits (EITC,
-CTC), SNAP, SSI, the ACA premium tax credit, and a long tail of state
-and local programs.
+**A formal library of United States federal law in Lean 4**: the
+computable core of the federal tax-and-transfer system — every
+enacted, exact-rational, date-indexed parameter and ~500 mechanically
+translated formulas spanning the EITC, CTC, SNAP, SSI, the ACA premium
+tax credit, Medicare/Medicaid eligibility, and payroll taxation.
+Scope and authority taxonomy: [docs/scope.md](docs/scope.md); state
+and local programs are parked in [parked/states/](parked/states/).
 
 Lawlib is a *verified twin* of [PolicyEngine US](https://github.com/PolicyEngine/policyengine-us),
 the largest living formalization of US tax-benefit law. PolicyEngine's

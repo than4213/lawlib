@@ -24,8 +24,8 @@ The division of labor:
   bound and the external total, lawlib's own total is pinned to an
   interval — pure algebra, no evaluation, no trust in the data.
 
-Produced by `pe2lean-aggregate 1200 2000060` — 246 year-2023
-households, PE total ≈ $2,706.04 — (pe2lean v0.8.5,
+Produced by `pe2lean-aggregate 1200 2000060` — 250 year-2023
+households, PE total ≈ $7,271.47 — (pe2lean v0.9.0,
 policyengine-us 1.783.0).
 -/
 
@@ -56,13 +56,13 @@ opaque peExecutedEitc : TaxUnit → Date → Rat
 the one whose hash is recorded; `pe2lean-aggregate` reproduces it
 byte-for-byte from the seed. -/
 def claim_cohort_hash : Prop :=
-  sha256 cohortSeed2000060Jsonl = "45d06b553dc91d643807e907c5887e0db558c79e3be28871a4003052c4031ba9"
+  sha256 cohortSeed2000060Jsonl = "9575863e0e07a0b0b4c422e5990df4e162f0e0e0082214b6b0a8f8bbe6875cb7"
 
 /-- **External total** (T4 — one pinned run): executed PolicyEngine's
 EITC total over the cohort. -/
 def claim_pe_cohort_eitc_total : Prop :=
   (cohortSeed2000060.map (fun t => peExecutedEitc t d2023)).sum
-    = (346373 / 128 : Rat)
+    = (72714672546386719 / 10000000000000 : Rat)
 
 /-- **Pointwise twin bound on this cohort** (T2 — differential: this
 exact cohort was diff-checked household-by-household; the recorded
@@ -70,7 +70,7 @@ maximum |PE − twin| is the bound). -/
 def claim_twin_bound_on_cohort : Prop :=
   ∀ t ∈ cohortSeed2000060,
     rabs (peExecutedEitc t d2023 - Memo.eitc t d2023)
-      ≤ (3458751 / 20000000000 : Rat)
+      ≤ (377 / 1280000 : Rat)
 
 /-! ## The kernel's contribution -/
 
@@ -105,11 +105,11 @@ theorem lawlib_cohort_eitc_total
     (hb : claim_twin_bound_on_cohort)
     (ht : claim_pe_cohort_eitc_total) :
     rabs ((cohortSeed2000060.map (fun t => Memo.eitc t d2023)).sum
-          - (346373 / 128 : Rat))
-      ≤ cohortSeed2000060.length * (3458751 / 20000000000 : Rat) := by
+          - (72714672546386719 / 10000000000000 : Rat))
+      ≤ cohortSeed2000060.length * (377 / 1280000 : Rat) := by
   have := sum_dev_bound (fun t => peExecutedEitc t d2023)
                         (fun t => Memo.eitc t d2023)
-                        (3458751 / 20000000000 : Rat) cohortSeed2000060 hb
+                        (377 / 1280000 : Rat) cohortSeed2000060 hb
   rw [ht] at this
   have hsym : ∀ a b : Rat, rabs (a - b) = rabs (b - a) := by
     intro a b; simp only [rabs]; split <;> split <;> rename_i h1 h2 <;> linarith

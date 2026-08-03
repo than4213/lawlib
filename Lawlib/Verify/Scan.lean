@@ -31,12 +31,12 @@ given earned income, a spouse for joint filers, `n` qualifying children
 aged 8; AGI mirrors earned income; everything else zero. -/
 def mkTaxUnit (g : Group) (n : Nat) (income : Rat) : TaxUnit :=
   let head : Person :=
-    { core_p1 := { age := 30, is_tax_unit_head := true, has_tin := true,
+    { core := { age := 30, is_tax_unit_head := true, has_tin := true,
                    employment_income := income } }
   let spouse : Person :=
-    { core_p1 := { age := 30, is_tax_unit_spouse := true, has_tin := true } }
+    { core := { age := 30, is_tax_unit_spouse := true, has_tin := true } }
   let child : Person :=
-    { core_p1 := { age := 8, has_tin := true } }
+    { core := { age := 8, has_tin := true } }
   { members := [head] ++ (if g = .joint then [spouse] else []) ++ List.replicate n child
     core := { filing_status := if g = .joint then .JOINT else .SINGLE }
     irs := { adjusted_gross_income := income

@@ -20,8 +20,11 @@ the ACA premium tax credit — are *differentially validated* nightly: thousands
 households (a deep soak of the root programs plus a full-tier sweep),
 evaluated by both engines, must agree to within PolicyEngine's own
 float32 noise. Translation is
-rejection-based: anything the typed IR can't faithfully express becomes
-a documented boundary input, never a guess (`rejection_report.md`).
+rejection-based: translation is all-or-nothing per formula — anything the extractor
+cannot express *exactly* in its small typed IR is refused rather than
+approximated; the variable becomes an explicit input supplied from
+outside, and the refusal is logged with its reason in
+`rejection_report.md`. Nothing in the library is a guess, never a guess (`rejection_report.md`).
 
 **Some theorems.** The 2023 IRS EIC table — 10,120 cells parsed from
 the Form 1040 instructions PDF — is reproduced cell-for-cell by a
