@@ -42,10 +42,10 @@ jobs:
           git diff --exit-code
       - name: Parameter spot-check
         run: pe2lean-spot --lawlib .
-      - name: Differential test (roots tier, 1500 households)
-        run: pe2lean-diff 1500 --lawlib . --tier roots
-      - name: Differential test (full tier, 200 households)
-        run: pe2lean-diff 200 --lawlib .
+      - name: Differential test (roots tier, 2000 households)
+        run: pe2lean-diff 2000 --lawlib . --tier roots
+      - name: Differential test (full tier, 500 households)
+        run: pe2lean-diff 500 --lawlib .
 
   nightly-acceptance:
     if: github.event_name == 'schedule'
@@ -60,7 +60,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install pinned extractor
         run: pip install "pe2lean @ git+https://github.com/than4213/pe2lean.git@${{ env.PE2LEAN_REF }}"
-      - name: Differential acceptance (roots tier, 8k households, 2021-2025)
-        run: pe2lean-diff 8000 --lawlib . --tier roots
-      - name: Differential acceptance (full tier, 500 households)
-        run: pe2lean-diff 500 --lawlib . 7
+      - name: Differential acceptance (roots tier, 15k households, 2021-2025)
+        run: pe2lean-diff 15000 --lawlib . --tier roots
+      - name: Differential acceptance (full tier, 3k households)
+        run: pe2lean-diff 3000 --lawlib . 7
