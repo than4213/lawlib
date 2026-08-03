@@ -70,6 +70,44 @@ def ChildcareProviderTypeGroup.asStr : ChildcareProviderTypeGroup → String
   | .LE_STD => "LE_STD"
   | .LE_ENH => "LE_ENH"
 
+inductive FamilyTierCategory where
+  | INDIVIDUAL_AGE_RATED
+  | ONE_ADULT
+  | TWO_ADULTS
+  | ONE_ADULT_AND_ONE_OR_MORE_CHILDREN
+  | TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN
+  | CHILD_ONLY
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson FamilyTierCategory where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "INDIVIDUAL_AGE_RATED" => pure .INDIVIDUAL_AGE_RATED
+    | "ONE_ADULT" => pure .ONE_ADULT
+    | "TWO_ADULTS" => pure .TWO_ADULTS
+    | "ONE_ADULT_AND_ONE_OR_MORE_CHILDREN" => pure .ONE_ADULT_AND_ONE_OR_MORE_CHILDREN
+    | "TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN" => pure .TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN
+    | "CHILD_ONLY" => pure .CHILD_ONLY
+    | s => throw s!"unknown FamilyTierCategory: {s}"
+
+instance : Lean.ToJson FamilyTierCategory where
+  toJson x := match x with
+    | .INDIVIDUAL_AGE_RATED => Lean.Json.str "INDIVIDUAL_AGE_RATED"
+    | .ONE_ADULT => Lean.Json.str "ONE_ADULT"
+    | .TWO_ADULTS => Lean.Json.str "TWO_ADULTS"
+    | .ONE_ADULT_AND_ONE_OR_MORE_CHILDREN => Lean.Json.str "ONE_ADULT_AND_ONE_OR_MORE_CHILDREN"
+    | .TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN => Lean.Json.str "TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN"
+    | .CHILD_ONLY => Lean.Json.str "CHILD_ONLY"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def FamilyTierCategory.asStr : FamilyTierCategory → String
+  | .INDIVIDUAL_AGE_RATED => "INDIVIDUAL_AGE_RATED"
+  | .ONE_ADULT => "ONE_ADULT"
+  | .TWO_ADULTS => "TWO_ADULTS"
+  | .ONE_ADULT_AND_ONE_OR_MORE_CHILDREN => "ONE_ADULT_AND_ONE_OR_MORE_CHILDREN"
+  | .TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN => "TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN"
+  | .CHILD_ONLY => "CHILD_ONLY"
+
 inductive FilingStatus where
   | SINGLE
   | JOINT
@@ -103,6 +141,40 @@ def FilingStatus.asStr : FilingStatus → String
   | .SEPARATE => "SEPARATE"
   | .HEAD_OF_HOUSEHOLD => "HEAD_OF_HOUSEHOLD"
   | .SURVIVING_SPOUSE => "SURVIVING_SPOUSE"
+
+inductive HUDIncomeLevel where
+  | ABOVE_MODERATE
+  | MODERATE
+  | LOW
+  | VERY_LOW
+  | ESPECIALLY_LOW
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson HUDIncomeLevel where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "ABOVE_MODERATE" => pure .ABOVE_MODERATE
+    | "MODERATE" => pure .MODERATE
+    | "LOW" => pure .LOW
+    | "VERY_LOW" => pure .VERY_LOW
+    | "ESPECIALLY_LOW" => pure .ESPECIALLY_LOW
+    | s => throw s!"unknown HUDIncomeLevel: {s}"
+
+instance : Lean.ToJson HUDIncomeLevel where
+  toJson x := match x with
+    | .ABOVE_MODERATE => Lean.Json.str "ABOVE_MODERATE"
+    | .MODERATE => Lean.Json.str "MODERATE"
+    | .LOW => Lean.Json.str "LOW"
+    | .VERY_LOW => Lean.Json.str "VERY_LOW"
+    | .ESPECIALLY_LOW => Lean.Json.str "ESPECIALLY_LOW"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def HUDIncomeLevel.asStr : HUDIncomeLevel → String
+  | .ABOVE_MODERATE => "ABOVE_MODERATE"
+  | .MODERATE => "MODERATE"
+  | .LOW => "LOW"
+  | .VERY_LOW => "VERY_LOW"
+  | .ESPECIALLY_LOW => "ESPECIALLY_LOW"
 
 inductive ImmigrationStatus where
   | CITIZEN
@@ -191,6 +263,36 @@ def MSPCategory.asStr : MSPCategory → String
   | .QMB => "QMB"
   | .SLMB => "SLMB"
   | .QI => "QI"
+
+inductive MarketplaceCSRCategory where
+  | NONE
+  | AV_94
+  | AV_87
+  | AV_73
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MarketplaceCSRCategory where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "NONE" => pure .NONE
+    | "AV_94" => pure .AV_94
+    | "AV_87" => pure .AV_87
+    | "AV_73" => pure .AV_73
+    | s => throw s!"unknown MarketplaceCSRCategory: {s}"
+
+instance : Lean.ToJson MarketplaceCSRCategory where
+  toJson x := match x with
+    | .NONE => Lean.Json.str "NONE"
+    | .AV_94 => Lean.Json.str "AV_94"
+    | .AV_87 => Lean.Json.str "AV_87"
+    | .AV_73 => Lean.Json.str "AV_73"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MarketplaceCSRCategory.asStr : MarketplaceCSRCategory → String
+  | .NONE => "NONE"
+  | .AV_94 => "AV_94"
+  | .AV_87 => "AV_87"
+  | .AV_73 => "AV_73"
 
 inductive MarketplacePlanCategory where
   | BRONZE
@@ -395,6 +497,62 @@ def PellGrantHouseholdType.asStr : PellGrantHouseholdType → String
   | .DEPENDENT_NOT_SINGLE => "DEPENDENT_NOT_SINGLE"
   | .INDEPENDENT_SINGLE => "INDEPENDENT_SINGLE"
   | .INDEPENDENT_NOT_SINGLE => "INDEPENDENT_NOT_SINGLE"
+
+inductive SPMUnitTenureType where
+  | OWNER_WITH_MORTGAGE
+  | OWNER_WITHOUT_MORTGAGE
+  | RENTER
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson SPMUnitTenureType where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "OWNER_WITH_MORTGAGE" => pure .OWNER_WITH_MORTGAGE
+    | "OWNER_WITHOUT_MORTGAGE" => pure .OWNER_WITHOUT_MORTGAGE
+    | "RENTER" => pure .RENTER
+    | s => throw s!"unknown SPMUnitTenureType: {s}"
+
+instance : Lean.ToJson SPMUnitTenureType where
+  toJson x := match x with
+    | .OWNER_WITH_MORTGAGE => Lean.Json.str "OWNER_WITH_MORTGAGE"
+    | .OWNER_WITHOUT_MORTGAGE => Lean.Json.str "OWNER_WITHOUT_MORTGAGE"
+    | .RENTER => Lean.Json.str "RENTER"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def SPMUnitTenureType.asStr : SPMUnitTenureType → String
+  | .OWNER_WITH_MORTGAGE => "OWNER_WITH_MORTGAGE"
+  | .OWNER_WITHOUT_MORTGAGE => "OWNER_WITHOUT_MORTGAGE"
+  | .RENTER => "RENTER"
+
+inductive SSIFederalLivingArrangement where
+  | OWN_HOUSEHOLD
+  | ANOTHER_PERSONS_HOUSEHOLD
+  | CHILD_IN_PARENTAL_HOUSEHOLD
+  | MEDICAL_TREATMENT_FACILITY
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson SSIFederalLivingArrangement where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "OWN_HOUSEHOLD" => pure .OWN_HOUSEHOLD
+    | "ANOTHER_PERSONS_HOUSEHOLD" => pure .ANOTHER_PERSONS_HOUSEHOLD
+    | "CHILD_IN_PARENTAL_HOUSEHOLD" => pure .CHILD_IN_PARENTAL_HOUSEHOLD
+    | "MEDICAL_TREATMENT_FACILITY" => pure .MEDICAL_TREATMENT_FACILITY
+    | s => throw s!"unknown SSIFederalLivingArrangement: {s}"
+
+instance : Lean.ToJson SSIFederalLivingArrangement where
+  toJson x := match x with
+    | .OWN_HOUSEHOLD => Lean.Json.str "OWN_HOUSEHOLD"
+    | .ANOTHER_PERSONS_HOUSEHOLD => Lean.Json.str "ANOTHER_PERSONS_HOUSEHOLD"
+    | .CHILD_IN_PARENTAL_HOUSEHOLD => Lean.Json.str "CHILD_IN_PARENTAL_HOUSEHOLD"
+    | .MEDICAL_TREATMENT_FACILITY => Lean.Json.str "MEDICAL_TREATMENT_FACILITY"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def SSIFederalLivingArrangement.asStr : SSIFederalLivingArrangement → String
+  | .OWN_HOUSEHOLD => "OWN_HOUSEHOLD"
+  | .ANOTHER_PERSONS_HOUSEHOLD => "ANOTHER_PERSONS_HOUSEHOLD"
+  | .CHILD_IN_PARENTAL_HOUSEHOLD => "CHILD_IN_PARENTAL_HOUSEHOLD"
+  | .MEDICAL_TREATMENT_FACILITY => "MEDICAL_TREATMENT_FACILITY"
 
 inductive SSNCardType where
   | CITIZEN

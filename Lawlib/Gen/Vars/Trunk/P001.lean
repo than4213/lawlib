@@ -318,11 +318,6 @@ def auto_loan_interest_deduction (t : TaxUnit) (d : Date) : Rat :=
 def basic_health_program_enrolled (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if p.hhs.is_basic_health_program_eligible then (decide (boolToRat p.hhs.takes_up_basic_health_program_if_eligible ≠ 0)) else false)
 
-/-- `policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_amount.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def basic_health_program_family_tier_amount (t : TaxUnit) (d : Date) : Rat :=
-  (if t.aca.slcsp_family_tier_applies then (t.aca.slcsp_age_0 * t.hhs.basic_health_program_family_tier_multiplier) else 0)
-
 /-- `policyengine_us/variables/household/demographic/tax_unit/blind_head.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def blind_head (t : TaxUnit) (d : Date) : Bool :=
@@ -592,6 +587,11 @@ def is_chip_eligible_pregnant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_citizen_or_legal_immigrant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((Params.gov.dhs.immigration.qualified_noncitizen_status.atDate d).contains (ImmigrationStatus.asStr p.core_p1.immigration_status)) || (p.core_p1.immigration_status == ImmigrationStatus.CITIZEN))
+
+/-- `policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def is_eligible_for_housing_assistance (t : TaxUnit) (d : Date) : Bool :=
+  (t.hud.receives_housing_assistance || ((t.core.spm_unit_tenure_type == SPMUnitTenureType.RENTER) && (((t.hud.hud_income_level == HUDIncomeLevel.ESPECIALLY_LOW) || (t.hud.hud_income_level == HUDIncomeLevel.VERY_LOW)) || (t.hud.hud_income_level == HUDIncomeLevel.LOW))))
 
 /-- `policyengine_us/variables/gov/hhs/head_start/is_head_start_income_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/

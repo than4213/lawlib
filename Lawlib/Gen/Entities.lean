@@ -204,7 +204,6 @@ structure Person_Hhs where
   medicare_quarters_of_coverage : Rat := 0
   months_receiving_social_security_disability : Rat := 0
   msp_asset_eligible : Bool := false
-  msp_benefit_value : Rat := 0
   msp_category : MSPCategory := .NONE
   msp_cost : Rat := 0
   msp_countable_income : Rat := 0
@@ -265,10 +264,11 @@ structure Person_Ssa where
   ss_aime : Rat := 0
   ss_full_retirement_age_months : Rat := 0
   ss_retirement_age_adjustment_factor : Rat := 0
-  ssi_amount_if_eligible : Rat := 0
   ssi_countable_income : Rat := 0
-  ssi_couple_computation_applies : Bool := false
-  ssi_pmv_applies : Bool := false
+  ssi_federal_living_arrangement : SSIFederalLivingArrangement := .OWN_HOUSEHOLD
+  ssi_receives_food_from_others : Bool := false
+  ssi_receives_outside_shelter_support : Bool := false
+  ssi_receives_shelter_from_others_in_household : Bool := false
   ssi_shelter_support_value : Rat := 0
   takes_up_ssi_if_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -303,6 +303,10 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 structure Person_States_tax where
   employer_state_payroll_tax : Rat := 0
   employer_total_state_payroll_tax : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
+structure Person_States_tx where
+  tx_dta_csfp_income_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Usda where
@@ -342,19 +346,20 @@ structure Person where
   states_ms : Person_States_ms := {}
   states_or : Person_States_or := {}
   states_tax : Person_States_tax := {}
+  states_tx : Person_States_tx := {}
   usda : Person_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Aca where
   aca_required_contribution_percentage : Rat := 0
   lcbp_age_0 : Rat := 0
-  lcbp_family_tier_multiplier : Rat := 0
-  marketplace_csr_actuarial_value : Rat := 0
+  lcbp_family_tier_category : FamilyTierCategory := .INDIVIDUAL_AGE_RATED
+  marketplace_csr_category : MarketplaceCSRCategory := .NONE
   selected_marketplace_plan_benchmark_ratio : Rat := 0
   selected_marketplace_plan_category : MarketplacePlanCategory := .SILVER
   slcsp_age_0 : Rat := 0
   slcsp_family_tier_applies : Bool := false
-  slcsp_family_tier_multiplier : Rat := 0
+  slcsp_family_tier_category : FamilyTierCategory := .INDIVIDUAL_AGE_RATED
   slcsp_rating_area_default : Rat := 0
   slcsp_rating_area_la_county : Rat := 0
   takes_up_aca_if_eligible : Bool := false
@@ -395,6 +400,7 @@ structure TaxUnit_Core where
   small_area_fair_market_rent : Rat := 0
   spm_unit_assets : Rat := 0
   spm_unit_size : Rat := 0
+  spm_unit_tenure_type : SPMUnitTenureType := .RENTER
   state_code : StateCode := .CA
   state_code_str : String := ""
   state_group_str : String := ""
@@ -418,7 +424,7 @@ structure TaxUnit_Fcc where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hhs where
-  basic_health_program_family_tier_multiplier : Rat := 0
+  basic_health_program_family_tier_category : FamilyTierCategory := .INDIVIDUAL_AGE_RATED
   hhs_smi : Rat := 0
   is_tanf_non_cash_hheod : Bool := false
   medicaid_working_disabled_buy_in_premium : Rat := 0
@@ -433,9 +439,10 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hud where
   hud_fair_market_rent : Rat := 0
+  hud_income_level : HUDIncomeLevel := .ABOVE_MODERATE
   hud_ttp : Rat := 0
   hud_utility_allowance : Rat := 0
-  is_eligible_for_housing_assistance : Bool := false
+  receives_housing_assistance : Bool := false
   takes_up_housing_assistance_if_eligible : Bool := false
   zip_code_payment_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -589,6 +596,7 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 structure TaxUnit_States_ks where
   ks_child_care_subsidies : Rat := 0
   ks_chip_premium : Rat := 0
+  ks_dcf_csfp_county_eligible : Bool := false
   ks_tanf : Rat := 0
   ks_tanf_max_benefit_standard : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -607,6 +615,7 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 structure TaxUnit_States_ma where
   ma_child_care_subsidies : Rat := 0
   ma_chip_premium : Rat := 0
+  ma_dese_csfp_county_eligible : Bool := false
   ma_tafdc : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -637,6 +646,7 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 structure TaxUnit_States_mo where
   mo_child_care_subsidies : Rat := 0
   mo_chip_premium : Rat := 0
+  mo_dhss_csfp_county_eligible : Bool := false
   mo_tanf : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 

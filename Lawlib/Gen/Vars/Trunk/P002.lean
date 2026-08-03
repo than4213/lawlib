@@ -12,11 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def lcbp_family_tier_amount (t : TaxUnit) (d : Date) : Rat :=
-  (if t.aca.slcsp_family_tier_applies then (t.aca.lcbp_age_0 * t.aca.lcbp_family_tier_multiplier) else 0)
-
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/limited_capital_loss.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def limited_capital_loss (t : TaxUnit) (d : Date) : Rat :=
@@ -187,6 +182,11 @@ def positive_gross_income (t : TaxUnit) (d : Date) : Rat :=
 def pre_tax_contributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (((p.core_p1.traditional_401k_contributions + p.core_p1.traditional_403b_contributions) + p.core_p1.pre_tax_health_insurance_premiums) + p.core_p1.health_savings_account_payroll_contributions)
 
+/-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def qmb_cost_sharing (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (((boolToRat (p.hhs.msp_category == MSPCategory.QMB)) * ((Params.calibration.gov.hhs.medicare.per_capita_cost.atDate d) / 12)) * (Params.gov.hhs.medicare.savings_programs.qmb.cost_sharing_rate.atDate d))
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def qualified_business_income_deduction_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -231,11 +231,6 @@ def share_of_care_and_support_costs_paid_by_tax_filer (t : TaxUnit) (p : Person)
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def slcsp_age_curve_applies (t : TaxUnit) (d : Date) : Bool :=
   (!t.aca.slcsp_family_tier_applies)
-
-/-- `policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_amount.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def slcsp_family_tier_amount (t : TaxUnit) (d : Date) : Rat :=
-  (if t.aca.slcsp_family_tier_applies then (t.aca.slcsp_age_0 * t.aca.slcsp_family_tier_multiplier) else 0)
 
 /-- `policyengine_us/variables/gov/aca/slspc/slcsp_rating_area.py`
     policyengine-us 1.783.0, entity household, value_type int. -/
@@ -336,6 +331,11 @@ def ssi_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ssi_marital_both_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (boolToRat q.ssa.is_ssi_aged_blind_disabled) else 0) else (boolToRat p.ssa.is_ssi_aged_blind_disabled)) = 2))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_pmv_applies.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def ssi_pmv_applies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((p.ssa.ssi_federal_living_arrangement == SSIFederalLivingArrangement.OWN_HOUSEHOLD) && ((p.ssa.ssi_receives_outside_shelter_support || p.ssa.ssi_receives_shelter_from_others_in_household) || (p.ssa.ssi_receives_food_from_others && (Params.gov.ssa.ssi.income.ism.food_counts.atDate d))))
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/state_and_local_sales_or_income_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
