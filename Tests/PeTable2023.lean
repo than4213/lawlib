@@ -1,5 +1,5 @@
 import Lawlib.Verify.EicTable2023
-import Lawlib.Claims
+import Tests.Claims
 
 /-!
 # PE-formula vs table theorems (evaluated via the memoized evaluator)

@@ -1,4 +1,4 @@
-import Lawlib.Verify.EicTable2023
+import Tests.EicTableCheck2023
 
 /-!
 # Claims: the bridge from committed data to reality

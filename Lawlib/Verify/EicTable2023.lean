@@ -3,7 +3,6 @@ import Lawlib.Core.Date
 import Lawlib.Gen.Entities
 import Lawlib.Gen.Params
 import Lawlib.Gen.Vars.Trunk
-import Lawlib.Gen.Irs.EicTable2023
 import Lawlib.Verify.Scan
 
 /-!
@@ -18,23 +17,13 @@ a phase kink. The rates, maximums, and phase-out starts come from the
 phase-in ends and unrounded completed-phaseout amounts are additional
 Rev.-Proc.-level data.
 
-The theorems below are checked by `native_decide` (finite computation
-over all 10,120 parsed table cells; trusts the Lean compiler in addition
-to the kernel):
-
-* `eic_table_2023_generator_verified` — the model reproduces every cell
-  of the parsed table (`Lawlib.Gen.Irs.eicTable2023`).
-* (in `Verify/PeTable2023.lean`, temporarily unimported —
-  see that file's header) `pe_within_1150_of_table` — PolicyEngine's
-  smooth formula (the
-  translated `eitc`, evaluated on the canonical scan household) never
-  differs from the legal table credit by more than **$11.50**, checked
-  at both bracket edges and the midpoint of every bracket.
-* `pe_table_gap_reaches_1150` — the bound is sharp: at $50 of earned
-  income with three children, the formula pays $22.50 where the table
-  pays $34.
-* `pe_within_530_at_midpoints` — at bracket midpoints alone the gap is
-  at most $5.297 (the residual anchoring + straddle-convention error).
+The generator IS the law-side content: §32(f)(2)(A) mandates the $50
+brackets and midpoint evaluation; the rounding convention and unrounded
+anchors are the administrative completion, recovered and certified.
+The 10,120-cell transcription of the printed table and the theorem
+that `tableModel` reproduces it live in `Tests/` (categories doctrine,
+docs/categories.md): the fixture is evidence about the printed
+artifact, not law.
 -/
 
 namespace Lawlib.Verify
@@ -90,40 +79,5 @@ def tableModel (g : Group) (n : Nat) (lo hi : Nat) : Option Nat :=
 def cols : List (Group × Nat) :=
   [(.single, 0), (.single, 1), (.single, 2), (.single, 3),
    (.joint, 0), (.joint, 1), (.joint, 2), (.joint, 3)]
-
-/-- The table prints `0` beyond the phase-out for some columns and `*`
-for others; both mean "no credit". -/
-def cellMatches (m t : Option Nat) : Bool :=
-  m == t || (m == none && t == some 0)
-
-def rowOk (r : Gen.Irs.EicRow) : Bool :=
-  (List.range 8).all fun i =>
-    let (g, n) := cols.getD i (.single, 0)
-    cellMatches (tableModel g n r.lo r.hi) (r.credits.getD i none)
-
-/-- PE-formula deviation from the table cell, checked at the bracket's
-low edge, midpoint, and high edge. -/
-def rowDevOk (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
-  (List.range 8).all fun i =>
-    let (g, n) := cols.getD i (.single, 0)
-    match r.credits.getD i none with
-    | none => true
-    | some t =>
-      [(r.lo : Rat), ((r.lo : Rat) + (r.hi : Rat)) / 2, (r.hi : Rat) - 1].all
-        fun x => decide (rabs (peM g n x - (t : Rat)) ≤ bound)
-
-def rowDevOkMid (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
-  (List.range 8).all fun i =>
-    let (g, n) := cols.getD i (.single, 0)
-    match r.credits.getD i none with
-    | none => true
-    | some t =>
-      decide (rabs (peM g n (((r.lo : Rat) + (r.hi : Rat)) / 2) - (t : Rat)) ≤ bound)
-
-/-- The reverse-engineered generator reproduces every cell of the 2023
-IRS EIC table. -/
-theorem eic_table_2023_generator_verified :
-    Gen.Irs.eicTable2023.all rowOk = true := by
-  native_decide
 
 end Lawlib.Verify

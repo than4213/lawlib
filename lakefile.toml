@@ -1,6 +1,6 @@
 name = "lawlib"
 version = "0.1.0"
-defaultTargets = ["Lawlib"]
+defaultTargets = ["Lawlib", "Tests"]
 
 # Phase 2 (design §2): mathlib for order/algebra lemmas behind the
 # ∀-theorems. Generated definitions still use only core types (ℚ = Rat).
@@ -11,11 +11,20 @@ rev = "v4.32.1"
 
 [[lean_lib]]
 name = "Lawlib"
-# The Asserted shadow is imported by nothing (CI-enforced) but must
-# still compile: build it explicitly alongside the root module.
-globs = ["Lawlib", "Lawlib.Claims.Asserted"]
+# Pure law only (docs/categories.md): fixtures, claims, and the
+# Asserted shadow live in the Tests lib below.
+globs = ["Lawlib"]
 # native_decide over the full-depth eitc closure needs a deep
 # elaboration-thread stack (default 8MB segfaults).
+moreLeanArgs = ["--tstack=262144"]
+
+[[lean_lib]]
+name = "Tests"
+# Fixtures (the transcribed EIC table), claims about reality (the
+# printed artifact, executed PolicyEngine), and their certified
+# conditionals. Imports Lawlib; never the reverse. The Asserted shadow
+# is imported by nothing (CI-enforced) but must still compile.
+globs = ["Tests.+"]
 moreLeanArgs = ["--tstack=262144"]
 
 [[lean_exe]]

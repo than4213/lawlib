@@ -1,4 +1,4 @@
-import Lawlib.Claims
+import Tests.Claims
 
 /-!
 # Quarantined axiom shadow (registry probe target — import nothing from here)
