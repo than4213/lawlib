@@ -97,24 +97,24 @@ def fl_tca_countable_income (t : TaxUnit) (d : Date) : Rat :=
 def fl_tca_net_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.FL then (decide ((fl_tca_countable_income t d) ≤ t.states_fl.fl_tca_payment_standard)) else false)
 
-/-- `policyengine_us/variables/gov/states/fl/dcf/tanf/eligibility/fl_tca_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def fl_tca_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.FL then (((((is_demographic_tanf_eligible t d) && (decide ((sumBy t.members fun p => boolToRat (is_citizen_or_legal_immigrant t p d)) > 0))) && (fl_tca_gross_income_eligible t d)) && (fl_tca_net_income_eligible t d)) && (fl_tca_resources_eligible t d)) else false)
-
 /-- `policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def fl_oss_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.FL then ((((is_ssi_eligible t p d) && (!(p.states_fl.fl_oss_living_arrangement == FLOSSLivingArrangement.NONE))) && (if (p.states_fl.fl_oss_program_track == FLOSSProgramTrack.PROTECTED) then (Params.gov.states.fl.dcf.oss.protected.in_effect.atDate d) else (!(p.states_fl.fl_oss_program_track == FLOSSProgramTrack.NONE)))) && (((decide ((ssi t p d) > 0)) || p.ssa.receives_ssi) || (decide ((p.ssa.ssi_countable_income / 12) ≤ (fl_oss_income_standard t p d))))) else false)
 
-/-- `policyengine_us/variables/gov/states/fl/dcf/tanf/fl_tca.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def fl_tca (t : TaxUnit) (d : Date) : Rat :=
-  (if (fl_tca_eligible t d) then (if (decide ((min ((max ((t.states_fl.fl_tca_payment_standard - (fl_tca_countable_income t d)) : Rat) 0) : Rat) t.states_fl.fl_tca_payment_standard) ≥ (Params.gov.states.fl.dcf.tanf.minimum_benefit.atDate d))) then (min ((max ((t.states_fl.fl_tca_payment_standard - (fl_tca_countable_income t d)) : Rat) 0) : Rat) t.states_fl.fl_tca_payment_standard) else 0) else 0)
+/-- `policyengine_us/variables/gov/states/fl/dcf/tanf/eligibility/fl_tca_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def fl_tca_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.FL then (((((is_demographic_tanf_eligible t d) && (decide ((sumBy t.members fun p => boolToRat (is_citizen_or_legal_immigrant t p d)) > 0))) && (fl_tca_gross_income_eligible t d)) && (fl_tca_net_income_eligible t d)) && (fl_tca_resources_eligible t d)) else false)
 
 /-- `policyengine_us/variables/gov/states/fl/dcf/oss/fl_oss.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def fl_oss (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (fl_oss_eligible t p d) then (min ((max (((p.states_fl.fl_oss_provider_rate + (Params.gov.states.fl.dcf.oss.pna.atDate d)) - (p.ssa.ssi_countable_income / 12)) : Rat) 0) : Rat) p.states_fl.fl_oss_max_oss) else 0)
+
+/-- `policyengine_us/variables/gov/states/fl/dcf/tanf/fl_tca.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def fl_tca (t : TaxUnit) (d : Date) : Rat :=
+  (if (fl_tca_eligible t d) then (if (decide ((min ((max ((t.states_fl.fl_tca_payment_standard - (fl_tca_countable_income t d)) : Rat) 0) : Rat) t.states_fl.fl_tca_payment_standard) ≥ (Params.gov.states.fl.dcf.tanf.minimum_benefit.atDate d))) then (min ((max ((t.states_fl.fl_tca_payment_standard - (fl_tca_countable_income t d)) : Rat) 0) : Rat) t.states_fl.fl_tca_payment_standard) else 0) else 0)
 
 end Lawlib.Gen.Vars

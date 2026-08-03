@@ -222,6 +222,21 @@ def mn_amt (t : TaxUnit) (d : Date) : Rat :=
 def mn_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.MN then ((mn_ccap t d) * 12) else 0)
 
+/-- `policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_gross_income_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def mn_msa_gross_income_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if t.core.MN then (decide ((if (decide ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (boolToRat q.ssa.is_ssi_aged_blind_disabled) else 0) else (boolToRat p.ssa.is_ssi_aged_blind_disabled)) = 2)) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (((((((ssi_earned_income t q d) / 12) + ((ssi_unearned_income t q d) / 12)) + (q.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + (q.ssa.ssi_unearned_income_deemed_from_ineligible_spouse / 12)) + (q.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t q d) > 0)) then q.ssa.ssi_amount_if_eligible else 0)) else 0) else (((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_spouse / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t p d) > 0)) then p.ssa.ssi_amount_if_eligible else 0))) else (((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_spouse / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t p d) > 0)) then p.ssa.ssi_amount_if_eligible else 0))) ≤ ((Params.gov.ssa.ssi.amount.individual.atDate d) * (if (decide ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (boolToRat q.ssa.is_ssi_aged_blind_disabled) else 0) else (boolToRat p.ssa.is_ssi_aged_blind_disabled)) = 2)) then (Params.gov.states.mn.dhs.msa.eligibility.income_limit.couple_fbr_multiplier.atDate d) else (Params.gov.states.mn.dhs.msa.eligibility.income_limit.individual_fbr_multiplier.atDate d))))) else false)
+
+/-- `policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_guardian_fee.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def mn_msa_guardian_fee (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.MN then ((boolToRat p.states_mn.mn_msa_has_guardian) * (min (((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (((((((ssi_earned_income t q d) / 12) + ((ssi_unearned_income t q d) / 12)) + (q.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + (q.ssa.ssi_unearned_income_deemed_from_ineligible_spouse / 12)) + (q.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t q d) > 0)) then q.ssa.ssi_amount_if_eligible else 0)) else 0) else (((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_spouse / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t p d) > 0)) then p.ssa.ssi_amount_if_eligible else 0))) * (Params.gov.states.mn.dhs.msa.special_needs.guardian_fee.rate.atDate d)) : Rat) (Params.gov.states.mn.dhs.msa.special_needs.guardian_fee.max_amount.atDate d))) else 0)
+
+/-- `policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_resource_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def mn_msa_resource_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if t.core.MN then (((decide ((ssi t p d) > 0)) || p.ssa.receives_ssi) || (decide ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (ssi_countable_resources t q d) else 0) else (ssi_countable_resources t p d)) ≤ (Params.gov.states.mn.dhs.msa.eligibility.asset_limit.non_ssi_track.atDate d)))) else false)
+
 /-- `policyengine_us/variables/gov/states/mn/tax/income/credits/mn_child_and_working_families_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mn_child_and_working_families_credits (t : TaxUnit) (d : Date) : Rat :=
@@ -232,20 +247,15 @@ def mn_child_and_working_families_credits (t : TaxUnit) (d : Date) : Rat :=
 def mn_income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.MN then (if (Params.gov.states.mn.tax.income.niit.in_effect.atDate d) then ((t.states_mn.mn_basic_tax + (mn_amt t d)) + (mn_niit t d)) else (t.states_mn.mn_basic_tax + (mn_amt t d))) else 0)
 
-/-- `policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_gross_income_eligible.py`
+/-- `policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
-def mn_msa_gross_income_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MN then (decide ((if (decide ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (boolToRat q.ssa.is_ssi_aged_blind_disabled) else 0) else (boolToRat p.ssa.is_ssi_aged_blind_disabled)) = 2)) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (((((((ssi_earned_income t q d) / 12) + ((ssi_unearned_income t q d) / 12)) + (q.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + ((ssi_unearned_income_deemed_from_ineligible_spouse t q d) / 12)) + (q.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t q d) > 0)) then q.ssa.ssi_amount_if_eligible else 0)) else 0) else (((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + ((ssi_unearned_income_deemed_from_ineligible_spouse t p d) / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t p d) > 0)) then p.ssa.ssi_amount_if_eligible else 0))) else (((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + ((ssi_unearned_income_deemed_from_ineligible_spouse t p d) / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t p d) > 0)) then p.ssa.ssi_amount_if_eligible else 0))) ≤ ((Params.gov.ssa.ssi.amount.individual.atDate d) * (if (decide ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (boolToRat q.ssa.is_ssi_aged_blind_disabled) else 0) else (boolToRat p.ssa.is_ssi_aged_blind_disabled)) = 2)) then (Params.gov.states.mn.dhs.msa.eligibility.income_limit.couple_fbr_multiplier.atDate d) else (Params.gov.states.mn.dhs.msa.eligibility.income_limit.individual_fbr_multiplier.atDate d))))) else false)
+def mn_msa_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if t.core.MN then ((((((!(p.states_mn.mn_msa_payment_category == MNMSALivingArrangement.NONE)) && (((is_ssi_aged t p d) || p.core_p1.is_blind) || ((decide (p.core_p1.age ≥ 18)) && (is_ssi_disabled t p d)))) && (mn_msa_resource_eligible t p d)) && (mn_msa_gross_income_eligible t p d)) && p.states_mn.mn_msa_net_income_eligible) && (is_citizen_or_legal_immigrant t p d)) else false)
 
-/-- `policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_guardian_fee.py`
+/-- `policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_special_needs_total.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
-def mn_msa_guardian_fee (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MN then ((boolToRat p.states_mn.mn_msa_has_guardian) * (min (((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (((((((ssi_earned_income t q d) / 12) + ((ssi_unearned_income t q d) / 12)) + (q.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + ((ssi_unearned_income_deemed_from_ineligible_spouse t q d) / 12)) + (q.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t q d) > 0)) then q.ssa.ssi_amount_if_eligible else 0)) else 0) else (((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + ((ssi_unearned_income_deemed_from_ineligible_spouse t p d) / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + (if (decide ((ssi t p d) > 0)) then p.ssa.ssi_amount_if_eligible else 0))) * (Params.gov.states.mn.dhs.msa.special_needs.guardian_fee.rate.atDate d)) : Rat) (Params.gov.states.mn.dhs.msa.special_needs.guardian_fee.max_amount.atDate d))) else 0)
-
-/-- `policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_resource_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def mn_msa_resource_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MN then (((decide ((ssi t p d) > 0)) || p.ssa.receives_ssi) || (decide ((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (ssi_countable_resources t q d) else 0) else (ssi_countable_resources t p d)) ≤ (Params.gov.states.mn.dhs.msa.eligibility.asset_limit.non_ssi_track.atDate d)))) else false)
+def mn_msa_special_needs_total (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.MN then ((mn_msa_representative_payee_fee t p d) + (if (p.states_mn.mn_msa_payment_category == MNMSALivingArrangement.MEDICAID_FACILITY) then 0 else ((mn_msa_guardian_fee t p d) + (mn_msa_housing_assistance t p d)))) else 0)
 
 /-- `policyengine_us/variables/gov/states/mn/tax/income/credits/mn_wfc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -256,16 +266,6 @@ def mn_wfc (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def mn_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.MN then (max (0 : Rat) ((mn_income_tax_before_credits t d) - (mn_non_refundable_credits t d))) else 0)
-
-/-- `policyengine_us/variables/gov/states/mn/dhs/msa/eligibility/mn_msa_eligible_person.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def mn_msa_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MN then ((((((!(p.states_mn.mn_msa_payment_category == MNMSALivingArrangement.NONE)) && (((is_ssi_aged t p d) || p.core_p1.is_blind) || ((decide (p.core_p1.age ≥ 18)) && (is_ssi_disabled t p d)))) && (mn_msa_resource_eligible t p d)) && (mn_msa_gross_income_eligible t p d)) && p.states_mn.mn_msa_net_income_eligible) && (is_citizen_or_legal_immigrant t p d)) else false)
-
-/-- `policyengine_us/variables/gov/states/mn/dhs/msa/payment/mn_msa_special_needs_total.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def mn_msa_special_needs_total (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.MN then ((mn_msa_representative_payee_fee t p d) + (if (p.states_mn.mn_msa_payment_category == MNMSALivingArrangement.MEDICAID_FACILITY) then 0 else ((mn_msa_guardian_fee t p d) + (mn_msa_housing_assistance t p d)))) else 0)
 
 /-- `policyengine_us/variables/gov/states/mn/tax/income/credits/taxsim_mn_child_tax_credit_component.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

@@ -20,7 +20,7 @@ def ca_ala_general_assistance_immigration_status_eligible (t : TaxUnit) (p : Per
 /-- `policyengine_us/variables/gov/local/ca/ala/ga/eligibility/ca_ala_general_assistance_personal_property_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ca_ala_general_assistance_personal_property_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.local_ca.in_ala then (decide ((sumBy t.members fun p => (p.core_p2.personal_property / 12)) ≤ (Params.gov.local.ca.ala.general_assistance.personal_property.limit.atDate d))) else false)
+  (if t.local_ca.in_ala then (decide ((sumBy t.members fun p => p.core_p2.personal_property) ≤ (Params.gov.local.ca.ala.general_assistance.personal_property.limit.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/local/ca/cc/ga/eligibility/ca_cc_general_assistance_immigration_status_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -115,12 +115,12 @@ def ca_cc_general_assistance_countable_income_person (t : TaxUnit) (p : Person) 
 /-- `policyengine_us/variables/gov/local/ca/cc/ga/eligibility/ca_cc_general_assistance_personal_property_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ca_cc_general_assistance_personal_property_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.local_ca.in_cc then (decide (((((spm_unit_cash_assets t d) / 12) + (sumBy t.members fun p => (p.core_p2.personal_property / 12))) + (t.local_ca.ca_cc_general_assistance_countable_vehicle_value / 12)) ≤ (Params.gov.local.ca.cc.general_assistance.personal_property.limit.atDate d))) else false)
+  (if t.local_ca.in_cc then (decide ((((spm_unit_cash_assets t d) + (sumBy t.members fun p => p.core_p2.personal_property)) + t.local_ca.ca_cc_general_assistance_countable_vehicle_value) ≤ (Params.gov.local.ca.cc.general_assistance.personal_property.limit.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/ca_marin_general_relief_age_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ca_marin_general_relief_age_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.local_ca.in_marin then (decide (((age_head t d) / 12) ≥ (Params.gov.local.ca.marin.general_relief.eligibility.age_threshold.atDate d))) else false)
+  (if t.local_ca.in_marin then (decide ((age_head t d) ≥ (Params.gov.local.ca.marin.general_relief.eligibility.age_threshold.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/immigration/ca_marin_general_relief_immigration_status_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -170,7 +170,7 @@ def ca_scc_general_assistance_income_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/local/ca/scc/ga/eligibility/ca_scc_general_assistance_personal_property_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ca_scc_general_assistance_personal_property_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.local_ca.in_scc then (decide (((((spm_unit_cash_assets t d) / 12) + (sumBy t.members fun p => (p.core_p2.personal_property / 12))) + (t.local_ca.ca_scc_general_assistance_countable_vehicle_value / 12)) ≤ (Params.gov.local.ca.scc.general_assistance.personal_property.limit.atDate d))) else false)
+  (if t.local_ca.in_scc then (decide ((((spm_unit_cash_assets t d) + (sumBy t.members fun p => p.core_p2.personal_property)) + t.local_ca.ca_scc_general_assistance_countable_vehicle_value) ≤ (Params.gov.local.ca.scc.general_assistance.personal_property.limit.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/local/ca/sf/caap/income/ca_sf_caap_earned_income_disregard.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -185,7 +185,7 @@ def ca_smc_general_assistance_countable_property (t : TaxUnit) (d : Date) : Rat 
 /-- `policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/la_general_relief_age_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def la_general_relief_age_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.local_ca.in_la then (decide (((age_head t d) / 12) ≥ (Params.gov.local.ca.la.general_relief.eligibility.age_threshold.atDate d))) else false)
+  (if t.local_ca.in_la then (decide ((age_head t d) ≥ (Params.gov.local.ca.la.general_relief.eligibility.age_threshold.atDate d))) else false)
 
 /-- `policyengine_us/variables/gov/local/ca/la/general_relief/eligibility/cash/la_general_relief_cash_asset_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -215,7 +215,7 @@ def ca_marin_general_relief_liquid_asset_eligible (t : TaxUnit) (d : Date) : Boo
 /-- `policyengine_us/variables/gov/local/ca/marin/general_relief/eligibility/personal_property/ca_marin_general_relief_personal_property_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ca_marin_general_relief_personal_property_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.local_ca.in_marin then (decide (((sumBy t.members fun p => (p.core_p2.personal_property / 12)) + (t.local_ca.ca_marin_general_relief_countable_vehicle_value / 12)) ≤ (ca_marin_general_relief_personal_property_limit t d))) else false)
+  (if t.local_ca.in_marin then (decide (((sumBy t.members fun p => p.core_p2.personal_property) + t.local_ca.ca_marin_general_relief_countable_vehicle_value) ≤ (ca_marin_general_relief_personal_property_limit t d))) else false)
 
 /-- `policyengine_us/variables/gov/local/ca/oc/general_relief/income/ca_oc_general_relief_gross_unearned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -325,7 +325,7 @@ def ca_marin_general_relief_max_grant (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/local/ca/riv/general_relief/ca_riv_general_relief_budget_unit_size.py`
     policyengine-us 1.783.0, entity spm_unit, value_type int. -/
 def ca_riv_general_relief_budget_unit_size (t : TaxUnit) (d : Date) : Rat :=
-  (if t.local_ca.in_riv then ((t.core.spm_unit_size / 12) - (sumBy t.members fun p => boolToRat (ca_riv_general_relief_ineligible_person t p d))) else 0)
+  (if t.local_ca.in_riv then (t.core.spm_unit_size - (sumBy t.members fun p => boolToRat (ca_riv_general_relief_ineligible_person t p d))) else 0)
 
 /-- `policyengine_us/variables/gov/local/ca/riv/share/ca_riv_share_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/

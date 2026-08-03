@@ -132,19 +132,19 @@ def in_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
 def in_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.IN then ((((is_demographic_tanf_eligible t d) && (anyBy t.members fun p => (is_citizen_or_legal_immigrant t p d))) && (in_tanf_income_eligible t d)) && t.states_in.in_tanf_resources_eligible) else false)
 
-/-- `policyengine_us/variables/gov/states/in/fssa/tanf/in_tanf.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def in_tanf (t : TaxUnit) (d : Date) : Rat :=
-  (if (in_tanf_eligible t d) then (min ((max ((t.states_in.in_tanf_maximum_benefit - (in_tanf_countable_income_for_payment t d)) : Rat) 0) : Rat) t.states_in.in_tanf_maximum_benefit) else 0)
-
 /-- `policyengine_us/variables/gov/states/in/fssa/ccdf/income/in_ccdf_gross_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def in_ccdf_gross_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.IN then ((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) else 0)
 
+/-- `policyengine_us/variables/gov/states/in/fssa/tanf/in_tanf.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def in_tanf (t : TaxUnit) (d : Date) : Rat :=
+  (if (in_tanf_eligible t d) then (min ((max ((t.states_in.in_tanf_maximum_benefit - (in_tanf_countable_income_for_payment t d)) : Rat) 0) : Rat) t.states_in.in_tanf_maximum_benefit) else 0)
+
 /-- `policyengine_us/variables/gov/states/in/fssa/ccdf/income/in_ccdf_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def in_ccdf_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IN then ((in_ccdf_gross_income t d) - (sumBy t.members fun p => ((boolToRat (decide (p.core_p1.age < 18))) * ((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12)))))) else 0)
+  (if t.core.IN then ((in_ccdf_gross_income t d) - (sumBy t.members fun p => ((boolToRat (decide (p.core_p1.age < 18))) * ((p.core_p1.employment_income / 12) + (p.core_p2.self_employment_income / 12))))) else 0)
 
 end Lawlib.Gen.Vars

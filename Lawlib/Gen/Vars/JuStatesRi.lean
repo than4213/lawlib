@@ -172,24 +172,24 @@ def ri_ccap_income_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ri_ccap_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.RI then ((((decide ((sumBy t.members fun p => boolToRat (ri_ccap_eligible_child t p d)) > 0)) && (ri_ccap_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (ri_ccap_activity_eligible t d)) else false)
 
-/-- `policyengine_us/variables/gov/states/ri/tax/income/credits/eitc/ri_eitc.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def ri_eitc (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.RI then ((eitc t d) * (Params.gov.states.ri.tax.income.credits.eitc.match.atDate d)) else 0)
-
 /-- `policyengine_us/variables/gov/states/ri/dhs/ccap/ri_ccap.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ri_ccap (t : TaxUnit) (d : Date) : Rat :=
   (if (ri_ccap_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) ((sumBy t.members fun p => p.states_ri.ri_ccap_maximum_weekly_benefit) * (52 / 12))) - t.states_ri.ri_ccap_copay) : Rat) 0) else 0)
 
-/-- `policyengine_us/variables/gov/states/ri/tax/income/credits/eitc/ri_refundable_eitc.py`
+/-- `policyengine_us/variables/gov/states/ri/tax/income/credits/eitc/ri_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def ri_refundable_eitc (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.RI then ((min ((ri_eitc t d) : Rat) (ri_income_tax_before_refundable_credits t d)) + ((Params.gov.states.ri.tax.income.credits.eitc.refundable_percent.atDate d) * ((ri_eitc t d) - (min ((ri_eitc t d) : Rat) (ri_income_tax_before_refundable_credits t d))))) else 0)
+def ri_eitc (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.RI then ((eitc t d) * (Params.gov.states.ri.tax.income.credits.eitc.match.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ri/dhs/ccap/ri_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ri_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.RI then ((ri_ccap t d) * 12) else 0)
+
+/-- `policyengine_us/variables/gov/states/ri/tax/income/credits/eitc/ri_refundable_eitc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ri_refundable_eitc (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.RI then ((min ((ri_eitc t d) : Rat) (ri_income_tax_before_refundable_credits t d)) + ((Params.gov.states.ri.tax.income.credits.eitc.refundable_percent.atDate d) * ((ri_eitc t d) - (min ((ri_eitc t d) : Rat) (ri_income_tax_before_refundable_credits t d))))) else 0)
 
 end Lawlib.Gen.Vars

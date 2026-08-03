@@ -100,7 +100,7 @@ def nd_ccap_activity_eligible (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/nd/dhs/ccap/income/nd_ccap_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def nd_ccap_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.ND then (max ((((nd_ccap_gross_income t d) - (sumBy t.members fun p => ((boolToRat (decide (p.core_p1.age < (Params.gov.states.nd.dhs.ccap.income.child_earned_income_exclusion_age.atDate d)))) * ((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12)))))) - (nd_ccap_child_support_deduction t d)) : Rat) 0) else 0)
+  (if t.core.ND then (max ((((nd_ccap_gross_income t d) - (sumBy t.members fun p => ((boolToRat (decide (p.core_p1.age < (Params.gov.states.nd.dhs.ccap.income.child_earned_income_exclusion_age.atDate d)))) * ((p.core_p1.employment_income / 12) + (p.core_p2.self_employment_income / 12))))) - (nd_ccap_child_support_deduction t d)) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/nd/dhs/tanf/income/nd_tanf_countable_unearned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

@@ -12,11 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_community_engagement_pass_through_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def medicaid_community_engagement_pass_through_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((((((decide ((snap t d) > 0)) || t.usda.receives_snap) && (!(decide ((Params.gov.usda.snap.work_requirements.general.age_threshold.exempted.atDate d (monthly_age t p d)) ≠ 0)))) && (!(is_snap_work_registration_exempt_non_age t p d))) && (if (anyBy t.members fun p => (decide ((monthly_age t p d) < (if p.usda.is_snap_abawd_hr1_in_effect then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩))))) then p.usda.meets_snap_general_work_requirements else (p.usda.meets_snap_general_work_requirements && p.usda.meets_snap_abawd_work_requirements))) || (((is_tanf_enrolled t d) || t.hhs.receives_tanf) && t.hhs.meets_tanf_work_requirements))
-
 /-- `policyengine_us/variables/gov/usda/school_meals/meets_school_meal_categorical_eligibility.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def meets_school_meal_categorical_eligibility (t : TaxUnit) (d : Date) : Bool :=
@@ -26,11 +21,6 @@ def meets_school_meal_categorical_eligibility (t : TaxUnit) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def tx_dart_reduced_fare_program_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.TX then (decide (((((((chip t p d) + boolToRat (medicaid_enrolled t p d)) + boolToRat (is_medicare_eligible t p d)) + ((wic t p d) * 12)) + ((snap t d) * 12)) + (tanf t d)) ≠ 0)) else false)
-
-/-- `policyengine_us/variables/gov/states/wa/dcyf/eceap/birth_to_three_eceap/wa_birth_to_three_eceap_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def wa_birth_to_three_eceap_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.WA then ((wa_birth_to_three_eceap_age_eligible t p d) && ((p.states_wa.wa_birth_to_three_eceap_income_eligible || (is_snap_eligible t d)) || ((decide (((snap t d) * 12) > 0)) || (decide (boolToRat t.usda.receives_snap > 0))))) else false)
 
 /-- `policyengine_us/variables/gov/states/ca/cpuc/care/eligibility/ca_care_income_eligible.py`
     policyengine-us 1.783.0, entity household, value_type bool. -/
@@ -51,11 +41,6 @@ def cbo_household_income_after_transfers_and_taxes (t : TaxUnit) (d : Date) : Ra
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def il_ipass_assist_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.IL then ((il_ipass_assist_income_eligible t d) || (il_ipass_assist_categorical_eligible t d)) else false)
-
-/-- `policyengine_us/variables/gov/hhs/head_start/is_early_head_start_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_early_head_start_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((decide (p.core_p1.age < (Params.gov.hhs.head_start.early_head_start.age_limit.atDate d))) || p.core_p1.is_pregnant) && (p.hhs.is_head_start_income_eligible || (is_head_start_categorically_eligible t p d)))
 
 /-- `policyengine_us/variables/gov/states/ma/dot/mbta/income_eligible_reduced_fares/ma_mbta_income_eligible_reduced_fare_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/

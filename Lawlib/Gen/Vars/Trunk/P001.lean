@@ -243,6 +243,11 @@ def exemptions_count (t : TaxUnit) (d : Date) : Rat :=
 def fcc_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
   ((sumBy t.members fun p => p.irs.irs_gross_income) / t.hhs.spm_unit_fpg)
 
+/-- `policyengine_us/variables/gov/irs/total_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def federal_state_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  (t.irs.income_tax + t.states_tax.state_income_tax)
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/fica_pre_tax_contributions.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def fica_pre_tax_contributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -317,6 +322,11 @@ def income_decile (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def income_elasticity (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   ((Params.gov.simulation.labor_supply_responses.elasticities.income.atDate d) * (if (decide (p.core_p1.age ≥ (Params.gov.simulation.labor_supply_responses.elasticities.income_age_threshold.atDate d))) then (Params.gov.simulation.labor_supply_responses.elasticities.income_age_multiplier_over_threshold.atDate d) else (mkRat 1 1)))
+
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/income_tax_positive.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def income_tax_positive (t : TaxUnit) (d : Date) : Rat :=
+  (max (t.irs.income_tax : Rat) 0)
 
 /-- `policyengine_us/variables/household/income/person/interest/interest_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -402,6 +412,11 @@ def is_chip_eligible_pregnant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_citizen_or_legal_immigrant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((Params.gov.dhs.immigration.qualified_noncitizen_status.atDate d).contains (ImmigrationStatus.asStr p.core_p1.immigration_status)) || (p.core_p1.immigration_status == ImmigrationStatus.CITIZEN))
+
+/-- `policyengine_us/variables/gov/hhs/head_start/is_early_head_start_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_early_head_start_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (((decide (p.core_p1.age < (Params.gov.hhs.head_start.early_head_start.age_limit.atDate d))) || p.core_p1.is_pregnant) && (p.hhs.is_head_start_income_eligible || p.hhs.is_head_start_categorically_eligible))
 
 /-- `policyengine_us/variables/household/income/person/is_eligible_for_fsla_overtime.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -752,20 +767,5 @@ def refundable_american_opportunity_credit (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def rents (t : TaxUnit) (d : Date) : Bool :=
   (decide ((sumBy t.members fun p => p.core_p2.rent) > 0))
-
-/-- `policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def residential_clean_energy_credit (t : TaxUnit) (d : Date) : Rat :=
-  (min (t.irs.residential_clean_energy_credit_credit_limit : Rat) t.irs.residential_clean_energy_credit_potential)
-
-/-- `policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_actuarial_value.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def selected_marketplace_plan_actuarial_value (t : TaxUnit) (d : Date) : Rat :=
-  (if (t.aca.takes_up_aca_if_eligible && (decide ((sumBy t.members fun p => (boolToRat p.aca.pays_aca_premium)) > 0))) then (if (t.aca.selected_marketplace_plan_category == MarketplacePlanCategory.BRONZE) then (Params.gov.aca.metal_actuarial_value.bronze.atDate d) else (Params.gov.aca.metal_actuarial_value.silver.atDate d)) else 0)
-
-/-- `policyengine_us/variables/household/expense/health/self_employed_health_insurance_premiums.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def self_employed_health_insurance_premiums (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if p.core_p1.is_self_employed then p.core_p1.health_insurance_premiums else 0)
 
 end Lawlib.Gen.Vars

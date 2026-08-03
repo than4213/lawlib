@@ -187,84 +187,84 @@ def pa_income_tax_after_forgiveness (t : TaxUnit) (d : Date) : Rat :=
 def pa_tanf_countable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.PA then ((pa_tanf_countable_earned_income t d) + (sumBy t.members fun p => (tanf_gross_unearned_income t p d))) else 0)
 
+/-- `policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_countable_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def pa_ccw_countable_income (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.PA then (((((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => (p.ssa.social_security_disability / 12))) + (sumBy t.members fun p => (p.ssa.social_security_survivors / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) else 0)
+
 /-- `policyengine_us/variables/gov/states/pa/tax/income/pa_income_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def pa_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.PA then (pa_income_tax_after_forgiveness t d) else 0)
+
+/-- `policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate_income.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def pa_property_tax_or_rent_rebate_income (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.PA then (max (0 : Rat) ((((((((t.irs.adjusted_gross_income + t.irs.above_the_line_deductions) - t.irs.tax_unit_taxable_social_security) + ((Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.benefit_income_rate.atDate d) * (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * (((social_security t p d) + ((ssi t p d) * 12)) + p.core_p2.railroad_benefits))))) + (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * ((p.core_p2.tax_exempt_interest_income + (tax_exempt_pension_income t p d)) + (tax_exempt_retirement_distributions t p d))))) + (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * (((p.core_p1.gambling_winnings + p.core_p1.alimony_income) + p.states.workers_compensation) + p.core_p1.disability_benefits)))) + (max (0 : Rat) ((sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * p.core_p1.life_insurance_benefits)) - (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.death_benefit_exclusion.atDate d)))) + (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * p.core_p1.csrs_retirement_pay))) - (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * (min (p.core_p1.csrs_retirement_pay : Rat) (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.csrs_income_exclusion.atDate d)))))) else 0)
 
 /-- `policyengine_us/variables/gov/states/pa/dhs/tanf/eligibility/pa_tanf_income_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def pa_tanf_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.PA then (decide ((pa_tanf_countable_income t d) < t.states_pa.pa_tanf_maximum_benefit)) else false)
 
-/-- `policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_countable_income.py`
+/-- `policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_adjusted_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def pa_ccw_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.PA then (((((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => (p.ssa.social_security_disability / 12))) + (sumBy t.members fun p => (p.ssa.social_security_survivors / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) else 0)
+def pa_ccw_adjusted_income (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.PA then (max (((((((pa_ccw_countable_income t d) * 12) - (t.states_pa.pa_ccw_stepparent_deduction * 12)) - (sumBy t.members fun p => p.core_p1.alimony_expense)) - (sumBy t.members fun p => p.core_p1.child_support_expense)) - (max (((pa_ccw_medical_expenses t d) - (((pa_ccw_countable_income t d) * 12) * (Params.gov.states.pa.dhs.ccw.income.medical_expense_threshold.atDate d))) : Rat) 0)) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/pa/tax/income/pa_income_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def pa_income_tax (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.PA then ((pa_income_tax_before_refundable_credits t d) - t.states_pa.pa_refundable_tax_credits) else 0)
 
-/-- `policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate_income.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def pa_property_tax_or_rent_rebate_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.PA then (max (0 : Rat) ((((((((t.irs.adjusted_gross_income + t.irs.above_the_line_deductions) - t.irs.tax_unit_taxable_social_security) + ((Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.benefit_income_rate.atDate d) * (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * (((sumBy t.members fun p => (social_security t p d)) + (sumBy t.members fun p => ((ssi t p d) * 12))) + (sumBy t.members fun p => p.core_p2.railroad_benefits)))))) + (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * (((sumBy t.members fun p => p.core_p2.tax_exempt_interest_income) + (sumBy t.members fun p => (tax_exempt_pension_income t p d))) + (sumBy t.members fun p => (tax_exempt_retirement_distributions t p d)))))) + (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * ((((sumBy t.members fun p => p.core_p1.gambling_winnings) + (sumBy t.members fun p => p.core_p1.alimony_income)) + (sumBy t.members fun p => p.states.workers_compensation)) + (sumBy t.members fun p => p.core_p1.disability_benefits))))) + (max (0 : Rat) ((sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * p.core_p1.life_insurance_benefits)) - (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.death_benefit_exclusion.atDate d)))) + (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * p.core_p1.csrs_retirement_pay))) - (sumBy t.members fun p => ((boolToRat (is_tax_unit_head_or_spouse t p d)) * (min (p.core_p1.csrs_retirement_pay : Rat) (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.csrs_income_exclusion.atDate d)))))) else 0)
+/-- `policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate_eligible.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def pa_property_tax_or_rent_rebate_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.PA then (((((anyBy t.members fun p => ((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.age_threshold.atDate d))) && (is_tax_unit_head_or_spouse t p d))) || ((anyBy t.members fun p => (((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.widow_age_threshold.atDate d))) && p.core_p1.is_surviving_spouse) && (is_tax_unit_head_or_spouse t p d))) || ((t.core.filing_status == FilingStatus.SURVIVING_SPOUSE) && (anyBy t.members fun p => ((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.widow_age_threshold.atDate d))) && (is_tax_unit_head_or_spouse t p d)))))) || (anyBy t.members fun p => (((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.disability_age_threshold.atDate d))) && p.core_p1.is_permanently_and_totally_disabled) && (is_tax_unit_head_or_spouse t p d)))) && (decide ((pa_property_tax_or_rent_rebate_income t d) ≤ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.income_limit.atDate d)))) && (decide ((((Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.rent_rate.atDate d) * (sumBy t.members fun p => p.core_p2.rent)) + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) > 0))) else false)
 
 /-- `policyengine_us/variables/gov/states/pa/dhs/tanf/eligibility/pa_tanf_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def pa_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.PA then ((((is_demographic_tanf_eligible t d) && (anyBy t.members fun p => (is_citizen_or_legal_immigrant t p d))) && (pa_tanf_income_eligible t d)) && (pa_tanf_resources_eligible t d)) else false)
 
-/-- `policyengine_us/variables/gov/states/pa/dhs/ccw/income/pa_ccw_adjusted_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def pa_ccw_adjusted_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.PA then (max (((((((pa_ccw_countable_income t d) * 12) - (t.states_pa.pa_ccw_stepparent_deduction * 12)) - (sumBy t.members fun p => p.core_p1.alimony_expense)) - (sumBy t.members fun p => p.core_p1.child_support_expense)) - (max (((pa_ccw_medical_expenses t d) - (((pa_ccw_countable_income t d) * 12) * (Params.gov.states.pa.dhs.ccw.income.medical_expense_threshold.atDate d))) : Rat) 0)) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate_eligible.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
-def pa_property_tax_or_rent_rebate_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.PA then (((((anyBy t.members fun p => ((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.age_threshold.atDate d))) && (is_tax_unit_head_or_spouse t p d))) || ((anyBy t.members fun p => (((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.widow_age_threshold.atDate d))) && p.core_p1.is_surviving_spouse) && (is_tax_unit_head_or_spouse t p d))) || ((t.core.filing_status == FilingStatus.SURVIVING_SPOUSE) && (anyBy t.members fun p => ((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.widow_age_threshold.atDate d))) && (is_tax_unit_head_or_spouse t p d)))))) || (anyBy t.members fun p => (((decide (p.core_p1.age ≥ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.disability_age_threshold.atDate d))) && p.core_p1.is_permanently_and_totally_disabled) && (is_tax_unit_head_or_spouse t p d)))) && (decide ((pa_property_tax_or_rent_rebate_income t d) ≤ (Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.income_limit.atDate d)))) && (decide ((((Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.rent_rate.atDate d) * (sumBy t.members fun p => p.core_p2.rent)) + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) > 0))) else false)
-
-/-- `policyengine_us/variables/gov/states/pa/dhs/tanf/pa_tanf.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def pa_tanf (t : TaxUnit) (d : Date) : Rat :=
-  (if (pa_tanf_eligible t d) then ((min ((max ((t.states_pa.pa_tanf_maximum_benefit - (pa_tanf_countable_income t d)) : Rat) 0) : Rat) t.states_pa.pa_tanf_maximum_benefit) + (if ((!(Params.gov.states.pa.dhs.tanf.income.work_expense.deduction_applies.atDate d)) && (decide ((sumBy t.members fun p => (tanf_gross_earned_income t p d)) > 0))) then (Params.gov.states.pa.dhs.tanf.income.work_expense.reimbursement.atDate d) else 0)) else 0)
-
 /-- `policyengine_us/variables/gov/states/pa/dhs/ccw/eligibility/pa_ccw_income_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def pa_ccw_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.PA then (decide ((pa_ccw_adjusted_income t d) ≤ (if t.states_pa.pa_ccw_enrolled then (t.hhs.hhs_smi * (Params.gov.states.pa.dhs.ccw.eligibility.continuous_smi_limit.atDate d)) else (t.hhs.spm_unit_fpg * (Params.gov.states.pa.dhs.ccw.eligibility.initial_income_limit.atDate d))))) else false)
-
-/-- `policyengine_us/variables/gov/states/pa/tax/income/credits/pa_eitc.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def pa_eitc (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.PA then ((eitc t d) * (Params.gov.states.pa.tax.income.credits.eitc.match.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/pa/tax/property/property_tax_or_rent_rebate/pa_property_tax_or_rent_rebate.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def pa_property_tax_or_rent_rebate (t : TaxUnit) (d : Date) : Rat :=
   (if (pa_property_tax_or_rent_rebate_eligible t d) then (min ((Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.amount.atDate d (pa_property_tax_or_rent_rebate_income t d)) : Rat) ((sumBy t.members fun p => p.core_p2.real_estate_taxes) + ((Params.gov.states.pa.tax.property.property_tax_or_rent_rebate.rent_rate.atDate d) * (sumBy t.members fun p => p.core_p2.rent)))) else 0)
 
+/-- `policyengine_us/variables/gov/states/pa/dhs/tanf/pa_tanf.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def pa_tanf (t : TaxUnit) (d : Date) : Rat :=
+  (if (pa_tanf_eligible t d) then ((min ((max ((t.states_pa.pa_tanf_maximum_benefit - (pa_tanf_countable_income t d)) : Rat) 0) : Rat) t.states_pa.pa_tanf_maximum_benefit) + (if ((!(Params.gov.states.pa.dhs.tanf.income.work_expense.deduction_applies.atDate d)) && (decide ((sumBy t.members fun p => (tanf_gross_earned_income t p d)) > 0))) then (Params.gov.states.pa.dhs.tanf.income.work_expense.reimbursement.atDate d) else 0)) else 0)
+
 /-- `policyengine_us/variables/gov/states/pa/dhs/ccw/eligibility/pa_ccw_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def pa_ccw_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.PA then (((((decide ((sumBy t.members fun p => boolToRat (pa_ccw_eligible_child t p d)) > 0)) && (pa_ccw_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (pa_ccw_activity_eligible t d)) && (!(is_tanf_enrolled t d))) else false)
+
+/-- `policyengine_us/variables/gov/states/pa/tax/income/credits/pa_eitc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def pa_eitc (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.PA then ((eitc t d) * (Params.gov.states.pa.tax.income.credits.eitc.match.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/pa/dhs/ccw/pa_ccw.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def pa_ccw (t : TaxUnit) (d : Date) : Rat :=
   (if (pa_ccw_eligible t d) then (if (decide ((max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) (sumBy t.members fun p => (pa_ccw_maximum_monthly_payment t p d))) - t.states_pa.pa_ccw_copay) : Rat) 0) ≥ (((Params.gov.states.pa.dhs.ccw.min_dept_payment.atDate d) * 52) / 12))) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) (sumBy t.members fun p => (pa_ccw_maximum_monthly_payment t p d))) - t.states_pa.pa_ccw_copay) : Rat) 0) else 0) else 0)
 
-/-- `policyengine_us/variables/gov/states/pa/tax/income/credits/pa_cdcc.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def pa_cdcc (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.PA then ((Params.gov.states.pa.tax.income.credits.cdcc.match.atDate d) * (cdcc_potential t d)) else 0)
-
 /-- `policyengine_us/variables/gov/states/pa/dhs/ccw/pa_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def pa_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.PA then ((pa_ccw t d) * 12) else 0)
+
+/-- `policyengine_us/variables/gov/states/pa/tax/income/credits/pa_cdcc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def pa_cdcc (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.PA then ((Params.gov.states.pa.tax.income.credits.cdcc.match.atDate d) * (cdcc_potential t d)) else 0)
 
 end Lawlib.Gen.Vars

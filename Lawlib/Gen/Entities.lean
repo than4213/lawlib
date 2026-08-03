@@ -265,6 +265,7 @@ structure Person_Hhs where
   is_chip_eligible_standard_pregnant_person : Bool := false
   is_chip_fcep_eligible_person : Bool := false
   is_enrolled_in_ccdf : Bool := false
+  is_head_start_categorically_eligible : Bool := false
   is_head_start_eligible : Bool := false
   is_head_start_income_eligible : Bool := false
   is_medicaid_eligible : Bool := false
@@ -304,7 +305,6 @@ structure Person_Hhs where
   takes_up_chip_if_eligible : Bool := false
   takes_up_medicaid_if_eligible : Bool := false
   takes_up_medicare_if_eligible : Bool := false
-  tanf_person : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_Hud where
@@ -391,6 +391,7 @@ structure Person_Ssa where
   ssi_pmv_applies : Bool := false
   ssi_shelter_support_value : Rat := 0
   ssi_unearned_income_deemed_from_ineligible_parent : Rat := 0
+  ssi_unearned_income_deemed_from_ineligible_spouse : Rat := 0
   takes_up_ssi_if_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -527,6 +528,7 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_ia where
   ia_amt_indiv : Rat := 0
+  ia_amt_joint : Rat := 0
   ia_cca_max_rate : Rat := 0
   ia_cca_monthly_units : Rat := 0
   ia_pension_exclusion : Rat := 0
@@ -535,7 +537,6 @@ structure Person_States_ia where
   ia_regular_tax_joint : Rat := 0
   ia_standard_deduction_indiv : Rat := 0
   ia_standard_deduction_joint : Rat := 0
-  ia_taxable_income_joint : Rat := 0
   ia_withheld_income_tax : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -554,7 +555,7 @@ structure Person_States_il where
   il_fpp_income_level : Rat := 0
   il_hbi_income_eligible : Bool := false
   il_isbe_income_eligible : Bool := false
-  il_pfae_is_deep_poverty : Bool := false
+  il_pfae_has_highest_priority_factor : Bool := false
   il_pfae_secondary_priority_factor_count : Rat := 0
   il_pi_highest_priority_score : Rat := 0
   il_pi_lower_priority_score : Rat := 0
@@ -582,9 +583,11 @@ structure Person_States_ky where
   ky_additions : Rat := 0
   ky_ccap_daily_benefit : Rat := 0
   ky_itemized_deductions_indiv : Rat := 0
+  ky_personal_tax_credits_joint : Rat := 0
   ky_ssp_category : KYSSPCategory := .NONE
   ky_ssp_payment_standard : Rat := 0
   ky_subtractions : Rat := 0
+  ky_taxable_income_joint : Rat := 0
   retired_from_ky_government : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
@@ -679,7 +682,7 @@ structure Person_States_mt where
   mt_agi_indiv : Rat := 0
   mt_capital_gains_tax_indiv : Rat := 0
   mt_ccap_max_rate : Rat := 0
-  mt_elderly_homeowner_or_renter_credit_gross_household_income : Rat := 0
+  mt_elderly_homeowner_or_renter_credit : Rat := 0
   mt_federal_income_tax_deduction_for_federal_itemization_indiv : Rat := 0
   mt_federal_income_tax_deduction_indiv : Rat := 0
   mt_married_filing_separately_on_same_return_eligible : Bool := false
@@ -689,7 +692,6 @@ structure Person_States_mt where
   mt_regular_income_tax_indiv : Rat := 0
   mt_salt_deduction : Rat := 0
   mt_standard_deduction_indiv : Rat := 0
-  mt_standard_deduction_joint : Rat := 0
   mt_subtractions : Rat := 0
   mt_tanf_is_working : Bool := false
   mt_withheld_income_tax : Rat := 0
@@ -844,7 +846,6 @@ structure Person_States_vt where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_wa where
-  wa_birth_to_three_eceap_income_eligible : Bool := false
   wa_eceap_income_eligible : Bool := false
   wa_eceap_risk_factor_eligible : Bool := false
   wa_eceap_slot_type : WAECEAPSlotType := .SCHOOL_DAY
@@ -872,12 +873,12 @@ structure Person_Usda where
   is_in_substance_use_treatment_program : Bool := false
   is_snap_abawd_hr1_in_effect : Bool := false
   is_snap_employment_training_student : Bool := false
+  is_snap_ineligible_student : Bool := false
   is_snap_work_incentive_student : Bool := false
   is_usda_disabled : Bool := false
   is_wic_at_nutritional_risk : Bool := false
   meets_snap_abawd_work_requirements : Bool := false
   meets_snap_general_work_requirements : Bool := false
-  meets_snap_parent_exception : Bool := false
   meets_wic_categorical_eligibility : Bool := false
   receives_wic : Bool := false
   snap_excluded_child_earner : Bool := false
@@ -1173,6 +1174,7 @@ structure TaxUnit_Irs where
   foreign_tax_credit_potential : Rat := 0
   has_qdiv_or_ltcg : Bool := false
   health_savings_account_ald : Rat := 0
+  income_tax : Rat := 0
   income_tax_main_rates : Rat := 0
   income_tax_non_refundable_credits : Rat := 0
   income_tax_refundable_credits : Rat := 0
@@ -1720,7 +1722,6 @@ structure TaxUnit_States_ms where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_States_mt where
-  mt_agi_joint : Rat := 0
   mt_capital_gains_tax_joint : Rat := 0
   mt_ccap_activity_eligible : Bool := false
   mt_ccap_enrolled : Bool := false

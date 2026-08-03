@@ -40,7 +40,7 @@ def ma_ccfa_reimbursement_ratio (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/income/ma_eaedc_standard_assistance.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ma_eaedc_standard_assistance (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MA then ((match t.states_ma.ma_eaedc_living_arrangement with | MassachusettsEAEDCLivingArrangement.A => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.A.atDate d) | MassachusettsEAEDCLivingArrangement.B => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.B.atDate d) | MassachusettsEAEDCLivingArrangement.C => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.C.atDate d) | MassachusettsEAEDCLivingArrangement.D => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.D.atDate d) | MassachusettsEAEDCLivingArrangement.E => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.E.atDate d) | MassachusettsEAEDCLivingArrangement.F => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.F.atDate d) | MassachusettsEAEDCLivingArrangement.H => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.H.atDate d) | MassachusettsEAEDCLivingArrangement.NONE => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.NONE.atDate d)) + ((match t.states_ma.ma_eaedc_living_arrangement with | MassachusettsEAEDCLivingArrangement.A => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.A.atDate d) | MassachusettsEAEDCLivingArrangement.B => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.B.atDate d) | MassachusettsEAEDCLivingArrangement.C => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.C.atDate d) | MassachusettsEAEDCLivingArrangement.D => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.D.atDate d) | MassachusettsEAEDCLivingArrangement.E => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.E.atDate d) | MassachusettsEAEDCLivingArrangement.F => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.F.atDate d) | MassachusettsEAEDCLivingArrangement.H => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.H.atDate d) | MassachusettsEAEDCLivingArrangement.NONE => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.NONE.atDate d)) * ((t.core.spm_unit_size / 12) - 1))) else 0)
+  (if t.core.MA then ((match t.states_ma.ma_eaedc_living_arrangement with | MassachusettsEAEDCLivingArrangement.A => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.A.atDate d) | MassachusettsEAEDCLivingArrangement.B => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.B.atDate d) | MassachusettsEAEDCLivingArrangement.C => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.C.atDate d) | MassachusettsEAEDCLivingArrangement.D => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.D.atDate d) | MassachusettsEAEDCLivingArrangement.E => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.E.atDate d) | MassachusettsEAEDCLivingArrangement.F => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.F.atDate d) | MassachusettsEAEDCLivingArrangement.H => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.H.atDate d) | MassachusettsEAEDCLivingArrangement.NONE => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.base.NONE.atDate d)) + ((match t.states_ma.ma_eaedc_living_arrangement with | MassachusettsEAEDCLivingArrangement.A => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.A.atDate d) | MassachusettsEAEDCLivingArrangement.B => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.B.atDate d) | MassachusettsEAEDCLivingArrangement.C => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.C.atDate d) | MassachusettsEAEDCLivingArrangement.D => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.D.atDate d) | MassachusettsEAEDCLivingArrangement.E => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.E.atDate d) | MassachusettsEAEDCLivingArrangement.F => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.F.atDate d) | MassachusettsEAEDCLivingArrangement.H => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.H.atDate d) | MassachusettsEAEDCLivingArrangement.NONE => (Params.gov.states.ma.dta.tcap.eaedc.standard_assistance.amount.additional.NONE.atDate d)) * (t.core.spm_unit_size - 1))) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/doer/liheap/ma_liheap_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -185,12 +185,12 @@ def ma_tafdc_eligible_infant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/tafdc/eligibility/non_financial/ma_tafdc_pregnancy_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ma_tafdc_pregnancy_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.MA then (((p.core_p1.is_pregnant && (decide (p.core_p1.age < (ma_tafdc_age_limit t p d)))) && p.core_p1.is_in_secondary_school) || (p.core_p1.is_pregnant && (decide ((p.core_p1.current_pregnancy_month * 12) ≥ (Params.gov.states.ma.dta.tcap.tafdc.eligibility.pregnancy_month.atDate d))))) else false)
+  (if t.core.MA then (((p.core_p1.is_pregnant && (decide (p.core_p1.age < (ma_tafdc_age_limit t p d)))) && p.core_p1.is_in_secondary_school) || (p.core_p1.is_pregnant && (decide (p.core_p1.current_pregnancy_month ≥ (Params.gov.states.ma.dta.tcap.tafdc.eligibility.pregnancy_month.atDate d))))) else false)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/ma_eaedc_countable_assets.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ma_eaedc_countable_assets (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MA then (((spm_unit_cash_assets t d) / 12) + (sumBy t.members fun p => ((retirement_distributions t p d) / 12))) else 0)
+  (if t.core.MA then ((spm_unit_cash_assets t d) + (sumBy t.members fun p => ((retirement_distributions t p d) / 12))) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/dependent_care_deduction/ma_eaedc_dependent_care_deduction_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -367,6 +367,11 @@ def ma_tafdc_financial_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ma_tafdc_full_earned_income_disregard_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.MA then (decide ((ma_tafdc_applicable_income_for_financial_eligibility t d) < (t.hhs.spm_unit_fpg * (Params.gov.states.ma.dta.tcap.tafdc.earned_income_disregard.full_disregard.fpg_limit.atDate d)))) else false)
 
+/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_countable_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def ma_ccfa_countable_income (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.MA then (((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income_before_lsr / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income_before_lsr / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income_before_lsr / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) else 0)
+
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/eligibility/ma_eaedc_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ma_eaedc_eligible (t : TaxUnit) (d : Date) : Bool :=
@@ -392,10 +397,10 @@ def ma_tafdc_countable_earned_income (t : TaxUnit) (p : Person) (d : Date) : Rat
 def ma_tafdc_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.MA then ((ma_tafdc_non_financial_eligible t d) && (ma_tafdc_financial_eligible t d)) else false)
 
-/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_countable_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ma_ccfa_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MA then (((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income_before_lsr / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income_before_lsr / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income_before_lsr / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) else 0)
+/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_income_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def ma_ccfa_income_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.MA then (decide ((ma_ccfa_countable_income t d) ≤ ((t.hhs.hhs_smi / 12) * (if t.states_ma.ma_ccfa_enrolled then (Params.gov.states.ma.eec.ccfa.income.smi_rate.redetermination.atDate d) else (Params.gov.states.ma.eec.ccfa.income.smi_rate.new_applicants.atDate d))))) else false)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/ma_eaedc_if_claimed.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -417,10 +422,10 @@ def ma_part_a_taxable_dividend_income (t : TaxUnit) (d : Date) : Rat :=
 def ma_tafdc_applicable_income_grant_amount (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.MA then ((sumBy t.members fun p => ((ma_tafdc_countable_earned_income t p d) / 12)) + (ma_tafdc_countable_unearned_income t d)) else 0)
 
-/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_income_eligible.py`
+/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def ma_ccfa_income_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.MA then (decide ((ma_ccfa_countable_income t d) ≤ ((t.hhs.hhs_smi / 12) * (if t.states_ma.ma_ccfa_enrolled then (Params.gov.states.ma.eec.ccfa.income.smi_rate.redetermination.atDate d) else (Params.gov.states.ma.eec.ccfa.income.smi_rate.new_applicants.atDate d))))) else false)
+def ma_ccfa_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.MA then (((((decide ((sumBy t.members fun p => boolToRat (ma_ccfa_eligible_child t p d)) > 0)) && (ma_ccfa_income_eligible t d)) && (ma_ccfa_asset_eligible t d)) && t.states_ma.ma_ccfa_activity_eligible) || (ma_tafdc_eligible t d)) else false)
 
 /-- `policyengine_us/variables/gov/states/ma/tax/income/credits/ma_dependent_care_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -442,10 +447,15 @@ def ma_part_a_taxable_capital_gains_income (t : TaxUnit) (d : Date) : Rat :=
 def ma_tafdc_potential_main_benefit (t : TaxUnit) (d : Date) : Rat :=
   (if (ma_tafdc_eligible t d) then (min ((max (0 : Rat) (t.states_ma.ma_tafdc_payment_standard - (ma_tafdc_applicable_income_grant_amount t d))) : Rat) t.states_ma.ma_tafdc_payment_standard) else 0)
 
-/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/eligibility/ma_ccfa_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def ma_ccfa_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.MA then (((((decide ((sumBy t.members fun p => boolToRat (ma_ccfa_eligible_child t p d)) > 0)) && (ma_ccfa_income_eligible t d)) && (ma_ccfa_asset_eligible t d)) && t.states_ma.ma_ccfa_activity_eligible) || (ma_tafdc_eligible t d)) else false)
+/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def ma_ccfa (t : TaxUnit) (d : Date) : Rat :=
+  (if (ma_ccfa_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) (sumBy t.members fun p => (ma_ccfa_maximum_reimbursement t p d))) - t.states_ma.ma_ccfa_total_copay) : Rat) 0) else 0)
+
+/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_maximum_benefit_amount.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def ma_ccfa_maximum_benefit_amount (t : TaxUnit) (d : Date) : Rat :=
+  (if (ma_ccfa_eligible t d) then (max (((sumBy t.members fun p => (ma_ccfa_maximum_reimbursement t p d)) - t.states_ma.ma_ccfa_total_copay) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/tax/income/credits/ma_child_and_family_credit_or_dependent_care_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -472,15 +482,10 @@ def ma_part_c_taxable_income (t : TaxUnit) (d : Date) : Rat :=
 def ma_tafdc_if_claimed (t : TaxUnit) (d : Date) : Rat :=
   (if (ma_tafdc_eligible t d) then (((ma_tafdc_potential_main_benefit t d) + (sumBy t.members fun p => ((ma_tafdc_clothing_allowance t p d) / 12))) + (sumBy t.members fun p => ((ma_tafdc_infant_benefit t p d) / 12))) else 0)
 
-/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa.py`
+/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ma_ccfa (t : TaxUnit) (d : Date) : Rat :=
-  (if (ma_ccfa_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) (sumBy t.members fun p => (ma_ccfa_maximum_reimbursement t p d))) - t.states_ma.ma_ccfa_total_copay) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_ccfa_maximum_benefit_amount.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ma_ccfa_maximum_benefit_amount (t : TaxUnit) (d : Date) : Rat :=
-  (if (ma_ccfa_eligible t d) then (max (((sumBy t.members fun p => (ma_ccfa_maximum_reimbursement t p d)) - t.states_ma.ma_ccfa_total_copay) : Rat) 0) else 0)
+def ma_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.MA then ((ma_ccfa t d) * 12) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/tax/income/ma_income_tax_before_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -491,11 +496,6 @@ def ma_income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ma_tafdc_exceeds_eaedc (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.MA then (decide ((ma_tafdc_if_claimed t d) > (ma_eaedc_if_claimed t d))) else false)
-
-/-- `policyengine_us/variables/gov/states/ma/eec/ccfa/ma_child_care_subsidies.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ma_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MA then ((ma_ccfa t d) * 12) else 0)
 
 /-- `policyengine_us/variables/gov/states/ma/dta/tcap/eaedc/ma_eaedc.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

@@ -182,20 +182,15 @@ def sc_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
 def sc_tanf_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.SC then ((sc_tanf_gross_income_eligible t d) && (sc_tanf_countable_income_eligible t d)) else false)
 
-/-- `policyengine_us/variables/gov/states/sc/tanf/eligibility/sc_tanf_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def sc_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.SC then ((((is_demographic_tanf_eligible t d) && (decide ((sumBy t.members fun p => boolToRat (is_citizen_or_legal_immigrant t p d)) > 0))) && (sc_tanf_income_eligible t d)) && (sc_tanf_resources_eligible t d)) else false)
-
 /-- `policyengine_us/variables/gov/states/sc/scdhhs/ssi_state_supplement/sc_ssi_state_supplement_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def sc_ssi_state_supplement_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.SC then ((p.ssa.is_ssi_aged_blind_disabled && p.core_p1.is_in_residential_care_facility) && (decide (((p.ssa.ssi_countable_income / 12) + (ssi t p d)) < (Params.gov.states.sc.scdhhs.ssi_state_supplement.net_income_limit.atDate d)))) else false)
 
-/-- `policyengine_us/variables/gov/states/sc/tanf/sc_tanf.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def sc_tanf (t : TaxUnit) (d : Date) : Rat :=
-  (if (sc_tanf_eligible t d) then (min (((max (((t.hhs.tanf_fpg * (Params.gov.states.sc.tanf.income.need_standard.rate.atDate d)) - (sc_tanf_countable_income t d)) : Rat) 0) * (Params.gov.states.sc.tanf.payment.rate.atDate d)) : Rat) ((t.hhs.tanf_fpg * (Params.gov.states.sc.tanf.income.need_standard.rate.atDate d)) * (Params.gov.states.sc.tanf.payment.rate.atDate d))) else 0)
+/-- `policyengine_us/variables/gov/states/sc/tanf/eligibility/sc_tanf_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def sc_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.SC then ((((is_demographic_tanf_eligible t d) && (decide ((sumBy t.members fun p => boolToRat (is_citizen_or_legal_immigrant t p d)) > 0))) && (sc_tanf_income_eligible t d)) && (sc_tanf_resources_eligible t d)) else false)
 
 /-- `policyengine_us/variables/gov/states/sc/scdhhs/ssi_state_supplement/sc_ssi_state_supplement.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -206,5 +201,10 @@ def sc_ssi_state_supplement (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def sc_ssi_state_supplement_pna (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (sc_ssi_state_supplement_eligible t p d) then (if (decide ((p.ssa.ssi_countable_income / 12) = 0)) then (Params.gov.states.sc.scdhhs.ssi_state_supplement.personal_needs_allowance.ssi_only.atDate d) else (Params.gov.states.sc.scdhhs.ssi_state_supplement.personal_needs_allowance.other_income.atDate d)) else 0)
+
+/-- `policyengine_us/variables/gov/states/sc/tanf/sc_tanf.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def sc_tanf (t : TaxUnit) (d : Date) : Rat :=
+  (if (sc_tanf_eligible t d) then (min (((max (((t.hhs.tanf_fpg * (Params.gov.states.sc.tanf.income.need_standard.rate.atDate d)) - (sc_tanf_countable_income t d)) : Rat) 0) * (Params.gov.states.sc.tanf.payment.rate.atDate d)) : Rat) ((t.hhs.tanf_fpg * (Params.gov.states.sc.tanf.income.need_standard.rate.atDate d)) * (Params.gov.states.sc.tanf.payment.rate.atDate d))) else 0)
 
 end Lawlib.Gen.Vars

@@ -12,6 +12,21 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def residential_clean_energy_credit (t : TaxUnit) (d : Date) : Rat :=
+  (min (t.irs.residential_clean_energy_credit_credit_limit : Rat) t.irs.residential_clean_energy_credit_potential)
+
+/-- `policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_actuarial_value.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def selected_marketplace_plan_actuarial_value (t : TaxUnit) (d : Date) : Rat :=
+  (if (t.aca.takes_up_aca_if_eligible && (decide ((sumBy t.members fun p => (boolToRat p.aca.pays_aca_premium)) > 0))) then (if (t.aca.selected_marketplace_plan_category == MarketplacePlanCategory.BRONZE) then (Params.gov.aca.metal_actuarial_value.bronze.atDate d) else (Params.gov.aca.metal_actuarial_value.silver.atDate d)) else 0)
+
+/-- `policyengine_us/variables/household/expense/health/self_employed_health_insurance_premiums.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def self_employed_health_insurance_premiums (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if p.core_p1.is_self_employed then p.core_p1.health_insurance_premiums else 0)
+
 /-- `policyengine_us/variables/household/income/person/retirement/sep_distributions.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def sep_distributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -226,6 +241,11 @@ def taxable_social_security_tier_2 (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def taxsim_childcare (t : TaxUnit) (d : Date) : Rat :=
   t.core.tax_unit_childcare_expenses
+
+/-- `policyengine_us/variables/contrib/taxsim/taxsim_fiitax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def taxsim_fiitax (t : TaxUnit) (d : Date) : Rat :=
+  t.irs.income_tax
 
 /-- `policyengine_us/variables/contrib/taxsim/taxsim_intrec.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -587,11 +607,6 @@ def is_on_cliff (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def is_premium_free_part_a (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (is_medicare_eligible t p d) then (decide (p.hhs.medicare_quarters_of_coverage ≥ (Params.gov.hhs.medicare.part_a.premium_free_quarters_threshold.atDate d))) else false)
 
-/-- `policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_ineligible_student.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_snap_ineligible_student (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (is_snap_higher_ed_student t p d) then (!((((((decide ((Params.gov.usda.snap.student.age_threshold.atDate d p.core_p1.age) ≠ 0)) || p.core_p1.is_disabled) || (is_snap_employment_training_or_work_incentive_student t p d)) || (meets_snap_work_exception t p d)) || p.usda.meets_snap_parent_exception) || ((decide (p.hhs.tanf_person > 0)) || (decide (boolToRat t.hhs.receives_tanf > 0))))) else false)
-
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_work_registration_exempt_non_age.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_snap_work_registration_exempt_non_age (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -746,20 +761,5 @@ def poverty_line (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def retirement_distributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   ((taxable_retirement_distributions t p d) + (tax_exempt_retirement_distributions t p d))
-
-/-- `policyengine_us/variables/household/expense/retirement/roth_401k_contributions.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def roth_401k_contributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (p.core_p2.roth_401k_contributions_desired * (elective_deferral_contribution_scale t p d))
-
-/-- `policyengine_us/variables/household/expense/retirement/roth_403b_contributions.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def roth_403b_contributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (p.core_p2.roth_403b_contributions_desired * (elective_deferral_contribution_scale t p d))
-
-/-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_adult_count_with_valid_ssn.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type int. -/
-def rrc_adult_count_with_valid_ssn (t : TaxUnit) (d : Date) : Rat :=
-  (sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (meets_eitc_identification_requirements t p d))))
 
 end Lawlib.Gen.Vars

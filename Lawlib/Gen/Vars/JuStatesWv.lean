@@ -167,35 +167,35 @@ def wv_homestead_excess_property_tax_credit (t : TaxUnit) (d : Date) : Rat :=
 def wv_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.WV then ((wv_sctc t d) + (wv_homestead_excess_property_tax_credit t d)) else 0)
 
-/-- `policyengine_us/variables/gov/states/wv/tax/income/wv_income_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def wv_income_tax (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.WV then ((wv_income_tax_before_refundable_credits t d) - (wv_refundable_credits t d)) else 0)
-
 /-- `policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def wv_ccap_countable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.WV then (((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p1.farm_operations_income / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) else 0)
 
-/-- `policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit_eligible.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
-def wv_low_income_family_tax_credit_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.WV then (decide ((alternative_minimum_tax t d) = 0)) else false)
+/-- `policyengine_us/variables/gov/states/wv/tax/income/wv_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def wv_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.WV then ((wv_income_tax_before_refundable_credits t d) - (wv_refundable_credits t d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/wv/dhhr/ccap/eligibility/wv_ccap_income_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def wv_ccap_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.WV then ((is_tanf_enrolled t d) || (decide ((wv_ccap_countable_income t d) ≤ ((t.hhs.spm_unit_fpg / 12) * (Params.gov.states.wv.dhhr.ccap.income.fpl_limit.atDate d))))) else false)
 
-/-- `policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit_agi.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def wv_low_income_family_tax_credit_agi (t : TaxUnit) (d : Date) : Rat :=
-  (if (wv_low_income_family_tax_credit_eligible t d) then ((t.irs.adjusted_gross_income + (sumBy t.members fun p => p.core_p2.tax_exempt_interest_income)) + t.states_wv.wv_additions) else 0)
+/-- `policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit_eligible.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def wv_low_income_family_tax_credit_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.WV then (decide ((alternative_minimum_tax t d) = 0)) else false)
 
 /-- `policyengine_us/variables/gov/states/wv/dhhr/ccap/eligibility/wv_ccap_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def wv_ccap_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.WV then ((((decide ((sumBy t.members fun p => boolToRat (wv_ccap_eligible_child t p d)) > 0)) && (wv_ccap_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (wv_ccap_activity_eligible t d)) else false)
+
+/-- `policyengine_us/variables/gov/states/wv/tax/income/credits/liftc/wv_low_income_family_tax_credit_agi.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def wv_low_income_family_tax_credit_agi (t : TaxUnit) (d : Date) : Rat :=
+  (if (wv_low_income_family_tax_credit_eligible t d) then ((t.irs.adjusted_gross_income + (sumBy t.members fun p => p.core_p2.tax_exempt_interest_income)) + t.states_wv.wv_additions) else 0)
 
 /-- `policyengine_us/variables/gov/states/wv/dhhr/ccap/wv_ccap.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

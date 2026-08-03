@@ -115,7 +115,7 @@ def de_pension_exclusion_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/de/dss/poc/eligibility/de_poc_activity_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def de_poc_activity_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.DE then ((decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (((decide ((p.core_p1.employment_income / 12) > 0)) || (decide (((sumBy t.members fun p => (p.core_p2.self_employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) > 0))) || (is_full_time_student t p d))))) ≥ (sumBy t.members fun p => (boolToRat (is_tax_unit_head_or_spouse t p d))))) || t.hhs.meets_ccdf_activity_test) else false)
+  (if t.core.DE then ((decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (((decide ((p.core_p1.employment_income / 12) > 0)) || (decide (((p.core_p2.self_employment_income / 12) + (p.core_p2.sstb_self_employment_income / 12)) > 0))) || (is_full_time_student t p d))))) ≥ (sumBy t.members fun p => (boolToRat (is_tax_unit_head_or_spouse t p d))))) || t.hhs.meets_ccdf_activity_test) else false)
 
 /-- `policyengine_us/variables/gov/states/de/tax/income/deductions/standard/de_standard_deduction_indv.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -222,6 +222,11 @@ def de_income_tax_before_non_refundable_credits_indv (t : TaxUnit) (p : Person) 
 def de_income_tax_before_non_refundable_credits_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if t.core.DE then (Params.gov.states.de.tax.income.rate.atDate d (de_taxable_income_joint t p d)) else 0)
 
+/-- `policyengine_us/variables/gov/states/de/dss/poc/de_poc_countable_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def de_poc_countable_income (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.DE then (((((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) + (sumBy t.members fun p => (p.ssa.social_security_retirement / 12))) + (sumBy t.members fun p => (p.ssa.social_security_disability / 12))) + (sumBy t.members fun p => (p.ssa.social_security_survivors / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) else 0)
+
 /-- `policyengine_us/variables/gov/states/de/tax/income/de_income_tax_after_non_refundable_credits_indv.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def de_income_tax_after_non_refundable_credits_indv (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -231,16 +236,6 @@ def de_income_tax_after_non_refundable_credits_indv (t : TaxUnit) (p : Person) (
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def de_income_tax_before_non_refundable_credits_unit (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.DE then (sumBy t.members fun p => (de_income_tax_before_non_refundable_credits_joint t p d)) else 0)
-
-/-- `policyengine_us/variables/gov/states/de/dss/poc/de_poc_countable_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def de_poc_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.DE then (((((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) + (sumBy t.members fun p => (p.ssa.social_security_retirement / 12))) + (sumBy t.members fun p => (p.ssa.social_security_disability / 12))) + (sumBy t.members fun p => (p.ssa.social_security_survivors / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) else 0)
-
-/-- `policyengine_us/variables/gov/states/de/tax/income/de_income_tax_before_refundable_credits_joint.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def de_income_tax_before_refundable_credits_joint (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.DE then (max (((de_income_tax_before_non_refundable_credits_unit t d) - t.states_de.de_non_refundable_credits) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/de/dss/poc/de_poc_copay.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -252,6 +247,16 @@ def de_poc_copay (t : TaxUnit) (d : Date) : Rat :=
 def de_poc_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.DE then (decide ((de_poc_countable_income t d) ≤ (min ((if t.states_de.de_poc_enrolled then ((t.hhs.spm_unit_fpg / 12) * (Params.gov.states.de.dss.poc.income.fpl_rate.redetermination.atDate d)) else ((t.hhs.spm_unit_fpg / 12) * (Params.gov.states.de.dss.poc.income.fpl_rate.initial_eligibility.atDate d))) : Rat) ((t.hhs.hhs_smi / 12) * (Params.gov.states.de.dss.poc.income.smi_rate.atDate d))))) else false)
 
+/-- `policyengine_us/variables/gov/states/de/tax/income/de_income_tax_before_refundable_credits_joint.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def de_income_tax_before_refundable_credits_joint (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.DE then (max (((de_income_tax_before_non_refundable_credits_unit t d) - t.states_de.de_non_refundable_credits) : Rat) 0) else 0)
+
+/-- `policyengine_us/variables/gov/states/de/dss/poc/eligibility/de_poc_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def de_poc_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.DE then ((((decide ((sumBy t.members fun p => boolToRat (de_poc_eligible_child t p d)) > 0)) && (de_poc_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (de_poc_activity_eligible t d)) else false)
+
 /-- `policyengine_us/variables/gov/states/de/tax/income/de_files_separately.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def de_files_separately (t : TaxUnit) (d : Date) : Bool :=
@@ -262,15 +267,20 @@ def de_files_separately (t : TaxUnit) (d : Date) : Bool :=
 def de_non_refundable_eitc_if_claimed (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.DE then ((Params.gov.states.de.tax.income.credits.eitc.non_refundable.atDate d) * (eitc t d)) else 0)
 
-/-- `policyengine_us/variables/gov/states/de/dss/poc/eligibility/de_poc_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def de_poc_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.DE then ((((decide ((sumBy t.members fun p => boolToRat (de_poc_eligible_child t p d)) > 0)) && (de_poc_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (de_poc_activity_eligible t d)) else false)
+/-- `policyengine_us/variables/gov/states/de/dss/poc/de_poc.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def de_poc (t : TaxUnit) (d : Date) : Rat :=
+  (if (de_poc_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) ((sumBy t.members fun p => p.states_de.de_poc_maximum_weekly_benefit) * (52 / 12))) - (de_poc_copay t d)) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/de/tax/income/credits/eitc/de_refundable_eitc_if_claimed.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def de_refundable_eitc_if_claimed (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.DE then ((Params.gov.states.de.tax.income.credits.eitc.refundable.atDate d) * (eitc t d)) else 0)
+
+/-- `policyengine_us/variables/gov/states/de/dss/poc/de_child_care_subsidies.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def de_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.DE then ((de_poc t d) * 12) else 0)
 
 /-- `policyengine_us/variables/gov/states/de/tax/income/de_income_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -282,20 +292,10 @@ def de_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
 def de_non_refundable_eitc_potential (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.DE then ((boolToRat (!(de_claims_refundable_eitc t d))) * (de_non_refundable_eitc_if_claimed t d)) else 0)
 
-/-- `policyengine_us/variables/gov/states/de/dss/poc/de_poc.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def de_poc (t : TaxUnit) (d : Date) : Rat :=
-  (if (de_poc_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) ((sumBy t.members fun p => p.states_de.de_poc_maximum_weekly_benefit) * (52 / 12))) - (de_poc_copay t d)) : Rat) 0) else 0)
-
 /-- `policyengine_us/variables/gov/states/de/tax/income/credits/eitc/de_refundable_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def de_refundable_eitc (t : TaxUnit) (d : Date) : Rat :=
   (if (de_claims_refundable_eitc t d) then (de_refundable_eitc_if_claimed t d) else 0)
-
-/-- `policyengine_us/variables/gov/states/de/dss/poc/de_child_care_subsidies.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def de_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.DE then ((de_poc t d) * 12) else 0)
 
 /-- `policyengine_us/variables/gov/states/de/tax/income/credits/eitc/de_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

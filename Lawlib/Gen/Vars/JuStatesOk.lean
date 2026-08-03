@@ -40,7 +40,7 @@ def ok_standard_deduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/ok/dhs/tanf/ok_tanf_payment_standard.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ok_tanf_payment_standard (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.OK then (Params.gov.states.ok.dhs.tanf.benefit.payment_standard.atDate d (t.core.spm_unit_size / 12)) else 0)
+  (if t.core.OK then (Params.gov.states.ok.dhs.tanf.benefit.payment_standard.atDate d t.core.spm_unit_size) else 0)
 
 /-- `policyengine_us/variables/gov/states/ok/tax/income/ok_use_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -115,7 +115,7 @@ def ok_tanf_earned_income_after_work_expense_person (t : TaxUnit) (p : Person) (
 /-- `policyengine_us/variables/gov/states/ok/dhs/tanf/eligibility/ok_tanf_income_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ok_tanf_income_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.OK then (decide (((sumBy t.members fun p => (tanf_gross_earned_income t p d)) + (sumBy t.members fun p => (tanf_gross_unearned_income t p d))) ≤ ((Params.gov.states.ok.dhs.tanf.income.need_standard.atDate d (t.core.spm_unit_size / 12)) * (Params.gov.states.ok.dhs.tanf.income.gross_income_limit_rate.atDate d)))) else false)
+  (if t.core.OK then (decide (((sumBy t.members fun p => (tanf_gross_earned_income t p d)) + (sumBy t.members fun p => (tanf_gross_unearned_income t p d))) ≤ ((Params.gov.states.ok.dhs.tanf.income.need_standard.atDate d t.core.spm_unit_size) * (Params.gov.states.ok.dhs.tanf.income.gross_income_limit_rate.atDate d)))) else false)
 
 /-- `policyengine_us/variables/gov/states/ok/tax/income/credits/eitc/federal_credit/ok_federal_eitc_maximum.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -152,15 +152,20 @@ def ok_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ok_itemized_deductions (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.OK then (((medical_expense_deduction t d) + (charitable_deduction t d)) + (min ((max (0 : Rat) ((t.irs.itemized_deductions_less_salt + t.irs.capped_property_taxes) - ((medical_expense_deduction t d) + (charitable_deduction t d)))) : Rat) (Params.gov.states.ok.tax.income.deductions.itemized.limit.atDate d))) else 0)
 
+/-- `policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_predetermined_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def ok_ccs_predetermined_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.OK then ((is_tanf_enrolled t d) || (decide ((sumBy t.members fun p => (ssi t p d)) > 0))) else false)
+
 /-- `policyengine_us/variables/gov/states/ok/tax/income/ok_taxable_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ok_taxable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.OK then (max (0 : Rat) ((((ok_agi t d) - t.states_ok.ok_adjustments) - (ok_exemptions t d)) - (if t.irs.tax_unit_itemizes then (ok_itemized_deductions t d) else (ok_standard_deduction t d)))) else 0)
 
-/-- `policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_predetermined_eligible.py`
+/-- `policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def ok_ccs_predetermined_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.OK then ((is_tanf_enrolled t d) || (decide ((sumBy t.members fun p => (ssi t p d)) > 0))) else false)
+def ok_ccs_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.OK then (((decide ((sumBy t.members fun p => boolToRat (ok_ccs_eligible_child t p d)) > 0)) && ((ok_ccs_predetermined_eligible t d) || (ok_ccs_income_eligible t d))) && t.states_ok.ok_ccs_activity_eligible) else false)
 
 /-- `policyengine_us/variables/gov/states/ok/tax/income/credits/eitc/federal_credit/ok_federal_eitc_phased_in.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -172,20 +177,15 @@ def ok_federal_eitc_phased_in (t : TaxUnit) (d : Date) : Rat :=
 def ok_federal_eitc_reduction (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.OK then ((ok_federal_eitc_phase_out_rate t d) * (max (0 : Rat) ((max ((filer_adjusted_earnings t d) : Rat) t.irs.adjusted_gross_income) - (ok_federal_eitc_phase_out_start t d)))) else 0)
 
-/-- `policyengine_us/variables/gov/states/ok/dhs/ccs/eligibility/ok_ccs_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def ok_ccs_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.OK then (((decide ((sumBy t.members fun p => boolToRat (ok_ccs_eligible_child t p d)) > 0)) && ((ok_ccs_predetermined_eligible t d) || (ok_ccs_income_eligible t d))) && t.states_ok.ok_ccs_activity_eligible) else false)
+/-- `policyengine_us/variables/gov/states/ok/dhs/ccs/ok_ccs.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def ok_ccs (t : TaxUnit) (d : Date) : Rat :=
+  (if (ok_ccs_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) (sumBy t.members fun p => (p.states_ok.ok_ccs_daily_rate * p.core_p1.childcare_attending_days_per_month))) - t.states_ok.ok_ccs_copay) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/ok/tax/income/credits/eitc/federal_credit/ok_federal_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ok_federal_eitc (t : TaxUnit) (d : Date) : Rat :=
   (if t.states_ok.ok_federal_eitc_eligible then ((min ((ok_federal_eitc_phased_in t d) : Rat) (max (0 : Rat) ((ok_federal_eitc_maximum t d) - (ok_federal_eitc_reduction t d)))) * (boolToRat t.irs.takes_up_eitc)) else 0)
-
-/-- `policyengine_us/variables/gov/states/ok/dhs/ccs/ok_ccs.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ok_ccs (t : TaxUnit) (d : Date) : Rat :=
-  (if (ok_ccs_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) (sumBy t.members fun p => (p.states_ok.ok_ccs_daily_rate * p.core_p1.childcare_attending_days_per_month))) - t.states_ok.ok_ccs_copay) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/ok/dhs/ccs/ok_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

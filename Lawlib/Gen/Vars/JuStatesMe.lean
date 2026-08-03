@@ -227,6 +227,11 @@ def me_property_tax_fairness_credit_cap (t : TaxUnit) (d : Date) : Rat :=
 def me_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.ME then ((((me_tanf_income_eligible t d) && (me_tanf_resources_eligible t d)) && (is_demographic_tanf_eligible t d)) && (decide ((sumBy t.members fun p => boolToRat (is_citizen_or_legal_immigrant t p d)) > 0))) else false)
 
+/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/income/me_ccap_countable_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def me_ccap_countable_income (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.ME then (((((((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p1.farm_operations_income / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => ((retirement_distributions t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.disability_benefits / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => ((capital_gains t p d) / 12))) else 0)
+
 /-- `policyengine_us/variables/gov/states/me/tax/income/taxable_income/me_deductions.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def me_deductions (t : TaxUnit) (d : Date) : Rat :=
@@ -242,40 +247,35 @@ def me_property_tax_fairness_credit (t : TaxUnit) (d : Date) : Rat :=
 def me_tanf (t : TaxUnit) (d : Date) : Rat :=
   (if (me_tanf_eligible t d) then (min ((max ((t.states_me.me_tanf_standard_of_need - (me_tanf_countable_income t d)) : Rat) 0) : Rat) t.states_me.me_tanf_maximum_benefit) else 0)
 
-/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/income/me_ccap_countable_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def me_ccap_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.ME then (((((((((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p1.farm_operations_income / 12))) + (sumBy t.members fun p => (p.core_p2.rental_income / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => ((retirement_distributions t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.disability_benefits / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) + (sumBy t.members fun p => (p.core_p1.military_retirement_pay / 12))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.child_support_received / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => ((capital_gains t p d) / 12))) else 0)
+/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/eligibility/me_ccap_income_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def me_ccap_income_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.ME then (decide ((me_ccap_countable_income t d) ≤ (t.states_me.me_ccap_smi * (Params.gov.states.me.dhhs.ccap.income.smi_limit.atDate d)))) else false)
 
 /-- `policyengine_us/variables/gov/states/me/tax/income/taxable_income/me_taxable_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def me_taxable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.ME then (max (0 : Rat) (((me_agi t d) - (me_deductions t d)) - (me_exemptions t d))) else 0)
 
-/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/eligibility/me_ccap_income_eligible.py`
+/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/eligibility/me_ccap_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def me_ccap_income_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.ME then (decide ((me_ccap_countable_income t d) ≤ (t.states_me.me_ccap_smi * (Params.gov.states.me.dhhs.ccap.income.smi_limit.atDate d)))) else false)
+def me_ccap_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.ME then ((((decide ((sumBy t.members fun p => boolToRat (me_ccap_eligible_child t p d)) > 0)) && (me_ccap_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (me_ccap_activity_eligible t d)) else false)
 
 /-- `policyengine_us/variables/gov/states/me/tax/income/credits/eitc/me_pro_forma_childless_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def me_pro_forma_childless_eitc (t : TaxUnit) (d : Date) : Rat :=
   (if (me_childless_eitc_age_eligible t d) then (((min ((eitc_phased_in t d) : Rat) (max (0 : Rat) ((eitc_maximum t d) - (eitc_reduction t d)))) * (boolToRat (eitc_investment_income_eligible t d))) * (boolToRat (filer_meets_eitc_identification_requirements t d))) else 0)
 
-/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/eligibility/me_ccap_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def me_ccap_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.ME then ((((decide ((sumBy t.members fun p => boolToRat (me_ccap_eligible_child t p d)) > 0)) && (me_ccap_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (me_ccap_activity_eligible t d)) else false)
+/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/me_ccap.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def me_ccap (t : TaxUnit) (d : Date) : Rat :=
+  (if (me_ccap_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) ((sumBy t.members fun p => (p.states_me.me_ccap_market_rate * (boolToRat (me_ccap_eligible_child t p d)))) * (52 / 12))) - t.states_me.me_ccap_parent_fee) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/me/tax/income/credits/me_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def me_eitc (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.ME then ((max ((eitc t d) : Rat) (me_pro_forma_childless_eitc t d)) * (if (decide ((eitc_child_count t d) > 0)) then (Params.gov.states.me.tax.income.credits.eitc.rate.with_qualifying_child.atDate d) else (Params.gov.states.me.tax.income.credits.eitc.rate.no_qualifying_child.atDate d))) else 0)
-
-/-- `policyengine_us/variables/gov/states/me/dhhs/ccap/me_ccap.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def me_ccap (t : TaxUnit) (d : Date) : Rat :=
-  (if (me_ccap_eligible t d) then (max (((min ((t.core.spm_unit_pre_subsidy_childcare_expenses / 12) : Rat) ((sumBy t.members fun p => (p.states_me.me_ccap_market_rate * (boolToRat (me_ccap_eligible_child t p d)))) * (52 / 12))) - t.states_me.me_ccap_parent_fee) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/me/dhhs/me_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

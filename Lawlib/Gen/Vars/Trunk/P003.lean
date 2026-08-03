@@ -12,6 +12,21 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/household/expense/retirement/roth_401k_contributions.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def roth_401k_contributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (p.core_p2.roth_401k_contributions_desired * (elective_deferral_contribution_scale t p d))
+
+/-- `policyengine_us/variables/household/expense/retirement/roth_403b_contributions.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def roth_403b_contributions (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (p.core_p2.roth_403b_contributions_desired * (elective_deferral_contribution_scale t p d))
+
+/-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_adult_count_with_valid_ssn.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type int. -/
+def rrc_adult_count_with_valid_ssn (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (meets_eitc_identification_requirements t p d))))
+
 /-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_arpa_dependents_with_valid_ssn.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
 def rrc_arpa_dependents_with_valid_ssn (t : TaxUnit) (d : Date) : Rat :=
@@ -440,7 +455,7 @@ def meets_snap_work_requirements (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/resources/meets_ssi_resource_test.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meets_ssi_resource_test (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide ((if (ssi_claim_is_joint t p d) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((ssi_countable_resources t q d) / 12) else 0) else ((ssi_countable_resources t p d) / 12)) else ((ssi_countable_resources t p d) / 12)) ≤ (if (ssi_claim_is_joint t p d) then (Params.gov.ssa.ssi.eligibility.resources.limit.couple.atDate d) else (Params.gov.ssa.ssi.eligibility.resources.limit.individual.atDate d))))
+  (decide ((if (ssi_claim_is_joint t p d) then (if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then (ssi_countable_resources t q d) else 0) else (ssi_countable_resources t p d)) else (ssi_countable_resources t p d)) ≤ (if (ssi_claim_is_joint t p d) then (Params.gov.ssa.ssi.eligibility.resources.limit.couple.atDate d) else (Params.gov.ssa.ssi.eligibility.resources.limit.individual.atDate d))))
 
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_income_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -717,6 +732,11 @@ def is_parent_for_medicaid_nfc (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def is_ssi_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((p.ssa.is_ssi_aged_blind_disabled && (meets_ssi_resource_test t p d)) && ((is_ssi_qualified_noncitizen t p d) || (p.core_p1.immigration_status == ImmigrationStatus.CITIZEN)))
 
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/is_ssi_spousal_deeming_applies.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_ssi_spousal_deeming_applies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if (is_ssi_eligible_individual t p d) then (decide ((p.ssa.ssi_earned_income_deemed_from_ineligible_spouse + p.ssa.ssi_unearned_income_deemed_from_ineligible_spouse) > (((Params.gov.ssa.ssi.amount.couple.atDate d) - (Params.gov.ssa.ssi.amount.individual.atDate d)) * 12))) else false)
+
 /-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def lifetime_learning_credit (t : TaxUnit) (d : Date) : Rat :=
@@ -741,25 +761,5 @@ def medicaid_household_income_member (t : TaxUnit) (p : Person) (d : Date) : Rat
     policyengine-us 1.783.0, entity person, value_type float. -/
 def medical_expense_health_insurance_premiums (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (decide (p.core_p1.health_insurance_premiums ≠ 0)) then p.core_p1.health_insurance_premiums else (p.core_p1.health_insurance_premiums_without_medicare_part_b + ((medicare_part_b_premium t p d) * (boolToRat (medicare_enrolled t p d)))))
-
-/-- `policyengine_us/variables/gov/hhs/medicare/costs/medicare_cost.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def medicare_cost (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (medicare_enrolled t p d) then (max (((Params.calibration.gov.hhs.medicare.per_capita_cost.atDate d) - ((base_part_a_premium t p d) + (gross_medicare_part_b_premium_if_enrolled t p d))) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/gov/hhs/medicare/eligibility/part_a/medicare_part_a_premium.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def medicare_part_a_premium (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (medicare_enrolled t p d) then (max (((base_part_a_premium t p d) - p.hhs.msp_part_a_premium_coverage) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/household/expense/person/mortgage_interest.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def mortgage_interest (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((non_deductible_mortgage_interest t p d) + (deductible_mortgage_interest t p d))
-
-/-- `policyengine_us/variables/gov/ed/pell_grant/sai/pell_grant_sai.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def pell_grant_sai (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (max ((min ((p.ed.pell_grant_head_contribution + ((boolToRat (p.ed.pell_grant_formula == PellGrantFormula.A)) * (pell_grant_dependent_contribution t p d))) : Rat) (if (p.ed.pell_grant_eligibility_type == PellGrantEligibilityType.MAXIMUM) then 0 else (Params.gov.ed.pell_grant.sai.limits.max_sai.atDate d))) : Rat) (Params.gov.ed.pell_grant.sai.limits.min_sai.atDate d))
 
 end Lawlib.Gen.Vars

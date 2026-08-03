@@ -167,11 +167,6 @@ def ia_fip_gross_income (t : TaxUnit) (d : Date) : Rat :=
 def ia_income_tax_consolidated (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.IA then (if (ia_alternate_tax_eligible t d) then (min (t.states_ia.ia_regular_tax_consolidated : Rat) (ia_alternate_tax_consolidated t d)) else t.states_ia.ia_regular_tax_consolidated) else 0)
 
-/-- `policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_amt_joint.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ia_amt_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.IA then (if (Params.gov.states.ia.tax.income.alternative_minimum_tax.in_effect.atDate d) then (max (0 : Rat) (((max (0 : Rat) ((p.states_ia.ia_taxable_income_joint + (((boolToRat (decide ((ia_itemized_deductions_joint t p d) > p.states_ia.ia_standard_deduction_joint))) * (boolToRat p.core_p1.is_tax_unit_head)) * p.core_p2.real_estate_taxes)) - (max (0 : Rat) ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.states.ia.tax.income.alternative_minimum_tax.threshold.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.states.ia.tax.income.alternative_minimum_tax.threshold.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.states.ia.tax.income.alternative_minimum_tax.threshold.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.states.ia.tax.income.alternative_minimum_tax.threshold.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.states.ia.tax.income.alternative_minimum_tax.threshold.SURVIVING_SPOUSE.atDate d)) - ((max (0 : Rat) ((p.states_ia.ia_taxable_income_joint + (((boolToRat (decide ((ia_itemized_deductions_joint t p d) > p.states_ia.ia_standard_deduction_joint))) * (boolToRat p.core_p1.is_tax_unit_head)) * p.core_p2.real_estate_taxes)) - (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.states.ia.tax.income.alternative_minimum_tax.exemption.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.states.ia.tax.income.alternative_minimum_tax.exemption.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.states.ia.tax.income.alternative_minimum_tax.exemption.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.states.ia.tax.income.alternative_minimum_tax.exemption.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.states.ia.tax.income.alternative_minimum_tax.exemption.SURVIVING_SPOUSE.atDate d)))) * (Params.gov.states.ia.tax.income.alternative_minimum_tax.fraction.atDate d)))))) * (Params.gov.states.ia.tax.income.alternative_minimum_tax.rate.atDate d)) - (ia_base_tax_joint t p d))) else 0) else 0)
-
 /-- `policyengine_us/variables/gov/states/ia/hhs/cca/eligibility/ia_cca_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ia_cca_eligible (t : TaxUnit) (d : Date) : Bool :=
@@ -202,35 +197,40 @@ def ia_gross_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 def ia_income_tax_indiv (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.IA then ((sumBy t.members fun p => (ia_base_tax_indiv t p d)) + (sumBy t.members fun p => p.states_ia.ia_amt_indiv)) else 0)
 
+/-- `policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_income_tax_joint.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ia_income_tax_joint (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.IA then ((sumBy t.members fun p => (ia_base_tax_joint t p d)) + (sumBy t.members fun p => p.states_ia.ia_amt_joint)) else 0)
+
 /-- `policyengine_us/variables/gov/states/ia/hhs/cca/ia_cca.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ia_cca (t : TaxUnit) (d : Date) : Rat :=
   (if (ia_cca_eligible t d) then (max (((sumBy t.members fun p => ((min ((p.core_p2.pre_subsidy_childcare_expenses / 12) : Rat) (p.states_ia.ia_cca_max_rate * p.states_ia.ia_cca_monthly_units)) * (boolToRat ((ia_cca_eligible_child t p d) && (decide ((childcare_hours_per_week t p d) > 0)))))) - t.states_ia.ia_cca_copay) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/gov/states/ia/dhs/fip/eligibility/ia_fip_income_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def ia_fip_income_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.IA then (if (is_tanf_enrolled t d) then ((ia_fip_gross_income_eligible t d) && (ia_fip_countable_income_eligible t d)) else (((ia_fip_gross_income_eligible t d) && (ia_fip_net_income_eligible t d)) && (ia_fip_countable_income_eligible t d))) else false)
-
-/-- `policyengine_us/variables/gov/states/ia/tax/income/including_married_filing_separately/ia_income_tax_joint.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def ia_income_tax_joint (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IA then ((sumBy t.members fun p => (ia_base_tax_joint t p d)) + (sumBy t.members fun p => (ia_amt_joint t p d))) else 0)
-
-/-- `policyengine_us/variables/gov/states/ia/hhs/cca/ia_child_care_subsidies.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ia_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IA then ((ia_cca t d) * 12) else 0)
 
 /-- `policyengine_us/variables/gov/states/ia/tax/income/ia_files_separately.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def ia_files_separately (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.IA then (if (Params.gov.states.ia.tax.income.married_filing_separately_on_same_return.availability.atDate d) then (decide ((ia_income_tax_indiv t d) < (ia_income_tax_joint t d))) else false) else false)
 
+/-- `policyengine_us/variables/gov/states/ia/dhs/fip/eligibility/ia_fip_income_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def ia_fip_income_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.IA then (if (is_tanf_enrolled t d) then ((ia_fip_gross_income_eligible t d) && (ia_fip_countable_income_eligible t d)) else (((ia_fip_gross_income_eligible t d) && (ia_fip_net_income_eligible t d)) && (ia_fip_countable_income_eligible t d))) else false)
+
+/-- `policyengine_us/variables/gov/states/ia/hhs/cca/ia_child_care_subsidies.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def ia_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.IA then ((ia_cca t d) * 12) else 0)
+
 /-- `policyengine_us/variables/gov/states/ia/dhs/fip/eligibility/ia_fip_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ia_fip_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.IA then ((((is_demographic_tanf_eligible t d) && (decide ((sumBy t.members fun p => boolToRat (is_citizen_or_legal_immigrant t p d)) > 0))) && (ia_fip_resources_eligible t d)) && (ia_fip_income_eligible t d)) else false)
+
+/-- `policyengine_us/variables/gov/states/ia/tax/income/ia_income_tax_before_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def ia_income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.IA then (if (Params.gov.states.ia.tax.income.married_filing_separately_on_same_return.availability.atDate d) then (if (ia_files_separately t d) then (ia_income_tax_indiv t d) else (ia_income_tax_joint t d)) else (ia_income_tax_consolidated t d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ia/dhs/fip/ia_fip.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -241,11 +241,6 @@ def ia_fip (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ia_income_adjustments (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if t.core.IA then ((((traditional_ira_contributions t p d) + (self_employment_tax_ald_person t p d)) + p.core_p1.alimony_expense) + p.states_ia.ia_pension_exclusion) else 0)
-
-/-- `policyengine_us/variables/gov/states/ia/tax/income/ia_income_tax_before_credits.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def ia_income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IA then (if (Params.gov.states.ia.tax.income.married_filing_separately_on_same_return.availability.atDate d) then (if (ia_files_separately t d) then (ia_income_tax_indiv t d) else (ia_income_tax_joint t d)) else (ia_income_tax_consolidated t d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ia/tax/income/ia_income_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

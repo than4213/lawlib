@@ -25,7 +25,7 @@ def il_aabd_immigration_status_eligible_person (t : TaxUnit) (p : Person) (d : D
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/payment/utility/il_utility_allowance_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def il_aabd_utility_allowance_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.IL then (t.states_il.il_aabd_utility_allowance / (t.core.spm_unit_size / 12)) else 0)
+  (if t.core.IL then (t.states_il.il_aabd_utility_allowance / t.core.spm_unit_size) else 0)
 
 /-- `policyengine_us/variables/gov/states/il/tax/income/exemptions/il_aged_blind_exemption.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -175,12 +175,12 @@ def il_529_plan_subtraction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/asset/il_aabd_countable_assets.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def il_aabd_countable_assets (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IL then (((spm_unit_cash_assets t d) / 12) + t.states_il.il_aabd_countable_vehicle_value) else 0)
+  (if t.core.IL then ((spm_unit_cash_assets t d) + t.states_il.il_aabd_countable_vehicle_value) else 0)
 
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/payment/shelter/il_aabd_shelter_allowance.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def il_aabd_shelter_allowance (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.IL then ((if (decide ((p.core_p2.rent / 12) > 0)) then (min ((p.core_p2.rent / 12) : Rat) (Params.gov.states.il.dhs.aabd.payment.shelter_allowance.rent.atDate d)) else (min ((((housing_cost t d) / 12) - (p.core_p2.rent / 12)) : Rat) (Params.gov.states.il.dhs.aabd.payment.shelter_allowance.homestead.atDate d))) / (t.core.spm_unit_size / 12)) else 0)
+  (if t.core.IL then ((if (decide ((p.core_p2.rent / 12) > 0)) then (min ((p.core_p2.rent / 12) : Rat) (Params.gov.states.il.dhs.aabd.payment.shelter_allowance.rent.atDate d)) else (min ((((housing_cost t d) / 12) - (p.core_p2.rent / 12)) : Rat) (Params.gov.states.il.dhs.aabd.payment.shelter_allowance.homestead.atDate d))) / t.core.spm_unit_size) else 0)
 
 /-- `policyengine_us/variables/gov/states/il/tax/income/base_income/il_base_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -252,11 +252,6 @@ def il_mpe_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def il_pfae_basic_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.IL then ((il_pfae_age_eligible_child t p d) && p.states_il.il_isbe_income_eligible) else false)
 
-/-- `policyengine_us/variables/gov/states/il/isbe/pfae/priority/il_pfae_has_highest_priority_factor.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def il_pfae_has_highest_priority_factor (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.IL then ((((t.core.is_homeless || p.core_p1.is_in_foster_care) || p.core_p1.has_individualized_education_program) || p.states_il.il_pfae_is_deep_poverty) || ((decide ((tanf t d) > 0)) || (decide (boolToRat t.hhs.receives_tanf > 0)))) else false)
-
 /-- `policyengine_us/variables/gov/states/il/isbe/pi/eligibility/il_pi_basic_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def il_pi_basic_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -300,7 +295,7 @@ def il_ccap_countable_income (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/il/dhs/ccap/eligibility/il_ccap_parent_meets_working_requirements.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def il_ccap_parent_meets_working_requirements (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.IL then (decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (!((decide ((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) > 0)) || (is_full_time_student t p d)))))) = 0)) else false)
+  (if t.core.IL then (decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (!((decide ((((p.core_p1.employment_income / 12) + (p.core_p2.self_employment_income / 12)) + (p.core_p2.sstb_self_employment_income / 12)) > 0)) || (is_full_time_student t p d)))))) = 0)) else false)
 
 /-- `policyengine_us/variables/gov/states/il/rta/cta/reduced_fare/il_cta_reduced_fare_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -340,7 +335,7 @@ def il_liheap (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/il/isbe/pfae/eligibility/il_pfae_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def il_pfae_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.IL then ((il_pfae_basic_eligible t p d) && ((il_pfae_has_highest_priority_factor t p d) || (decide (p.states_il.il_pfae_secondary_priority_factor_count ≥ 2)))) else false)
+  (if t.core.IL then ((il_pfae_basic_eligible t p d) && (p.states_il.il_pfae_has_highest_priority_factor || (decide (p.states_il.il_pfae_secondary_priority_factor_count ≥ 2)))) else false)
 
 /-- `policyengine_us/variables/gov/states/il/isbe/pi/eligibility/il_pi_risk_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -437,20 +432,15 @@ def il_income_tax_before_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :
 def il_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.IL then (max (((il_income_tax_before_non_refundable_credits t d) - (il_non_refundable_credits t d)) : Rat) 0) else 0)
 
-/-- `policyengine_us/variables/gov/states/il/tax/income/il_income_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def il_income_tax (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IL then ((il_income_tax_before_refundable_credits t d) - t.states_il.il_refundable_credits) else 0)
-
-/-- `policyengine_us/variables/gov/states/il/tax/income/il_total_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def il_total_tax (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.IL then ((il_income_tax_before_refundable_credits t d) + (il_use_tax t d)) else 0)
-
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/income/il_aabd_gross_unearned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def il_aabd_gross_unearned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if t.core.IL then ((((((((((((((((social_security t p d) / 12) + (ssi t p d)) + (p.core_p1.disability_benefits / 12)) + (p.states.workers_compensation / 12)) + (p.states.unemployment_compensation / 12)) + ((retirement_distributions t p d) / 12)) + (p.core_p1.alimony_income / 12)) + ((dividend_income t p d) / 12)) + ((interest_income t p d) / 12)) + (p.core_p1.farm_operations_income / 12)) + (p.core_p1.farm_rent_income / 12)) + ((capital_gains t p d) / 12)) + (p.core_p1.debt_relief / 12)) + (p.core_p1.illicit_income / 12)) + (p.core_p1.miscellaneous_income / 12)) else 0)
+
+/-- `policyengine_us/variables/gov/states/il/tax/income/il_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def il_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.IL then ((il_income_tax_before_refundable_credits t d) - t.states_il.il_refundable_credits) else 0)
 
 /-- `policyengine_us/variables/gov/states/il/isbe/income/il_isbe_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -461,6 +451,11 @@ def il_isbe_countable_income (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def il_tanf_payment_eligible_requirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.IL then ((!((decide ((ssi t p d) > 0)) || p.ssa.receives_ssi)) && (il_tanf_immigration_status_eligible_person t p d)) else false)
+
+/-- `policyengine_us/variables/gov/states/il/tax/income/il_total_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def il_total_tax (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.IL then ((il_income_tax_before_refundable_credits t d) + (il_use_tax t d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/income/il_aabd_countable_unearned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/

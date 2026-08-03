@@ -162,15 +162,15 @@ def la_ccap_daily_copay (t : TaxUnit) (d : Date) : Rat :=
 def la_ccap_total_payment_rate (t : TaxUnit) (d : Date) : Rat :=
   (if (la_ccap_eligible t d) then (sumBy t.members fun p => (p.states_la.la_ccap_daily_rate * (la_ccap_monthly_days t p d))) else 0)
 
-/-- `policyengine_us/variables/gov/states/la/tax/income/credits/la_eitc.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def la_eitc (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.LA then ((eitc t d) * (Params.gov.states.la.tax.income.credits.eitc.match.atDate d)) else 0)
-
 /-- `policyengine_us/variables/gov/states/la/ldoe/ccap/la_ccap_total_copay.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def la_ccap_total_copay (t : TaxUnit) (d : Date) : Rat :=
   (if (la_ccap_eligible t d) then ((la_ccap_daily_copay t d) * (sumBy t.members fun p => (la_ccap_monthly_days t p d))) else 0)
+
+/-- `policyengine_us/variables/gov/states/la/tax/income/credits/la_eitc.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def la_eitc (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.LA then ((eitc t d) * (Params.gov.states.la.tax.income.credits.eitc.match.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/la/tax/income/deductions/la_federal_tax_deduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

@@ -12,6 +12,26 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/hhs/medicare/costs/medicare_cost.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def medicare_cost (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (medicare_enrolled t p d) then (max (((Params.calibration.gov.hhs.medicare.per_capita_cost.atDate d) - ((base_part_a_premium t p d) + (gross_medicare_part_b_premium_if_enrolled t p d))) : Rat) 0) else 0)
+
+/-- `policyengine_us/variables/gov/hhs/medicare/eligibility/part_a/medicare_part_a_premium.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def medicare_part_a_premium (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (medicare_enrolled t p d) then (max (((base_part_a_premium t p d) - p.hhs.msp_part_a_premium_coverage) : Rat) 0) else 0)
+
+/-- `policyengine_us/variables/household/expense/person/mortgage_interest.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def mortgage_interest (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((non_deductible_mortgage_interest t p d) + (deductible_mortgage_interest t p d))
+
+/-- `policyengine_us/variables/gov/ed/pell_grant/sai/pell_grant_sai.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def pell_grant_sai (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (max ((min ((p.ed.pell_grant_head_contribution + ((boolToRat (p.ed.pell_grant_formula == PellGrantFormula.A)) * (pell_grant_dependent_contribution t p d))) : Rat) (if (p.ed.pell_grant_eligibility_type == PellGrantEligibilityType.MAXIMUM) then 0 else (Params.gov.ed.pell_grant.sai.limits.max_sai.atDate d))) : Rat) (Params.gov.ed.pell_grant.sai.limits.min_sai.atDate d))
+
 /-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_caa.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def rrc_caa (t : TaxUnit) (d : Date) : Rat :=
@@ -222,10 +242,10 @@ def snap_allowable_medical_expenses (t : TaxUnit) (p : Person) (d : Date) : Rat 
 def snap_gross_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
   ((snap_gross_income t d) / t.usda.snap_fpg)
 
-/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/ssi_unearned_income_deemed_from_ineligible_spouse.py`
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_pmv_amount.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
-def ssi_unearned_income_deemed_from_ineligible_spouse (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (max (0 : Rat) (((if (p.core_p1.is_tax_unit_head || p.core_p1.is_tax_unit_spouse) then (sumBy t.members fun q => if (q.core_p1.is_tax_unit_head || q.core_p1.is_tax_unit_spouse) then ((boolToRat (is_ssi_ineligible_spouse t q d)) * (ssi_unearned_income t q d)) else 0) else ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - ((boolToRat (is_ssi_ineligible_spouse t p d)) * (ssi_unearned_income t p d))) - (ssi_ineligible_child_allocation t p d)))
+def ssi_pmv_amount (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((if (is_ssi_spousal_deeming_applies t p d) then ((((if (p.ssa.ssi_couple_computation_applies || (is_ssi_spousal_deeming_applies t p d)) then (Params.gov.ssa.ssi.amount.couple.atDate d) else (Params.gov.ssa.ssi.amount.individual.atDate d)) * (Params.gov.ssa.ssi.income.ism.pmv_fbr_fraction.atDate d)) + (Params.gov.ssa.ssi.income.exclusions.general.atDate d)) / 2) else (((if (p.ssa.ssi_couple_computation_applies || (is_ssi_spousal_deeming_applies t p d)) then (Params.gov.ssa.ssi.amount.couple.atDate d) else (Params.gov.ssa.ssi.amount.individual.atDate d)) * (Params.gov.ssa.ssi.income.ism.pmv_fbr_fraction.atDate d)) + (Params.gov.ssa.ssi.income.exclusions.general.atDate d))) * 12)
 
 /-- `policyengine_us/variables/household/income/person/state_benefit_cost.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -282,11 +302,6 @@ def eitc_eligible (t : TaxUnit) (d : Date) : Bool :=
 def is_ccdf_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (decide ((ccdf_income_to_smi_ratio t d) ≤ (Params.gov.hhs.ccdf.income_limit_smi.atDate d)))
 
-/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/is_ssi_spousal_deeming_applies.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_ssi_spousal_deeming_applies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (is_ssi_eligible_individual t p d) then (decide ((p.ssa.ssi_earned_income_deemed_from_ineligible_spouse + (ssi_unearned_income_deemed_from_ineligible_spouse t p d)) > (((Params.gov.ssa.ssi.amount.couple.atDate d) - (Params.gov.ssa.ssi.amount.individual.atDate d)) * 12))) else false)
-
 /-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_uses_missing_claimant_fallback.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def medicaid_uses_missing_claimant_fallback (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -307,6 +322,16 @@ def savers_credit (t : TaxUnit) (d : Date) : Rat :=
 def self_employment_tax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (Params.gov.contrib.ubi_center.flat_tax.abolish_self_emp_tax.atDate d) then 0 else ((self_employment_social_security_tax t p d) + (self_employment_medicare_tax t p d)))
 
+/-- `policyengine_us/variables/gov/ssa/ssi/ssi_if_takes_up.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_if_takes_up (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (Params.gov.ssa.ssi.abolish_ssi.atDate d) then 0 else (if (is_ssi_spousal_deeming_applies t p d) then (min ((max (0 : Rat) (uncapped_ssi t p d)) : Rat) (Params.gov.ssa.ssi.amount.individual.atDate d)) else (max (0 : Rat) (uncapped_ssi t p d))))
+
+/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_in_kind_support_and_maintenance.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ssi_in_kind_support_and_maintenance (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((boolToRat p.ssa.ssi_pmv_applies) * (if (decide (p.ssa.ssi_shelter_support_value > 0)) then (min ((ssi_pmv_amount t p d) : Rat) p.ssa.ssi_shelter_support_value) else (ssi_pmv_amount t p d)))
+
 /-- `policyengine_us/variables/household/demographic/tax_unit/surviving_spouse_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def surviving_spouse_eligible (t : TaxUnit) (d : Date) : Bool :=
@@ -321,6 +346,11 @@ def adjusted_earnings (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def amt_part_iii_required (t : TaxUnit) (d : Date) : Bool :=
   (decide ((((((dwks10 t d) + (dwks13 t d)) + (dwks14 t d)) + t.irs.dwks19) + t.core.unrecaptured_section_1250_gain) > 0))
+
+/-- `policyengine_us/variables/household/income/household/cbo_household_federal_taxes.py`
+    policyengine-us 1.783.0, entity household, value_type float. -/
+def cbo_household_federal_taxes (t : TaxUnit) (d : Date) : Rat :=
+  (((((((((t.irs.income_tax + (sumBy t.members fun p => (employee_social_security_tax t p d))) + (sumBy t.members fun p => (employee_medicare_tax t p d))) + (additional_medicare_tax t d)) + (sumBy t.members fun p => (self_employment_tax t p d))) + (sumBy t.members fun p => (employer_social_security_tax t p d))) + (sumBy t.members fun p => (employer_medicare_tax t p d))) + (sumBy t.members fun p => (employer_federal_unemployment_tax t p d))) + t.core.cbo_corporate_income_tax) + t.core.cbo_excise_tax)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -357,15 +387,10 @@ def self_employment_tax_ald_person (t : TaxUnit) (p : Person) (d : Date) : Rat :
 def spm_unit_self_employment_tax (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => (self_employment_tax t p d))
 
-/-- `policyengine_us/variables/gov/ssa/ssi/ssi_if_takes_up.py`
+/-- `policyengine_us/variables/gov/ssa/ssi/ssi.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
-def ssi_if_takes_up (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (Params.gov.ssa.ssi.abolish_ssi.atDate d) then 0 else (if (is_ssi_spousal_deeming_applies t p d) then (min ((max (0 : Rat) (uncapped_ssi t p d)) : Rat) (Params.gov.ssa.ssi.amount.individual.atDate d)) else (max (0 : Rat) (uncapped_ssi t p d))))
-
-/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_pmv_amount.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ssi_pmv_amount (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((if (is_ssi_spousal_deeming_applies t p d) then ((((if (p.ssa.ssi_couple_computation_applies || (is_ssi_spousal_deeming_applies t p d)) then (Params.gov.ssa.ssi.amount.couple.atDate d) else (Params.gov.ssa.ssi.amount.individual.atDate d)) * (Params.gov.ssa.ssi.income.ism.pmv_fbr_fraction.atDate d)) + (Params.gov.ssa.ssi.income.exclusions.general.atDate d)) / 2) else (((if (p.ssa.ssi_couple_computation_applies || (is_ssi_spousal_deeming_applies t p d)) then (Params.gov.ssa.ssi.amount.couple.atDate d) else (Params.gov.ssa.ssi.amount.individual.atDate d)) * (Params.gov.ssa.ssi.income.ism.pmv_fbr_fraction.atDate d)) + (Params.gov.ssa.ssi.income.exclusions.general.atDate d))) * 12)
+def ssi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if p.ssa.takes_up_ssi_if_eligible then (ssi_if_takes_up t p d) else 0)
 
 /-- `policyengine_us/variables/contrib/taxsim/taxsim_fica.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -381,6 +406,11 @@ def taxsim_tfica (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def alternative_minimum_tax (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) (((if (amt_part_iii_required t d) then (min ((amt_base_tax t d) : Rat) t.irs.amt_tax_including_cg) else (amt_base_tax t d)) - t.irs.foreign_tax_credit_potential) - (max (0 : Rat) (((t.irs.regular_tax_before_credits + t.irs.capital_gains_tax) - t.irs.foreign_tax_credit_potential) - t.core.form_4972_lumpsum_distributions))))
+
+/-- `policyengine_us/variables/household/income/person/applicable_ssi.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def applicable_ssi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if p.core_p2.use_reported_ssi then (p.core_p2.ssi_reported / 12) else (ssi t p d))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_addition.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -402,10 +432,30 @@ def filer_adjusted_earnings (t : TaxUnit) (d : Date) : Rat :=
 def head_earned (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => ((boolToRat p.core_p1.is_tax_unit_head) * (adjusted_earnings t p d)))
 
+/-- `policyengine_us/variables/gov/hud/income/hud_unearned_income.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def hud_unearned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((((((((((((((((((((pension_income t p d) + (dividend_income t p d)) + (interest_income t p d)) + p.core_p1.gi_cash_assistance) + p.core_p2.rental_income) + p.core_p1.farm_rent_income) + (partnership_s_corp_income t p d)) + p.core_p1.illicit_income) + p.core_p1.miscellaneous_income) + p.core_p1.alimony_income) + p.core_p2.strike_benefits) + (social_security t p d)) + ((ssi t p d) * 12)) + p.states.general_assistance) + p.states.unemployment_compensation) + p.core_p1.child_support_received) + p.core_p2.veterans_benefits) + p.core_p1.disability_benefits) + p.core_p2.survivor_benefits) + p.core_p1.financial_assistance)
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_209b_ssi_recipient_for_medicaid.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_209b_ssi_recipient_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((((((decide (((ssi t p d) * 12) > 0)) || (decide (boolToRat p.ssa.receives_ssi > 0))) && (p.hhs.medicaid_ssi_recipient_state_classification == MedicaidSSIRecipientStateClassification.SECTION_209B)) && (!(((decide ((boolToRat (if t.core.state_code_str == "AK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.PA.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WV.atDate d) else (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))) ≠ 0)) && (is_child t p d)) && (!p.core_p1.is_blind)))) && p.hhs.is_209b_ssi_recipient_income_eligible_for_medicaid) && p.hhs.is_optional_senior_or_disabled_asset_eligible)
+
+/-- `policyengine_us/variables/gov/usda/school_meals/school_meal_countable_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def school_meal_countable_income (t : TaxUnit) (d : Date) : Rat :=
+  (((((((((((((((((((sumBy t.members fun p => p.core_p1.employment_income) + (sumBy t.members fun p => p.core_p2.self_employment_income)) + (sumBy t.members fun p => p.core_p2.sstb_self_employment_income)) + (sumBy t.members fun p => (dividend_income t p d))) + (sumBy t.members fun p => (interest_income t p d))) + (sumBy t.members fun p => p.core_p1.gi_cash_assistance)) + (sumBy t.members fun p => (social_security t p d))) + (sumBy t.members fun p => ((ssi t p d) * 12))) + (tanf t d)) + (sumBy t.members fun p => (pension_income t p d))) + (sumBy t.members fun p => p.core_p2.survivor_benefits)) + (sumBy t.members fun p => p.core_p1.financial_assistance)) + (sumBy t.members fun p => p.core_p1.miscellaneous_income)) + (sumBy t.members fun p => p.core_p2.veterans_benefits)) + (sumBy t.members fun p => p.states.unemployment_compensation)) + (sumBy t.members fun p => p.core_p2.strike_benefits)) + (sumBy t.members fun p => p.core_p2.rental_income)) + (sumBy t.members fun p => (retirement_distributions t p d))) + (sumBy t.members fun p => p.core_p1.educational_assistance))
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/above_the_line_deductions/self_employment_tax_ald.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def self_employment_tax_ald (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => (self_employment_tax_ald_person t p d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/snap_unearned_income_person.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def snap_unearned_income_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (((((((((((((((((ssi t p d) + (p.states.general_assistance / 12)) + ((pension_income t p d) / 12)) + (p.core_p2.veterans_benefits / 12)) + (p.states.unemployment_compensation / 12)) + (p.core_p1.disability_benefits / 12)) + (p.states.workers_compensation / 12)) + ((social_security t p d) / 12)) + (p.core_p2.survivor_benefits / 12)) + ((retirement_distributions t p d) / 12)) + (p.core_p2.rental_income / 12)) + (p.core_p1.child_support_received / 12)) + (p.core_p1.alimony_income / 12)) + ((dividend_income t p d) / 12)) + ((interest_income t p d) / 12)) + (p.core_p1.financial_assistance / 12)) + (p.core_p1.miscellaneous_income / 12))
 
 /-- `policyengine_us/variables/gov/hhs/ccdf/spm_unit_ccdf_subsidy.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -422,20 +472,10 @@ def spm_unit_taxes (t : TaxUnit) (d : Date) : Rat :=
 def spouse_earned (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => ((boolToRat p.core_p1.is_tax_unit_spouse) * (adjusted_earnings t p d)))
 
-/-- `policyengine_us/variables/gov/ssa/ssi/ssi.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ssi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if p.ssa.takes_up_ssi_if_eligible then (ssi_if_takes_up t p d) else 0)
-
-/-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_in_kind_support_and_maintenance.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ssi_in_kind_support_and_maintenance (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((boolToRat p.ssa.ssi_pmv_applies) * (if (decide (p.ssa.ssi_shelter_support_value > 0)) then (min ((ssi_pmv_amount t p d) : Rat) p.ssa.ssi_shelter_support_value) else (ssi_pmv_amount t p d)))
-
-/-- `policyengine_us/variables/household/income/person/applicable_ssi.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def applicable_ssi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if p.core_p2.use_reported_ssi then (p.core_p2.ssi_reported / 12) else (ssi t p d))
+/-- `policyengine_us/variables/gov/ssa/ssi/tax_unit_ssi.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def tax_unit_ssi (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => ((ssi t p d) * 12))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum_with_arpa_addition.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -462,40 +502,30 @@ def eitc_phased_in (t : TaxUnit) (d : Date) : Rat :=
 def eitc_reduction (t : TaxUnit) (d : Date) : Rat :=
   ((eitc_phase_out_rate t d) * (max (0 : Rat) ((max ((eitc_earned_income t d) : Rat) t.irs.adjusted_gross_income) - (eitc_phase_out_start t d))))
 
-/-- `policyengine_us/variables/gov/hud/income/hud_unearned_income.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def hud_unearned_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((((((((((((((((((((pension_income t p d) + (dividend_income t p d)) + (interest_income t p d)) + p.core_p1.gi_cash_assistance) + p.core_p2.rental_income) + p.core_p1.farm_rent_income) + (partnership_s_corp_income t p d)) + p.core_p1.illicit_income) + p.core_p1.miscellaneous_income) + p.core_p1.alimony_income) + p.core_p2.strike_benefits) + (social_security t p d)) + ((ssi t p d) * 12)) + p.states.general_assistance) + p.states.unemployment_compensation) + p.core_p1.child_support_received) + p.core_p2.veterans_benefits) + p.core_p1.disability_benefits) + p.core_p2.survivor_benefits) + p.core_p1.financial_assistance)
+/-- `policyengine_us/variables/gov/hud/income/hud_countable_unearned_income.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def hud_countable_unearned_income (t : TaxUnit) (d : Date) : Rat :=
+  ((sumBy t.members fun p => ((hud_unearned_income t p d) * (boolToRat (!p.core_p1.is_in_foster_care)))) + (tanf t d))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/before_credits/income_tax_before_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def income_tax_before_credits (t : TaxUnit) (d : Date) : Rat :=
   ((t.irs.income_tax_main_rates + t.irs.capital_gains_tax) + (alternative_minimum_tax t d))
 
-/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_209b_ssi_recipient_for_medicaid.py`
+/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_ssi_recipient_for_medicaid.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_209b_ssi_recipient_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((((((decide (((ssi t p d) * 12) > 0)) || (decide (boolToRat p.ssa.receives_ssi > 0))) && (p.hhs.medicaid_ssi_recipient_state_classification == MedicaidSSIRecipientStateClassification.SECTION_209B)) && (!(((decide ((boolToRat (if t.core.state_code_str == "AK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.PA.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WV.atDate d) else (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.section_209b.excludes_nonblind_disabled_children.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))) ≠ 0)) && (is_child t p d)) && (!p.core_p1.is_blind)))) && p.hhs.is_209b_ssi_recipient_income_eligible_for_medicaid) && p.hhs.is_optional_senior_or_disabled_asset_eligible)
+def is_ssi_recipient_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (((((decide (((ssi t p d) * 12) > 0)) || (decide (boolToRat p.ssa.receives_ssi > 0))) && (decide ((boolToRat (if t.core.state_code_str == "AK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.PA.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WV.atDate d) else (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))) ≠ 0))) && ((p.hhs.medicaid_ssi_recipient_state_classification == MedicaidSSIRecipientStateClassification.SECTION_1634) || (p.hhs.medicaid_ssi_recipient_state_classification == MedicaidSSIRecipientStateClassification.SSI_CRITERIA))) || (is_209b_ssi_recipient_for_medicaid t p d))
 
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/min_head_spouse_earned.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def min_head_spouse_earned (t : TaxUnit) (d : Date) : Rat :=
   (if (tax_unit_is_joint t d) then (max ((min ((head_earned t d) : Rat) (spouse_earned t d)) : Rat) (max ((if (decide ((sumBy t.members fun p => ((boolToRat p.core_p1.is_tax_unit_head) * (boolToRat (cdcc_income_floor_eligible t p d)))) > 0)) then (min ((max ((head_earned t d) : Rat) (Params.gov.irs.credits.cdcc.deemed_earned_income.atDate d (count_cdcc_eligible t d))) : Rat) (spouse_earned t d)) else 0) : Rat) (if (decide ((sumBy t.members fun p => ((boolToRat p.core_p1.is_tax_unit_spouse) * (boolToRat (cdcc_income_floor_eligible t p d)))) > 0)) then (min ((max ((spouse_earned t d) : Rat) (Params.gov.irs.credits.cdcc.deemed_earned_income.atDate d (count_cdcc_eligible t d))) : Rat) (head_earned t d)) else 0))) else (head_earned t d))
 
-/-- `policyengine_us/variables/gov/usda/school_meals/school_meal_countable_income.py`
+/-- `policyengine_us/variables/gov/usda/school_meals/school_meal_fpg_ratio.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def school_meal_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (((((((((((((((((((sumBy t.members fun p => p.core_p1.employment_income) + (sumBy t.members fun p => p.core_p2.self_employment_income)) + (sumBy t.members fun p => p.core_p2.sstb_self_employment_income)) + (sumBy t.members fun p => (dividend_income t p d))) + (sumBy t.members fun p => (interest_income t p d))) + (sumBy t.members fun p => p.core_p1.gi_cash_assistance)) + (sumBy t.members fun p => (social_security t p d))) + (sumBy t.members fun p => ((ssi t p d) * 12))) + (tanf t d)) + (sumBy t.members fun p => (pension_income t p d))) + (sumBy t.members fun p => p.core_p2.survivor_benefits)) + (sumBy t.members fun p => p.core_p1.financial_assistance)) + (sumBy t.members fun p => p.core_p1.miscellaneous_income)) + (sumBy t.members fun p => p.core_p2.veterans_benefits)) + (sumBy t.members fun p => p.states.unemployment_compensation)) + (sumBy t.members fun p => p.core_p2.strike_benefits)) + (sumBy t.members fun p => p.core_p2.rental_income)) + (sumBy t.members fun p => (retirement_distributions t p d))) + (sumBy t.members fun p => p.core_p1.educational_assistance))
-
-/-- `policyengine_us/variables/gov/usda/snap/income/snap_unearned_income_person.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def snap_unearned_income_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (((((((((((((((((ssi t p d) + (p.states.general_assistance / 12)) + ((pension_income t p d) / 12)) + (p.core_p2.veterans_benefits / 12)) + (p.states.unemployment_compensation / 12)) + (p.core_p1.disability_benefits / 12)) + (p.states.workers_compensation / 12)) + ((social_security t p d) / 12)) + (p.core_p2.survivor_benefits / 12)) + ((retirement_distributions t p d) / 12)) + (p.core_p2.rental_income / 12)) + (p.core_p1.child_support_received / 12)) + (p.core_p1.alimony_income / 12)) + ((dividend_income t p d) / 12)) + ((interest_income t p d) / 12)) + (p.core_p1.financial_assistance / 12)) + (p.core_p1.miscellaneous_income / 12))
-
-/-- `policyengine_us/variables/gov/ssa/ssi/tax_unit_ssi.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def tax_unit_ssi (t : TaxUnit) (d : Date) : Rat :=
-  (sumBy t.members fun p => ((ssi t p d) * 12))
+def school_meal_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
+  ((school_meal_countable_income t d) / t.hhs.spm_unit_fpg)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/ctc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -517,25 +547,15 @@ def eitc (t : TaxUnit) (d : Date) : Rat :=
 def foreign_tax_credit_credit_limit (t : TaxUnit) (d : Date) : Rat :=
   (income_tax_before_credits t d)
 
-/-- `policyengine_us/variables/gov/hud/income/hud_countable_unearned_income.py`
+/-- `policyengine_us/variables/gov/hud/income/hud_annual_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def hud_countable_unearned_income (t : TaxUnit) (d : Date) : Rat :=
-  ((sumBy t.members fun p => ((hud_unearned_income t p d) * (boolToRat (!p.core_p1.is_in_foster_care)))) + (tanf t d))
+def hud_annual_income (t : TaxUnit) (d : Date) : Rat :=
+  ((hud_countable_earned_income t d) + (hud_countable_unearned_income t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def income_tax_unavailable_non_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   ((0 - (min ((income_tax_before_credits t d) : Rat) t.irs.income_tax_non_refundable_credits)) + t.irs.income_tax_non_refundable_credits)
-
-/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_ssi_recipient_for_medicaid.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_ssi_recipient_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((((decide (((ssi t p d) * 12) > 0)) || (decide (boolToRat p.ssa.receives_ssi > 0))) && (decide ((boolToRat (if t.core.state_code_str == "AK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AK.atDate d) else (if t.core.state_code_str == "AL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AL.atDate d) else (if t.core.state_code_str == "AR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AR.atDate d) else (if t.core.state_code_str == "AZ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.AZ.atDate d) else (if t.core.state_code_str == "CA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.CA.atDate d) else (if t.core.state_code_str == "CO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.CO.atDate d) else (if t.core.state_code_str == "CT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.CT.atDate d) else (if t.core.state_code_str == "DC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.DC.atDate d) else (if t.core.state_code_str == "DE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.DE.atDate d) else (if t.core.state_code_str == "FL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.FL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.GA.atDate d) else (if t.core.state_code_str == "HI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.HI.atDate d) else (if t.core.state_code_str == "IA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.IA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.IN.atDate d) else (if t.core.state_code_str == "KS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.KS.atDate d) else (if t.core.state_code_str == "KY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.KY.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.LA.atDate d) else (if t.core.state_code_str == "MA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MA.atDate d) else (if t.core.state_code_str == "MD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MD.atDate d) else (if t.core.state_code_str == "ME" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.ME.atDate d) else (if t.core.state_code_str == "MI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MI.atDate d) else (if t.core.state_code_str == "MN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MN.atDate d) else (if t.core.state_code_str == "MO" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MO.atDate d) else (if t.core.state_code_str == "MS" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MS.atDate d) else (if t.core.state_code_str == "MT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.MT.atDate d) else (if t.core.state_code_str == "NC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NC.atDate d) else (if t.core.state_code_str == "ND" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.ND.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NE.atDate d) else (if t.core.state_code_str == "NH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NH.atDate d) else (if t.core.state_code_str == "NJ" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NJ.atDate d) else (if t.core.state_code_str == "NM" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NM.atDate d) else (if t.core.state_code_str == "NV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NV.atDate d) else (if t.core.state_code_str == "NY" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.NY.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.OK.atDate d) else (if t.core.state_code_str == "OR" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.OR.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.PA.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.SC.atDate d) else (if t.core.state_code_str == "SD" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.SD.atDate d) else (if t.core.state_code_str == "TN" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.TN.atDate d) else (if t.core.state_code_str == "TX" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.TX.atDate d) else (if t.core.state_code_str == "UT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.UT.atDate d) else (if t.core.state_code_str == "VA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.VA.atDate d) else (if t.core.state_code_str == "VT" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.VT.atDate d) else (if t.core.state_code_str == "WA" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WA.atDate d) else (if t.core.state_code_str == "WI" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WI.atDate d) else (if t.core.state_code_str == "WV" then (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WV.atDate d) else (Params.gov.hhs.medicaid.eligibility.categories.ssi_recipient.is_covered.WY.atDate d)))))))))))))))))))))))))))))))))))))))))))))))))))) ≠ 0))) && ((p.hhs.medicaid_ssi_recipient_state_classification == MedicaidSSIRecipientStateClassification.SECTION_1634) || (p.hhs.medicaid_ssi_recipient_state_classification == MedicaidSSIRecipientStateClassification.SSI_CRITERIA))) || (is_209b_ssi_recipient_for_medicaid t p d))
-
-/-- `policyengine_us/variables/gov/usda/school_meals/school_meal_fpg_ratio.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def school_meal_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
-  ((school_meal_countable_income t d) / t.hhs.spm_unit_fpg)
 
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_limit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -552,10 +572,10 @@ def ctc_phase_in (t : TaxUnit) (d : Date) : Rat :=
 def foreign_tax_credit (t : TaxUnit) (d : Date) : Rat :=
   (min (t.irs.foreign_tax_credit_potential : Rat) (foreign_tax_credit_credit_limit t d))
 
-/-- `policyengine_us/variables/gov/hud/income/hud_annual_income.py`
+/-- `policyengine_us/variables/gov/hud/ttp/hud_ttp_income_share.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def hud_annual_income (t : TaxUnit) (d : Date) : Rat :=
-  ((hud_countable_earned_income t d) + (hud_countable_unearned_income t d))
+def hud_ttp_income_share (t : TaxUnit) (d : Date) : Rat :=
+  ((Params.gov.hud.total_tenant_payment.income_share.atDate d) * (hud_annual_income t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/income_tax_capped_non_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -571,11 +591,6 @@ def taxsim_v25 (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cdcc_relevant_expenses (t : TaxUnit) (d : Date) : Rat :=
   (min ((min ((t.core.tax_unit_childcare_expenses + (sumBy t.members fun p => (care_expenses t p d))) : Rat) (cdcc_limit t d)) : Rat) (min_head_spouse_earned t d))
-
-/-- `policyengine_us/variables/gov/hud/ttp/hud_ttp_income_share.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def hud_ttp_income_share (t : TaxUnit) (d : Date) : Rat :=
-  ((Params.gov.hud.total_tenant_payment.income_share.atDate d) * (hud_annual_income t d))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/income_tax_before_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -602,11 +617,6 @@ def ctc_value (t : TaxUnit) (d : Date) : Rat :=
 def eligible_for_refundable_credits (t : TaxUnit) (d : Date) : Bool :=
   (decide (((eitc t d) + (refundable_ctc t d)) > 0))
 
-/-- `policyengine_us/variables/gov/irs/tax/federal_income/income_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def income_tax (t : TaxUnit) (d : Date) : Rat :=
-  (if (Params.gov.contrib.ubi_center.flat_tax.abolish_federal_income_tax.atDate d) then 0 else ((income_tax_before_refundable_credits t d) - t.irs.income_tax_refundable_credits))
-
 /-- `policyengine_us/variables/gov/irs/credits/ctc/non_refundable_ctc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def non_refundable_ctc (t : TaxUnit) (d : Date) : Rat :=
@@ -617,21 +627,6 @@ def non_refundable_ctc (t : TaxUnit) (d : Date) : Rat :=
 def pre_obbba_cdcc_potential (t : TaxUnit) (d : Date) : Rat :=
   (((boolToRat (cdcc_filing_status_eligible t d)) * (cdcc_relevant_expenses t d)) * (max ((Params.gov.irs.credits.cdcc.phase_out.min.atDate ⟨2025, 1, 1⟩) : Rat) ((Params.gov.irs.credits.cdcc.phase_out.max.atDate ⟨2025, 1, 1⟩) - (((ratCeil ((max (0 : Rat) (t.irs.adjusted_gross_income - (Params.gov.irs.credits.cdcc.phase_out.start.atDate ⟨2025, 1, 1⟩))) / (Params.gov.irs.credits.cdcc.phase_out.increment.atDate ⟨2025, 1, 1⟩))) : Rat) * (Params.gov.irs.credits.cdcc.phase_out.rate.atDate ⟨2025, 1, 1⟩)))))
 
-/-- `policyengine_us/variables/household/income/household/cbo_household_federal_taxes.py`
-    policyengine-us 1.783.0, entity household, value_type float. -/
-def cbo_household_federal_taxes (t : TaxUnit) (d : Date) : Rat :=
-  ((((((((((income_tax t d) + (sumBy t.members fun p => (employee_social_security_tax t p d))) + (sumBy t.members fun p => (employee_medicare_tax t p d))) + (additional_medicare_tax t d)) + (sumBy t.members fun p => (self_employment_tax t p d))) + (sumBy t.members fun p => (employer_social_security_tax t p d))) + (sumBy t.members fun p => (employer_medicare_tax t p d))) + (sumBy t.members fun p => (employer_federal_unemployment_tax t p d))) + t.core.cbo_corporate_income_tax) + t.core.cbo_excise_tax)
-
-/-- `policyengine_us/variables/gov/irs/total_income_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def federal_state_income_tax (t : TaxUnit) (d : Date) : Rat :=
-  ((income_tax t d) + t.states_tax.state_income_tax)
-
-/-- `policyengine_us/variables/gov/irs/tax/federal_income/income_tax_positive.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def income_tax_positive (t : TaxUnit) (d : Date) : Rat :=
-  (max ((income_tax t d) : Rat) 0)
-
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/pre_obbba_cdcc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def pre_obbba_cdcc (t : TaxUnit) (d : Date) : Rat :=
@@ -641,11 +636,6 @@ def pre_obbba_cdcc (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def tax_unit_is_filer (t : TaxUnit) (d : Date) : Bool :=
   ((t.irs.tax_unit_is_required_to_file || ((eligible_for_refundable_credits t d) && t.irs.would_file_if_eligible_for_refundable_credit)) || t.irs.would_file_taxes_voluntarily)
-
-/-- `policyengine_us/variables/contrib/taxsim/taxsim_fiitax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def taxsim_fiitax (t : TaxUnit) (d : Date) : Rat :=
-  (income_tax t d)
 
 /-- `policyengine_us/variables/gov/aca/ptc/aca_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -675,7 +665,7 @@ def used_aca_ptc (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/income_tax_excluding_ptc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def income_tax_excluding_ptc (t : TaxUnit) (d : Date) : Rat :=
-  ((income_tax t d) - (assigned_aca_ptc t d))
+  (t.irs.income_tax - (assigned_aca_ptc t d))
 
 /-- `policyengine_us/variables/gov/aca/ptc/marketplace_net_premium.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

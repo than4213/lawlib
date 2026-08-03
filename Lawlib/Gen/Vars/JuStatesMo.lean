@@ -147,25 +147,25 @@ def mo_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
 def mo_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.MO then (((anyBy t.members fun p => (is_person_demographic_tanf_eligible t p d)) && (mo_tanf_income_eligible t d)) && (mo_tanf_resources_eligible t d)) else false)
 
-/-- `policyengine_us/variables/gov/states/mo/tax/income/income_tax/mo_income_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def mo_income_tax (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MO then ((mo_income_tax_before_refundable_credits t d) - (mo_refundable_credits t d)) else 0)
-
-/-- `policyengine_us/variables/gov/states/mo/dss/tanf/mo_tanf.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def mo_tanf (t : TaxUnit) (d : Date) : Rat :=
-  (if (mo_tanf_eligible t d) then (if (decide ((min ((max (((mo_tanf_maximum_benefit t d) - (mo_tanf_countable_income t d)) : Rat) 0) : Rat) (mo_tanf_maximum_benefit t d)) ≥ (Params.gov.states.mo.dss.tanf.minimum_payment.atDate d))) then (min ((max (((mo_tanf_maximum_benefit t d) - (mo_tanf_countable_income t d)) : Rat) 0) : Rat) (mo_tanf_maximum_benefit t d)) else 0) else 0)
-
 /-- `policyengine_us/variables/gov/states/mo/dese/ccs/eligibility/mo_ccs_special_needs.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def mo_ccs_special_needs (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.MO then ((p.core_p1.is_disabled || ((decide ((ssi t p d) > 0)) || p.ssa.receives_ssi)) || (mo_ccs_protective_services t p d)) else false)
 
+/-- `policyengine_us/variables/gov/states/mo/tax/income/income_tax/mo_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def mo_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.MO then ((mo_income_tax_before_refundable_credits t d) - (mo_refundable_credits t d)) else 0)
+
 /-- `policyengine_us/variables/gov/states/mo/dss/ssp/mo_snc_countable_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def mo_snc_countable_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if t.core.MO then ((((market_income t p d) / 12) + ((social_security t p d) / 12)) + (ssi t p d)) else 0)
+
+/-- `policyengine_us/variables/gov/states/mo/dss/tanf/mo_tanf.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def mo_tanf (t : TaxUnit) (d : Date) : Rat :=
+  (if (mo_tanf_eligible t d) then (if (decide ((min ((max (((mo_tanf_maximum_benefit t d) - (mo_tanf_countable_income t d)) : Rat) 0) : Rat) (mo_tanf_maximum_benefit t d)) ≥ (Params.gov.states.mo.dss.tanf.minimum_payment.atDate d))) then (min ((max (((mo_tanf_maximum_benefit t d) - (mo_tanf_countable_income t d)) : Rat) 0) : Rat) (mo_tanf_maximum_benefit t d)) else 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/mo/dese/ccs/eligibility/mo_ccs_eligible_child.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -182,15 +182,15 @@ def mo_ssp_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def mo_ccs_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.MO then ((decide ((sumBy t.members fun p => boolToRat (mo_ccs_eligible_child t p d)) > 0)) && ((decide ((sumBy t.members fun p => boolToRat (mo_ccs_protective_services t p d)) > 0)) || (((mo_ccs_income_eligible t d) && t.states_mo.mo_ccs_activity_eligible) && (is_ccdf_asset_eligible t d)))) else false)
 
-/-- `policyengine_us/variables/gov/states/mo/tax/income/credits/mo_wftc_potential.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def mo_wftc_potential (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MO then ((eitc t d) * (Params.gov.states.mo.tax.income.credits.wftc.match.atDate d)) else 0)
-
 /-- `policyengine_us/variables/gov/states/mo/dese/ccs/mo_ccs.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def mo_ccs (t : TaxUnit) (d : Date) : Rat :=
   (if (mo_ccs_eligible t d) then ((Params.gov.states.mo.dese.ccs.transitional.funding_rate.atDate d (if (decide ((t.hhs.spm_unit_fpg / 12) > 0)) then ((mo_ccs_adjusted_income t d) / (t.hhs.spm_unit_fpg / 12)) else 0)) * (max (((sumBy t.members fun p => (min ((p.states_mo.mo_ccs_maximum_daily_benefit * p.core_p1.childcare_attending_days_per_month) : Rat) (p.core_p2.pre_subsidy_childcare_expenses / 12))) - t.states_mo.mo_ccs_copay) : Rat) 0)) else 0)
+
+/-- `policyengine_us/variables/gov/states/mo/tax/income/credits/mo_wftc_potential.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def mo_wftc_potential (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.MO then ((eitc t d) * (Params.gov.states.mo.tax.income.credits.wftc.match.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/mo/dese/ccs/mo_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

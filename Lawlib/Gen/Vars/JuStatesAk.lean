@@ -30,7 +30,7 @@ def ak_atap_countable_earned_income_person (t : TaxUnit) (p : Person) (d : Date)
 /-- `policyengine_us/variables/gov/states/ak/dpa/atap/ak_atap_maximum_payment.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ak_atap_maximum_payment (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.AK then (if ((decide ((t.core.spm_unit_size / 12) = 1)) && (decide ((sumBy t.members fun p => boolToRat p.core_p1.is_pregnant) > 0))) then (Params.gov.states.ak.dpa.atap.payment.pregnant_woman.atDate d) else (if (decide ((sumBy t.members fun p => (boolToRat (is_tax_unit_dependent t p d))) ≥ 1)) then ((Params.gov.states.ak.dpa.atap.payment.base.atDate d) + ((max (((sumBy t.members fun p => (boolToRat (is_tax_unit_dependent t p d))) - 1) : Rat) 0) * (Params.gov.states.ak.dpa.atap.payment.additional_child.atDate d))) else 0)) else 0)
+  (if t.core.AK then (if ((decide (t.core.spm_unit_size = 1)) && (decide ((sumBy t.members fun p => boolToRat p.core_p1.is_pregnant) > 0))) then (Params.gov.states.ak.dpa.atap.payment.pregnant_woman.atDate d) else (if (decide ((sumBy t.members fun p => (boolToRat (is_tax_unit_dependent t p d))) ≥ 1)) then ((Params.gov.states.ak.dpa.atap.payment.base.atDate d) + ((max (((sumBy t.members fun p => (boolToRat (is_tax_unit_dependent t p d))) - 1) : Rat) 0) * (Params.gov.states.ak.dpa.atap.payment.additional_child.atDate d))) else 0)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ak/dpa/atap/eligibility/ak_atap_resources_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -50,7 +50,7 @@ def ak_ccap_authorized_rate_per_child (t : TaxUnit) (p : Person) (d : Date) : Ra
 /-- `policyengine_us/variables/gov/states/ak/dpa/ccap/eligibility/ak_ccap_parent_in_eligible_activity.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ak_ccap_parent_in_eligible_activity (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.AK then (((decide ((sumBy t.members fun p => (boolToRat (is_tax_unit_head_or_spouse t p d))) ≥ 1)) && (decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (!(((decide (((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) > 0)) || (decide ((weekly_hours_worked t p d) > 0))) || (is_full_time_student t p d)))))) = 0))) || t.hhs.meets_ccdf_activity_test) else false)
+  (if t.core.AK then (((decide ((sumBy t.members fun p => (boolToRat (is_tax_unit_head_or_spouse t p d))) ≥ 1)) && (decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (!(((decide (((p.core_p1.employment_income / 12) + (p.core_p2.self_employment_income / 12)) > 0)) || (decide ((weekly_hours_worked t p d) > 0))) || (is_full_time_student t p d)))))) = 0))) || t.hhs.meets_ccdf_activity_test) else false)
 
 /-- `policyengine_us/variables/gov/states/ak/dpa/atap/income/unearned/ak_atap_countable_unearned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

@@ -75,7 +75,7 @@ def dc_agi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/dc/dhs/ccsp/dc_ccsp_assets.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def dc_ccsp_assets (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.DC then (((spm_unit_cash_assets t d) / 12) + (sumBy t.members fun p => (p.local_tax.assessed_property_value / 12))) else 0)
+  (if t.core.DC then ((spm_unit_cash_assets t d) + (sumBy t.members fun p => p.local_tax.assessed_property_value)) else 0)
 
 /-- `policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/dc_ccsp_eligible_child.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -125,7 +125,7 @@ def dc_ccsp_countable_income (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/qualified_activity_or_need/dc_ccsp_qualified_activity_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def dc_ccsp_qualified_activity_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.DC then (decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (!((decide ((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p2.sstb_self_employment_income / 12))) > 0)) || (is_full_time_student t p d)))))) = 0)) else false)
+  (if t.core.DC then (decide ((sumBy t.members fun p => (boolToRat ((is_tax_unit_head_or_spouse t p d) && (!((decide ((((p.core_p1.employment_income / 12) + (p.core_p2.self_employment_income / 12)) + (p.core_p2.sstb_self_employment_income / 12)) > 0)) || (is_full_time_student t p d)))))) = 0)) else false)
 
 /-- `policyengine_us/variables/gov/states/dc/tax/payroll/dc_employer_additional_state_payroll_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -240,7 +240,7 @@ def dc_gac_countable_income (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/dc/dhs/tanf/dc_tanf_assistance_unit_size.py`
     policyengine-us 1.783.0, entity spm_unit, value_type int. -/
 def dc_tanf_assistance_unit_size (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.DC then ((t.core.spm_unit_size / 12) - (dc_gac_assistance_unit_size t d)) else 0)
+  (if t.core.DC then (t.core.spm_unit_size - (dc_gac_assistance_unit_size t d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/dc/dhs/tanf/work_requirement/dc_tanf_work_sanction_rate.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -267,6 +267,11 @@ def dc_gac_eligible (t : TaxUnit) (d : Date) : Bool :=
 def dc_itemized_deductions (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.DC then (((medical_expense_deduction t d) + (casualty_loss_deduction t d)) + (max (0 : Rat) ((max (0 : Rat) ((t.irs.itemized_deductions_less_salt + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) - ((medical_expense_deduction t d) + (casualty_loss_deduction t d)))) - ((max (0 : Rat) ((sumBy t.members fun p => (dc_agi t p d)) - (match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.states.dc.tax.income.deductions.itemized.phase_out.start.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.states.dc.tax.income.deductions.itemized.phase_out.start.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.states.dc.tax.income.deductions.itemized.phase_out.start.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.states.dc.tax.income.deductions.itemized.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.states.dc.tax.income.deductions.itemized.phase_out.start.SURVIVING_SPOUSE.atDate d)))) * (Params.gov.states.dc.tax.income.deductions.itemized.phase_out.rate.atDate d))))) else 0)
 
+/-- `policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/qualified_activity_or_need/dc_ccsp_qualified_need_eligible.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def dc_ccsp_qualified_need_eligible (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.DC then (((anyBy t.members fun p => (((is_tax_unit_dependent t p d) && p.core_p1.is_disabled) && (decide ((monthly_age t p d) < (Params.gov.states.dc.dhs.ccsp.age_threshold.disabled_child.atDate d))))) || t.states_dc.dc_ccsp_income_test_waived) || ((anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && (decide ((monthly_age t p d) ≥ (Params.gov.states.dc.dhs.ccsp.age_threshold.elderly.atDate d))))) || ((decide (((sumBy t.members fun p => (p.ssa.social_security_disability / 12)) + (sumBy t.members fun p => (ssi t p d))) > 0)) || (decide ((sumBy t.members fun p => boolToRat p.ssa.receives_ssi) > 0))))) else false)
+
 /-- `policyengine_us/variables/gov/states/dc/tax/income/deductions/dc_deduction_joint.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def dc_deduction_joint (t : TaxUnit) (d : Date) : Rat :=
@@ -276,11 +281,6 @@ def dc_deduction_joint (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def dc_gac (t : TaxUnit) (d : Date) : Rat :=
   (if (dc_gac_eligible t d) then (max ((t.states_dc.dc_gac_standard_payment - (dc_gac_countable_income t d)) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/gov/states/dc/dhs/ccsp/eligibility/qualified_activity_or_need/dc_ccsp_qualified_need_eligible.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def dc_ccsp_qualified_need_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.DC then (((anyBy t.members fun p => (((is_tax_unit_dependent t p d) && p.core_p1.is_disabled) && (decide ((monthly_age t p d) < (Params.gov.states.dc.dhs.ccsp.age_threshold.disabled_child.atDate d))))) || t.states_dc.dc_ccsp_income_test_waived) || ((anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && (decide ((monthly_age t p d) ≥ (Params.gov.states.dc.dhs.ccsp.age_threshold.elderly.atDate d))))) || ((decide (((sumBy t.members fun p => (p.ssa.social_security_disability / 12)) + (sumBy t.members fun p => (ssi t p d))) > 0)) || (decide ((sumBy t.members fun p => boolToRat p.ssa.receives_ssi) > 0))))) else false)
 
 /-- `policyengine_us/variables/gov/states/dc/dhs/ccsp/copay/dc_ccsp_copay.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/

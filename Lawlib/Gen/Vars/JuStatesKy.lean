@@ -17,6 +17,11 @@ set_option maxRecDepth 8192
 def ky_agi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if t.core.KY then ((p.states_ky.ky_additions + p.irs.adjusted_gross_income_person) - p.states_ky.ky_subtractions) else 0)
 
+/-- `policyengine_us/variables/gov/states/ky/tax/income/ky_income_tax_before_non_refundable_credits_joint.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ky_income_tax_before_non_refundable_credits_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.KY then (p.states_ky.ky_taxable_income_joint * (Params.gov.states.ky.tax.income.rate.atDate d)) else 0)
+
 /-- `policyengine_us/variables/gov/states/ky/tax/income/exclusions/pension_income/ky_pension_income_exclusion_exemption_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ky_pension_income_exclusion_exemption_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -97,11 +102,6 @@ def ky_homestead_exemption (t : TaxUnit) (d : Date) : Rat :=
 def ky_personal_tax_credits_indiv (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if t.core.KY then (((ky_blind_personal_tax_credits t p d) + (ky_aged_personal_tax_credits t p d)) + (ky_military_personal_tax_credits t p d)) else 0)
 
-/-- `policyengine_us/variables/gov/states/ky/tax/income/credits/personal/ky_personal_tax_credits_joint.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ky_personal_tax_credits_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.KY then ((((ky_blind_personal_tax_credits t p d) + (ky_aged_personal_tax_credits t p d)) + (ky_military_personal_tax_credits t p d)) * (boolToRat p.core_p1.is_tax_unit_head)) else 0)
-
 /-- `policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_tax_unit_itemizes.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def ky_tax_unit_itemizes (t : TaxUnit) (d : Date) : Bool :=
@@ -167,60 +167,45 @@ def ky_income_tax_before_non_refundable_credits_indiv (t : TaxUnit) (p : Person)
 def ky_ktap (t : TaxUnit) (d : Date) : Rat :=
   (if (ky_ktap_eligible t d) then (if (decide ((ky_ktap_countable_income t d) = 0)) then t.states_ky.ky_ktap_payment_maximum else (min (((max ((t.states_ky.ky_ktap_standard_of_need - (ky_ktap_countable_income t d)) : Rat) 0) * (Params.gov.states.ky.dcbs.ktap.benefit.rate.atDate d)) : Rat) t.states_ky.ky_ktap_payment_maximum)) else 0)
 
+/-- `policyengine_us/variables/gov/states/ky/tax/income/ky_filing_separately.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def ky_files_separately (t : TaxUnit) (d : Date) : Bool :=
+  (if t.core.KY then (decide ((sumBy t.members fun p => (ky_income_tax_before_non_refundable_credits_indiv t p d)) < (sumBy t.members fun p => (ky_income_tax_before_non_refundable_credits_joint t p d)))) else false)
+
 /-- `policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_itemized_deductions_unit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ky_itemized_deductions_unit (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.KY then (t.irs.itemized_deductions_less_salt - (medical_expense_deduction t d)) else 0)
-
-/-- `policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_itemized_deduction_joint.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ky_itemized_deductions_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.KY then ((boolToRat p.core_p1.is_tax_unit_head) * (ky_itemized_deductions_unit t d)) else 0)
-
-/-- `policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_deductions_joint.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ky_deductions_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.KY then (max ((ky_itemized_deductions_joint t p d) : Rat) (ky_standard_deduction_joint t p d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ky/dcbs/ssp/ky_ssp_countable_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ky_ssp_countable_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if t.core.KY then (if (!((is_ssi_eligible_individual t p d) || (is_ssi_eligible_spouse t p d))) then 0 else (if p.ssa.ssi_couple_computation_applies then ((((((ssi_marital_unearned_income t p d) / 12) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + ((ssi_in_kind_support_and_maintenance t p d) / 12)) + ((max (((max ((((ssi_marital_earned_income t p d) / 12) - ((ssi_blind_or_disabled_working_student_exclusion t p d) / 12)) : Rat) 0) - (Params.gov.ssa.ssi.income.exclusions.earned.atDate d)) : Rat) 0) * (1 - (Params.gov.ssa.ssi.income.exclusions.earned_share.atDate d)))) / 2) else ((((((ssi_marital_unearned_income t p d) / 12) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_parent / 12)) + ((ssi_in_kind_support_and_maintenance t p d) / 12)) + ((max (((max ((((ssi_marital_earned_income t p d) / 12) - ((ssi_blind_or_disabled_working_student_exclusion t p d) / 12)) : Rat) 0) - (Params.gov.ssa.ssi.income.exclusions.earned.atDate d)) : Rat) 0) * (1 - (Params.gov.ssa.ssi.income.exclusions.earned_share.atDate d)))) + (p.ssa.ssi_income_deemed_from_ineligible_spouse / 12)))) else 0)
 
-/-- `policyengine_us/variables/gov/states/ky/dcbs/ssp/ky_ssp_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def ky_ssp_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.KY then ((((is_ssi_eligible t p d) && (is_adult t p d)) && (!(p.states_ky.ky_ssp_category == KYSSPCategory.NONE))) && (decide ((ky_ssp_countable_income t p d) < p.states_ky.ky_ssp_payment_standard))) else false)
-
-/-- `policyengine_us/variables/gov/states/ky/tax/income/ky_taxable_income_joint.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ky_taxable_income_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.KY then (max (0 : Rat) (((boolToRat p.core_p1.is_tax_unit_head) * (sumBy t.members fun p => (ky_agi t p d))) - (ky_deductions_joint t p d))) else 0)
-
-/-- `policyengine_us/variables/gov/states/ky/tax/income/ky_income_tax_before_non_refundable_credits_joint.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ky_income_tax_before_non_refundable_credits_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.KY then ((ky_taxable_income_joint t p d) * (Params.gov.states.ky.tax.income.rate.atDate d)) else 0)
-
-/-- `policyengine_us/variables/gov/states/ky/dcbs/ssp/ky_ssp.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ky_ssp (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.KY then ((max (0 : Rat) (p.states_ky.ky_ssp_payment_standard - (ky_ssp_countable_income t p d))) * (boolToRat (ky_ssp_eligible t p d))) else 0)
-
-/-- `policyengine_us/variables/gov/states/ky/tax/income/ky_filing_separately.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
-def ky_files_separately (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.KY then (decide ((sumBy t.members fun p => (ky_income_tax_before_non_refundable_credits_indiv t p d)) < (sumBy t.members fun p => (ky_income_tax_before_non_refundable_credits_joint t p d)))) else false)
-
 /-- `policyengine_us/variables/gov/states/ky/tax/income/ky_income_tax_before_non_refundable_credits_unit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ky_income_tax_before_non_refundable_credits_unit (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.KY then (if (ky_files_separately t d) then (sumBy t.members fun p => (ky_income_tax_before_non_refundable_credits_indiv t p d)) else (sumBy t.members fun p => (ky_income_tax_before_non_refundable_credits_joint t p d))) else 0)
 
+/-- `policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_itemized_deduction_joint.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ky_itemized_deductions_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.KY then ((boolToRat p.core_p1.is_tax_unit_head) * (ky_itemized_deductions_unit t d)) else 0)
+
 /-- `policyengine_us/variables/gov/states/ky/tax/income/credits/personal/ky_personal_tax_credits_potential.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ky_personal_tax_credits_potential (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.KY then (if (ky_files_separately t d) then (sumBy t.members fun p => (min ((ky_personal_tax_credits_indiv t p d) : Rat) (ky_income_tax_before_non_refundable_credits_indiv t p d))) else (sumBy t.members fun p => (ky_personal_tax_credits_joint t p d))) else 0)
+  (if t.core.KY then (if (ky_files_separately t d) then (sumBy t.members fun p => (min ((ky_personal_tax_credits_indiv t p d) : Rat) (ky_income_tax_before_non_refundable_credits_indiv t p d))) else (sumBy t.members fun p => p.states_ky.ky_personal_tax_credits_joint)) else 0)
+
+/-- `policyengine_us/variables/gov/states/ky/dcbs/ssp/ky_ssp_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def ky_ssp_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if t.core.KY then ((((is_ssi_eligible t p d) && (is_adult t p d)) && (!(p.states_ky.ky_ssp_category == KYSSPCategory.NONE))) && (decide ((ky_ssp_countable_income t p d) < p.states_ky.ky_ssp_payment_standard))) else false)
+
+/-- `policyengine_us/variables/gov/states/ky/tax/income/deductions/ky_deductions_joint.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ky_deductions_joint (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.KY then (max ((ky_itemized_deductions_joint t p d) : Rat) (ky_standard_deduction_joint t p d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ky/tax/income/credits/family_size_credit/ky_family_size_tax_credit_potential.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -231,6 +216,11 @@ def ky_family_size_tax_credit_potential (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ky_income_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.KY then (max (((ky_income_tax_before_non_refundable_credits_unit t d) - t.states_ky.ky_non_refundable_credits) : Rat) 0) else 0)
+
+/-- `policyengine_us/variables/gov/states/ky/dcbs/ssp/ky_ssp.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ky_ssp (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.KY then ((max (0 : Rat) (p.states_ky.ky_ssp_payment_standard - (ky_ssp_countable_income t p d))) * (boolToRat (ky_ssp_eligible t p d))) else 0)
 
 /-- `policyengine_us/variables/gov/states/ky/tax/income/ky_income_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

@@ -225,7 +225,7 @@ def az_taxable_income (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/az/tax/income/credits/property_tax_credit/az_property_tax_credit_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def az_property_tax_credit_eligible (t : TaxUnit) (d : Date) : Bool :=
-  (if t.core.AZ then ((anyBy t.members fun p => (((decide (p.core_p1.age ≥ (Params.gov.states.az.tax.income.credits.property_tax.age_threshold.atDate d))) && (is_tax_unit_head_or_spouse t p d)) || ((decide ((boolToRat ((decide (((ssi t p d) * 12) > 0)) || (decide ((sumBy t.members fun p => boolToRat p.ssa.receives_ssi) > 0)))) > 0)) && (is_tax_unit_head_or_spouse t p d)))) && (decide (((sumBy t.members fun p => p.core_p2.rent) + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) > 0))) else false)
+  (if t.core.AZ then ((anyBy t.members fun p => (((decide (p.core_p1.age ≥ (Params.gov.states.az.tax.income.credits.property_tax.age_threshold.atDate d))) && (is_tax_unit_head_or_spouse t p d)) || ((decide ((boolToRat ((decide (((ssi t p d) * 12) > 0)) || (decide (boolToRat p.ssa.receives_ssi > 0)))) > 0)) && (is_tax_unit_head_or_spouse t p d)))) && (decide (((sumBy t.members fun p => p.core_p2.rent) + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) > 0))) else false)
 
 /-- `policyengine_us/variables/gov/states/az/tax/income/subtractions/az_dependent_care_expense_subtraction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

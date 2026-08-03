@@ -12,31 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/states/va/dss/tanf/income/va_tanf_childcare_deduction.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def va_tanf_childcare_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.VA then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) (sumBy t.members fun p => ((Params.gov.states.va.dss.tanf.income.deductions.dependent_care.full_time.atDate d p.core_p1.age) * (boolToRat ((is_tax_unit_dependent t p d) || ((is_adult t p d) && p.core_p1.is_incapable_of_self_care)))))) else 0)
-
-/-- `policyengine_us/variables/gov/states/vt/dcf/reach_up/income/deductions/vt_reach_up_dependent_care_deduction.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def vt_reach_up_dependent_care_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.VT then (min ((((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12))) : Rat) ((Params.gov.states.vt.dcf.reach_up.income.deductions.dependent_care.atDate d) * (sumBy t.members fun p => (boolToRat (is_tax_unit_head_or_spouse t p d))))) else 0)
-
-/-- `policyengine_us/variables/gov/states/wv/dhhr/works/income/earned/wv_works_countable_earned_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def wv_works_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.WV then (max ((((sumBy t.members fun p => (tanf_gross_earned_income t p d)) * (1 - (Params.gov.states.wv.dhhr.works.income.earned_income_disregard.rate.atDate d))) - (((childcare_expenses t d) / 12) + (sumBy t.members fun p => ((care_expenses t p d) / 12)))) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/gov/states/ak/dpa/atap/income/earned/ak_atap_countable_earned_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ak_atap_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.AK then (max (((sumBy t.members fun p => (ak_atap_countable_earned_income_person t p d)) - (ak_atap_childcare_deduction t d)) : Rat) 0) else 0)
-
-/-- `policyengine_us/variables/gov/states/al/dhs/tanf/income/al_tanf_countable_income.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def al_tanf_countable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.AL then ((al_tanf_countable_earned_income t d) + (sumBy t.members fun p => (tanf_gross_unearned_income t p d))) else 0)
-
 /-- `policyengine_us/variables/gov/states/az/hhs/tanf/income/az_tanf_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def az_tanf_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
@@ -62,15 +37,25 @@ def de_tanf_net_earned_income (t : TaxUnit) (d : Date) : Rat :=
 def ga_tanf_countable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.GA then ((max (((sumBy t.members fun p => (ga_tanf_earned_income_after_disregard t p d)) - (ga_tanf_childcare_deduction t d)) : Rat) 0) + (sumBy t.members fun p => (tanf_gross_unearned_income t p d))) else 0)
 
+/-- `policyengine_us/variables/household/healthcare_benefit_value.py`
+    policyengine-us 1.783.0, entity household, value_type float. -/
+def healthcare_benefit_value (t : TaxUnit) (d : Date) : Rat :=
+  (((((((sumBy t.members fun p => (medicaid_cost t p d)) + (sumBy t.members fun p => p.hhs.msp_cost)) + (sumBy t.members fun p => (chip t p d))) + (assigned_aca_ptc t d)) + t.hhs.basic_health_program) + (co_omnisalud t d)) + (sumBy t.members fun p => (or_healthier_oregon_cost t p d)))
+
 /-- `policyengine_us/variables/gov/states/hi/dhs/tanf/income/earned/hi_tanf_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hi_tanf_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.HI then (max (((sumBy t.members fun p => (hi_tanf_countable_earned_income_person t p d)) - (hi_tanf_dependent_care_deduction t d)) : Rat) 0) else 0)
 
-/-- `policyengine_us/variables/household/income/household/household_refundable_tax_credits.py`
+/-- `policyengine_us/variables/household/income/household/household_refundable_state_tax_credits.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
-def household_refundable_tax_credits (t : TaxUnit) (d : Date) : Rat :=
-  (t.irs.income_tax_refundable_credits + (household_refundable_state_tax_credits t d))
+def household_refundable_state_tax_credits (t : TaxUnit) (d : Date) : Rat :=
+  (((((((((((((((((((((((((((((((((((((((((((t.states_al.al_refundable_credits + (ar_refundable_credits t d)) + t.states_az.az_refundable_credits) + t.states_ca.ca_refundable_credits) + t.states_co.co_refundable_credits) + (ct_refundable_credits t d)) + t.states_dc.dc_refundable_credits) + t.states_de.de_refundable_credits) + (ga_refundable_credits t d)) + t.states_hi.hi_refundable_credits) + (ia_refundable_credits t d)) + t.states_id.id_refundable_credits) + t.states_il.il_refundable_credits) + (in_refundable_credits t d)) + (ks_refundable_credits t d)) + t.states_ky.ky_refundable_credits) + (la_refundable_credits t d)) + t.states_ma.ma_refundable_credits) + t.states_me.me_refundable_credits) + (md_refundable_credits t d)) + (mi_refundable_credits t d)) + t.states_mn.mn_refundable_credits) + (mo_refundable_credits t d)) + t.states_ms.ms_refundable_credits) + (sumBy t.members fun p => (mt_refundable_credits t p d))) + t.states_nd.nd_refundable_credits) + t.states_ne.ne_refundable_credits) + t.states_nh.nh_refundable_credits) + t.states_nm.nm_refundable_credits) + (nj_refundable_credits t d)) + t.states_ny.ny_refundable_credits) + t.states_oh.oh_refundable_credits) + t.states_ok.ok_refundable_credits) + t.states_or.or_refundable_credits) + t.states_pa.pa_refundable_tax_credits) + t.states_ri.ri_refundable_credits) + (sc_refundable_credits t d)) + (wa_refundable_credits t d)) + (nyc_refundable_credits t d)) + (ut_refundable_credits t d)) + (va_refundable_credits t d)) + t.states_vt.vt_refundable_credits) + (wi_refundable_credits t d)) + (wv_refundable_credits t d))
+
+/-- `policyengine_us/variables/household/income/household/household_tax_before_refundable_credits.py`
+    policyengine-us 1.783.0, entity household, value_type float. -/
+def household_tax_before_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
+  ((((((t.irs.employee_payroll_tax + (sumBy t.members fun p => (self_employment_tax t p d))) + (income_tax_before_refundable_credits t d)) + (flat_tax t d)) + (household_state_tax_before_refundable_credits t d)) + (local_income_tax_before_refundable_credits t d)) + (local_occupational_tax t d))
 
 /-- `policyengine_us/variables/gov/hud/ttp/hud_ttp_adjusted_income_share.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -97,11 +82,6 @@ def il_tanf_countable_earned_income_for_initial_eligibility (t : TaxUnit) (d : D
 def ks_tanf_countable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.KS then ((ks_tanf_countable_earned_income t d) + (ks_tanf_countable_unearned_income t d)) else 0)
 
-/-- `policyengine_us/variables/gov/local/tax/income/local_income_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def local_income_tax (t : TaxUnit) (d : Date) : Rat :=
-  (((((nyc_income_tax t d) + t.local_pa.pa_philadelphia_wage_tax) + (mo_kansas_city_earnings_tax t d)) + (mo_st_louis_earnings_tax t d)) + t.local_de.de_wilmington_earned_income_tax)
-
 /-- `policyengine_us/variables/gov/states/md/tca/income/md_tca_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def md_tca_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
@@ -122,6 +102,11 @@ def mt_tanf_countable_income (t : TaxUnit) (d : Date) : Rat :=
 def nm_works_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.NM then (max ((((sumBy t.members fun p => (tanf_gross_earned_income t p d)) - (sumBy t.members fun p => p.states_nm.nm_works_earned_income_deduction_person)) - (nm_works_childcare_deduction t d)) : Rat) 0) else 0)
 
+/-- `policyengine_us/variables/gov/local/ny/nyc/tax/income/nyc_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def nyc_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.in_nyc then ((nyc_income_tax_before_refundable_credits t d) - (nyc_refundable_credits t d)) else 0)
+
 /-- `policyengine_us/variables/gov/states/ok/dhs/tanf/income/ok_tanf_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ok_tanf_countable_income (t : TaxUnit) (d : Date) : Rat :=
@@ -136,6 +121,11 @@ def ri_works_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_deductions (t : TaxUnit) (d : Date) : Rat :=
   (((((t.usda.snap_standard_deduction + (snap_earned_income_deduction t d)) + (snap_dependent_care_deduction t d)) + (snap_child_support_deduction t d)) + t.usda.snap_excess_medical_expense_deduction) + t.usda.snap_excess_shelter_expense_deduction)
+
+/-- `policyengine_us/variables/gov/states/tax/income/state_refundable_credits.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def state_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
+  (((((((((((((((((((((((((((((((((((((((((((t.states_al.al_refundable_credits + (ar_refundable_credits t d)) + t.states_az.az_refundable_credits) + t.states_ca.ca_refundable_credits) + t.states_co.co_refundable_credits) + (ct_refundable_credits t d)) + t.states_dc.dc_refundable_credits) + t.states_de.de_refundable_credits) + (ga_refundable_credits t d)) + t.states_hi.hi_refundable_credits) + (ia_refundable_credits t d)) + t.states_id.id_refundable_credits) + t.states_il.il_refundable_credits) + (in_refundable_credits t d)) + (ks_refundable_credits t d)) + t.states_ky.ky_refundable_credits) + (la_refundable_credits t d)) + t.states_ma.ma_refundable_credits) + t.states_me.me_refundable_credits) + (md_refundable_credits t d)) + (mi_refundable_credits t d)) + t.states_mn.mn_refundable_credits) + (mo_refundable_credits t d)) + t.states_ms.ms_refundable_credits) + (sumBy t.members fun p => (mt_refundable_credits t p d))) + t.states_nd.nd_refundable_credits) + t.states_ne.ne_refundable_credits) + t.states_nh.nh_refundable_credits) + t.states_nm.nm_refundable_credits) + (nj_refundable_credits t d)) + t.states_ny.ny_refundable_credits) + t.states_oh.oh_refundable_credits) + t.states_ok.ok_refundable_credits) + t.states_or.or_refundable_credits) + t.states_pa.pa_refundable_tax_credits) + t.states_ri.ri_refundable_credits) + (sc_refundable_credits t d)) + (wa_refundable_credits t d)) + (nyc_refundable_credits t d)) + (ut_refundable_credits t d)) + (va_refundable_credits t d)) + t.states_vt.vt_refundable_credits) + (wi_refundable_credits t d)) + (wv_refundable_credits t d))
 
 /-- `policyengine_us/variables/gov/states/tn/dhs/ff/income/tn_ff_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -207,15 +197,10 @@ def ga_tanf_income_eligible (t : TaxUnit) (d : Date) : Bool :=
 def hi_tanf_countable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.HI then ((hi_tanf_countable_earned_income t d) + (sumBy t.members fun p => (tanf_gross_unearned_income t p d))) else 0)
 
-/-- `policyengine_us/variables/household/income/household/household_net_income.py`
+/-- `policyengine_us/variables/household/income/household/household_refundable_tax_credits.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
-def household_net_income (t : TaxUnit) (d : Date) : Rat :=
-  ((((household_market_income t d) + t.core.household_benefits) + (household_refundable_tax_credits t d)) - ((household_tax_before_refundable_credits t d) + t.core.household_health_costs))
-
-/-- `policyengine_us/variables/household/income/household/household_tax.py`
-    policyengine-us 1.783.0, entity household, value_type float. -/
-def household_tax (t : TaxUnit) (d : Date) : Rat :=
-  ((household_tax_before_refundable_credits t d) - (household_refundable_tax_credits t d))
+def household_refundable_tax_credits (t : TaxUnit) (d : Date) : Rat :=
+  (t.irs.income_tax_refundable_credits + (household_refundable_state_tax_credits t d))
 
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/income/earned/il_aabd_earned_income_after_exemption_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -236,6 +221,11 @@ def il_tanf_countable_income_for_initial_eligibility (t : TaxUnit) (d : Date) : 
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def ks_tanf_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.KS then (decide ((ks_tanf_countable_income t d) < t.states_ks.ks_tanf_maximum_benefit)) else false)
+
+/-- `policyengine_us/variables/gov/local/tax/income/local_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def local_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  (((((nyc_income_tax t d) + t.local_pa.pa_philadelphia_wage_tax) + (mo_kansas_city_earnings_tax t d)) + (mo_st_louis_earnings_tax t d)) + t.local_de.de_wilmington_earned_income_tax)
 
 /-- `policyengine_us/variables/gov/states/md/tca/income/md_tca_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -276,11 +266,6 @@ def ri_works_countable_income (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_net_income (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) ((snap_gross_income t d) - (snap_deductions t d)))
-
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/state_and_local_sales_or_income_tax.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def state_and_local_sales_or_income_tax (t : TaxUnit) (d : Date) : Rat :=
-  (max (((state_withheld_income_tax t d) + (local_income_tax t d)) : Rat) (t.states_tax.state_sales_tax + (local_sales_tax t d)))
 
 /-- `policyengine_us/variables/gov/states/tn/dhs/ff/income/tn_ff_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -337,20 +322,20 @@ def de_tanf_net_income_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ga_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.GA then ((((is_demographic_tanf_eligible t d) && (anyBy t.members fun p => (is_citizen_or_legal_immigrant t p d))) && (ga_tanf_income_eligible t d)) && (ga_tanf_resources_eligible t d)) else false)
 
-/-- `policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_salt_deduction.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def hi_salt_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.HI then ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) else 0)
-
 /-- `policyengine_us/variables/gov/states/hi/dhs/tanf/hi_tanf.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hi_tanf (t : TaxUnit) (d : Date) : Rat :=
   (if (hi_tanf_eligible t d) then (min ((max ((t.states_hi.hi_tanf_maximum_benefit - (hi_tanf_countable_income t d)) : Rat) 0) : Rat) t.states_hi.hi_tanf_maximum_benefit) else 0)
 
-/-- `policyengine_us/variables/household/household_net_income_including_health_benefits.py`
+/-- `policyengine_us/variables/household/income/household/household_net_income.py`
     policyengine-us 1.783.0, entity household, value_type float. -/
-def household_net_income_including_health_benefits (t : TaxUnit) (d : Date) : Rat :=
-  ((household_net_income t d) + (healthcare_benefit_value t d))
+def household_net_income (t : TaxUnit) (d : Date) : Rat :=
+  ((((household_market_income t d) + t.core.household_benefits) + (household_refundable_tax_credits t d)) - ((household_tax_before_refundable_credits t d) + t.core.household_health_costs))
+
+/-- `policyengine_us/variables/household/income/household/household_tax.py`
+    policyengine-us 1.783.0, entity household, value_type float. -/
+def household_tax (t : TaxUnit) (d : Date) : Rat :=
+  ((household_tax_before_refundable_credits t d) - (household_refundable_tax_credits t d))
 
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/income/il_aabd_countable_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -402,15 +387,15 @@ def nm_works_net_income_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ri_works_income_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.RI then (decide ((ri_works_countable_income t d) < t.states_ri.ri_works_payment_standard)) else false)
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def salt (t : TaxUnit) (d : Date) : Rat :=
-  ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core_p2.real_estate_taxes))
-
 /-- `policyengine_us/variables/gov/usda/snap/income/snap_net_income_fpg_ratio.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_net_income_fpg_ratio (t : TaxUnit) (d : Date) : Rat :=
   ((snap_net_income t d) / t.usda.snap_fpg)
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/state_and_local_sales_or_income_tax.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def state_and_local_sales_or_income_tax (t : TaxUnit) (d : Date) : Rat :=
+  (max (((state_withheld_income_tax t d) + (local_income_tax t d)) : Rat) (t.states_tax.state_sales_tax + (local_sales_tax t d)))
 
 /-- `policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_recognizable_needs_test.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -457,10 +442,15 @@ def de_tanf_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ga_tanf (t : TaxUnit) (d : Date) : Rat :=
   (if (ga_tanf_eligible t d) then (min ((max ((t.states_ga.ga_tanf_standard_of_need - (ga_tanf_countable_income t d)) : Rat) 0) : Rat) t.states_ga.ga_tanf_family_maximum) else 0)
 
-/-- `policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_total_itemized_deductions.py`
+/-- `policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_salt_deduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def hi_total_itemized_deductions (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.HI then (((((charitable_deduction t d) + (hi_medical_expense_deduction t d)) + (hi_interest_deduction t d)) + (hi_casualty_loss_deduction t d)) + (hi_salt_deduction t d)) else 0)
+def hi_salt_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.HI then ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core_p2.real_estate_taxes)) else 0)
+
+/-- `policyengine_us/variables/household/household_net_income_including_health_benefits.py`
+    policyengine-us 1.783.0, entity household, value_type float. -/
+def household_net_income_including_health_benefits (t : TaxUnit) (d : Date) : Rat :=
+  ((household_net_income t d) + (healthcare_benefit_value t d))
 
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/eligibility/il_aabd_financial_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -517,6 +507,11 @@ def nm_works_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ri_works_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.RI then (((ri_works_income_eligible t d) && (ri_works_resource_eligible t d)) && (decide ((boolToRat (is_demographic_tanf_eligible t d)) > 0))) else false)
 
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def salt (t : TaxUnit) (d : Date) : Rat :=
+  ((state_and_local_sales_or_income_tax t d) + (sumBy t.members fun p => p.core_p2.real_estate_taxes))
+
 /-- `policyengine_us/variables/gov/states/tx/tanf/eligibility/tx_tanf_income_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def tx_tanf_income_eligible (t : TaxUnit) (d : Date) : Bool :=
@@ -547,6 +542,11 @@ def dc_tanf (t : TaxUnit) (d : Date) : Rat :=
 def de_tanf (t : TaxUnit) (d : Date) : Rat :=
   (if (de_tanf_eligible t d) then (min (((max (((de_tanf_standard_of_need t d) - (de_tanf_countable_income t d)) : Rat) 0) * (Params.gov.states.de.dhss.tanf.benefit.deficit_rate.atDate d)) : Rat) t.states_de.de_tanf_payment_standard) else 0)
 
+/-- `policyengine_us/variables/gov/states/hi/tax/income/deductions/itemized/hi_total_itemized_deductions.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def hi_total_itemized_deductions (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.HI then (((((charitable_deduction t d) + (hi_medical_expense_deduction t d)) + (hi_interest_deduction t d)) + (hi_casualty_loss_deduction t d)) + (hi_salt_deduction t d)) else 0)
+
 /-- `policyengine_us/variables/gov/states/il/dhs/aabd/eligibility/il_aabd_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def il_aabd_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -560,7 +560,7 @@ def il_hbwd_income_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/is_snap_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def is_snap_eligible (t : TaxUnit) (d : Date) : Bool :=
-  ((((((meets_snap_net_income_test t d) && (meets_snap_gross_income_test t d)) && (meets_snap_asset_test t d)) || t.usda.meets_snap_categorical_eligibility) && (anyBy t.members fun p => ((!(is_snap_ineligible_student t p d)) && (is_snap_immigration_status_eligible t p d)))) && (meets_snap_work_requirements t d))
+  ((((((meets_snap_net_income_test t d) && (meets_snap_gross_income_test t d)) && (meets_snap_asset_test t d)) || t.usda.meets_snap_categorical_eligibility) && (anyBy t.members fun p => ((!p.usda.is_snap_ineligible_student) && (is_snap_immigration_status_eligible t p d)))) && (meets_snap_work_requirements t d))
 
 /-- `policyengine_us/variables/gov/states/md/tca/md_tca.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -752,14 +752,14 @@ def il_ipass_assist_categorical_eligible (t : TaxUnit) (d : Date) : Bool :=
 def il_smib (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.IL then (sumBy t.members fun p => (il_smib_person t p d)) else 0)
 
-/-- `policyengine_us/variables/gov/hhs/head_start/is_head_start_categorically_eligible.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_head_start_categorically_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((decide ((((tanf t d) + ((ssi t p d) * 12)) + ((snap t d) * 12)) > 0)) || (decide (((boolToRat t.hhs.receives_tanf + boolToRat p.ssa.receives_ssi) + boolToRat t.usda.receives_snap) > 0))) || (t.core.is_homeless || p.core_p2.was_in_foster_care))
-
 /-- `policyengine_us/variables/gov/states/ma/dot/mbta/income_eligible_reduced_fares/ma_mbta_enrolled_in_applicable_programs.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ma_mbta_enrolled_in_applicable_programs (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.MA then (decide ((((((ma_eaedc t d) * 12) + ((ma_tafdc t d) * 12)) + ((snap t d) * 12)) + boolToRat (medicaid_enrolled t p d)) ≠ 0)) else false)
+
+/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_community_engagement_pass_through_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def medicaid_community_engagement_pass_through_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  ((((((decide ((snap t d) > 0)) || t.usda.receives_snap) && (!(decide ((Params.gov.usda.snap.work_requirements.general.age_threshold.exempted.atDate d (monthly_age t p d)) ≠ 0)))) && (!(is_snap_work_registration_exempt_non_age t p d))) && (if (anyBy t.members fun p => (decide ((monthly_age t p d) < (if p.usda.is_snap_abawd_hr1_in_effect then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩))))) then p.usda.meets_snap_general_work_requirements else (p.usda.meets_snap_general_work_requirements && p.usda.meets_snap_abawd_work_requirements))) || (((is_tanf_enrolled t d) || t.hhs.receives_tanf) && t.hhs.meets_tanf_work_requirements))
 
 end Lawlib.Gen.Vars

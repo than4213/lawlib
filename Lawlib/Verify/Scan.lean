@@ -54,7 +54,7 @@ can evaluate hundreds of thousands of points. The two definitions
 compute the same value (same IR, sharing made explicit); grid theorems
 are stated over `peM`. -/
 def peM (g : Group) (n : Nat) (x : Rat) : Rat :=
-  (Memo.eval (mkTaxUnit g n x) d2023).p2.eitc
+  Memo.eitc (mkTaxUnit g n x) d2023
 
 def rabs (q : Rat) : Rat := if q < 0 then -q else q
 

@@ -202,6 +202,16 @@ def ct_tfa_eligible (t : TaxUnit) (d : Date) : Bool :=
 def ct_c4k_meets_activity_test (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.CT then ((((anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && (decide ((p.core_p1.employment_income / 12) > 0)))) || (anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && (decide ((p.core_p2.self_employment_income / 12) > 0))))) || (ct_tfa_eligible t d)) || (anyBy t.members fun p => (((is_parent t p d) && (is_in_k12_school t p d)) && (decide (p.core_p1.age < (Params.gov.states.ct.oec.c4k.age_threshold.teen_parent.atDate d)))))) else false)
 
+/-- `policyengine_us/variables/gov/states/ct/dss/ssp/income/ct_ssp_countable_income.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ct_ssp_countable_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.CT then ((max ((((((ssi_unearned_income t p d) / 12) + (ssi t p d)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_spouse / 12)) - (ct_ssp_unearned_income_disregard t p d)) : Rat) 0) + (max (((((ssi_earned_income t p d) / 12) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) - (ct_ssp_earned_income_disregard t p d)) : Rat) 0)) else 0)
+
+/-- `policyengine_us/variables/gov/states/ct/dss/ssp/income/ct_ssp_gross_income.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ct_ssp_gross_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if t.core.CT then ((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (ssi t p d)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + (p.ssa.ssi_unearned_income_deemed_from_ineligible_spouse / 12)) else 0)
+
 /-- `policyengine_us/variables/gov/states/ct/dss/tfa/ct_tfa.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ct_tfa (t : TaxUnit) (d : Date) : Rat :=
@@ -212,25 +222,20 @@ def ct_tfa (t : TaxUnit) (d : Date) : Rat :=
 def ct_c4k_eligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.CT then (((((decide ((sumBy t.members fun p => boolToRat (ct_c4k_eligible_child t p d)) > 0)) && (ct_c4k_income_eligible t d)) && (is_ccdf_asset_eligible t d)) && (ct_c4k_meets_activity_test t d)) || (ct_tfa_eligible t d)) else false)
 
-/-- `policyengine_us/variables/gov/states/ct/dss/ssp/income/ct_ssp_countable_income.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ct_ssp_countable_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.CT then ((max ((((((ssi_unearned_income t p d) / 12) + (ssi t p d)) + ((ssi_unearned_income_deemed_from_ineligible_spouse t p d) / 12)) - (ct_ssp_unearned_income_disregard t p d)) : Rat) 0) + (max (((((ssi_earned_income t p d) / 12) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) - (ct_ssp_earned_income_disregard t p d)) : Rat) 0)) else 0)
-
-/-- `policyengine_us/variables/gov/states/ct/dss/ssp/income/ct_ssp_gross_income.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ct_ssp_gross_income (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if t.core.CT then ((((((ssi_earned_income t p d) / 12) + ((ssi_unearned_income t p d) / 12)) + (ssi t p d)) + (p.ssa.ssi_earned_income_deemed_from_ineligible_spouse / 12)) + ((ssi_unearned_income_deemed_from_ineligible_spouse t p d) / 12)) else 0)
+/-- `policyengine_us/variables/gov/states/ct/dss/ssp/eligibility/ct_ssp_income_eligible.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def ct_ssp_income_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if t.core.CT then ((decide ((ct_ssp_gross_income t p d) ≤ ((Params.gov.ssa.ssi.amount.individual.atDate d) * (Params.gov.states.ct.dss.ssp.eligibility.income_cap_rate.atDate d)))) && (decide ((ct_ssp_countable_income t p d) ≤ (ct_ssp_need_standard t p d)))) else false)
 
 /-- `policyengine_us/variables/gov/states/ct/oec/c4k/ct_c4k.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ct_c4k (t : TaxUnit) (d : Date) : Rat :=
   (if (ct_c4k_eligible t d) then (max (((min ((((sumBy t.members fun p => p.states_ct.ct_c4k_payment_rate) * 52) / 12) : Rat) (t.core.spm_unit_pre_subsidy_childcare_expenses / 12)) - t.states_ct.ct_c4k_family_fee) : Rat) 0) else 0)
 
-/-- `policyengine_us/variables/gov/states/ct/dss/ssp/eligibility/ct_ssp_income_eligible.py`
+/-- `policyengine_us/variables/gov/states/ct/dss/ssp/eligibility/ct_ssp_eligible_person.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
-def ct_ssp_income_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.CT then ((decide ((ct_ssp_gross_income t p d) ≤ ((Params.gov.ssa.ssi.amount.individual.atDate d) * (Params.gov.states.ct.dss.ssp.eligibility.income_cap_rate.atDate d)))) && (decide ((ct_ssp_countable_income t p d) ≤ (ct_ssp_need_standard t p d)))) else false)
+def ct_ssp_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if t.core.CT then (((ct_ssp_categorically_eligible t p d) && (ct_ssp_resource_eligible t p d)) && (ct_ssp_income_eligible t p d)) else false)
 
 /-- `policyengine_us/variables/gov/states/ct/oec/c4k/ct_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -242,29 +247,24 @@ def ct_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
 def ct_eitc (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.CT then (if (Params.gov.states.ct.tax.income.credits.eitc.qualifying_child_bonus.in_effect.atDate d) then (((eitc t d) * (Params.gov.states.ct.tax.income.credits.eitc.match.atDate d)) + (((boolToRat (decide (((eitc t d) * (Params.gov.states.ct.tax.income.credits.eitc.match.atDate d)) > 0))) * (boolToRat (decide ((eitc_child_count t d) > 0)))) * (Params.gov.states.ct.tax.income.credits.eitc.qualifying_child_bonus.amount.atDate d))) else ((eitc t d) * (Params.gov.states.ct.tax.income.credits.eitc.match.atDate d))) else 0)
 
-/-- `policyengine_us/variables/gov/states/ct/dss/ssp/eligibility/ct_ssp_eligible_person.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def ct_ssp_eligible_person (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if t.core.CT then (((ct_ssp_categorically_eligible t p d) && (ct_ssp_resource_eligible t p d)) && (ct_ssp_income_eligible t p d)) else false)
+/-- `policyengine_us/variables/gov/states/ct/dss/ssp/ct_ssp_person.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def ct_ssp_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (ct_ssp_eligible_person t p d) then (max (((ct_ssp_need_standard t p d) - (ct_ssp_countable_income t p d)) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/ct/tax/income/ct_refundable_credits.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ct_refundable_credits (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.CT then (ct_eitc t d) else 0)
 
-/-- `policyengine_us/variables/gov/states/ct/dss/ssp/ct_ssp_person.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def ct_ssp_person (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (ct_ssp_eligible_person t p d) then (max (((ct_ssp_need_standard t p d) - (ct_ssp_countable_income t p d)) : Rat) 0) else 0)
+/-- `policyengine_us/variables/gov/states/ct/dss/ssp/ct_ssp.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def ct_ssp (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.CT then (sumBy t.members fun p => (ct_ssp_person t p d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/ct/tax/income/ct_income_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ct_income_tax (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.CT then ((ct_income_tax_before_refundable_credits t d) - (ct_refundable_credits t d)) else 0)
-
-/-- `policyengine_us/variables/gov/states/ct/dss/ssp/ct_ssp.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def ct_ssp (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.CT then (sumBy t.members fun p => (ct_ssp_person t p d)) else 0)
 
 end Lawlib.Gen.Vars

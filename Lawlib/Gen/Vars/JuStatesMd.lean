@@ -40,7 +40,7 @@ def md_itemized_deductions (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/states/md/tax/income/agi/subtractions/md_military_retirement_subtraction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def md_military_retirement_subtraction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MD then (sumBy t.members fun p => (min (((sumBy t.members fun p => p.core_p1.military_retirement_pay) + (sumBy t.members fun p => p.core_p1.military_retirement_pay_survivors)) : Rat) (if (decide (p.core_p1.age ≥ (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.age_threshold.atDate d))) then (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.at_or_above_age_threshold.atDate d) else (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.under_age_threshold.atDate d)))) else 0)
+  (if t.core.MD then (sumBy t.members fun p => (min ((p.core_p1.military_retirement_pay + p.core_p1.military_retirement_pay_survivors) : Rat) (if (decide (p.core_p1.age ≥ (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.age_threshold.atDate d))) then (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.at_or_above_age_threshold.atDate d) else (Params.gov.states.md.tax.income.agi.subtractions.military_retirement.max_amount.under_age_threshold.atDate d)))) else 0)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/credits/senior_tax/md_senior_tax_credit_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -177,11 +177,6 @@ def md_ccs_weekly_copay (t : TaxUnit) (d : Date) : Rat :=
 def md_paa_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if t.core.MD then ((((((((decide ((ssi t p d) > 0)) || p.ssa.receives_ssi) || (decide ((p.ssa.social_security_disability / 12) > 0))) || ((decide ((((social_security t p d) / 12) - (p.ssa.social_security_disability / 12)) > 0)) && p.ssa.is_ssi_aged_blind_disabled)) || (p.states_md.md_paa_pending_federal_benefit && p.ssa.is_ssi_aged_blind_disabled)) && (decide ((ssi_countable_resources t p d) ≤ (Params.gov.ssa.ssi.eligibility.resources.limit.individual.atDate d)))) && (!(p.states_md.md_paa_living_arrangement == MDPAALivingArrangement.NONE))) && (decide ((p.states_md.md_paa_living_arrangement == MDPAALivingArrangement.REHAB_RESIDENCE) = (p.ssa.ssi_federal_living_arrangement == SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY)))) else false)
 
-/-- `policyengine_us/variables/gov/states/md/tax/income/credits/eitc/federal_eitc_without_age_minimum.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def federal_eitc_without_age_minimum (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.MD then (((min ((eitc_phased_in t d) : Rat) (max (0 : Rat) ((eitc_maximum t d) - (eitc_reduction t d)))) * (boolToRat (eitc_investment_income_eligible t d))) * (boolToRat (filer_meets_eitc_identification_requirements t d))) else 0)
-
 /-- `policyengine_us/variables/gov/states/md/msde/ccs/md_ccs.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def md_ccs (t : TaxUnit) (d : Date) : Rat :=
@@ -197,10 +192,20 @@ def md_paa_imputed_federal_ssi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 def md_paa_provider_rate (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (md_paa_eligible t p d) then (match p.states_md.md_paa_living_arrangement with | MDPAALivingArrangement.CARE_HOME_LEVEL_A => (Params.gov.states.md.dhs.fia.paa.provider_rate.CARE_HOME_LEVEL_A.atDate d) | MDPAALivingArrangement.CARE_HOME_LEVEL_B => (Params.gov.states.md.dhs.fia.paa.provider_rate.CARE_HOME_LEVEL_B.atDate d) | MDPAALivingArrangement.CARE_HOME_LEVEL_C => (Params.gov.states.md.dhs.fia.paa.provider_rate.CARE_HOME_LEVEL_C.atDate d) | MDPAALivingArrangement.CARE_HOME_LEVEL_D => (Params.gov.states.md.dhs.fia.paa.provider_rate.CARE_HOME_LEVEL_D.atDate d) | MDPAALivingArrangement.ASSISTED_LIVING => (Params.gov.states.md.dhs.fia.paa.provider_rate.ASSISTED_LIVING.atDate d) | MDPAALivingArrangement.REHAB_RESIDENCE => (Params.gov.states.md.dhs.fia.paa.provider_rate.REHAB_RESIDENCE.atDate d) | MDPAALivingArrangement.NONE => (Params.gov.states.md.dhs.fia.paa.provider_rate.NONE.atDate d)) else 0)
 
+/-- `policyengine_us/variables/gov/states/md/tax/income/credits/eitc/federal_eitc_without_age_minimum.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def federal_eitc_without_age_minimum (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.MD then (((min ((eitc_phased_in t d) : Rat) (max (0 : Rat) ((eitc_maximum t d) - (eitc_reduction t d)))) * (boolToRat (eitc_investment_income_eligible t d))) * (boolToRat (filer_meets_eitc_identification_requirements t d))) else 0)
+
 /-- `policyengine_us/variables/gov/states/md/msde/ccs/md_child_care_subsidies.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def md_child_care_subsidies (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.MD then ((md_ccs t d) * 12) else 0)
+
+/-- `policyengine_us/variables/gov/states/md/dhs/fia/paa/md_paa_total_cost_of_care.py`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def md_paa_total_cost_of_care (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (md_paa_eligible t p d) then ((md_paa_provider_rate t p d) + p.states_md.md_paa_personal_needs_allowance) else 0)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/local/credits/md_local_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -217,10 +222,10 @@ def md_married_or_has_child_non_refundable_eitc (t : TaxUnit) (d : Date) : Rat :
 def md_married_or_has_child_refundable_eitc (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.MD then ((boolToRat (!(md_qualifies_for_unmarried_childless_eitc t d))) * (max ((((if (decide ((eitc_child_count t d) = 0)) then (federal_eitc_without_age_minimum t d) else (eitc t d)) * (Params.gov.states.md.tax.income.credits.eitc.refundable.married_or_has_child.match.atDate d)) - t.states_md.md_income_tax_before_credits) : Rat) 0)) else 0)
 
-/-- `policyengine_us/variables/gov/states/md/dhs/fia/paa/md_paa_total_cost_of_care.py`
+/-- `policyengine_us/variables/gov/states/md/dhs/fia/paa/md_paa.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
-def md_paa_total_cost_of_care (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (md_paa_eligible t p d) then ((md_paa_provider_rate t p d) + p.states_md.md_paa_personal_needs_allowance) else 0)
+def md_paa (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (if (md_paa_eligible t p d) then (max (((md_paa_total_cost_of_care t p d) - ((p.states_md.md_paa_countable_income / 12) + (md_paa_imputed_federal_ssi t p d))) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/credits/poverty_line/is_eligible_md_poverty_line_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
@@ -231,11 +236,6 @@ def is_eligible_md_poverty_line_credit (t : TaxUnit) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def md_non_refundable_eitc_potential (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.MD then ((md_married_or_has_child_non_refundable_eitc t d) + t.states_md.md_unmarried_childless_non_refundable_eitc) else 0)
-
-/-- `policyengine_us/variables/gov/states/md/dhs/fia/paa/md_paa.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def md_paa (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (md_paa_eligible t p d) then (max (((md_paa_total_cost_of_care t p d) - ((p.states_md.md_paa_countable_income / 12) + (md_paa_imputed_federal_ssi t p d))) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/md/tax/income/credits/eitc/refundable/md_refundable_eitc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

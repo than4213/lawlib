@@ -117,20 +117,15 @@ def al_itemized_deductions (t : TaxUnit) (d : Date) : Rat :=
 def al_ssp (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (al_ssp_eligible t p d) then (match p.states_al.al_ssp_payment_category with | ALSSPPaymentCategory.FCMP_NURSING_CARE => (Params.gov.states.al.dhr.ssp.amount.FCMP_NURSING_CARE.atDate d) | ALSSPPaymentCategory.NURSING_CARE => (Params.gov.states.al.dhr.ssp.amount.NURSING_CARE.atDate d) | ALSSPPaymentCategory.IHC_LEVEL_A => (Params.gov.states.al.dhr.ssp.amount.IHC_LEVEL_A.atDate d) | ALSSPPaymentCategory.IHC_LEVEL_B => (Params.gov.states.al.dhr.ssp.amount.IHC_LEVEL_B.atDate d) | ALSSPPaymentCategory.FOSTER_CARE => (Params.gov.states.al.dhr.ssp.amount.FOSTER_CARE.atDate d) | ALSSPPaymentCategory.CEREBRAL_PALSY => (Params.gov.states.al.dhr.ssp.amount.CEREBRAL_PALSY.atDate d) | ALSSPPaymentCategory.NONE => (Params.gov.states.al.dhr.ssp.amount.NONE.atDate d)) else 0)
 
-/-- `policyengine_us/variables/gov/states/al/tax/income/deductions/al_deductions.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def al_deductions (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.AL then ((((max ((al_itemized_deductions t d) : Rat) t.states_al.al_standard_deduction) + t.states_al.al_federal_income_tax_deduction) + ((al_personal_exemption t d) + t.states_al.al_dependent_exemption)) + (al_529_plan_deduction t d)) else 0)
-
 /-- `policyengine_us/variables/gov/states/al/dhr/ccsp/al_ccsp_countable_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def al_ccsp_countable_income (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.AL then (((((((((((((sumBy t.members fun p => (p.core_p1.employment_income / 12)) + (sumBy t.members fun p => (p.core_p2.self_employment_income / 12))) + (sumBy t.members fun p => (p.core_p1.farm_operations_income / 12))) + (sumBy t.members fun p => ((social_security t p d) / 12))) + (sumBy t.members fun p => ((pension_income t p d) / 12))) + (sumBy t.members fun p => (p.states.unemployment_compensation / 12))) + (sumBy t.members fun p => (p.states.workers_compensation / 12))) + (sumBy t.members fun p => (ssi t p d))) + (sumBy t.members fun p => (al_ssp t p d))) + (sumBy t.members fun p => ((interest_income t p d) / 12))) + (sumBy t.members fun p => ((dividend_income t p d) / 12))) + (sumBy t.members fun p => (p.core_p1.alimony_income / 12))) + (sumBy t.members fun p => (p.core_p2.veterans_benefits / 12))) else 0)
 
-/-- `policyengine_us/variables/gov/states/al/tax/income/al_taxable_income.py`
+/-- `policyengine_us/variables/gov/states/al/tax/income/deductions/al_deductions.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def al_taxable_income (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.AL then (max ((t.states_al.al_agi - (al_deductions t d)) : Rat) 0) else 0)
+def al_deductions (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.AL then ((((max ((al_itemized_deductions t d) : Rat) t.states_al.al_standard_deduction) + t.states_al.al_federal_income_tax_deduction) + ((al_personal_exemption t d) + t.states_al.al_dependent_exemption)) + (al_529_plan_deduction t d)) else 0)
 
 /-- `policyengine_us/variables/gov/states/al/dhr/ccsp/eligibility/al_ccsp_income_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -141,6 +136,11 @@ def al_ccsp_income_eligible (t : TaxUnit) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def al_ccsp_weekly_copay_per_child (t : TaxUnit) (d : Date) : Rat :=
   (if t.core.AL then (if (al_ccsp_copay_waived t d) then 0 else (Params.gov.states.al.dhr.ccsp.copay.fee_by_fpl.atDate d (if (decide ((t.hhs.spm_unit_fpg / 12) > 0)) then ((max ((al_ccsp_countable_income t d) : Rat) 0) / (t.hhs.spm_unit_fpg / 12)) else 0))) else 0)
+
+/-- `policyengine_us/variables/gov/states/al/tax/income/al_taxable_income.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def al_taxable_income (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.AL then (max ((t.states_al.al_agi - (al_deductions t d)) : Rat) 0) else 0)
 
 /-- `policyengine_us/variables/gov/states/al/dhr/ccsp/eligibility/al_ccsp_eligible.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
