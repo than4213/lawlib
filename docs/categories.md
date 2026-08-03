@@ -23,34 +23,56 @@ proved (kernel theorems, not test suites), with no epistemic hedging
 anywhere: `eitc_continuous` is a theorem in the same sense
 `Nat.add_comm` is.
 
-Statistics is the inference engine of the second column. It is the
-foundation for claims about reality — and it is *not needed* for the
-first column at all. Keeping it out of the pure layer is not a
-limitation; it is the design.
+Statistics is the inference engine of the second column — the
+foundation for claims about reality. It is *not needed* for the first
+column at all. Keeping it out of the pure layer is not a limitation;
+it is the design.
 
-## Three edges where the boundary needs drawing
+## Law's ambiguity is incompleteness, not empiricism
 
-1. **Law leaks empiricism through interpretation, not statistics.**
-   The statute's literal arithmetic says $599.76; the IRS's
-   administered tables say $600 (findings #8–9). "Which is the law?"
-   is a fact about institutional practice. The resolution: formalize
-   *readings* — "under reading R, the value is X" stays pure; which
-   reading governs is recorded outside the kernel. Likewise enacted
-   rules vs pre-materialized inflation projections
-   (docs/enacted-vs-projections.md): the rule is law, the forecast is
-   not.
+Law is often ambiguous — but not because it is about reality. It is
+ambiguous because its texts are **incomplete**. Where a decision is
+needed at an ambiguous point, whoever decides — an agency, a court —
+is not discovering a fact; they are **making more law**. The
+completion is a further text, from a further source.
 
-2. **CS splits the same way one level down.** Programs are pure;
-   *executions* are physical. Finding #16 is the specimen: correct
-   Lean source, heap-corrupting compiled binary. Accordingly, "the
-   differential harness passed on N households" is evidence about
-   program runs — it lives in CI artifacts and the claims ledger,
-   never inside the library.
+Specimen (findings #8–9): the statute's literal EITC arithmetic yields
+$599.76; the IRS's administered tables say $600. Neither is "the real
+value" in an empirical sense. They are two formal texts from two
+sources of authority, and the right move is exactly what this project
+did: formalize both and **prove the divergence** — exactly 24¢/50¢ —
+as a theorem about two constructed objects. No data was consulted,
+because none is relevant.
 
-3. **Statistics itself straddles the line — cleanly.** Probability
-   theory is math (Mathlib, pure column). Statistical inference
-   applied to data is science (claims layer). Same word, two
-   categories, no conflict.
+Mathematics makes the same move constantly. `0^0 = 1` is a
+stipulation completing an underdetermined definition; Mathlib's
+`x / 0 = 0` is pure convention chosen for totality. Nobody claims
+these agree with experiment. And math's human record is fallible the
+same way law's is — Kempe's four-color "proof" stood accepted for
+eleven years — which is why the kernel exists: it is mathematics' own
+court of final appeal, and lawlib inherits it.
+
+The one structure law adds that math does not need: math's
+completions bind no one (rival conventions coexist), while law
+requires uniformity, so it carries a **binding authority ordering**
+over its texts — statute, regulation, administrative practice,
+judicial completion, with precedence and effective dates. That
+ordering is itself law, itself formal. So law = math **plus an
+authority ordering over its texts** — a feature to model (the
+manifest's per-source provenance and the authority taxonomy in
+scope.md are its seed), never a leak to plug.
+
+What remains genuinely about reality is only the archival question:
+*is this text what the institution actually emitted?* That is
+provenance — answered by hashes and citations, not statistics.
+
+## CS splits the same way, one level down
+
+Programs are pure; *executions* are physical. Finding #16 is the
+specimen: correct Lean source, heap-corrupting compiled binary.
+Accordingly, "the differential harness passed on N households" is
+evidence about program runs — it lives in CI artifacts and the claims
+ledger, never inside the library.
 
 ## The membrane rule
 
@@ -65,12 +87,11 @@ The kernel certifies the arrow. It never certifies the antecedent.
 Data enters only as opaque symbols carrying tiered, provenance-tagged
 claims; trust is auditable at this membrane and nowhere else.
 
-Consequences held throughout the codebase:
-
-- lawlib contains **zero data and zero floats**; a survey revision can
-  never invalidate a lawlib proof;
-- fidelity evidence (differential CI) is **about** the library, not
-  **in** it;
-- population aggregates, poverty studies, optimization results are
-  claims-layer objects — formal notation over them must carry
-  evidence tiers, never a kernel stamp.
+For the current, law-focused phase the membrane is nearly idle by
+design: the only reality-touching artifacts are source-text
+provenance (hashes in the manifest) and the differential-testing
+evidence (QA about the translation, outside the formal object).
+Neither involves statistics. Statistics becomes necessary exactly
+when lawlib is asked to speak about the world — population
+aggregates, poverty and optimization studies — and it will live in
+the claims layer when that phase arrives.
