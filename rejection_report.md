@@ -1,6 +1,6 @@
 # pe2lean rejection report
 
-policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc', 'income_tax'].
+policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc', 'income_tax', 'medicaid', 'chip', 'tanf', 'wic', 'employer_payroll_tax', 'housing_assistance', 'free_school_meals', 'reduced_price_school_meals', 'child_care_subsidies', 'education_tax_credits', 'marketplace_net_premium', 'acp', 'broadband_cost_after_lifeline', 'lcbp', 'basic_health_program_family_tier_amount', 'ctc_value', 'federal_state_income_tax'].
 801 translated, 551 boundary inputs, 181 rejections.
 
 ## Rejections

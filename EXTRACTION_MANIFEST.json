@@ -5723,7 +5723,7 @@
       "name": "basic_health_program_enrolled",
       "entity": "person",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_enrolled.py",
@@ -5753,7 +5753,7 @@
       "name": "broadband_cost_after_lifeline",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/fcc/lifeline/broadband_cost_after_lifeline.py",
@@ -5933,7 +5933,7 @@
       "name": "child_care_subsidies",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/ccdf/child_care_subsidies.py",
@@ -6013,7 +6013,7 @@
       "name": "employer_federal_unemployment_tax_rate",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax/payroll/unemployment/employer_federal_unemployment_tax_rate.py",
@@ -6123,7 +6123,7 @@
       "name": "hud_earned_income",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/income/hud_earned_income.py",
@@ -6133,7 +6133,7 @@
       "name": "hud_gross_rent",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/hud_gross_rent.py",
@@ -6143,7 +6143,7 @@
       "name": "hud_medical_expenses",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/hud_medical_expenses.py",
@@ -6153,7 +6153,7 @@
       "name": "hud_minimum_rent",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/hud_minimum_rent.py",
@@ -6933,7 +6933,7 @@
       "name": "pha_payment_standard",
       "entity": "household",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/pha_payment_standard.py",
@@ -7133,7 +7133,7 @@
       "name": "spm_unit_fpg",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/spm_unit_fpg.py",
@@ -7283,7 +7283,7 @@
       "name": "state_has_universal_free_school_meals",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/state_has_universal_free_school_meals.py",
@@ -7485,7 +7485,7 @@
       "name": "acp",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/fcc/acp/acp.py",
@@ -7545,7 +7545,7 @@
       "name": "basic_health_program_ny_age_29_dependent_child",
       "entity": "person",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_ny_age_29_dependent_child.py",
@@ -7815,7 +7815,7 @@
       "name": "is_hud_elderly_disabled_family",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/is_hud_elderly_disabled_family.py",
@@ -8005,7 +8005,7 @@
       "name": "medicaid_cost",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/medicaid/medicaid_cost.py",
@@ -8185,7 +8185,7 @@
       "name": "school_meal_net_subsidy",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/school_meal_net_subsidy.py",
@@ -8455,7 +8455,7 @@
       "name": "basic_health_program_family_tier_dependent_child",
       "entity": "person",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_dependent_child.py",
@@ -8495,7 +8495,7 @@
       "name": "chip_enrolled",
       "entity": "person",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/chip/chip_enrolled.py",
@@ -8585,7 +8585,7 @@
       "name": "employer_medicare_tax",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax/payroll/medicare/employer_medicare_tax.py",
@@ -8635,7 +8635,7 @@
       "name": "hud_countable_earned_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/income/hud_countable_earned_income.py",
@@ -8815,7 +8815,7 @@
       "name": "medicaid",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/medicaid/medicaid.py",
@@ -9025,7 +9025,7 @@
       "name": "taxable_earnings_for_federal_unemployment_tax",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax/payroll/unemployment/taxable_earnings_for_federal_unemployment_tax.py",
@@ -9055,7 +9055,7 @@
       "name": "basic_health_program_family_tier_category",
       "entity": "tax_unit",
       "value_type": "Enum",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_category.py",
@@ -9075,7 +9075,7 @@
       "name": "chip",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/chip/chip.py",
@@ -9145,7 +9145,7 @@
       "name": "employer_federal_unemployment_tax",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax/payroll/unemployment/employer_federal_unemployment_tax.py",
@@ -9155,7 +9155,7 @@
       "name": "employer_social_security_tax",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax/payroll/social_security/employer_social_security_tax.py",
@@ -9395,7 +9395,7 @@
       "name": "basic_health_program_family_tier_multiplier",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_multiplier.py",
@@ -9525,7 +9525,7 @@
       "name": "employer_payroll_tax",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/tax/payroll/employer_payroll_tax.py",
@@ -9705,7 +9705,7 @@
       "name": "basic_health_program_family_tier_amount",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/hhs/basic_health_program/basic_health_program_family_tier_amount.py",
@@ -9775,7 +9775,7 @@
       "name": "lcbp_age_curve_amount_person",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_age_curve_amount_person.py",
@@ -10105,7 +10105,7 @@
       "name": "lcbp_family_tier_category",
       "entity": "tax_unit",
       "value_type": "Enum",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_category.py",
@@ -10235,7 +10235,7 @@
       "name": "lcbp_family_tier_multiplier",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_multiplier.py",
@@ -10315,7 +10315,7 @@
       "name": "hud_unearned_income",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/income/hud_unearned_income.py",
@@ -10335,7 +10335,7 @@
       "name": "lcbp_family_tier_amount",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_amount.py",
@@ -10345,7 +10345,7 @@
       "name": "school_meal_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/school_meal_countable_income.py",
@@ -10395,7 +10395,7 @@
       "name": "wic_countable_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/wic/wic_countable_income.py",
@@ -10415,7 +10415,7 @@
       "name": "hud_countable_unearned_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/income/hud_countable_unearned_income.py",
@@ -10435,7 +10435,7 @@
       "name": "lcbp",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/aca/lcbp/lcbp.py",
@@ -10445,7 +10445,7 @@
       "name": "meets_wic_income_test",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/wic/meets_wic_income_test.py",
@@ -10455,7 +10455,7 @@
       "name": "school_meal_fpg_ratio",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/school_meal_fpg_ratio.py",
@@ -10515,7 +10515,7 @@
       "name": "hud_annual_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/income/hud_annual_income.py",
@@ -10555,7 +10555,7 @@
       "name": "selected_marketplace_plan_premium_proxy",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_premium_proxy.py",
@@ -10625,7 +10625,7 @@
       "name": "hud_adjusted_income",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/hud_adjusted_income.py",
@@ -10635,7 +10635,7 @@
       "name": "hud_income_level",
       "entity": "spm_unit",
       "value_type": "Enum",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/hud_income_level.py",
@@ -10645,7 +10645,7 @@
       "name": "hud_ttp_income_share",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/ttp/hud_ttp_income_share.py",
@@ -10775,7 +10775,7 @@
       "name": "hud_ttp_adjusted_income_share",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/ttp/hud_ttp_adjusted_income_share.py",
@@ -10785,7 +10785,7 @@
       "name": "is_eligible_for_housing_assistance",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py",
@@ -11065,7 +11065,7 @@
       "name": "hud_ttp",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/ttp/hud_ttp.py",
@@ -11237,7 +11237,7 @@
       "name": "hud_max_subsidy",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/hud_max_subsidy.py",
@@ -11307,7 +11307,7 @@
       "name": "hud_hap",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/hud_hap.py",
@@ -11367,7 +11367,7 @@
       "name": "housing_assistance",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/housing_assistance.py",
@@ -11469,7 +11469,7 @@
       "name": "ctc_value",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/ctc_value.py",
@@ -11841,7 +11841,7 @@
       "name": "used_aca_ptc",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/aca/ptc/used_aca_ptc.py",
@@ -11873,7 +11873,7 @@
       "name": "marketplace_net_premium",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/aca/ptc/marketplace_net_premium.py",
@@ -11999,7 +11999,7 @@
       "name": "meets_school_meal_categorical_eligibility",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/meets_school_meal_categorical_eligibility.py",
@@ -12009,7 +12009,7 @@
       "name": "meets_wic_categorical_eligibility",
       "entity": "person",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/wic/meets_wic_categorical_eligibility.py",
@@ -12051,7 +12051,7 @@
       "name": "is_wic_eligible",
       "entity": "person",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/wic/is_wic_eligible.py",
@@ -12061,7 +12061,7 @@
       "name": "school_meal_tier",
       "entity": "spm_unit",
       "value_type": "Enum",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/school_meal_tier.py",
@@ -12103,7 +12103,7 @@
       "name": "free_school_meals",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/free_school_meals.py",
@@ -12113,7 +12113,7 @@
       "name": "reduced_price_school_meals",
       "entity": "spm_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/school_meals/reduced_price_school_meals.py",
@@ -12123,7 +12123,7 @@
       "name": "wic_if_takes_up",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/wic/wic_if_takes_up.py",
@@ -12155,7 +12155,7 @@
       "name": "wic",
       "entity": "person",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "month",
       "source": "policyengine_us/variables/gov/usda/wic/wic.py",
@@ -13051,7 +13051,7 @@
       "name": "education_tax_credits",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/education/education_tax_credits.py",
@@ -13221,7 +13221,7 @@
       "name": "federal_state_income_tax",
       "entity": "tax_unit",
       "value_type": "float",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/total_income_tax.py",
@@ -13447,7 +13447,24 @@
     "snap",
     "ssi",
     "aca_ptc",
-    "income_tax"
+    "income_tax",
+    "medicaid",
+    "chip",
+    "tanf",
+    "wic",
+    "employer_payroll_tax",
+    "housing_assistance",
+    "free_school_meals",
+    "reduced_price_school_meals",
+    "child_care_subsidies",
+    "education_tax_credits",
+    "marketplace_net_premium",
+    "acp",
+    "broadband_cost_after_lifeline",
+    "lcbp",
+    "basic_health_program_family_tier_amount",
+    "ctc_value",
+    "federal_state_income_tax"
   ],
   "input_boundary": [
     {
@@ -13528,8 +13545,8 @@
       "value_type": "float",
       "domain": "states_ak",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ak_permanent_fund_dividend",
@@ -13546,8 +13563,8 @@
       "value_type": "float",
       "domain": "states_al",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "al_chip_premium",
@@ -13618,8 +13635,8 @@
       "value_type": "float",
       "domain": "states_ar",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ar_tea",
@@ -13654,8 +13671,8 @@
       "value_type": "float",
       "domain": "states_az",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "az_tanf",
@@ -13717,8 +13734,8 @@
       "value_type": "float",
       "domain": "core",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "business_is_sstb",
@@ -13735,8 +13752,8 @@
       "value_type": "float",
       "domain": "states_ca",
       "period": "month",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ca_snap_immigration_status_eligible",
@@ -13987,8 +14004,8 @@
       "value_type": "float",
       "domain": "states_co",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "co_tanf",
@@ -14041,8 +14058,8 @@
       "value_type": "float",
       "domain": "states_ct",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ct_chip_premium",
@@ -14122,8 +14139,8 @@
       "value_type": "float",
       "domain": "states_de",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "de_chip_premium",
@@ -14221,8 +14238,8 @@
       "value_type": "float",
       "domain": "core_p1",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "educator_expense",
@@ -14284,8 +14301,8 @@
       "value_type": "float",
       "domain": "local_tax",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "employer_state_payroll_tax",
@@ -14293,8 +14310,8 @@
       "value_type": "float",
       "domain": "states_tax",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "employer_total_local_payroll_tax",
@@ -14500,8 +14517,8 @@
       "value_type": "float",
       "domain": "states_fl",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "fl_chip_premium",
@@ -14572,8 +14589,8 @@
       "value_type": "float",
       "domain": "states_ga",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ga_chip_premium",
@@ -14869,8 +14886,8 @@
       "value_type": "float",
       "domain": "states_hi",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "hi_tanf",
@@ -15058,8 +15075,8 @@
       "value_type": "float",
       "domain": "states_ia",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ia_chip_premium",
@@ -15085,8 +15102,8 @@
       "value_type": "float",
       "domain": "states_id",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "id_chip_premium",
@@ -15190,8 +15207,8 @@
       "value_type": "float",
       "domain": "states_in",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "in_chip_premium",
@@ -15217,8 +15234,8 @@
       "value_type": "bool",
       "domain": "local_ca",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "in_tanf",
@@ -15793,8 +15810,8 @@
       "value_type": "float",
       "domain": "states_ks",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ks_chip_premium",
@@ -15838,8 +15855,8 @@
       "value_type": "float",
       "domain": "states_ky",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ky_ktap",
@@ -15856,8 +15873,8 @@
       "value_type": "float",
       "domain": "states_la",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "la_chip_premium",
@@ -15955,8 +15972,8 @@
       "value_type": "float",
       "domain": "states_ma",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ma_chip_premium",
@@ -16000,8 +16017,8 @@
       "value_type": "float",
       "domain": "states_md",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "md_tca",
@@ -16018,8 +16035,8 @@
       "value_type": "float",
       "domain": "states_me",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "me_tanf",
@@ -16261,8 +16278,8 @@
       "value_type": "float",
       "domain": "states_mi",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "mi_chip_premium",
@@ -16324,8 +16341,8 @@
       "value_type": "float",
       "domain": "core_p1",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "miscellaneous_income",
@@ -16342,8 +16359,8 @@
       "value_type": "float",
       "domain": "states_mn",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "mn_mfip",
@@ -16360,8 +16377,8 @@
       "value_type": "float",
       "domain": "states_mo",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "mo_chip_premium",
@@ -16414,8 +16431,8 @@
       "value_type": "float",
       "domain": "states_ms",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ms_tanf",
@@ -16495,8 +16512,8 @@
       "value_type": "float",
       "domain": "states_mt",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "mt_help_premium",
@@ -16540,8 +16557,8 @@
       "value_type": "float",
       "domain": "states_nd",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "nd_tanf",
@@ -16567,8 +16584,8 @@
       "value_type": "float",
       "domain": "states_ne",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "net_capital_gains",
@@ -16638,8 +16655,8 @@
       "value_type": "float",
       "domain": "states_nh",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "nh_fanf",
@@ -16656,8 +16673,8 @@
       "value_type": "float",
       "domain": "states_nj",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "nj_wfnj",
@@ -16674,8 +16691,8 @@
       "value_type": "float",
       "domain": "states_nm",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "nm_works",
@@ -16701,8 +16718,8 @@
       "value_type": "float",
       "domain": "states_nv",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "nv_tanf",
@@ -16755,8 +16772,8 @@
       "value_type": "float",
       "domain": "states_oh",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "oh_owf",
@@ -16773,8 +16790,8 @@
       "value_type": "float",
       "domain": "states_ok",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ok_tanf",
@@ -16836,8 +16853,8 @@
       "value_type": "float",
       "domain": "states_pa",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "pa_tanf",
@@ -16953,8 +16970,8 @@
       "value_type": "float",
       "domain": "core_p1",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "pre_tax_health_insurance_premiums",
@@ -17070,8 +17087,8 @@
       "value_type": "float",
       "domain": "core_p1",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "real_estate_taxes",
@@ -17196,8 +17213,8 @@
       "value_type": "float",
       "domain": "states_ri",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "ri_works",
@@ -17259,8 +17276,8 @@
       "value_type": "float",
       "domain": "states_sc",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "sc_tanf",
@@ -17295,8 +17312,8 @@
       "value_type": "float",
       "domain": "states_sd",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "sd_tanf",
@@ -17436,8 +17453,8 @@
       "value_type": "float",
       "domain": "core",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "snap_emergency_allotment",
@@ -17616,8 +17633,8 @@
       "value_type": "Enum",
       "domain": "core",
       "period": "year",
-      "kind": "input",
-      "note": "",
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace",
       "enum": "SPMUnitTenureType",
       "members": [
         "OWNER_WITH_MORTGAGE",
@@ -17864,8 +17881,8 @@
       "value_type": "float",
       "domain": "states_tax",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "state_sales_tax",
@@ -17900,8 +17917,8 @@
       "value_type": "float",
       "domain": "core_p2",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "student_loan_interest_ald",
@@ -18332,8 +18349,8 @@
       "value_type": "float",
       "domain": "states_va",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "va_medicaid_lifc_income_limit",
@@ -18368,8 +18385,8 @@
       "value_type": "float",
       "domain": "states_vt",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "vt_reach_up",
@@ -18395,8 +18412,8 @@
       "value_type": "float",
       "domain": "states_wa",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "wa_tanf",
@@ -18539,8 +18556,8 @@
       "value_type": "float",
       "domain": "states_wv",
       "period": "year",
-      "kind": "input",
-      "note": ""
+      "kind": "out-of-scope",
+      "note": "state/local/territory or modeling namespace"
     },
     {
       "name": "wv_works",
