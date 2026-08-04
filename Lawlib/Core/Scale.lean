@@ -38,6 +38,21 @@ def atDate (s : Scale) (d : Date) (x : Rat) : Rat :=
   s.brackets.foldl (init := 0) fun acc b =>
     if b.threshold.atDate d ≤ x then b.amount.atDate d else acc
 
+/-- Marginal-rate application (Form 6251 line 18 and kin): each
+bracket's rate applies only to the slice of `x` between that bracket's
+threshold and the next one — the sum of `rate_i × slice_i`, not a
+lookup. For ascending thresholds the slice between `tᵢ` and `tᵢ₊₁` is
+`min x tᵢ₊₁ - min x tᵢ` (zero below, clipped above); the last bracket's
+slice is `max 0 (x - t_last)`. -/
+def marginalCalc (s : Scale) (d : Date) (x : Rat) : Rat :=
+  let last := match s.brackets.getLast? with
+    | some b => (max 0 (x - b.threshold.atDate d)) * b.amount.atDate d
+    | none => unspecified Rat
+  (s.brackets.zip (s.brackets.drop 1)).foldl (init := last)
+    fun acc (b, nxt) =>
+      acc + (min x (nxt.threshold.atDate d) - min x (b.threshold.atDate d))
+              * b.amount.atDate d
+
 /-- Last bracket's threshold at date `d` (PolicyEngine's
 `scale.thresholds[-1]` idiom, e.g. the CTC child age limit).
 `unspecified` for an empty scale. -/

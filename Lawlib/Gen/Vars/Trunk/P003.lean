@@ -240,7 +240,7 @@ def additional_medicare_tax (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/senior_deduction/additional_senior_deduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def additional_senior_deduction (t : TaxUnit) (d : Date) : Rat :=
-  ((max (((Params.gov.irs.deductions.senior_deduction.amount.atDate d) - (if (t.core.filing_status == FilingStatus.JOINT) then (Params.gov.irs.deductions.senior_deduction.phase_out_rate.joint.atDate d (additional_senior_deduction_magi t d)) else (Params.gov.irs.deductions.senior_deduction.phase_out_rate.other.atDate d (additional_senior_deduction_magi t d)))) : Rat) 0) * (sumBy t.members fun p => boolToRat (additional_senior_deduction_eligible_person t p d)))
+  ((max (((Params.gov.irs.deductions.senior_deduction.amount.atDate d) - (if (t.core.filing_status == FilingStatus.JOINT) then (Params.gov.irs.deductions.senior_deduction.phase_out_rate.joint.marginalCalc d (additional_senior_deduction_magi t d)) else (Params.gov.irs.deductions.senior_deduction.phase_out_rate.other.marginalCalc d (additional_senior_deduction_magi t d)))) : Rat) 0) * (sumBy t.members fun p => boolToRat (additional_senior_deduction_eligible_person t p d)))
 
 /-- `policyengine_us/variables/household/demographic/age/age_group.py`
     policyengine-us 1.783.0, entity person, value_type Enum. -/

@@ -1,6 +1,6 @@
 # pe2lean rejection report
 
-policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc'].
+policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc', 'income_tax'].
 788 translated, 557 boundary inputs, 191 rejections.
 
 ## Rejections

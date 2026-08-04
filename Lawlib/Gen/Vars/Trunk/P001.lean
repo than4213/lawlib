@@ -481,7 +481,7 @@ def employer_total_social_security_tax (t : TaxUnit) (p : Person) (d : Date) : R
 /-- `policyengine_us/variables/gov/irs/tax/estate/estate_tax_before_credits.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def estate_tax_before_credits (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (Params.gov.irs.tax.estate.rate.atDate d p.core_p2.taxable_estate_value)
+  (Params.gov.irs.tax.estate.rate.marginalCalc d p.core_p2.taxable_estate_value)
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/exemptions/exemptions_count.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/

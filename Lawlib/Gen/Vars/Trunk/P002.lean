@@ -330,7 +330,7 @@ def ss_covered_earnings_this_year (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/ssa/social_security/ss_pia.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ss_pia (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (((ratFloor ((Params.gov.ssa.social_security.pia.formula_factors.atDate d p.ssa.ss_aime) * 10)) : Rat) / 10)
+  (((ratFloor ((Params.gov.ssa.social_security.pia.formula_factors.marginalCalc d p.ssa.ss_aime) * 10)) : Rat) / 10)
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/resources/ssi_countable_resources.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
