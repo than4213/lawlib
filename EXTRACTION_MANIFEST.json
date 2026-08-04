@@ -4469,6 +4469,166 @@
       "sha256": "fcf5049f6e69444296fde0deb8f0d014b14dc806c5424561d475e5b2dda7468c"
     },
     {
+      "path": "gov.states.ak.dpa.snap.work_requirements.abawd.hr1_in_effect",
+      "source": "gov/states/ak/dpa/snap/work_requirements/abawd/hr1_in_effect.yaml",
+      "sha256": "b5cfad2a94d17419430d0fb392b153f9de6a2d8223f1c6125c1c25dd30a3c79f"
+    },
+    {
+      "path": "gov.states.ar.dhs.medicaid.work_requirements.age_range",
+      "source": "gov/states/ar/dhs/medicaid/work_requirements/age_range.yaml",
+      "sha256": "52510aed41577c62011eb56d174a5ad287ccdc298e0ef65ec0d5810fbf7d458c"
+    },
+    {
+      "path": "gov.states.ar.dhs.medicaid.work_requirements.applies",
+      "source": "gov/states/ar/dhs/medicaid/work_requirements/applies.yaml",
+      "sha256": "382919101def98e3f4c3875f31335b34ba167ee918abb900fa3890686eba17a9"
+    },
+    {
+      "path": "gov.states.ar.dhs.medicaid.work_requirements.dependent_age_limit",
+      "source": "gov/states/ar/dhs/medicaid/work_requirements/dependent_age_limit.yaml",
+      "sha256": "6bb83f814558f511eea3739c3835d33e2871bdca8cb45f98f112e23d42f1c860"
+    },
+    {
+      "path": "gov.states.ar.dhs.medicaid.work_requirements.income_limit",
+      "source": "gov/states/ar/dhs/medicaid/work_requirements/income_limit.yaml",
+      "sha256": "7bb4ae336078452046099dfe8b4624b29615f60ddf21ccf3f772eef3f81d67a2"
+    },
+    {
+      "path": "gov.states.ar.dhs.medicaid.work_requirements.monthly_hours_threshold",
+      "source": "gov/states/ar/dhs/medicaid/work_requirements/monthly_hours_threshold.yaml",
+      "sha256": "9d06fe6cd8430b34ac314b1189dca7724d25994a9ab86df99cfad1e05bf7d051"
+    },
+    {
+      "path": "gov.states.ca.cdss.snap.work_requirements.abawd.hr1_in_effect",
+      "source": "gov/states/ca/cdss/snap/work_requirements/abawd/hr1_in_effect.yaml",
+      "sha256": "32c1b92da2255d4905988411a5b052ccdf0a0ea06cf2fa4a4bee3db399c6224d"
+    },
+    {
+      "path": "gov.states.hi.dhs.snap.work_requirements.abawd.hr1_in_effect",
+      "source": "gov/states/hi/dhs/snap/work_requirements/abawd/hr1_in_effect.yaml",
+      "sha256": "1c988cb43fdd6a7028fadd677dec698157483c2c2fc6e8042d8af639348d1018"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.adult.in_effect",
+      "source": "gov/states/il/hfs/hbi/eligibility/adult/in_effect.yaml",
+      "sha256": "2e5fedc563f666365826b8af9ac24c2475b69fea840f5cfeb2ff0b40ec76f98a"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.adult.income_limit",
+      "source": "gov/states/il/hfs/hbi/eligibility/adult/income_limit.yaml",
+      "sha256": "cec9b2d32be079fb0dc87e1a004de796ca9a4fe121ba98ca1960ac34d0762d8a"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.adult.max_age",
+      "source": "gov/states/il/hfs/hbi/eligibility/adult/max_age.yaml",
+      "sha256": "4258b1085be45317dc70accf6bc7a090f225a48dc2216f9ced87503201143d30"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.adult.min_age",
+      "source": "gov/states/il/hfs/hbi/eligibility/adult/min_age.yaml",
+      "sha256": "7300a6a70698310431413677a9a2db99c66458f064182c219202e6f2ce996aa6"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.child.in_effect",
+      "source": "gov/states/il/hfs/hbi/eligibility/child/in_effect.yaml",
+      "sha256": "011bda8d10a1731368951e1cca35f1b373a55874f3c697a7c42146eb51f80048"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.child.income_limit",
+      "source": "gov/states/il/hfs/hbi/eligibility/child/income_limit.yaml",
+      "sha256": "6e38c1b772dba17b9de605e0fa13f9069a4f22b17b500ced3727a86c5e79867b"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.child.max_age",
+      "source": "gov/states/il/hfs/hbi/eligibility/child/max_age.yaml",
+      "sha256": "0cdcdf4d5aca50008df58c59f008feea4335e2f6f60e83956f1ad4ce63312dce"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.senior.in_effect",
+      "source": "gov/states/il/hfs/hbi/eligibility/senior/in_effect.yaml",
+      "sha256": "5a88a84894eb822f0f15e985802c071bfeedc10dfdb270eee4e4d913b25fcd42"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.senior.income_limit",
+      "source": "gov/states/il/hfs/hbi/eligibility/senior/income_limit.yaml",
+      "sha256": "362a92c81741589324f69bcf3392db0e1c8cf30a0cd51cdbed12b770fc6d871e"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.senior.min_age",
+      "source": "gov/states/il/hfs/hbi/eligibility/senior/min_age.yaml",
+      "sha256": "08376d4828200b0c74e0e2d3f3eb4f58ffa1587f92e9cd038fb51272ac1f908f"
+    },
+    {
+      "path": "gov.states.il.hfs.hbi.eligibility.senior.resource_limit",
+      "source": "gov/states/il/hfs/hbi/eligibility/senior/resource_limit.yaml",
+      "sha256": "6627c551c10734568d8324e7fc272402e8ec57b9302603606dfb1d5d0ce0c962"
+    },
+    {
+      "path": "gov.states.tx.uct.lifeline.fpg_limit",
+      "source": "gov/states/tx/uct/lifeline/fpg_limit.yaml",
+      "sha256": "c4c0f0db932bee369f18329e0817077ebfe972945ac8b01f3f1d0ec5a3c25c60"
+    },
+    {
+      "path": "gov.states.tx.uct.lifeline.supplement",
+      "source": "gov/states/tx/uct/lifeline/supplement.yaml",
+      "sha256": "ffe36265db3d1c4e9d578de73ab5f53f55a9fe73c702204d7d75872d476ae126"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.in_effect",
+      "source": "gov/states/va/dmas/medicaid/lifc/in_effect.yaml",
+      "sha256": "c7538dba2edd82371a5d87e844806bd0bed31e14920d83a547e27fa6bca234f2"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.income_limit.group1.additional",
+      "source": "gov/states/va/dmas/medicaid/lifc/income_limit/group1/additional.yaml",
+      "sha256": "48d2f7bcb17f1679acaae3ab9b807984fe1d4d1b469f72ccf241c622106c7c87"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.income_limit.group1.main",
+      "source": "gov/states/va/dmas/medicaid/lifc/income_limit/group1/main.yaml",
+      "sha256": "7110e0214e35372aaeace06da5227ebf357815a6808976aa411456e658302111"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.income_limit.group2.additional",
+      "source": "gov/states/va/dmas/medicaid/lifc/income_limit/group2/additional.yaml",
+      "sha256": "b1c84ef59d5cf75748cdb185665fb2d2d2345353af2ee16fdb70e804759142b4"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.income_limit.group2.main",
+      "source": "gov/states/va/dmas/medicaid/lifc/income_limit/group2/main.yaml",
+      "sha256": "ec38058c664fe8c5009ec24c29732b44798b5f77c7c440810a221dc22b6e6b45"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.income_limit.group3.additional",
+      "source": "gov/states/va/dmas/medicaid/lifc/income_limit/group3/additional.yaml",
+      "sha256": "8f36d6e99beec7a1274977f1036785693a0743f77d106a5dda48d4429ebdb078"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.income_limit.group3.main",
+      "source": "gov/states/va/dmas/medicaid/lifc/income_limit/group3/main.yaml",
+      "sha256": "62b0df1e7d673060edcb57041dda41c46612bfca1f26c0f7676d7ad6768c48c1"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.income_limit.max_household_size",
+      "source": "gov/states/va/dmas/medicaid/lifc/income_limit/max_household_size.yaml",
+      "sha256": "5627aa9f25b402f0052e1e30f8f0f3b636f8a14959be87f3230dd4895093867b"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.localities.group1",
+      "source": "gov/states/va/dmas/medicaid/lifc/localities/group1.yaml",
+      "sha256": "b14dcc285194d4007e5c1a734c45d0e1a660bb6cf878a6f6ac201314985e44b2"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.localities.group2",
+      "source": "gov/states/va/dmas/medicaid/lifc/localities/group2.yaml",
+      "sha256": "7ec7d3c26c19250338733a9e85e9fb6d92fcb5d294c95bbdcb5cbbe52c79d14d"
+    },
+    {
+      "path": "gov.states.va.dmas.medicaid.lifc.localities.group3",
+      "source": "gov/states/va/dmas/medicaid/lifc/localities/group3.yaml",
+      "sha256": "ba4646c54dadac8b225f9f179fc4cf2c779df5540581a5b6865557d24600bb30"
+    },
+    {
       "path": "gov.usda.csfp.amount",
       "source": "gov/usda/csfp/amount.yaml",
       "sha256": "05eb5d858124de3efc0c96ff4e94f269b9539c3415de1fb4f557991441014a49"
@@ -6250,16 +6410,6 @@
       "sha256": "7c2c7a035e77c6a569dc21128238a45023251e8b4c2c8a887d019446f4e10d7b"
     },
     {
-      "name": "is_parent_for_medicaid_fc",
-      "entity": "person",
-      "value_type": "bool",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/is_parent_for_medicaid_fc.py",
-      "sha256": "ef16bac2724a733c2a772bad6a628b755e66ac2a6c70cccccb46fdae3aaef6e5"
-    },
-    {
       "name": "is_person_demographic_tanf_eligible",
       "entity": "person",
       "value_type": "bool",
@@ -6308,6 +6458,16 @@
       "period": "year",
       "source": "policyengine_us/variables/household/demographic/age/is_senior.py",
       "sha256": "43feeb0fbe05212210d896d189c0868e7868a7a308a2ade3c680d8e5629bfae9"
+    },
+    {
+      "name": "is_snap_abawd_hr1_in_effect",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": true,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_abawd_hr1_in_effect.py",
+      "sha256": "1afe0c164830ccd095df46817f0d6dccc90fe226ee0714d50085af5f6ccee563"
     },
     {
       "name": "is_snap_employment_training_or_work_incentive_student",
@@ -6558,6 +6718,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medically_needy/medicaid_medically_needy_medical_expenses.py",
       "sha256": "d1fb2312a7a197a046eb3842ab102c96bb57f50d6cf276e60ce0b6b256788b6b"
+    },
+    {
+      "name": "medicaid_parent_income_limit",
+      "entity": "person",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/medicaid_parent_income_limit.py",
+      "sha256": "6f6d9ff60ca9c33542b4e5dc8e9a676179f8f625525b553e36058c59071ee780"
     },
     {
       "name": "medicaid_premium",
@@ -7720,6 +7890,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_optional_senior_or_disabled_income_eligible.py",
       "sha256": "fef0948568ef381aea4688135f6314b111c452a55636023386dee6a82b1d93f4"
+    },
+    {
+      "name": "is_parent_for_medicaid_fc",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/is_parent_for_medicaid_fc.py",
+      "sha256": "ef16bac2724a733c2a772bad6a628b755e66ac2a6c70cccccb46fdae3aaef6e5"
     },
     {
       "name": "is_pregnant_for_medicaid",
@@ -10350,6 +10530,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/irs_gross_income/irs_gross_income.py",
       "sha256": "29c2e53db461c98fc9f23b9ca4ee564aa817cfce7f143a266aebac27c8970a09"
+    },
+    {
+      "name": "medicaid_group",
+      "entity": "person",
+      "value_type": "Enum",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_group.py",
+      "sha256": "86c90312487d59712f63395b626fa43ff0d16ecc581bd3063596d2710606af71"
     },
     {
       "name": "medicaid_irs_gross_income",
@@ -14896,6 +15086,15 @@
       "note": ""
     },
     {
+      "name": "il_hbi_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "domain": "states_il",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "il_hbwd_eligible",
       "entity": "person",
       "value_type": "bool",
@@ -15304,7 +15503,7 @@
       "domain": "hhs",
       "period": "year",
       "kind": "rejected",
-      "note": "parameter 'gov.states.ar.dhs.medicaid.work_requirements.applies' outside emitted subtrees"
+      "note": "if arm without return"
     },
     {
       "name": "is_medicaid_ineligible_due_to_work_requirement",
@@ -15313,7 +15512,7 @@
       "domain": "hhs",
       "period": "year",
       "kind": "rejected",
-      "note": "parameter 'gov.states.ar.dhs.medicaid.work_requirements.applies' outside emitted subtrees"
+      "note": "if arm without return"
     },
     {
       "name": "is_migratory_child",
@@ -15440,15 +15639,6 @@
       "period": "year",
       "kind": "input",
       "note": ""
-    },
-    {
-      "name": "is_snap_abawd_hr1_in_effect",
-      "entity": "person",
-      "value_type": "bool",
-      "domain": "usda",
-      "period": "month",
-      "kind": "rejected",
-      "note": "parameter 'gov.states.ca.cdss.snap.work_requirements.abawd.hr1_in_effect' outside emitted subtrees"
     },
     {
       "name": "is_snap_employment_training_student",
@@ -15935,15 +16125,6 @@
       "period": "year",
       "kind": "rejected",
       "note": "unrecognized call _apply_medicaid_optional_senior_or_disabled_exclusions"
-    },
-    {
-      "name": "medicaid_parent_income_limit",
-      "entity": "person",
-      "value_type": "float",
-      "domain": "hhs",
-      "period": "year",
-      "kind": "rejected",
-      "note": "parameter 'gov.states.va.dmas.medicaid.lifc.in_effect' outside emitted subtrees"
     },
     {
       "name": "medicaid_person_is_required_to_file",
@@ -18136,6 +18317,15 @@
     {
       "name": "va_child_care_subsidies",
       "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "states_va",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
+      "name": "va_medicaid_lifc_income_limit",
+      "entity": "person",
       "value_type": "float",
       "domain": "states_va",
       "period": "year",

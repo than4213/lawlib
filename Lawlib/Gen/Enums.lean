@@ -472,6 +472,40 @@ def MedicaidCategory.asStr : MedicaidCategory → String
   | .SECTION_1115_MEC_ADULT => "SECTION_1115_MEC_ADULT"
   | .HEALTHIER_MISSISSIPPI_WAIVER => "HEALTHIER_MISSISSIPPI_WAIVER"
 
+inductive MedicaidGroup where
+  | CHILD
+  | NON_EXPANSION_ADULT
+  | EXPANSION_ADULT
+  | AGED_DISABLED
+  | NONE
+deriving Repr, DecidableEq, BEq
+
+instance : Lean.FromJson MedicaidGroup where
+  fromJson? j := do
+    match (← j.getStr?) with
+    | "CHILD" => pure .CHILD
+    | "NON_EXPANSION_ADULT" => pure .NON_EXPANSION_ADULT
+    | "EXPANSION_ADULT" => pure .EXPANSION_ADULT
+    | "AGED_DISABLED" => pure .AGED_DISABLED
+    | "NONE" => pure .NONE
+    | s => throw s!"unknown MedicaidGroup: {s}"
+
+instance : Lean.ToJson MedicaidGroup where
+  toJson x := match x with
+    | .CHILD => Lean.Json.str "CHILD"
+    | .NON_EXPANSION_ADULT => Lean.Json.str "NON_EXPANSION_ADULT"
+    | .EXPANSION_ADULT => Lean.Json.str "EXPANSION_ADULT"
+    | .AGED_DISABLED => Lean.Json.str "AGED_DISABLED"
+    | .NONE => Lean.Json.str "NONE"
+
+/-- PolicyEngine's `decode_to_str` view. -/
+def MedicaidGroup.asStr : MedicaidGroup → String
+  | .CHILD => "CHILD"
+  | .NON_EXPANSION_ADULT => "NON_EXPANSION_ADULT"
+  | .EXPANSION_ADULT => "EXPANSION_ADULT"
+  | .AGED_DISABLED => "AGED_DISABLED"
+  | .NONE => "NONE"
+
 inductive MedicaidSSIRecipientStateClassification where
   | SECTION_1634
   | SSI_CRITERIA

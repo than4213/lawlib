@@ -12,6 +12,21 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
+  (if (tax_unit_itemizes t d) then (taxable_income_deductions_if_itemizing t d) else (taxable_income_deductions_if_not_itemizing t d))
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/taxable_income.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def taxable_income (t : TaxUnit) (d : Date) : Rat :=
+  (max (0 : Rat) (((adjusted_gross_income t d) - t.irs.exemptions) - (taxable_income_deductions t d)))
+
+/-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_separate_addition.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def amt_separate_addition (t : TaxUnit) (d : Date) : Rat :=
+  ((max (0 : Rat) (min ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.income.amt.exemption.amount.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.income.amt.exemption.amount.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.income.amt.exemption.amount.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat) ((Params.gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat) (((taxable_income t d) + (amt_excluded_deductions t d)) - (Params.gov.irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat (t.core.filing_status == FilingStatus.SEPARATE)))
+
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_excluded_from_taxable_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def capital_gains_excluded_from_taxable_income (t : TaxUnit) (d : Date) : Rat :=

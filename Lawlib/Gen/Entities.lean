@@ -208,7 +208,6 @@ structure Person_Hhs where
   medicaid_home_equity_limit_family_exception : Bool := false
   medicaid_income_level : Rat := 0
   medicaid_optional_senior_or_disabled_countable_income : Rat := 0
-  medicaid_parent_income_limit : Rat := 0
   medicaid_person_is_required_to_file : Bool := false
   medicaid_slcsp_cost_index : Rat := 0
   medicaid_slcsp_state_average_cost_index : Rat := 0
@@ -300,6 +299,7 @@ structure Person_States_ca where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure Person_States_il where
+  il_hbi_eligible : Bool := false
   il_hbwd_eligible : Bool := false
   il_hbwd_premium : Rat := 0
 deriving Repr, Lean.FromJson, Lean.ToJson
@@ -322,11 +322,14 @@ structure Person_States_tx where
   tx_dta_csfp_income_eligible : Bool := false
 deriving Repr, Lean.FromJson, Lean.ToJson
 
+structure Person_States_va where
+  va_medicaid_lifc_income_limit : Rat := 0
+deriving Repr, Lean.FromJson, Lean.ToJson
+
 structure Person_Usda where
   has_applied_for_unemployment_compensation : Bool := false
   is_complying_with_tanf_work_requirements : Bool := false
   is_in_substance_use_treatment_program : Bool := false
-  is_snap_abawd_hr1_in_effect : Bool := false
   is_snap_employment_training_student : Bool := false
   is_snap_gross_test_full_income_count_alien : Bool := false
   is_snap_prorated_income_member : Bool := false
@@ -364,6 +367,7 @@ structure Person where
   states_or : Person_States_or := {}
   states_tax : Person_States_tax := {}
   states_tx : Person_States_tx := {}
+  states_va : Person_States_va := {}
   usda : Person_Usda := {}
 deriving Repr, Lean.FromJson, Lean.ToJson
 

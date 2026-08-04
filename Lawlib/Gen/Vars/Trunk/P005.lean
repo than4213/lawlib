@@ -12,6 +12,21 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_deductions.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_deductions (t : TaxUnit) (d : Date) : Rat :=
+  ((((((snap_standard_deduction t d) + (snap_earned_income_deduction t d)) + (snap_dependent_care_deduction t d)) + (snap_child_support_deduction t d)) + (snap_excess_medical_expense_deduction t d)) + (snap_excess_shelter_expense_deduction t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def used_clean_vehicle_credit (t : TaxUnit) (d : Date) : Rat :=
+  (if (used_clean_vehicle_credit_eligible t d) then (min ((t.core.used_clean_vehicle_sale_price * (Params.gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat) (Params.gov.irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
+
+/-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_potential.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def used_clean_vehicle_credit_potential (t : TaxUnit) (d : Date) : Rat :=
+  (if (used_clean_vehicle_credit_eligible t d) then (min ((t.core.used_clean_vehicle_sale_price * (Params.gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat) (Params.gov.irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
+
 /-- `policyengine_us/variables/gov/aca/eligibility/aca_magi_fraction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def aca_magi_fraction (t : TaxUnit) (d : Date) : Rat :=
@@ -385,7 +400,7 @@ def is_head_start_categorically_eligible (t : TaxUnit) (p : Person) (d : Date) :
 /-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_community_engagement_pass_through_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def medicaid_community_engagement_pass_through_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((((((decide ((snap t d) > 0)) || t.usda.receives_snap) && (!(decide ((Params.gov.usda.snap.work_requirements.general.age_threshold.exempted.atDate d (monthly_age t p d)) ≠ 0)))) && (!(is_snap_work_registration_exempt_non_age t p d))) && (if (anyBy t.members fun p => (decide ((monthly_age t p d) < (if p.usda.is_snap_abawd_hr1_in_effect then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩))))) then p.usda.meets_snap_general_work_requirements else (p.usda.meets_snap_general_work_requirements && p.usda.meets_snap_abawd_work_requirements))) || (((is_tanf_enrolled t d) || t.hhs.receives_tanf) && (meets_tanf_work_requirements t d)))
+  ((((((decide ((snap t d) > 0)) || t.usda.receives_snap) && (!(decide ((Params.gov.usda.snap.work_requirements.general.age_threshold.exempted.atDate d (monthly_age t p d)) ≠ 0)))) && (!(is_snap_work_registration_exempt_non_age t p d))) && (if (anyBy t.members fun p => (decide ((monthly_age t p d) < (if (is_snap_abawd_hr1_in_effect t p d) then (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩))))) then p.usda.meets_snap_general_work_requirements else (p.usda.meets_snap_general_work_requirements && p.usda.meets_snap_abawd_work_requirements))) || (((is_tanf_enrolled t d) || t.hhs.receives_tanf) && (meets_tanf_work_requirements t d)))
 
 /-- `policyengine_us/variables/gov/usda/school_meals/meets_school_meal_categorical_eligibility.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -746,20 +761,5 @@ def tax_unit_itemizes (t : TaxUnit) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amt_excluded_deductions (t : TaxUnit) (d : Date) : Rat :=
   (if (tax_unit_itemizes t d) then ((salt_deduction t d) + (misc_deduction t d)) else (standard_deduction t d))
-
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/taxable_income_deductions.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def taxable_income_deductions (t : TaxUnit) (d : Date) : Rat :=
-  (if (tax_unit_itemizes t d) then (taxable_income_deductions_if_itemizing t d) else (taxable_income_deductions_if_not_itemizing t d))
-
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/taxable_income.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def taxable_income (t : TaxUnit) (d : Date) : Rat :=
-  (max (0 : Rat) (((adjusted_gross_income t d) - t.irs.exemptions) - (taxable_income_deductions t d)))
-
-/-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_separate_addition.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def amt_separate_addition (t : TaxUnit) (d : Date) : Rat :=
-  ((max (0 : Rat) (min ((match t.core.filing_status with | FilingStatus.SINGLE => (Params.gov.irs.income.amt.exemption.amount.SINGLE.atDate d) | FilingStatus.JOINT => (Params.gov.irs.income.amt.exemption.amount.JOINT.atDate d) | FilingStatus.SEPARATE => (Params.gov.irs.income.amt.exemption.amount.SEPARATE.atDate d) | FilingStatus.HEAD_OF_HOUSEHOLD => (Params.gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d) | FilingStatus.SURVIVING_SPOUSE => (Params.gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat) ((Params.gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat) (((taxable_income t d) + (amt_excluded_deductions t d)) - (Params.gov.irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat (t.core.filing_status == FilingStatus.SEPARATE)))
 
 end Lawlib.Gen.Vars

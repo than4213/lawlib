@@ -648,11 +648,6 @@ def is_older_child_for_medicaid_nfc (t : TaxUnit) (p : Person) (d : Date) : Bool
 def is_parent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide (p.core_p1.own_children_in_household > 0))
 
-/-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/is_parent_for_medicaid_fc.py`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is_parent_for_medicaid_fc (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide (p.hhs.medicaid_income_level ≤ p.hhs.medicaid_parent_income_limit))
-
 /-- `policyengine_us/variables/gov/hhs/tanf/cash/eligibility/is_person_demographic_tanf_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_person_demographic_tanf_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -677,6 +672,11 @@ def is_retired (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_senior (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide (p.core_p1.age ≥ 65))
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_abawd_hr1_in_effect.py`
+    policyengine-us 1.783.0, entity person, value_type bool. -/
+def is_snap_abawd_hr1_in_effect (t : TaxUnit) (p : Person) (d : Date) : Bool :=
+  (if (t.core.state_code == StateCode.CA) then (Params.gov.states.ca.cdss.snap.work_requirements.abawd.hr1_in_effect.atDate d) else (if (t.core.state_code == StateCode.HI) then (Params.gov.states.hi.dhs.snap.work_requirements.abawd.hr1_in_effect.atDate d) else (if (t.core.state_code == StateCode.AK) then (Params.gov.states.ak.dpa.snap.work_requirements.abawd.hr1_in_effect.atDate d) else (Params.gov.usda.snap.work_requirements.abawd.in_effect.atDate d))))
 
 /-- `policyengine_us/variables/gov/usda/snap/eligibility/student/is_snap_employment_training_or_work_incentive_student.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/

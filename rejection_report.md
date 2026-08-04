@@ -1,7 +1,7 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc', 'income_tax'].
-795 translated, 553 boundary inputs, 187 rejections.
+798 translated, 553 boundary inputs, 184 rejections.
 
 ## Rejections
 
@@ -67,12 +67,11 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **is_infant_for_medicaid_fc** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/infant/is_infant_for_medicaid_fc.py:8`): np.isclose
 - **is_irs_aged** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/standard_deduction/is_irs_aged.py:3`): cross-entity ref tax_unit(...) in person formula
 - **is_lifeline_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_eligible.py:9`): np.where
-- **is_lifeline_income_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_income_eligible.py:15`): parameter 'gov.states.tx.uct.lifeline.fpg_limit' outside emitted subtrees
-- **is_medicaid_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_eligible.py:26`): parameter 'gov.states.ar.dhs.medicaid.work_requirements.applies' outside emitted subtrees
-- **is_medicaid_ineligible_due_to_work_requirement** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_ineligible_due_to_work_requirement.py:24`): parameter 'gov.states.ar.dhs.medicaid.work_requirements.applies' outside emitted subtrees
+- **is_lifeline_income_eligible** (`policyengine_us/variables/gov/fcc/lifeline/is_lifeline_income_eligible.py:15`): unrecognized call where(is_tx, tx_p.fpg_limit, p.fpg_limit).astype
+- **is_medicaid_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_eligible.py:26`): if arm without return
+- **is_medicaid_ineligible_due_to_work_requirement** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/is_medicaid_ineligible_due_to_work_requirement.py:24`): if arm without return
 - **is_medically_needy_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medically_needy/is_medically_needy_for_medicaid.py:0`): type error: cannot coerce ext to rat at ParamStrIndex
 - **is_older_child_for_medicaid** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/older_child/is_older_child_for_medicaid.py:8`): bitwise op on non-bool operands
-- **is_snap_abawd_hr1_in_effect** (`policyengine_us/variables/gov/usda/snap/eligibility/work_requirements/is_snap_abawd_hr1_in_effect.py:21`): parameter 'gov.states.ca.cdss.snap.work_requirements.abawd.hr1_in_effect' outside emitted subtrees
 - **is_snap_gross_test_full_income_count_alien** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_gross_test_full_income_count_alien.py:5`): np.isin outside enum idioms
 - **is_snap_prorated_income_member** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_prorated_income_member.py:6`): np.isin outside enum idioms
 - **is_ssi_aged_blind_disabled** (`policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_aged_blind_disabled.py:3`): non-value handle used as value
@@ -90,7 +89,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicaid_category** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/medicaid_category.py:16`): unrecognized call dict
 - **medicaid_cost_if_enrolled** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_cost_if_enrolled.py:7`): np.divide
 - **medicaid_federal_share** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_federal_share.py:0`): enum-indexed parameter 'gov.hhs.medicaid.cost_share.fmap' lacks members ['GU', 'MP', 'PW', 'PR']
-- **medicaid_group** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_group.py:38`): parameter 'gov.states.il.hfs.hbi.eligibility.child.max_age' outside emitted subtrees
 - **medicaid_has_known_claiming_tax_unit** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_has_known_claiming_tax_unit.py:4`): np.isin outside enum idioms
 - **medicaid_home_equity_limit_family_exception** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_home_equity_limit_family_exception.py:7`): unrecognized call person.marital_unit.nb_persons
 - **medicaid_household_income** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_household_income.py:15`): unrecognized call head_or_spouse.astype
@@ -99,7 +97,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicaid_optional_senior_or_disabled_countable_income** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_optional_senior_or_disabled_countable_income.py:31`): unrecognized call _apply_medicaid_optional_senior_or_disabled_exclusions
 - **medicaid_optional_senior_or_disabled_income_deemed_from_ineligible_spouse** (`policyengine_us/variables/gov/hhs/medicaid/income/deemed/from_ineligible_spouse/medicaid_optional_senior_or_disabled_income_deemed_from_ineligible_spouse.py:17`): unrecognized call _apply_medicaid_optional_senior_or_disabled_exclusions
 - **medicaid_optional_senior_or_disabled_unearned_income_deemed_from_ineligible_parent** (`policyengine_us/variables/gov/hhs/medicaid/income/deemed/from_ineligible_parent/medicaid_optional_senior_or_disabled_unearned_income_deemed_from_ineligible_parent.py:44`): unrecognized call _apply_medicaid_optional_senior_or_disabled_exclusions
-- **medicaid_parent_income_limit** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/parent/medicaid_parent_income_limit.py:6`): parameter 'gov.states.va.dmas.medicaid.lifc.in_effect' outside emitted subtrees
 - **medicaid_person_is_required_to_file** (`policyengine_us/variables/gov/hhs/medicaid/income/medicaid_person_is_required_to_file.py:8`): unrecognized call person.marital_unit.nb_persons
 - **medicaid_rating_area** (`policyengine_us/variables/input/geography.py:5`): unbound name 'pd'
 - **medicaid_slcsp_cost_index** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_cost_index.py:2`): unbound name 'period'

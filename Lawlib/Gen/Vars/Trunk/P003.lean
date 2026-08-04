@@ -12,6 +12,16 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
+/-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_arpa_dependents_with_valid_ssn.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type int. -/
+def rrc_arpa_dependents_with_valid_ssn (t : TaxUnit) (d : Date) : Rat :=
+  (sumBy t.members fun p => (boolToRat ((is_tax_unit_dependent t p d) && (meets_eitc_identification_requirements t p d))))
+
+/-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_qualifies_for_armed_forces_exception.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def rrc_qualifies_for_armed_forces_exception (t : TaxUnit) (d : Date) : Bool :=
+  (((tax_unit_is_joint t d) && (anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && p.core_p1.is_military))) && (anyBy t.members fun p => ((is_tax_unit_head_or_spouse t p d) && (meets_eitc_identification_requirements t p d))))
+
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/salt.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def salt (t : TaxUnit) (d : Date) : Rat :=
@@ -751,15 +761,5 @@ def self_employment_social_security_tax (t : TaxUnit) (p : Person) (d : Date) : 
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_max_allotment (t : TaxUnit) (d : Date) : Rat :=
   ((if t.usda.snap_region_str == "AK_RURAL_1" then (Params.gov.usda.snap.max_allotment.main.AK_RURAL_1.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "AK_RURAL_2" then (Params.gov.usda.snap.max_allotment.main.AK_RURAL_2.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "AK_URBAN" then (Params.gov.usda.snap.max_allotment.main.AK_URBAN.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "CONTIGUOUS_US" then (Params.gov.usda.snap.max_allotment.main.CONTIGUOUS_US.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "GU" then (Params.gov.usda.snap.max_allotment.main.GU.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "HI" then (Params.gov.usda.snap.max_allotment.main.HI.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (Params.gov.usda.snap.max_allotment.main.VI.atDate d (min ((snap_unit_size t d) : Rat) 8)))))))) + ((max (0 : Rat) ((snap_unit_size t d) - 8)) * (if t.usda.snap_region_str == "AK_RURAL_1" then (Params.gov.usda.snap.max_allotment.additional.AK_RURAL_1.atDate d) else (if t.usda.snap_region_str == "AK_RURAL_2" then (Params.gov.usda.snap.max_allotment.additional.AK_RURAL_2.atDate d) else (if t.usda.snap_region_str == "AK_URBAN" then (Params.gov.usda.snap.max_allotment.additional.AK_URBAN.atDate d) else (if t.usda.snap_region_str == "CONTIGUOUS_US" then (Params.gov.usda.snap.max_allotment.additional.CONTIGUOUS_US.atDate d) else (if t.usda.snap_region_str == "GU" then (Params.gov.usda.snap.max_allotment.additional.GU.atDate d) else (if t.usda.snap_region_str == "HI" then (Params.gov.usda.snap.max_allotment.additional.HI.atDate d) else (Params.gov.usda.snap.max_allotment.additional.VI.atDate d)))))))))
-
-/-- `policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_prorated_income_fraction.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_prorated_income_fraction (t : TaxUnit) (d : Date) : Rat :=
-  (if (decide ((t.core.spm_unit_size - (sumBy t.members fun p => boolToRat (is_snap_ineligible_student t p d))) > 0)) then ((snap_unit_size t d) / (max ((t.core.spm_unit_size - (sumBy t.members fun p => boolToRat (is_snap_ineligible_student t p d))) : Rat) 1)) else 0)
-
-/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_standard_deduction.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_standard_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.state_group_str == "AK" then (Params.gov.usda.snap.income.deductions.standard.AK.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "CONTIGUOUS_US" then (Params.gov.usda.snap.income.deductions.standard.CONTIGUOUS_US.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "GU" then (Params.gov.usda.snap.income.deductions.standard.GU.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "HI" then (Params.gov.usda.snap.income.deductions.standard.HI.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (Params.gov.usda.snap.income.deductions.standard.VI.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6))))))
 
 end Lawlib.Gen.Vars
