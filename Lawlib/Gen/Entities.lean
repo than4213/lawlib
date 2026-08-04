@@ -247,7 +247,6 @@ structure Person_Irs where
   has_completed_first_four_years_of_postsecondary_education : Bool := false
   has_felony_drug_conviction : Bool := false
   has_lifetime_learning_credit_1098_t_or_exception : Bool := false
-  irs_gross_income : Rat := 0
   is_enrolled_at_least_half_time_for_american_opportunity_credit : Bool := false
   is_pursuing_credential_for_american_opportunity_credit : Bool := false
   qbid_amount : Rat := 0
@@ -480,7 +479,6 @@ structure TaxUnit_Hud where
 deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Irs where
-  adjusted_gross_income : Rat := 0
   aged_blind_count : Rat := 0
   american_opportunity_credit : Rat := 0
   capped_qualified_tuition_expenses_ald : Rat := 0
@@ -501,8 +499,6 @@ structure TaxUnit_Irs where
   is_nonresident_alien_for_lifetime_learning_credit : Bool := false
   itemized_taxable_income_deductions_reduction : Rat := 0
   loss_ald : Rat := 0
-  loss_limited_net_capital_gains : Rat := 0
-  net_investment_income : Rat := 0
   puerto_rico_income : Rat := 0
   qualified_business_income_deduction : Rat := 0
   recapture_of_investment_credit : Rat := 0

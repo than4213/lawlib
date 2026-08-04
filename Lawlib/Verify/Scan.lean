@@ -39,8 +39,9 @@ def mkTaxUnit (g : Group) (n : Nat) (income : Rat) : TaxUnit :=
     { core_p1 := { age := 8, has_tin := true } }
   { members := [head] ++ (if g = .joint then [spouse] else []) ++ List.replicate n child
     core := { filing_status := if g = .joint then .JOINT else .SINGLE }
-    irs := { adjusted_gross_income := income
-             takes_up_eitc := true
+    -- AGI is now computed law: with only employment income set and no
+    -- above-the-line deductions, it reduces to the head's earnings
+    irs := { takes_up_eitc := true
              would_file_if_eligible_for_refundable_credit := true } }
 
 /-- PolicyEngine semantics (the translated `eitc`) on that household —
