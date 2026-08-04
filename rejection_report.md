@@ -1,7 +1,7 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc', 'income_tax'].
-798 translated, 553 boundary inputs, 184 rejections.
+801 translated, 551 boundary inputs, 181 rejections.
 
 ## Rejections
 
@@ -47,7 +47,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **hud_low_income_factor** (`policyengine_us/variables/gov/hud/income_level_factor/hud_low_income_factor.py:4`): non-simple assignment target
 - **hud_low_income_limit** (`policyengine_us/variables/gov/hud/hud_low_income_limit.py:4`): unrecognized call lookup_sized_income_limit
 - **hud_moderate_income_factor** (`policyengine_us/variables/gov/hud/income_level_factor/hud_moderate_income_factor.py:4`): non-simple assignment target
-- **hud_ttp** (`policyengine_us/variables/gov/hud/ttp/hud_ttp.py:3`): unbound name 'max_'
 - **hud_utility_allowance** (`policyengine_us/variables/gov/hud/hud_utility_allowance.py:16`): np.clip
 - **hud_very_low_income_factor** (`policyengine_us/variables/gov/hud/income_level_factor/hud_very_low_income_factor.py:4`): non-simple assignment target
 - **hud_very_low_income_limit** (`policyengine_us/variables/gov/hud/hud_very_low_income_limit.py:4`): unrecognized call lookup_sized_income_limit
@@ -75,10 +74,9 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **is_snap_gross_test_full_income_count_alien** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_gross_test_full_income_count_alien.py:5`): np.isin outside enum idioms
 - **is_snap_prorated_income_member** (`policyengine_us/variables/gov/usda/snap/income/ineligible_members/is_snap_prorated_income_member.py:6`): np.isin outside enum idioms
 - **is_ssi_aged_blind_disabled** (`policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_aged_blind_disabled.py:3`): non-value handle used as value
-- **is_tanf_non_cash_hheod** (`policyengine_us/variables/gov/hhs/tanf/non_cash/is_tanf_non_cash_hheod.py:7`): where condition not bool
 - **is_tax_unit_head** (`policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_head.py:6`): unrecognized call person.get_rank
 - **is_tax_unit_spouse** (`policyengine_us/variables/household/demographic/tax_unit/is_tax_unit_spouse.py:9`): unrecognized call person.get_rank
-- **is_usda_disabled** (`policyengine_us/variables/gov/usda/is_usda_disabled.py:3`): unbound name 'np'
+- **is_usda_disabled** (`policyengine_us/variables/gov/usda/is_usda_disabled.py:3`): logical_or.reduce on non-bool elements
 - **itemized_deductions_less_salt** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemized_deductions_less_salt.py:3`): comprehension over non-static list
 - **itemized_taxable_income_deductions_reduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/itemized_taxable_income_deductions_reduction.py:0`): type error: cannot coerce ext to rat at ParamEnumIndex
 - **lcbp_age_0** (`policyengine_us/variables/gov/aca/lcbp/lcbp_age_0.py:9`): subscript on non-parameter
@@ -110,7 +108,6 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicare_irmaa_magi_two_years_prior** (`policyengine_us/variables/gov/hhs/medicare/eligibility/medicare_irmaa_magi_two_years_prior.py:2`): unbound name 'period'
 - **meets_snap_parent_exception** (`policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_parent_exception.py:12`): unrecognized call spm_unit.members
 - **mi_surtax** (`policyengine_us/reforms/states/mi/surtax.py:8`): calc() on non-scale parameter 'gov.contrib.states.mi.surtax.rate.joint'
-- **msp_asset_eligible** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_asset_eligible.py:16`): where condition not bool
 - **msp_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_cost.py:3`): unbound name 'period'
 - **msp_countable_income** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/income/msp_countable_income.py:2`): unbound name 'period'
 - **msp_federal_cost** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_federal_cost.py:7`): unbound name 'period'
@@ -143,7 +140,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **snap_min_allotment** (`policyengine_us/variables/gov/usda/snap/snap_min_allotment.py:9`): str() of non-literal
 - **snap_region** (`policyengine_us/variables/gov/usda/snap/snap_region.py:4`): unbound name 'pd'
 - **snap_region_str** (`policyengine_us/variables/gov/usda/snap/snap_region_str.py:1`): returns a non-value
-- **snap_self_employment_expense_deduction** (`policyengine_us/variables/gov/usda/snap/income/deductions/self_employment/snap_self_employment_expense_deduction.py:15`): where condition not bool
+- **snap_self_employment_expense_deduction** (`policyengine_us/variables/gov/usda/snap/income/deductions/self_employment/snap_self_employment_expense_deduction.py:0`): enum-indexed parameter 'gov.usda.snap.income.deductions.self_employment.rate' lacks members ['MP', 'PW', 'PR', 'AA']
 - **snap_standard_utility_allowance** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_standard_utility_allowance.py:16`): non-value handle used as value
 - **snap_standard_utility_allowance_by_household_size** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_standard_utility_allowance_by_household_size.py:4`): unrecognized call is_in
 - **snap_state_using_standard_utility_allowance** (`policyengine_us/variables/gov/usda/snap/income/deductions/shelter/snap_state_using_standard_utility_allowance.py:0`): enum-indexed parameter 'gov.usda.snap.income.deductions.utility.always_standard' lacks members ['MP', 'PW', 'PR', 'AA']

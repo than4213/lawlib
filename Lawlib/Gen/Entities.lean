@@ -214,7 +214,6 @@ structure Person_Hhs where
   medicaid_tax_dependent_exception_non_custodial_parent : Bool := false
   medicare_quarters_of_coverage : Rat := 0
   months_receiving_social_security_disability : Rat := 0
-  msp_asset_eligible : Bool := false
   msp_cost : Rat := 0
   msp_countable_income : Rat := 0
   msp_federal_cost : Rat := 0
@@ -456,7 +455,6 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hhs where
   hhs_smi : Rat := 0
-  is_tanf_non_cash_hheod : Bool := false
   medicaid_working_disabled_buy_in_premium : Rat := 0
   meets_ccdf_activity_test : Bool := false
   receives_tanf : Bool := false
@@ -467,13 +465,13 @@ deriving Repr, Lean.FromJson, Lean.ToJson
 
 structure TaxUnit_Hud where
   ami : Rat := 0
+  housing_designated_welfare : Rat := 0
   hud_especially_low_income_factor : Rat := 0
   hud_extremely_low_income_limit : Rat := 0
   hud_fair_market_rent : Rat := 0
   hud_low_income_factor : Rat := 0
   hud_low_income_limit : Rat := 0
   hud_moderate_income_factor : Rat := 0
-  hud_ttp : Rat := 0
   hud_utility_allowance : Rat := 0
   hud_very_low_income_factor : Rat := 0
   hud_very_low_income_limit : Rat := 0

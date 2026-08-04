@@ -257,11 +257,6 @@ def has_chip_disqualifying_health_coverage (t : TaxUnit) (p : Person) (d : Date)
 def hud_countable_earned_income (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => ((((hud_earned_income t p d) - ((max ((hud_earned_income t p d) : Rat) 0) * (boolToRat (is_child t p d)))) - ((max (((max ((hud_earned_income t p d) : Rat) 0) - (Params.gov.hud.adjusted_income.deductions.dependent.amount.atDate d)) : Rat) 0) * (boolToRat ((p.hud.is_hud_dependent && (is_full_time_student t p d)) && (!(is_child t p d)))))) * (boolToRat (!p.core_p1.is_in_foster_care))))
 
-/-- `policyengine_us/variables/gov/hud/hud_hap.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def hud_hap (t : TaxUnit) (d : Date) : Rat :=
-  (min ((hud_max_subsidy t d) : Rat) (max (0 : Rat) ((hud_gross_rent t d) - t.hud.hud_ttp)))
-
 /-- `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/is_209b_ssi_recipient_income_eligible_for_medicaid.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_209b_ssi_recipient_income_eligible_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
@@ -295,12 +290,12 @@ def is_optional_senior_or_disabled_for_medicaid (t : TaxUnit) (p : Person) (d : 
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_qi_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_qi_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((((is_medicare_eligible t p d) && ((decide (p.hhs.msp_countable_income ≥ (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d)))) && (decide (p.hhs.msp_countable_income < (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.qi.fpl_limit.atDate d)))))) && p.hhs.msp_asset_eligible) && (!p.hhs.is_medicaid_eligible))
+  ((((is_medicare_eligible t p d) && ((decide (p.hhs.msp_countable_income ≥ (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d)))) && (decide (p.hhs.msp_countable_income < (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.qi.fpl_limit.atDate d)))))) && (msp_asset_eligible t p d)) && (!p.hhs.is_medicaid_eligible))
 
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_qmb_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_qmb_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((is_medicare_eligible t p d) && (decide (p.hhs.msp_countable_income ≤ (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d))))) && p.hhs.msp_asset_eligible)
+  (((is_medicare_eligible t p d) && (decide (p.hhs.msp_countable_income ≤ (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d))))) && (msp_asset_eligible t p d))
 
 /-- `policyengine_us/variables/household/demographic/person/is_qualifying_child_dependent.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -315,7 +310,7 @@ def is_single_parent_household (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_slmb_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_slmb_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((is_medicare_eligible t p d) && ((decide (p.hhs.msp_countable_income > (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d)))) && (decide (p.hhs.msp_countable_income < (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d)))))) && p.hhs.msp_asset_eligible)
+  (((is_medicare_eligible t p d) && ((decide (p.hhs.msp_countable_income > (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d)))) && (decide (p.hhs.msp_countable_income < (((msp_fpg t p d) / 12) * (Params.gov.hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d)))))) && (msp_asset_eligible t p d))
 
 /-- `policyengine_us/variables/gov/usda/snap/is_snap_excluded_member.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -716,6 +711,11 @@ def is_parent_for_medicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def is_ssi_spousal_deeming_applies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (is_ssi_eligible_individual t p d) then (decide (((ssi_earned_income_deemed_from_ineligible_spouse t p d) + (ssi_unearned_income_deemed_from_ineligible_spouse t p d)) > (((Params.gov.ssa.ssi.amount.couple.atDate d) - (Params.gov.ssa.ssi.amount.individual.atDate d)) * 12))) else false)
+
+/-- `policyengine_us/variables/gov/hhs/tanf/non_cash/is_tanf_non_cash_hheod.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def is_tanf_non_cash_hheod (t : TaxUnit) (d : Date) : Bool :=
+  (if (if t.core.state_code_str == "AL" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.AL.atDate d) else (if t.core.state_code_str == "GA" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.GA.atDate d) else (if t.core.state_code_str == "ID" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.ID.atDate d) else (if t.core.state_code_str == "IL" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.IL.atDate d) else (if t.core.state_code_str == "IN" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.IN.atDate d) else (if t.core.state_code_str == "LA" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.LA.atDate d) else (if t.core.state_code_str == "NE" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.NE.atDate d) else (if t.core.state_code_str == "OH" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.OH.atDate d) else (if t.core.state_code_str == "OK" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.OK.atDate d) else (if t.core.state_code_str == "PA" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.PA.atDate d) else (if t.core.state_code_str == "RI" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.RI.atDate d) else (if t.core.state_code_str == "SC" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.SC.atDate d) else (if t.core.state_code_str == "VI" then (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.VI.atDate d) else (Params.gov.hhs.tanf.non_cash.requires_all_for_hheod.WV.atDate d)))))))))))))) then (has_all_usda_elderly_disabled t d) else (has_snap_elderly_disabled_member t d))
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_tax_dependent_exception_living_with_both_parents.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/

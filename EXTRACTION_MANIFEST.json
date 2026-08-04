@@ -7695,7 +7695,7 @@
       "name": "has_all_usda_elderly_disabled",
       "entity": "spm_unit",
       "value_type": "bool",
-      "validated": false,
+      "validated": true,
       "quantized": false,
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/has_all_usda_elderly_disabled.py",
@@ -7720,16 +7720,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/usda/has_usda_elderly_disabled.py",
       "sha256": "8d800ad628d5bbf5114824a28e400f791d2d60ae6f1b7f9accb00e5d77f98d83"
-    },
-    {
-      "name": "hud_max_subsidy",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hud/hud_max_subsidy.py",
-      "sha256": "0f72efc8ee02e51442d82cfb4d4c76f1702b981e2e4f8275b9929d641b5541a8"
     },
     {
       "name": "irs_employment_income",
@@ -8070,6 +8060,16 @@
       "period": "year",
       "source": "policyengine_us/reforms/states/mi/surtax.py",
       "sha256": "8ef3239f4195d4395ff9ca673f15023f6aebe7b51f1f1691adf542efbab5b794"
+    },
+    {
+      "name": "msp_asset_eligible",
+      "entity": "person",
+      "value_type": "bool",
+      "validated": false,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/msp_asset_eligible.py",
+      "sha256": "2f93db9b94c12f2108083d239f53b9f3fd7d08a5a4cba1abe4723ec5e03b893f"
     },
     {
       "name": "msp_fpg",
@@ -8640,16 +8640,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/hud/income/hud_countable_earned_income.py",
       "sha256": "af3795d267a750bf6a8cd3fcebd5b15441d99ae03f9376d1483981d50ebecb83"
-    },
-    {
-      "name": "hud_hap",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hud/hud_hap.py",
-      "sha256": "b65860a371b63c3becf52f5b081f93e6c11a04ba375d2eb60026149c683940fe"
     },
     {
       "name": "is_209b_ssi_recipient_income_eligible_for_medicaid",
@@ -9560,6 +9550,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/from_ineligible_spouse/is_ssi_spousal_deeming_applies.py",
       "sha256": "a1fac9e55c489517777d41d865363c30618790600866836852ee4f13b72fa1c8"
+    },
+    {
+      "name": "is_tanf_non_cash_hheod",
+      "entity": "spm_unit",
+      "value_type": "bool",
+      "validated": true,
+      "quantized": false,
+      "period": "month",
+      "source": "policyengine_us/variables/gov/hhs/tanf/non_cash/is_tanf_non_cash_hheod.py",
+      "sha256": "1227eb8a4aba72c5b4c207b5ccd10c94e5b1d575e7b3f4703ec3a398edbaf6f8"
     },
     {
       "name": "medicaid_tax_dependent_exception_living_with_both_parents",
@@ -11062,14 +11062,14 @@
       "sha256": "1eb20a09edc43a5fa5c9db0ec590959f4c3e8b9bb03723c3eb7c5734b2f9df5a"
     },
     {
-      "name": "housing_assistance",
+      "name": "hud_ttp",
       "entity": "spm_unit",
       "value_type": "float",
       "validated": false,
       "quantized": false,
       "period": "year",
-      "source": "policyengine_us/variables/gov/hud/housing_assistance.py",
-      "sha256": "b38f3fd38946ad10d3c13a7a100deacfe03c2716da9269491cb52d081af512cf"
+      "source": "policyengine_us/variables/gov/hud/ttp/hud_ttp.py",
+      "sha256": "810700a9d61bd46ed18f504f385d21a4fbef1a27f1d25f28b09a5832584f3085"
     },
     {
       "name": "lifetime_learning_credit_potential",
@@ -11234,6 +11234,16 @@
       "sha256": "c85744828c4ef57c23b3b56dc493c4d14c18443a67e073997243063aaec8593f"
     },
     {
+      "name": "hud_max_subsidy",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hud/hud_max_subsidy.py",
+      "sha256": "0f72efc8ee02e51442d82cfb4d4c76f1702b981e2e4f8275b9929d641b5541a8"
+    },
+    {
       "name": "snap_net_income",
       "entity": "spm_unit",
       "value_type": "float",
@@ -11294,6 +11304,16 @@
       "sha256": "886b92ca6e7c675d4feb638cd21b251424eac7d9f7e42d9c1f82eecc2bc4b53b"
     },
     {
+      "name": "hud_hap",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hud/hud_hap.py",
+      "sha256": "b65860a371b63c3becf52f5b081f93e6c11a04ba375d2eb60026149c683940fe"
+    },
+    {
       "name": "itemized_taxable_income_deductions",
       "entity": "tax_unit",
       "value_type": "float",
@@ -11342,6 +11362,16 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/irs/credits/ctc/ctc.py",
       "sha256": "fded0e29b77d90037881d864c3e981fdff1421c82902f60d39908498c74ebe05"
+    },
+    {
+      "name": "housing_assistance",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "validated": false,
+      "quantized": false,
+      "period": "year",
+      "source": "policyengine_us/variables/gov/hud/housing_assistance.py",
+      "sha256": "b38f3fd38946ad10d3c13a7a100deacfe03c2716da9269491cb52d081af512cf"
     },
     {
       "name": "marketplace_csr_category",
@@ -14933,6 +14963,15 @@
       "note": "state/local/territory or modeling namespace"
     },
     {
+      "name": "housing_designated_welfare",
+      "entity": "spm_unit",
+      "value_type": "float",
+      "domain": "hud",
+      "period": "year",
+      "kind": "input",
+      "note": ""
+    },
+    {
       "name": "hud_especially_low_income_factor",
       "entity": "spm_unit",
       "value_type": "float",
@@ -14985,15 +15024,6 @@
       "period": "year",
       "kind": "rejected",
       "note": "non-simple assignment target"
-    },
-    {
-      "name": "hud_ttp",
-      "entity": "spm_unit",
-      "value_type": "float",
-      "domain": "hud",
-      "period": "year",
-      "kind": "rejected",
-      "note": "unbound name 'max_'"
     },
     {
       "name": "hud_utility_allowance",
@@ -15704,15 +15734,6 @@
       "note": ""
     },
     {
-      "name": "is_tanf_non_cash_hheod",
-      "entity": "spm_unit",
-      "value_type": "bool",
-      "domain": "hhs",
-      "period": "month",
-      "kind": "rejected",
-      "note": "where condition not bool"
-    },
-    {
       "name": "is_tax_unit_head",
       "entity": "person",
       "value_type": "bool",
@@ -15737,7 +15758,7 @@
       "domain": "usda",
       "period": "year",
       "kind": "rejected",
-      "note": "unbound name 'np'"
+      "note": "logical_or.reduce on non-bool elements"
     },
     {
       "name": "is_wic_at_nutritional_risk",
@@ -16422,15 +16443,6 @@
       "period": "month",
       "kind": "input",
       "note": ""
-    },
-    {
-      "name": "msp_asset_eligible",
-      "entity": "person",
-      "value_type": "bool",
-      "domain": "hhs",
-      "period": "month",
-      "kind": "rejected",
-      "note": "where condition not bool"
     },
     {
       "name": "msp_cost",
@@ -17506,7 +17518,7 @@
       "domain": "usda",
       "period": "year",
       "kind": "rejected",
-      "note": "where condition not bool"
+      "note": "enum-indexed parameter 'gov.usda.snap.income.deductions.self_employment.rate' lacks members ['MP', 'PW', 'PR', 'AA']"
     },
     {
       "name": "snap_standard_utility_allowance",
