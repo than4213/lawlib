@@ -19,3 +19,7 @@ __pycache__/
 
 # Nested pe2lean repo (independent git repo, see docs/design.md §1.1)
 pe2lean/
+
+# debugging debris
+*.deb
+*.zip
