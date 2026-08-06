@@ -1,9 +1,17 @@
 # The findings list
 
-Informal running index of everything Lawlib has found so far — one line
-each, newest last, to be extended before going public. Details in
-[findings-m5.md](findings-m5.md) (§ numbers), tiers in
+A running index of what formalizing a large model of law turned up —
+one line each, newest last. Details in
+[findings-m5.md](findings-m5.md) (§ numbers), evidence tiers in
 [CLAIMS.md](CLAIMS.md).
+
+Several entries concern [policyengine-us](https://github.com/PolicyEngine/policyengine-us)
+or the Lean compiler. None of them are criticisms of those projects:
+they are the kind of thing that only shows up when you run two
+independent implementations against each other in exact arithmetic,
+which is exactly what this project exists to do. PolicyEngine's model
+is the reason lawlib can exist at all, and every finding here was
+reported upstream or is queued to be.
 
 | # | Finding | Tier | Where |
 |---|---|---|---|

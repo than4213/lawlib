@@ -1,9 +1,14 @@
 # Lawlib — Handoff: PolicyEngine → Lean 4 Transpiler, Phase 1 (EITC Subtree)
 
 **Project name:** Lawlib (deliberately echoing mathlib: the ambition is a community-maintained formal library of law, starting from the US tax-benefit system).
-**Status:** Greenfield. Nothing exists yet. This document is the complete context.
-**Audience:** A coding agent with no prior context on this project.
-**Phase 1 goal:** A rejection-based extractor that translates the EITC variable subtree of `policyengine-us` into compiling, executable Lean 4, validated by differential testing against the live Python implementation.
+**Status:** *Historical.* This was the founding brief, written before any
+code existed. It is kept for the design rationale in §1 and the reasoning
+behind the rejection-based approach — the numbers, scope, and structure it
+describes have all been superseded. For the current state see
+[the README](../README.md); for scope, [scope.md](scope.md); for doctrine,
+[categories.md](categories.md).
+**Original audience:** A coding agent with no prior context on this project.
+**Original Phase 1 goal:** A rejection-based extractor that translates the EITC variable subtree of `policyengine-us` into compiling, executable Lean 4, validated by differential testing against the live Python implementation.
 
 ---
 

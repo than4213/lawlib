@@ -1,7 +1,5 @@
 # Two categories, one crossing
 
-*(Draft — for review before any community-facing use.)*
-
 Lawlib is built on one strict rule: **things we construct and things
 we observe are different kinds of knowledge, and they never mix
 silently.**
