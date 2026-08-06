@@ -14,6 +14,11 @@ on:
     - cron: "0 8 * * *"   # nightly acceptance
 
 env:
+  # The generated modules are memory-hungry (Gen.Memo alone peaks near
+  # 1.5 GB). Lean parallelises by thread count; unbounded on a 16 GB
+  # runner the job gets OOM-killed, which GitHub reports as "cancelled"
+  # with no step detail and no retrievable log.
+  LEAN_NUM_THREADS: "2"
   # Bumping either pin is a deliberate PR (design §6.3).
   PE2LEAN_REF: v0.9.22
   PYTHON_VERSION: "3.12"
@@ -33,13 +38,9 @@ jobs:
         with:
           use-mathlib-cache: true    # prebuilt Mathlib, not a local rebuild
           use-github-cache: true     # keep .lake/build between runs
-          # The generated modules are memory-hungry (Gen.Memo alone peaks
-          # near 1.5 GB). Lake defaults to one job per core, and four of
-          # those at once exhausts a 16 GB runner — which appears as a
-          # "cancelled" job with no step detail and no retrievable log.
-          build-args: "-j2"
+          build-args: "--log-level=warning"
       - name: Build evaluator binary
-        run: lake build -j2 lawlib
+        run: lake build lawlib
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
@@ -68,14 +69,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
       - name: Build evaluator binary
-        run: lake build -j2 lawlib
+        run: lake build lawlib
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install pinned extractor
         run: pip install "pe2lean @ git+https://github.com/than4213/pe2lean.git@${{ env.PE2LEAN_REF }}"
       - name: Exhaustive Catala comparison (480,008 points, ~25 min)
-        run: lake build -j2 Lawlib.Verify.CatalaSweep2023
+        run: lake build Lawlib.Verify.CatalaSweep2023
       - name: Differential acceptance (roots tier, 15k households, 2021-2025)
         run: pe2lean-diff 15000 --lawlib . --tier roots
       - name: Differential acceptance (full tier, 3k households)
