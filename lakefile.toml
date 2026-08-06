@@ -1,6 +1,12 @@
 name = "lawlib"
 version = "0.1.0"
 defaultTargets = ["Lawlib", "Tests"]
+# `lake test` builds the Tests library: the fixtures, the claims about
+# printed artifacts and executed PolicyEngine, and the theorems that
+# check the law against them. The differential suite against a live
+# PolicyEngine lives in the pe2lean repository (`pe2lean-diff`), since
+# it needs Python.
+testDriver = "Tests"
 
 # Phase 2 (design §2): mathlib for order/algebra lemmas behind the
 # ∀-theorems. Generated definitions still use only core types (ℚ = Rat).

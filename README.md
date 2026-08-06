@@ -193,6 +193,13 @@ out. Every input a household may set is listed in
 `EXTRACTION_MANIFEST.json` under `input_boundary`; every result you
 get back is listed there too, under `variables`.
 
+**Check that you didn't break anything.** `lake test` builds the test
+layer — the transcribed IRS table, the claims about it, and the
+theorems that check the law against them. The full cross-check against
+a live PolicyEngine needs Python and lives in the translator
+repository: see `scripts/verify` in
+[pe2lean](https://github.com/than4213/pe2lean).
+
 **Prove something.** Import `Lawlib` and state a claim about any
 definition in it. If the proof goes through, it is a fact about the
 law; if it does not, you have found either a subtlety or a bug, and
