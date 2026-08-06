@@ -15,7 +15,7 @@ on:
 
 env:
   # Bumping either pin is a deliberate PR (design §6.3).
-  PE2LEAN_REF: v0.9.20
+  PE2LEAN_REF: v0.9.21
   PYTHON_VERSION: "3.12"
 
 jobs:

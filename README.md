@@ -144,20 +144,52 @@ not observation: when an agency or court resolves it, that is a
 further text, not a fact about the world.
 ([docs/categories.md](docs/categories.md))
 
-## Build
+## Getting started
+
+You need [Lean 4](https://lean-lang.org/lean4/doc/quickstart.html)
+(the toolchain version is pinned in `lean-toolchain`; `elan` will fetch
+it automatically). Then:
 
 ```
-lake build          # library, test layer, and theorems
-lake build lawlib   # the household evaluator binary
+git clone https://github.com/than4213/lawlib && cd lawlib
+lake exe cache get   # prebuilt Mathlib — skip this and you compile it yourself
+lake build           # the library, the theorems, and the test layer
 ```
 
+**Read the law.** Every definition is an ordinary Lean definition. In
+an editor with the Lean extension, open
+[`Lawlib/Theorems/Eitc2023.lean`](Lawlib/Theorems/Eitc2023.lean) and
+jump to definitions from there — that file proves the Earned Income
+Credit's closed form and its continuity, so following its references
+walks you down into the actual translated law.
+
+**Compute a household.** The evaluator takes JSON on stdin. Fields you
+omit take their default (zero, false, or the variable's declared
+default), so you send only what you mean:
+
 ```
-echo '{"date":"2023-01-01","tax_unit":{...}}' | ./.lake/build/bin/lawlib
+lake build lawlib
+echo '{"date":"2023-01-01","tax_unit":{"members":[{"core_p1":{"age":"30/1","employment_income":"20000/1","is_tax_unit_head":true}}],"core":{"filing_status":"SINGLE"},"irs":{"takes_up_eitc":true}}}' | ./.lake/build/bin/lawlib
 ```
 
-Requires Lean 4.32.1 and Mathlib (pinned in `lake-manifest.json`);
-Mathlib supplies the order and algebra lemmas behind the ∀-theorems.
-The generated definitions themselves use only core types.
+One household per line of input, one JSON object of results per line
+of output. That six-field household — a single filer, age 30, $20,000
+of wages, 2023 — comes back with `income_tax` $615 (the $13,850
+standard deduction leaves $6,150 taxable, taxed at 10%) and `eitc` $0
+(a childless filer at $20,000 is past the phase-out).
+
+Money is exact, so amounts are fractions: `"20000/1"` in, `"615/1"`
+out. Every input a household may set is listed in
+`EXTRACTION_MANIFEST.json` under `input_boundary`; every result you
+get back is listed there too, under `variables`.
+
+**Prove something.** Import `Lawlib` and state a claim about any
+definition in it. If the proof goes through, it is a fact about the
+law; if it does not, you have found either a subtlety or a bug, and
+both are interesting.
+
+Mathlib supplies the order and algebra lemmas the ∀-theorems run on;
+the translated definitions themselves use only core types.
 
 ## Layout
 
@@ -171,36 +203,63 @@ The generated definitions themselves use only core types.
 | `rejection_report.md` | what the translator refused, and why |
 | `docs/` | design, doctrine, findings |
 
-## Status and how to contribute
+## Status, and help wanted
 
-Lawlib is **pre-1.0 and moving**. The federal core is complete in the
-sense that matters — every rule the translator can express exactly is
-present, and everything it cannot is listed — but names, module
-layout, and idioms are still open questions, and the state pass hasn't
-started.
+Lawlib is **pre-1.0 and moving**, and it is looking for people. The
+federal core is complete in the sense that matters — every rule the
+translator can express exactly is present, and everything it cannot is
+listed — but the naming, the module layout, the proof idioms, and the
+whole state-law pass are open. **If any of this sounds interesting, I
+would genuinely love the help**, including from people who have never
+touched a proof assistant.
 
-Where help is most useful, roughly in order:
+Ways in, from "no Lean required" upward:
 
-1. **Lean idiom and naming review.** The generated definitions mirror
-   their upstream names (`eitc_phase_out_rate`), which keeps syncing
-   mechanical but is not Mathlib's convention for definitions. Whether
-   to add camelCase aliases, how to name the theorem layer, how the
-   modules should be split — all genuinely undecided.
-2. **Theorems.** The proved results so far cover two credits. Every
-   program in the library is a candidate: monotonicity, cliff atlases,
-   bounds, interactions between programs (the marginal tax rate a
-   household actually faces is a *composition* of these definitions).
-3. **More sources of law.** A second independent encoding of any
-   provision is directly valuable — where two sources disagree, the
-   disagreement becomes a theorem.
-4. **The translator.** [pe2lean](https://github.com/than4213/pe2lean)
-   is Apache-2.0 and applies to any OpenFisca-style system; other
-   countries' models are the obvious next targets.
+**Read it and tell me what's confusing.** Genuinely useful. This
+library is trying to make law legible, and if a definition or document
+does not read clearly to you, that is a defect worth an issue.
 
-All changes — generated or hand-written, whoever or whatever wrote
-them — enter through pull request and code review. The generated core
-is regenerated from upstream, so changes there usually belong in the
-translator.
+**Check a rule against the actual law.** Every definition names its
+upstream source and statutory citation. Pick a provision you know —
+professionally or personally — and check that the code says what the
+statute says. Disagreements are the most valuable thing this project
+can receive.
+
+**Lean idiom and naming review.** The translated definitions mirror
+their upstream names (`eitc_phase_out_rate`), which keeps syncing
+mechanical but is not Mathlib's convention. Whether to add camelCase
+aliases, how to name the theorem layer, how modules should be split —
+all genuinely undecided, and the opinion of anyone who has lived in a
+large Lean codebase is worth more than mine.
+
+**Prove something.** The proved results so far cover two credits.
+Every program here is a candidate: monotonicity, cliff enumerations,
+bounds, and especially *interactions* — the marginal tax rate a real
+household faces is a composition of these definitions across programs,
+and nobody has stated it formally.
+
+**Add a source of law.** A second independent encoding of any
+provision is directly valuable: where two sources disagree, the
+disagreement becomes a theorem rather than an argument.
+
+**Work on the translator.**
+[pe2lean](https://github.com/than4213/pe2lean) is Apache-2.0, written
+in Python, and its `rejection_report.md` is a literal to-do list of
+formulas it cannot yet express. It generalizes to any OpenFisca-style
+model, so other countries are open too.
+
+### Getting in touch
+
+Use this repository: **issues** for anything concrete (a rule that
+looks wrong, a build failure, a proof you want to attempt), and
+**discussions** for open-ended questions, design debate, or a hello.
+Public by default is deliberate — the answer to your question is
+probably useful to whoever asks next.
+
+Pull requests are welcome, small ones especially. All changes enter
+through review, and the generated core is regenerated from upstream,
+so a fix there usually belongs in the translator; if you are not sure
+where something goes, open an issue and we will work it out.
 
 ## Relationship to Mathlib
 
