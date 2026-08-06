@@ -160,6 +160,12 @@ lake exe cache get   # prebuilt Mathlib — skip this and you compile it yoursel
 lake build           # the library, the theorems, and the test layer
 ```
 
+Budget an hour for that first build and leave it running: Mathlib's
+cache takes a few minutes to fetch, and the library itself is around
+800 generated definitions plus theorems checked by evaluation, which
+measured ~45 minutes on a laptop. Everything after that is
+incremental and quick.
+
 **Read the law.** Every definition is an ordinary Lean definition. In
 an editor with the Lean extension, open
 [`Lawlib/Theorems/Eitc2023.lean`](Lawlib/Theorems/Eitc2023.lean) and
