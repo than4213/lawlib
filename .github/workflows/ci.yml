@@ -15,16 +15,24 @@ on:
 
 env:
   # Bumping either pin is a deliberate PR (design §6.3).
-  PE2LEAN_REF: v0.9.21
+  PE2LEAN_REF: v0.9.22
   PYTHON_VERSION: "3.12"
 
 jobs:
   build-and-verify:
     if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
+    # The heavy proofs (Catala2023 evaluates 60,001 points under
+    # native_decide) make a cold build genuinely long; cache below keeps
+    # the common case short, and this ceiling is above the cold case so a
+    # slow run reports rather than being killed mid-step.
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true    # prebuilt Mathlib, not a local rebuild
+          use-github-cache: true     # keep .lake/build between runs
       - name: Build evaluator binary
         run: lake build lawlib
       - uses: actions/setup-python@v5
@@ -50,6 +58,7 @@ jobs:
   nightly-acceptance:
     if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1

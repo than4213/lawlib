@@ -23,16 +23,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Aca where
-  fromJson? j := do
-    let aca_child_index := (j.getObjValAs? Rat "aca_child_index").toOption
-    let has_esi := (j.getObjValAs? Bool "has_esi").toOption
-    let is_aca_ptc_eligible := (j.getObjValAs? Bool "is_aca_ptc_eligible").toOption
-    let offered_aca_disqualifying_esi := (j.getObjValAs? Bool "offered_aca_disqualifying_esi").toOption
-    return {
-      aca_child_index := aca_child_index.getD 0,
-      has_esi := has_esi.getD false,
-      is_aca_ptc_eligible := is_aca_ptc_eligible.getD false,
-      offered_aca_disqualifying_esi := offered_aca_disqualifying_esi.getD false }
+  fromJson? j := return {
+    aca_child_index := (j.getObjValAs? Rat "aca_child_index").toOption.getD 0,
+    has_esi := (j.getObjValAs? Bool "has_esi").toOption.getD false,
+    is_aca_ptc_eligible := (j.getObjValAs? Bool "is_aca_ptc_eligible").toOption.getD false,
+    offered_aca_disqualifying_esi := (j.getObjValAs? Bool "offered_aca_disqualifying_esi").toOption.getD false }
 
 structure Person_Core_p1 where
   able_contributions_person : Rat := 0
@@ -167,264 +162,135 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Core_p1 where
-  fromJson? j := do
-    let able_contributions_person := (j.getObjValAs? Rat "able_contributions_person").toOption
-    let age := (j.getObjValAs? Rat "age").toOption
-    let alimony_expense := (j.getObjValAs? Rat "alimony_expense").toOption
-    let alimony_income := (j.getObjValAs? Rat "alimony_income").toOption
-    let bank_account_assets := (j.getObjValAs? Rat "bank_account_assets").toOption
-    let bond_assets := (j.getObjValAs? Rat "bond_assets").toOption
-    let business_is_sstb := (j.getObjValAs? Bool "business_is_sstb").toOption
-    let capital_gains := (j.getObjValAs? Rat "capital_gains").toOption
-    let capital_losses := (j.getObjValAs? Rat "capital_losses").toOption
-    let care_and_support_costs := (j.getObjValAs? Rat "care_and_support_costs").toOption
-    let care_and_support_payments_from_tax_filer := (j.getObjValAs? Rat "care_and_support_payments_from_tax_filer").toOption
-    let care_expenses := (j.getObjValAs? Rat "care_expenses").toOption
-    let casualty_loss := (j.getObjValAs? Rat "casualty_loss").toOption
-    let charitable_cash_donations := (j.getObjValAs? Rat "charitable_cash_donations").toOption
-    let charitable_non_cash_donations := (j.getObjValAs? Rat "charitable_non_cash_donations").toOption
-    let charitable_non_cash_donations_non_50_pct_orgs := (j.getObjValAs? Rat "charitable_non_cash_donations_non_50_pct_orgs").toOption
-    let child_support_expense := (j.getObjValAs? Rat "child_support_expense").toOption
-    let child_support_received := (j.getObjValAs? Rat "child_support_received").toOption
-    let childcare_days_per_week := (j.getObjValAs? Rat "childcare_days_per_week").toOption
-    let childcare_hours_per_day := (j.getObjValAs? Rat "childcare_hours_per_day").toOption
-    let childcare_provider_type_group := (j.getObjValAs? ChildcareProviderTypeGroup "childcare_provider_type_group").toOption
-    let claimed_as_dependent_on_another_return := (j.getObjValAs? Bool "claimed_as_dependent_on_another_return").toOption
-    let count_days_postpartum := (j.getObjValAs? Rat "count_days_postpartum").toOption
-    let cps_race := (j.getObjValAs? Rat "cps_race").toOption
-    let current_pregnancies := (j.getObjValAs? Rat "current_pregnancies").toOption
-    let debt_relief := (j.getObjValAs? Rat "debt_relief").toOption
-    let deductible_interest_expense := (j.getObjValAs? Rat "deductible_interest_expense").toOption
-    let dependent_care_employer_benefits := (j.getObjValAs? Rat "dependent_care_employer_benefits").toOption
-    let disability_benefits := (j.getObjValAs? Rat "disability_benefits").toOption
-    let dividend_income := (j.getObjValAs? Rat "dividend_income").toOption
-    let divorce_year := (j.getObjValAs? Rat "divorce_year").toOption
-    let early_withdrawal_penalty := (j.getObjValAs? Rat "early_withdrawal_penalty").toOption
-    let educational_assistance := (j.getObjValAs? Rat "educational_assistance").toOption
-    let educator_expense := (j.getObjValAs? Rat "educator_expense").toOption
-    let employer_total_payroll_tax_gross_wages := (j.getObjValAs? Rat "employer_total_payroll_tax_gross_wages").toOption
-    let employer_total_taxable_earnings_for_federal_unemployment_tax := (j.getObjValAs? Rat "employer_total_taxable_earnings_for_federal_unemployment_tax").toOption
-    let employer_total_taxable_earnings_for_social_security := (j.getObjValAs? Rat "employer_total_taxable_earnings_for_social_security").toOption
-    let employment_income := (j.getObjValAs? Rat "employment_income").toOption
-    let employment_income_before_lsr := (j.getObjValAs? Rat "employment_income_before_lsr").toOption
-    let employment_income_last_year := (j.getObjValAs? Rat "employment_income_last_year").toOption
-    let farm_operations_income := (j.getObjValAs? Rat "farm_operations_income").toOption
-    let farm_rent_income := (j.getObjValAs? Rat "farm_rent_income").toOption
-    let financial_assistance := (j.getObjValAs? Rat "financial_assistance").toOption
-    let fsla_overtime_premium := (j.getObjValAs? Rat "fsla_overtime_premium").toOption
-    let gambling_losses := (j.getObjValAs? Rat "gambling_losses").toOption
-    let gambling_winnings := (j.getObjValAs? Rat "gambling_winnings").toOption
-    let gi_cash_assistance := (j.getObjValAs? Rat "gi_cash_assistance").toOption
-    let has_champva_health_coverage_at_interview := (j.getObjValAs? Bool "has_champva_health_coverage_at_interview").toOption
-    let has_chip_health_coverage_at_interview := (j.getObjValAs? Bool "has_chip_health_coverage_at_interview").toOption
-    let has_health_coverage_other_than_chip := (j.getObjValAs? Bool "has_health_coverage_other_than_chip").toOption
-    let has_marketplace_health_coverage_at_interview := (j.getObjValAs? Bool "has_marketplace_health_coverage_at_interview").toOption
-    let has_medicaid_health_coverage_at_interview := (j.getObjValAs? Bool "has_medicaid_health_coverage_at_interview").toOption
-    let has_non_marketplace_direct_purchase_health_coverage_at_interview := (j.getObjValAs? Bool "has_non_marketplace_direct_purchase_health_coverage_at_interview").toOption
-    let has_other_means_tested_health_coverage_at_interview := (j.getObjValAs? Bool "has_other_means_tested_health_coverage_at_interview").toOption
-    let has_tin := (j.getObjValAs? Bool "has_tin").toOption
-    let has_tricare_health_coverage_at_interview := (j.getObjValAs? Bool "has_tricare_health_coverage_at_interview").toOption
-    let has_va_health_coverage_at_interview := (j.getObjValAs? Bool "has_va_health_coverage_at_interview").toOption
-    let health_savings_account_payroll_contributions := (j.getObjValAs? Rat "health_savings_account_payroll_contributions").toOption
-    let home_equity := (j.getObjValAs? Rat "home_equity").toOption
-    let home_is_on_agricultural_land := (j.getObjValAs? Bool "home_is_on_agricultural_land").toOption
-    let illicit_income := (j.getObjValAs? Rat "illicit_income").toOption
-    let immigration_status := (j.getObjValAs? ImmigrationStatus "immigration_status").toOption
-    let interest_income := (j.getObjValAs? Rat "interest_income").toOption
-    let investment_income_elected_form_4952 := (j.getObjValAs? Rat "investment_income_elected_form_4952").toOption
-    let is_blind := (j.getObjValAs? Bool "is_blind").toOption
-    let is_breastfeeding := (j.getObjValAs? Bool "is_breastfeeding").toOption
-    let is_disabled := (j.getObjValAs? Bool "is_disabled").toOption
-    let is_english_proficient := (j.getObjValAs? Bool "is_english_proficient").toOption
-    let is_female := (j.getObjValAs? Bool "is_female").toOption
-    let is_full_time_college_student := (j.getObjValAs? Bool "is_full_time_college_student").toOption
-    let is_fully_disabled_service_connected_veteran := (j.getObjValAs? Bool "is_fully_disabled_service_connected_veteran").toOption
-    let is_grandparent_of_filer_or_spouse := (j.getObjValAs? Bool "is_grandparent_of_filer_or_spouse").toOption
-    let is_hispanic := (j.getObjValAs? Bool "is_hispanic").toOption
-    let is_in_foster_care := (j.getObjValAs? Bool "is_in_foster_care").toOption
-    let is_in_secondary_school := (j.getObjValAs? Bool "is_in_secondary_school").toOption
-    let is_incapable_of_self_care := (j.getObjValAs? Bool "is_incapable_of_self_care").toOption
-    let is_migratory_child := (j.getObjValAs? Bool "is_migratory_child").toOption
-    let is_military := (j.getObjValAs? Bool "is_military").toOption
-    let is_parent_of_filer_or_spouse := (j.getObjValAs? Bool "is_parent_of_filer_or_spouse").toOption
-    let is_part_time_college_student := (j.getObjValAs? Bool "is_part_time_college_student").toOption
-    let is_permanently_and_totally_disabled := (j.getObjValAs? Bool "is_permanently_and_totally_disabled").toOption
-    let is_pregnant := (j.getObjValAs? Bool "is_pregnant").toOption
-    let is_qualifying_relative_dependent := (j.getObjValAs? Bool "is_qualifying_relative_dependent").toOption
-    let is_related_to_head_or_spouse := (j.getObjValAs? Bool "is_related_to_head_or_spouse").toOption
-    let is_runaway_child := (j.getObjValAs? Bool "is_runaway_child").toOption
-    let is_separated := (j.getObjValAs? Bool "is_separated").toOption
-    let is_surviving_spouse := (j.getObjValAs? Bool "is_surviving_spouse").toOption
-    let is_tax_unit_head := (j.getObjValAs? Bool "is_tax_unit_head").toOption
-    let is_tax_unit_spouse := (j.getObjValAs? Bool "is_tax_unit_spouse").toOption
-    let long_term_capital_gains := (j.getObjValAs? Rat "long_term_capital_gains").toOption
-    let long_term_capital_gains_on_collectibles := (j.getObjValAs? Rat "long_term_capital_gains_on_collectibles").toOption
-    let long_term_capital_gains_on_small_business_stock := (j.getObjValAs? Rat "long_term_capital_gains_on_small_business_stock").toOption
-    let market_income := (j.getObjValAs? Rat "market_income").toOption
-    let medical_expense_health_insurance_premiums := (j.getObjValAs? Rat "medical_expense_health_insurance_premiums").toOption
-    let military_service_income := (j.getObjValAs? Rat "military_service_income").toOption
-    let miscellaneous_income := (j.getObjValAs? Rat "miscellaneous_income").toOption
-    let monthly_hours_worked := (j.getObjValAs? Rat "monthly_hours_worked").toOption
-    let non_sch_d_capital_gains := (j.getObjValAs? Rat "non_sch_d_capital_gains").toOption
-    let other_medical_expenses := (j.getObjValAs? Rat "other_medical_expenses").toOption
-    let own_children_in_household := (j.getObjValAs? Rat "own_children_in_household").toOption
-    let partnership_s_corp_income := (j.getObjValAs? Rat "partnership_s_corp_income").toOption
-    let partnership_self_employment_net_earnings := (j.getObjValAs? Rat "partnership_self_employment_net_earnings").toOption
-    let pension_income := (j.getObjValAs? Rat "pension_income").toOption
-    let person_count := (j.getObjValAs? Rat "person_count").toOption
-    let pre_subsidy_rent := (j.getObjValAs? Rat "pre_subsidy_rent").toOption
-    let pre_tax_health_insurance_premiums := (j.getObjValAs? Rat "pre_tax_health_insurance_premiums").toOption
-    let qualified_adoption_assistance_expense := (j.getObjValAs? Rat "qualified_adoption_assistance_expense").toOption
-    let qualified_dividend_income := (j.getObjValAs? Rat "qualified_dividend_income").toOption
-    let qualified_tuition_expenses := (j.getObjValAs? Rat "qualified_tuition_expenses").toOption
-    let railroad_benefits := (j.getObjValAs? Rat "railroad_benefits").toOption
-    let real_estate_taxes := (j.getObjValAs? Rat "real_estate_taxes").toOption
-    let receives_or_needs_protective_services := (j.getObjValAs? Bool "receives_or_needs_protective_services").toOption
-    let rental_income := (j.getObjValAs? Rat "rental_income").toOption
-    let retirement_distributions := (j.getObjValAs? Rat "retirement_distributions").toOption
-    let roth_401k_contributions := (j.getObjValAs? Rat "roth_401k_contributions").toOption
-    let roth_403b_contributions := (j.getObjValAs? Rat "roth_403b_contributions").toOption
-    let roth_ira_contributions := (j.getObjValAs? Rat "roth_ira_contributions").toOption
-    let self_employed_health_insurance_premiums := (j.getObjValAs? Rat "self_employed_health_insurance_premiums").toOption
-    let self_employed_pension_contributions := (j.getObjValAs? Rat "self_employed_pension_contributions").toOption
-    let self_employment_income := (j.getObjValAs? Rat "self_employment_income").toOption
-    let self_employment_income_before_lsr := (j.getObjValAs? Rat "self_employment_income_before_lsr").toOption
-    let self_employment_income_last_year := (j.getObjValAs? Rat "self_employment_income_last_year").toOption
-    let short_term_capital_gains := (j.getObjValAs? Rat "short_term_capital_gains").toOption
-    let ssi_qualifying_quarters_earnings := (j.getObjValAs? Rat "ssi_qualifying_quarters_earnings").toOption
-    let ssn_card_type := (j.getObjValAs? SSNCardType "ssn_card_type").toOption
-    let sstb_self_employment_income := (j.getObjValAs? Rat "sstb_self_employment_income").toOption
-    let sstb_self_employment_income_before_lsr := (j.getObjValAs? Rat "sstb_self_employment_income_before_lsr").toOption
-    let stock_assets := (j.getObjValAs? Rat "stock_assets").toOption
-    return {
-      able_contributions_person := able_contributions_person.getD 0,
-      age := age.getD 0,
-      alimony_expense := alimony_expense.getD 0,
-      alimony_income := alimony_income.getD 0,
-      bank_account_assets := bank_account_assets.getD 0,
-      bond_assets := bond_assets.getD 0,
-      business_is_sstb := business_is_sstb.getD false,
-      capital_gains := capital_gains.getD 0,
-      capital_losses := capital_losses.getD 0,
-      care_and_support_costs := care_and_support_costs.getD 0,
-      care_and_support_payments_from_tax_filer := care_and_support_payments_from_tax_filer.getD 0,
-      care_expenses := care_expenses.getD 0,
-      casualty_loss := casualty_loss.getD 0,
-      charitable_cash_donations := charitable_cash_donations.getD 0,
-      charitable_non_cash_donations := charitable_non_cash_donations.getD 0,
-      charitable_non_cash_donations_non_50_pct_orgs := charitable_non_cash_donations_non_50_pct_orgs.getD 0,
-      child_support_expense := child_support_expense.getD 0,
-      child_support_received := child_support_received.getD 0,
-      childcare_days_per_week := childcare_days_per_week.getD 0,
-      childcare_hours_per_day := childcare_hours_per_day.getD 0,
-      childcare_provider_type_group := childcare_provider_type_group.getD .DCC_SACC,
-      claimed_as_dependent_on_another_return := claimed_as_dependent_on_another_return.getD false,
-      count_days_postpartum := count_days_postpartum.getD 0,
-      cps_race := cps_race.getD 0,
-      current_pregnancies := current_pregnancies.getD 0,
-      debt_relief := debt_relief.getD 0,
-      deductible_interest_expense := deductible_interest_expense.getD 0,
-      dependent_care_employer_benefits := dependent_care_employer_benefits.getD 0,
-      disability_benefits := disability_benefits.getD 0,
-      dividend_income := dividend_income.getD 0,
-      divorce_year := divorce_year.getD 0,
-      early_withdrawal_penalty := early_withdrawal_penalty.getD 0,
-      educational_assistance := educational_assistance.getD 0,
-      educator_expense := educator_expense.getD 0,
-      employer_total_payroll_tax_gross_wages := employer_total_payroll_tax_gross_wages.getD 0,
-      employer_total_taxable_earnings_for_federal_unemployment_tax := employer_total_taxable_earnings_for_federal_unemployment_tax.getD 0,
-      employer_total_taxable_earnings_for_social_security := employer_total_taxable_earnings_for_social_security.getD 0,
-      employment_income := employment_income.getD 0,
-      employment_income_before_lsr := employment_income_before_lsr.getD 0,
-      employment_income_last_year := employment_income_last_year.getD 0,
-      farm_operations_income := farm_operations_income.getD 0,
-      farm_rent_income := farm_rent_income.getD 0,
-      financial_assistance := financial_assistance.getD 0,
-      fsla_overtime_premium := fsla_overtime_premium.getD 0,
-      gambling_losses := gambling_losses.getD 0,
-      gambling_winnings := gambling_winnings.getD 0,
-      gi_cash_assistance := gi_cash_assistance.getD 0,
-      has_champva_health_coverage_at_interview := has_champva_health_coverage_at_interview.getD false,
-      has_chip_health_coverage_at_interview := has_chip_health_coverage_at_interview.getD false,
-      has_health_coverage_other_than_chip := has_health_coverage_other_than_chip.getD false,
-      has_marketplace_health_coverage_at_interview := has_marketplace_health_coverage_at_interview.getD false,
-      has_medicaid_health_coverage_at_interview := has_medicaid_health_coverage_at_interview.getD false,
-      has_non_marketplace_direct_purchase_health_coverage_at_interview := has_non_marketplace_direct_purchase_health_coverage_at_interview.getD false,
-      has_other_means_tested_health_coverage_at_interview := has_other_means_tested_health_coverage_at_interview.getD false,
-      has_tin := has_tin.getD false,
-      has_tricare_health_coverage_at_interview := has_tricare_health_coverage_at_interview.getD false,
-      has_va_health_coverage_at_interview := has_va_health_coverage_at_interview.getD false,
-      health_savings_account_payroll_contributions := health_savings_account_payroll_contributions.getD 0,
-      home_equity := home_equity.getD 0,
-      home_is_on_agricultural_land := home_is_on_agricultural_land.getD false,
-      illicit_income := illicit_income.getD 0,
-      immigration_status := immigration_status.getD .CITIZEN,
-      interest_income := interest_income.getD 0,
-      investment_income_elected_form_4952 := investment_income_elected_form_4952.getD 0,
-      is_blind := is_blind.getD false,
-      is_breastfeeding := is_breastfeeding.getD false,
-      is_disabled := is_disabled.getD false,
-      is_english_proficient := is_english_proficient.getD false,
-      is_female := is_female.getD false,
-      is_full_time_college_student := is_full_time_college_student.getD false,
-      is_fully_disabled_service_connected_veteran := is_fully_disabled_service_connected_veteran.getD false,
-      is_grandparent_of_filer_or_spouse := is_grandparent_of_filer_or_spouse.getD false,
-      is_hispanic := is_hispanic.getD false,
-      is_in_foster_care := is_in_foster_care.getD false,
-      is_in_secondary_school := is_in_secondary_school.getD false,
-      is_incapable_of_self_care := is_incapable_of_self_care.getD false,
-      is_migratory_child := is_migratory_child.getD false,
-      is_military := is_military.getD false,
-      is_parent_of_filer_or_spouse := is_parent_of_filer_or_spouse.getD false,
-      is_part_time_college_student := is_part_time_college_student.getD false,
-      is_permanently_and_totally_disabled := is_permanently_and_totally_disabled.getD false,
-      is_pregnant := is_pregnant.getD false,
-      is_qualifying_relative_dependent := is_qualifying_relative_dependent.getD false,
-      is_related_to_head_or_spouse := is_related_to_head_or_spouse.getD false,
-      is_runaway_child := is_runaway_child.getD false,
-      is_separated := is_separated.getD false,
-      is_surviving_spouse := is_surviving_spouse.getD false,
-      is_tax_unit_head := is_tax_unit_head.getD false,
-      is_tax_unit_spouse := is_tax_unit_spouse.getD false,
-      long_term_capital_gains := long_term_capital_gains.getD 0,
-      long_term_capital_gains_on_collectibles := long_term_capital_gains_on_collectibles.getD 0,
-      long_term_capital_gains_on_small_business_stock := long_term_capital_gains_on_small_business_stock.getD 0,
-      market_income := market_income.getD 0,
-      medical_expense_health_insurance_premiums := medical_expense_health_insurance_premiums.getD 0,
-      military_service_income := military_service_income.getD 0,
-      miscellaneous_income := miscellaneous_income.getD 0,
-      monthly_hours_worked := monthly_hours_worked.getD 0,
-      non_sch_d_capital_gains := non_sch_d_capital_gains.getD 0,
-      other_medical_expenses := other_medical_expenses.getD 0,
-      own_children_in_household := own_children_in_household.getD 0,
-      partnership_s_corp_income := partnership_s_corp_income.getD 0,
-      partnership_self_employment_net_earnings := partnership_self_employment_net_earnings.getD 0,
-      pension_income := pension_income.getD 0,
-      person_count := person_count.getD 0,
-      pre_subsidy_rent := pre_subsidy_rent.getD 0,
-      pre_tax_health_insurance_premiums := pre_tax_health_insurance_premiums.getD 0,
-      qualified_adoption_assistance_expense := qualified_adoption_assistance_expense.getD 0,
-      qualified_dividend_income := qualified_dividend_income.getD 0,
-      qualified_tuition_expenses := qualified_tuition_expenses.getD 0,
-      railroad_benefits := railroad_benefits.getD 0,
-      real_estate_taxes := real_estate_taxes.getD 0,
-      receives_or_needs_protective_services := receives_or_needs_protective_services.getD false,
-      rental_income := rental_income.getD 0,
-      retirement_distributions := retirement_distributions.getD 0,
-      roth_401k_contributions := roth_401k_contributions.getD 0,
-      roth_403b_contributions := roth_403b_contributions.getD 0,
-      roth_ira_contributions := roth_ira_contributions.getD 0,
-      self_employed_health_insurance_premiums := self_employed_health_insurance_premiums.getD 0,
-      self_employed_pension_contributions := self_employed_pension_contributions.getD 0,
-      self_employment_income := self_employment_income.getD 0,
-      self_employment_income_before_lsr := self_employment_income_before_lsr.getD 0,
-      self_employment_income_last_year := self_employment_income_last_year.getD 0,
-      short_term_capital_gains := short_term_capital_gains.getD 0,
-      ssi_qualifying_quarters_earnings := ssi_qualifying_quarters_earnings.getD 0,
-      ssn_card_type := ssn_card_type.getD .CITIZEN,
-      sstb_self_employment_income := sstb_self_employment_income.getD 0,
-      sstb_self_employment_income_before_lsr := sstb_self_employment_income_before_lsr.getD 0,
-      stock_assets := stock_assets.getD 0 }
+  fromJson? j := return {
+    able_contributions_person := (j.getObjValAs? Rat "able_contributions_person").toOption.getD 0,
+    age := (j.getObjValAs? Rat "age").toOption.getD 0,
+    alimony_expense := (j.getObjValAs? Rat "alimony_expense").toOption.getD 0,
+    alimony_income := (j.getObjValAs? Rat "alimony_income").toOption.getD 0,
+    bank_account_assets := (j.getObjValAs? Rat "bank_account_assets").toOption.getD 0,
+    bond_assets := (j.getObjValAs? Rat "bond_assets").toOption.getD 0,
+    business_is_sstb := (j.getObjValAs? Bool "business_is_sstb").toOption.getD false,
+    capital_gains := (j.getObjValAs? Rat "capital_gains").toOption.getD 0,
+    capital_losses := (j.getObjValAs? Rat "capital_losses").toOption.getD 0,
+    care_and_support_costs := (j.getObjValAs? Rat "care_and_support_costs").toOption.getD 0,
+    care_and_support_payments_from_tax_filer := (j.getObjValAs? Rat "care_and_support_payments_from_tax_filer").toOption.getD 0,
+    care_expenses := (j.getObjValAs? Rat "care_expenses").toOption.getD 0,
+    casualty_loss := (j.getObjValAs? Rat "casualty_loss").toOption.getD 0,
+    charitable_cash_donations := (j.getObjValAs? Rat "charitable_cash_donations").toOption.getD 0,
+    charitable_non_cash_donations := (j.getObjValAs? Rat "charitable_non_cash_donations").toOption.getD 0,
+    charitable_non_cash_donations_non_50_pct_orgs := (j.getObjValAs? Rat "charitable_non_cash_donations_non_50_pct_orgs").toOption.getD 0,
+    child_support_expense := (j.getObjValAs? Rat "child_support_expense").toOption.getD 0,
+    child_support_received := (j.getObjValAs? Rat "child_support_received").toOption.getD 0,
+    childcare_days_per_week := (j.getObjValAs? Rat "childcare_days_per_week").toOption.getD 0,
+    childcare_hours_per_day := (j.getObjValAs? Rat "childcare_hours_per_day").toOption.getD 0,
+    childcare_provider_type_group := (j.getObjValAs? ChildcareProviderTypeGroup "childcare_provider_type_group").toOption.getD .DCC_SACC,
+    claimed_as_dependent_on_another_return := (j.getObjValAs? Bool "claimed_as_dependent_on_another_return").toOption.getD false,
+    count_days_postpartum := (j.getObjValAs? Rat "count_days_postpartum").toOption.getD 0,
+    cps_race := (j.getObjValAs? Rat "cps_race").toOption.getD 0,
+    current_pregnancies := (j.getObjValAs? Rat "current_pregnancies").toOption.getD 0,
+    debt_relief := (j.getObjValAs? Rat "debt_relief").toOption.getD 0,
+    deductible_interest_expense := (j.getObjValAs? Rat "deductible_interest_expense").toOption.getD 0,
+    dependent_care_employer_benefits := (j.getObjValAs? Rat "dependent_care_employer_benefits").toOption.getD 0,
+    disability_benefits := (j.getObjValAs? Rat "disability_benefits").toOption.getD 0,
+    dividend_income := (j.getObjValAs? Rat "dividend_income").toOption.getD 0,
+    divorce_year := (j.getObjValAs? Rat "divorce_year").toOption.getD 0,
+    early_withdrawal_penalty := (j.getObjValAs? Rat "early_withdrawal_penalty").toOption.getD 0,
+    educational_assistance := (j.getObjValAs? Rat "educational_assistance").toOption.getD 0,
+    educator_expense := (j.getObjValAs? Rat "educator_expense").toOption.getD 0,
+    employer_total_payroll_tax_gross_wages := (j.getObjValAs? Rat "employer_total_payroll_tax_gross_wages").toOption.getD 0,
+    employer_total_taxable_earnings_for_federal_unemployment_tax := (j.getObjValAs? Rat "employer_total_taxable_earnings_for_federal_unemployment_tax").toOption.getD 0,
+    employer_total_taxable_earnings_for_social_security := (j.getObjValAs? Rat "employer_total_taxable_earnings_for_social_security").toOption.getD 0,
+    employment_income := (j.getObjValAs? Rat "employment_income").toOption.getD 0,
+    employment_income_before_lsr := (j.getObjValAs? Rat "employment_income_before_lsr").toOption.getD 0,
+    employment_income_last_year := (j.getObjValAs? Rat "employment_income_last_year").toOption.getD 0,
+    farm_operations_income := (j.getObjValAs? Rat "farm_operations_income").toOption.getD 0,
+    farm_rent_income := (j.getObjValAs? Rat "farm_rent_income").toOption.getD 0,
+    financial_assistance := (j.getObjValAs? Rat "financial_assistance").toOption.getD 0,
+    fsla_overtime_premium := (j.getObjValAs? Rat "fsla_overtime_premium").toOption.getD 0,
+    gambling_losses := (j.getObjValAs? Rat "gambling_losses").toOption.getD 0,
+    gambling_winnings := (j.getObjValAs? Rat "gambling_winnings").toOption.getD 0,
+    gi_cash_assistance := (j.getObjValAs? Rat "gi_cash_assistance").toOption.getD 0,
+    has_champva_health_coverage_at_interview := (j.getObjValAs? Bool "has_champva_health_coverage_at_interview").toOption.getD false,
+    has_chip_health_coverage_at_interview := (j.getObjValAs? Bool "has_chip_health_coverage_at_interview").toOption.getD false,
+    has_health_coverage_other_than_chip := (j.getObjValAs? Bool "has_health_coverage_other_than_chip").toOption.getD false,
+    has_marketplace_health_coverage_at_interview := (j.getObjValAs? Bool "has_marketplace_health_coverage_at_interview").toOption.getD false,
+    has_medicaid_health_coverage_at_interview := (j.getObjValAs? Bool "has_medicaid_health_coverage_at_interview").toOption.getD false,
+    has_non_marketplace_direct_purchase_health_coverage_at_interview := (j.getObjValAs? Bool "has_non_marketplace_direct_purchase_health_coverage_at_interview").toOption.getD false,
+    has_other_means_tested_health_coverage_at_interview := (j.getObjValAs? Bool "has_other_means_tested_health_coverage_at_interview").toOption.getD false,
+    has_tin := (j.getObjValAs? Bool "has_tin").toOption.getD false,
+    has_tricare_health_coverage_at_interview := (j.getObjValAs? Bool "has_tricare_health_coverage_at_interview").toOption.getD false,
+    has_va_health_coverage_at_interview := (j.getObjValAs? Bool "has_va_health_coverage_at_interview").toOption.getD false,
+    health_savings_account_payroll_contributions := (j.getObjValAs? Rat "health_savings_account_payroll_contributions").toOption.getD 0,
+    home_equity := (j.getObjValAs? Rat "home_equity").toOption.getD 0,
+    home_is_on_agricultural_land := (j.getObjValAs? Bool "home_is_on_agricultural_land").toOption.getD false,
+    illicit_income := (j.getObjValAs? Rat "illicit_income").toOption.getD 0,
+    immigration_status := (j.getObjValAs? ImmigrationStatus "immigration_status").toOption.getD .CITIZEN,
+    interest_income := (j.getObjValAs? Rat "interest_income").toOption.getD 0,
+    investment_income_elected_form_4952 := (j.getObjValAs? Rat "investment_income_elected_form_4952").toOption.getD 0,
+    is_blind := (j.getObjValAs? Bool "is_blind").toOption.getD false,
+    is_breastfeeding := (j.getObjValAs? Bool "is_breastfeeding").toOption.getD false,
+    is_disabled := (j.getObjValAs? Bool "is_disabled").toOption.getD false,
+    is_english_proficient := (j.getObjValAs? Bool "is_english_proficient").toOption.getD false,
+    is_female := (j.getObjValAs? Bool "is_female").toOption.getD false,
+    is_full_time_college_student := (j.getObjValAs? Bool "is_full_time_college_student").toOption.getD false,
+    is_fully_disabled_service_connected_veteran := (j.getObjValAs? Bool "is_fully_disabled_service_connected_veteran").toOption.getD false,
+    is_grandparent_of_filer_or_spouse := (j.getObjValAs? Bool "is_grandparent_of_filer_or_spouse").toOption.getD false,
+    is_hispanic := (j.getObjValAs? Bool "is_hispanic").toOption.getD false,
+    is_in_foster_care := (j.getObjValAs? Bool "is_in_foster_care").toOption.getD false,
+    is_in_secondary_school := (j.getObjValAs? Bool "is_in_secondary_school").toOption.getD false,
+    is_incapable_of_self_care := (j.getObjValAs? Bool "is_incapable_of_self_care").toOption.getD false,
+    is_migratory_child := (j.getObjValAs? Bool "is_migratory_child").toOption.getD false,
+    is_military := (j.getObjValAs? Bool "is_military").toOption.getD false,
+    is_parent_of_filer_or_spouse := (j.getObjValAs? Bool "is_parent_of_filer_or_spouse").toOption.getD false,
+    is_part_time_college_student := (j.getObjValAs? Bool "is_part_time_college_student").toOption.getD false,
+    is_permanently_and_totally_disabled := (j.getObjValAs? Bool "is_permanently_and_totally_disabled").toOption.getD false,
+    is_pregnant := (j.getObjValAs? Bool "is_pregnant").toOption.getD false,
+    is_qualifying_relative_dependent := (j.getObjValAs? Bool "is_qualifying_relative_dependent").toOption.getD false,
+    is_related_to_head_or_spouse := (j.getObjValAs? Bool "is_related_to_head_or_spouse").toOption.getD false,
+    is_runaway_child := (j.getObjValAs? Bool "is_runaway_child").toOption.getD false,
+    is_separated := (j.getObjValAs? Bool "is_separated").toOption.getD false,
+    is_surviving_spouse := (j.getObjValAs? Bool "is_surviving_spouse").toOption.getD false,
+    is_tax_unit_head := (j.getObjValAs? Bool "is_tax_unit_head").toOption.getD false,
+    is_tax_unit_spouse := (j.getObjValAs? Bool "is_tax_unit_spouse").toOption.getD false,
+    long_term_capital_gains := (j.getObjValAs? Rat "long_term_capital_gains").toOption.getD 0,
+    long_term_capital_gains_on_collectibles := (j.getObjValAs? Rat "long_term_capital_gains_on_collectibles").toOption.getD 0,
+    long_term_capital_gains_on_small_business_stock := (j.getObjValAs? Rat "long_term_capital_gains_on_small_business_stock").toOption.getD 0,
+    market_income := (j.getObjValAs? Rat "market_income").toOption.getD 0,
+    medical_expense_health_insurance_premiums := (j.getObjValAs? Rat "medical_expense_health_insurance_premiums").toOption.getD 0,
+    military_service_income := (j.getObjValAs? Rat "military_service_income").toOption.getD 0,
+    miscellaneous_income := (j.getObjValAs? Rat "miscellaneous_income").toOption.getD 0,
+    monthly_hours_worked := (j.getObjValAs? Rat "monthly_hours_worked").toOption.getD 0,
+    non_sch_d_capital_gains := (j.getObjValAs? Rat "non_sch_d_capital_gains").toOption.getD 0,
+    other_medical_expenses := (j.getObjValAs? Rat "other_medical_expenses").toOption.getD 0,
+    own_children_in_household := (j.getObjValAs? Rat "own_children_in_household").toOption.getD 0,
+    partnership_s_corp_income := (j.getObjValAs? Rat "partnership_s_corp_income").toOption.getD 0,
+    partnership_self_employment_net_earnings := (j.getObjValAs? Rat "partnership_self_employment_net_earnings").toOption.getD 0,
+    pension_income := (j.getObjValAs? Rat "pension_income").toOption.getD 0,
+    person_count := (j.getObjValAs? Rat "person_count").toOption.getD 0,
+    pre_subsidy_rent := (j.getObjValAs? Rat "pre_subsidy_rent").toOption.getD 0,
+    pre_tax_health_insurance_premiums := (j.getObjValAs? Rat "pre_tax_health_insurance_premiums").toOption.getD 0,
+    qualified_adoption_assistance_expense := (j.getObjValAs? Rat "qualified_adoption_assistance_expense").toOption.getD 0,
+    qualified_dividend_income := (j.getObjValAs? Rat "qualified_dividend_income").toOption.getD 0,
+    qualified_tuition_expenses := (j.getObjValAs? Rat "qualified_tuition_expenses").toOption.getD 0,
+    railroad_benefits := (j.getObjValAs? Rat "railroad_benefits").toOption.getD 0,
+    real_estate_taxes := (j.getObjValAs? Rat "real_estate_taxes").toOption.getD 0,
+    receives_or_needs_protective_services := (j.getObjValAs? Bool "receives_or_needs_protective_services").toOption.getD false,
+    rental_income := (j.getObjValAs? Rat "rental_income").toOption.getD 0,
+    retirement_distributions := (j.getObjValAs? Rat "retirement_distributions").toOption.getD 0,
+    roth_401k_contributions := (j.getObjValAs? Rat "roth_401k_contributions").toOption.getD 0,
+    roth_403b_contributions := (j.getObjValAs? Rat "roth_403b_contributions").toOption.getD 0,
+    roth_ira_contributions := (j.getObjValAs? Rat "roth_ira_contributions").toOption.getD 0,
+    self_employed_health_insurance_premiums := (j.getObjValAs? Rat "self_employed_health_insurance_premiums").toOption.getD 0,
+    self_employed_pension_contributions := (j.getObjValAs? Rat "self_employed_pension_contributions").toOption.getD 0,
+    self_employment_income := (j.getObjValAs? Rat "self_employment_income").toOption.getD 0,
+    self_employment_income_before_lsr := (j.getObjValAs? Rat "self_employment_income_before_lsr").toOption.getD 0,
+    self_employment_income_last_year := (j.getObjValAs? Rat "self_employment_income_last_year").toOption.getD 0,
+    short_term_capital_gains := (j.getObjValAs? Rat "short_term_capital_gains").toOption.getD 0,
+    ssi_qualifying_quarters_earnings := (j.getObjValAs? Rat "ssi_qualifying_quarters_earnings").toOption.getD 0,
+    ssn_card_type := (j.getObjValAs? SSNCardType "ssn_card_type").toOption.getD .CITIZEN,
+    sstb_self_employment_income := (j.getObjValAs? Rat "sstb_self_employment_income").toOption.getD 0,
+    sstb_self_employment_income_before_lsr := (j.getObjValAs? Rat "sstb_self_employment_income_before_lsr").toOption.getD 0,
+    stock_assets := (j.getObjValAs? Rat "stock_assets").toOption.getD 0 }
 
 structure Person_Core_p2 where
   strike_benefits : Rat := 0
@@ -452,50 +318,28 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Core_p2 where
-  fromJson? j := do
-    let strike_benefits := (j.getObjValAs? Rat "strike_benefits").toOption
-    let survivor_benefits := (j.getObjValAs? Rat "survivor_benefits").toOption
-    let tax_exempt_interest_income := (j.getObjValAs? Rat "tax_exempt_interest_income").toOption
-    let tax_preparation_fees := (j.getObjValAs? Rat "tax_preparation_fees").toOption
-    let taxable_alimony_income := (j.getObjValAs? Rat "taxable_alimony_income").toOption
-    let taxable_estate_value := (j.getObjValAs? Rat "taxable_estate_value").toOption
-    let taxable_interest_income := (j.getObjValAs? Rat "taxable_interest_income").toOption
-    let taxable_pension_income := (j.getObjValAs? Rat "taxable_pension_income").toOption
-    let taxable_retirement_distributions := (j.getObjValAs? Rat "taxable_retirement_distributions").toOption
-    let taxable_roth_conversions := (j.getObjValAs? Rat "taxable_roth_conversions").toOption
-    let tip_income := (j.getObjValAs? Rat "tip_income").toOption
-    let total_self_employment_income := (j.getObjValAs? Rat "total_self_employment_income").toOption
-    let traditional_401k_contributions := (j.getObjValAs? Rat "traditional_401k_contributions").toOption
-    let traditional_403b_contributions := (j.getObjValAs? Rat "traditional_403b_contributions").toOption
-    let traditional_ira_contributions := (j.getObjValAs? Rat "traditional_ira_contributions").toOption
-    let unreimbursed_business_employee_expenses := (j.getObjValAs? Rat "unreimbursed_business_employee_expenses").toOption
-    let us_bonds_for_higher_ed := (j.getObjValAs? Rat "us_bonds_for_higher_ed").toOption
-    let veterans_benefits := (j.getObjValAs? Rat "veterans_benefits").toOption
-    let was_in_foster_care := (j.getObjValAs? Bool "was_in_foster_care").toOption
-    let weekly_hours_worked_before_lsr := (j.getObjValAs? Rat "weekly_hours_worked_before_lsr").toOption
-    let years_since_us_entry := (j.getObjValAs? Rat "years_since_us_entry").toOption
-    return {
-      strike_benefits := strike_benefits.getD 0,
-      survivor_benefits := survivor_benefits.getD 0,
-      tax_exempt_interest_income := tax_exempt_interest_income.getD 0,
-      tax_preparation_fees := tax_preparation_fees.getD 0,
-      taxable_alimony_income := taxable_alimony_income.getD 0,
-      taxable_estate_value := taxable_estate_value.getD 0,
-      taxable_interest_income := taxable_interest_income.getD 0,
-      taxable_pension_income := taxable_pension_income.getD 0,
-      taxable_retirement_distributions := taxable_retirement_distributions.getD 0,
-      taxable_roth_conversions := taxable_roth_conversions.getD 0,
-      tip_income := tip_income.getD 0,
-      total_self_employment_income := total_self_employment_income.getD 0,
-      traditional_401k_contributions := traditional_401k_contributions.getD 0,
-      traditional_403b_contributions := traditional_403b_contributions.getD 0,
-      traditional_ira_contributions := traditional_ira_contributions.getD 0,
-      unreimbursed_business_employee_expenses := unreimbursed_business_employee_expenses.getD 0,
-      us_bonds_for_higher_ed := us_bonds_for_higher_ed.getD 0,
-      veterans_benefits := veterans_benefits.getD 0,
-      was_in_foster_care := was_in_foster_care.getD false,
-      weekly_hours_worked_before_lsr := weekly_hours_worked_before_lsr.getD 0,
-      years_since_us_entry := years_since_us_entry.getD 0 }
+  fromJson? j := return {
+    strike_benefits := (j.getObjValAs? Rat "strike_benefits").toOption.getD 0,
+    survivor_benefits := (j.getObjValAs? Rat "survivor_benefits").toOption.getD 0,
+    tax_exempt_interest_income := (j.getObjValAs? Rat "tax_exempt_interest_income").toOption.getD 0,
+    tax_preparation_fees := (j.getObjValAs? Rat "tax_preparation_fees").toOption.getD 0,
+    taxable_alimony_income := (j.getObjValAs? Rat "taxable_alimony_income").toOption.getD 0,
+    taxable_estate_value := (j.getObjValAs? Rat "taxable_estate_value").toOption.getD 0,
+    taxable_interest_income := (j.getObjValAs? Rat "taxable_interest_income").toOption.getD 0,
+    taxable_pension_income := (j.getObjValAs? Rat "taxable_pension_income").toOption.getD 0,
+    taxable_retirement_distributions := (j.getObjValAs? Rat "taxable_retirement_distributions").toOption.getD 0,
+    taxable_roth_conversions := (j.getObjValAs? Rat "taxable_roth_conversions").toOption.getD 0,
+    tip_income := (j.getObjValAs? Rat "tip_income").toOption.getD 0,
+    total_self_employment_income := (j.getObjValAs? Rat "total_self_employment_income").toOption.getD 0,
+    traditional_401k_contributions := (j.getObjValAs? Rat "traditional_401k_contributions").toOption.getD 0,
+    traditional_403b_contributions := (j.getObjValAs? Rat "traditional_403b_contributions").toOption.getD 0,
+    traditional_ira_contributions := (j.getObjValAs? Rat "traditional_ira_contributions").toOption.getD 0,
+    unreimbursed_business_employee_expenses := (j.getObjValAs? Rat "unreimbursed_business_employee_expenses").toOption.getD 0,
+    us_bonds_for_higher_ed := (j.getObjValAs? Rat "us_bonds_for_higher_ed").toOption.getD 0,
+    veterans_benefits := (j.getObjValAs? Rat "veterans_benefits").toOption.getD 0,
+    was_in_foster_care := (j.getObjValAs? Bool "was_in_foster_care").toOption.getD false,
+    weekly_hours_worked_before_lsr := (j.getObjValAs? Rat "weekly_hours_worked_before_lsr").toOption.getD 0,
+    years_since_us_entry := (j.getObjValAs? Rat "years_since_us_entry").toOption.getD 0 }
 
 structure Person_Ed where
   is_federal_work_study_participant : Bool := false
@@ -507,18 +351,12 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Ed where
-  fromJson? j := do
-    let is_federal_work_study_participant := (j.getObjValAs? Bool "is_federal_work_study_participant").toOption
-    let pell_grant_countable_assets := (j.getObjValAs? Rat "pell_grant_countable_assets").toOption
-    let pell_grant_dependent_available_income := (j.getObjValAs? Rat "pell_grant_dependent_available_income").toOption
-    let pell_grant_dependent_other_allowances := (j.getObjValAs? Rat "pell_grant_dependent_other_allowances").toOption
-    let pell_grant_head_allowances := (j.getObjValAs? Rat "pell_grant_head_allowances").toOption
-    return {
-      is_federal_work_study_participant := is_federal_work_study_participant.getD false,
-      pell_grant_countable_assets := pell_grant_countable_assets.getD 0,
-      pell_grant_dependent_available_income := pell_grant_dependent_available_income.getD 0,
-      pell_grant_dependent_other_allowances := pell_grant_dependent_other_allowances.getD 0,
-      pell_grant_head_allowances := pell_grant_head_allowances.getD 0 }
+  fromJson? j := return {
+    is_federal_work_study_participant := (j.getObjValAs? Bool "is_federal_work_study_participant").toOption.getD false,
+    pell_grant_countable_assets := (j.getObjValAs? Rat "pell_grant_countable_assets").toOption.getD 0,
+    pell_grant_dependent_available_income := (j.getObjValAs? Rat "pell_grant_dependent_available_income").toOption.getD 0,
+    pell_grant_dependent_other_allowances := (j.getObjValAs? Rat "pell_grant_dependent_other_allowances").toOption.getD 0,
+    pell_grant_head_allowances := (j.getObjValAs? Rat "pell_grant_head_allowances").toOption.getD 0 }
 
 structure Person_Hhs where
   ccdf_market_rate : Rat := 0
@@ -569,96 +407,51 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Hhs where
-  fromJson? j := do
-    let ccdf_market_rate := (j.getObjValAs? Rat "ccdf_market_rate").toOption
-    let chip_federal_share := (j.getObjValAs? Rat "chip_federal_share").toOption
-    let gross_medicare_part_b_premium := (j.getObjValAs? Rat "gross_medicare_part_b_premium").toOption
-    let has_emergency_medical_condition := (j.getObjValAs? Bool "has_emergency_medical_condition").toOption
-    let is_basic_health_program_eligible := (j.getObjValAs? Bool "is_basic_health_program_eligible").toOption
-    let is_chip_eligible_child := (j.getObjValAs? Bool "is_chip_eligible_child").toOption
-    let is_chip_eligible_standard_pregnant_person := (j.getObjValAs? Bool "is_chip_eligible_standard_pregnant_person").toOption
-    let is_chip_fcep_eligible_person := (j.getObjValAs? Bool "is_chip_fcep_eligible_person").toOption
-    let is_head_start_eligible := (j.getObjValAs? Bool "is_head_start_eligible").toOption
-    let is_infant_for_medicaid_fc := (j.getObjValAs? Bool "is_infant_for_medicaid_fc").toOption
-    let is_medicaid_eligible := (j.getObjValAs? Bool "is_medicaid_eligible").toOption
-    let is_medicaid_ineligible_due_to_work_requirement := (j.getObjValAs? Bool "is_medicaid_ineligible_due_to_work_requirement").toOption
-    let medicaid_adjusted_gross_income_person := (j.getObjValAs? Rat "medicaid_adjusted_gross_income_person").toOption
-    let medicaid_category := (j.getObjValAs? MedicaidCategory "medicaid_category").toOption
-    let medicaid_community_engagement_community_service_hours := (j.getObjValAs? Rat "medicaid_community_engagement_community_service_hours").toOption
-    let medicaid_community_engagement_less_than_half_time_education_hours := (j.getObjValAs? Rat "medicaid_community_engagement_less_than_half_time_education_hours").toOption
-    let medicaid_community_engagement_work_program_hours := (j.getObjValAs? Rat "medicaid_community_engagement_work_program_hours").toOption
-    let medicaid_cost_if_enrolled := (j.getObjValAs? Rat "medicaid_cost_if_enrolled").toOption
-    let medicaid_federal_share := (j.getObjValAs? Rat "medicaid_federal_share").toOption
-    let medicaid_has_known_claiming_tax_unit := (j.getObjValAs? Bool "medicaid_has_known_claiming_tax_unit").toOption
-    let medicaid_home_equity_limit_family_exception := (j.getObjValAs? Bool "medicaid_home_equity_limit_family_exception").toOption
-    let medicaid_income_level := (j.getObjValAs? Rat "medicaid_income_level").toOption
-    let medicaid_optional_senior_or_disabled_countable_income := (j.getObjValAs? Rat "medicaid_optional_senior_or_disabled_countable_income").toOption
-    let medicaid_person_is_required_to_file := (j.getObjValAs? Bool "medicaid_person_is_required_to_file").toOption
-    let medicaid_slcsp_cost_index := (j.getObjValAs? Rat "medicaid_slcsp_cost_index").toOption
-    let medicaid_slcsp_state_average_cost_index := (j.getObjValAs? Rat "medicaid_slcsp_state_average_cost_index").toOption
-    let medicaid_tax_dependent_exception_non_custodial_parent := (j.getObjValAs? Bool "medicaid_tax_dependent_exception_non_custodial_parent").toOption
-    let medicare_quarters_of_coverage := (j.getObjValAs? Rat "medicare_quarters_of_coverage").toOption
-    let months_receiving_social_security_disability := (j.getObjValAs? Rat "months_receiving_social_security_disability").toOption
-    let msp_cost := (j.getObjValAs? Rat "msp_cost").toOption
-    let msp_countable_income := (j.getObjValAs? Rat "msp_countable_income").toOption
-    let msp_federal_cost := (j.getObjValAs? Rat "msp_federal_cost").toOption
-    let msp_part_a_premium_coverage := (j.getObjValAs? Rat "msp_part_a_premium_coverage").toOption
-    let msp_part_b_premium_coverage := (j.getObjValAs? Rat "msp_part_b_premium_coverage").toOption
-    let per_capita_chip := (j.getObjValAs? Rat "per_capita_chip").toOption
-    let per_capita_chip_gross := (j.getObjValAs? Rat "per_capita_chip_gross").toOption
-    let receives_medicaid := (j.getObjValAs? Bool "receives_medicaid").toOption
-    let takes_up_basic_health_program_if_eligible := (j.getObjValAs? Bool "takes_up_basic_health_program_if_eligible").toOption
-    let takes_up_chip_if_eligible := (j.getObjValAs? Bool "takes_up_chip_if_eligible").toOption
-    let takes_up_early_head_start_if_eligible := (j.getObjValAs? Bool "takes_up_early_head_start_if_eligible").toOption
-    let takes_up_head_start_if_eligible := (j.getObjValAs? Bool "takes_up_head_start_if_eligible").toOption
-    let takes_up_medicaid_if_eligible := (j.getObjValAs? Bool "takes_up_medicaid_if_eligible").toOption
-    let takes_up_medicare_if_eligible := (j.getObjValAs? Bool "takes_up_medicare_if_eligible").toOption
-    let tanf_person := (j.getObjValAs? Rat "tanf_person").toOption
-    return {
-      ccdf_market_rate := ccdf_market_rate.getD 0,
-      chip_federal_share := chip_federal_share.getD 0,
-      gross_medicare_part_b_premium := gross_medicare_part_b_premium.getD 0,
-      has_emergency_medical_condition := has_emergency_medical_condition.getD false,
-      is_basic_health_program_eligible := is_basic_health_program_eligible.getD false,
-      is_chip_eligible_child := is_chip_eligible_child.getD false,
-      is_chip_eligible_standard_pregnant_person := is_chip_eligible_standard_pregnant_person.getD false,
-      is_chip_fcep_eligible_person := is_chip_fcep_eligible_person.getD false,
-      is_head_start_eligible := is_head_start_eligible.getD false,
-      is_infant_for_medicaid_fc := is_infant_for_medicaid_fc.getD false,
-      is_medicaid_eligible := is_medicaid_eligible.getD false,
-      is_medicaid_ineligible_due_to_work_requirement := is_medicaid_ineligible_due_to_work_requirement.getD false,
-      medicaid_adjusted_gross_income_person := medicaid_adjusted_gross_income_person.getD 0,
-      medicaid_category := medicaid_category.getD .NONE,
-      medicaid_community_engagement_community_service_hours := medicaid_community_engagement_community_service_hours.getD 0,
-      medicaid_community_engagement_less_than_half_time_education_hours := medicaid_community_engagement_less_than_half_time_education_hours.getD 0,
-      medicaid_community_engagement_work_program_hours := medicaid_community_engagement_work_program_hours.getD 0,
-      medicaid_cost_if_enrolled := medicaid_cost_if_enrolled.getD 0,
-      medicaid_federal_share := medicaid_federal_share.getD 0,
-      medicaid_has_known_claiming_tax_unit := medicaid_has_known_claiming_tax_unit.getD false,
-      medicaid_home_equity_limit_family_exception := medicaid_home_equity_limit_family_exception.getD false,
-      medicaid_income_level := medicaid_income_level.getD 0,
-      medicaid_optional_senior_or_disabled_countable_income := medicaid_optional_senior_or_disabled_countable_income.getD 0,
-      medicaid_person_is_required_to_file := medicaid_person_is_required_to_file.getD false,
-      medicaid_slcsp_cost_index := medicaid_slcsp_cost_index.getD 0,
-      medicaid_slcsp_state_average_cost_index := medicaid_slcsp_state_average_cost_index.getD 0,
-      medicaid_tax_dependent_exception_non_custodial_parent := medicaid_tax_dependent_exception_non_custodial_parent.getD false,
-      medicare_quarters_of_coverage := medicare_quarters_of_coverage.getD 0,
-      months_receiving_social_security_disability := months_receiving_social_security_disability.getD 0,
-      msp_cost := msp_cost.getD 0,
-      msp_countable_income := msp_countable_income.getD 0,
-      msp_federal_cost := msp_federal_cost.getD 0,
-      msp_part_a_premium_coverage := msp_part_a_premium_coverage.getD 0,
-      msp_part_b_premium_coverage := msp_part_b_premium_coverage.getD 0,
-      per_capita_chip := per_capita_chip.getD 0,
-      per_capita_chip_gross := per_capita_chip_gross.getD 0,
-      receives_medicaid := receives_medicaid.getD false,
-      takes_up_basic_health_program_if_eligible := takes_up_basic_health_program_if_eligible.getD false,
-      takes_up_chip_if_eligible := takes_up_chip_if_eligible.getD false,
-      takes_up_early_head_start_if_eligible := takes_up_early_head_start_if_eligible.getD false,
-      takes_up_head_start_if_eligible := takes_up_head_start_if_eligible.getD false,
-      takes_up_medicaid_if_eligible := takes_up_medicaid_if_eligible.getD false,
-      takes_up_medicare_if_eligible := takes_up_medicare_if_eligible.getD false,
-      tanf_person := tanf_person.getD 0 }
+  fromJson? j := return {
+    ccdf_market_rate := (j.getObjValAs? Rat "ccdf_market_rate").toOption.getD 0,
+    chip_federal_share := (j.getObjValAs? Rat "chip_federal_share").toOption.getD 0,
+    gross_medicare_part_b_premium := (j.getObjValAs? Rat "gross_medicare_part_b_premium").toOption.getD 0,
+    has_emergency_medical_condition := (j.getObjValAs? Bool "has_emergency_medical_condition").toOption.getD false,
+    is_basic_health_program_eligible := (j.getObjValAs? Bool "is_basic_health_program_eligible").toOption.getD false,
+    is_chip_eligible_child := (j.getObjValAs? Bool "is_chip_eligible_child").toOption.getD false,
+    is_chip_eligible_standard_pregnant_person := (j.getObjValAs? Bool "is_chip_eligible_standard_pregnant_person").toOption.getD false,
+    is_chip_fcep_eligible_person := (j.getObjValAs? Bool "is_chip_fcep_eligible_person").toOption.getD false,
+    is_head_start_eligible := (j.getObjValAs? Bool "is_head_start_eligible").toOption.getD false,
+    is_infant_for_medicaid_fc := (j.getObjValAs? Bool "is_infant_for_medicaid_fc").toOption.getD false,
+    is_medicaid_eligible := (j.getObjValAs? Bool "is_medicaid_eligible").toOption.getD false,
+    is_medicaid_ineligible_due_to_work_requirement := (j.getObjValAs? Bool "is_medicaid_ineligible_due_to_work_requirement").toOption.getD false,
+    medicaid_adjusted_gross_income_person := (j.getObjValAs? Rat "medicaid_adjusted_gross_income_person").toOption.getD 0,
+    medicaid_category := (j.getObjValAs? MedicaidCategory "medicaid_category").toOption.getD .NONE,
+    medicaid_community_engagement_community_service_hours := (j.getObjValAs? Rat "medicaid_community_engagement_community_service_hours").toOption.getD 0,
+    medicaid_community_engagement_less_than_half_time_education_hours := (j.getObjValAs? Rat "medicaid_community_engagement_less_than_half_time_education_hours").toOption.getD 0,
+    medicaid_community_engagement_work_program_hours := (j.getObjValAs? Rat "medicaid_community_engagement_work_program_hours").toOption.getD 0,
+    medicaid_cost_if_enrolled := (j.getObjValAs? Rat "medicaid_cost_if_enrolled").toOption.getD 0,
+    medicaid_federal_share := (j.getObjValAs? Rat "medicaid_federal_share").toOption.getD 0,
+    medicaid_has_known_claiming_tax_unit := (j.getObjValAs? Bool "medicaid_has_known_claiming_tax_unit").toOption.getD false,
+    medicaid_home_equity_limit_family_exception := (j.getObjValAs? Bool "medicaid_home_equity_limit_family_exception").toOption.getD false,
+    medicaid_income_level := (j.getObjValAs? Rat "medicaid_income_level").toOption.getD 0,
+    medicaid_optional_senior_or_disabled_countable_income := (j.getObjValAs? Rat "medicaid_optional_senior_or_disabled_countable_income").toOption.getD 0,
+    medicaid_person_is_required_to_file := (j.getObjValAs? Bool "medicaid_person_is_required_to_file").toOption.getD false,
+    medicaid_slcsp_cost_index := (j.getObjValAs? Rat "medicaid_slcsp_cost_index").toOption.getD 0,
+    medicaid_slcsp_state_average_cost_index := (j.getObjValAs? Rat "medicaid_slcsp_state_average_cost_index").toOption.getD 0,
+    medicaid_tax_dependent_exception_non_custodial_parent := (j.getObjValAs? Bool "medicaid_tax_dependent_exception_non_custodial_parent").toOption.getD false,
+    medicare_quarters_of_coverage := (j.getObjValAs? Rat "medicare_quarters_of_coverage").toOption.getD 0,
+    months_receiving_social_security_disability := (j.getObjValAs? Rat "months_receiving_social_security_disability").toOption.getD 0,
+    msp_cost := (j.getObjValAs? Rat "msp_cost").toOption.getD 0,
+    msp_countable_income := (j.getObjValAs? Rat "msp_countable_income").toOption.getD 0,
+    msp_federal_cost := (j.getObjValAs? Rat "msp_federal_cost").toOption.getD 0,
+    msp_part_a_premium_coverage := (j.getObjValAs? Rat "msp_part_a_premium_coverage").toOption.getD 0,
+    msp_part_b_premium_coverage := (j.getObjValAs? Rat "msp_part_b_premium_coverage").toOption.getD 0,
+    per_capita_chip := (j.getObjValAs? Rat "per_capita_chip").toOption.getD 0,
+    per_capita_chip_gross := (j.getObjValAs? Rat "per_capita_chip_gross").toOption.getD 0,
+    receives_medicaid := (j.getObjValAs? Bool "receives_medicaid").toOption.getD false,
+    takes_up_basic_health_program_if_eligible := (j.getObjValAs? Bool "takes_up_basic_health_program_if_eligible").toOption.getD false,
+    takes_up_chip_if_eligible := (j.getObjValAs? Bool "takes_up_chip_if_eligible").toOption.getD false,
+    takes_up_early_head_start_if_eligible := (j.getObjValAs? Bool "takes_up_early_head_start_if_eligible").toOption.getD false,
+    takes_up_head_start_if_eligible := (j.getObjValAs? Bool "takes_up_head_start_if_eligible").toOption.getD false,
+    takes_up_medicaid_if_eligible := (j.getObjValAs? Bool "takes_up_medicaid_if_eligible").toOption.getD false,
+    takes_up_medicare_if_eligible := (j.getObjValAs? Bool "takes_up_medicare_if_eligible").toOption.getD false,
+    tanf_person := (j.getObjValAs? Rat "tanf_person").toOption.getD 0 }
 
 structure Person_Hud where
   is_hud_dependent : Bool := false
@@ -666,10 +459,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Hud where
-  fromJson? j := do
-    let is_hud_dependent := (j.getObjValAs? Bool "is_hud_dependent").toOption
-    return {
-      is_hud_dependent := is_hud_dependent.getD false }
+  fromJson? j := return {
+    is_hud_dependent := (j.getObjValAs? Bool "is_hud_dependent").toOption.getD false }
 
 structure Person_Irs where
   american_opportunity_credit_claimed_prior_years : Rat := 0
@@ -692,40 +483,23 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Irs where
-  fromJson? j := do
-    let american_opportunity_credit_claimed_prior_years := (j.getObjValAs? Rat "american_opportunity_credit_claimed_prior_years").toOption
-    let attends_eligible_educational_institution_for_american_opportunity_credit := (j.getObjValAs? Bool "attends_eligible_educational_institution_for_american_opportunity_credit").toOption
-    let attends_eligible_educational_institution_for_lifetime_learning_credit := (j.getObjValAs? Bool "attends_eligible_educational_institution_for_lifetime_learning_credit").toOption
-    let estate_tax_credit := (j.getObjValAs? Rat "estate_tax_credit").toOption
-    let has_american_opportunity_credit_1098_t_or_exception := (j.getObjValAs? Bool "has_american_opportunity_credit_1098_t_or_exception").toOption
-    let has_american_opportunity_credit_institution_ein := (j.getObjValAs? Bool "has_american_opportunity_credit_institution_ein").toOption
-    let has_completed_first_four_years_of_postsecondary_education := (j.getObjValAs? Bool "has_completed_first_four_years_of_postsecondary_education").toOption
-    let has_felony_drug_conviction := (j.getObjValAs? Bool "has_felony_drug_conviction").toOption
-    let has_lifetime_learning_credit_1098_t_or_exception := (j.getObjValAs? Bool "has_lifetime_learning_credit_1098_t_or_exception").toOption
-    let is_enrolled_at_least_half_time_for_american_opportunity_credit := (j.getObjValAs? Bool "is_enrolled_at_least_half_time_for_american_opportunity_credit").toOption
-    let is_pursuing_credential_for_american_opportunity_credit := (j.getObjValAs? Bool "is_pursuing_credential_for_american_opportunity_credit").toOption
-    let qbid_amount := (j.getObjValAs? Rat "qbid_amount").toOption
-    let retired_on_total_disability := (j.getObjValAs? Bool "retired_on_total_disability").toOption
-    let student_loan_interest_ald := (j.getObjValAs? Rat "student_loan_interest_ald").toOption
-    let total_disability_payments := (j.getObjValAs? Rat "total_disability_payments").toOption
-    let treasury_tipped_occupation_code := (j.getObjValAs? Rat "treasury_tipped_occupation_code").toOption
-    return {
-      american_opportunity_credit_claimed_prior_years := american_opportunity_credit_claimed_prior_years.getD 0,
-      attends_eligible_educational_institution_for_american_opportunity_credit := attends_eligible_educational_institution_for_american_opportunity_credit.getD false,
-      attends_eligible_educational_institution_for_lifetime_learning_credit := attends_eligible_educational_institution_for_lifetime_learning_credit.getD false,
-      estate_tax_credit := estate_tax_credit.getD 0,
-      has_american_opportunity_credit_1098_t_or_exception := has_american_opportunity_credit_1098_t_or_exception.getD false,
-      has_american_opportunity_credit_institution_ein := has_american_opportunity_credit_institution_ein.getD false,
-      has_completed_first_four_years_of_postsecondary_education := has_completed_first_four_years_of_postsecondary_education.getD false,
-      has_felony_drug_conviction := has_felony_drug_conviction.getD false,
-      has_lifetime_learning_credit_1098_t_or_exception := has_lifetime_learning_credit_1098_t_or_exception.getD false,
-      is_enrolled_at_least_half_time_for_american_opportunity_credit := is_enrolled_at_least_half_time_for_american_opportunity_credit.getD false,
-      is_pursuing_credential_for_american_opportunity_credit := is_pursuing_credential_for_american_opportunity_credit.getD false,
-      qbid_amount := qbid_amount.getD 0,
-      retired_on_total_disability := retired_on_total_disability.getD false,
-      student_loan_interest_ald := student_loan_interest_ald.getD 0,
-      total_disability_payments := total_disability_payments.getD 0,
-      treasury_tipped_occupation_code := treasury_tipped_occupation_code.getD 0 }
+  fromJson? j := return {
+    american_opportunity_credit_claimed_prior_years := (j.getObjValAs? Rat "american_opportunity_credit_claimed_prior_years").toOption.getD 0,
+    attends_eligible_educational_institution_for_american_opportunity_credit := (j.getObjValAs? Bool "attends_eligible_educational_institution_for_american_opportunity_credit").toOption.getD false,
+    attends_eligible_educational_institution_for_lifetime_learning_credit := (j.getObjValAs? Bool "attends_eligible_educational_institution_for_lifetime_learning_credit").toOption.getD false,
+    estate_tax_credit := (j.getObjValAs? Rat "estate_tax_credit").toOption.getD 0,
+    has_american_opportunity_credit_1098_t_or_exception := (j.getObjValAs? Bool "has_american_opportunity_credit_1098_t_or_exception").toOption.getD false,
+    has_american_opportunity_credit_institution_ein := (j.getObjValAs? Bool "has_american_opportunity_credit_institution_ein").toOption.getD false,
+    has_completed_first_four_years_of_postsecondary_education := (j.getObjValAs? Bool "has_completed_first_four_years_of_postsecondary_education").toOption.getD false,
+    has_felony_drug_conviction := (j.getObjValAs? Bool "has_felony_drug_conviction").toOption.getD false,
+    has_lifetime_learning_credit_1098_t_or_exception := (j.getObjValAs? Bool "has_lifetime_learning_credit_1098_t_or_exception").toOption.getD false,
+    is_enrolled_at_least_half_time_for_american_opportunity_credit := (j.getObjValAs? Bool "is_enrolled_at_least_half_time_for_american_opportunity_credit").toOption.getD false,
+    is_pursuing_credential_for_american_opportunity_credit := (j.getObjValAs? Bool "is_pursuing_credential_for_american_opportunity_credit").toOption.getD false,
+    qbid_amount := (j.getObjValAs? Rat "qbid_amount").toOption.getD 0,
+    retired_on_total_disability := (j.getObjValAs? Bool "retired_on_total_disability").toOption.getD false,
+    student_loan_interest_ald := (j.getObjValAs? Rat "student_loan_interest_ald").toOption.getD 0,
+    total_disability_payments := (j.getObjValAs? Rat "total_disability_payments").toOption.getD 0,
+    treasury_tipped_occupation_code := (j.getObjValAs? Rat "treasury_tipped_occupation_code").toOption.getD 0 }
 
 structure Person_Local_tax where
   employer_local_payroll_tax : Rat := 0
@@ -734,12 +508,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Local_tax where
-  fromJson? j := do
-    let employer_local_payroll_tax := (j.getObjValAs? Rat "employer_local_payroll_tax").toOption
-    let employer_total_local_payroll_tax := (j.getObjValAs? Rat "employer_total_local_payroll_tax").toOption
-    return {
-      employer_local_payroll_tax := employer_local_payroll_tax.getD 0,
-      employer_total_local_payroll_tax := employer_total_local_payroll_tax.getD 0 }
+  fromJson? j := return {
+    employer_local_payroll_tax := (j.getObjValAs? Rat "employer_local_payroll_tax").toOption.getD 0,
+    employer_total_local_payroll_tax := (j.getObjValAs? Rat "employer_total_local_payroll_tax").toOption.getD 0 }
 
 structure Person_Ssa where
   is_in_medicaid_facility : Bool := false
@@ -764,44 +535,25 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Ssa where
-  fromJson? j := do
-    let is_in_medicaid_facility := (j.getObjValAs? Bool "is_in_medicaid_facility").toOption
-    let is_ssi_aged_blind_disabled := (j.getObjValAs? Bool "is_ssi_aged_blind_disabled").toOption
-    let meets_ssi_disability_criteria := (j.getObjValAs? Bool "meets_ssi_disability_criteria").toOption
-    let receives_ssi := (j.getObjValAs? Bool "receives_ssi").toOption
-    let social_security_dependents := (j.getObjValAs? Rat "social_security_dependents").toOption
-    let social_security_disability := (j.getObjValAs? Rat "social_security_disability").toOption
-    let social_security_retirement := (j.getObjValAs? Rat "social_security_retirement").toOption
-    let social_security_survivors := (j.getObjValAs? Rat "social_security_survivors").toOption
-    let ss_aime := (j.getObjValAs? Rat "ss_aime").toOption
-    let ss_full_retirement_age_months := (j.getObjValAs? Rat "ss_full_retirement_age_months").toOption
-    let ss_retirement_age_adjustment_factor := (j.getObjValAs? Rat "ss_retirement_age_adjustment_factor").toOption
-    let ssi_countable_income := (j.getObjValAs? Rat "ssi_countable_income").toOption
-    let ssi_federal_living_arrangement := (j.getObjValAs? SSIFederalLivingArrangement "ssi_federal_living_arrangement").toOption
-    let ssi_receives_food_from_others := (j.getObjValAs? Bool "ssi_receives_food_from_others").toOption
-    let ssi_receives_outside_shelter_support := (j.getObjValAs? Bool "ssi_receives_outside_shelter_support").toOption
-    let ssi_receives_shelter_from_others_in_household := (j.getObjValAs? Bool "ssi_receives_shelter_from_others_in_household").toOption
-    let ssi_shelter_support_value := (j.getObjValAs? Rat "ssi_shelter_support_value").toOption
-    let takes_up_ssi_if_eligible := (j.getObjValAs? Bool "takes_up_ssi_if_eligible").toOption
-    return {
-      is_in_medicaid_facility := is_in_medicaid_facility.getD false,
-      is_ssi_aged_blind_disabled := is_ssi_aged_blind_disabled.getD false,
-      meets_ssi_disability_criteria := meets_ssi_disability_criteria.getD false,
-      receives_ssi := receives_ssi.getD false,
-      social_security_dependents := social_security_dependents.getD 0,
-      social_security_disability := social_security_disability.getD 0,
-      social_security_retirement := social_security_retirement.getD 0,
-      social_security_survivors := social_security_survivors.getD 0,
-      ss_aime := ss_aime.getD 0,
-      ss_full_retirement_age_months := ss_full_retirement_age_months.getD 0,
-      ss_retirement_age_adjustment_factor := ss_retirement_age_adjustment_factor.getD 0,
-      ssi_countable_income := ssi_countable_income.getD 0,
-      ssi_federal_living_arrangement := ssi_federal_living_arrangement.getD .OWN_HOUSEHOLD,
-      ssi_receives_food_from_others := ssi_receives_food_from_others.getD false,
-      ssi_receives_outside_shelter_support := ssi_receives_outside_shelter_support.getD false,
-      ssi_receives_shelter_from_others_in_household := ssi_receives_shelter_from_others_in_household.getD false,
-      ssi_shelter_support_value := ssi_shelter_support_value.getD 0,
-      takes_up_ssi_if_eligible := takes_up_ssi_if_eligible.getD false }
+  fromJson? j := return {
+    is_in_medicaid_facility := (j.getObjValAs? Bool "is_in_medicaid_facility").toOption.getD false,
+    is_ssi_aged_blind_disabled := (j.getObjValAs? Bool "is_ssi_aged_blind_disabled").toOption.getD false,
+    meets_ssi_disability_criteria := (j.getObjValAs? Bool "meets_ssi_disability_criteria").toOption.getD false,
+    receives_ssi := (j.getObjValAs? Bool "receives_ssi").toOption.getD false,
+    social_security_dependents := (j.getObjValAs? Rat "social_security_dependents").toOption.getD 0,
+    social_security_disability := (j.getObjValAs? Rat "social_security_disability").toOption.getD 0,
+    social_security_retirement := (j.getObjValAs? Rat "social_security_retirement").toOption.getD 0,
+    social_security_survivors := (j.getObjValAs? Rat "social_security_survivors").toOption.getD 0,
+    ss_aime := (j.getObjValAs? Rat "ss_aime").toOption.getD 0,
+    ss_full_retirement_age_months := (j.getObjValAs? Rat "ss_full_retirement_age_months").toOption.getD 0,
+    ss_retirement_age_adjustment_factor := (j.getObjValAs? Rat "ss_retirement_age_adjustment_factor").toOption.getD 0,
+    ssi_countable_income := (j.getObjValAs? Rat "ssi_countable_income").toOption.getD 0,
+    ssi_federal_living_arrangement := (j.getObjValAs? SSIFederalLivingArrangement "ssi_federal_living_arrangement").toOption.getD .OWN_HOUSEHOLD,
+    ssi_receives_food_from_others := (j.getObjValAs? Bool "ssi_receives_food_from_others").toOption.getD false,
+    ssi_receives_outside_shelter_support := (j.getObjValAs? Bool "ssi_receives_outside_shelter_support").toOption.getD false,
+    ssi_receives_shelter_from_others_in_household := (j.getObjValAs? Bool "ssi_receives_shelter_from_others_in_household").toOption.getD false,
+    ssi_shelter_support_value := (j.getObjValAs? Rat "ssi_shelter_support_value").toOption.getD 0,
+    takes_up_ssi_if_eligible := (j.getObjValAs? Bool "takes_up_ssi_if_eligible").toOption.getD false }
 
 structure Person_States where
   general_assistance : Rat := 0
@@ -811,14 +563,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States where
-  fromJson? j := do
-    let general_assistance := (j.getObjValAs? Rat "general_assistance").toOption
-    let unemployment_compensation := (j.getObjValAs? Rat "unemployment_compensation").toOption
-    let workers_compensation := (j.getObjValAs? Rat "workers_compensation").toOption
-    return {
-      general_assistance := general_assistance.getD 0,
-      unemployment_compensation := unemployment_compensation.getD 0,
-      workers_compensation := workers_compensation.getD 0 }
+  fromJson? j := return {
+    general_assistance := (j.getObjValAs? Rat "general_assistance").toOption.getD 0,
+    unemployment_compensation := (j.getObjValAs? Rat "unemployment_compensation").toOption.getD 0,
+    workers_compensation := (j.getObjValAs? Rat "workers_compensation").toOption.getD 0 }
 
 structure Person_States_ak where
   ak_permanent_fund_dividend : Rat := 0
@@ -826,10 +574,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_ak where
-  fromJson? j := do
-    let ak_permanent_fund_dividend := (j.getObjValAs? Rat "ak_permanent_fund_dividend").toOption
-    return {
-      ak_permanent_fund_dividend := ak_permanent_fund_dividend.getD 0 }
+  fromJson? j := return {
+    ak_permanent_fund_dividend := (j.getObjValAs? Rat "ak_permanent_fund_dividend").toOption.getD 0 }
 
 structure Person_States_ca where
   ca_snap_immigration_status_eligible : Bool := false
@@ -840,16 +586,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_ca where
-  fromJson? j := do
-    let ca_snap_immigration_status_eligible := (j.getObjValAs? Bool "ca_snap_immigration_status_eligible").toOption
-    let ca_wdp_eligible := (j.getObjValAs? Bool "ca_wdp_eligible").toOption
-    let ca_wdp_premium := (j.getObjValAs? Rat "ca_wdp_premium").toOption
-    let is_ca_medicaid_immigration_status_eligible := (j.getObjValAs? Bool "is_ca_medicaid_immigration_status_eligible").toOption
-    return {
-      ca_snap_immigration_status_eligible := ca_snap_immigration_status_eligible.getD false,
-      ca_wdp_eligible := ca_wdp_eligible.getD false,
-      ca_wdp_premium := ca_wdp_premium.getD 0,
-      is_ca_medicaid_immigration_status_eligible := is_ca_medicaid_immigration_status_eligible.getD false }
+  fromJson? j := return {
+    ca_snap_immigration_status_eligible := (j.getObjValAs? Bool "ca_snap_immigration_status_eligible").toOption.getD false,
+    ca_wdp_eligible := (j.getObjValAs? Bool "ca_wdp_eligible").toOption.getD false,
+    ca_wdp_premium := (j.getObjValAs? Rat "ca_wdp_premium").toOption.getD 0,
+    is_ca_medicaid_immigration_status_eligible := (j.getObjValAs? Bool "is_ca_medicaid_immigration_status_eligible").toOption.getD false }
 
 structure Person_States_il where
   il_hbi_eligible : Bool := false
@@ -859,14 +600,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_il where
-  fromJson? j := do
-    let il_hbi_eligible := (j.getObjValAs? Bool "il_hbi_eligible").toOption
-    let il_hbwd_eligible := (j.getObjValAs? Bool "il_hbwd_eligible").toOption
-    let il_hbwd_premium := (j.getObjValAs? Rat "il_hbwd_premium").toOption
-    return {
-      il_hbi_eligible := il_hbi_eligible.getD false,
-      il_hbwd_eligible := il_hbwd_eligible.getD false,
-      il_hbwd_premium := il_hbwd_premium.getD 0 }
+  fromJson? j := return {
+    il_hbi_eligible := (j.getObjValAs? Bool "il_hbi_eligible").toOption.getD false,
+    il_hbwd_eligible := (j.getObjValAs? Bool "il_hbwd_eligible").toOption.getD false,
+    il_hbwd_premium := (j.getObjValAs? Rat "il_hbwd_premium").toOption.getD 0 }
 
 structure Person_States_ms where
   ms_wd_eligible : Bool := false
@@ -875,12 +612,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_ms where
-  fromJson? j := do
-    let ms_wd_eligible := (j.getObjValAs? Bool "ms_wd_eligible").toOption
-    let ms_wd_premium := (j.getObjValAs? Rat "ms_wd_premium").toOption
-    return {
-      ms_wd_eligible := ms_wd_eligible.getD false,
-      ms_wd_premium := ms_wd_premium.getD 0 }
+  fromJson? j := return {
+    ms_wd_eligible := (j.getObjValAs? Bool "ms_wd_eligible").toOption.getD false,
+    ms_wd_premium := (j.getObjValAs? Rat "ms_wd_premium").toOption.getD 0 }
 
 structure Person_States_or where
   or_healthier_oregon_eligible : Bool := false
@@ -888,10 +622,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_or where
-  fromJson? j := do
-    let or_healthier_oregon_eligible := (j.getObjValAs? Bool "or_healthier_oregon_eligible").toOption
-    return {
-      or_healthier_oregon_eligible := or_healthier_oregon_eligible.getD false }
+  fromJson? j := return {
+    or_healthier_oregon_eligible := (j.getObjValAs? Bool "or_healthier_oregon_eligible").toOption.getD false }
 
 structure Person_States_tax where
   employer_state_payroll_tax : Rat := 0
@@ -900,12 +632,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_tax where
-  fromJson? j := do
-    let employer_state_payroll_tax := (j.getObjValAs? Rat "employer_state_payroll_tax").toOption
-    let employer_total_state_payroll_tax := (j.getObjValAs? Rat "employer_total_state_payroll_tax").toOption
-    return {
-      employer_state_payroll_tax := employer_state_payroll_tax.getD 0,
-      employer_total_state_payroll_tax := employer_total_state_payroll_tax.getD 0 }
+  fromJson? j := return {
+    employer_state_payroll_tax := (j.getObjValAs? Rat "employer_state_payroll_tax").toOption.getD 0,
+    employer_total_state_payroll_tax := (j.getObjValAs? Rat "employer_total_state_payroll_tax").toOption.getD 0 }
 
 structure Person_States_tx where
   tx_dta_csfp_income_eligible : Bool := false
@@ -913,10 +642,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_tx where
-  fromJson? j := do
-    let tx_dta_csfp_income_eligible := (j.getObjValAs? Bool "tx_dta_csfp_income_eligible").toOption
-    return {
-      tx_dta_csfp_income_eligible := tx_dta_csfp_income_eligible.getD false }
+  fromJson? j := return {
+    tx_dta_csfp_income_eligible := (j.getObjValAs? Bool "tx_dta_csfp_income_eligible").toOption.getD false }
 
 structure Person_States_va where
   va_medicaid_lifc_income_limit : Rat := 0
@@ -924,10 +651,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_States_va where
-  fromJson? j := do
-    let va_medicaid_lifc_income_limit := (j.getObjValAs? Rat "va_medicaid_lifc_income_limit").toOption
-    return {
-      va_medicaid_lifc_income_limit := va_medicaid_lifc_income_limit.getD 0 }
+  fromJson? j := return {
+    va_medicaid_lifc_income_limit := (j.getObjValAs? Rat "va_medicaid_lifc_income_limit").toOption.getD 0 }
 
 structure Person_Usda where
   has_applied_for_unemployment_compensation : Bool := false
@@ -954,48 +679,27 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Usda where
-  fromJson? j := do
-    let has_applied_for_unemployment_compensation := (j.getObjValAs? Bool "has_applied_for_unemployment_compensation").toOption
-    let is_complying_with_tanf_work_requirements := (j.getObjValAs? Bool "is_complying_with_tanf_work_requirements").toOption
-    let is_in_substance_use_treatment_program := (j.getObjValAs? Bool "is_in_substance_use_treatment_program").toOption
-    let is_snap_employment_training_student := (j.getObjValAs? Bool "is_snap_employment_training_student").toOption
-    let is_snap_gross_test_full_income_count_alien := (j.getObjValAs? Bool "is_snap_gross_test_full_income_count_alien").toOption
-    let is_snap_prorated_income_member := (j.getObjValAs? Bool "is_snap_prorated_income_member").toOption
-    let is_snap_work_incentive_student := (j.getObjValAs? Bool "is_snap_work_incentive_student").toOption
-    let is_usda_disabled := (j.getObjValAs? Bool "is_usda_disabled").toOption
-    let is_wic_at_nutritional_risk := (j.getObjValAs? Bool "is_wic_at_nutritional_risk").toOption
-    let is_wic_fully_breastfeeding := (j.getObjValAs? Bool "is_wic_fully_breastfeeding").toOption
-    let meets_snap_abawd_work_requirements := (j.getObjValAs? Bool "meets_snap_abawd_work_requirements").toOption
-    let meets_snap_general_work_requirements := (j.getObjValAs? Bool "meets_snap_general_work_requirements").toOption
-    let meets_snap_parent_exception := (j.getObjValAs? Bool "meets_snap_parent_exception").toOption
-    let snap_excluded_child_earner := (j.getObjValAs? Bool "snap_excluded_child_earner").toOption
-    let snap_gross_self_employment_income_person := (j.getObjValAs? Rat "snap_gross_self_employment_income_person").toOption
-    let takes_up_wic_if_eligible := (j.getObjValAs? Bool "takes_up_wic_if_eligible").toOption
-    let wic_breastfeeding_infant_count := (j.getObjValAs? Rat "wic_breastfeeding_infant_count").toOption
-    let wic_category := (j.getObjValAs? WICCategory "wic_category").toOption
-    let wic_food_package_str := (j.getObjValAs? String "wic_food_package_str").toOption
-    let wic_infant_feeding_category := (j.getObjValAs? WICInfantFeedingCategory "wic_infant_feeding_category").toOption
-    return {
-      has_applied_for_unemployment_compensation := has_applied_for_unemployment_compensation.getD false,
-      is_complying_with_tanf_work_requirements := is_complying_with_tanf_work_requirements.getD false,
-      is_in_substance_use_treatment_program := is_in_substance_use_treatment_program.getD false,
-      is_snap_employment_training_student := is_snap_employment_training_student.getD false,
-      is_snap_gross_test_full_income_count_alien := is_snap_gross_test_full_income_count_alien.getD false,
-      is_snap_prorated_income_member := is_snap_prorated_income_member.getD false,
-      is_snap_work_incentive_student := is_snap_work_incentive_student.getD false,
-      is_usda_disabled := is_usda_disabled.getD false,
-      is_wic_at_nutritional_risk := is_wic_at_nutritional_risk.getD false,
-      is_wic_fully_breastfeeding := is_wic_fully_breastfeeding.getD false,
-      meets_snap_abawd_work_requirements := meets_snap_abawd_work_requirements.getD false,
-      meets_snap_general_work_requirements := meets_snap_general_work_requirements.getD false,
-      meets_snap_parent_exception := meets_snap_parent_exception.getD false,
-      snap_excluded_child_earner := snap_excluded_child_earner.getD false,
-      snap_gross_self_employment_income_person := snap_gross_self_employment_income_person.getD 0,
-      takes_up_wic_if_eligible := takes_up_wic_if_eligible.getD false,
-      wic_breastfeeding_infant_count := wic_breastfeeding_infant_count.getD 0,
-      wic_category := wic_category.getD .NONE,
-      wic_food_package_str := wic_food_package_str.getD "",
-      wic_infant_feeding_category := wic_infant_feeding_category.getD .AVERAGE }
+  fromJson? j := return {
+    has_applied_for_unemployment_compensation := (j.getObjValAs? Bool "has_applied_for_unemployment_compensation").toOption.getD false,
+    is_complying_with_tanf_work_requirements := (j.getObjValAs? Bool "is_complying_with_tanf_work_requirements").toOption.getD false,
+    is_in_substance_use_treatment_program := (j.getObjValAs? Bool "is_in_substance_use_treatment_program").toOption.getD false,
+    is_snap_employment_training_student := (j.getObjValAs? Bool "is_snap_employment_training_student").toOption.getD false,
+    is_snap_gross_test_full_income_count_alien := (j.getObjValAs? Bool "is_snap_gross_test_full_income_count_alien").toOption.getD false,
+    is_snap_prorated_income_member := (j.getObjValAs? Bool "is_snap_prorated_income_member").toOption.getD false,
+    is_snap_work_incentive_student := (j.getObjValAs? Bool "is_snap_work_incentive_student").toOption.getD false,
+    is_usda_disabled := (j.getObjValAs? Bool "is_usda_disabled").toOption.getD false,
+    is_wic_at_nutritional_risk := (j.getObjValAs? Bool "is_wic_at_nutritional_risk").toOption.getD false,
+    is_wic_fully_breastfeeding := (j.getObjValAs? Bool "is_wic_fully_breastfeeding").toOption.getD false,
+    meets_snap_abawd_work_requirements := (j.getObjValAs? Bool "meets_snap_abawd_work_requirements").toOption.getD false,
+    meets_snap_general_work_requirements := (j.getObjValAs? Bool "meets_snap_general_work_requirements").toOption.getD false,
+    meets_snap_parent_exception := (j.getObjValAs? Bool "meets_snap_parent_exception").toOption.getD false,
+    snap_excluded_child_earner := (j.getObjValAs? Bool "snap_excluded_child_earner").toOption.getD false,
+    snap_gross_self_employment_income_person := (j.getObjValAs? Rat "snap_gross_self_employment_income_person").toOption.getD 0,
+    takes_up_wic_if_eligible := (j.getObjValAs? Bool "takes_up_wic_if_eligible").toOption.getD false,
+    wic_breastfeeding_infant_count := (j.getObjValAs? Rat "wic_breastfeeding_infant_count").toOption.getD 0,
+    wic_category := (j.getObjValAs? WICCategory "wic_category").toOption.getD .NONE,
+    wic_food_package_str := (j.getObjValAs? String "wic_food_package_str").toOption.getD "",
+    wic_infant_feeding_category := (j.getObjValAs? WICInfantFeedingCategory "wic_infant_feeding_category").toOption.getD .AVERAGE }
 
 structure Person where
   aca : Person_Aca := {}
@@ -1033,26 +737,16 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Aca where
-  fromJson? j := do
-    let aca_required_contribution_percentage := (j.getObjValAs? Rat "aca_required_contribution_percentage").toOption
-    let lcbp_age_0 := (j.getObjValAs? Rat "lcbp_age_0").toOption
-    let selected_marketplace_plan_benchmark_ratio := (j.getObjValAs? Rat "selected_marketplace_plan_benchmark_ratio").toOption
-    let selected_marketplace_plan_category := (j.getObjValAs? MarketplacePlanCategory "selected_marketplace_plan_category").toOption
-    let slcsp_age_0 := (j.getObjValAs? Rat "slcsp_age_0").toOption
-    let slcsp_family_tier_applies := (j.getObjValAs? Bool "slcsp_family_tier_applies").toOption
-    let slcsp_rating_area_default := (j.getObjValAs? Rat "slcsp_rating_area_default").toOption
-    let slcsp_rating_area_la_county := (j.getObjValAs? Rat "slcsp_rating_area_la_county").toOption
-    let takes_up_aca_if_eligible := (j.getObjValAs? Bool "takes_up_aca_if_eligible").toOption
-    return {
-      aca_required_contribution_percentage := aca_required_contribution_percentage.getD 0,
-      lcbp_age_0 := lcbp_age_0.getD 0,
-      selected_marketplace_plan_benchmark_ratio := selected_marketplace_plan_benchmark_ratio.getD 0,
-      selected_marketplace_plan_category := selected_marketplace_plan_category.getD .SILVER,
-      slcsp_age_0 := slcsp_age_0.getD 0,
-      slcsp_family_tier_applies := slcsp_family_tier_applies.getD false,
-      slcsp_rating_area_default := slcsp_rating_area_default.getD 0,
-      slcsp_rating_area_la_county := slcsp_rating_area_la_county.getD 0,
-      takes_up_aca_if_eligible := takes_up_aca_if_eligible.getD false }
+  fromJson? j := return {
+    aca_required_contribution_percentage := (j.getObjValAs? Rat "aca_required_contribution_percentage").toOption.getD 0,
+    lcbp_age_0 := (j.getObjValAs? Rat "lcbp_age_0").toOption.getD 0,
+    selected_marketplace_plan_benchmark_ratio := (j.getObjValAs? Rat "selected_marketplace_plan_benchmark_ratio").toOption.getD 0,
+    selected_marketplace_plan_category := (j.getObjValAs? MarketplacePlanCategory "selected_marketplace_plan_category").toOption.getD .SILVER,
+    slcsp_age_0 := (j.getObjValAs? Rat "slcsp_age_0").toOption.getD 0,
+    slcsp_family_tier_applies := (j.getObjValAs? Bool "slcsp_family_tier_applies").toOption.getD false,
+    slcsp_rating_area_default := (j.getObjValAs? Rat "slcsp_rating_area_default").toOption.getD 0,
+    slcsp_rating_area_la_county := (j.getObjValAs? Rat "slcsp_rating_area_la_county").toOption.getD 0,
+    takes_up_aca_if_eligible := (j.getObjValAs? Bool "takes_up_aca_if_eligible").toOption.getD false }
 
 structure TaxUnit_Core where
   advanced_main_air_circulating_fan_expenditures : Rat := 0
@@ -1113,116 +807,61 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Core where
-  fromJson? j := do
-    let advanced_main_air_circulating_fan_expenditures := (j.getObjValAs? Rat "advanced_main_air_circulating_fan_expenditures").toOption
-    let air_sealing_ventilation_expenditures := (j.getObjValAs? Rat "air_sealing_ventilation_expenditures").toOption
-    let bedrooms := (j.getObjValAs? Rat "bedrooms").toOption
-    let bonus_guaranteed_deduction := (j.getObjValAs? Rat "bonus_guaranteed_deduction").toOption
-    let broadband_cost := (j.getObjValAs? Rat "broadband_cost").toOption
-    let childcare_expenses := (j.getObjValAs? Rat "childcare_expenses").toOption
-    let cohabitating_spouses := (j.getObjValAs? Bool "cohabitating_spouses").toOption
-    let count_distinct_utility_expenses := (j.getObjValAs? Rat "count_distinct_utility_expenses").toOption
-    let electric_heat_pump_clothes_dryer_expenditures := (j.getObjValAs? Rat "electric_heat_pump_clothes_dryer_expenditures").toOption
-    let electric_load_service_center_upgrade_expenditures := (j.getObjValAs? Rat "electric_load_service_center_upgrade_expenditures").toOption
-    let electric_stove_cooktop_range_or_oven_expenditures := (j.getObjValAs? Rat "electric_stove_cooktop_range_or_oven_expenditures").toOption
-    let electric_wiring_expenditures := (j.getObjValAs? Rat "electric_wiring_expenditures").toOption
-    let energy_efficient_central_air_conditioner_expenditures := (j.getObjValAs? Rat "energy_efficient_central_air_conditioner_expenditures").toOption
-    let energy_efficient_door_expenditures := (j.getObjValAs? Rat "energy_efficient_door_expenditures").toOption
-    let energy_efficient_insulation_expenditures := (j.getObjValAs? Rat "energy_efficient_insulation_expenditures").toOption
-    let energy_efficient_roof_expenditures := (j.getObjValAs? Rat "energy_efficient_roof_expenditures").toOption
-    let filing_status := (j.getObjValAs? FilingStatus "filing_status").toOption
-    let form_4972_lumpsum_distributions := (j.getObjValAs? Rat "form_4972_lumpsum_distributions").toOption
-    let has_heating_cooling_expense := (j.getObjValAs? Bool "has_heating_cooling_expense").toOption
-    let heat_pump_expenditures := (j.getObjValAs? Rat "heat_pump_expenditures").toOption
-    let heat_pump_water_heater_expenditures := (j.getObjValAs? Rat "heat_pump_water_heater_expenditures").toOption
-    let home_energy_audit_expenditures := (j.getObjValAs? Rat "home_energy_audit_expenditures").toOption
-    let household_vehicles_owned := (j.getObjValAs? Rat "household_vehicles_owned").toOption
-    let household_vehicles_value := (j.getObjValAs? Rat "household_vehicles_value").toOption
-    let household_weight := (j.getObjValAs? Rat "household_weight").toOption
-    let housing_cost := (j.getObjValAs? Rat "housing_cost").toOption
-    let is_homeless := (j.getObjValAs? Bool "is_homeless").toOption
-    let is_on_tribal_land := (j.getObjValAs? Bool "is_on_tribal_land").toOption
-    let is_sro := (j.getObjValAs? Bool "is_sro").toOption
-    let mi_surtax := (j.getObjValAs? Rat "mi_surtax").toOption
-    let net_capital_gains := (j.getObjValAs? Rat "net_capital_gains").toOption
-    let new_clean_vehicle_battery_capacity := (j.getObjValAs? Rat "new_clean_vehicle_battery_capacity").toOption
-    let new_clean_vehicle_battery_components_made_in_north_america := (j.getObjValAs? Rat "new_clean_vehicle_battery_components_made_in_north_america").toOption
-    let new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country := (j.getObjValAs? Rat "new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country").toOption
-    let new_clean_vehicle_classification := (j.getObjValAs? NewElectricVehicleClassification "new_clean_vehicle_classification").toOption
-    let new_clean_vehicle_msrp := (j.getObjValAs? Rat "new_clean_vehicle_msrp").toOption
-    let other_net_gain := (j.getObjValAs? Rat "other_net_gain").toOption
-    let purchased_qualifying_new_clean_vehicle := (j.getObjValAs? Bool "purchased_qualifying_new_clean_vehicle").toOption
-    let purchased_qualifying_used_clean_vehicle := (j.getObjValAs? Bool "purchased_qualifying_used_clean_vehicle").toOption
-    let qualified_furnace_or_hot_water_boiler_expenditures := (j.getObjValAs? Rat "qualified_furnace_or_hot_water_boiler_expenditures").toOption
-    let qualified_passenger_vehicle_loan_interest := (j.getObjValAs? Rat "qualified_passenger_vehicle_loan_interest").toOption
-    let qualified_retirement_penalty := (j.getObjValAs? Rat "qualified_retirement_penalty").toOption
-    let safmr_used_for_hcv := (j.getObjValAs? Bool "safmr_used_for_hcv").toOption
-    let separate_filer_itemizes := (j.getObjValAs? Bool "separate_filer_itemizes").toOption
-    let small_area_fair_market_rent := (j.getObjValAs? Rat "small_area_fair_market_rent").toOption
-    let spm_unit_assets := (j.getObjValAs? Rat "spm_unit_assets").toOption
-    let spm_unit_size := (j.getObjValAs? Rat "spm_unit_size").toOption
-    let spm_unit_tenure_type := (j.getObjValAs? SPMUnitTenureType "spm_unit_tenure_type").toOption
-    let state_code := (j.getObjValAs? StateCode "state_code").toOption
-    let state_code_str := (j.getObjValAs? String "state_code_str").toOption
-    let state_group_str := (j.getObjValAs? String "state_group_str").toOption
-    let tax_unit_childcare_expenses := (j.getObjValAs? Rat "tax_unit_childcare_expenses").toOption
-    let unrecaptured_section_1250_gain := (j.getObjValAs? Rat "unrecaptured_section_1250_gain").toOption
-    let used_clean_vehicle_sale_price := (j.getObjValAs? Rat "used_clean_vehicle_sale_price").toOption
-    return {
-      advanced_main_air_circulating_fan_expenditures := advanced_main_air_circulating_fan_expenditures.getD 0,
-      air_sealing_ventilation_expenditures := air_sealing_ventilation_expenditures.getD 0,
-      bedrooms := bedrooms.getD 0,
-      bonus_guaranteed_deduction := bonus_guaranteed_deduction.getD 0,
-      broadband_cost := broadband_cost.getD 0,
-      childcare_expenses := childcare_expenses.getD 0,
-      cohabitating_spouses := cohabitating_spouses.getD false,
-      count_distinct_utility_expenses := count_distinct_utility_expenses.getD 0,
-      electric_heat_pump_clothes_dryer_expenditures := electric_heat_pump_clothes_dryer_expenditures.getD 0,
-      electric_load_service_center_upgrade_expenditures := electric_load_service_center_upgrade_expenditures.getD 0,
-      electric_stove_cooktop_range_or_oven_expenditures := electric_stove_cooktop_range_or_oven_expenditures.getD 0,
-      electric_wiring_expenditures := electric_wiring_expenditures.getD 0,
-      energy_efficient_central_air_conditioner_expenditures := energy_efficient_central_air_conditioner_expenditures.getD 0,
-      energy_efficient_door_expenditures := energy_efficient_door_expenditures.getD 0,
-      energy_efficient_insulation_expenditures := energy_efficient_insulation_expenditures.getD 0,
-      energy_efficient_roof_expenditures := energy_efficient_roof_expenditures.getD 0,
-      filing_status := filing_status.getD .SINGLE,
-      form_4972_lumpsum_distributions := form_4972_lumpsum_distributions.getD 0,
-      has_heating_cooling_expense := has_heating_cooling_expense.getD false,
-      heat_pump_expenditures := heat_pump_expenditures.getD 0,
-      heat_pump_water_heater_expenditures := heat_pump_water_heater_expenditures.getD 0,
-      home_energy_audit_expenditures := home_energy_audit_expenditures.getD 0,
-      household_vehicles_owned := household_vehicles_owned.getD 0,
-      household_vehicles_value := household_vehicles_value.getD 0,
-      household_weight := household_weight.getD 0,
-      housing_cost := housing_cost.getD 0,
-      is_homeless := is_homeless.getD false,
-      is_on_tribal_land := is_on_tribal_land.getD false,
-      is_sro := is_sro.getD false,
-      mi_surtax := mi_surtax.getD 0,
-      net_capital_gains := net_capital_gains.getD 0,
-      new_clean_vehicle_battery_capacity := new_clean_vehicle_battery_capacity.getD 0,
-      new_clean_vehicle_battery_components_made_in_north_america := new_clean_vehicle_battery_components_made_in_north_america.getD 0,
-      new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country := new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country.getD 0,
-      new_clean_vehicle_classification := new_clean_vehicle_classification.getD .OTHER,
-      new_clean_vehicle_msrp := new_clean_vehicle_msrp.getD 0,
-      other_net_gain := other_net_gain.getD 0,
-      purchased_qualifying_new_clean_vehicle := purchased_qualifying_new_clean_vehicle.getD false,
-      purchased_qualifying_used_clean_vehicle := purchased_qualifying_used_clean_vehicle.getD false,
-      qualified_furnace_or_hot_water_boiler_expenditures := qualified_furnace_or_hot_water_boiler_expenditures.getD 0,
-      qualified_passenger_vehicle_loan_interest := qualified_passenger_vehicle_loan_interest.getD 0,
-      qualified_retirement_penalty := qualified_retirement_penalty.getD 0,
-      safmr_used_for_hcv := safmr_used_for_hcv.getD false,
-      separate_filer_itemizes := separate_filer_itemizes.getD false,
-      small_area_fair_market_rent := small_area_fair_market_rent.getD 0,
-      spm_unit_assets := spm_unit_assets.getD 0,
-      spm_unit_size := spm_unit_size.getD 0,
-      spm_unit_tenure_type := spm_unit_tenure_type.getD .RENTER,
-      state_code := state_code.getD .CA,
-      state_code_str := state_code_str.getD "",
-      state_group_str := state_group_str.getD "",
-      tax_unit_childcare_expenses := tax_unit_childcare_expenses.getD 0,
-      unrecaptured_section_1250_gain := unrecaptured_section_1250_gain.getD 0,
-      used_clean_vehicle_sale_price := used_clean_vehicle_sale_price.getD 0 }
+  fromJson? j := return {
+    advanced_main_air_circulating_fan_expenditures := (j.getObjValAs? Rat "advanced_main_air_circulating_fan_expenditures").toOption.getD 0,
+    air_sealing_ventilation_expenditures := (j.getObjValAs? Rat "air_sealing_ventilation_expenditures").toOption.getD 0,
+    bedrooms := (j.getObjValAs? Rat "bedrooms").toOption.getD 0,
+    bonus_guaranteed_deduction := (j.getObjValAs? Rat "bonus_guaranteed_deduction").toOption.getD 0,
+    broadband_cost := (j.getObjValAs? Rat "broadband_cost").toOption.getD 0,
+    childcare_expenses := (j.getObjValAs? Rat "childcare_expenses").toOption.getD 0,
+    cohabitating_spouses := (j.getObjValAs? Bool "cohabitating_spouses").toOption.getD false,
+    count_distinct_utility_expenses := (j.getObjValAs? Rat "count_distinct_utility_expenses").toOption.getD 0,
+    electric_heat_pump_clothes_dryer_expenditures := (j.getObjValAs? Rat "electric_heat_pump_clothes_dryer_expenditures").toOption.getD 0,
+    electric_load_service_center_upgrade_expenditures := (j.getObjValAs? Rat "electric_load_service_center_upgrade_expenditures").toOption.getD 0,
+    electric_stove_cooktop_range_or_oven_expenditures := (j.getObjValAs? Rat "electric_stove_cooktop_range_or_oven_expenditures").toOption.getD 0,
+    electric_wiring_expenditures := (j.getObjValAs? Rat "electric_wiring_expenditures").toOption.getD 0,
+    energy_efficient_central_air_conditioner_expenditures := (j.getObjValAs? Rat "energy_efficient_central_air_conditioner_expenditures").toOption.getD 0,
+    energy_efficient_door_expenditures := (j.getObjValAs? Rat "energy_efficient_door_expenditures").toOption.getD 0,
+    energy_efficient_insulation_expenditures := (j.getObjValAs? Rat "energy_efficient_insulation_expenditures").toOption.getD 0,
+    energy_efficient_roof_expenditures := (j.getObjValAs? Rat "energy_efficient_roof_expenditures").toOption.getD 0,
+    filing_status := (j.getObjValAs? FilingStatus "filing_status").toOption.getD .SINGLE,
+    form_4972_lumpsum_distributions := (j.getObjValAs? Rat "form_4972_lumpsum_distributions").toOption.getD 0,
+    has_heating_cooling_expense := (j.getObjValAs? Bool "has_heating_cooling_expense").toOption.getD false,
+    heat_pump_expenditures := (j.getObjValAs? Rat "heat_pump_expenditures").toOption.getD 0,
+    heat_pump_water_heater_expenditures := (j.getObjValAs? Rat "heat_pump_water_heater_expenditures").toOption.getD 0,
+    home_energy_audit_expenditures := (j.getObjValAs? Rat "home_energy_audit_expenditures").toOption.getD 0,
+    household_vehicles_owned := (j.getObjValAs? Rat "household_vehicles_owned").toOption.getD 0,
+    household_vehicles_value := (j.getObjValAs? Rat "household_vehicles_value").toOption.getD 0,
+    household_weight := (j.getObjValAs? Rat "household_weight").toOption.getD 0,
+    housing_cost := (j.getObjValAs? Rat "housing_cost").toOption.getD 0,
+    is_homeless := (j.getObjValAs? Bool "is_homeless").toOption.getD false,
+    is_on_tribal_land := (j.getObjValAs? Bool "is_on_tribal_land").toOption.getD false,
+    is_sro := (j.getObjValAs? Bool "is_sro").toOption.getD false,
+    mi_surtax := (j.getObjValAs? Rat "mi_surtax").toOption.getD 0,
+    net_capital_gains := (j.getObjValAs? Rat "net_capital_gains").toOption.getD 0,
+    new_clean_vehicle_battery_capacity := (j.getObjValAs? Rat "new_clean_vehicle_battery_capacity").toOption.getD 0,
+    new_clean_vehicle_battery_components_made_in_north_america := (j.getObjValAs? Rat "new_clean_vehicle_battery_components_made_in_north_america").toOption.getD 0,
+    new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country := (j.getObjValAs? Rat "new_clean_vehicle_battery_critical_minerals_extracted_in_trading_partner_country").toOption.getD 0,
+    new_clean_vehicle_classification := (j.getObjValAs? NewElectricVehicleClassification "new_clean_vehicle_classification").toOption.getD .OTHER,
+    new_clean_vehicle_msrp := (j.getObjValAs? Rat "new_clean_vehicle_msrp").toOption.getD 0,
+    other_net_gain := (j.getObjValAs? Rat "other_net_gain").toOption.getD 0,
+    purchased_qualifying_new_clean_vehicle := (j.getObjValAs? Bool "purchased_qualifying_new_clean_vehicle").toOption.getD false,
+    purchased_qualifying_used_clean_vehicle := (j.getObjValAs? Bool "purchased_qualifying_used_clean_vehicle").toOption.getD false,
+    qualified_furnace_or_hot_water_boiler_expenditures := (j.getObjValAs? Rat "qualified_furnace_or_hot_water_boiler_expenditures").toOption.getD 0,
+    qualified_passenger_vehicle_loan_interest := (j.getObjValAs? Rat "qualified_passenger_vehicle_loan_interest").toOption.getD 0,
+    qualified_retirement_penalty := (j.getObjValAs? Rat "qualified_retirement_penalty").toOption.getD 0,
+    safmr_used_for_hcv := (j.getObjValAs? Bool "safmr_used_for_hcv").toOption.getD false,
+    separate_filer_itemizes := (j.getObjValAs? Bool "separate_filer_itemizes").toOption.getD false,
+    small_area_fair_market_rent := (j.getObjValAs? Rat "small_area_fair_market_rent").toOption.getD 0,
+    spm_unit_assets := (j.getObjValAs? Rat "spm_unit_assets").toOption.getD 0,
+    spm_unit_size := (j.getObjValAs? Rat "spm_unit_size").toOption.getD 0,
+    spm_unit_tenure_type := (j.getObjValAs? SPMUnitTenureType "spm_unit_tenure_type").toOption.getD .RENTER,
+    state_code := (j.getObjValAs? StateCode "state_code").toOption.getD .CA,
+    state_code_str := (j.getObjValAs? String "state_code_str").toOption.getD "",
+    state_group_str := (j.getObjValAs? String "state_group_str").toOption.getD "",
+    tax_unit_childcare_expenses := (j.getObjValAs? Rat "tax_unit_childcare_expenses").toOption.getD 0,
+    unrecaptured_section_1250_gain := (j.getObjValAs? Rat "unrecaptured_section_1250_gain").toOption.getD 0,
+    used_clean_vehicle_sale_price := (j.getObjValAs? Rat "used_clean_vehicle_sale_price").toOption.getD 0 }
 
 structure TaxUnit_Doe where
   high_efficiency_electric_home_rebate_percent_covered : Rat := 0
@@ -1230,10 +869,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Doe where
-  fromJson? j := do
-    let high_efficiency_electric_home_rebate_percent_covered := (j.getObjValAs? Rat "high_efficiency_electric_home_rebate_percent_covered").toOption
-    return {
-      high_efficiency_electric_home_rebate_percent_covered := high_efficiency_electric_home_rebate_percent_covered.getD 0 }
+  fromJson? j := return {
+    high_efficiency_electric_home_rebate_percent_covered := (j.getObjValAs? Rat "high_efficiency_electric_home_rebate_percent_covered").toOption.getD 0 }
 
 structure TaxUnit_Ed where
   pell_grant_primary_income : Rat := 0
@@ -1241,10 +878,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Ed where
-  fromJson? j := do
-    let pell_grant_primary_income := (j.getObjValAs? Rat "pell_grant_primary_income").toOption
-    return {
-      pell_grant_primary_income := pell_grant_primary_income.getD 0 }
+  fromJson? j := return {
+    pell_grant_primary_income := (j.getObjValAs? Rat "pell_grant_primary_income").toOption.getD 0 }
 
 structure TaxUnit_Fcc where
   is_acp_eligible : Bool := false
@@ -1254,14 +889,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Fcc where
-  fromJson? j := do
-    let is_acp_eligible := (j.getObjValAs? Bool "is_acp_eligible").toOption
-    let is_ebb_eligible := (j.getObjValAs? Bool "is_ebb_eligible").toOption
-    let lifeline := (j.getObjValAs? Rat "lifeline").toOption
-    return {
-      is_acp_eligible := is_acp_eligible.getD false,
-      is_ebb_eligible := is_ebb_eligible.getD false,
-      lifeline := lifeline.getD 0 }
+  fromJson? j := return {
+    is_acp_eligible := (j.getObjValAs? Bool "is_acp_eligible").toOption.getD false,
+    is_ebb_eligible := (j.getObjValAs? Bool "is_ebb_eligible").toOption.getD false,
+    lifeline := (j.getObjValAs? Rat "lifeline").toOption.getD 0 }
 
 structure TaxUnit_Hhs where
   hhs_smi : Rat := 0
@@ -1275,22 +906,14 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Hhs where
-  fromJson? j := do
-    let hhs_smi := (j.getObjValAs? Rat "hhs_smi").toOption
-    let medicaid_working_disabled_buy_in_premium := (j.getObjValAs? Rat "medicaid_working_disabled_buy_in_premium").toOption
-    let meets_ccdf_activity_test := (j.getObjValAs? Bool "meets_ccdf_activity_test").toOption
-    let receives_tanf := (j.getObjValAs? Bool "receives_tanf").toOption
-    let spm_unit_total_ccdf_copay := (j.getObjValAs? Rat "spm_unit_total_ccdf_copay").toOption
-    let takes_up_tanf_if_eligible := (j.getObjValAs? Bool "takes_up_tanf_if_eligible").toOption
-    let tax_unit_fpg := (j.getObjValAs? Rat "tax_unit_fpg").toOption
-    return {
-      hhs_smi := hhs_smi.getD 0,
-      medicaid_working_disabled_buy_in_premium := medicaid_working_disabled_buy_in_premium.getD 0,
-      meets_ccdf_activity_test := meets_ccdf_activity_test.getD false,
-      receives_tanf := receives_tanf.getD false,
-      spm_unit_total_ccdf_copay := spm_unit_total_ccdf_copay.getD 0,
-      takes_up_tanf_if_eligible := takes_up_tanf_if_eligible.getD false,
-      tax_unit_fpg := tax_unit_fpg.getD 0 }
+  fromJson? j := return {
+    hhs_smi := (j.getObjValAs? Rat "hhs_smi").toOption.getD 0,
+    medicaid_working_disabled_buy_in_premium := (j.getObjValAs? Rat "medicaid_working_disabled_buy_in_premium").toOption.getD 0,
+    meets_ccdf_activity_test := (j.getObjValAs? Bool "meets_ccdf_activity_test").toOption.getD false,
+    receives_tanf := (j.getObjValAs? Bool "receives_tanf").toOption.getD false,
+    spm_unit_total_ccdf_copay := (j.getObjValAs? Rat "spm_unit_total_ccdf_copay").toOption.getD 0,
+    takes_up_tanf_if_eligible := (j.getObjValAs? Bool "takes_up_tanf_if_eligible").toOption.getD false,
+    tax_unit_fpg := (j.getObjValAs? Rat "tax_unit_fpg").toOption.getD 0 }
 
 structure TaxUnit_Hud where
   ami : Rat := 0
@@ -1311,36 +934,21 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Hud where
-  fromJson? j := do
-    let ami := (j.getObjValAs? Rat "ami").toOption
-    let housing_designated_welfare := (j.getObjValAs? Rat "housing_designated_welfare").toOption
-    let hud_especially_low_income_factor := (j.getObjValAs? Rat "hud_especially_low_income_factor").toOption
-    let hud_extremely_low_income_limit := (j.getObjValAs? Rat "hud_extremely_low_income_limit").toOption
-    let hud_fair_market_rent := (j.getObjValAs? Rat "hud_fair_market_rent").toOption
-    let hud_low_income_factor := (j.getObjValAs? Rat "hud_low_income_factor").toOption
-    let hud_low_income_limit := (j.getObjValAs? Rat "hud_low_income_limit").toOption
-    let hud_moderate_income_factor := (j.getObjValAs? Rat "hud_moderate_income_factor").toOption
-    let hud_utility_allowance := (j.getObjValAs? Rat "hud_utility_allowance").toOption
-    let hud_very_low_income_factor := (j.getObjValAs? Rat "hud_very_low_income_factor").toOption
-    let hud_very_low_income_limit := (j.getObjValAs? Rat "hud_very_low_income_limit").toOption
-    let receives_housing_assistance := (j.getObjValAs? Bool "receives_housing_assistance").toOption
-    let takes_up_housing_assistance_if_eligible := (j.getObjValAs? Bool "takes_up_housing_assistance_if_eligible").toOption
-    let zip_code_payment_standard := (j.getObjValAs? Rat "zip_code_payment_standard").toOption
-    return {
-      ami := ami.getD 0,
-      housing_designated_welfare := housing_designated_welfare.getD 0,
-      hud_especially_low_income_factor := hud_especially_low_income_factor.getD 0,
-      hud_extremely_low_income_limit := hud_extremely_low_income_limit.getD 0,
-      hud_fair_market_rent := hud_fair_market_rent.getD 0,
-      hud_low_income_factor := hud_low_income_factor.getD 0,
-      hud_low_income_limit := hud_low_income_limit.getD 0,
-      hud_moderate_income_factor := hud_moderate_income_factor.getD 0,
-      hud_utility_allowance := hud_utility_allowance.getD 0,
-      hud_very_low_income_factor := hud_very_low_income_factor.getD 0,
-      hud_very_low_income_limit := hud_very_low_income_limit.getD 0,
-      receives_housing_assistance := receives_housing_assistance.getD false,
-      takes_up_housing_assistance_if_eligible := takes_up_housing_assistance_if_eligible.getD false,
-      zip_code_payment_standard := zip_code_payment_standard.getD 0 }
+  fromJson? j := return {
+    ami := (j.getObjValAs? Rat "ami").toOption.getD 0,
+    housing_designated_welfare := (j.getObjValAs? Rat "housing_designated_welfare").toOption.getD 0,
+    hud_especially_low_income_factor := (j.getObjValAs? Rat "hud_especially_low_income_factor").toOption.getD 0,
+    hud_extremely_low_income_limit := (j.getObjValAs? Rat "hud_extremely_low_income_limit").toOption.getD 0,
+    hud_fair_market_rent := (j.getObjValAs? Rat "hud_fair_market_rent").toOption.getD 0,
+    hud_low_income_factor := (j.getObjValAs? Rat "hud_low_income_factor").toOption.getD 0,
+    hud_low_income_limit := (j.getObjValAs? Rat "hud_low_income_limit").toOption.getD 0,
+    hud_moderate_income_factor := (j.getObjValAs? Rat "hud_moderate_income_factor").toOption.getD 0,
+    hud_utility_allowance := (j.getObjValAs? Rat "hud_utility_allowance").toOption.getD 0,
+    hud_very_low_income_factor := (j.getObjValAs? Rat "hud_very_low_income_factor").toOption.getD 0,
+    hud_very_low_income_limit := (j.getObjValAs? Rat "hud_very_low_income_limit").toOption.getD 0,
+    receives_housing_assistance := (j.getObjValAs? Bool "receives_housing_assistance").toOption.getD false,
+    takes_up_housing_assistance_if_eligible := (j.getObjValAs? Bool "takes_up_housing_assistance_if_eligible").toOption.getD false,
+    zip_code_payment_standard := (j.getObjValAs? Rat "zip_code_payment_standard").toOption.getD 0 }
 
 structure TaxUnit_Irs where
   aged_blind_count : Rat := 0
@@ -1381,76 +989,41 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Irs where
-  fromJson? j := do
-    let aged_blind_count := (j.getObjValAs? Rat "aged_blind_count").toOption
-    let american_opportunity_credit := (j.getObjValAs? Rat "american_opportunity_credit").toOption
-    let capped_qualified_tuition_expenses_ald := (j.getObjValAs? Rat "capped_qualified_tuition_expenses_ald").toOption
-    let cdcc := (j.getObjValAs? Rat "cdcc").toOption
-    let cdcc_rate := (j.getObjValAs? Rat "cdcc_rate").toOption
-    let ctc_limiting_tax_liability := (j.getObjValAs? Rat "ctc_limiting_tax_liability").toOption
-    let domestic_production_ald := (j.getObjValAs? Rat "domestic_production_ald").toOption
-    let energy_efficient_home_improvement_credit_potential := (j.getObjValAs? Rat "energy_efficient_home_improvement_credit_potential").toOption
-    let excess_payroll_tax_withheld := (j.getObjValAs? Rat "excess_payroll_tax_withheld").toOption
-    let exemptions := (j.getObjValAs? Rat "exemptions").toOption
-    let foreign_earned_income_exclusion := (j.getObjValAs? Rat "foreign_earned_income_exclusion").toOption
-    let foreign_tax_credit_potential := (j.getObjValAs? Rat "foreign_tax_credit_potential").toOption
-    let has_qdiv_or_ltcg := (j.getObjValAs? Bool "has_qdiv_or_ltcg").toOption
-    let health_savings_account_ald := (j.getObjValAs? Rat "health_savings_account_ald").toOption
-    let investment_income_form_4952 := (j.getObjValAs? Rat "investment_income_form_4952").toOption
-    let is_barred_from_american_opportunity_credit_due_to_improper_claims := (j.getObjValAs? Bool "is_barred_from_american_opportunity_credit_due_to_improper_claims").toOption
-    let is_nonresident_alien_for_american_opportunity_credit := (j.getObjValAs? Bool "is_nonresident_alien_for_american_opportunity_credit").toOption
-    let is_nonresident_alien_for_lifetime_learning_credit := (j.getObjValAs? Bool "is_nonresident_alien_for_lifetime_learning_credit").toOption
-    let itemized_taxable_income_deductions_reduction := (j.getObjValAs? Rat "itemized_taxable_income_deductions_reduction").toOption
-    let loss_ald := (j.getObjValAs? Rat "loss_ald").toOption
-    let puerto_rico_income := (j.getObjValAs? Rat "puerto_rico_income").toOption
-    let qualified_business_income_deduction := (j.getObjValAs? Rat "qualified_business_income_deduction").toOption
-    let recapture_of_investment_credit := (j.getObjValAs? Rat "recapture_of_investment_credit").toOption
-    let refundable_payroll_tax_credit := (j.getObjValAs? Rat "refundable_payroll_tax_credit").toOption
-    let residential_clean_energy_credit_potential := (j.getObjValAs? Rat "residential_clean_energy_credit_potential").toOption
-    let salt_cap := (j.getObjValAs? Rat "salt_cap").toOption
-    let specified_possession_income := (j.getObjValAs? Rat "specified_possession_income").toOption
-    let takes_up_eitc := (j.getObjValAs? Bool "takes_up_eitc").toOption
-    let tax_unit_size := (j.getObjValAs? Rat "tax_unit_size").toOption
-    let taxable_ss_magi := (j.getObjValAs? Rat "taxable_ss_magi").toOption
-    let tuition_and_fees_deduction := (j.getObjValAs? Rat "tuition_and_fees_deduction").toOption
-    let unreported_payroll_tax := (j.getObjValAs? Rat "unreported_payroll_tax").toOption
-    let would_file_if_eligible_for_refundable_credit := (j.getObjValAs? Bool "would_file_if_eligible_for_refundable_credit").toOption
-    let would_file_taxes_voluntarily := (j.getObjValAs? Bool "would_file_taxes_voluntarily").toOption
-    return {
-      aged_blind_count := aged_blind_count.getD 0,
-      american_opportunity_credit := american_opportunity_credit.getD 0,
-      capped_qualified_tuition_expenses_ald := capped_qualified_tuition_expenses_ald.getD 0,
-      cdcc := cdcc.getD 0,
-      cdcc_rate := cdcc_rate.getD 0,
-      ctc_limiting_tax_liability := ctc_limiting_tax_liability.getD 0,
-      domestic_production_ald := domestic_production_ald.getD 0,
-      energy_efficient_home_improvement_credit_potential := energy_efficient_home_improvement_credit_potential.getD 0,
-      excess_payroll_tax_withheld := excess_payroll_tax_withheld.getD 0,
-      exemptions := exemptions.getD 0,
-      foreign_earned_income_exclusion := foreign_earned_income_exclusion.getD 0,
-      foreign_tax_credit_potential := foreign_tax_credit_potential.getD 0,
-      has_qdiv_or_ltcg := has_qdiv_or_ltcg.getD false,
-      health_savings_account_ald := health_savings_account_ald.getD 0,
-      investment_income_form_4952 := investment_income_form_4952.getD 0,
-      is_barred_from_american_opportunity_credit_due_to_improper_claims := is_barred_from_american_opportunity_credit_due_to_improper_claims.getD false,
-      is_nonresident_alien_for_american_opportunity_credit := is_nonresident_alien_for_american_opportunity_credit.getD false,
-      is_nonresident_alien_for_lifetime_learning_credit := is_nonresident_alien_for_lifetime_learning_credit.getD false,
-      itemized_taxable_income_deductions_reduction := itemized_taxable_income_deductions_reduction.getD 0,
-      loss_ald := loss_ald.getD 0,
-      puerto_rico_income := puerto_rico_income.getD 0,
-      qualified_business_income_deduction := qualified_business_income_deduction.getD 0,
-      recapture_of_investment_credit := recapture_of_investment_credit.getD 0,
-      refundable_payroll_tax_credit := refundable_payroll_tax_credit.getD 0,
-      residential_clean_energy_credit_potential := residential_clean_energy_credit_potential.getD 0,
-      salt_cap := salt_cap.getD 0,
-      specified_possession_income := specified_possession_income.getD 0,
-      takes_up_eitc := takes_up_eitc.getD false,
-      tax_unit_size := tax_unit_size.getD 0,
-      taxable_ss_magi := taxable_ss_magi.getD 0,
-      tuition_and_fees_deduction := tuition_and_fees_deduction.getD 0,
-      unreported_payroll_tax := unreported_payroll_tax.getD 0,
-      would_file_if_eligible_for_refundable_credit := would_file_if_eligible_for_refundable_credit.getD false,
-      would_file_taxes_voluntarily := would_file_taxes_voluntarily.getD false }
+  fromJson? j := return {
+    aged_blind_count := (j.getObjValAs? Rat "aged_blind_count").toOption.getD 0,
+    american_opportunity_credit := (j.getObjValAs? Rat "american_opportunity_credit").toOption.getD 0,
+    capped_qualified_tuition_expenses_ald := (j.getObjValAs? Rat "capped_qualified_tuition_expenses_ald").toOption.getD 0,
+    cdcc := (j.getObjValAs? Rat "cdcc").toOption.getD 0,
+    cdcc_rate := (j.getObjValAs? Rat "cdcc_rate").toOption.getD 0,
+    ctc_limiting_tax_liability := (j.getObjValAs? Rat "ctc_limiting_tax_liability").toOption.getD 0,
+    domestic_production_ald := (j.getObjValAs? Rat "domestic_production_ald").toOption.getD 0,
+    energy_efficient_home_improvement_credit_potential := (j.getObjValAs? Rat "energy_efficient_home_improvement_credit_potential").toOption.getD 0,
+    excess_payroll_tax_withheld := (j.getObjValAs? Rat "excess_payroll_tax_withheld").toOption.getD 0,
+    exemptions := (j.getObjValAs? Rat "exemptions").toOption.getD 0,
+    foreign_earned_income_exclusion := (j.getObjValAs? Rat "foreign_earned_income_exclusion").toOption.getD 0,
+    foreign_tax_credit_potential := (j.getObjValAs? Rat "foreign_tax_credit_potential").toOption.getD 0,
+    has_qdiv_or_ltcg := (j.getObjValAs? Bool "has_qdiv_or_ltcg").toOption.getD false,
+    health_savings_account_ald := (j.getObjValAs? Rat "health_savings_account_ald").toOption.getD 0,
+    investment_income_form_4952 := (j.getObjValAs? Rat "investment_income_form_4952").toOption.getD 0,
+    is_barred_from_american_opportunity_credit_due_to_improper_claims := (j.getObjValAs? Bool "is_barred_from_american_opportunity_credit_due_to_improper_claims").toOption.getD false,
+    is_nonresident_alien_for_american_opportunity_credit := (j.getObjValAs? Bool "is_nonresident_alien_for_american_opportunity_credit").toOption.getD false,
+    is_nonresident_alien_for_lifetime_learning_credit := (j.getObjValAs? Bool "is_nonresident_alien_for_lifetime_learning_credit").toOption.getD false,
+    itemized_taxable_income_deductions_reduction := (j.getObjValAs? Rat "itemized_taxable_income_deductions_reduction").toOption.getD 0,
+    loss_ald := (j.getObjValAs? Rat "loss_ald").toOption.getD 0,
+    puerto_rico_income := (j.getObjValAs? Rat "puerto_rico_income").toOption.getD 0,
+    qualified_business_income_deduction := (j.getObjValAs? Rat "qualified_business_income_deduction").toOption.getD 0,
+    recapture_of_investment_credit := (j.getObjValAs? Rat "recapture_of_investment_credit").toOption.getD 0,
+    refundable_payroll_tax_credit := (j.getObjValAs? Rat "refundable_payroll_tax_credit").toOption.getD 0,
+    residential_clean_energy_credit_potential := (j.getObjValAs? Rat "residential_clean_energy_credit_potential").toOption.getD 0,
+    salt_cap := (j.getObjValAs? Rat "salt_cap").toOption.getD 0,
+    specified_possession_income := (j.getObjValAs? Rat "specified_possession_income").toOption.getD 0,
+    takes_up_eitc := (j.getObjValAs? Bool "takes_up_eitc").toOption.getD false,
+    tax_unit_size := (j.getObjValAs? Rat "tax_unit_size").toOption.getD 0,
+    taxable_ss_magi := (j.getObjValAs? Rat "taxable_ss_magi").toOption.getD 0,
+    tuition_and_fees_deduction := (j.getObjValAs? Rat "tuition_and_fees_deduction").toOption.getD 0,
+    unreported_payroll_tax := (j.getObjValAs? Rat "unreported_payroll_tax").toOption.getD 0,
+    would_file_if_eligible_for_refundable_credit := (j.getObjValAs? Bool "would_file_if_eligible_for_refundable_credit").toOption.getD false,
+    would_file_taxes_voluntarily := (j.getObjValAs? Bool "would_file_taxes_voluntarily").toOption.getD false }
 
 structure TaxUnit_Local_ca where
   in_la : Bool := false
@@ -1458,10 +1031,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Local_ca where
-  fromJson? j := do
-    let in_la := (j.getObjValAs? Bool "in_la").toOption
-    return {
-      in_la := in_la.getD false }
+  fromJson? j := return {
+    in_la := (j.getObjValAs? Bool "in_la").toOption.getD false }
 
 structure TaxUnit_Local_tax where
   local_income_tax : Rat := 0
@@ -1470,12 +1041,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Local_tax where
-  fromJson? j := do
-    let local_income_tax := (j.getObjValAs? Rat "local_income_tax").toOption
-    let local_sales_tax := (j.getObjValAs? Rat "local_sales_tax").toOption
-    return {
-      local_income_tax := local_income_tax.getD 0,
-      local_sales_tax := local_sales_tax.getD 0 }
+  fromJson? j := return {
+    local_income_tax := (j.getObjValAs? Rat "local_income_tax").toOption.getD 0,
+    local_sales_tax := (j.getObjValAs? Rat "local_sales_tax").toOption.getD 0 }
 
 structure TaxUnit_States_ak where
   ak_atap : Rat := 0
@@ -1484,12 +1052,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ak where
-  fromJson? j := do
-    let ak_atap := (j.getObjValAs? Rat "ak_atap").toOption
-    let ak_child_care_subsidies := (j.getObjValAs? Rat "ak_child_care_subsidies").toOption
-    return {
-      ak_atap := ak_atap.getD 0,
-      ak_child_care_subsidies := ak_child_care_subsidies.getD 0 }
+  fromJson? j := return {
+    ak_atap := (j.getObjValAs? Rat "ak_atap").toOption.getD 0,
+    ak_child_care_subsidies := (j.getObjValAs? Rat "ak_child_care_subsidies").toOption.getD 0 }
 
 structure TaxUnit_States_al where
   al_child_care_subsidies : Rat := 0
@@ -1499,14 +1064,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_al where
-  fromJson? j := do
-    let al_child_care_subsidies := (j.getObjValAs? Rat "al_child_care_subsidies").toOption
-    let al_chip_premium := (j.getObjValAs? Rat "al_chip_premium").toOption
-    let al_tanf := (j.getObjValAs? Rat "al_tanf").toOption
-    return {
-      al_child_care_subsidies := al_child_care_subsidies.getD 0,
-      al_chip_premium := al_chip_premium.getD 0,
-      al_tanf := al_tanf.getD 0 }
+  fromJson? j := return {
+    al_child_care_subsidies := (j.getObjValAs? Rat "al_child_care_subsidies").toOption.getD 0,
+    al_chip_premium := (j.getObjValAs? Rat "al_chip_premium").toOption.getD 0,
+    al_tanf := (j.getObjValAs? Rat "al_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ar where
   ar_child_care_subsidies : Rat := 0
@@ -1515,12 +1076,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ar where
-  fromJson? j := do
-    let ar_child_care_subsidies := (j.getObjValAs? Rat "ar_child_care_subsidies").toOption
-    let ar_tea := (j.getObjValAs? Rat "ar_tea").toOption
-    return {
-      ar_child_care_subsidies := ar_child_care_subsidies.getD 0,
-      ar_tea := ar_tea.getD 0 }
+  fromJson? j := return {
+    ar_child_care_subsidies := (j.getObjValAs? Rat "ar_child_care_subsidies").toOption.getD 0,
+    ar_tea := (j.getObjValAs? Rat "ar_tea").toOption.getD 0 }
 
 structure TaxUnit_States_az where
   az_child_care_subsidies : Rat := 0
@@ -1530,14 +1088,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_az where
-  fromJson? j := do
-    let az_child_care_subsidies := (j.getObjValAs? Rat "az_child_care_subsidies").toOption
-    let az_tanf := (j.getObjValAs? Rat "az_tanf").toOption
-    let az_tanf_max_benefit_standard := (j.getObjValAs? Rat "az_tanf_max_benefit_standard").toOption
-    return {
-      az_child_care_subsidies := az_child_care_subsidies.getD 0,
-      az_tanf := az_tanf.getD 0,
-      az_tanf_max_benefit_standard := az_tanf_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    az_child_care_subsidies := (j.getObjValAs? Rat "az_child_care_subsidies").toOption.getD 0,
+    az_tanf := (j.getObjValAs? Rat "az_tanf").toOption.getD 0,
+    az_tanf_max_benefit_standard := (j.getObjValAs? Rat "az_tanf_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_ca where
   ca_child_care_subsidies : Rat := 0
@@ -1547,14 +1101,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ca where
-  fromJson? j := do
-    let ca_child_care_subsidies := (j.getObjValAs? Rat "ca_child_care_subsidies").toOption
-    let ca_tanf := (j.getObjValAs? Rat "ca_tanf").toOption
-    let ca_tanf_max_benefit_standard := (j.getObjValAs? Rat "ca_tanf_max_benefit_standard").toOption
-    return {
-      ca_child_care_subsidies := ca_child_care_subsidies.getD 0,
-      ca_tanf := ca_tanf.getD 0,
-      ca_tanf_max_benefit_standard := ca_tanf_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    ca_child_care_subsidies := (j.getObjValAs? Rat "ca_child_care_subsidies").toOption.getD 0,
+    ca_tanf := (j.getObjValAs? Rat "ca_tanf").toOption.getD 0,
+    ca_tanf_max_benefit_standard := (j.getObjValAs? Rat "ca_tanf_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_co where
   co_child_care_subsidies : Rat := 0
@@ -1563,12 +1113,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_co where
-  fromJson? j := do
-    let co_child_care_subsidies := (j.getObjValAs? Rat "co_child_care_subsidies").toOption
-    let co_tanf := (j.getObjValAs? Rat "co_tanf").toOption
-    return {
-      co_child_care_subsidies := co_child_care_subsidies.getD 0,
-      co_tanf := co_tanf.getD 0 }
+  fromJson? j := return {
+    co_child_care_subsidies := (j.getObjValAs? Rat "co_child_care_subsidies").toOption.getD 0,
+    co_tanf := (j.getObjValAs? Rat "co_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ct where
   ct_child_care_subsidies : Rat := 0
@@ -1579,16 +1126,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ct where
-  fromJson? j := do
-    let ct_child_care_subsidies := (j.getObjValAs? Rat "ct_child_care_subsidies").toOption
-    let ct_chip_premium := (j.getObjValAs? Rat "ct_chip_premium").toOption
-    let ct_tfa := (j.getObjValAs? Rat "ct_tfa").toOption
-    let ct_tfa_max_benefit_standard := (j.getObjValAs? Rat "ct_tfa_max_benefit_standard").toOption
-    return {
-      ct_child_care_subsidies := ct_child_care_subsidies.getD 0,
-      ct_chip_premium := ct_chip_premium.getD 0,
-      ct_tfa := ct_tfa.getD 0,
-      ct_tfa_max_benefit_standard := ct_tfa_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    ct_child_care_subsidies := (j.getObjValAs? Rat "ct_child_care_subsidies").toOption.getD 0,
+    ct_chip_premium := (j.getObjValAs? Rat "ct_chip_premium").toOption.getD 0,
+    ct_tfa := (j.getObjValAs? Rat "ct_tfa").toOption.getD 0,
+    ct_tfa_max_benefit_standard := (j.getObjValAs? Rat "ct_tfa_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_dc where
   dc_snap_temporary_local_benefit : Rat := 0
@@ -1598,14 +1140,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_dc where
-  fromJson? j := do
-    let dc_snap_temporary_local_benefit := (j.getObjValAs? Rat "dc_snap_temporary_local_benefit").toOption
-    let dc_tanf := (j.getObjValAs? Rat "dc_tanf").toOption
-    let dc_tanf_meets_work_requirements := (j.getObjValAs? Bool "dc_tanf_meets_work_requirements").toOption
-    return {
-      dc_snap_temporary_local_benefit := dc_snap_temporary_local_benefit.getD 0,
-      dc_tanf := dc_tanf.getD 0,
-      dc_tanf_meets_work_requirements := dc_tanf_meets_work_requirements.getD false }
+  fromJson? j := return {
+    dc_snap_temporary_local_benefit := (j.getObjValAs? Rat "dc_snap_temporary_local_benefit").toOption.getD 0,
+    dc_tanf := (j.getObjValAs? Rat "dc_tanf").toOption.getD 0,
+    dc_tanf_meets_work_requirements := (j.getObjValAs? Bool "dc_tanf_meets_work_requirements").toOption.getD false }
 
 structure TaxUnit_States_de where
   de_child_care_subsidies : Rat := 0
@@ -1615,14 +1153,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_de where
-  fromJson? j := do
-    let de_child_care_subsidies := (j.getObjValAs? Rat "de_child_care_subsidies").toOption
-    let de_chip_premium := (j.getObjValAs? Rat "de_chip_premium").toOption
-    let de_tanf := (j.getObjValAs? Rat "de_tanf").toOption
-    return {
-      de_child_care_subsidies := de_child_care_subsidies.getD 0,
-      de_chip_premium := de_chip_premium.getD 0,
-      de_tanf := de_tanf.getD 0 }
+  fromJson? j := return {
+    de_child_care_subsidies := (j.getObjValAs? Rat "de_child_care_subsidies").toOption.getD 0,
+    de_chip_premium := (j.getObjValAs? Rat "de_chip_premium").toOption.getD 0,
+    de_tanf := (j.getObjValAs? Rat "de_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_fl where
   fl_child_care_subsidies : Rat := 0
@@ -1633,16 +1167,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_fl where
-  fromJson? j := do
-    let fl_child_care_subsidies := (j.getObjValAs? Rat "fl_child_care_subsidies").toOption
-    let fl_chip_premium := (j.getObjValAs? Rat "fl_chip_premium").toOption
-    let fl_tca := (j.getObjValAs? Rat "fl_tca").toOption
-    let fl_tca_max_benefit_standard := (j.getObjValAs? Rat "fl_tca_max_benefit_standard").toOption
-    return {
-      fl_child_care_subsidies := fl_child_care_subsidies.getD 0,
-      fl_chip_premium := fl_chip_premium.getD 0,
-      fl_tca := fl_tca.getD 0,
-      fl_tca_max_benefit_standard := fl_tca_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    fl_child_care_subsidies := (j.getObjValAs? Rat "fl_child_care_subsidies").toOption.getD 0,
+    fl_chip_premium := (j.getObjValAs? Rat "fl_chip_premium").toOption.getD 0,
+    fl_tca := (j.getObjValAs? Rat "fl_tca").toOption.getD 0,
+    fl_tca_max_benefit_standard := (j.getObjValAs? Rat "fl_tca_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_ga where
   ga_child_care_subsidies : Rat := 0
@@ -1652,14 +1181,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ga where
-  fromJson? j := do
-    let ga_child_care_subsidies := (j.getObjValAs? Rat "ga_child_care_subsidies").toOption
-    let ga_chip_premium := (j.getObjValAs? Rat "ga_chip_premium").toOption
-    let ga_tanf := (j.getObjValAs? Rat "ga_tanf").toOption
-    return {
-      ga_child_care_subsidies := ga_child_care_subsidies.getD 0,
-      ga_chip_premium := ga_chip_premium.getD 0,
-      ga_tanf := ga_tanf.getD 0 }
+  fromJson? j := return {
+    ga_child_care_subsidies := (j.getObjValAs? Rat "ga_child_care_subsidies").toOption.getD 0,
+    ga_chip_premium := (j.getObjValAs? Rat "ga_chip_premium").toOption.getD 0,
+    ga_tanf := (j.getObjValAs? Rat "ga_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_hi where
   hi_child_care_subsidies : Rat := 0
@@ -1669,14 +1194,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_hi where
-  fromJson? j := do
-    let hi_child_care_subsidies := (j.getObjValAs? Rat "hi_child_care_subsidies").toOption
-    let hi_tanf := (j.getObjValAs? Rat "hi_tanf").toOption
-    let hi_tanf_max_benefit_standard := (j.getObjValAs? Rat "hi_tanf_max_benefit_standard").toOption
-    return {
-      hi_child_care_subsidies := hi_child_care_subsidies.getD 0,
-      hi_tanf := hi_tanf.getD 0,
-      hi_tanf_max_benefit_standard := hi_tanf_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    hi_child_care_subsidies := (j.getObjValAs? Rat "hi_child_care_subsidies").toOption.getD 0,
+    hi_tanf := (j.getObjValAs? Rat "hi_tanf").toOption.getD 0,
+    hi_tanf_max_benefit_standard := (j.getObjValAs? Rat "hi_tanf_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_ia where
   ia_child_care_subsidies : Rat := 0
@@ -1686,14 +1207,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ia where
-  fromJson? j := do
-    let ia_child_care_subsidies := (j.getObjValAs? Rat "ia_child_care_subsidies").toOption
-    let ia_chip_premium := (j.getObjValAs? Rat "ia_chip_premium").toOption
-    let ia_fip := (j.getObjValAs? Rat "ia_fip").toOption
-    return {
-      ia_child_care_subsidies := ia_child_care_subsidies.getD 0,
-      ia_chip_premium := ia_chip_premium.getD 0,
-      ia_fip := ia_fip.getD 0 }
+  fromJson? j := return {
+    ia_child_care_subsidies := (j.getObjValAs? Rat "ia_child_care_subsidies").toOption.getD 0,
+    ia_chip_premium := (j.getObjValAs? Rat "ia_chip_premium").toOption.getD 0,
+    ia_fip := (j.getObjValAs? Rat "ia_fip").toOption.getD 0 }
 
 structure TaxUnit_States_id where
   id_child_care_subsidies : Rat := 0
@@ -1703,14 +1220,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_id where
-  fromJson? j := do
-    let id_child_care_subsidies := (j.getObjValAs? Rat "id_child_care_subsidies").toOption
-    let id_chip_premium := (j.getObjValAs? Rat "id_chip_premium").toOption
-    let id_tafi := (j.getObjValAs? Rat "id_tafi").toOption
-    return {
-      id_child_care_subsidies := id_child_care_subsidies.getD 0,
-      id_chip_premium := id_chip_premium.getD 0,
-      id_tafi := id_tafi.getD 0 }
+  fromJson? j := return {
+    id_child_care_subsidies := (j.getObjValAs? Rat "id_child_care_subsidies").toOption.getD 0,
+    id_chip_premium := (j.getObjValAs? Rat "id_chip_premium").toOption.getD 0,
+    id_tafi := (j.getObjValAs? Rat "id_tafi").toOption.getD 0 }
 
 structure TaxUnit_States_il where
   il_chip_premium : Rat := 0
@@ -1719,12 +1232,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_il where
-  fromJson? j := do
-    let il_chip_premium := (j.getObjValAs? Rat "il_chip_premium").toOption
-    let il_tanf := (j.getObjValAs? Rat "il_tanf").toOption
-    return {
-      il_chip_premium := il_chip_premium.getD 0,
-      il_tanf := il_tanf.getD 0 }
+  fromJson? j := return {
+    il_chip_premium := (j.getObjValAs? Rat "il_chip_premium").toOption.getD 0,
+    il_tanf := (j.getObjValAs? Rat "il_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_in where
   in_child_care_subsidies : Rat := 0
@@ -1735,16 +1245,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_in where
-  fromJson? j := do
-    let in_child_care_subsidies := (j.getObjValAs? Rat "in_child_care_subsidies").toOption
-    let in_chip_premium := (j.getObjValAs? Rat "in_chip_premium").toOption
-    let in_hip_power_account_contribution := (j.getObjValAs? Rat "in_hip_power_account_contribution").toOption
-    let in_tanf := (j.getObjValAs? Rat "in_tanf").toOption
-    return {
-      in_child_care_subsidies := in_child_care_subsidies.getD 0,
-      in_chip_premium := in_chip_premium.getD 0,
-      in_hip_power_account_contribution := in_hip_power_account_contribution.getD 0,
-      in_tanf := in_tanf.getD 0 }
+  fromJson? j := return {
+    in_child_care_subsidies := (j.getObjValAs? Rat "in_child_care_subsidies").toOption.getD 0,
+    in_chip_premium := (j.getObjValAs? Rat "in_chip_premium").toOption.getD 0,
+    in_hip_power_account_contribution := (j.getObjValAs? Rat "in_hip_power_account_contribution").toOption.getD 0,
+    in_tanf := (j.getObjValAs? Rat "in_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ks where
   ks_child_care_subsidies : Rat := 0
@@ -1756,18 +1261,12 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ks where
-  fromJson? j := do
-    let ks_child_care_subsidies := (j.getObjValAs? Rat "ks_child_care_subsidies").toOption
-    let ks_chip_premium := (j.getObjValAs? Rat "ks_chip_premium").toOption
-    let ks_dcf_csfp_county_eligible := (j.getObjValAs? Bool "ks_dcf_csfp_county_eligible").toOption
-    let ks_tanf := (j.getObjValAs? Rat "ks_tanf").toOption
-    let ks_tanf_max_benefit_standard := (j.getObjValAs? Rat "ks_tanf_max_benefit_standard").toOption
-    return {
-      ks_child_care_subsidies := ks_child_care_subsidies.getD 0,
-      ks_chip_premium := ks_chip_premium.getD 0,
-      ks_dcf_csfp_county_eligible := ks_dcf_csfp_county_eligible.getD false,
-      ks_tanf := ks_tanf.getD 0,
-      ks_tanf_max_benefit_standard := ks_tanf_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    ks_child_care_subsidies := (j.getObjValAs? Rat "ks_child_care_subsidies").toOption.getD 0,
+    ks_chip_premium := (j.getObjValAs? Rat "ks_chip_premium").toOption.getD 0,
+    ks_dcf_csfp_county_eligible := (j.getObjValAs? Bool "ks_dcf_csfp_county_eligible").toOption.getD false,
+    ks_tanf := (j.getObjValAs? Rat "ks_tanf").toOption.getD 0,
+    ks_tanf_max_benefit_standard := (j.getObjValAs? Rat "ks_tanf_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_ky where
   ky_child_care_subsidies : Rat := 0
@@ -1776,12 +1275,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ky where
-  fromJson? j := do
-    let ky_child_care_subsidies := (j.getObjValAs? Rat "ky_child_care_subsidies").toOption
-    let ky_ktap := (j.getObjValAs? Rat "ky_ktap").toOption
-    return {
-      ky_child_care_subsidies := ky_child_care_subsidies.getD 0,
-      ky_ktap := ky_ktap.getD 0 }
+  fromJson? j := return {
+    ky_child_care_subsidies := (j.getObjValAs? Rat "ky_child_care_subsidies").toOption.getD 0,
+    ky_ktap := (j.getObjValAs? Rat "ky_ktap").toOption.getD 0 }
 
 structure TaxUnit_States_la where
   la_child_care_subsidies : Rat := 0
@@ -1791,14 +1287,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_la where
-  fromJson? j := do
-    let la_child_care_subsidies := (j.getObjValAs? Rat "la_child_care_subsidies").toOption
-    let la_chip_premium := (j.getObjValAs? Rat "la_chip_premium").toOption
-    let la_fitap := (j.getObjValAs? Rat "la_fitap").toOption
-    return {
-      la_child_care_subsidies := la_child_care_subsidies.getD 0,
-      la_chip_premium := la_chip_premium.getD 0,
-      la_fitap := la_fitap.getD 0 }
+  fromJson? j := return {
+    la_child_care_subsidies := (j.getObjValAs? Rat "la_child_care_subsidies").toOption.getD 0,
+    la_chip_premium := (j.getObjValAs? Rat "la_chip_premium").toOption.getD 0,
+    la_fitap := (j.getObjValAs? Rat "la_fitap").toOption.getD 0 }
 
 structure TaxUnit_States_ma where
   ma_child_care_subsidies : Rat := 0
@@ -1809,16 +1301,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ma where
-  fromJson? j := do
-    let ma_child_care_subsidies := (j.getObjValAs? Rat "ma_child_care_subsidies").toOption
-    let ma_chip_premium := (j.getObjValAs? Rat "ma_chip_premium").toOption
-    let ma_dese_csfp_county_eligible := (j.getObjValAs? Bool "ma_dese_csfp_county_eligible").toOption
-    let ma_tafdc := (j.getObjValAs? Rat "ma_tafdc").toOption
-    return {
-      ma_child_care_subsidies := ma_child_care_subsidies.getD 0,
-      ma_chip_premium := ma_chip_premium.getD 0,
-      ma_dese_csfp_county_eligible := ma_dese_csfp_county_eligible.getD false,
-      ma_tafdc := ma_tafdc.getD 0 }
+  fromJson? j := return {
+    ma_child_care_subsidies := (j.getObjValAs? Rat "ma_child_care_subsidies").toOption.getD 0,
+    ma_chip_premium := (j.getObjValAs? Rat "ma_chip_premium").toOption.getD 0,
+    ma_dese_csfp_county_eligible := (j.getObjValAs? Bool "ma_dese_csfp_county_eligible").toOption.getD false,
+    ma_tafdc := (j.getObjValAs? Rat "ma_tafdc").toOption.getD 0 }
 
 structure TaxUnit_States_md where
   md_child_care_subsidies : Rat := 0
@@ -1827,12 +1314,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_md where
-  fromJson? j := do
-    let md_child_care_subsidies := (j.getObjValAs? Rat "md_child_care_subsidies").toOption
-    let md_tca := (j.getObjValAs? Rat "md_tca").toOption
-    return {
-      md_child_care_subsidies := md_child_care_subsidies.getD 0,
-      md_tca := md_tca.getD 0 }
+  fromJson? j := return {
+    md_child_care_subsidies := (j.getObjValAs? Rat "md_child_care_subsidies").toOption.getD 0,
+    md_tca := (j.getObjValAs? Rat "md_tca").toOption.getD 0 }
 
 structure TaxUnit_States_me where
   me_child_care_subsidies : Rat := 0
@@ -1841,12 +1325,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_me where
-  fromJson? j := do
-    let me_child_care_subsidies := (j.getObjValAs? Rat "me_child_care_subsidies").toOption
-    let me_tanf := (j.getObjValAs? Rat "me_tanf").toOption
-    return {
-      me_child_care_subsidies := me_child_care_subsidies.getD 0,
-      me_tanf := me_tanf.getD 0 }
+  fromJson? j := return {
+    me_child_care_subsidies := (j.getObjValAs? Rat "me_child_care_subsidies").toOption.getD 0,
+    me_tanf := (j.getObjValAs? Rat "me_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_mi where
   mi_child_care_subsidies : Rat := 0
@@ -1859,20 +1340,13 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_mi where
-  fromJson? j := do
-    let mi_child_care_subsidies := (j.getObjValAs? Rat "mi_child_care_subsidies").toOption
-    let mi_chip_premium := (j.getObjValAs? Rat "mi_chip_premium").toOption
-    let mi_fip := (j.getObjValAs? Rat "mi_fip").toOption
-    let mi_healthy_michigan_contribution := (j.getObjValAs? Rat "mi_healthy_michigan_contribution").toOption
-    let mi_income_tax_before_refundable_credits := (j.getObjValAs? Rat "mi_income_tax_before_refundable_credits").toOption
-    let mi_refundable_credits := (j.getObjValAs? Rat "mi_refundable_credits").toOption
-    return {
-      mi_child_care_subsidies := mi_child_care_subsidies.getD 0,
-      mi_chip_premium := mi_chip_premium.getD 0,
-      mi_fip := mi_fip.getD 0,
-      mi_healthy_michigan_contribution := mi_healthy_michigan_contribution.getD 0,
-      mi_income_tax_before_refundable_credits := mi_income_tax_before_refundable_credits.getD 0,
-      mi_refundable_credits := mi_refundable_credits.getD 0 }
+  fromJson? j := return {
+    mi_child_care_subsidies := (j.getObjValAs? Rat "mi_child_care_subsidies").toOption.getD 0,
+    mi_chip_premium := (j.getObjValAs? Rat "mi_chip_premium").toOption.getD 0,
+    mi_fip := (j.getObjValAs? Rat "mi_fip").toOption.getD 0,
+    mi_healthy_michigan_contribution := (j.getObjValAs? Rat "mi_healthy_michigan_contribution").toOption.getD 0,
+    mi_income_tax_before_refundable_credits := (j.getObjValAs? Rat "mi_income_tax_before_refundable_credits").toOption.getD 0,
+    mi_refundable_credits := (j.getObjValAs? Rat "mi_refundable_credits").toOption.getD 0 }
 
 structure TaxUnit_States_mn where
   mn_child_care_subsidies : Rat := 0
@@ -1881,12 +1355,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_mn where
-  fromJson? j := do
-    let mn_child_care_subsidies := (j.getObjValAs? Rat "mn_child_care_subsidies").toOption
-    let mn_mfip := (j.getObjValAs? Rat "mn_mfip").toOption
-    return {
-      mn_child_care_subsidies := mn_child_care_subsidies.getD 0,
-      mn_mfip := mn_mfip.getD 0 }
+  fromJson? j := return {
+    mn_child_care_subsidies := (j.getObjValAs? Rat "mn_child_care_subsidies").toOption.getD 0,
+    mn_mfip := (j.getObjValAs? Rat "mn_mfip").toOption.getD 0 }
 
 structure TaxUnit_States_mo where
   mo_child_care_subsidies : Rat := 0
@@ -1897,16 +1368,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_mo where
-  fromJson? j := do
-    let mo_child_care_subsidies := (j.getObjValAs? Rat "mo_child_care_subsidies").toOption
-    let mo_chip_premium := (j.getObjValAs? Rat "mo_chip_premium").toOption
-    let mo_dhss_csfp_county_eligible := (j.getObjValAs? Bool "mo_dhss_csfp_county_eligible").toOption
-    let mo_tanf := (j.getObjValAs? Rat "mo_tanf").toOption
-    return {
-      mo_child_care_subsidies := mo_child_care_subsidies.getD 0,
-      mo_chip_premium := mo_chip_premium.getD 0,
-      mo_dhss_csfp_county_eligible := mo_dhss_csfp_county_eligible.getD false,
-      mo_tanf := mo_tanf.getD 0 }
+  fromJson? j := return {
+    mo_child_care_subsidies := (j.getObjValAs? Rat "mo_child_care_subsidies").toOption.getD 0,
+    mo_chip_premium := (j.getObjValAs? Rat "mo_chip_premium").toOption.getD 0,
+    mo_dhss_csfp_county_eligible := (j.getObjValAs? Bool "mo_dhss_csfp_county_eligible").toOption.getD false,
+    mo_tanf := (j.getObjValAs? Rat "mo_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ms where
   ms_child_care_subsidies : Rat := 0
@@ -1915,12 +1381,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ms where
-  fromJson? j := do
-    let ms_child_care_subsidies := (j.getObjValAs? Rat "ms_child_care_subsidies").toOption
-    let ms_tanf := (j.getObjValAs? Rat "ms_tanf").toOption
-    return {
-      ms_child_care_subsidies := ms_child_care_subsidies.getD 0,
-      ms_tanf := ms_tanf.getD 0 }
+  fromJson? j := return {
+    ms_child_care_subsidies := (j.getObjValAs? Rat "ms_child_care_subsidies").toOption.getD 0,
+    ms_tanf := (j.getObjValAs? Rat "ms_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_mt where
   mt_child_care_subsidies : Rat := 0
@@ -1931,16 +1394,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_mt where
-  fromJson? j := do
-    let mt_child_care_subsidies := (j.getObjValAs? Rat "mt_child_care_subsidies").toOption
-    let mt_help_premium := (j.getObjValAs? Rat "mt_help_premium").toOption
-    let mt_tanf := (j.getObjValAs? Rat "mt_tanf").toOption
-    let mt_tanf_meets_work_requirements := (j.getObjValAs? Bool "mt_tanf_meets_work_requirements").toOption
-    return {
-      mt_child_care_subsidies := mt_child_care_subsidies.getD 0,
-      mt_help_premium := mt_help_premium.getD 0,
-      mt_tanf := mt_tanf.getD 0,
-      mt_tanf_meets_work_requirements := mt_tanf_meets_work_requirements.getD false }
+  fromJson? j := return {
+    mt_child_care_subsidies := (j.getObjValAs? Rat "mt_child_care_subsidies").toOption.getD 0,
+    mt_help_premium := (j.getObjValAs? Rat "mt_help_premium").toOption.getD 0,
+    mt_tanf := (j.getObjValAs? Rat "mt_tanf").toOption.getD 0,
+    mt_tanf_meets_work_requirements := (j.getObjValAs? Bool "mt_tanf_meets_work_requirements").toOption.getD false }
 
 structure TaxUnit_States_nc where
   nc_tanf : Rat := 0
@@ -1948,10 +1406,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_nc where
-  fromJson? j := do
-    let nc_tanf := (j.getObjValAs? Rat "nc_tanf").toOption
-    return {
-      nc_tanf := nc_tanf.getD 0 }
+  fromJson? j := return {
+    nc_tanf := (j.getObjValAs? Rat "nc_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_nd where
   nd_child_care_subsidies : Rat := 0
@@ -1960,12 +1416,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_nd where
-  fromJson? j := do
-    let nd_child_care_subsidies := (j.getObjValAs? Rat "nd_child_care_subsidies").toOption
-    let nd_tanf := (j.getObjValAs? Rat "nd_tanf").toOption
-    return {
-      nd_child_care_subsidies := nd_child_care_subsidies.getD 0,
-      nd_tanf := nd_tanf.getD 0 }
+  fromJson? j := return {
+    nd_child_care_subsidies := (j.getObjValAs? Rat "nd_child_care_subsidies").toOption.getD 0,
+    nd_tanf := (j.getObjValAs? Rat "nd_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ne where
   ne_adc : Rat := 0
@@ -1974,12 +1427,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ne where
-  fromJson? j := do
-    let ne_adc := (j.getObjValAs? Rat "ne_adc").toOption
-    let ne_child_care_subsidies := (j.getObjValAs? Rat "ne_child_care_subsidies").toOption
-    return {
-      ne_adc := ne_adc.getD 0,
-      ne_child_care_subsidies := ne_child_care_subsidies.getD 0 }
+  fromJson? j := return {
+    ne_adc := (j.getObjValAs? Rat "ne_adc").toOption.getD 0,
+    ne_child_care_subsidies := (j.getObjValAs? Rat "ne_child_care_subsidies").toOption.getD 0 }
 
 structure TaxUnit_States_nh where
   nh_child_care_subsidies : Rat := 0
@@ -1988,12 +1438,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_nh where
-  fromJson? j := do
-    let nh_child_care_subsidies := (j.getObjValAs? Rat "nh_child_care_subsidies").toOption
-    let nh_fanf := (j.getObjValAs? Rat "nh_fanf").toOption
-    return {
-      nh_child_care_subsidies := nh_child_care_subsidies.getD 0,
-      nh_fanf := nh_fanf.getD 0 }
+  fromJson? j := return {
+    nh_child_care_subsidies := (j.getObjValAs? Rat "nh_child_care_subsidies").toOption.getD 0,
+    nh_fanf := (j.getObjValAs? Rat "nh_fanf").toOption.getD 0 }
 
 structure TaxUnit_States_nj where
   nj_child_care_subsidies : Rat := 0
@@ -2002,12 +1449,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_nj where
-  fromJson? j := do
-    let nj_child_care_subsidies := (j.getObjValAs? Rat "nj_child_care_subsidies").toOption
-    let nj_wfnj := (j.getObjValAs? Rat "nj_wfnj").toOption
-    return {
-      nj_child_care_subsidies := nj_child_care_subsidies.getD 0,
-      nj_wfnj := nj_wfnj.getD 0 }
+  fromJson? j := return {
+    nj_child_care_subsidies := (j.getObjValAs? Rat "nj_child_care_subsidies").toOption.getD 0,
+    nj_wfnj := (j.getObjValAs? Rat "nj_wfnj").toOption.getD 0 }
 
 structure TaxUnit_States_nm where
   nm_child_care_subsidies : Rat := 0
@@ -2016,12 +1460,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_nm where
-  fromJson? j := do
-    let nm_child_care_subsidies := (j.getObjValAs? Rat "nm_child_care_subsidies").toOption
-    let nm_works := (j.getObjValAs? Rat "nm_works").toOption
-    return {
-      nm_child_care_subsidies := nm_child_care_subsidies.getD 0,
-      nm_works := nm_works.getD 0 }
+  fromJson? j := return {
+    nm_child_care_subsidies := (j.getObjValAs? Rat "nm_child_care_subsidies").toOption.getD 0,
+    nm_works := (j.getObjValAs? Rat "nm_works").toOption.getD 0 }
 
 structure TaxUnit_States_nv where
   nv_child_care_subsidies : Rat := 0
@@ -2030,12 +1471,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_nv where
-  fromJson? j := do
-    let nv_child_care_subsidies := (j.getObjValAs? Rat "nv_child_care_subsidies").toOption
-    let nv_tanf := (j.getObjValAs? Rat "nv_tanf").toOption
-    return {
-      nv_child_care_subsidies := nv_child_care_subsidies.getD 0,
-      nv_tanf := nv_tanf.getD 0 }
+  fromJson? j := return {
+    nv_child_care_subsidies := (j.getObjValAs? Rat "nv_child_care_subsidies").toOption.getD 0,
+    nv_tanf := (j.getObjValAs? Rat "nv_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ny where
   ny_chip_premium : Rat := 0
@@ -2045,14 +1483,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ny where
-  fromJson? j := do
-    let ny_chip_premium := (j.getObjValAs? Rat "ny_chip_premium").toOption
-    let ny_tanf := (j.getObjValAs? Rat "ny_tanf").toOption
-    let ny_tanf_max_benefit_standard := (j.getObjValAs? Rat "ny_tanf_max_benefit_standard").toOption
-    return {
-      ny_chip_premium := ny_chip_premium.getD 0,
-      ny_tanf := ny_tanf.getD 0,
-      ny_tanf_max_benefit_standard := ny_tanf_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    ny_chip_premium := (j.getObjValAs? Rat "ny_chip_premium").toOption.getD 0,
+    ny_tanf := (j.getObjValAs? Rat "ny_tanf").toOption.getD 0,
+    ny_tanf_max_benefit_standard := (j.getObjValAs? Rat "ny_tanf_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_oh where
   oh_child_care_subsidies : Rat := 0
@@ -2061,12 +1495,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_oh where
-  fromJson? j := do
-    let oh_child_care_subsidies := (j.getObjValAs? Rat "oh_child_care_subsidies").toOption
-    let oh_owf := (j.getObjValAs? Rat "oh_owf").toOption
-    return {
-      oh_child_care_subsidies := oh_child_care_subsidies.getD 0,
-      oh_owf := oh_owf.getD 0 }
+  fromJson? j := return {
+    oh_child_care_subsidies := (j.getObjValAs? Rat "oh_child_care_subsidies").toOption.getD 0,
+    oh_owf := (j.getObjValAs? Rat "oh_owf").toOption.getD 0 }
 
 structure TaxUnit_States_ok where
   ok_child_care_subsidies : Rat := 0
@@ -2075,12 +1506,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ok where
-  fromJson? j := do
-    let ok_child_care_subsidies := (j.getObjValAs? Rat "ok_child_care_subsidies").toOption
-    let ok_tanf := (j.getObjValAs? Rat "ok_tanf").toOption
-    return {
-      ok_child_care_subsidies := ok_child_care_subsidies.getD 0,
-      ok_tanf := ok_tanf.getD 0 }
+  fromJson? j := return {
+    ok_child_care_subsidies := (j.getObjValAs? Rat "ok_child_care_subsidies").toOption.getD 0,
+    ok_tanf := (j.getObjValAs? Rat "ok_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_or where
   or_tanf : Rat := 0
@@ -2088,10 +1516,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_or where
-  fromJson? j := do
-    let or_tanf := (j.getObjValAs? Rat "or_tanf").toOption
-    return {
-      or_tanf := or_tanf.getD 0 }
+  fromJson? j := return {
+    or_tanf := (j.getObjValAs? Rat "or_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_pa where
   pa_child_care_subsidies : Rat := 0
@@ -2100,12 +1526,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_pa where
-  fromJson? j := do
-    let pa_child_care_subsidies := (j.getObjValAs? Rat "pa_child_care_subsidies").toOption
-    let pa_tanf := (j.getObjValAs? Rat "pa_tanf").toOption
-    return {
-      pa_child_care_subsidies := pa_child_care_subsidies.getD 0,
-      pa_tanf := pa_tanf.getD 0 }
+  fromJson? j := return {
+    pa_child_care_subsidies := (j.getObjValAs? Rat "pa_child_care_subsidies").toOption.getD 0,
+    pa_tanf := (j.getObjValAs? Rat "pa_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ri where
   ri_child_care_subsidies : Rat := 0
@@ -2114,12 +1537,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ri where
-  fromJson? j := do
-    let ri_child_care_subsidies := (j.getObjValAs? Rat "ri_child_care_subsidies").toOption
-    let ri_works := (j.getObjValAs? Rat "ri_works").toOption
-    return {
-      ri_child_care_subsidies := ri_child_care_subsidies.getD 0,
-      ri_works := ri_works.getD 0 }
+  fromJson? j := return {
+    ri_child_care_subsidies := (j.getObjValAs? Rat "ri_child_care_subsidies").toOption.getD 0,
+    ri_works := (j.getObjValAs? Rat "ri_works").toOption.getD 0 }
 
 structure TaxUnit_States_sc where
   sc_child_care_subsidies : Rat := 0
@@ -2128,12 +1548,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_sc where
-  fromJson? j := do
-    let sc_child_care_subsidies := (j.getObjValAs? Rat "sc_child_care_subsidies").toOption
-    let sc_tanf := (j.getObjValAs? Rat "sc_tanf").toOption
-    return {
-      sc_child_care_subsidies := sc_child_care_subsidies.getD 0,
-      sc_tanf := sc_tanf.getD 0 }
+  fromJson? j := return {
+    sc_child_care_subsidies := (j.getObjValAs? Rat "sc_child_care_subsidies").toOption.getD 0,
+    sc_tanf := (j.getObjValAs? Rat "sc_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_sd where
   sd_child_care_subsidies : Rat := 0
@@ -2142,12 +1559,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_sd where
-  fromJson? j := do
-    let sd_child_care_subsidies := (j.getObjValAs? Rat "sd_child_care_subsidies").toOption
-    let sd_tanf := (j.getObjValAs? Rat "sd_tanf").toOption
-    return {
-      sd_child_care_subsidies := sd_child_care_subsidies.getD 0,
-      sd_tanf := sd_tanf.getD 0 }
+  fromJson? j := return {
+    sd_child_care_subsidies := (j.getObjValAs? Rat "sd_child_care_subsidies").toOption.getD 0,
+    sd_tanf := (j.getObjValAs? Rat "sd_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_tax where
   employee_state_payroll_tax : Rat := 0
@@ -2158,16 +1572,11 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_tax where
-  fromJson? j := do
-    let employee_state_payroll_tax := (j.getObjValAs? Rat "employee_state_payroll_tax").toOption
-    let state_income_tax := (j.getObjValAs? Rat "state_income_tax").toOption
-    let state_sales_tax := (j.getObjValAs? Rat "state_sales_tax").toOption
-    let state_withheld_income_tax := (j.getObjValAs? Rat "state_withheld_income_tax").toOption
-    return {
-      employee_state_payroll_tax := employee_state_payroll_tax.getD 0,
-      state_income_tax := state_income_tax.getD 0,
-      state_sales_tax := state_sales_tax.getD 0,
-      state_withheld_income_tax := state_withheld_income_tax.getD 0 }
+  fromJson? j := return {
+    employee_state_payroll_tax := (j.getObjValAs? Rat "employee_state_payroll_tax").toOption.getD 0,
+    state_income_tax := (j.getObjValAs? Rat "state_income_tax").toOption.getD 0,
+    state_sales_tax := (j.getObjValAs? Rat "state_sales_tax").toOption.getD 0,
+    state_withheld_income_tax := (j.getObjValAs? Rat "state_withheld_income_tax").toOption.getD 0 }
 
 structure TaxUnit_States_tn where
   tn_ff : Rat := 0
@@ -2175,10 +1584,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_tn where
-  fromJson? j := do
-    let tn_ff := (j.getObjValAs? Rat "tn_ff").toOption
-    return {
-      tn_ff := tn_ff.getD 0 }
+  fromJson? j := return {
+    tn_ff := (j.getObjValAs? Rat "tn_ff").toOption.getD 0 }
 
 structure TaxUnit_States_tx where
   tx_chip_premium : Rat := 0
@@ -2187,12 +1594,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_tx where
-  fromJson? j := do
-    let tx_chip_premium := (j.getObjValAs? Rat "tx_chip_premium").toOption
-    let tx_tanf := (j.getObjValAs? Rat "tx_tanf").toOption
-    return {
-      tx_chip_premium := tx_chip_premium.getD 0,
-      tx_tanf := tx_tanf.getD 0 }
+  fromJson? j := return {
+    tx_chip_premium := (j.getObjValAs? Rat "tx_chip_premium").toOption.getD 0,
+    tx_tanf := (j.getObjValAs? Rat "tx_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_ut where
   ut_fep : Rat := 0
@@ -2200,10 +1604,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_ut where
-  fromJson? j := do
-    let ut_fep := (j.getObjValAs? Rat "ut_fep").toOption
-    return {
-      ut_fep := ut_fep.getD 0 }
+  fromJson? j := return {
+    ut_fep := (j.getObjValAs? Rat "ut_fep").toOption.getD 0 }
 
 structure TaxUnit_States_va where
   va_child_care_subsidies : Rat := 0
@@ -2212,12 +1614,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_va where
-  fromJson? j := do
-    let va_child_care_subsidies := (j.getObjValAs? Rat "va_child_care_subsidies").toOption
-    let va_tanf := (j.getObjValAs? Rat "va_tanf").toOption
-    return {
-      va_child_care_subsidies := va_child_care_subsidies.getD 0,
-      va_tanf := va_tanf.getD 0 }
+  fromJson? j := return {
+    va_child_care_subsidies := (j.getObjValAs? Rat "va_child_care_subsidies").toOption.getD 0,
+    va_tanf := (j.getObjValAs? Rat "va_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_vt where
   vt_child_care_subsidies : Rat := 0
@@ -2227,14 +1626,10 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_vt where
-  fromJson? j := do
-    let vt_child_care_subsidies := (j.getObjValAs? Rat "vt_child_care_subsidies").toOption
-    let vt_reach_up := (j.getObjValAs? Rat "vt_reach_up").toOption
-    let vt_reach_up_max_benefit_standard := (j.getObjValAs? Rat "vt_reach_up_max_benefit_standard").toOption
-    return {
-      vt_child_care_subsidies := vt_child_care_subsidies.getD 0,
-      vt_reach_up := vt_reach_up.getD 0,
-      vt_reach_up_max_benefit_standard := vt_reach_up_max_benefit_standard.getD 0 }
+  fromJson? j := return {
+    vt_child_care_subsidies := (j.getObjValAs? Rat "vt_child_care_subsidies").toOption.getD 0,
+    vt_reach_up := (j.getObjValAs? Rat "vt_reach_up").toOption.getD 0,
+    vt_reach_up_max_benefit_standard := (j.getObjValAs? Rat "vt_reach_up_max_benefit_standard").toOption.getD 0 }
 
 structure TaxUnit_States_wa where
   wa_child_care_subsidies : Rat := 0
@@ -2243,12 +1638,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_wa where
-  fromJson? j := do
-    let wa_child_care_subsidies := (j.getObjValAs? Rat "wa_child_care_subsidies").toOption
-    let wa_tanf := (j.getObjValAs? Rat "wa_tanf").toOption
-    return {
-      wa_child_care_subsidies := wa_child_care_subsidies.getD 0,
-      wa_tanf := wa_tanf.getD 0 }
+  fromJson? j := return {
+    wa_child_care_subsidies := (j.getObjValAs? Rat "wa_child_care_subsidies").toOption.getD 0,
+    wa_tanf := (j.getObjValAs? Rat "wa_tanf").toOption.getD 0 }
 
 structure TaxUnit_States_wi where
   wi_chip_premium : Rat := 0
@@ -2257,12 +1649,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_wi where
-  fromJson? j := do
-    let wi_chip_premium := (j.getObjValAs? Rat "wi_chip_premium").toOption
-    let wi_works := (j.getObjValAs? Rat "wi_works").toOption
-    return {
-      wi_chip_premium := wi_chip_premium.getD 0,
-      wi_works := wi_works.getD 0 }
+  fromJson? j := return {
+    wi_chip_premium := (j.getObjValAs? Rat "wi_chip_premium").toOption.getD 0,
+    wi_works := (j.getObjValAs? Rat "wi_works").toOption.getD 0 }
 
 structure TaxUnit_States_wv where
   wv_child_care_subsidies : Rat := 0
@@ -2271,12 +1660,9 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_wv where
-  fromJson? j := do
-    let wv_child_care_subsidies := (j.getObjValAs? Rat "wv_child_care_subsidies").toOption
-    let wv_works := (j.getObjValAs? Rat "wv_works").toOption
-    return {
-      wv_child_care_subsidies := wv_child_care_subsidies.getD 0,
-      wv_works := wv_works.getD 0 }
+  fromJson? j := return {
+    wv_child_care_subsidies := (j.getObjValAs? Rat "wv_child_care_subsidies").toOption.getD 0,
+    wv_works := (j.getObjValAs? Rat "wv_works").toOption.getD 0 }
 
 structure TaxUnit_States_wy where
   wy_power : Rat := 0
@@ -2284,10 +1670,8 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_States_wy where
-  fromJson? j := do
-    let wy_power := (j.getObjValAs? Rat "wy_power").toOption
-    return {
-      wy_power := wy_power.getD 0 }
+  fromJson? j := return {
+    wy_power := (j.getObjValAs? Rat "wy_power").toOption.getD 0 }
 
 structure TaxUnit_Usda where
   fdpir : Rat := 0
@@ -2310,40 +1694,23 @@ deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson TaxUnit_Usda where
-  fromJson? j := do
-    let fdpir := (j.getObjValAs? Rat "fdpir").toOption
-    let receives_snap := (j.getObjValAs? Bool "receives_snap").toOption
-    let school_meal_daily_subsidy := (j.getObjValAs? Rat "school_meal_daily_subsidy").toOption
-    let school_meal_paid_daily_subsidy := (j.getObjValAs? Rat "school_meal_paid_daily_subsidy").toOption
-    let snap_emergency_allotment := (j.getObjValAs? Rat "snap_emergency_allotment").toOption
-    let snap_fpg := (j.getObjValAs? Rat "snap_fpg").toOption
-    let snap_individual_utility_allowance := (j.getObjValAs? Rat "snap_individual_utility_allowance").toOption
-    let snap_limited_utility_allowance := (j.getObjValAs? Rat "snap_limited_utility_allowance").toOption
-    let snap_min_allotment := (j.getObjValAs? Rat "snap_min_allotment").toOption
-    let snap_region_str := (j.getObjValAs? String "snap_region_str").toOption
-    let snap_self_employment_expense_deduction := (j.getObjValAs? Rat "snap_self_employment_expense_deduction").toOption
-    let snap_standard_utility_allowance := (j.getObjValAs? Rat "snap_standard_utility_allowance").toOption
-    let snap_state_using_standard_utility_allowance := (j.getObjValAs? Bool "snap_state_using_standard_utility_allowance").toOption
-    let snap_utility_region_str := (j.getObjValAs? String "snap_utility_region_str").toOption
-    let takes_up_snap_if_eligible := (j.getObjValAs? Bool "takes_up_snap_if_eligible").toOption
-    let wic_income_limit := (j.getObjValAs? Rat "wic_income_limit").toOption
-    return {
-      fdpir := fdpir.getD 0,
-      receives_snap := receives_snap.getD false,
-      school_meal_daily_subsidy := school_meal_daily_subsidy.getD 0,
-      school_meal_paid_daily_subsidy := school_meal_paid_daily_subsidy.getD 0,
-      snap_emergency_allotment := snap_emergency_allotment.getD 0,
-      snap_fpg := snap_fpg.getD 0,
-      snap_individual_utility_allowance := snap_individual_utility_allowance.getD 0,
-      snap_limited_utility_allowance := snap_limited_utility_allowance.getD 0,
-      snap_min_allotment := snap_min_allotment.getD 0,
-      snap_region_str := snap_region_str.getD "",
-      snap_self_employment_expense_deduction := snap_self_employment_expense_deduction.getD 0,
-      snap_standard_utility_allowance := snap_standard_utility_allowance.getD 0,
-      snap_state_using_standard_utility_allowance := snap_state_using_standard_utility_allowance.getD false,
-      snap_utility_region_str := snap_utility_region_str.getD "",
-      takes_up_snap_if_eligible := takes_up_snap_if_eligible.getD false,
-      wic_income_limit := wic_income_limit.getD 0 }
+  fromJson? j := return {
+    fdpir := (j.getObjValAs? Rat "fdpir").toOption.getD 0,
+    receives_snap := (j.getObjValAs? Bool "receives_snap").toOption.getD false,
+    school_meal_daily_subsidy := (j.getObjValAs? Rat "school_meal_daily_subsidy").toOption.getD 0,
+    school_meal_paid_daily_subsidy := (j.getObjValAs? Rat "school_meal_paid_daily_subsidy").toOption.getD 0,
+    snap_emergency_allotment := (j.getObjValAs? Rat "snap_emergency_allotment").toOption.getD 0,
+    snap_fpg := (j.getObjValAs? Rat "snap_fpg").toOption.getD 0,
+    snap_individual_utility_allowance := (j.getObjValAs? Rat "snap_individual_utility_allowance").toOption.getD 0,
+    snap_limited_utility_allowance := (j.getObjValAs? Rat "snap_limited_utility_allowance").toOption.getD 0,
+    snap_min_allotment := (j.getObjValAs? Rat "snap_min_allotment").toOption.getD 0,
+    snap_region_str := (j.getObjValAs? String "snap_region_str").toOption.getD "",
+    snap_self_employment_expense_deduction := (j.getObjValAs? Rat "snap_self_employment_expense_deduction").toOption.getD 0,
+    snap_standard_utility_allowance := (j.getObjValAs? Rat "snap_standard_utility_allowance").toOption.getD 0,
+    snap_state_using_standard_utility_allowance := (j.getObjValAs? Bool "snap_state_using_standard_utility_allowance").toOption.getD false,
+    snap_utility_region_str := (j.getObjValAs? String "snap_utility_region_str").toOption.getD "",
+    takes_up_snap_if_eligible := (j.getObjValAs? Bool "takes_up_snap_if_eligible").toOption.getD false,
+    wic_income_limit := (j.getObjValAs? Rat "wic_income_limit").toOption.getD 0 }
 
 structure TaxUnit where
   members : List Person := []
