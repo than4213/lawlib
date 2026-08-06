@@ -10,8 +10,9 @@ or the Lean compiler. None of them are criticisms of those projects:
 they are the kind of thing that only shows up when you run two
 independent implementations against each other in exact arithmetic,
 which is exactly what this project exists to do. PolicyEngine's model
-is the reason lawlib can exist at all, and every finding here was
-reported upstream or is queued to be.
+is the reason lawlib can exist at all. Reporting these upstream is
+queued (drafts in [outreach/](outreach/)); this list came first because
+it is also the project's own working record.
 
 | # | Finding | Tier | Where |
 |---|---|---|---|
