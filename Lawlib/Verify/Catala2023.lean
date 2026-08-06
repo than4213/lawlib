@@ -42,24 +42,6 @@ theorem catala_transpiler_matches_interpreter :
     catalaCents false 0 17640 = 0 := by       -- TestChildlessZeroPoint
   native_decide
 
-/-- Gap between the encodings at one point, in cents (exact ℚ). -/
-def gapCents (g : Group) (jr : Bool) (n : Nat) (x : Nat) : Rat :=
-  rabs (100 * pe g n x - (catalaCents jr n x : Rat))
-
-def cellOk (g : Group) (jr : Bool) (n : Nat) (bound : Rat) : Bool :=
-  (List.range 60001).all fun x => decide (gapCents g jr n x ≤ bound)
-
-/-- At every whole-dollar earned income $0–$60,000: the independent
-encodings agree to the cent where §32's arithmetic is unambiguous
-(1 and 2 children), and differ by at most 25¢ / 51¢ where the statute
-and administered practice disagree (0 / 3+ children, findings §9). -/
-theorem catala_vs_pe_bounded :
-    (cellOk .single false 0 25 && cellOk .single false 1 1 &&
-     cellOk .single false 2 1 && cellOk .single false 3 51 &&
-     cellOk .joint true 0 25 && cellOk .joint true 1 1 &&
-     cellOk .joint true 2 1 && cellOk .joint true 3 51) = true := by
-  native_decide
-
 /-- The divergence is exact: on the childless plateau, PolicyEngine
 pays 24 cents more than the literal statutory formula. -/
 theorem plateau_gap_childless :

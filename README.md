@@ -109,7 +109,11 @@ encoding of §32 and the administered version diverge by exactly 24¢
 (50¢ at the phase-out end): the statute never mentions the rounding
 the published figures use. Where sources of law disagree, the
 disagreement is a theorem, not an opinion.
-([`Lawlib/Verify/Catala2023.lean`](Lawlib/Verify/Catala2023.lean))
+([`Lawlib/Verify/Catala2023.lean`](Lawlib/Verify/Catala2023.lean).
+The exhaustive version — every whole dollar from $0 to $60,000 across
+eight filing cells, 480,008 exact evaluations — is
+[`CatalaSweep2023`](Lawlib/Verify/CatalaSweep2023.lean), built nightly
+rather than on every push because it takes about 25 minutes.)
 
 **What you have to trust.** The symbolic theorems are ordinary kernel
 proofs. Whole-table computations use `native_decide`, which

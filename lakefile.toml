@@ -13,6 +13,10 @@ rev = "v4.32.1"
 name = "Lawlib"
 # Pure law only (docs/categories.md): fixtures, claims, and the
 # Asserted shadow live in the Tests lib below.
+# `Lawlib` is the root module, which does not import
+# Verify.CatalaSweep2023 — the 480,008-point exhaustive comparison.
+# That module is a check, not a dependency; the nightly job builds it
+# explicitly (see .github/workflows/ci.yml).
 globs = ["Lawlib"]
 # native_decide over the full-depth eitc closure needs a deep
 # elaboration-thread stack (default 8MB segfaults).
