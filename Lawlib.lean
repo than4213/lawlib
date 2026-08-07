@@ -5,9 +5,9 @@ import Lawlib.Core.ExtRat
 import Lawlib.Core.Scale
 import Lawlib.Core.Json
 import Lawlib.Gen
-import Lawlib.Verify.EicTable2023
+import Lawlib.Theorems.EicTable2023
 import Lawlib.Theorems.Eitc2023
 import Lawlib.Theorems.Ctc2023
 import Lawlib.Catala.Runtime
 import Lawlib.Catala.Section32
-import Lawlib.Verify.Catala2023
+import Lawlib.Theorems.Catala2023

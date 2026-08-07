@@ -10,7 +10,7 @@ mechanically translated from policyengine-us.
 |---|---|---|
 | Statutes (IRC, Food and Nutrition Act, SSA…) | Congress | **Yes** |
 | Regulations, Rev. Procs., published tables | Agencies, delegated | **Yes** (tagged administrative) |
-| State/local/territory programs | State agencies/legislatures | **Parked** (`parked/states/`, regenerate later) |
+| State/local/territory programs | State agencies/legislatures | **Out of scope for now** (regenerate with `pe2lean extract --scope all` when states become a priority) |
 | `contrib/` reform proposals | Nobody — unenacted | No (not law) |
 | CBO/BEA/TAXSIM comparison constructs | Modeling | No (not law) |
 | Household modeling (poverty lines, cliffs, weights, expense rollups) | Modeling | No — where federal law references such quantities (e.g. childcare expenses in SNAP), they are **boundary inputs**: facts about households, supplied by the caller |

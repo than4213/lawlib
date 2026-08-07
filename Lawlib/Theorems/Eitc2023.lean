@@ -2,7 +2,7 @@ import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.NormNum
 import Mathlib.Topology.Instances.Rat
 import Mathlib.Topology.Order.Lattice
-import Lawlib.Verify.EicTable2023
+import Lawlib.Theorems.EicTable2023
 
 /-!
 # Structural theorems about the translated EITC (Phase 2)
@@ -10,7 +10,7 @@ import Lawlib.Verify.EicTable2023
 ∀-quantified statements over *earned income as a real quantity* — the
 symbolic upgrade of the M6 grid scan. Everything is proved against the
 **generated** definitions (`Lawlib.Gen...eitc`) on the canonical scan
-household (`Verify.mkTaxUnit`), so a re-extraction that changes the
+household (`Theorems.mkTaxUnit`), so a re-extraction that changes the
 encoded law breaks these proofs — which is the point: failed proofs
 localize semantic change.
 
@@ -31,7 +31,7 @@ abstractly, and instantiated per cell:
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Verify Lawlib.Gen Lawlib.Gen.Vars
+open Lawlib Lawlib.Theorems Lawlib.Gen Lawlib.Gen.Vars
 
 /-! ## The statutory trapezoid, abstractly -/
 

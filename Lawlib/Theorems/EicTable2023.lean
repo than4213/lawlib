@@ -3,7 +3,7 @@ import Lawlib.Core.Date
 import Lawlib.Gen.Entities
 import Lawlib.Gen.Params
 import Lawlib.Gen.Vars.Trunk
-import Lawlib.Verify.Scan
+import Lawlib.Theorems.Scan
 
 /-!
 # Machine-checked verification of the 2023 IRS EIC table (findings §8)
@@ -26,7 +26,7 @@ docs/categories.md): the fixture is evidence about the printed
 artifact, not law.
 -/
 
-namespace Lawlib.Verify
+namespace Lawlib.Theorems
 
 open Lawlib Lawlib.Gen Lawlib.Gen.Vars
 
@@ -80,4 +80,4 @@ def cols : List (Group × Nat) :=
   [(.single, 0), (.single, 1), (.single, 2), (.single, 3),
    (.joint, 0), (.joint, 1), (.joint, 2), (.joint, 3)]
 
-end Lawlib.Verify
+end Lawlib.Theorems

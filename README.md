@@ -90,7 +90,7 @@ table itself: evaluate the credit formula at each $50 bracket's
 midpoint, anchor the phase-out at the IRS's internal *unrounded*
 endpoints, round half-up. The published Rev. Proc. integers do not
 regenerate the published table; the unrounded internals do.
-([`Lawlib/Verify/EicTable2023.lean`](Lawlib/Verify/EicTable2023.lean))
+([`Lawlib/Theorems/EicTable2023.lean`](Lawlib/Theorems/EicTable2023.lean))
 
 **The smooth formula is not the law, and we know by how much.** The
 credit everyone models differs from the legal (table) credit by at
@@ -109,10 +109,10 @@ encoding of §32 and the administered version diverge by exactly 24¢
 (50¢ at the phase-out end): the statute never mentions the rounding
 the published figures use. Where sources of law disagree, the
 disagreement is a theorem, not an opinion.
-([`Lawlib/Verify/Catala2023.lean`](Lawlib/Verify/Catala2023.lean).
+([`Lawlib/Theorems/Catala2023.lean`](Lawlib/Theorems/Catala2023.lean).
 The exhaustive version — every whole dollar from $0 to $60,000 across
 eight filing cells, 480,008 exact evaluations — is
-[`CatalaSweep2023`](Lawlib/Verify/CatalaSweep2023.lean), built nightly
+[`CatalaSweep2023`](Tests/CatalaSweep2023.lean), built nightly
 rather than on every push because it takes about 25 minutes.)
 
 **What you have to trust.** The symbolic theorems are ordinary kernel
@@ -133,7 +133,8 @@ to compute past the enacted horizon rather than guessing.
 ([docs/enacted-vs-projections.md](docs/enacted-vs-projections.md))
 
 **Federal, for now.** State, local, and territory programs are parked
-in [parked/states/](parked/states/) awaiting their own pass — except
+awaiting their own pass (they were generated once and set aside; the
+translator regenerates them with `--scope all`) — except
 where a federal formula incorporates a specific state option by
 reference, which is federal law's own dependency and is emitted.
 Unenacted reform proposals and modeling constructs are never emitted.
@@ -214,7 +215,7 @@ the translated definitions themselves use only core types.
 |---|---|
 | `Lawlib/Core/` | hand-written foundations: exact money and rates, dates, dated parameters, bracket scales, the extended rationals for "no limit" bounds |
 | `Lawlib/Gen/` | the imported law: parameters, entities, formulas, and a fused evaluator. Regenerated from upstream; all changes enter through code review |
-| `Lawlib/Verify/`, `Lawlib/Theorems/` | machine-checked results about the law |
+| `Lawlib/Theorems/` | machine-checked results about the law |
 | `Tests/` | everything that touches the world: the transcribed IRS table (a fixture — the law generates it), claims about printed artifacts and executed PolicyEngine, and their certified conditionals. Imports the library; never the reverse |
 | `EXTRACTION_MANIFEST.json` | version pins, per-source hashes, the declared input boundary, date coverage |
 | `rejection_report.md` | what the translator refused, and why |

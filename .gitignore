@@ -17,8 +17,6 @@ __pycache__/
 # Claude Code local settings
 .claude/settings.local.json
 
-# Nested pe2lean repo (independent git repo, see docs/design.md §1.1)
-pe2lean/
 
 # debugging debris
 *.deb

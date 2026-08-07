@@ -6,7 +6,7 @@ import Lawlib.Theorems.Eitc2023
 
 `Lawlib.Catala.earnedIncomeCredit` is transpiled from an *independent*
 Catala encoding of 26 U.S.C. §32(a)–(b) written from the statute text;
-`Lawlib.Verify.pe` is the PolicyEngine-derived encoding. The theorems
+`Lawlib.Theorems.pe` is the PolicyEngine-derived encoding. The theorems
 below (by `native_decide`):
 
 * pin the transpiled function to the Catala interpreter's own outputs
@@ -22,7 +22,7 @@ below (by `native_decide`):
   50 cents for three children.
 -/
 
-namespace Lawlib.Verify
+namespace Lawlib.Theorems
 
 open Lawlib Lawlib.Catala Lawlib.Theorems
 
@@ -53,4 +53,4 @@ theorem plateau_gap_three_children :
     100 * pe .joint 3 20000 - (catalaCents true 3 20000 : Rat) = 50 := by
   native_decide
 
-end Lawlib.Verify
+end Lawlib.Theorems

@@ -1,16 +1,16 @@
 import Tests.EicTableData2023
-import Lawlib.Verify.EicTable2023
+import Lawlib.Theorems.EicTable2023
 
 /-!
 # Fixture check: the generator reproduces the transcribed 2023 EIC table
 
-Test-side of findings §8 (see `Lawlib/Verify/EicTable2023.lean` for the
+Test-side of findings §8 (see `Lawlib/Theorems/EicTable2023.lean` for the
 law-side generator). The 10,120-cell transcription is a fixture — the
 printed table is fully determined by `tableModel`, so the table lives
 here, not in the library (docs/categories.md).
 -/
 
-namespace Lawlib.Verify
+namespace Lawlib.Theorems
 
 open Lawlib Lawlib.Gen Lawlib.Gen.Vars
 
@@ -50,4 +50,4 @@ theorem eic_table_2023_generator_verified :
   native_decide
 
 
-end Lawlib.Verify
+end Lawlib.Theorems

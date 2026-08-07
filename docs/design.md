@@ -15,18 +15,20 @@ Rationale: `lawlib` follows the mathlib model — a self-contained Lean library 
 
 ### 1.1 Local development layout
 
-`pe2lean` is cloned *inside* the `lawlib` working tree as a nested, independent git repo (not a submodule), and ignored by `lawlib`'s `.gitignore`:
+The two repositories are checked out as **siblings** inside a workspace directory:
 
 ```
-lawlib/                      # git repo #1
-  .gitignore                 # contains: pe2lean/
-  Lawlib/ Lawlib.lean Main.lean lakefile.toml lean-toolchain ...
-  docs/
-  pe2lean/                   # git repo #2, nested, gitignored by repo #1
-    src/pe2lean/ harness/ tests/ pyproject.toml ...
+starlib/                     # workspace, not source-controlled
+  lawlib/                    # git repo #1
+    Lawlib/                  # the module namespace: Core/, Gen/, Theorems/
+    Tests/ docs/ lakefile.toml lean-toolchain ...
+  pe2lean/                   # git repo #2
+    src/pe2lean/ scripts/ tests/ pyproject.toml ...
 ```
 
-This keeps the default `pe2lean extract` target (`../Lawlib/Gen`, relative to the nested checkout) trivially correct on every developer machine while keeping the histories fully independent. A submodule is deliberately avoided: submodule pinning would couple `lawlib`'s history to `pe2lean`'s, and the coupling we actually want is the *version pin in the manifest* (§4), not a git-level one.
+Each tool defaults to finding the other at `../lawlib` / `../pe2lean`, and both accept an explicit path. A submodule is deliberately avoided: submodule pinning would couple `lawlib`'s history to `pe2lean`'s, and the coupling we actually want is the *version pin in the manifest* (§4), not a git-level one.
+
+(Earlier development nested `pe2lean` inside the `lawlib` working tree, gitignored. That made one repository's layout depend on the other's, and it meant a checkout of `lawlib` implied a directory that was not part of it. Siblings under a workspace generalize to further repositories without special cases.)
 
 ## 2. Lean-community conventions adopted
 

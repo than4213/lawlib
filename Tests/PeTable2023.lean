@@ -1,17 +1,17 @@
-import Lawlib.Verify.EicTable2023
+import Lawlib.Theorems.EicTable2023
 import Tests.Claims
 
 /-!
 # PE-formula vs table theorems (evaluated via the memoized evaluator)
 
-Grid theorems are stated over `Verify.peM` — the fused evaluator in
+Grid theorems are stated over `Theorems.peM` — the fused evaluator in
 `Lawlib.Gen.Memo` — because per-variable evaluation recomputes shared
 dependencies (finding 17). Formerly quarantined behind the Lean
 ≥156-field `FromJson` codegen bug (finding 16, now worked around by
 capping generated structures at 128 fields).
 -/
 
-namespace Lawlib.Verify
+namespace Lawlib.Theorems
 
 open Lawlib Lawlib.Gen Lawlib.Claims
 
@@ -22,7 +22,7 @@ theorem pe_within_1150_of_table :
   native_decide
 
 /-- The $11.50 bound is sharp: earned income $50, three children.
-(Stated over `peM`, the memoized evaluator — see `Verify.Scan`.) -/
+(Stated over `peM`, the memoized evaluator — see `Theorems.Scan`.) -/
 theorem pe_table_gap_reaches_1150 :
     rabs (peM .single 3 50 - 34) = 23/2 := by
   native_decide
@@ -55,4 +55,4 @@ theorem pe_executed_matches_real_table_at_20k
   rw [hpe] at hb
   exact hb
 
-end Lawlib.Verify
+end Lawlib.Theorems

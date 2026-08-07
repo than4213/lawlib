@@ -123,7 +123,7 @@ exact-rational engine (`pe2lean-tablecheck`). Results:
   eligibility cut exactly at E — a real $50-scale cliff the smooth
   formula does not have.
 
-**Update — now machine-checked:** `Lawlib/Verify/EicTable2023.lean`
+**Update — now machine-checked:** `Lawlib/Theorems/EicTable2023.lean`
 states the generator model in Lean (rates/thresholds referenced from the
 extracted parameters) and proves by `native_decide` that it reproduces
 every parsed table cell, that the PE-vs-table gap is ≤ $11.50 everywhere
@@ -229,7 +229,7 @@ childless zero point: both encodings agree the credit hits $0 at
 exactly $17,640 = 9,800 + 599.76/0.0765, because the childless credit
 and phaseout percentages coincide.)
 
-**Now machine-checked** (`Lawlib/Verify/Catala2023.lean`): the Catala
+**Now machine-checked** (`Lawlib/Theorems/Catala2023.lean`): the Catala
 encoding, transpiled to Lean via its OCaml backend output
 (`pe2lean-catala`, cent-exact `multMonRat` semantics from the Catala
 runtime), is proven by `native_decide` to (a) reproduce the Catala

@@ -29,7 +29,7 @@ T5 conjecture (best guess, awaiting resources).
 
 namespace Lawlib.Claims
 
-open Lawlib Lawlib.Gen Lawlib.Verify
+open Lawlib Lawlib.Gen Lawlib.Theorems
 
 /-! ## Observable vocabulary (reality's symbols) -/
 
@@ -40,7 +40,7 @@ lawlib holds a *transcription* of it, not the thing itself. -/
 opaque irsEicTable2023 : Array Gen.Irs.EicRow
 
 /-- PolicyEngine US 1.783.0's EITC as executed by its Simulation API on
-the canonical household domain (`Verify.mkTaxUnit`): filing group,
+the canonical household domain (`Theorems.mkTaxUnit`): filing group,
 children, earned income (= AGI) ↦ credit in dollars. -/
 opaque peEitcExecuted : Group → Nat → Rat → Rat
 

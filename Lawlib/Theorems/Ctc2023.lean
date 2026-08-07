@@ -1,4 +1,4 @@
-import Lawlib.Verify.EicTable2023
+import Lawlib.Theorems.EicTable2023
 
 /-!
 # The CTC staircase: a complete cliff atlas (2023)
@@ -28,7 +28,7 @@ grid theorem is the stronger statement for the atlas anyway).
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Verify Lawlib.Gen Lawlib.Gen.Vars
+open Lawlib Lawlib.Theorems Lawlib.Gen Lawlib.Gen.Vars
 
 /-- CTC on the canonical household (all members with TINs/valid SSNs). -/
 def peC (g : Group) (n : Nat) (x : Rat) : Rat :=

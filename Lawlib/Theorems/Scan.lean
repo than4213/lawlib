@@ -15,7 +15,7 @@ extraction for record construction at this scale (segfault in
 library: `native_decide` and `#eval` call these as native symbols.
 -/
 
-namespace Lawlib.Verify
+namespace Lawlib.Theorems
 
 open Lawlib Lawlib.Gen Lawlib.Gen.Vars
 
@@ -59,4 +59,4 @@ def peM (g : Group) (n : Nat) (x : Rat) : Rat :=
 
 def rabs (q : Rat) : Rat := if q < 0 then -q else q
 
-end Lawlib.Verify
+end Lawlib.Theorems

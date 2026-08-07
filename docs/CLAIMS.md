@@ -21,7 +21,7 @@ Best guesses are welcome here — at their honest tier.
 
 ## Interior results (no claims needed)
 
-All of `Lawlib/Theorems/` and `Lawlib/Verify/`: the trapezoid closed
+All of `Lawlib/Theorems/`: the trapezoid closed
 forms, `eitc_continuous`, monotonicity, exact phase-out endpoints (T0);
 the table-generator verification, PE-vs-table $11.50 bound, Catala
 cross-encoding bounds and exact 24¢/50¢ plateau gaps, CTC cliff atlas
@@ -55,7 +55,9 @@ path — a T5 guess with a named Prop beats an unstated assumption inside
 a proof. Promotions are commits: better evidence moves a row up and the
 git history records when and why.
 
-## Data–logic membrane claims (parked/claims/Data.lean — outside the library per docs/categories.md; numbers stale, regenerate before reviving)
+## Data–logic membrane claims (retired from the library per
+docs/categories.md — population-facing claims belong to a separate
+claims layer, not to a library of law; recoverable from git history)
 
 | Claim | Tier | Evidence |
 |---|---|---|
