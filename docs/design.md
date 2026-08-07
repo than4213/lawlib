@@ -1,6 +1,6 @@
 # Lawlib — Design
 
-**Status:** Accepted (2026-07-26). Complements [lawlib-handoff.md](lawlib-handoff.md), which holds the strategic context, extractor semantics (§5), numerics policy (§6), and differential-testing acceptance criteria (§7). This document records the architectural decisions layered on top of the handoff: the two-repo split, Lean-community conventions, module hierarchy, revisioning, and the contracts between the repos.
+**Status:** Accepted (2026-07-26). Records the architectural decisions of the project: the two-repo split, Lean-community conventions, module hierarchy, revisioning, and the contracts between the repositories.
 
 ---
 
