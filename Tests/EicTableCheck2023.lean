@@ -7,7 +7,7 @@ import Lawlib.Theorems.EicTable2023
 Test-side of findings §8 (see `Lawlib/Theorems/EicTable2023.lean` for the
 law-side generator). The 10,120-cell transcription is a fixture — the
 printed table is fully determined by `tableModel`, so the table lives
-here, not in the library (docs/categories.md).
+here, not in the library (DESIGN.md §1).
 -/
 
 namespace Lawlib.Theorems

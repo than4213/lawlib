@@ -22,7 +22,7 @@ brackets and midpoint evaluation; the rounding convention and unrounded
 anchors are the administrative completion, recovered and certified.
 The 10,120-cell transcription of the printed table and the theorem
 that `tableModel` reproduces it live in `Tests/` (categories doctrine,
-docs/categories.md): the fixture is evidence about the printed
+DESIGN.md §1): the fixture is evidence about the printed
 artifact, not law.
 -/
 

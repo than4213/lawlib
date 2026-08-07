@@ -5,7 +5,9 @@ import Lawlib.Theorems.Eitc2023
 # Catala §32 vs PolicyEngine §32: machine-checked comparison (2023)
 
 `Lawlib.Catala.earnedIncomeCredit` is transpiled from an *independent*
-Catala encoding of 26 U.S.C. §32(a)–(b) written from the statute text;
+Catala encoding of 26 U.S.C. §32(a)–(b), written from the statute text
+without consulting PolicyEngine (that source is pinned by sha256 in
+`Lawlib/Catala/Section32.lean`'s header);
 `Lawlib.Theorems.pe` is the PolicyEngine-derived encoding. The theorems
 below (by `native_decide`):
 

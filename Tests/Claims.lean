@@ -9,7 +9,7 @@ asserted, so `#print axioms` stays clean for the whole library — and
 every downstream result that depends on one takes it as an explicit
 hypothesis. What the kernel certifies is the *conditional*; how much to
 believe the hypothesis is an evidence question, graded in
-[docs/CLAIMS.md](../docs/CLAIMS.md) and eventually scored by a claim
+[DESIGN.md §4](../DESIGN.md) and eventually scored by a claim
 registry.
 
 The pattern (from Claimlib's design):

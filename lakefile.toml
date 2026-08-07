@@ -17,7 +17,7 @@ rev = "v4.32.1"
 
 [[lean_lib]]
 name = "Lawlib"
-# Pure law only (docs/categories.md): fixtures, claims, and the
+# Pure law only (DESIGN.md §1): fixtures, claims, and the
 # Asserted shadow live in the Tests lib below.
 # `Lawlib` is the root module, which does not import
 # Verify.CatalaSweep2023 — the 480,008-point exhaustive comparison.

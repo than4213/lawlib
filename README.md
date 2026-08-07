@@ -122,7 +122,7 @@ the whole library: statements about the physical world — that a
 transcription matches a printed page, that another program behaves a
 certain way — are never asserted. They live in
 [`Tests/`](Tests/) as explicit hypotheses, and the library never
-imports them ([docs/categories.md](docs/categories.md)).
+imports them ([DESIGN.md §1](DESIGN.md)).
 
 ## Design doctrine
 
@@ -130,7 +130,7 @@ imports them ([docs/categories.md](docs/categories.md)).
 are classified out and dropped: a forecast of a future administrative
 act is not law. The adjustment *rules* stay, and the evaluator refuses
 to compute past the enacted horizon rather than guessing.
-([docs/enacted-vs-projections.md](docs/enacted-vs-projections.md))
+([DESIGN.md §3](DESIGN.md))
 
 **Federal, for now.** State, local, and territory programs are parked
 awaiting their own pass (they were generated once and set aside; the
@@ -138,7 +138,7 @@ translator regenerates them with `--scope all`) — except
 where a federal formula incorporates a specific state option by
 reference, which is federal law's own dependency and is emitted.
 Unenacted reform proposals and modeling constructs are never emitted.
-([docs/scope.md](docs/scope.md))
+([DESIGN.md §2](DESIGN.md))
 
 **Law is in the same category as mathematics, and data is not.**
 Constructed systems are settled by derivation; the world is settled by
@@ -147,7 +147,7 @@ datasets, and population estimates belong to a separate claims layer —
 never inside a library of law. Ambiguity in law is *incompleteness*,
 not observation: when an agency or court resolves it, that is a
 further text, not a fact about the world.
-([docs/categories.md](docs/categories.md))
+([DESIGN.md §1](DESIGN.md))
 
 ## Getting started
 
@@ -206,6 +206,8 @@ definition in it. If the proof goes through, it is a fact about the
 law; if it does not, you have found either a subtlety or a bug, and
 both are interesting.
 
+More, with verified output: [EXAMPLES.md](EXAMPLES.md).
+
 Mathlib supplies the order and algebra lemmas the ∀-theorems run on;
 the translated definitions themselves use only core types.
 
@@ -219,7 +221,8 @@ the translated definitions themselves use only core types.
 | `Tests/` | everything that touches the world: the transcribed IRS table (a fixture — the law generates it), claims about printed artifacts and executed PolicyEngine, and their certified conditionals. Imports the library; never the reverse |
 | `EXTRACTION_MANIFEST.json` | version pins, per-source hashes, the declared input boundary, date coverage |
 | `rejection_report.md` | what the translator refused, and why |
-| `docs/` | design, doctrine, findings |
+| `DESIGN.md` | why the library is built this way: the governing principle, scope, and architecture |
+| `EXAMPLES.md` | worked examples: compute a household, read a rule, prove something |
 
 ## Status, and help wanted
 
@@ -292,7 +295,7 @@ not a source of mathematics.
 ## Findings
 
 Formalizing a large model surfaces things. Twenty so far
-([docs/FINDINGS.md](docs/FINDINGS.md)), including:
+(the findings notes), including:
 
 - PolicyEngine computes money in 32-bit floats; the residue reaches
   ~1.6¢, and the EITC chain applies no rounding at all (fractional-cent
@@ -304,7 +307,7 @@ Formalizing a large model surfaces things. Twenty so far
   more fields** corrupts the heap in compiled code — 155 is fine, the
   boundary is exact, the interpreter is unaffected. A 20-line
   reproduction is in
-  [docs/lean-fromjson-crash-repro.md](docs/lean-fromjson-crash-repro.md).
+  a standalone reproduction (reported upstream).
 - A scale parameter marked `marginal_rate` is a rate *schedule*, not a
   lookup table — a distinction that silently produced a 26% "tax" where
   the law wanted 26% of the first slice plus 28% of the rest, caught
@@ -322,7 +325,7 @@ The goal is completeness: every rule of the covered law present,
 exact, and provable, with the remaining gap listed explicitly rather
 than papered over.
 
-See [docs/design.md](docs/design.md).
+See [DESIGN.md](DESIGN.md).
 
 ## License
 

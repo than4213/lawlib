@@ -15,7 +15,7 @@ table matches the transcription" differ by 50¢ and cannot both hold).
 
 Mechanically derivable from `Lawlib/Claims.lean`: one line per claim.
 Keep it a *minimal generating set* — never assert a derivable value
-(chisel-claims lesson; docs/FINDINGS.md, internal lessons).
+(chisel-claims lesson; the project's findings notes).
 -/
 
 namespace Lawlib.Claims.Asserted
