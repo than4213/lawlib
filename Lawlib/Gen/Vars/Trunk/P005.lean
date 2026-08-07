@@ -12,16 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_deductions.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_deductions (t : TaxUnit) (d : Date) : Rat :=
-  ((((((snap_standard_deduction t d) + (snap_earned_income_deduction t d)) + (snap_dependent_care_deduction t d)) + (snap_child_support_deduction t d)) + (snap_excess_medical_expense_deduction t d)) + (snap_excess_shelter_expense_deduction t d))
-
-/-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def used_clean_vehicle_credit (t : TaxUnit) (d : Date) : Rat :=
-  (if (used_clean_vehicle_credit_eligible t d) then (min ((t.core.used_clean_vehicle_sale_price * (Params.gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat) (Params.gov.irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
-
 /-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit_potential.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def used_clean_vehicle_credit_potential (t : TaxUnit) (d : Date) : Rat :=
@@ -829,5 +819,16 @@ def tax_liability_if_not_itemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def tax_liability_if_not_itemizing__itemizing (t : TaxUnit) (d : Date) : Rat :=
   (income_tax__not_itemizing t d)
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_liability_if_not_itemizing.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def tax_liability_if_not_itemizing__not_itemizing (t : TaxUnit) (d : Date) : Rat :=
+  (income_tax__not_itemizing t d)
+
+/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_unit_itemizes.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def tax_unit_itemizes (t : TaxUnit) (d : Date) : Bool :=
+  let v1 := ((tax_liability_if_itemizing t d) - (tax_liability_if_not_itemizing t d));
+  (if (decide ((if (decide (v1 < 0)) then (0 - v1) else v1) ≤ (mkRat 1 100))) then (decide ((itemized_taxable_income_deductions t d) > (standard_deduction t d))) else (decide ((tax_liability_if_itemizing t d) < (tax_liability_if_not_itemizing t d))))
 
 end Lawlib.Gen.Vars

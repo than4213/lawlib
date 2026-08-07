@@ -1,7 +1,7 @@
 # pe2lean rejection report
 
 policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc', 'income_tax', 'medicaid', 'chip', 'tanf', 'wic', 'employer_payroll_tax', 'housing_assistance', 'free_school_meals', 'reduced_price_school_meals', 'child_care_subsidies', 'education_tax_credits', 'marketplace_net_premium', 'acp', 'broadband_cost_after_lifeline', 'lcbp', 'basic_health_program_family_tier_amount', 'ctc_value', 'federal_state_income_tax'].
-801 translated, 551 boundary inputs, 181 rejections.
+799 translated, 551 boundary inputs, 183 rejections.
 
 ## Rejections
 
@@ -104,6 +104,7 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **medicaid_slcsp_state_denominator** (`policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_state_denominator.py:3`): unsupported syntax BoolOp
 - **medicaid_work_requirement_eligible** (`policyengine_us/variables/gov/hhs/medicaid/eligibility/medicaid_work_requirement_eligible.py:103`): where condition not bool
 - **medicaid_working_disabled_buy_in_premium** (`policyengine_us/variables/gov/hhs/medicaid/medicaid_working_disabled_buy_in_premium.py:2`): unrecognized call tax_unit.members
+- **medicare_cost** (`policyengine_us/variables/gov/hhs/medicare/costs/medicare_cost.py:15`): parameter 'calibration.gov.hhs.medicare.per_capita_cost' outside emitted subtrees
 - **medicare_gross_cost** (`policyengine_us/variables/gov/hhs/medicare/costs/medicare_gross_cost.py:1`): returns a non-value
 - **medicare_irmaa_magi_two_years_prior** (`policyengine_us/variables/gov/hhs/medicare/eligibility/medicare_irmaa_magi_two_years_prior.py:2`): unbound name 'period'
 - **meets_snap_parent_exception** (`policyengine_us/variables/gov/usda/snap/eligibility/student/meets_snap_parent_exception.py:12`): unrecognized call spm_unit.members
@@ -115,10 +116,11 @@ policyengine-us 1.783.0, validated roots ['eitc', 'ctc', 'snap', 'ssi', 'aca_ptc
 - **msp_part_b_premium_coverage** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/msp_part_b_premium_coverage.py:7`): unbound name 'period'
 - **older_spouse_birth_year** (`policyengine_us/variables/household/demographic/tax_unit/older_spouse_birth_year.py:2`): unbound name 'period'
 - **pell_grant** (`policyengine_us/variables/gov/ed/pell_grant/pell_grant.py:5`): if arm without return
-- **per_capita_chip** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip.py:0`): enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['GU', 'MP', 'PW', 'PR']
-- **per_capita_chip_gross** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip_gross.py:0`): enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['GU', 'MP', 'PW', 'PR']
+- **per_capita_chip** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip.py:0`): enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['AL', 'AK', 'AZ', 'AR']
+- **per_capita_chip_gross** (`policyengine_us/variables/gov/hhs/chip/per_capita_chip_gross.py:0`): enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['AL', 'AK', 'AZ', 'AR']
 - **person_id** (`policyengine_us/variables/household/demographic/identifiers/person_id.py:2`): np.arange
 - **qbid_amount** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qbid_amount.py:19`): np.divide
+- **qmb_cost_sharing** (`policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py:5`): parameter 'calibration.gov.hhs.medicare.per_capita_cost' outside emitted subtrees
 - **qualified_business_income** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income.py:6`): non-value handle used as value
 - **qualified_business_income_deduction** (`policyengine_us/variables/gov/irs/income/taxable_income/deductions/qualified_business_income_deduction/qualified_business_income_deduction.py:19`): ExtRat scale 'gov.irs.deductions.qbi.deduction_floor.amount' in value position
 - **residential_clean_energy_credit_potential** (`policyengine_us/variables/gov/irs/credits/residential_clean_energy/residential_clean_energy_credit_potential.py:7`): comprehension over non-static list

@@ -570,11 +570,6 @@ def is_ssi_eligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def medicaid_claimed_by_parent_in_tax_unit (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((is_tax_unit_dependent t p d) && ((is_qualifying_child_dependent t p d) || (anyBy t.members fun p => ((is_parent t p d) && (is_tax_unit_head_or_spouse t p d)))))
 
-/-- `policyengine_us/variables/gov/hhs/medicare/costs/medicare_cost.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def medicare_cost (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (medicare_enrolled t p d) then (max (((Params.calibration.gov.hhs.medicare.per_capita_cost.atDate d) - ((base_part_a_premium t p d) + (gross_medicare_part_b_premium_if_enrolled t p d))) : Rat) 0) else 0)
-
 /-- `policyengine_us/variables/gov/hhs/medicare/eligibility/part_a/medicare_part_a_premium.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def medicare_part_a_premium (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -764,11 +759,6 @@ def pays_aca_premium (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def pell_grant_dependent_allowances (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (((Params.gov.ed.pell_grant.dependent.ipa.atDate d) + (0 - (min ((pell_grant_head_available_income t p d) : Rat) 0))) + p.ed.pell_grant_dependent_other_allowances)
 
-/-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def qmb_cost_sharing (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (((boolToRat ((msp_category t p d) == MSPCategory.QMB)) * ((Params.calibration.gov.hhs.medicare.per_capita_cost.atDate d) / 12)) * (Params.gov.hhs.medicare.savings_programs.qmb.cost_sharing_rate.atDate d))
-
 /-- `policyengine_us/variables/gov/irs/tax/self_employment/self_employment_social_security_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def self_employment_social_security_tax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
@@ -778,5 +768,16 @@ def self_employment_social_security_tax (t : TaxUnit) (p : Person) (d : Date) : 
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snap_max_allotment (t : TaxUnit) (d : Date) : Rat :=
   ((if t.usda.snap_region_str == "AK_RURAL_1" then (Params.gov.usda.snap.max_allotment.main.AK_RURAL_1.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "AK_RURAL_2" then (Params.gov.usda.snap.max_allotment.main.AK_RURAL_2.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "AK_URBAN" then (Params.gov.usda.snap.max_allotment.main.AK_URBAN.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "CONTIGUOUS_US" then (Params.gov.usda.snap.max_allotment.main.CONTIGUOUS_US.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "GU" then (Params.gov.usda.snap.max_allotment.main.GU.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (if t.usda.snap_region_str == "HI" then (Params.gov.usda.snap.max_allotment.main.HI.atDate d (min ((snap_unit_size t d) : Rat) 8)) else (Params.gov.usda.snap.max_allotment.main.VI.atDate d (min ((snap_unit_size t d) : Rat) 8)))))))) + ((max (0 : Rat) ((snap_unit_size t d) - 8)) * (if t.usda.snap_region_str == "AK_RURAL_1" then (Params.gov.usda.snap.max_allotment.additional.AK_RURAL_1.atDate d) else (if t.usda.snap_region_str == "AK_RURAL_2" then (Params.gov.usda.snap.max_allotment.additional.AK_RURAL_2.atDate d) else (if t.usda.snap_region_str == "AK_URBAN" then (Params.gov.usda.snap.max_allotment.additional.AK_URBAN.atDate d) else (if t.usda.snap_region_str == "CONTIGUOUS_US" then (Params.gov.usda.snap.max_allotment.additional.CONTIGUOUS_US.atDate d) else (if t.usda.snap_region_str == "GU" then (Params.gov.usda.snap.max_allotment.additional.GU.atDate d) else (if t.usda.snap_region_str == "HI" then (Params.gov.usda.snap.max_allotment.additional.HI.atDate d) else (Params.gov.usda.snap.max_allotment.additional.VI.atDate d)))))))))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_prorated_income_fraction.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_prorated_income_fraction (t : TaxUnit) (d : Date) : Rat :=
+  let household_members := (t.core.spm_unit_size - (sumBy t.members fun p => boolToRat (is_snap_ineligible_student t p d)));
+  (if (decide (household_members > 0)) then ((snap_unit_size t d) / (max (household_members : Rat) 1)) else 0)
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_standard_deduction.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_standard_deduction (t : TaxUnit) (d : Date) : Rat :=
+  (if t.core.state_group_str == "AK" then (Params.gov.usda.snap.income.deductions.standard.AK.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "CONTIGUOUS_US" then (Params.gov.usda.snap.income.deductions.standard.CONTIGUOUS_US.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "GU" then (Params.gov.usda.snap.income.deductions.standard.GU.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "HI" then (Params.gov.usda.snap.income.deductions.standard.HI.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (Params.gov.usda.snap.income.deductions.standard.VI.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6))))))
 
 end Lawlib.Gen.Vars

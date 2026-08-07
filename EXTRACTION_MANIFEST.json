@@ -4,336 +4,6 @@
   "pe2lean_version": "0.1.0",
   "parameters": [
     {
-      "path": "calibration.gov.aca.enrollment.state",
-      "source": "calibration/gov/aca/enrollment/state.yaml",
-      "sha256": "36337633ba49c46eaaefc291dfe2377086425630dacabb3073ae512126667ad6"
-    },
-    {
-      "path": "calibration.gov.aca.spending.state",
-      "source": "calibration/gov/aca/spending/state.yaml",
-      "sha256": "d64bc9222bbe71811b5cf01a05070ea921374a15df00b6a0fb53ddc37b1d11eb"
-    },
-    {
-      "path": "calibration.gov.census.populations.by_state",
-      "source": "calibration/gov/census/populations/by_state.yaml",
-      "sha256": "97471295d6813e08cb04d1c05296561611a003f296b1ede5ac5ee8b94d566bba"
-    },
-    {
-      "path": "calibration.gov.census.populations.total",
-      "source": "calibration/gov/census/populations/total.yaml",
-      "sha256": "b42ed576e3ad866dfd74e00347879b5d9bfc72874d826fae55fd871295a5135b"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.cost_sharing_offsets.medicaid_expansion_chip",
-      "source": "calibration/gov/hhs/cms/chip/cost_sharing_offsets/medicaid_expansion_chip.yaml",
-      "sha256": "ce6bac55bcc593a2aed1917a0e0b7b93315753c55593a40cefdc9d31f902f174"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.cost_sharing_offsets.separate_chip",
-      "source": "calibration/gov/hhs/cms/chip/cost_sharing_offsets/separate_chip.yaml",
-      "sha256": "9b3add4baaab8ca8de5d4398bae4e63319205ad8396221ba704300bc701630b6"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.cost_sharing_offsets.total",
-      "source": "calibration/gov/hhs/cms/chip/cost_sharing_offsets/total.yaml",
-      "sha256": "ea867965394689a7008697b3e73b40ba1891f7df10611e30de01df32c26b5b1d"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.enrollment.medicaid_expansion_chip",
-      "source": "calibration/gov/hhs/cms/chip/enrollment/medicaid_expansion_chip.yaml",
-      "sha256": "8a19e299efdbd9ae3e415a3f3240bbf8af0cfff50129b4d354d147c0a1c936e0"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.enrollment.separate_chip",
-      "source": "calibration/gov/hhs/cms/chip/enrollment/separate_chip.yaml",
-      "sha256": "93b3d80dea56a3f8bd4c76e0cdbffe6ae9e10f1b58d5f6532958a8f87ac46773"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.enrollment.total",
-      "source": "calibration/gov/hhs/cms/chip/enrollment/total.yaml",
-      "sha256": "71614783dc308c69883ce0d6a731d119b679eebf960b81b7ebf1a4176417779b"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.medicaid_expansion_chip.federal",
-      "source": "calibration/gov/hhs/cms/chip/spending/medicaid_expansion_chip/federal.yaml",
-      "sha256": "1bc9f14361c15216fcb8017f308f650db47850579e3056efa29ac36b8722f095"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.medicaid_expansion_chip.state",
-      "source": "calibration/gov/hhs/cms/chip/spending/medicaid_expansion_chip/state.yaml",
-      "sha256": "0b23158258f1ee12793e316ce5f2b18d5abb5c9b8a173845f039c145bb327172"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.medicaid_expansion_chip.total",
-      "source": "calibration/gov/hhs/cms/chip/spending/medicaid_expansion_chip/total.yaml",
-      "sha256": "e8ad7e5f7c2b7111f52066b104b0b544dab90276d43454848c8e3a9379af0b0a"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.program_admin.federal",
-      "source": "calibration/gov/hhs/cms/chip/spending/program_admin/federal.yaml",
-      "sha256": "35852e5c99368906df627599e1a41eca9a25bfdb8ce81744d31a6168e072b95d"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.program_admin.state",
-      "source": "calibration/gov/hhs/cms/chip/spending/program_admin/state.yaml",
-      "sha256": "1879ab1a9991ef3c7a4404e32eb7958f56c13b2aab51a0d463ad241c8dd4b570"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.program_admin.total",
-      "source": "calibration/gov/hhs/cms/chip/spending/program_admin/total.yaml",
-      "sha256": "43d5fc320a1c97a8caf49662c2df433c04ed038cc8562678367de5c0ebf21330"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.separate_chip.federal",
-      "source": "calibration/gov/hhs/cms/chip/spending/separate_chip/federal.yaml",
-      "sha256": "875782a7f876c7b6b27656fd6d73f43f47f89ac766fae7ce86bb9747cdea9de4"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.separate_chip.state",
-      "source": "calibration/gov/hhs/cms/chip/spending/separate_chip/state.yaml",
-      "sha256": "064aeb16e7cd07f0d4a9034d7c44715c398984b3cb7b7436edaff03f26bb1633"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.separate_chip.total",
-      "source": "calibration/gov/hhs/cms/chip/spending/separate_chip/total.yaml",
-      "sha256": "5e95994837cc8be2b1ded3a21f6c49c8641eb4a5aa63624ec8aa1951ec025ddf"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.total.federal",
-      "source": "calibration/gov/hhs/cms/chip/spending/total/federal.yaml",
-      "sha256": "8f0a3301dd7d63110433323717393f6095233d3f21ab2022b76f59025acd077a"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.total.state",
-      "source": "calibration/gov/hhs/cms/chip/spending/total/state.yaml",
-      "sha256": "8616a92bee1d33f4e2589953fb30a7904ac1721f1ff99712066022445e011b34"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.chip.spending.total.total",
-      "source": "calibration/gov/hhs/cms/chip/spending/total/total.yaml",
-      "sha256": "9a5db634a76fdb532f796b57b1a50254ba5a1a307ad3840c66b12762bdd05274"
-    },
-    {
-      "path": "calibration.gov.hhs.cms.moop_per_capita",
-      "source": "calibration/gov/hhs/cms/moop_per_capita.yaml",
-      "sha256": "2d9e633b953a85155fc5e9091068059bb3d0160111b1f06aa5d86c43611c7cd8"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.enrollment.aged",
-      "source": "calibration/gov/hhs/medicaid/enrollment/aged.yaml",
-      "sha256": "98b7698547356b56d6d05596ae87fcb33484e3cf1267183de93b52d4dc48bacb"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.enrollment.child",
-      "source": "calibration/gov/hhs/medicaid/enrollment/child.yaml",
-      "sha256": "e86ba90155480d68f3b2d92cd81adc14e5a2d9f68dc6f93a0f4a418c0af6dfe8"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.enrollment.disabled",
-      "source": "calibration/gov/hhs/medicaid/enrollment/disabled.yaml",
-      "sha256": "db56f74cc58f12a517e684eb8afbbc82a66718e3abd20b5324e2fc0bd819f1e9"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.enrollment.expansion_adults",
-      "source": "calibration/gov/hhs/medicaid/enrollment/expansion_adults.yaml",
-      "sha256": "3add9c530ef46f8e276dd6dd932fd064eaf856e68fd3265b2b1895bd25e39f34"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.enrollment.non_expansion_adults",
-      "source": "calibration/gov/hhs/medicaid/enrollment/non_expansion_adults.yaml",
-      "sha256": "9aea4a5f617a552ef304702c7d29909b3bd42e64f447c56fa231d3db6f7a66a1"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.spending.by_eligibility_group.aged",
-      "source": "calibration/gov/hhs/medicaid/spending/by_eligibility_group/aged.yaml",
-      "sha256": "7b898b8e5cc2a978911297e1e375e2d50283471412a256837ef273c04b027ac5"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.spending.by_eligibility_group.child",
-      "source": "calibration/gov/hhs/medicaid/spending/by_eligibility_group/child.yaml",
-      "sha256": "c0e688c8e024f5f1fff83f9c67cf3357e23648ca2b5c31e9e365a218ee797fab"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.spending.by_eligibility_group.disabled",
-      "source": "calibration/gov/hhs/medicaid/spending/by_eligibility_group/disabled.yaml",
-      "sha256": "88ecdc573e38f007e5fbcbf1b37258398b3422eac1073b1b26bf1fb4f211abbf"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.spending.by_eligibility_group.expansion_adults",
-      "source": "calibration/gov/hhs/medicaid/spending/by_eligibility_group/expansion_adults.yaml",
-      "sha256": "7b654da7556e798129ec3678b64a04d8d5e14550c12518a9611a2ea763d88bc1"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.spending.by_eligibility_group.non_expansion_adults",
-      "source": "calibration/gov/hhs/medicaid/spending/by_eligibility_group/non_expansion_adults.yaml",
-      "sha256": "b8ad61a98c57768a12797e2a620a91cb3cce4c5523926e6aee4f4a293f188bd6"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.spending.totals.federal",
-      "source": "calibration/gov/hhs/medicaid/spending/totals/federal.yaml",
-      "sha256": "3c56cf8147b8a92bcc34fcf3108d14c0c3ed6ff27117dca398dde6c4a063c5d9"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.spending.totals.state",
-      "source": "calibration/gov/hhs/medicaid/spending/totals/state.yaml",
-      "sha256": "ca1c4e66004edf1637e067ff2a0b79ee52b3e3396c3c36688b1f658dd61203c4"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.totals.enrollment",
-      "source": "calibration/gov/hhs/medicaid/totals/enrollment.yaml",
-      "sha256": "c4041df61cd73119fc710076f91f3941054d06545fddc53411113c65185e4f1c"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.totals.per_capita",
-      "source": "calibration/gov/hhs/medicaid/totals/per_capita.yaml",
-      "sha256": "b57984705c94aa64abf232b13638b262415a19dc6e787da3210bd3e1b1c97f90"
-    },
-    {
-      "path": "calibration.gov.hhs.medicaid.totals.spending",
-      "source": "calibration/gov/hhs/medicaid/totals/spending.yaml",
-      "sha256": "fe9528c09b6fd229fd99ff623536efd3eb310e4e0b979a2ec17825a990a6c878"
-    },
-    {
-      "path": "calibration.gov.hhs.medicare.per_capita_cost",
-      "source": "calibration/gov/hhs/medicare/per_capita_cost.yaml",
-      "sha256": "b0a2b9abab42f1ccb36e3c407d57169dd6d7ea315083697df87317a1dfeb9a72"
-    },
-    {
-      "path": "calibration.gov.irs.soi.agi.number_of_returns",
-      "source": "calibration/gov/irs/soi/agi/number_of_returns.yaml",
-      "sha256": "546737abac7ca024b567dc795a532c0e2591b71c709c3de37afc4a3de3c076c6"
-    },
-    {
-      "path": "calibration.gov.irs.soi.agi.total_agi",
-      "source": "calibration/gov/irs/soi/agi/total_agi.yaml",
-      "sha256": "56bdcc7725b9ff381547418820fad4802295e41c0492c0b5cfcba23d27969586"
-    },
-    {
-      "path": "calibration.gov.irs.soi.alimony_income",
-      "source": "calibration/gov/irs/soi/alimony_income.yaml",
-      "sha256": "aa3e0e36fc8b665a41026bb103fe72734007cf1987c7b82ecb4091e7be50ff50"
-    },
-    {
-      "path": "calibration.gov.irs.soi.employment_income",
-      "source": "calibration/gov/irs/soi/employment_income.yaml",
-      "sha256": "96775c36e18fc1a5c2e794afa886ee1d67d5b952844ef74d5998de08acab0905"
-    },
-    {
-      "path": "calibration.gov.irs.soi.farm_income",
-      "source": "calibration/gov/irs/soi/farm_income.yaml",
-      "sha256": "e3b9a8a67c6a93c3f791e7f316ac4043ce1815d899f3ee70842d83d68e5131fe"
-    },
-    {
-      "path": "calibration.gov.irs.soi.farm_rent_income",
-      "source": "calibration/gov/irs/soi/farm_rent_income.yaml",
-      "sha256": "90e8a37d570a8231374c5161c953d04f8c16f889b4d6884684901057607347a6"
-    },
-    {
-      "path": "calibration.gov.irs.soi.long_term_capital_gains",
-      "source": "calibration/gov/irs/soi/long_term_capital_gains.yaml",
-      "sha256": "80c2ca6d3349afcd1f5810ad3a32e8319a677692535d6591b1ae2d17440afba9"
-    },
-    {
-      "path": "calibration.gov.irs.soi.non_qualified_dividend_income",
-      "source": "calibration/gov/irs/soi/non_qualified_dividend_income.yaml",
-      "sha256": "47813d51cfee9074479be7aa36b89025b1339586fa4db48aae24e4bb959a2ea8"
-    },
-    {
-      "path": "calibration.gov.irs.soi.partnership_s_corp_income",
-      "source": "calibration/gov/irs/soi/partnership_s_corp_income.yaml",
-      "sha256": "4b878fa80511514e9af4d24bfb6e1bfb23596471f4247efa5560e912959aea6b"
-    },
-    {
-      "path": "calibration.gov.irs.soi.qualified_dividend_income",
-      "source": "calibration/gov/irs/soi/qualified_dividend_income.yaml",
-      "sha256": "7c5bb2a745cabed2792bf7ce46e57ebe107f6f12137b8560e39087187428150d"
-    },
-    {
-      "path": "calibration.gov.irs.soi.rental_income",
-      "source": "calibration/gov/irs/soi/rental_income.yaml",
-      "sha256": "3ed383aa928eaa4da9dd5c12988160482a5124eed4aa1eed0132dcd001df1adb"
-    },
-    {
-      "path": "calibration.gov.irs.soi.returns_by_filing_status.SINGLE",
-      "source": "calibration/gov/irs/soi/returns_by_filing_status.yaml",
-      "sha256": "7d298a4482a325577193e13728bf3d70d1540a4d76e2710f398494bcfa939d45"
-    },
-    {
-      "path": "calibration.gov.irs.soi.returns_by_filing_status.JOINT",
-      "source": "calibration/gov/irs/soi/returns_by_filing_status.yaml",
-      "sha256": "7d298a4482a325577193e13728bf3d70d1540a4d76e2710f398494bcfa939d45"
-    },
-    {
-      "path": "calibration.gov.irs.soi.returns_by_filing_status.HEAD_OF_HOUSEHOLD",
-      "source": "calibration/gov/irs/soi/returns_by_filing_status.yaml",
-      "sha256": "7d298a4482a325577193e13728bf3d70d1540a4d76e2710f398494bcfa939d45"
-    },
-    {
-      "path": "calibration.gov.irs.soi.returns_by_filing_status.SEPARATE",
-      "source": "calibration/gov/irs/soi/returns_by_filing_status.yaml",
-      "sha256": "7d298a4482a325577193e13728bf3d70d1540a4d76e2710f398494bcfa939d45"
-    },
-    {
-      "path": "calibration.gov.irs.soi.self_employment_income",
-      "source": "calibration/gov/irs/soi/self_employment_income.yaml",
-      "sha256": "107f26842b96d2620ba22f37834df6c9509d6eaf81f2a0576a4b89e4e0c6ad3f"
-    },
-    {
-      "path": "calibration.gov.irs.soi.short_term_capital_gains",
-      "source": "calibration/gov/irs/soi/short_term_capital_gains.yaml",
-      "sha256": "5e9a2f61a4adfc60e895030983c18958a79f8b0b938c458ac41050bda540593f"
-    },
-    {
-      "path": "calibration.gov.irs.soi.social_security",
-      "source": "calibration/gov/irs/soi/social_security.yaml",
-      "sha256": "5bbc8d1a2f58ae3edb007c41fb160441a6f828deae8ea91616ed11ac53794f13"
-    },
-    {
-      "path": "calibration.gov.irs.soi.tax_exempt_interest_income",
-      "source": "calibration/gov/irs/soi/tax_exempt_interest_income.yaml",
-      "sha256": "1df8ef71cc1891d34e225976a13541f334551ae4616b1da03445410505bdf192"
-    },
-    {
-      "path": "calibration.gov.irs.soi.tax_exempt_pension_income",
-      "source": "calibration/gov/irs/soi/tax_exempt_pension_income.yaml",
-      "sha256": "03e15b464a3eaf77579e5d056bec9395d157b70170924c441abea1c4ddde2a2e"
-    },
-    {
-      "path": "calibration.gov.irs.soi.taxable_interest_income",
-      "source": "calibration/gov/irs/soi/taxable_interest_income.yaml",
-      "sha256": "b472e8a060a732e90758ef7793bf76e81eb12b6d0289318c299c0ead88623322"
-    },
-    {
-      "path": "calibration.gov.irs.soi.taxable_pension_income",
-      "source": "calibration/gov/irs/soi/taxable_pension_income.yaml",
-      "sha256": "381457ae36765c8fb06b1e7b1b66ecd83466838e5a7363ad81f2dcccc75bfa6a"
-    },
-    {
-      "path": "calibration.gov.irs.soi.unemployment_compensation",
-      "source": "calibration/gov/irs/soi/unemployment_compensation.yaml",
-      "sha256": "2d253f51902c9a3a3c0519d3552395d36cdbe970dcb96d9520f667016cc81c04"
-    },
-    {
-      "path": "calibration.gov.ssa.social_security.participation",
-      "source": "calibration/gov/ssa/social_security/participation.yaml",
-      "sha256": "c566da0612513a6f4fce5ad1b5e0a1191f626561f822af25b1887b9e50e5b01e"
-    },
-    {
-      "path": "calibration.gov.ssa.ssi.participation",
-      "source": "calibration/gov/ssa/ssi/participation.yaml",
-      "sha256": "b260db42c5d0dd4d62e5619946df17f7821b22b00224e66ae82b1500f8cd2b79"
-    },
-    {
-      "path": "calibration.gov.treasury.tax_expenditures.eitc",
-      "source": "calibration/gov/treasury/tax_expenditures/eitc.yaml",
-      "sha256": "c1189531fe49085d0b08ec0fac4fa4dedcf657795a2f8884f8efcda761fdcede"
-    },
-    {
-      "path": "calibration.gov.usda.snap.participation",
-      "source": "calibration/gov/usda/snap/participation.yaml",
-      "sha256": "cb432e0ac030847e1d8874f4d13feacfd62b5e7ff66b166a760cae020a11a87b"
-    },
-    {
       "path": "gov.aca.age_curves.al",
       "source": "gov/aca/age_curves/al.yaml",
       "sha256": "d038cebf5fd7bdc3a9a050fd45aca07646d21bc3109d52d94c4a1336328c88b0"
@@ -5102,36 +4772,6 @@
       "path": "household.expense.utilities.subsidies",
       "source": "household/expense/utilities/subsidies.yaml",
       "sha256": "ef4a61e21945a72daf21267cd3132358f1cc692bb41919ddf9cd7b51d7977489"
-    },
-    {
-      "path": "openfisca.completed_programs.state",
-      "source": "openfisca/completed_programs/state.yaml",
-      "sha256": "c04f4444212211d98fc66a9f345107234b9be75d94092e83453b9550e4a0572f"
-    },
-    {
-      "path": "openfisca.completed_programs.us",
-      "source": "openfisca/completed_programs/us.yaml",
-      "sha256": "1ceb85a7cc6ebef5a1f1d2eee23f9f0065b45bc7a5cdb9472cd96af63c3ac89e"
-    },
-    {
-      "path": "simulation.de.branch_to_determine_if_refundable_eitc",
-      "source": "simulation/de/branch_to_determine_if_refundable_eitc.yaml",
-      "sha256": "27c3d9acdd6865515cdaf02f4a8e664a701245f60c0534517d3d141f4077daf3"
-    },
-    {
-      "path": "simulation.marginal_tax_rate_adults",
-      "source": "simulation/marginal_tax_rate_adults.yaml",
-      "sha256": "2e269bf520e820974cb6d3afb2c830fffddda38608c9f619d40759bace06d824"
-    },
-    {
-      "path": "simulation.marginal_tax_rate_delta",
-      "source": "simulation/marginal_tax_rate_delta.yaml",
-      "sha256": "5690c3656b7a0fb44ad179b8f2cb2b0e55add628c0547952ed3f67f87d22e8fe"
-    },
-    {
-      "path": "simulation.va.branch_to_determine_if_refundable_eitc",
-      "source": "simulation/va/branch_to_determine_if_refundable_eitc.yaml",
-      "sha256": "3f089bc4113f8cfd68c9603504b926653d725475ba42ef7bf8b8c6116538a709"
     }
   ],
   "parameters_skipped": [
@@ -5146,7 +4786,7 @@
   ],
   "law_date_coverage": [
     "0000-01-01",
-    "2055-01-01"
+    "2035-02-01"
   ],
   "variables": [
     {
@@ -9242,16 +8882,6 @@
       "sha256": "e58987641c42c555d177705e2cf2048a3b9c6dea8c30a7b844b7617b618f723b"
     },
     {
-      "name": "medicare_cost",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "year",
-      "source": "policyengine_us/variables/gov/hhs/medicare/costs/medicare_cost.py",
-      "sha256": "315700a265f12d78eed1f1a7f19c48bd6bf661e342de7cb322b37a262d81b464"
-    },
-    {
       "name": "medicare_part_a_premium",
       "entity": "person",
       "value_type": "float",
@@ -9620,16 +9250,6 @@
       "period": "year",
       "source": "policyengine_us/variables/gov/ed/pell_grant/dependent/pell_grant_dependent_allowances.py",
       "sha256": "e3c22d0e2385e6fbd07ae27c0e31fb6de09066ee879cf73a059354a58217d395"
-    },
-    {
-      "name": "qmb_cost_sharing",
-      "entity": "person",
-      "value_type": "float",
-      "validated": false,
-      "quantized": false,
-      "period": "month",
-      "source": "policyengine_us/variables/gov/hhs/medicare/savings_programs/qmb_cost_sharing.py",
-      "sha256": "76dbe4d8a327671e63c3e9451fb7d22771092e67618286492f6420cf34c52d67"
     },
     {
       "name": "self_employment_social_security_tax",
@@ -16944,7 +16564,7 @@
       "domain": "hhs",
       "period": "year",
       "kind": "rejected",
-      "note": "enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['GU', 'MP', 'PW', 'PR']"
+      "note": "enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['AL', 'AK', 'AZ', 'AR']"
     },
     {
       "name": "per_capita_chip_gross",
@@ -16953,7 +16573,7 @@
       "domain": "hhs",
       "period": "year",
       "kind": "rejected",
-      "note": "enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['GU', 'MP', 'PW', 'PR']"
+      "note": "enum-indexed parameter 'calibration.gov.hhs.cms.chip.enrollment.separate_chip' lacks members ['AL', 'AK', 'AZ', 'AR']"
     },
     {
       "name": "person_count",

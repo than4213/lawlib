@@ -12,17 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/usda/snap/income/ineligible_members/snap_prorated_income_fraction.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_prorated_income_fraction (t : TaxUnit) (d : Date) : Rat :=
-  let household_members := (t.core.spm_unit_size - (sumBy t.members fun p => boolToRat (is_snap_ineligible_student t p d)));
-  (if (decide (household_members > 0)) then ((snap_unit_size t d) / (max (household_members : Rat) 1)) else 0)
-
-/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_standard_deduction.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snap_standard_deduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.state_group_str == "AK" then (Params.gov.usda.snap.income.deductions.standard.AK.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "CONTIGUOUS_US" then (Params.gov.usda.snap.income.deductions.standard.CONTIGUOUS_US.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "GU" then (Params.gov.usda.snap.income.deductions.standard.GU.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (if t.core.state_group_str == "HI" then (Params.gov.usda.snap.income.deductions.standard.HI.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6)) else (Params.gov.usda.snap.income.deductions.standard.VI.atDate d (min ((max ((snap_unit_size t d) : Rat) 1) : Rat) 6))))))
-
 /-- `policyengine_us/variables/gov/hhs/ccdf/spm_unit_ccdf_subsidy.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def spm_unit_ccdf_subsidy (t : TaxUnit) (d : Date) : Rat :=
@@ -811,5 +800,15 @@ def recovery_rebate_credit (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def savers_credit_potential (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => (savers_credit_person t p d))
+
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_deductions.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type float. -/
+def snap_deductions (t : TaxUnit) (d : Date) : Rat :=
+  ((((((snap_standard_deduction t d) + (snap_earned_income_deduction t d)) + (snap_dependent_care_deduction t d)) + (snap_child_support_deduction t d)) + (snap_excess_medical_expense_deduction t d)) + (snap_excess_shelter_expense_deduction t d))
+
+/-- `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/used_clean_vehicle_credit.py`
+    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
+def used_clean_vehicle_credit (t : TaxUnit) (d : Date) : Rat :=
+  (if (used_clean_vehicle_credit_eligible t d) then (min ((t.core.used_clean_vehicle_sale_price * (Params.gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat) (Params.gov.irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
 
 end Lawlib.Gen.Vars

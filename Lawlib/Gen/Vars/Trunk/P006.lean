@@ -12,17 +12,6 @@ set_option linter.unusedVariables false
 set_option maxHeartbeats 1000000
 set_option maxRecDepth 8192
 
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_liability_if_not_itemizing.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type float. -/
-def tax_liability_if_not_itemizing__not_itemizing (t : TaxUnit) (d : Date) : Rat :=
-  (income_tax__not_itemizing t d)
-
-/-- `policyengine_us/variables/gov/irs/income/taxable_income/deductions/tax_unit_itemizes.py`
-    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
-def tax_unit_itemizes (t : TaxUnit) (d : Date) : Bool :=
-  let v1 := ((tax_liability_if_itemizing t d) - (tax_liability_if_not_itemizing t d));
-  (if (decide ((if (decide (v1 < 0)) then (0 - v1) else v1) ≤ (mkRat 1 100))) then (decide ((itemized_taxable_income_deductions t d) > (standard_deduction t d))) else (decide ((tax_liability_if_itemizing t d) < (tax_liability_if_not_itemizing t d))))
-
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/amt_excluded_deductions.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amt_excluded_deductions (t : TaxUnit) (d : Date) : Rat :=
