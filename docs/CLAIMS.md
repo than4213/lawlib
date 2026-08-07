@@ -3,7 +3,7 @@
 Uncertainty management for lawlib, in the
 [Claimlib](https://github.com/than4213) claims-as-Props style: what the
 kernel can't certify is a named `Prop` in
-[`Lawlib/Claims.lean`](../Lawlib/Claims.lean), never asserted; results
+[`Tests/Claims.lean`](../Tests/Claims.lean), never asserted; results
 depending on it are certified *conditionals*. This ledger grades the
 evidence behind each claim and names the cheapest way to firm it up.
 Best guesses are welcome here — at their honest tier.
