@@ -22,9 +22,9 @@ with the workload.
 
 ## Reproduction
 
-`lean-toolchain`: `leanprover/lean4:v4.32.1` (also reproduces on
-v4.32.2). Linux x86-64 (WSL2, Ubuntu 24.04). Default lake project, no
-dependencies.
+`lean-toolchain`: `leanprover/lean4:v4.32.1`. Also reproduces on
+**v4.32.2** and on **v4.33.0-rc1** (re-verified 2026-08-07 on a clean
+project). Linux x86-64 (WSL2, Ubuntu 24.04), no dependencies.
 
 ```toml
 # lakefile.toml
@@ -99,3 +99,10 @@ changes nothing).
 
 Cap generated structures at ≤ 128 fields (we split wider records into
 nested part-structs).
+
+## Happy to help
+
+I can test patches against the large real-world case that surfaced
+this (a few hundred generated structures, some near the boundary), and
+I still have the deferred-corruption variant handy if a wandering
+crash is more useful for diagnosis than the clean one.

@@ -70,7 +70,10 @@ lake env lean --run Main.lean           # works: "decoded: f0=0 f155=155"
   compiled code breaks.
 - Deriving `Repr`/`ToJson` alongside doesn't change the behavior;
   `FromJson` alone suffices.
-- Reproduces identically on v4.32.2 (latest stable at time of writing).
+- Reproduces identically on **v4.32.2** (latest stable) and on
+  **v4.33.0-rc1** — re-verified 2026-08-07 on a clean project with no
+  dependencies: compiled binary exits 139 (SIGSEGV), the interpreter
+  on the same file prints `decoded: f0=0 f155=155`.
 
 ## Workaround (what lawlib does)
 
