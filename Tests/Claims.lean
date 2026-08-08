@@ -29,15 +29,15 @@ T5 conjecture (best guess, awaiting resources).
 
 namespace Lawlib.Claims
 
-open Lawlib Lawlib.Gen Lawlib.Theorems
+open Lawlib Lawlib.Theorems Tests.EicTable
 
 /-! ## Observable vocabulary (reality's symbols) -/
 
 /-- The 2023 Earned Income Credit table as actually printed in the IRS
 Form 1040 instructions (irs.gov `i1040gi--2023.pdf`, sha256
-`90c8759c…`), in the row shape of `Gen.Irs.EicRow`. An abstract symbol:
+`90c8759c…`), in the row shape of `EicRow`. An abstract symbol:
 lawlib holds a *transcription* of it, not the thing itself. -/
-opaque irsEicTable2023 : Array Gen.Irs.EicRow
+opaque irsEicTable2023 : Array EicRow
 
 /-- PolicyEngine US 1.783.0's EITC as executed by its Simulation API on
 the canonical household domain (`Theorems.mkTaxUnit`): filing group,
@@ -55,7 +55,7 @@ independently consistent with the reverse-engineered generator on all
 10,120 cells (T1). Firms up by: independent re-transcription, or IRS
 publishing machine-readable tables. -/
 def claim_table_transcription : Prop :=
-  irsEicTable2023 = Gen.Irs.eicTable2023
+  irsEicTable2023 = eicTable2023
 
 /-- **Twin claim, EITC** (tier T2 — differential): on the canonical
 domain, executed PolicyEngine agrees with the translated `eitc` to

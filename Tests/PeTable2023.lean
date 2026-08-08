@@ -5,7 +5,7 @@ import Tests.Claims
 # PE-formula vs table theorems (evaluated via the memoized evaluator)
 
 Grid theorems are stated over `Theorems.peM` — the fused evaluator in
-`Lawlib.Gen.Memo` — because per-variable evaluation recomputes shared
+`Lawlib.Evaluator` — because per-variable evaluation recomputes shared
 dependencies (finding 17). Formerly quarantined behind the Lean
 ≥156-field `FromJson` codegen bug (finding 16, now worked around by
 capping generated structures at 128 fields).
@@ -13,12 +13,12 @@ capping generated structures at 128 fields).
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Gen Lawlib.Claims
+open Lawlib Lawlib.Claims Tests.EicTable
 
 /-- PolicyEngine's smooth EITC formula never differs from the legal
 (table) credit by more than $11.50, anywhere in any bracket. -/
 theorem pe_within_1150_of_table :
-    Gen.Irs.eicTable2023.all (rowDevOk (23/2)) = true := by
+    eicTable2023.all (rowDevOk (23/2)) = true := by
   native_decide
 
 /-- The $11.50 bound is sharp: earned income $50, three children.
@@ -29,7 +29,7 @@ theorem pe_table_gap_reaches_1150 :
 
 /-- At bracket midpoints the gap is at most $5.297. -/
 theorem pe_within_530_at_midpoints :
-    Gen.Irs.eicTable2023.all (rowDevOkMid (5297/1000)) = true := by
+    eicTable2023.all (rowDevOkMid (5297/1000)) = true := by
   native_decide
 
 

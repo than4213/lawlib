@@ -12,21 +12,21 @@ here, not in the library (DESIGN.md §1).
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Gen Lawlib.Gen.Vars
+open Lawlib Lawlib.USA Tests.EicTable
 
 /-- The table prints `0` beyond the phase-out for some columns and `*`
 for others; both mean "no credit". -/
 def cellMatches (m t : Option Nat) : Bool :=
   m == t || (m == none && t == some 0)
 
-def rowOk (r : Gen.Irs.EicRow) : Bool :=
+def rowOk (r : EicRow) : Bool :=
   (List.range 8).all fun i =>
     let (g, n) := cols.getD i (.single, 0)
     cellMatches (tableModel g n r.lo r.hi) (r.credits.getD i none)
 
 /-- PE-formula deviation from the table cell, checked at the bracket's
 low edge, midpoint, and high edge. -/
-def rowDevOk (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
+def rowDevOk (bound : Rat) (r : EicRow) : Bool :=
   (List.range 8).all fun i =>
     let (g, n) := cols.getD i (.single, 0)
     match r.credits.getD i none with
@@ -35,7 +35,7 @@ def rowDevOk (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
       [(r.lo : Rat), ((r.lo : Rat) + (r.hi : Rat)) / 2, (r.hi : Rat) - 1].all
         fun x => decide (rabs (peM g n x - (t : Rat)) ≤ bound)
 
-def rowDevOkMid (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
+def rowDevOkMid (bound : Rat) (r : EicRow) : Bool :=
   (List.range 8).all fun i =>
     let (g, n) := cols.getD i (.single, 0)
     match r.credits.getD i none with
@@ -46,7 +46,7 @@ def rowDevOkMid (bound : Rat) (r : Gen.Irs.EicRow) : Bool :=
 /-- The reverse-engineered generator reproduces every cell of the 2023
 IRS EIC table. -/
 theorem eic_table_2023_generator_verified :
-    Gen.Irs.eicTable2023.all rowOk = true := by
+    eicTable2023.all rowOk = true := by
   native_decide
 
 

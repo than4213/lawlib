@@ -9,7 +9,7 @@ import Lawlib.Theorems.EicTable2023
 
 ∀-quantified statements over *earned income as a real quantity* — the
 symbolic upgrade of the M6 grid scan. Everything is proved against the
-**generated** definitions (`Lawlib.Gen...eitc`) on the canonical scan
+**generated** definitions (`Lawlib...eitc`) on the canonical scan
 household (`Theorems.mkTaxUnit`), so a re-extraction that changes the
 encoded law breaks these proofs — which is the point: failed proofs
 localize semantic change.
@@ -31,7 +31,7 @@ abstractly, and instantiated per cell:
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Theorems Lawlib.Gen Lawlib.Gen.Vars
+open Lawlib Lawlib.Theorems Lawlib Lawlib.USA
 
 /-! ## The statutory trapezoid, abstractly -/
 
@@ -81,48 +81,48 @@ section ClosedForms
 /-- Unfold the full translated chain and the parameter tables. -/
 macro "eitc_normalize" : tactic =>
   `(tactic| (
-    simp only [pe, mkTaxUnit, eitc, eitc_eligible,
-      eitc_investment_income_eligible, eitc_demographic_eligible,
-      filer_meets_eitc_identification_requirements,
-      meets_eitc_identification_requirements, eitc_relevant_investment_income,
-      eitc_child_count, eitc_maximum, eitc_phase_in_rate, eitc_phase_out_rate,
-      eitc_phase_out_start, eitc_phased_in, eitc_reduction, eitc_earned_income,
-      is_qualifying_child_dependent, is_tax_unit_dependent,
-      is_tax_unit_head_or_spouse, is_full_time_student, is_in_k12_school,
-      tax_unit_is_joint,
-      self_employment_tax_ald_person, self_employment_tax,
-      above_the_line_deductions, adjusted_gross_income, alimony_expense_ald,
-      irs_employment_income, irs_gross_income, other_net_gain_gross_income,
-      pre_tax_contributions, self_employed_health_insurance_ald,
-      self_employed_health_insurance_ald_person,
-      self_employed_pension_contribution_ald,
-      self_employed_pension_contribution_ald_person, self_employment_tax_ald,
-      social_security, tax_unit_combined_income_for_social_security_taxability,
-      tax_unit_social_security, tax_unit_social_security_for_taxability,
-      tax_unit_ss_combined_income_excess, tax_unit_taxable_social_security,
-      tax_unit_taxable_unemployment_compensation,
-      tax_unit_unemployment_compensation, taxable_social_security,
-      taxable_uc_agi, taxable_unemployment_compensation,
-      loss_limited_net_capital_gains,
-      net_investment_income,
-      self_employment_medicare_tax, self_employment_social_security_tax,
-      social_security_taxable_self_employment_income,
-      taxable_self_employment_income, taxable_earnings_for_social_security,
-      payroll_tax_gross_wages, fica_pre_tax_contributions,
+    simp only [pe, mkTaxUnit, eitc, eitcEligible,
+      eitcInvestmentIncomeEligible, eitcDemographicEligible,
+      filerMeetsEitcIdentificationRequirements,
+      meetsEitcIdentificationRequirements, eitcRelevantInvestmentIncome,
+      eitcChildCount, eitcMaximum, eitcPhaseInRate, eitcPhaseOutRate,
+      eitcPhaseOutStart, eitcPhasedIn, eitcReduction, eitcEarnedIncome,
+      isQualifyingChildDependent, isTaxUnitDependent,
+      isTaxUnitHeadOrSpouse, isFullTimeStudent, isInK12School,
+      taxUnitIsJoint,
+      selfEmploymentTaxAldPerson, selfEmploymentTax,
+      aboveTheLineDeductions, adjustedGrossIncome, alimonyExpenseAld,
+      irsEmploymentIncome, irsGrossIncome, otherNetGainGrossIncome,
+      preTaxContributions, selfEmployedHealthInsuranceAld,
+      selfEmployedHealthInsuranceAldPerson,
+      selfEmployedPensionContributionAld,
+      selfEmployedPensionContributionAldPerson, selfEmploymentTaxAld,
+      socialSecurity, taxUnitCombinedIncomeForSocialSecurityTaxability,
+      taxUnitSocialSecurity, taxUnitSocialSecurityForTaxability,
+      taxUnitSsCombinedIncomeExcess, taxUnitTaxableSocialSecurity,
+      taxUnitTaxableUnemploymentCompensation,
+      taxUnitUnemploymentCompensation, taxableSocialSecurity,
+      taxableUcAgi, taxableUnemploymentCompensation,
+      lossLimitedNetCapitalGains,
+      netInvestmentIncome,
+      selfEmploymentMedicareTax, selfEmploymentSocialSecurityTax,
+      socialSecurityTaxableSelfEmploymentIncome,
+      taxableSelfEmploymentIncome, taxableEarningsForSocialSecurity,
+      payrollTaxGrossWages, ficaPreTaxContributions,
       sumBy, anyBy, boolToRat, trap]
     simp +decide [DatedParam.atDate, DatedParam.atDate.go, Scale.atDate,
       ExtRat.leCap,
-      Params.gov.irs.dependent.ineligible_age.student,
-      Params.gov.irs.dependent.ineligible_age.non_student,
-      Params.gov.irs.credits.eitc.max,
-      Params.gov.irs.credits.eitc.phase_in_rate,
-      Params.gov.irs.credits.eitc.phase_out.rate,
-      Params.gov.irs.credits.eitc.phase_out.start,
-      Params.gov.irs.credits.eitc.phase_out.joint_bonus,
-      Params.gov.irs.credits.eitc.phase_out.max_investment_income,
-      Params.gov.irs.credits.eitc.eligibility.age.min,
-      Params.gov.irs.credits.eitc.eligibility.age.min_student,
-      Params.gov.irs.credits.eitc.eligibility.age.max,
+      Parameters.gov.irs.dependent.ineligible_age.student,
+      Parameters.gov.irs.dependent.ineligible_age.non_student,
+      Parameters.gov.irs.credits.eitc.max,
+      Parameters.gov.irs.credits.eitc.phase_in_rate,
+      Parameters.gov.irs.credits.eitc.phase_out.rate,
+      Parameters.gov.irs.credits.eitc.phase_out.start,
+      Parameters.gov.irs.credits.eitc.phase_out.joint_bonus,
+      Parameters.gov.irs.credits.eitc.phase_out.max_investment_income,
+      Parameters.gov.irs.credits.eitc.eligibility.age.min,
+      Parameters.gov.irs.credits.eitc.eligibility.age.min_student,
+      Parameters.gov.irs.credits.eitc.eligibility.age.max,
       d2023]
     norm_num [Rat.mkRat_eq_div]))
 

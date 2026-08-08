@@ -15,7 +15,7 @@ Nothing else imports this file; it is a check, not a dependency.
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Gen.Vars
+open Lawlib Lawlib.USA
 
 /-- Gap between the encodings at one point, in cents (exact ℚ). -/
 def gapCents (g : Group) (jr : Bool) (n : Nat) (x : Nat) : Rat :=

@@ -1,9 +1,9 @@
 import Lawlib.Core.Money
 import Lawlib.Core.Date
-import Lawlib.Gen.Entities
-import Lawlib.Gen.Params
-import Lawlib.Gen.Vars.Trunk
-import Lawlib.Gen.Memo
+import Lawlib.Household
+import Lawlib.Parameters
+import Lawlib.USA
+import Lawlib.Evaluator
 
 /-!
 # Canonical scan households (precompiled)
@@ -17,7 +17,7 @@ library: `native_decide` and `#eval` call these as native symbols.
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Gen Lawlib.Gen.Vars
+open Lawlib Lawlib Lawlib.USA
 
 inductive Group where
   | single
@@ -31,18 +31,18 @@ given earned income, a spouse for joint filers, `n` qualifying children
 aged 8; AGI mirrors earned income; everything else zero. -/
 def mkTaxUnit (g : Group) (n : Nat) (income : Rat) : TaxUnit :=
   let head : Person :=
-    { core_p1 := { age := 30, is_tax_unit_head := true, has_tin := true,
-                   employment_income := income } }
+    { coreP1 := { age := 30, isTaxUnitHead := true, hasTin := true,
+                   employmentIncome := income } }
   let spouse : Person :=
-    { core_p1 := { age := 30, is_tax_unit_spouse := true, has_tin := true } }
+    { coreP1 := { age := 30, isTaxUnitSpouse := true, hasTin := true } }
   let child : Person :=
-    { core_p1 := { age := 8, has_tin := true } }
+    { coreP1 := { age := 8, hasTin := true } }
   { members := [head] ++ (if g = .joint then [spouse] else []) ++ List.replicate n child
-    core := { filing_status := if g = .joint then .JOINT else .SINGLE }
+    core := { filingStatus := if g = .joint then .JOINT else .SINGLE }
     -- AGI is now computed law: with only employment income set and no
     -- above-the-line deductions, it reduces to the head's earnings
-    irs := { takes_up_eitc := true
-             would_file_if_eligible_for_refundable_credit := true } }
+    irs := { takesUpEitc := true
+             wouldFileIfEligibleForRefundableCredit := true } }
 
 /-- PolicyEngine semantics (the translated `eitc`) on that household —
 per-variable definition, used by the *symbolic* theorems. -/
@@ -50,12 +50,12 @@ def pe (g : Group) (n : Nat) (x : Rat) : Rat :=
   eitc (mkTaxUnit g n x) d2023
 
 /-- The same semantics through the fused memoized evaluator
-(`Lawlib.Gen.Memo`) — each variable computed once, so `native_decide`
+(`Lawlib.Evaluator`) — each variable computed once, so `native_decide`
 can evaluate hundreds of thousands of points. The two definitions
 compute the same value (same IR, sharing made explicit); grid theorems
 are stated over `peM`. -/
 def peM (g : Group) (n : Nat) (x : Rat) : Rat :=
-  Memo.eitc (mkTaxUnit g n x) d2023
+  Evaluator.eitc (mkTaxUnit g n x) d2023
 
 def rabs (q : Rat) : Rat := if q < 0 then -q else q
 

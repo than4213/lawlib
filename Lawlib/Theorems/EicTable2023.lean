@@ -1,8 +1,8 @@
 import Lawlib.Core.Money
 import Lawlib.Core.Date
-import Lawlib.Gen.Entities
-import Lawlib.Gen.Params
-import Lawlib.Gen.Vars.Trunk
+import Lawlib.Household
+import Lawlib.Parameters
+import Lawlib.USA
 import Lawlib.Theorems.Scan
 
 /-!
@@ -13,7 +13,7 @@ $50-bracket midpoint evaluation of the phase formula — **anchored on the
 phase-out side at the IRS-internal unrounded completed-phaseout amount**
 — rounded half up, with the full plateau maximum for brackets straddling
 a phase kink. The rates, maximums, and phase-out starts come from the
-*extracted PolicyEngine parameters* (`Lawlib.Gen.Params`); only the
+*extracted PolicyEngine parameters* (`Lawlib.Parameters`); only the
 phase-in ends and unrounded completed-phaseout amounts are additional
 Rev.-Proc.-level data.
 
@@ -28,7 +28,7 @@ artifact, not law.
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Gen Lawlib.Gen.Vars
+open Lawlib Lawlib Lawlib.USA
 
 /-- Phase-in ends ("earned income amounts"), Rev. Proc. 2022-38. -/
 def pinEnd : Nat → Rat
@@ -58,11 +58,11 @@ def rhu (q : Rat) : Nat :=
 /-- The reverse-engineered 2023 EIC table generator. -/
 def tableModel (g : Group) (n : Nat) (lo hi : Nat) : Option Nat :=
   let nn : Rat := n
-  let maxA := Params.gov.irs.credits.eitc.max.atDate d2023 nn
-  let pin := Params.gov.irs.credits.eitc.phase_in_rate.atDate d2023 nn
-  let po := Params.gov.irs.credits.eitc.phase_out.rate.atDate d2023 nn
-  let start := Params.gov.irs.credits.eitc.phase_out.start.atDate d2023 nn
-    + (if g = .joint then Params.gov.irs.credits.eitc.phase_out.joint_bonus.atDate d2023 nn else 0)
+  let maxA := Parameters.gov.irs.credits.eitc.max.atDate d2023 nn
+  let pin := Parameters.gov.irs.credits.eitc.phase_in_rate.atDate d2023 nn
+  let po := Parameters.gov.irs.credits.eitc.phase_out.rate.atDate d2023 nn
+  let start := Parameters.gov.irs.credits.eitc.phase_out.start.atDate d2023 nn
+    + (if g = .joint then Parameters.gov.irs.credits.eitc.phase_out.joint_bonus.atDate d2023 nn else 0)
   let E := phaseoutEnd g n
   let lor : Rat := lo
   let hir : Rat := hi

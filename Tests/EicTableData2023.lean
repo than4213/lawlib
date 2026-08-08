@@ -5,7 +5,7 @@ DO NOT EDIT. 2 of 1,267 rows are footnoted split rows at phase-out
 ends, absent here (see the EIC-table findings).
 -/
 
-namespace Lawlib.Gen.Irs
+namespace Tests.EicTable
 
 /-- One $50 bracket row of the 2023 IRS EIC table. `credits` holds the
 credit for (Single/HoH/QSS, 0–3 children) then (MFJ, 0–3 children);
@@ -1311,4 +1311,4 @@ private def chunk8 : Array EicRow := #[
 def eicTable2023 : Array EicRow :=
   chunk0 ++ chunk1 ++ chunk2 ++ chunk3 ++ chunk4 ++ chunk5 ++ chunk6 ++ chunk7 ++ chunk8
 
-end Lawlib.Gen.Irs
+end Tests.EicTable

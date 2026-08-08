@@ -68,10 +68,11 @@ where the project started, not what it is.
 Two rules make the import trustworthy:
 
 **Translate exactly or not at all.** Anything the translator cannot
-express faithfully is refused, and the variable becomes a declared
-input supplied by the caller. Every refusal is logged with its reason
-in [`rejection_report.md`](rejection_report.md) — a deliverable, not a
-failure. Nothing in the library is an approximation of the law.
+express faithfully is refused, and the variable becomes a *declared
+input* — a value the caller supplies rather than a rule the library
+pretends to know. Every declared input is listed in
+`EXTRACTION_MANIFEST.json`. Nothing here is an approximation of the
+law.
 
 **Check the translation from outside.** Every night, thousands of
 randomized households are computed by both engines and must agree on
@@ -216,11 +217,13 @@ the translated definitions themselves use only core types.
 | Path | What |
 |---|---|
 | `Lawlib/Core/` | hand-written foundations: exact money and rates, dates, dated parameters, bracket scales, the extended rationals for "no limit" bounds |
-| `Lawlib/Gen/` | the imported law: parameters, entities, formulas, and a fused evaluator. Regenerated from upstream; all changes enter through code review |
+| `Lawlib/USA/` | the law itself, one module per administering agency (`IRS`, `USDA`, `SSA`, …) |
+| `Lawlib/Parameters/` | every rate, threshold, and bracket table, dated |
+| `Lawlib/Household.lean` | the household structures and the inputs a caller supplies |
+| `Lawlib/Evaluator.lean` | computes a whole household in one pass |
 | `Lawlib/Theorems/` | machine-checked results about the law |
 | `Tests/` | everything that touches the world: the transcribed IRS table (a fixture — the law generates it), claims about printed artifacts and executed PolicyEngine, and their certified conditionals. Imports the library; never the reverse |
 | `EXTRACTION_MANIFEST.json` | version pins, per-source hashes, the declared input boundary, date coverage |
-| `rejection_report.md` | what the translator refused, and why |
 | `DESIGN.md` | why the library is built this way: the governing principle, scope, and architecture |
 | `EXAMPLES.md` | worked examples: compute a household, read a rule, prove something |
 
@@ -265,8 +268,8 @@ disagreement becomes a theorem rather than an argument.
 
 **Work on the translator.**
 [pe2lean](https://github.com/than4213/pe2lean) is Apache-2.0, written
-in Python, and its `rejection_report.md` is a literal to-do list of
-formulas it cannot yet express. It generalizes to any OpenFisca-style
+in Python, and its `TODO.md` is a literal list of formulas it cannot
+yet express. It generalizes to any OpenFisca-style
 model, so other countries are open too.
 
 ### Getting in touch

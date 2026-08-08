@@ -28,7 +28,7 @@ grid theorem is the stronger statement for the atlas anyway).
 
 namespace Lawlib.Theorems
 
-open Lawlib Lawlib.Theorems Lawlib.Gen Lawlib.Gen.Vars
+open Lawlib Lawlib.Theorems Lawlib Lawlib.USA
 
 /-- CTC on the canonical household (all members with TINs/valid SSNs). -/
 def peC (g : Group) (n : Nat) (x : Rat) : Rat :=

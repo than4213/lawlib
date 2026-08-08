@@ -4,7 +4,9 @@ import Lawlib.Core.Entity
 import Lawlib.Core.ExtRat
 import Lawlib.Core.Scale
 import Lawlib.Core.Json
-import Lawlib.Gen
+import Lawlib.USA
+import Lawlib.Evaluator
+import Lawlib.Serialization
 import Lawlib.Theorems.EicTable2023
 import Lawlib.Theorems.Eitc2023
 import Lawlib.Theorems.Ctc2023

@@ -131,7 +131,7 @@ mechanically translated from policyengine-us.
 
 Within this scope, the goal is **completeness**: every federal formula
 either faithfully translated or a *documented* rejection
-(`rejection_report.md`), and the rejection list is a work queue to
+(pe2lean's `TODO.md`), and that list is a work queue to
 drive to zero by extending the typed IR — never by loosening it.
 Current state: 493 translated federal variables, 994 parameters,
 64-variable diff-validated tier, quarantine empty.
@@ -179,7 +179,7 @@ exactly as PE does today, or be flagged; **open question for Nathanael**).
 ### Open questions
 
 1. Drop projected entries entirely, or keep them in a separate
-   `Lawlib.Gen.Projected` namespace (data preserved, clearly labeled)?
+   a clearly-labeled `Projected` namespace (data preserved, marked as forecast)?
 2. When a date query lands beyond the last enacted entry, should
    `atDate` answer (carry-forward, PE-compatible) or should the
    manifest record the enacted-coverage horizon per parameter?
@@ -310,7 +310,7 @@ The two repositories are checked out as **siblings** inside a workspace director
 ```
 starlib/                     # workspace, not source-controlled
   lawlib/                    # git repo #1
-    Lawlib/                  # the module namespace: Core/, Gen/, Theorems/
+    Lawlib/                  # Core/, USA/, Parameters/, Theorems/
     Tests/ docs/ lakefile.toml lean-toolchain ...
   pe2lean/                   # git repo #2
     src/pe2lean/ scripts/ tests/ pyproject.toml ...
@@ -326,7 +326,7 @@ Each tool defaults to finding the other at `../lawlib` / `../pe2lean`, and both 
 - **Build:** `lakefile.toml` (current community default for new projects), `lean-toolchain` pinned to the latest stable Lean release. Phase 1 ran with **zero dependencies** (everything generated code needs — `Rat`, `DecidableEq`, `Lean.Data.Json` — is core); **Phase 2 added mathlib** (pinned release tag matching the toolchain) for the order/algebra lemmas behind the ∀-theorems in `Lawlib/Theorems/`. As predicted, the flip changed no generated definition — mathlib's `ℚ` is core's `Rat` — with one caveat worth recording: Phase 1's home-grown `Min/Max Rat` instances had to be deleted in favor of mathlib's (identical definitionally, but lemmas target mathlib's instance path). Consumers now want `lake exe cache get` before building.
 - **CI:** GitHub Actions using `leanprover/lean-action`, with `lake exe cache get` for mathlib olean caching. Build must be warning-clean; `lake build` is the only step needed to compile.
 - **Style:** hand-written code (`Lawlib/Core/`) follows mathlib style — `UpperCamelCase` types/modules, `lowerCamelCase` defs, doc-strings on every public declaration.
-- **Deliberate deviation:** generated defs keep PolicyEngine's `snake_case` variable names (`eitc_phase_in`, not `eitcPhaseIn`). Provenance and mechanical 1:1 mapping to the upstream source outrank naming style inside `Lawlib/Gen/`; the deviation is confined there and noted in the README.
+- **Deliberate deviation:** generated defs keep PolicyEngine's `snake_case` variable names (`eitc_phase_in`, not `eitcPhaseIn`). Provenance and mechanical 1:1 mapping to the upstream source outrank naming style inside the generated modules; the deviation is confined there and noted in the README.
 - **Docs:** doc-gen4 from day one is not required, but every generated def carries a doc-string with source path, pe-us version, and statutory citation (handoff §4), so doc generation is cheap to add later.
 - **Hosting:** both repos on GitHub. Default branch `main`, PRs + CI gating, tags for releases (§4).
 
@@ -352,14 +352,13 @@ lawlib/
   lean-toolchain
   EXTRACTION_MANIFEST.json     # generated: pe-us version, pe2lean version, variable
                                # list, source hashes, extraction date, law-date coverage
-  rejection_report.md          # generated: what wasn't translated, and why
   docs/                        # handoff, this design, future finding writeups
   README.md
 ```
 
 Notes:
 - The `Gov/Irs/Credits/Eitc` path is the PE directory path case-converted to Lean module convention (`irs` → `Irs`); the conversion is mechanical and defined once in the emitter. Statute-based organization (`US/IRC/Section32`) was considered and rejected for now: the PE→statute mapping is curatorial, not mechanical, and a misfiled module is worse than an ugly path. Statutory citations live in doc-strings until a Phase-3 curated layer.
-- `EXTRACTION_MANIFEST.json` and `rejection_report.md` are generated artifacts but are *committed* in `lawlib` — they describe the committed generated code and are part of the library's public claim about its own coverage.
+- `EXTRACTION_MANIFEST.json` is a generated artifact but is *committed* in `lawlib`: it describes the committed generated code, naming every declared input the caller must supply. What the translator could not yet express is pe2lean's work queue, not a property of the law, and lives in that repository.
 
 ### 4. Revisioning: law dates vs. git revisions
 
@@ -370,7 +369,7 @@ Two distinct time axes, deliberately kept apart:
 
 The "map from date of law to revision" the handoff asks for is therefore answered at two levels: within a checkout, `DatedParam.at` *is* the map; across history, `git tag` + the manifest's coverage window tell you which revision to check out for any (law date, codification date) pair. A `REVISIONS.md` index (one line per tag: tag, pe-us version, coverage window, notable changes) is maintained in `lawlib` so the mapping is browsable without spelunking tags.
 
-Amendment history bonus: because pe-us version bumps arrive as diffs to *generated Lean*, `git diff pe-us-A pe-us-B -- Lawlib/Gen/` is a machine-readable changelog of how the encoded law changed between codifications — this falls out for free and feeds the findings pipeline later.
+Amendment history bonus: because pe-us version bumps arrive as diffs to *generated Lean*, `git diff pe-us-A pe-us-B -- Lawlib/USA/` is a machine-readable changelog of how the encoded law changed between codifications — this falls out for free and feeds the findings pipeline later.
 
 ### 5. `pe2lean` repo layout
 
@@ -393,7 +392,7 @@ pe2lean/
   README.md
 ```
 
-CLI contract: `pe2lean extract --lawlib <path>` (default `..`, per the nested layout) writes **only** the files pe2lean owns in `lawlib`: everything under `Lawlib/Gen/`, `EXTRACTION_MANIFEST.json`, and `rejection_report.md`. It never touches `Lawlib/Core/`, `Main.lean`, or build files. Extraction is deterministic: same pe-us pin + same pe2lean version ⇒ byte-identical output (sorted iteration everywhere, no timestamps except the manifest's dated fields).
+CLI contract: `pe2lean extract --lawlib <path>` (default `../lawlib`) writes **only** the files pe2lean owns in `lawlib`: `Lawlib/USA/`, `Lawlib/Parameters/`, `Household.lean`, `Categories.lean`, `Evaluator.lean`, `Serialization.lean`, and `EXTRACTION_MANIFEST.json`. It never touches `Lawlib/Core/`, `Main.lean`, or build files. Extraction is deterministic: same pe-us pin + same pe2lean version ⇒ byte-identical output (sorted iteration everywhere, no timestamps except the manifest's dated fields).
 
 ### 6. Cross-repo contracts
 
@@ -406,7 +405,7 @@ Three interfaces, all owned by this design:
 ### 7. CI
 
 **`lawlib` CI (GitHub Actions):**
-- every push/PR: `lake exe cache get`, `lake build` (warning-clean), then install the pinned `pe2lean` + `policyengine-us`, re-run extraction into a temp dir, and `diff -r` against the committed `Lawlib/Gen/` + manifest — any drift fails (determinism + never-hand-edited enforcement in one check); then the 10k-household differential run.
+- every push/PR: `lake exe cache get`, `lake build` (warning-clean), then install the pinned `pe2lean` + `policyengine-us`, re-run extraction into a temp dir, and `diff -r` against the committed modules + manifest — any drift fails (determinism + never-hand-edited enforcement in one check); then the 10k-household differential run.
 - nightly: 100k-household, multi-year differential suite (handoff §7 acceptance).
 
 **`pe2lean` CI:**
@@ -418,7 +417,7 @@ Neither CI triggers the other; the coupling is the explicit version-pin PR flow 
 
 Unchanged from handoff §9 (M1–M6), with the repo split folded in:
 - **M1 (skeleton)** now means: both repos initialized with the layouts above, `lawlib` CI green on an empty-`Gen` build, `pe2lean` prints the classified EITC closure.
-- The M4/M5 deliverables (`rejection_report.md`, manifest, diff-clean) land as commits + the first `pe-us-<version>` tag in `lawlib`.
+- Extraction deliverables (manifest, diff-clean) land as commits plus a `pe-us-<version>` tag in `lawlib`.
 - M6 (cliff scanner / first finding) lives in `pe2lean` (`harness/` or a `findings/` sibling), since it evaluates the compiled Lean binary over grids — no Lean metaprogramming needed in Phase 1.
 
 ### 9. Decisions log
@@ -429,7 +428,7 @@ Unchanged from handoff §9 (M1–M6), with the repo split folded in:
 | Transpiler name | `pe2lean` | `PolicyEngineToLawlib`, `lawlib-extractor` |
 | Generated code home | committed in `lawlib`, CI re-derives and diffs | bot PRs; extract-at-build-time |
 | Revisioning | date-keyed data + `pe-us-*` tags + manifest coverage windows | branch-per-law-year; per-year frozen views |
-| Module hierarchy | `Lawlib/Core` hand-written + `Lawlib/Gen` mirroring PE's `gov/...` path | statute-based (`US/IRC/Section32`); flat `Generated/` |
+| Module hierarchy | `Lawlib/Core` hand-written + `Lawlib/USA` by administering agency | statute-based (`US/IRC/Section32`); flat `Generated/` |
 | Build config | `lakefile.toml` | `lakefile.lean` |
 | mathlib | deferred to Phase 2 (core `Rat` suffices; same type, so no migration) | depend now per handoff §4 |
 | Generated naming | keep PE `snake_case` in `Gen/`, mathlib style in `Core/` | full mathlib-style renaming |
