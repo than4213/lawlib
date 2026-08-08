@@ -121,6 +121,8 @@ mechanically translated from policyengine-us.
 | Statutes (IRC, Food and Nutrition Act, SSA…) | Congress | **Yes** |
 | Regulations, Rev. Procs., published tables | Agencies, delegated | **Yes** (tagged administrative) |
 | State/local/territory programs | State agencies/legislatures | **Out of scope for now** (regenerate with `pe2lean extract --scope all` when states become a priority) |
+| A value a state elected, referenced by a federal rule (CHIP income limits, SNAP utility standards) | State, under a federal grant of discretion | No — the rule is federal and stays; the number is state law and becomes a **declared input**. A table of what all 50 states chose is 50 states' law, not one federal fact |
+| A value federal law itself varies by geography (poverty guideline in AK/HI, SNAP allotments in the territories) | Federal agencies | **Yes** — the parameter is keyed by the statutory regions Congress and the agencies distinguish, not by state |
 | `contrib/` reform proposals | Nobody — unenacted | No (not law) |
 | CBO/BEA/TAXSIM comparison constructs | Modeling | No (not law) |
 | Household modeling (poverty lines, cliffs, weights, expense rollups) | Modeling | No — where federal law references such quantities (e.g. childcare expenses in SNAP), they are **boundary inputs**: facts about households, supplied by the caller |
@@ -133,8 +135,8 @@ Within this scope, the goal is **completeness**: every federal formula
 either faithfully translated or a *documented* rejection
 (pe2lean's `TODO.md`), and that list is a work queue to
 drive to zero by extending the typed IR — never by loosening it.
-Current state: 493 translated federal variables, 994 parameters,
-64-variable diff-validated tier, quarantine empty.
+Current state: 769 translated federal variables, 880 parameters,
+245-variable diff-validated tier, quarantine empty.
 
 ---
 

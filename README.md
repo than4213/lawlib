@@ -26,11 +26,11 @@ United States **federal** tax and benefit law, as of policyengine-us
 
 | | |
 |---|---|
-| Parameters | **1,026** — every rate, threshold, and bracket table, as exact fractions with the date each value took effect |
-| Formulas | **801** translated definitions |
-| Verified against a second engine | **259 variables**, 23 program roots, nightly |
-| Declared inputs | 551, each classified and documented |
-| Refusals | 181, each logged with its reason |
+| Parameters | **880** — every rate, threshold, and bracket table, as exact fractions with the date each value took effect |
+| Formulas | **769** translated definitions |
+| Verified against a second engine | **245 variables**, 23 program roots, nightly |
+| Declared inputs | 558, each classified and documented |
+| Refusals | 223, each logged with its reason |
 
 The programs: the federal income tax itself (including the alternative
 minimum tax, the itemize-or-not election, and the credit-ordering
@@ -135,9 +135,13 @@ to compute past the enacted horizon rather than guessing.
 
 **Federal, for now.** State, local, and territory programs are parked
 awaiting their own pass (they were generated once and set aside; the
-translator regenerates them with `--scope all`) — except
-where a federal formula incorporates a specific state option by
-reference, which is federal law's own dependency and is emitted.
+translator regenerates them with `--scope all`). Where a federal
+formula turns on a choice a state made — the income limit a state
+elected for CHIP, say — the rule is federal but the number is that
+state's, so the formula takes it as a declared input rather than
+carrying a table of what each state chose. What does stay is federal
+law that varies by geography on its own terms: the poverty guideline
+is higher in Alaska because HHS says so, not because Alaska says so.
 Unenacted reform proposals and modeling constructs are never emitted.
 ([DESIGN.md §2](DESIGN.md))
 
