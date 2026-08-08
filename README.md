@@ -26,18 +26,18 @@ United States **federal** tax and benefit law, as of policyengine-us
 
 | | |
 |---|---|
-| Parameters | **880** — every rate, threshold, and bracket table, as exact fractions with the date each value took effect |
-| Formulas | **769** translated definitions |
-| Verified against a second engine | **245 variables**, 23 program roots, nightly |
-| Declared inputs | 558, each classified and documented |
-| Refusals | 223, each logged with its reason |
+| Parameters | **832** — every rate, threshold, and bracket table, as exact fractions with the date each value took effect |
+| Formulas | **758** translated definitions |
+| Verified against a second engine | 22 program roots, nightly |
+| Declared inputs | 424, each classified and documented |
+| Refusals | 232, each logged with its reason |
 
 The programs: the federal income tax itself (including the alternative
 minimum tax, the itemize-or-not election, and the credit-ordering
 machinery), the Earned Income Tax Credit, the Child Tax Credit, SNAP,
 Supplemental Security Income, the ACA premium tax credit, Medicaid,
-CHIP, TANF, WIC, housing assistance, school meals, child-care
-subsidies, education credits, ACP/Lifeline, and payroll taxation.
+CHIP, TANF, WIC, housing assistance, school meals, education credits,
+ACP/Lifeline, and payroll taxation.
 
 Money is an exact rational, never a float — the law's arithmetic is
 exact decimal with statutory rounding; IEEE 754 is an implementation
@@ -76,7 +76,7 @@ law.
 
 **Check the translation from outside.** Every night, thousands of
 randomized households are computed by both engines and must agree on
-all 259 verified variables — 15,000 households across five tax years
+every verified variable — 15,000 households across five tax years
 on the program roots, 3,000 on the full tier, plus 2,500 on every
 push. The only tolerated difference is PolicyEngine's own 32-bit float
 rounding, which lawlib (computing exactly) measures and logs rather
@@ -135,13 +135,45 @@ to compute past the enacted horizon rather than guessing.
 
 **Federal, for now.** State, local, and territory programs are parked
 awaiting their own pass (they were generated once and set aside; the
-translator regenerates them with `--scope all`). Where a federal
-formula turns on a choice a state made — the income limit a state
-elected for CHIP, say — the rule is federal but the number is that
-state's, so the formula takes it as a declared input rather than
-carrying a table of what each state chose. What does stay is federal
-law that varies by geography on its own terms: the poverty guideline
-is higher in Alaska because HHS says so, not because Alaska says so.
+translator regenerates them with `--scope all`).
+
+**Federal law may single out a state; it may not enumerate them.**
+Congress names the Alaska Permanent Fund Dividend in the definition of
+gross income, and that is federal law doing its job — so IRC §61 stays,
+naming Alaska. What a federal rule may not be is a walk over the fifty
+states: `tanf_if_takes_up` added up each state's own TANF program, which
+is a per-state lookup, not a federal rule.
+
+Lawlib does not hold the list of which programs a jurisdiction runs —
+that is a per-jurisdiction specific, and it changes without the federal
+law changing. A rule here may take a list as a parameter and sum it, but
+the list comes from the caller. Where a total is wanted, one declared
+input carries it, and amounts are annual: converting a state's monthly
+figure is the caller's job, not a convention lawlib encodes.
+
+Both halves are checked mechanically, and the check turns on where a
+value is *defined*, not what it is called — `ca_care` is California's
+program, `caa_rebate` is a federal statute, and a name is not evidence
+of jurisdiction. No definition here is state law: nothing from
+`gov/states/`, `gov/local/`, `gov/territories/`, or `reforms/`
+(unenacted proposals) is translated, and no single federal definition
+reaches into more than two jurisdictions.
+
+Three distinctions do the work:
+
+- **A jurisdiction's own rule** — Alabama's TANF calculation. Never
+  translated. A federal rule needing the amount takes it as an input; a
+  "federal" rule that was *only* a sum over such values
+  (`child_care_subsidies` added up 41 states' programs and did nothing
+  else) is not federal law at all and is refused.
+- **A generic cross-state quantity** — "the state income tax this
+  household paid", "unemployment compensation received". A fact about
+  the household, and a perfectly good input: the federal rules that tax
+  unemployment benefits (IRC §85) or cap the SALT deduction stay.
+- **Federal law that varies by geography on its own terms** — the
+  poverty guideline is higher in Alaska because HHS says so, not
+  because Alaska says so; SNAP allotments differ for the territories.
+  These stay, keyed by the regions the agencies themselves distinguish.
 Unenacted reform proposals and modeling constructs are never emitted.
 ([DESIGN.md §2](DESIGN.md))
 

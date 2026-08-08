@@ -1,4 +1,3 @@
-/- Generated: every module of translated law. DO NOT EDIT. -/
 import Lawlib.USA.DOE
 import Lawlib.USA.SSA
 import Lawlib.USA.HUD
@@ -26,3 +25,5 @@ import Lawlib.USA.ED.Part4
 import Lawlib.USA.ACA.Part4
 import Lawlib.USA.HHS.Part4
 import Lawlib.USA.IRS.Part5
+
+/-! Generated: every module of translated law. DO NOT EDIT. -/

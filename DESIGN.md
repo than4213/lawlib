@@ -101,7 +101,13 @@ Held strictly, this shapes the whole repository:
 - **`Tests/` holds everything that touches the world**: fixtures,
   claims about printed artifacts and executed programs, and their
   certified conditionals. It imports the library; the library never
-  imports it.
+  imports it. **Other jurisdictions' law lives here too** when it is
+  useful for checking federal rules —
+  [`Tests/StateTanf2023.lean`](Tests/StateTanf2023.lean) records what
+  each state actually pays, so a federal rule that takes such an amount
+  as an input can be exercised on realistic values instead of only
+  randomized ones. It is data about the world, so it is a fixture, not
+  a definition.
 - **Population studies never enter lawlib.** Poverty rates, program
   totals, optimization results — statements about people — are for a
   separate claims layer, with statistics, when that phase comes.
@@ -121,9 +127,12 @@ mechanically translated from policyengine-us.
 | Statutes (IRC, Food and Nutrition Act, SSA…) | Congress | **Yes** |
 | Regulations, Rev. Procs., published tables | Agencies, delegated | **Yes** (tagged administrative) |
 | State/local/territory programs | State agencies/legislatures | **Out of scope for now** (regenerate with `pe2lean extract --scope all` when states become a priority) |
-| A value a state elected, referenced by a federal rule (CHIP income limits, SNAP utility standards) | State, under a federal grant of discretion | No — the rule is federal and stays; the number is state law and becomes a **declared input**. A table of what all 50 states chose is 50 states' law, not one federal fact |
+| A jurisdiction's own rule (Alabama's TANF calculation, CHIP income limits) | State, under a federal grant of discretion | No — the rule is federal and stays; the number is state law and becomes a **declared input**. A table of what all 50 states chose is 50 states' law, not one federal fact. A "federal" rule that is *only* a sum over such values is not federal law and is refused |
+| A federal rule that names one specific state (IRC §61 taxing Alaska's Permanent Fund Dividend) | Congress | **Yes** — singling out a place is federal law doing its job. The line is *enumeration*: no federal definition may reach into more than two jurisdictions, which is what forbids the 50-state sum |
+| The list of which programs a jurisdiction runs | State agencies; changes without any federal law changing | No — lawlib never defines such a list. A rule may take a list as a parameter and sum it, but the caller supplies it. Totals are **annual**: a state's monthly-vs-annual reporting is a per-state specific the caller resolves |
+| Proposed law, state or federal (`reforms/`, `gov/contrib/`) | Nobody — unenacted | No (not law) |
+| A generic cross-state quantity (state income tax paid, unemployment compensation received) | State agencies, but not any identified one | **Yes as an input** — a fact about the household. The federal rules that consume it (IRC §85 on unemployment benefits, the SALT cap) are federal law and stay |
 | A value federal law itself varies by geography (poverty guideline in AK/HI, SNAP allotments in the territories) | Federal agencies | **Yes** — the parameter is keyed by the statutory regions Congress and the agencies distinguish, not by state |
-| `contrib/` reform proposals | Nobody — unenacted | No (not law) |
 | CBO/BEA/TAXSIM comparison constructs | Modeling | No (not law) |
 | Household modeling (poverty lines, cliffs, weights, expense rollups) | Modeling | No — where federal law references such quantities (e.g. childcare expenses in SNAP), they are **boundary inputs**: facts about households, supplied by the caller |
 | Uprated projections | Forecasts | No (dropped since v0.8.1; the adjustment *rules* stay) |
@@ -135,8 +144,8 @@ Within this scope, the goal is **completeness**: every federal formula
 either faithfully translated or a *documented* rejection
 (pe2lean's `TODO.md`), and that list is a work queue to
 drive to zero by extending the typed IR — never by loosening it.
-Current state: 769 translated federal variables, 880 parameters,
-245-variable diff-validated tier, quarantine empty.
+Current state: 758 translated federal variables, 832 parameters,
+22 diff-validated roots, quarantine empty.
 
 ---
 
