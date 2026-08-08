@@ -13,7 +13,8 @@ open Lawlib
 
 /-- The US caps high-efficiency home program rebates at this amount per year for heat pump
     clothes dryers.
-    `gov/doe/high_efficiency_electric_home_rebate/cap/electric_heat_pump_clothes_dryer.yaml` (policyengine-us).
+    `gov/doe/high_efficiency_electric_home_rebate/cap/electric_heat_pump_clothes_dryer.yaml`
+    (policyengine-us).
     * Inflation Reduction Act, part 2, Section 50121 (c):
       https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=597 -/
 def doe.high_efficiency_electric_home_rebate.cap.electric_heat_pump_clothes_dryer : DatedParam USD :=
@@ -21,7 +22,8 @@ def doe.high_efficiency_electric_home_rebate.cap.electric_heat_pump_clothes_drye
 
 /-- The US caps high-efficiency home program rebates at this amount per year for electric load
     service center upgrades.
-    `gov/doe/high_efficiency_electric_home_rebate/cap/electric_load_service_center_upgrade.yaml` (policyengine-us).
+    `gov/doe/high_efficiency_electric_home_rebate/cap/electric_load_service_center_upgrade.yaml`
+    (policyengine-us).
     * Inflation Reduction Act, part 2, Section 50121 (c):
       https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=597 -/
 def doe.high_efficiency_electric_home_rebate.cap.electric_load_service_center_upgrade : DatedParam USD :=
@@ -29,7 +31,8 @@ def doe.high_efficiency_electric_home_rebate.cap.electric_load_service_center_up
 
 /-- The US caps high-efficiency home program rebates at this amount per year for electric
     stoves, cooktops, ranges, or ovens.
-    `gov/doe/high_efficiency_electric_home_rebate/cap/electric_stove_cooktop_range_or_oven.yaml` (policyengine-us).
+    `gov/doe/high_efficiency_electric_home_rebate/cap/electric_stove_cooktop_range_or_oven.yaml`
+    (policyengine-us).
     * Inflation Reduction Act, part 2, Section 50121 (c):
       https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=597 -/
 def doe.high_efficiency_electric_home_rebate.cap.electric_stove_cooktop_range_or_oven : DatedParam USD :=
@@ -52,7 +55,8 @@ def doe.high_efficiency_electric_home_rebate.cap.heat_pump : DatedParam USD :=
 
 /-- The US caps high-efficiency home program rebates at this amount per year for heat pump water
     heaters.
-    `gov/doe/high_efficiency_electric_home_rebate/cap/heat_pump_water_heater.yaml` (policyengine-us).
+    `gov/doe/high_efficiency_electric_home_rebate/cap/heat_pump_water_heater.yaml`
+    (policyengine-us).
     * Inflation Reduction Act, part 2, Section 50121 (c):
       https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=596 -/
 def doe.high_efficiency_electric_home_rebate.cap.heat_pump_water_heater : DatedParam USD :=
@@ -60,7 +64,8 @@ def doe.high_efficiency_electric_home_rebate.cap.heat_pump_water_heater : DatedP
 
 /-- The US caps high-efficiency home program rebates at this amount per year for insulation, air
     sealing, and ventilation.
-    `gov/doe/high_efficiency_electric_home_rebate/cap/insulation_air_sealing_ventilation.yaml` (policyengine-us).
+    `gov/doe/high_efficiency_electric_home_rebate/cap/insulation_air_sealing_ventilation.yaml`
+    (policyengine-us).
     * Inflation Reduction Act, part 2, Section 50121 (c):
       https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=597 -/
 def doe.high_efficiency_electric_home_rebate.cap.insulation_air_sealing_ventilation : DatedParam USD :=

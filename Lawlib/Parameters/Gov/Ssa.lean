@@ -553,7 +553,8 @@ def ssa.social_security.quarters_of_coverage_threshold : DatedParam USD :=
      (⟨2026, 1, 1⟩, 1890)]⟩
 
 /-- The US delayed retirement credit rates by birth year.
-    `gov/ssa/social_security/retirement_age_adjustment/delayed_retirement/credit_rates.yaml` (policyengine-us).
+    `gov/ssa/social_security/retirement_age_adjustment/delayed_retirement/credit_rates.yaml`
+    (policyengine-us).
     * 42 U.S. Code § 402(w):
       https://www.law.cornell.edu/uscode/text/42/402#w
     * SSA Delayed Retirement Credits:
@@ -573,7 +574,8 @@ def ssa.social_security.retirement_age_adjustment.delayed_retirement.credit_rate
 
 /-- The US applies these monthly reduction rates for early retirement based on months before
     full retirement age.
-    `gov/ssa/social_security/retirement_age_adjustment/early_retirement/reduction_rates.yaml` (policyengine-us).
+    `gov/ssa/social_security/retirement_age_adjustment/early_retirement/reduction_rates.yaml`
+    (policyengine-us).
     * 42 U.S. Code § 402(q)(9) - Reduction of old-age insurance benefits:
       https://www.law.cornell.edu/uscode/text/42/402#q_9
     * 20 CFR § 404.410 - How reduction factors are computed:
@@ -880,7 +882,8 @@ def ssa.ssi.eligibility.status.qualified_noncitizen_status : DatedParam (List St
 
 /-- The Social Security Administration limits the blind or disabled Supplemental Security Income
     amount to student filers below this age limit.
-    `gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/age_limit.yaml` (policyengine-us).
+    `gov/ssa/ssi/income/exclusions/blind_or_disabled_working_student/age_limit.yaml`
+    (policyengine-us).
     * 20 CFR § 416.1112 - Earned income we do not count.:
       https://www.law.cornell.edu/cfr/text/20/416.1112#c_3
     * 2011 Annual Report of the SSI Program - B. INCOME AND RESOURCE EXCLUSIONS:

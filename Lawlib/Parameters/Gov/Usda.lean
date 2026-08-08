@@ -610,14 +610,16 @@ def usda.snap.income.deductions.excess_shelter_expense.cap.VI : DatedParam USD :
      (⟨2025, 10, 1⟩, 586)]⟩
 
 /-- Whether elderly and disabled people are exempt from the SNAP shelter deduction cap
-    `gov/usda/snap/income/deductions/excess_shelter_expense/elderly_or_disabled_exempt.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/excess_shelter_expense/elderly_or_disabled_exempt.yaml`
+    (policyengine-us).
     * 7 U.S. Code § 2014(e)(6)(B):
       https://www.law.cornell.edu/uscode/text/7/2014#e_6_B -/
 def usda.snap.income.deductions.excess_shelter_expense.elderly_or_disabled_exempt : DatedParam Bool :=
   ⟨(⟨2018, 1, 1⟩, true), []⟩
 
 /-- SNAP homeless shelter deduction amount.
-    `gov/usda/snap/income/deductions/excess_shelter_expense/homeless/deduction.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/excess_shelter_expense/homeless/deduction.yaml`
+    (policyengine-us).
     * 7 U.S. Code § 2014(e)(6)(D)(i):
       https://www.law.cornell.edu/uscode/text/7/2014#e_6_D_i
     * SNAP FY2016 Maximum Allotments and Deductions:
@@ -654,7 +656,8 @@ def usda.snap.income.deductions.excess_shelter_expense.homeless.deduction : Date
      (⟨2025, 10, 1⟩, mkRat 19899 100)]⟩
 
 /-- Share of income disregarded for SNAP shelter deduction
-    `gov/usda/snap/income/deductions/excess_shelter_expense/income_share_disregard.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/excess_shelter_expense/income_share_disregard.yaml`
+    (policyengine-us).
     * 7 U.S. Code § 2014(e)(6)(A):
       https://www.law.cornell.edu/uscode/text/7/2014#e_6_A -/
 def usda.snap.income.deductions.excess_shelter_expense.income_share_disregard : DatedParam Rate :=
@@ -1013,7 +1016,8 @@ def usda.snap.income.deductions.standard.VI : Scale :=
 
 /-- The USDA uses this list of states that vary their limited utility allowance by household
     size under the Supplemental Nutrition Assistance Program.
-    `gov/usda/snap/income/deductions/utility/limited/by_household_size/states.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/utility/limited/by_household_size/states.yaml`
+    (policyengine-us).
     * SNAP Screener Compiled State SNAP Data:
       https://www.snapscreener.com/data
     * FY 2018 SNAP QC Technical Documentation, Table F.7:
@@ -1029,7 +1033,8 @@ def usda.snap.income.deductions.utility.limited.by_household_size.states : Dated
 
 /-- The USDA provides this amount as the household-size-varying individual electricity utility
     allowance under the Supplemental Nutrition Assistance Program.
-    `gov/usda/snap/income/deductions/utility/single/by_household_size/electricity.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/utility/single/by_household_size/electricity.yaml`
+    (policyengine-us).
     * USDA SNAP utility allowances by state spreadsheet (FY2024):
       https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
     * USDA SNAP utility allowances by state spreadsheet (FY2025):
@@ -1227,7 +1232,8 @@ def usda.snap.income.deductions.utility.single.by_household_size.electricity.HI 
 
 /-- The USDA provides this amount as the household-size-varying individual gas and fuel utility
     allowance under the Supplemental Nutrition Assistance Program.
-    `gov/usda/snap/income/deductions/utility/single/by_household_size/gas_and_fuel.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/utility/single/by_household_size/gas_and_fuel.yaml`
+    (policyengine-us).
     * USDA SNAP utility allowances by state spreadsheet (FY2024):
       https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
     * USDA SNAP utility allowances by state spreadsheet (FY2025):
@@ -1415,7 +1421,8 @@ def usda.snap.income.deductions.utility.single.by_household_size.gas_and_fuel.HI
 
 /-- The USDA uses this list of states that vary their individual utility allowances by household
     size under the Supplemental Nutrition Assistance Program.
-    `gov/usda/snap/income/deductions/utility/single/by_household_size/states.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/utility/single/by_household_size/states.yaml`
+    (policyengine-us).
     * USDA SNAP utility allowances by state spreadsheet (FY2024):
       https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
     * USDA SNAP utility allowances by state spreadsheet (FY2025):
@@ -1615,7 +1622,8 @@ def usda.snap.income.deductions.utility.single.utility_types : DatedParam (List 
 
 /-- The USDA uses this list of states that vary their standard utility allowance by household
     size under the Supplemental Nutrition Assistance Program.
-    `gov/usda/snap/income/deductions/utility/standard/by_household_size/states.yaml` (policyengine-us).
+    `gov/usda/snap/income/deductions/utility/standard/by_household_size/states.yaml`
+    (policyengine-us).
     * SNAP Screener Compiled State SNAP Data:
       https://www.snapscreener.com/data
     * FY 2018 SNAP QC Technical Documentation, Table F.7:
@@ -2757,7 +2765,8 @@ def usda.snap.work_requirements.abawd.weekly_hours_threshold : DatedParam Rat :=
 
 /-- The Department of Agriculture exempts individuals caring for a dependent child under this
     age from the general work requirements under the Supplemental Nutrition Assistance Program.
-    `gov/usda/snap/work_requirements/general/age_threshold/caring_dependent_child.yaml` (policyengine-us).
+    `gov/usda/snap/work_requirements/general/age_threshold/caring_dependent_child.yaml`
+    (policyengine-us).
     * 7 C.F.R. § 273.7 Work provisions (b)(1)(iv):
       https://www.law.cornell.edu/cfr/text/7/273.7#b_1_iv -/
 def usda.snap.work_requirements.general.age_threshold.caring_dependent_child : DatedParam Rat :=

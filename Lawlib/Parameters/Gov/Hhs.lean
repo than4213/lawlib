@@ -95,7 +95,8 @@ def hhs.basic_health_program.eligibility.income_limit : DatedParam Rate :=
   ⟨(⟨2015, 1, 1⟩, 2), []⟩
 
 /-- Basic Health Program excludes these immigration statuses from lawfully present eligibility.
-    `gov/hhs/basic_health_program/eligibility/ineligible_immigration_statuses.yaml` (policyengine-us).
+    `gov/hhs/basic_health_program/eligibility/ineligible_immigration_statuses.yaml`
+    (policyengine-us).
     * 42 CFR § 600.305 - Eligible individuals:
       https://www.law.cornell.edu/cfr/text/42/600.305
     * 45 CFR § 155.20 - Lawfully present definition:
@@ -1822,7 +1823,8 @@ def hhs.medicaid.eligibility.categories.infant.age_range.other : DatedParam Rat 
 
 /-- Medicaid categories grouped as children to decide whether children can qualify for Medicaid
     under the 'medically needy' pathway.
-    `gov/hhs/medicaid/eligibility/categories/medically_needy/categories/child/child_categories.yaml` (policyengine-us).
+    `gov/hhs/medicaid/eligibility/categories/medically_needy/categories/child/child_categories.yaml`
+    (policyengine-us).
     * Medicaid Financial Eligibility for Seniors and People with Disabilities: Findings from a
     50-State Survey | KFF:
       https://www.kff.org/report-section/medicaid-financial-eligibility-for-seniors-and-people-with-disabilities-findings-from-a-50-state-survey-appendix-tables/ -/
@@ -1883,7 +1885,8 @@ def hhs.medicaid.eligibility.five_year_bar_years : DatedParam Rat :=
 
 /-- The Department of Health and Human Services limits agricultural home equity to this amount
     for Medicaid long-term care eligibility.
-    `gov/hhs/medicaid/eligibility/long_term_care/home_equity/agricultural_limit.yaml` (policyengine-us).
+    `gov/hhs/medicaid/eligibility/long_term_care/home_equity/agricultural_limit.yaml`
+    (policyengine-us).
     * Updated 2025 SSI and Spousal Impoverishment Standards:
       https://www.medicaid.gov/federal-policy-guidance/downloads/cib05282025.pdf
     * 2026 SSI, Spousal Impoverishment, and Medicare Savings Program Resource Standards:
@@ -1900,7 +1903,8 @@ def hhs.medicaid.eligibility.long_term_care.home_equity.agricultural_limit : Dat
 
 /-- The Department of Health and Human Services exempts Medicaid long-term care applicants with
     a resident child below this age from the home equity limit.
-    `gov/hhs/medicaid/eligibility/long_term_care/home_equity/family_exception/child_age_threshold.yaml` (policyengine-us).
+    `gov/hhs/medicaid/eligibility/long_term_care/home_equity/family_exception/child_age_threshold.yaml`
+    (policyengine-us).
     * 42 U.S. Code § 1396p(f)(2) - Home equity limit family exception:
       https://www.law.cornell.edu/uscode/text/42/1396p#f_2 -/
 def hhs.medicaid.eligibility.long_term_care.home_equity.family_exception.child_age_threshold : DatedParam Rat :=
@@ -1954,7 +1958,8 @@ def hhs.medicaid.eligibility.work_requirements.dependent_age_limit : DatedParam 
 
 /-- The Department of Health and Human Services excludes individuals below this age who are in
     the former foster care Medicaid eligibility group from Medicaid work requirements.
-    `gov/hhs/medicaid/eligibility/work_requirements/former_foster_care_age_limit.yaml` (policyengine-us).
+    `gov/hhs/medicaid/eligibility/work_requirements/former_foster_care_age_limit.yaml`
+    (policyengine-us).
     * H.R.1 - One Big Beautiful Bill Act:
       https://www.congress.gov/bill/119th-congress/house-bill/1/text
     * CMCS Informational Bulletin, Dec. 8, 2025:
@@ -2035,7 +2040,8 @@ def hhs.medicare.eligibility.min_age : DatedParam Rat :=
   ⟨(⟨1966, 1, 1⟩, 65), []⟩
 
 /-- Minimum number of months of receiving social security disability for Medicare eligibility.
-    `gov/hhs/medicare/eligibility/min_months_receiving_social_security_disability.yaml` (policyengine-us).
+    `gov/hhs/medicare/eligibility/min_months_receiving_social_security_disability.yaml`
+    (policyengine-us).
     * 42 U.S. Code § 426(b)(2)(A):
       https://www.law.cornell.edu/uscode/text/42/426#b -/
 def hhs.medicare.eligibility.min_months_receiving_social_security_disability : DatedParam Rat :=
