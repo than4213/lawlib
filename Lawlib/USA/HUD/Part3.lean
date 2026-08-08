@@ -57,7 +57,7 @@ def hudUnearnedIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   + p.coreP1.illicitIncome
   + p.coreP1.miscellaneousIncome
   + p.coreP1.alimonyIncome
-  + p.coreP2.strikeBenefits
+  + p.coreP1.strikeBenefits
   + (socialSecurity t p d)
   + ((ssi t p d) * 12)
   + p.states.generalAssistance
@@ -82,16 +82,15 @@ def hudAnnualIncome (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/hud/hud_adjusted_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hudAdjustedIncome (t : TaxUnit) (d : Date) : Rat :=
-  (max ((((((hudAnnualIncome t d) -
-      ((gov.hud.adjusted_income.deductions.dependent.amount.atDate d) * (sumBy t.members fun
-      p => boolToRat p.hud.isHudDependent))) -
-      ((gov.hud.adjusted_income.deductions.elderly_disabled.amount.atDate d) * (boolToRat
+  (max ((((((hudAnnualIncome t d) - ((hud.adjusted_income.deductions.dependent.amount.atDate
+      d) * (sumBy t.members fun p => boolToRat p.hud.isHudDependent))) -
+      ((hud.adjusted_income.deductions.elderly_disabled.amount.atDate d) * (boolToRat
       (isHudElderlyDisabledFamily t d)))) - (min (t.core.childcareExpenses : Rat) (max
       ((hudCountableEarnedIncome t d) : Rat) 0))) - (max (0 : Rat) ((((hudMedicalExpenses t
       d) * (boolToRat (isHudElderlyDisabledFamily t d))) + (min ((sumBy t.members fun p =>
       p.coreP1.careExpenses) : Rat) (max ((hudCountableEarnedIncome t d) : Rat) 0))) -
-      ((gov.hud.adjusted_income.deductions.moop.threshold.atDate d) * (hudAnnualIncome t
-      d))))) : Rat) 0)
+      ((hud.adjusted_income.deductions.moop.threshold.atDate d) * (hudAnnualIncome t d)))))
+      : Rat) 0)
 
 /-- `policyengine_us/variables/gov/hud/hud_income_level.py`
     policyengine-us 1.783.0, entity spm_unit, value_type Enum. -/
@@ -115,12 +114,12 @@ def hudIncomeLevel (t : TaxUnit) (d : Date) : HUDIncomeLevel :=
 /-- `policyengine_us/variables/gov/hud/ttp/hud_ttp_income_share.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hudTtpIncomeShare (t : TaxUnit) (d : Date) : Rat :=
-  ((gov.hud.total_tenant_payment.income_share.atDate d) * (hudAnnualIncome t d))
+  ((hud.total_tenant_payment.income_share.atDate d) * (hudAnnualIncome t d))
 
 /-- `policyengine_us/variables/gov/hud/ttp/hud_ttp_adjusted_income_share.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hudTtpAdjustedIncomeShare (t : TaxUnit) (d : Date) : Rat :=
-  ((gov.hud.total_tenant_payment.adjusted_income_share.atDate d) * (hudAdjustedIncome t d))
+  ((hud.total_tenant_payment.adjusted_income_share.atDate d) * (hudAdjustedIncome t d))
 
 /-- `policyengine_us/variables/gov/hud/is_eligible_for_housing_assistance.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
@@ -149,7 +148,7 @@ def hudHap (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/hud/housing_assistance.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def housingAssistance (t : TaxUnit) (d : Date) : Rat :=
-  (if (isEligibleForHousingAssistance t d) then (if (gov.hud.abolition.atDate d) then 0 else
+  (if (isEligibleForHousingAssistance t d) then (if (hud.abolition.atDate d) then 0 else
       ((hudHap t d) * (boolToRat t.hud.takesUpHousingAssistanceIfEligible))) else 0)
 
 end Lawlib.USA

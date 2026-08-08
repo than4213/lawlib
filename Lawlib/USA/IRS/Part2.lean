@@ -42,19 +42,18 @@ set_option maxRecDepth 8192
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/senior_deduction/`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def additionalSeniorDeductionEligiblePerson (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((((gov.irs.deductions.senior_deduction.eligible_ssn_card_type.atDate d).contains
+  (((((irs.deductions.senior_deduction.eligible_ssn_card_type.atDate d).contains
       (SSNCardType.asStr p.coreP1.ssnCardType)) &&
       (!(t.core.filingStatus == FilingStatus.SEPARATE))) && (isTaxUnitHeadOrSpouse t p d))
-      && (decide (p.coreP1.age ≥
-      (gov.irs.deductions.standard.aged_or_blind.age_threshold.atDate d))))
+      && (decide (p.coreP1.age ≥ (irs.deductions.standard.aged_or_blind.age_threshold.atDate
+      d))))
 
 /-- `aged_head.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/
         standard_deduction/`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def agedHead (t : TaxUnit) (d : Date) : Bool :=
-  (decide ((ageHead t d) ≥
-      (gov.irs.deductions.standard.aged_or_blind.age_threshold.atDate d)))
+  (decide ((ageHead t d) ≥ (irs.deductions.standard.aged_or_blind.age_threshold.atDate d)))
 
 /-- `aged_spouse.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/
@@ -62,7 +61,7 @@ def agedHead (t : TaxUnit) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def agedSpouse (t : TaxUnit) (d : Date) : Bool :=
   (decide ((ageSpouse t d) ≥
-      (gov.irs.deductions.standard.aged_or_blind.age_threshold.atDate d)))
+      (irs.deductions.standard.aged_or_blind.age_threshold.atDate d)))
 
 /-- `capped_energy_efficient_insulation_credit.py`
     in `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/
@@ -71,15 +70,15 @@ def agedSpouse (t : TaxUnit) (d : Date) : Bool :=
 def cappedEnergyEfficientInsulationCredit (t : TaxUnit) (d : Date) : Rat :=
   (ExtRat.minCap ((max (0 : Rat) (t.core.energyEfficientInsulationExpenditures -
       (cappedInsulationAirSealingVentilationRebate t d))) *
-      (gov.irs.credits.energy_efficient_home_improvement.rates.improvements.atDate d))
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.insulation_material.atDate
+      (irs.credits.energy_efficient_home_improvement.rates.improvements.atDate d))
+      (irs.credits.energy_efficient_home_improvement.cap.annual.insulation_material.atDate
       d))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_qualifying_child.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ctcQualifyingChild (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (isTaxUnitDependent t p d) then
-      ((decide (p.coreP1.age < (gov.irs.credits.ctc.amount.base.lastThreshold d))) &&
+      ((decide (p.coreP1.age < (irs.credits.ctc.amount.base.lastThreshold d))) &&
       (meetsCtcChildIdentificationRequirements t p d)) else false)
 
 /-- `filer_meets_american_opportunity_credit_identification_requirements.py`
@@ -115,7 +114,7 @@ def filerMeetsLifetimeLearningCreditIdentificationRequirements (t : TaxUnit) (d 
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isCdccEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((!(isTaxUnitHeadOrSpouse t p d)) &&
-      (decide (p.coreP1.age < (gov.irs.credits.cdcc.eligibility.child_age.atDate d)))) ||
+      (decide (p.coreP1.age < (irs.credits.cdcc.eligibility.child_age.atDate d)))) ||
       (p.coreP1.isIncapableOfSelfCare &&
       ((isTaxUnitDependent t p d) || ((isTaxUnitHeadOrSpouse t p d) && (taxUnitMarried t d)))))
 
@@ -124,10 +123,10 @@ def isCdccEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def overtimeIncomeDeductionSsnRequirementMet (t : TaxUnit) (d : Date) : Bool :=
   (if (taxUnitIsJoint t d) then (decide ((sumBy t.members fun p => (boolToRat
-      (((gov.irs.deductions.overtime_income.eligible_ssn_card_type.atDate d).contains
+      (((irs.deductions.overtime_income.eligible_ssn_card_type.atDate d).contains
       (SSNCardType.asStr p.coreP1.ssnCardType)) && (isTaxUnitHeadOrSpouse t p d)))) = 2))
       else (anyBy t.members fun p =>
-      (((gov.irs.deductions.overtime_income.eligible_ssn_card_type.atDate d).contains
+      (((irs.deductions.overtime_income.eligible_ssn_card_type.atDate d).contains
       (SSNCardType.asStr p.coreP1.ssnCardType)) && (isTaxUnitHeadOrSpouse t p d))))
 
 /-- `rrc_adult_count_with_valid_ssn.py`
@@ -188,10 +187,10 @@ def taxUnitSocialSecurity (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def tipIncomeDeductionSsnRequirementMet (t : TaxUnit) (d : Date) : Bool :=
   (if (taxUnitIsJoint t d) then (decide ((sumBy t.members fun p => (boolToRat
-      (((gov.irs.deductions.tip_income.eligible_ssn_card_type.atDate d).contains
+      (((irs.deductions.tip_income.eligible_ssn_card_type.atDate d).contains
       (SSNCardType.asStr p.coreP1.ssnCardType)) && (isTaxUnitHeadOrSpouse t p d)))) = 2))
       else (anyBy t.members fun p =>
-      (((gov.irs.deductions.tip_income.eligible_ssn_card_type.atDate d).contains
+      (((irs.deductions.tip_income.eligible_ssn_card_type.atDate d).contains
       (SSNCardType.asStr p.coreP1.ssnCardType)) && (isTaxUnitHeadOrSpouse t p d))))
 
 /-- `amt_kiddie_tax_applies.py`
@@ -201,12 +200,12 @@ def tipIncomeDeductionSsnRequirementMet (t : TaxUnit) (d : Date) : Bool :=
 def amtKiddieTaxApplies (t : TaxUnit) (d : Date) : Bool :=
   (((decide ((ageHead t d) ≠ 0)) && (decide ((ageHead t d) < (if (anyBy t.members fun p =>
       ((isFullTimeStudent t p d) && p.coreP1.isTaxUnitHead)) then
-      (gov.irs.dependent.ineligible_age.student.atDate d) else
-      (gov.irs.dependent.ineligible_age.non_student.atDate d))))) && ((decide ((ageSpouse t
-      d) = 0)) || (decide ((ageSpouse t d) < (if (anyBy t.members fun p =>
+      (irs.dependent.ineligible_age.student.atDate d) else
+      (irs.dependent.ineligible_age.non_student.atDate d))))) && ((decide ((ageSpouse t d) =
+      0)) || (decide ((ageSpouse t d) < (if (anyBy t.members fun p =>
       ((isFullTimeStudent t p d) && p.coreP1.isTaxUnitSpouse)) then
-      (gov.irs.dependent.ineligible_age.student.atDate d) else
-      (gov.irs.dependent.ineligible_age.non_student.atDate d))))))
+      (irs.dependent.ineligible_age.student.atDate d) else
+      (irs.dependent.ineligible_age.non_student.atDate d))))))
 
 /-- `basic_standard_deduction.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/
@@ -214,17 +213,17 @@ def amtKiddieTaxApplies (t : TaxUnit) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def basicStandardDeduction (t : TaxUnit) (d : Date) : Rat :=
   let standard_deduction := (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.deductions.standard.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.deductions.standard.amount.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.deductions.standard.amount.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.deductions.standard.amount.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.deductions.standard.amount.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.deductions.standard.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.deductions.standard.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.deductions.standard.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.deductions.standard.amount.SURVIVING_SPOUSE.atDate d));
+          (irs.deductions.standard.amount.SURVIVING_SPOUSE.atDate d));
   (if t.core.separateFilerItemizes then 0 else (if (headIsDependentElsewhere t d) then (min
       (standard_deduction : Rat) (max
-      (((gov.irs.deductions.standard.dependent.additional_earned_income.atDate d) +
-      (taxUnitEarnedIncome t d)) : Rat) (gov.irs.deductions.standard.dependent.amount.atDate
+      (((irs.deductions.standard.dependent.additional_earned_income.atDate d) +
+      (taxUnitEarnedIncome t d)) : Rat) (irs.deductions.standard.dependent.amount.atDate
       d))) else standard_deduction))
 
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_filing_status_eligible.py`
@@ -251,8 +250,8 @@ def countCdccEligible (t : TaxUnit) (d : Date) : Rat :=
     in `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ctcChildIndividualMaximumArpa (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (ctcQualifyingChild t p d) then (gov.irs.credits.ctc.amount.arpa.atDate d
-      p.coreP1.age) else 0)
+  (if (ctcQualifyingChild t p d) then (irs.credits.ctc.amount.arpa.atDate d p.coreP1.age)
+      else 0)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_qualifying_children.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
@@ -291,7 +290,7 @@ def dependentGrossIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     in `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def filerMeetsChildCtcIdentificationRequirements (t : TaxUnit) (d : Date) : Bool :=
-  (if (!(gov.irs.credits.ctc.adult_ssn_requirement_applies.atDate d)) then
+  (if (!(irs.credits.ctc.adult_ssn_requirement_applies.atDate d)) then
       (filerMeetsCtcIdentificationRequirements t d) else
       ((filerMeetsCtcIdentificationRequirements t d) && (anyBy t.members fun p =>
       ((isTaxUnitHeadOrSpouse t p d) && (meetsCtcIdentificationRequirements t p d)))))
@@ -306,9 +305,9 @@ def isEligibleForAmericanOpportunityCredit (t : TaxUnit) (p : Person) (d : Date)
       (!p.irs.hasCompletedFirstFourYearsOfPostsecondaryEducation)) && (decide
       (p.irs.americanOpportunityCreditClaimedPriorYears < 4))) &&
       (!p.irs.hasFelonyDrugConviction)) && (if
-      (gov.irs.credits.education.american_opportunity_credit.eligibility.requires_1098_t_or_exception.atDate
+      (irs.credits.education.american_opportunity_credit.eligibility.requires_1098_t_or_exception.atDate
       d) then p.irs.hasAmericanOpportunityCredit1098TOrException else true)) && (if
-      (gov.irs.credits.education.american_opportunity_credit.eligibility.requires_institution_ein.atDate
+      (irs.credits.education.american_opportunity_credit.eligibility.requires_institution_ein.atDate
       d) then p.irs.hasAmericanOpportunityCreditInstitutionEin else true)) &&
       (meetsAmericanOpportunityCreditIdentificationRequirements t p d)) &&
       (filerMeetsAmericanOpportunityCreditIdentificationRequirements t d)) &&
@@ -321,7 +320,7 @@ def isEligibleForAmericanOpportunityCredit (t : TaxUnit) (p : Person) (d : Date)
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isEligibleForLifetimeLearningCredit (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((((p.irs.attendsEligibleEducationalInstitutionForLifetimeLearningCredit && (if
-      (gov.irs.credits.education.lifetime_learning_credit.eligibility.requires_1098_t_or_exception.atDate
+      (irs.credits.education.lifetime_learning_credit.eligibility.requires_1098_t_or_exception.atDate
       d) then p.irs.hasLifetimeLearningCredit1098TOrException else true)) &&
       (meetsLifetimeLearningCreditIdentificationRequirements t p d)) &&
       (filerMeetsLifetimeLearningCreditIdentificationRequirements t d)) &&
@@ -339,7 +338,7 @@ def rrcCaresQualifyingChildrenWithValidSsn (t : TaxUnit) (d : Date) : Rat :=
     in `policyengine_us/variables/gov/irs/credits/retirement_savings/`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def saversCreditEligiblePerson (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((((decide (p.coreP1.age ≥ (gov.irs.credits.retirement_saving.age_threshold.atDate d))) &&
+  ((((decide (p.coreP1.age ≥ (irs.credits.retirement_saving.age_threshold.atDate d))) &&
       (isTaxUnitHeadOrSpouse t p d)) && (!(isFullTimeStudent t p d))) &&
       (!p.coreP1.claimedAsDependentOnAnotherReturn))
 
@@ -354,7 +353,7 @@ def taxUnitSocialSecurityForTaxability (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/capped_count_cdcc_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
 def cappedCountCdccEligible (t : TaxUnit) (d : Date) : Rat :=
-  (min ((gov.irs.credits.cdcc.eligibility.max.atDate d) : Rat) (countCdccEligible t d))
+  (min ((irs.credits.cdcc.eligibility.max.atDate d) : Rat) (countCdccEligible t d))
 
 /-- `ctc_child_individual_maximum.py`
     in `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/`
@@ -362,7 +361,7 @@ def cappedCountCdccEligible (t : TaxUnit) (d : Date) : Rat :=
 def ctcChildIndividualMaximum (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (isTaxUnitDependent t p d) then (((boolToRat (ctcQualifyingChild t p d)) * (boolToRat
       (filerMeetsChildCtcIdentificationRequirements t d))) *
-      (gov.irs.credits.ctc.amount.base.atDate d p.coreP1.age)) else 0)
+      (irs.credits.ctc.amount.base.atDate d p.coreP1.age)) else 0)
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_child_count.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
@@ -386,7 +385,7 @@ def standardDeduction (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def taxUnitCombinedIncomeForSocialSecurityTaxability (t : TaxUnit) (d : Date) : Rat :=
   (t.irs.taxableSsMagi +
-      ((gov.irs.social_security.taxability.combined_income_ss_fraction.atDate d) *
+      ((irs.social_security.taxability.combined_income_ss_fraction.atDate d) *
       (taxUnitSocialSecurityForTaxability t d)))
 
 /-- `ctc_adult_individual_maximum.py`
@@ -397,23 +396,23 @@ def ctcAdultIndividualMaximum (t : TaxUnit) (p : Person) (d : Date) : Rat :=
       ((((boolToRat (decide ((ctcChildIndividualMaximum t p d) = 0))) *
       (boolToRat p.coreP1.hasTin)) * (boolToRat
       (filerMeetsCtcIdentificationRequirements t d))) *
-      (gov.irs.credits.ctc.amount.adult_dependent.atDate d)) else 0)
+      (irs.credits.ctc.amount.adult_dependent.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_max_addition.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcArpaMaxAddition (t : TaxUnit) (d : Date) : Rat :=
-  (if (!(gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else
+  (if (!(irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else
       ((sumBy t.members fun p => (ctcChildIndividualMaximumArpa t p d)) -
       (sumBy t.members fun p => (ctcChildIndividualMaximum t p d))))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/ctc_refundable_maximum.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcRefundableMaximum (t : TaxUnit) (d : Date) : Rat :=
-  (if (gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then (sumBy t.members fun p
-      => (max ((ctcChildIndividualMaximum t p d) : Rat) (ctcChildIndividualMaximumArpa t p
-      d))) else (sumBy t.members fun p => (min
+  (if (irs.credits.ctc.refundable.fully_refundable.atDate d) then (sumBy t.members fun p =>
+      (max ((ctcChildIndividualMaximum t p d) : Rat) (ctcChildIndividualMaximumArpa t p d)))
+      else (sumBy t.members fun p => (min
       ((max ((ctcChildIndividualMaximum t p d) : Rat) (ctcChildIndividualMaximumArpa t p d))
-      : Rat) (gov.irs.credits.ctc.refundable.individual_max.atDate d))))
+      : Rat) (irs.credits.ctc.refundable.individual_max.atDate d))))
 
 /-- `eitc_demographic_eligible.py`
     in `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/`
@@ -421,32 +420,31 @@ def ctcRefundableMaximum (t : TaxUnit) (d : Date) : Rat :=
 def eitcDemographicEligible (t : TaxUnit) (d : Date) : Bool :=
   ((decide ((eitcChildCount t d) > 0)) || (anyBy t.members fun p => (((decide (p.coreP1.age
       ≥ (if (isFullTimeStudent t p d) then
-      (gov.irs.credits.eitc.eligibility.age.min_student.atDate d) else
-      (gov.irs.credits.eitc.eligibility.age.min.atDate d)))) && ExtRat.leCap p.coreP1.age
-      (gov.irs.credits.eitc.eligibility.age.max.atDate d)) && (!(isTaxUnitDependent t p
-      d)))))
+      (irs.credits.eitc.eligibility.age.min_student.atDate d) else
+      (irs.credits.eitc.eligibility.age.min.atDate d)))) && ExtRat.leCap p.coreP1.age
+      (irs.credits.eitc.eligibility.age.max.atDate d)) && (!(isTaxUnitDependent t p d)))))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_maximum.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def eitcMaximum (t : TaxUnit) (d : Date) : Rat :=
-  (gov.irs.credits.eitc.max.atDate d (eitcChildCount t d))
+  (irs.credits.eitc.max.atDate d (eitcChildCount t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_in_rate.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def eitcPhaseInRate (t : TaxUnit) (d : Date) : Rat :=
-  (gov.irs.credits.eitc.phase_in_rate.atDate d (eitcChildCount t d))
+  (irs.credits.eitc.phase_in_rate.atDate d (eitcChildCount t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_rate.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def eitcPhaseOutRate (t : TaxUnit) (d : Date) : Rat :=
-  (gov.irs.credits.eitc.phase_out.rate.atDate d (eitcChildCount t d))
+  (irs.credits.eitc.phase_out.rate.atDate d (eitcChildCount t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phase_out_start.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def eitcPhaseOutStart (t : TaxUnit) (d : Date) : Rat :=
-  ((gov.irs.credits.eitc.phase_out.start.atDate d (eitcChildCount t d)) +
+  ((irs.credits.eitc.phase_out.start.atDate d (eitcChildCount t d)) +
       ((boolToRat (taxUnitIsJoint t d)) *
-      (gov.irs.credits.eitc.phase_out.joint_bonus.atDate d (eitcChildCount t d))))
+      (irs.credits.eitc.phase_out.joint_bonus.atDate d (eitcChildCount t d))))
 
 /-- `tax_unit_ss_combined_income_excess.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/
@@ -455,28 +453,26 @@ def eitcPhaseOutStart (t : TaxUnit) (d : Date) : Rat :=
 def taxUnitSsCombinedIncomeExcess (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) ((taxUnitCombinedIncomeForSocialSecurityTaxability t d) - (if
       ((t.core.filingStatus == FilingStatus.SEPARATE) && t.core.cohabitatingSpouses) then
-      (gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d)
-      else (match t.core.filingStatus with
+      (irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else
+      (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d)
+          (irs.social_security.taxability.threshold.base.main.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d)
+          (irs.social_security.taxability.threshold.base.main.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d)
+          (irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate
-          d)
+          (irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate
-          d)))))
+          (irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d)))))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out_cap.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcArpaPhaseOutCap (t : TaxUnit) (d : Date) : Rat :=
-  (if (!(gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else (min
+  (if (!(irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else (min
       ((((ctcPhaseOutThreshold t d) - (ctcArpaPhaseOutThreshold t d)) *
-      (gov.irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff.atDate d)) :
-      Rat) (ctcArpaMaxAddition t d)))
+      (irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff.atDate d)) : Rat)
+      (ctcArpaMaxAddition t d)))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/ctc_individual_maximum.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -493,8 +489,8 @@ def eitcAgiLimit (t : TaxUnit) (d : Date) : Rat :=
 def eitcEligible (t : TaxUnit) (d : Date) : Bool :=
   let eligible := (((eitcDemographicEligible t d) && (eitcInvestmentIncomeEligible t d)) &&
       (filerMeetsEitcIdentificationRequirements t d));
-  (if (gov.irs.credits.eitc.eligibility.separate_filer.atDate d) then eligible else
-      (eligible && (!(t.core.filingStatus == FilingStatus.SEPARATE))))
+  (if (irs.credits.eitc.eligibility.separate_filer.atDate d) then eligible else (eligible &&
+      (!(t.core.filingStatus == FilingStatus.SEPARATE))))
 
 /-- `tax_unit_taxable_social_security.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/
@@ -503,50 +499,47 @@ def eitcEligible (t : TaxUnit) (d : Date) : Bool :=
 def taxUnitTaxableSocialSecurity (t : TaxUnit) (d : Date) : Rat :=
   let separate := (t.core.filingStatus == FilingStatus.SEPARATE);
   let base_amount := (if (separate && t.core.cohabitatingSpouses) then
-      (gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d)
-      else (match t.core.filingStatus with
+      (irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else
+      (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d)
+          (irs.social_security.taxability.threshold.base.main.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d)
+          (irs.social_security.taxability.threshold.base.main.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d)
+          (irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate
-          d)
+          (irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate
-          d)));
+          (irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d)));
   let adjusted_base_amount := (if (separate && t.core.cohabitatingSpouses) then
-      (gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate
+      (irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate
       d) else (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d)
+          (irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d)
+          (irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate
-          d)
+          (irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate
+          (irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate
+          (irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate
           d)));
   let amount_under_paragraph_1 := (min
-      (((gov.irs.social_security.taxability.rate.base.benefit_cap.atDate d) *
+      (((irs.social_security.taxability.rate.base.benefit_cap.atDate d) *
       (taxUnitSocialSecurityForTaxability t d)) : Rat)
-      ((gov.irs.social_security.taxability.rate.base.excess.atDate d) *
+      ((irs.social_security.taxability.rate.base.excess.atDate d) *
       (taxUnitSsCombinedIncomeExcess t d)));
   (if (decide ((taxUnitCombinedIncomeForSocialSecurityTaxability t d) < base_amount)) then 0
       else (if (decide ((taxUnitCombinedIncomeForSocialSecurityTaxability t d) <
       adjusted_base_amount)) then amount_under_paragraph_1 else (min
-      ((((gov.irs.social_security.taxability.rate.additional.excess.atDate d) * (max (0 :
-      Rat) ((taxUnitCombinedIncomeForSocialSecurityTaxability t d) - adjusted_base_amount)))
-      + (min (amount_under_paragraph_1 : Rat)
-      ((gov.irs.social_security.taxability.rate.additional.bracket.atDate d) *
+      ((((irs.social_security.taxability.rate.additional.excess.atDate d) * (max (0 : Rat)
+      ((taxUnitCombinedIncomeForSocialSecurityTaxability t d) - adjusted_base_amount))) +
+      (min (amount_under_paragraph_1 : Rat)
+      ((irs.social_security.taxability.rate.additional.bracket.atDate d) *
       (adjusted_base_amount - base_amount)))) : Rat)
-      ((gov.irs.social_security.taxability.rate.additional.benefit_cap.atDate d) *
+      ((irs.social_security.taxability.rate.additional.benefit_cap.atDate d) *
       (taxUnitSocialSecurityForTaxability t d)))))
 
 /-- `taxable_social_security_tier_1.py`
@@ -556,46 +549,43 @@ def taxUnitTaxableSocialSecurity (t : TaxUnit) (d : Date) : Rat :=
 def taxableSocialSecurityTier1 (t : TaxUnit) (d : Date) : Rat :=
   let separate := (t.core.filingStatus == FilingStatus.SEPARATE);
   let base_amount := (if (separate && t.core.cohabitatingSpouses) then
-      (gov.irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d)
-      else (match t.core.filingStatus with
+      (irs.social_security.taxability.threshold.base.separate_cohabitating.atDate d) else
+      (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SINGLE.atDate d)
+          (irs.social_security.taxability.threshold.base.main.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.social_security.taxability.threshold.base.main.JOINT.atDate d)
+          (irs.social_security.taxability.threshold.base.main.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d)
+          (irs.social_security.taxability.threshold.base.main.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate
-          d)
+          (irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate
-          d)));
+          (irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE.atDate d)));
   let adjusted_base_amount := (if (separate && t.core.cohabitatingSpouses) then
-      (gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate
+      (irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating.atDate
       d) else (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d)
+          (irs.social_security.taxability.threshold.adjusted_base.main.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d)
+          (irs.social_security.taxability.threshold.adjusted_base.main.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate
-          d)
+          (irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate
+          (irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate
+          (irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE.atDate
           d)));
   let amount_under_paragraph_1 := (min
-      (((gov.irs.social_security.taxability.rate.base.benefit_cap.atDate d) *
+      (((irs.social_security.taxability.rate.base.benefit_cap.atDate d) *
       (taxUnitSocialSecurityForTaxability t d)) : Rat)
-      ((gov.irs.social_security.taxability.rate.base.excess.atDate d) *
+      ((irs.social_security.taxability.rate.base.excess.atDate d) *
       (taxUnitSsCombinedIncomeExcess t d)));
   (if (decide ((taxUnitCombinedIncomeForSocialSecurityTaxability t d) < base_amount)) then 0
       else (if (decide ((taxUnitCombinedIncomeForSocialSecurityTaxability t d) <
       adjusted_base_amount)) then amount_under_paragraph_1 else (min
       (amount_under_paragraph_1 : Rat)
-      ((gov.irs.social_security.taxability.rate.additional.bracket.atDate d) *
+      ((irs.social_security.taxability.rate.additional.bracket.atDate d) *
       (adjusted_base_amount - base_amount)))))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/maximum/ctc_maximum.py`
@@ -653,8 +643,8 @@ def filerAdjustedEarnings (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcPhaseInRelevantEarnings (t : TaxUnit) (d : Date) : Rat :=
   ((max (0 : Rat)
-      ((eitcEarnedIncome t d) - (gov.irs.credits.ctc.refundable.phase_in.threshold.atDate d)))
-      * (gov.irs.credits.ctc.refundable.phase_in.rate.atDate d))
+      ((eitcEarnedIncome t d) - (irs.credits.ctc.refundable.phase_in.threshold.atDate d))) *
+      (irs.credits.ctc.refundable.phase_in.rate.atDate d))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_phased_in.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -664,7 +654,7 @@ def eitcPhasedIn (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/min_head_spouse_earned.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def minHeadSpouseEarned (t : TaxUnit) (d : Date) : Rat :=
-  let floor := (gov.irs.credits.cdcc.deemed_earned_income.atDate d (countCdccEligible t d));
+  let floor := (irs.credits.cdcc.deemed_earned_income.atDate d (countCdccEligible t d));
   (if (taxUnitIsJoint t d) then (max ((min ((headEarned t d) : Rat) (spouseEarned t d)) :
       Rat) (max ((if (decide ((sumBy t.members fun p => ((boolToRat p.coreP1.isTaxUnitHead)
       * (boolToRat (cdccIncomeFloorEligible t p d)))) > 0)) then (min ((max ((headEarned t
@@ -767,19 +757,19 @@ def dependentCareAssistanceExclusion (t : TaxUnit) (d : Date) : Rat :=
   (min ((sumBy t.members fun p => p.coreP1.dependentCareEmployerBenefits) : Rat) (min
       ((match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SINGLE.atDate
+          (irs.gross_income.dependent_care_assistance_programs.reduction_amount.SINGLE.atDate
           d)
       | FilingStatus.JOINT =>
-          (gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.JOINT.atDate
+          (irs.gross_income.dependent_care_assistance_programs.reduction_amount.JOINT.atDate
           d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SEPARATE.atDate
+          (irs.gross_income.dependent_care_assistance_programs.reduction_amount.SEPARATE.atDate
           d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.HEAD_OF_HOUSEHOLD.atDate
+          (irs.gross_income.dependent_care_assistance_programs.reduction_amount.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SURVIVING_SPOUSE.atDate
+          (irs.gross_income.dependent_care_assistance_programs.reduction_amount.SURVIVING_SPOUSE.atDate
           d)) : Rat) (minHeadSpouseEarned t d)))
 
 /-- `tax_unit_taxable_unemployment_compensation.py`
@@ -790,23 +780,23 @@ def taxUnitTaxableUnemploymentCompensation (t : TaxUnit) (d : Date) : Rat :=
   ((taxUnitUnemploymentCompensation t d) - (if (decide
       (((taxableUcAgi t d) - (taxUnitUnemploymentCompensation t d)) <
       (match t.core.filingStatus with
-      | FilingStatus.SINGLE =>
-          (gov.irs.unemployment_compensation.exemption.cutoff.SINGLE.atDate d)
-      | FilingStatus.JOINT =>
-          (gov.irs.unemployment_compensation.exemption.cutoff.JOINT.atDate d)
+      | FilingStatus.SINGLE => (irs.unemployment_compensation.exemption.cutoff.SINGLE.atDate
+          d)
+      | FilingStatus.JOINT => (irs.unemployment_compensation.exemption.cutoff.JOINT.atDate
+          d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.unemployment_compensation.exemption.cutoff.SEPARATE.atDate d)
+          (irs.unemployment_compensation.exemption.cutoff.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.unemployment_compensation.exemption.cutoff.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.unemployment_compensation.exemption.cutoff.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.unemployment_compensation.exemption.cutoff.SURVIVING_SPOUSE.atDate d))))
-          then (min ((taxUnitUnemploymentCompensation t d) : Rat)
-          (gov.irs.unemployment_compensation.exemption.amount.atDate d)) else 0))
+          (irs.unemployment_compensation.exemption.cutoff.SURVIVING_SPOUSE.atDate d)))) then
+          (min ((taxUnitUnemploymentCompensation t d) : Rat)
+          (irs.unemployment_compensation.exemption.amount.atDate d)) else 0))
 
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/cdcc_limit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cdccLimit (t : TaxUnit) (d : Date) : Rat :=
-  (max ((((gov.irs.credits.cdcc.max.atDate d) * (cappedCountCdccEligible t d)) -
+  (max ((((irs.credits.cdcc.max.atDate d) * (cappedCountCdccEligible t d)) -
       (dependentCareAssistanceExclusion t d)) : Rat) 0)
 
 /-- `taxable_unemployment_insurance.py`
@@ -940,8 +930,8 @@ def positiveGrossIncome (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def taxUnitIsRequiredToFile (t : TaxUnit) (d : Date) : Bool :=
   let gross_income := (sumBy t.members fun p => (irsGrossIncome t p d));
-  let exemption_amount := (if (gov.irs.income.exemption.suspended.atDate d) then 0 else
-      (gov.irs.income.exemption.amount.atDate d));
+  let exemption_amount := (if (irs.income.exemption.suspended.atDate d) then 0 else
+      (irs.income.exemption.amount.atDate d));
   ((decide (gross_income > (if (t.core.filingStatus == FilingStatus.SEPARATE) then
       exemption_amount else ((standardDeduction t d) + exemption_amount)))) || (decide
       ((gross_income - (sumBy t.members fun p => (earnedIncome t p d))) > (500 +
@@ -950,7 +940,7 @@ def taxUnitIsRequiredToFile (t : TaxUnit) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/irs/vita/vita_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def vitaEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((decide ((irsGrossIncome t p d) ≤ (gov.irs.vita.eligibility.income_limit.atDate d))) ||
+  (((decide ((irsGrossIncome t p d) ≤ (irs.vita.eligibility.income_limit.atDate d))) ||
       p.coreP1.isDisabled) || (!p.coreP1.isEnglishProficient))
 
 /-- `additional_senior_deduction_magi.py`
@@ -967,46 +957,45 @@ def additionalSeniorDeductionMagi (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def autoLoanInterestDeduction (t : TaxUnit) (d : Date) : Rat :=
   (max (((min (t.core.qualifiedPassengerVehicleLoanInterest : Rat)
-      (gov.irs.deductions.auto_loan_interest.cap.atDate d)) -
+      (irs.deductions.auto_loan_interest.cap.atDate d)) -
       (((ratCeil ((max (((adjustedGrossIncome t d) - (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.deductions.auto_loan_interest.phase_out.start.SINGLE.atDate d)
+          (irs.deductions.auto_loan_interest.phase_out.start.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.deductions.auto_loan_interest.phase_out.start.JOINT.atDate d)
+          (irs.deductions.auto_loan_interest.phase_out.start.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.deductions.auto_loan_interest.phase_out.start.SEPARATE.atDate d)
+          (irs.deductions.auto_loan_interest.phase_out.start.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.deductions.auto_loan_interest.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.deductions.auto_loan_interest.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.deductions.auto_loan_interest.phase_out.start.SURVIVING_SPOUSE.atDate
-          d))) : Rat) 0) / (gov.irs.deductions.auto_loan_interest.phase_out.increment.atDate
-          d))) : Rat) * (gov.irs.deductions.auto_loan_interest.phase_out.step.atDate d))) :
-          Rat) 0)
+          (irs.deductions.auto_loan_interest.phase_out.start.SURVIVING_SPOUSE.atDate d))) :
+          Rat) 0) / (irs.deductions.auto_loan_interest.phase_out.increment.atDate d))) :
+          Rat) * (irs.deductions.auto_loan_interest.phase_out.step.atDate d))) : Rat) 0)
 
 /-- `ctc_arpa_uncapped_phase_out.py`
     in `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcArpaUncappedPhaseOut (t : TaxUnit) (d : Date) : Rat :=
-  (if (!(gov.irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else (((ratCeil
-      ((max (0 : Rat) ((adjustedGrossIncome t d) - (ctcArpaPhaseOutThreshold t d))) /
-      (gov.irs.credits.ctc.phase_out.arpa.increment.atDate d))) : Rat) *
-      (gov.irs.credits.ctc.phase_out.arpa.amount.atDate d)))
+  (if (!(irs.credits.ctc.phase_out.arpa.in_effect.atDate d)) then 0 else (((ratCeil ((max
+      (0 : Rat) ((adjustedGrossIncome t d) - (ctcArpaPhaseOutThreshold t d))) /
+      (irs.credits.ctc.phase_out.arpa.increment.atDate d))) : Rat) *
+      (irs.credits.ctc.phase_out.arpa.amount.atDate d)))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/ctc_phase_out.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcPhaseOut (t : TaxUnit) (d : Date) : Rat :=
   (((ratCeil ((max (0 : Rat) ((adjustedGrossIncome t d) - (ctcPhaseOutThreshold t d))) /
-      (gov.irs.credits.ctc.phase_out.increment.atDate d))) : Rat) *
-      (gov.irs.credits.ctc.phase_out.amount.atDate d))
+      (irs.credits.ctc.phase_out.increment.atDate d))) : Rat) *
+      (irs.credits.ctc.phase_out.amount.atDate d))
 
 /-- `policyengine_us/variables/gov/irs/credits/education/education_credit_phase_out.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def educationCreditPhaseOut (t : TaxUnit) (d : Date) : Rat :=
   (min (1 : Rat) ((max (0 : Rat) ((adjustedGrossIncome t d) - (if (taxUnitIsJoint t d) then
-      (gov.irs.credits.education.phase_out.start.joint.atDate d) else
-      (gov.irs.credits.education.phase_out.start.single.atDate d)))) / (if (taxUnitIsJoint t
-      d) then (gov.irs.credits.education.phase_out.length.joint.atDate d) else
-      (gov.irs.credits.education.phase_out.length.single.atDate d))))
+      (irs.credits.education.phase_out.start.joint.atDate d) else
+      (irs.credits.education.phase_out.start.single.atDate d)))) / (if (taxUnitIsJoint t d)
+      then (irs.credits.education.phase_out.length.joint.atDate d) else
+      (irs.credits.education.phase_out.length.single.atDate d))))
 
 /-- `policyengine_us/variables/gov/irs/credits/earned_income/eitc_reduction.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -1018,31 +1007,28 @@ def eitcReduction (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def lifetimeLearningCreditPhaseOut (t : TaxUnit) (d : Date) : Rat :=
   (min (1 : Rat) ((max (0 : Rat) ((adjustedGrossIncome t d) - (if (taxUnitIsJoint t d) then
-      (gov.irs.credits.education.lifetime_learning_credit.phase_out.start.joint.atDate d)
-      else (gov.irs.credits.education.lifetime_learning_credit.phase_out.start.single.atDate
-      d)))) / (if (taxUnitIsJoint t d) then
-      (gov.irs.credits.education.lifetime_learning_credit.phase_out.length.joint.atDate d)
-      else
-      (gov.irs.credits.education.lifetime_learning_credit.phase_out.length.single.atDate
-      d))))
+      (irs.credits.education.lifetime_learning_credit.phase_out.start.joint.atDate d) else
+      (irs.credits.education.lifetime_learning_credit.phase_out.start.single.atDate d)))) /
+      (if (taxUnitIsJoint t d) then
+      (irs.credits.education.lifetime_learning_credit.phase_out.length.joint.atDate d) else
+      (irs.credits.education.lifetime_learning_credit.phase_out.length.single.atDate d))))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/net_investment_income_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def netInvestmentIncomeTax (t : TaxUnit) (d : Date) : Rat :=
-  ((gov.irs.investment.net_investment_income_tax.rate.atDate d) * (min
+  ((irs.investment.net_investment_income_tax.rate.atDate d) * (min
       ((max (0 : Rat) (netInvestmentIncome t d)) : Rat)
       (max (0 : Rat) ((adjustedGrossIncome t d) - (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.investment.net_investment_income_tax.threshold.SINGLE.atDate d)
+          (irs.investment.net_investment_income_tax.threshold.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.investment.net_investment_income_tax.threshold.JOINT.atDate d)
+          (irs.investment.net_investment_income_tax.threshold.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.investment.net_investment_income_tax.threshold.SEPARATE.atDate d)
+          (irs.investment.net_investment_income_tax.threshold.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.investment.net_investment_income_tax.threshold.HEAD_OF_HOUSEHOLD.atDate
-          d)
+          (irs.investment.net_investment_income_tax.threshold.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.investment.net_investment_income_tax.threshold.SURVIVING_SPOUSE.atDate
+          (irs.investment.net_investment_income_tax.threshold.SURVIVING_SPOUSE.atDate
           d))))))
 
 /-- `new_clean_vehicle_credit_eligible.py`
@@ -1050,31 +1036,31 @@ def netInvestmentIncomeTax (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def newCleanVehicleCreditEligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.purchasedQualifyingNewCleanVehicle then (if
-      (!(gov.irs.credits.clean_vehicle.new.eligibility.in_effect.atDate d)) then false else
+      (!(irs.credits.clean_vehicle.new.eligibility.in_effect.atDate d)) then false else
       (((decide (t.core.newCleanVehicleBatteryCapacity ≥
-      (gov.irs.credits.clean_vehicle.new.eligibility.min_kwh.atDate d))) && (ExtRat.leCap
+      (irs.credits.clean_vehicle.new.eligibility.min_kwh.atDate d))) && (ExtRat.leCap
       (adjustedGrossIncome t d) (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.income_limit.SINGLE.atDate d)
+          (irs.credits.clean_vehicle.new.eligibility.income_limit.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.income_limit.JOINT.atDate d)
+          (irs.credits.clean_vehicle.new.eligibility.income_limit.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.income_limit.SEPARATE.atDate d)
+          (irs.credits.clean_vehicle.new.eligibility.income_limit.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.income_limit.HEAD_OF_HOUSEHOLD.atDate
+          (irs.credits.clean_vehicle.new.eligibility.income_limit.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.income_limit.SURVIVING_SPOUSE.atDate
+          (irs.credits.clean_vehicle.new.eligibility.income_limit.SURVIVING_SPOUSE.atDate
           d)))) && (ExtRat.leCap t.core.newCleanVehicleMsrp (match
           t.core.newCleanVehicleClassification with
       | NewElectricVehicleClassification.VAN =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.VAN.atDate d)
+          (irs.credits.clean_vehicle.new.eligibility.msrp_limit.VAN.atDate d)
       | NewElectricVehicleClassification.SUV =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.SUV.atDate d)
+          (irs.credits.clean_vehicle.new.eligibility.msrp_limit.SUV.atDate d)
       | NewElectricVehicleClassification.PICKUP =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.PICKUP.atDate d)
+          (irs.credits.clean_vehicle.new.eligibility.msrp_limit.PICKUP.atDate d)
       | NewElectricVehicleClassification.OTHER =>
-          (gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.OTHER.atDate d))))) else
+          (irs.credits.clean_vehicle.new.eligibility.msrp_limit.OTHER.atDate d))))) else
           false)
 
 /-- `overtime_income_deduction.py`
@@ -1083,26 +1069,26 @@ def newCleanVehicleCreditEligible (t : TaxUnit) (d : Date) : Bool :=
 def overtimeIncomeDeduction (t : TaxUnit) (d : Date) : Rat :=
   (if (overtimeIncomeDeductionSsnRequirementMet t d) then (max (0 : Rat)
       ((min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.deductions.overtime_income.cap.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.deductions.overtime_income.cap.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.deductions.overtime_income.cap.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.deductions.overtime_income.cap.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.deductions.overtime_income.cap.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.deductions.overtime_income.cap.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.deductions.overtime_income.cap.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.deductions.overtime_income.cap.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.deductions.overtime_income.cap.SURVIVING_SPOUSE.atDate d)) : Rat) (sumBy
+          (irs.deductions.overtime_income.cap.SURVIVING_SPOUSE.atDate d)) : Rat) (sumBy
           t.members fun p => p.coreP1.fslaOvertimePremium)) - ((max (((adjustedGrossIncome t
           d) - (match t.core.filingStatus with
-      | FilingStatus.SINGLE =>
-          (gov.irs.deductions.overtime_income.phase_out.start.SINGLE.atDate d)
-      | FilingStatus.JOINT =>
-          (gov.irs.deductions.overtime_income.phase_out.start.JOINT.atDate d)
+      | FilingStatus.SINGLE => (irs.deductions.overtime_income.phase_out.start.SINGLE.atDate
+          d)
+      | FilingStatus.JOINT => (irs.deductions.overtime_income.phase_out.start.JOINT.atDate
+          d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.deductions.overtime_income.phase_out.start.SEPARATE.atDate d)
+          (irs.deductions.overtime_income.phase_out.start.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.deductions.overtime_income.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.deductions.overtime_income.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.deductions.overtime_income.phase_out.start.SURVIVING_SPOUSE.atDate d))) :
-          Rat) 0) * (gov.irs.deductions.overtime_income.phase_out.rate.atDate d)))) else 0)
+          (irs.deductions.overtime_income.phase_out.start.SURVIVING_SPOUSE.atDate d))) :
+          Rat) 0) * (irs.deductions.overtime_income.phase_out.rate.atDate d)))) else 0)
 
 /-- `positive_agi.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/`
@@ -1114,96 +1100,94 @@ def positiveAgi (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def preObbbaCdccPotential (t : TaxUnit) (d : Date) : Rat :=
   (((boolToRat (cdccFilingStatusEligible t d)) * (cdccRelevantExpenses t d)) * (max
-      ((gov.irs.credits.cdcc.phase_out.min.atDate ⟨2025, 1, 1⟩) : Rat)
-      ((gov.irs.credits.cdcc.phase_out.max.atDate ⟨2025, 1, 1⟩) - (((ratCeil ((max (0 : Rat)
-      ((adjustedGrossIncome t d) - (gov.irs.credits.cdcc.phase_out.start.atDate ⟨2025, 1,
-      1⟩))) / (gov.irs.credits.cdcc.phase_out.increment.atDate ⟨2025, 1, 1⟩))) : Rat) *
-      (gov.irs.credits.cdcc.phase_out.rate.atDate ⟨2025, 1, 1⟩)))))
+      ((irs.credits.cdcc.phase_out.min.atDate ⟨2025, 1, 1⟩) : Rat)
+      ((irs.credits.cdcc.phase_out.max.atDate ⟨2025, 1, 1⟩) - (((ratCeil ((max (0 : Rat)
+      ((adjustedGrossIncome t d) - (irs.credits.cdcc.phase_out.start.atDate ⟨2025, 1, 1⟩)))
+      / (irs.credits.cdcc.phase_out.increment.atDate ⟨2025, 1, 1⟩))) : Rat) *
+      (irs.credits.cdcc.phase_out.rate.atDate ⟨2025, 1, 1⟩)))))
 
 /-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_arpa.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def rrcArpa (t : TaxUnit) (d : Date) : Rat :=
-  let max_payment := (((gov.irs.credits.recovery_rebate_credit.arpa.max.adult.atDate d) *
-      (if (rrcQualifiesForArmedForcesException t d) then 2 else (if (taxUnitIsJoint t d)
-      then (rrcAdultCountWithValidSsn t d) else
+  let max_payment := (((irs.credits.recovery_rebate_credit.arpa.max.adult.atDate d) * (if
+      (rrcQualifiesForArmedForcesException t d) then 2 else (if (taxUnitIsJoint t d) then
+      (rrcAdultCountWithValidSsn t d) else
       (min ((rrcAdultCountWithValidSsn t d) : Rat) 1)))) +
-      ((gov.irs.credits.recovery_rebate_credit.arpa.max.dependent.atDate d) *
+      ((irs.credits.recovery_rebate_credit.arpa.max.dependent.atDate d) *
       (rrcArpaDependentsWithValidSsn t d)));
   (max (0 : Rat) (max_payment - (max_payment *
       ((max (0 : Rat) ((adjustedGrossIncome t d) - (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SINGLE.atDate d)
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.JOINT.atDate d)
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SEPARATE.atDate
-          d)
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SURVIVING_SPOUSE.atDate
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SURVIVING_SPOUSE.atDate
           d)))) / (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.SINGLE.atDate d)
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.length.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.JOINT.atDate d)
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.length.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.SEPARATE.atDate d)
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.length.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.HEAD_OF_HOUSEHOLD.atDate
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.length.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.SURVIVING_SPOUSE.atDate
+          (irs.credits.recovery_rebate_credit.arpa.phase_out.length.SURVIVING_SPOUSE.atDate
           d))))))
 
 /-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_caa.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def rrcCaa (t : TaxUnit) (d : Date) : Rat :=
-  (max (0 : Rat) ((((gov.irs.credits.recovery_rebate_credit.caa.max.adult.atDate d) * (if
+  (max (0 : Rat) ((((irs.credits.recovery_rebate_credit.caa.max.adult.atDate d) * (if
       (rrcQualifiesForArmedForcesException t d) then 2 else (if (taxUnitIsJoint t d) then
       (rrcAdultCountWithValidSsn t d) else
       (min ((rrcAdultCountWithValidSsn t d) : Rat) 1)))) +
-      ((gov.irs.credits.recovery_rebate_credit.caa.max.child.atDate d) * (if (decide
+      ((irs.credits.recovery_rebate_credit.caa.max.child.atDate d) * (if (decide
       ((rrcAdultCountWithValidSsn t d) > 0)) then (rrcCaresQualifyingChildrenWithValidSsn t
-      d) else 0))) - ((gov.irs.credits.recovery_rebate_credit.caa.phase_out.rate.atDate d) *
+      d) else 0))) - ((irs.credits.recovery_rebate_credit.caa.phase_out.rate.atDate d) *
       (max (0 : Rat) ((adjustedGrossIncome t d) - (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SINGLE.atDate d)
+          (irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.JOINT.atDate d)
+          (irs.credits.recovery_rebate_credit.caa.phase_out.threshold.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SEPARATE.atDate d)
+          (irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate
+          (irs.credits.recovery_rebate_credit.caa.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SURVIVING_SPOUSE.atDate
+          (irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SURVIVING_SPOUSE.atDate
           d)))))))
 
 /-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/rrc_cares.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def rrcCares (t : TaxUnit) (d : Date) : Rat :=
-  (max (0 : Rat) ((((gov.irs.credits.recovery_rebate_credit.cares.max.adult.atDate d) * (if
+  (max (0 : Rat) ((((irs.credits.recovery_rebate_credit.cares.max.adult.atDate d) * (if
       (rrcQualifiesForArmedForcesException t d) then 2 else (if (taxUnitIsJoint t d) then
       (rrcAdultCountWithValidSsn t d) else
       (min ((rrcAdultCountWithValidSsn t d) : Rat) 1)))) +
-      ((gov.irs.credits.recovery_rebate_credit.cares.max.child.atDate d) * (if (decide
+      ((irs.credits.recovery_rebate_credit.cares.max.child.atDate d) * (if (decide
       ((rrcAdultCountWithValidSsn t d) > 0)) then (rrcCaresQualifyingChildrenWithValidSsn t
-      d) else 0))) - ((gov.irs.credits.recovery_rebate_credit.cares.phase_out.rate.atDate d)
-      * (max (0 : Rat) ((adjustedGrossIncome t d) - (match t.core.filingStatus with
+      d) else 0))) - ((irs.credits.recovery_rebate_credit.cares.phase_out.rate.atDate d) *
+      (max (0 : Rat) ((adjustedGrossIncome t d) - (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SINGLE.atDate d)
+          (irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.JOINT.atDate d)
+          (irs.credits.recovery_rebate_credit.cares.phase_out.threshold.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SEPARATE.atDate
-          d)
+          (irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate
+          (irs.credits.recovery_rebate_credit.cares.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SURVIVING_SPOUSE.atDate
+          (irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SURVIVING_SPOUSE.atDate
           d)))))))
 
 /-- `salt_deduction.py`
@@ -1217,21 +1201,21 @@ def saltDeduction (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def saversCreditPerson (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (saversCreditEligiblePerson t p d) then
-      ((gov.irs.credits.retirement_saving.rate.joint.atDate d ((adjustedGrossIncome t d) /
+      ((irs.credits.retirement_saving.rate.joint.atDate d ((adjustedGrossIncome t d) /
       (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.retirement_saving.rate.threshold_adjustment.SINGLE.atDate d)
+          (irs.credits.retirement_saving.rate.threshold_adjustment.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.retirement_saving.rate.threshold_adjustment.JOINT.atDate d)
+          (irs.credits.retirement_saving.rate.threshold_adjustment.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.retirement_saving.rate.threshold_adjustment.SEPARATE.atDate d)
+          (irs.credits.retirement_saving.rate.threshold_adjustment.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.retirement_saving.rate.threshold_adjustment.HEAD_OF_HOUSEHOLD.atDate
+          (irs.credits.retirement_saving.rate.threshold_adjustment.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.retirement_saving.rate.threshold_adjustment.SURVIVING_SPOUSE.atDate
+          (irs.credits.retirement_saving.rate.threshold_adjustment.SURVIVING_SPOUSE.atDate
           d)))) * (min ((saversCreditQualifiedContributions t p d) : Rat)
-          (gov.irs.credits.retirement_saving.contributions_cap.atDate d))) else 0)
+          (irs.credits.retirement_saving.contributions_cap.atDate d))) else 0)
 
 /-- `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/section_22_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -1239,32 +1223,30 @@ def section22Income (t : TaxUnit) (d : Date) : Rat :=
   let num_qualifying_individuals := (sumBy t.members fun p => (boolToRat
       (qualifiesForElderlyOrDisabledCredit t p d)));
   (max (0 : Rat) ((((min ((if (decide (num_qualifying_individuals = 1)) then
-      (gov.irs.credits.elderly_or_disabled.amount.one_qualified.atDate d) else (if (decide
+      (irs.credits.elderly_or_disabled.amount.one_qualified.atDate d) else (if (decide
       (num_qualifying_individuals = 2)) then
-      (gov.irs.credits.elderly_or_disabled.amount.two_qualified.atDate d) else (if
+      (irs.credits.elderly_or_disabled.amount.two_qualified.atDate d) else (if
       (t.core.filingStatus == FilingStatus.SEPARATE) then
-      (gov.irs.credits.elderly_or_disabled.amount.separate.atDate d) else 0))) : Rat)
-      (((sumBy t.members fun p => (boolToRat ((decide (p.coreP1.age ≥
-      (gov.irs.credits.elderly_or_disabled.age.atDate d))) && (!(isTaxUnitDependent t p
-      d))))) * (gov.irs.credits.elderly_or_disabled.amount.one_qualified.atDate d)) + (sumBy
-      t.members fun p => (p.irs.totalDisabilityPayments * (boolToRat (!(decide (p.coreP1.age
-      ≥ (gov.irs.credits.elderly_or_disabled.age.atDate d))))))))) - ((sumBy t.members fun p
-      => p.coreP1.pensionIncome) - (sumBy t.members fun p =>
-      p.coreP2.taxablePensionIncome))) - ((taxUnitSocialSecurity t d) -
-      (taxUnitTaxableSocialSecurity t d))) -
-      ((gov.irs.credits.elderly_or_disabled.phase_out.rate.atDate d) * (max (0 : Rat)
+      (irs.credits.elderly_or_disabled.amount.separate.atDate d) else 0))) : Rat) (((sumBy
+      t.members fun p => (boolToRat ((decide (p.coreP1.age ≥
+      (irs.credits.elderly_or_disabled.age.atDate d))) && (!(isTaxUnitDependent t p d))))) *
+      (irs.credits.elderly_or_disabled.amount.one_qualified.atDate d)) + (sumBy t.members
+      fun p => (p.irs.totalDisabilityPayments * (boolToRat (!(decide (p.coreP1.age ≥
+      (irs.credits.elderly_or_disabled.age.atDate d))))))))) - ((sumBy t.members fun p =>
+      p.coreP1.pensionIncome) - (sumBy t.members fun p => p.coreP2.taxablePensionIncome))) -
+      ((taxUnitSocialSecurity t d) - (taxUnitTaxableSocialSecurity t d))) -
+      ((irs.credits.elderly_or_disabled.phase_out.rate.atDate d) * (max (0 : Rat)
       ((adjustedGrossIncome t d) - (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.elderly_or_disabled.phase_out.threshold.SINGLE.atDate d)
+          (irs.credits.elderly_or_disabled.phase_out.threshold.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.elderly_or_disabled.phase_out.threshold.JOINT.atDate d)
+          (irs.credits.elderly_or_disabled.phase_out.threshold.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.elderly_or_disabled.phase_out.threshold.SEPARATE.atDate d)
+          (irs.credits.elderly_or_disabled.phase_out.threshold.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.elderly_or_disabled.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate
-          d)
+          (irs.credits.elderly_or_disabled.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.elderly_or_disabled.phase_out.threshold.SURVIVING_SPOUSE.atDate
+          (irs.credits.elderly_or_disabled.phase_out.threshold.SURVIVING_SPOUSE.atDate
           d)))))))
 
 /-- `tip_income_deduction.py`
@@ -1272,52 +1254,51 @@ def section22Income (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def tipIncomeDeduction (t : TaxUnit) (d : Date) : Rat :=
   (if (tipIncomeDeductionSsnRequirementMet t d) then (max (0 : Rat) ((min
-      ((gov.irs.deductions.tip_income.cap.atDate d) : Rat) (sumBy t.members fun p =>
+      ((irs.deductions.tip_income.cap.atDate d) : Rat) (sumBy t.members fun p =>
       (p.coreP2.tipIncome *
       (boolToRat (tipIncomeDeductionOccupationRequirementMet t p d))))) - ((max
       (((adjustedGrossIncome t d) - (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.deductions.tip_income.phase_out.start.SINGLE.atDate
+      | FilingStatus.SINGLE => (irs.deductions.tip_income.phase_out.start.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.deductions.tip_income.phase_out.start.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.deductions.tip_income.phase_out.start.SEPARATE.atDate
           d)
-      | FilingStatus.JOINT => (gov.irs.deductions.tip_income.phase_out.start.JOINT.atDate d)
-      | FilingStatus.SEPARATE =>
-          (gov.irs.deductions.tip_income.phase_out.start.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.deductions.tip_income.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.deductions.tip_income.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.deductions.tip_income.phase_out.start.SURVIVING_SPOUSE.atDate d))) : Rat)
-          0) * (gov.irs.deductions.tip_income.phase_out.rate.atDate d)))) else 0)
+          (irs.deductions.tip_income.phase_out.start.SURVIVING_SPOUSE.atDate d))) : Rat) 0)
+          * (irs.deductions.tip_income.phase_out.rate.atDate d)))) else 0)
 
 /-- `used_clean_vehicle_credit_eligible.py`
     in `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def usedCleanVehicleCreditEligible (t : TaxUnit) (d : Date) : Bool :=
   (if t.core.purchasedQualifyingUsedCleanVehicle then (if
-      (!(gov.irs.credits.clean_vehicle.used.eligibility.in_effect.atDate d)) then false else
+      (!(irs.credits.clean_vehicle.used.eligibility.in_effect.atDate d)) then false else
       ((ExtRat.leCap (adjustedGrossIncome t d) (match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.credits.clean_vehicle.used.eligibility.income_limit.SINGLE.atDate d)
+          (irs.credits.clean_vehicle.used.eligibility.income_limit.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.credits.clean_vehicle.used.eligibility.income_limit.JOINT.atDate d)
+          (irs.credits.clean_vehicle.used.eligibility.income_limit.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.credits.clean_vehicle.used.eligibility.income_limit.SEPARATE.atDate d)
+          (irs.credits.clean_vehicle.used.eligibility.income_limit.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.clean_vehicle.used.eligibility.income_limit.HEAD_OF_HOUSEHOLD.atDate
+          (irs.credits.clean_vehicle.used.eligibility.income_limit.HEAD_OF_HOUSEHOLD.atDate
           d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.clean_vehicle.used.eligibility.income_limit.SURVIVING_SPOUSE.atDate
+          (irs.credits.clean_vehicle.used.eligibility.income_limit.SURVIVING_SPOUSE.atDate
           d))) && (decide (t.core.usedCleanVehicleSalePrice ≤
-          (gov.irs.credits.clean_vehicle.used.eligibility.sale_price_limit.atDate d)))))
-          else false)
+          (irs.credits.clean_vehicle.used.eligibility.sale_price_limit.atDate d))))) else
+          false)
 
 /-- `additional_senior_deduction.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/senior_deduction/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def additionalSeniorDeduction (t : TaxUnit) (d : Date) : Rat :=
-  ((max (((gov.irs.deductions.senior_deduction.amount.atDate d) - (if (t.core.filingStatus
-      == FilingStatus.JOINT) then
-      (gov.irs.deductions.senior_deduction.phase_out_rate.joint.marginalCalc d
+  ((max (((irs.deductions.senior_deduction.amount.atDate d) - (if (t.core.filingStatus ==
+      FilingStatus.JOINT) then
+      (irs.deductions.senior_deduction.phase_out_rate.joint.marginalCalc d
       (additionalSeniorDeductionMagi t d)) else
-      (gov.irs.deductions.senior_deduction.phase_out_rate.other.marginalCalc d
+      (irs.deductions.senior_deduction.phase_out_rate.other.marginalCalc d
       (additionalSeniorDeductionMagi t d)))) : Rat) 0) * (sumBy t.members fun p => boolToRat
       (additionalSeniorDeductionEligiblePerson t p d)))
 
@@ -1325,9 +1306,9 @@ def additionalSeniorDeduction (t : TaxUnit) (d : Date) : Rat :=
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def casualtyLossDeduction (t : TaxUnit) (d : Date) : Rat :=
-  ((boolToRat (gov.irs.deductions.itemized.casualty.active.atDate d)) * (max (0 : Rat)
-      ((sumBy t.members fun p => p.coreP1.casualtyLoss) - ((positiveAgi t d) *
-      (gov.irs.deductions.itemized.casualty.floor.atDate d)))))
+  ((boolToRat (irs.deductions.itemized.casualty.active.atDate d)) * (max (0 : Rat) ((sumBy
+      t.members fun p => p.coreP1.casualtyLoss) - ((positiveAgi t d) *
+      (irs.deductions.itemized.casualty.floor.atDate d)))))
 
 /-- `charitable_deduction.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/`
@@ -1337,23 +1318,22 @@ def charitableDeduction (t : TaxUnit) (d : Date) : Rat :=
       p.coreP1.charitableNonCashDonationsNon50PctOrgs);
   let non_cash_to_50_pct := ((sumBy t.members fun p => p.coreP1.charitableNonCashDonations)
       - non_cash_to_non_50_pct);
-  let deduction_floor := ((gov.irs.deductions.itemized.charity.floor.amount.atDate d) *
+  let deduction_floor := ((irs.deductions.itemized.charity.floor.amount.atDate d) *
       (positiveAgi t d));
   let remaining_floor_after_50 := (max ((deduction_floor - non_cash_to_50_pct) : Rat) 0);
   let cash_donations := (sumBy t.members fun p => p.coreP1.charitableCashDonations);
-  let total_cap := ((gov.irs.deductions.itemized.charity.ceiling.all.atDate d) *
-      (positiveAgi t d));
-  (if (gov.irs.deductions.itemized.charity.floor.applies.atDate d) then (min ((((min ((max
+  let total_cap := ((irs.deductions.itemized.charity.ceiling.all.atDate d) * (positiveAgi t
+      d));
+  (if (irs.deductions.itemized.charity.floor.applies.atDate d) then (min ((((min ((max
       ((non_cash_to_50_pct - deduction_floor) : Rat) 0) : Rat)
-      ((gov.irs.deductions.itemized.charity.ceiling.non_cash.atDate d) * (positiveAgi t d)))
-      + (min ((max ((non_cash_to_non_50_pct - remaining_floor_after_50) : Rat) 0) : Rat)
-      ((gov.irs.deductions.itemized.charity.ceiling.non_cash_to_non_50_pct_org.atDate d) *
+      ((irs.deductions.itemized.charity.ceiling.non_cash.atDate d) * (positiveAgi t d))) +
+      (min ((max ((non_cash_to_non_50_pct - remaining_floor_after_50) : Rat) 0) : Rat)
+      ((irs.deductions.itemized.charity.ceiling.non_cash_to_non_50_pct_org.atDate d) *
       (positiveAgi t d)))) + (max ((cash_donations - (max ((remaining_floor_after_50 -
       non_cash_to_non_50_pct) : Rat) 0)) : Rat) 0)) : Rat) total_cap) else (min ((((min
-      (non_cash_to_50_pct : Rat)
-      ((gov.irs.deductions.itemized.charity.ceiling.non_cash.atDate d) * (positiveAgi t d)))
-      + (min (non_cash_to_non_50_pct : Rat)
-      ((gov.irs.deductions.itemized.charity.ceiling.non_cash_to_non_50_pct_org.atDate d) *
+      (non_cash_to_50_pct : Rat) ((irs.deductions.itemized.charity.ceiling.non_cash.atDate
+      d) * (positiveAgi t d))) + (min (non_cash_to_non_50_pct : Rat)
+      ((irs.deductions.itemized.charity.ceiling.non_cash_to_non_50_pct_org.atDate d) *
       (positiveAgi t d)))) + cash_donations) : Rat) total_cap))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/ctc_arpa_phase_out.py`
@@ -1374,15 +1354,15 @@ def eitc (t : TaxUnit) (d : Date) : Rat :=
     in `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def elderlyDisabledCreditPotential (t : TaxUnit) (d : Date) : Rat :=
-  ((gov.irs.credits.elderly_or_disabled.rate.atDate d) * (section22Income t d))
+  ((irs.credits.elderly_or_disabled.rate.atDate d) * (section22Income t d))
 
 /-- `policyengine_us/variables/gov/irs/credits/education/lifetime_learning_credit_potential.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def lifetimeLearningCreditPotential (t : TaxUnit) (d : Date) : Rat :=
-  (if (gov.irs.credits.education.lifetime_learning_credit.abolition.atDate d) then 0 else
-      (max (0 : Rat) (((gov.irs.credits.education.lifetime_learning_credit.rate.atDate d) *
-      (min ((gov.irs.credits.education.lifetime_learning_credit.expense_limit.atDate d) :
-      Rat) (sumBy t.members fun p => ((p.coreP1.qualifiedTuitionExpenses * (boolToRat
+  (if (irs.credits.education.lifetime_learning_credit.abolition.atDate d) then 0 else (max
+      (0 : Rat) (((irs.credits.education.lifetime_learning_credit.rate.atDate d) * (min
+      ((irs.credits.education.lifetime_learning_credit.expense_limit.atDate d) : Rat) (sumBy
+      t.members fun p => ((p.coreP1.qualifiedTuitionExpenses * (boolToRat
       (isEligibleForLifetimeLearningCredit t p d))) * (boolToRat
       (!(isEligibleForAmericanOpportunityCredit t p d))))))) * (1 -
       (lifetimeLearningCreditPhaseOut t d)))))
@@ -1392,14 +1372,14 @@ def lifetimeLearningCreditPotential (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def medicalExpenseDeduction (t : TaxUnit) (d : Date) : Rat :=
   (max (0 : Rat) ((itemizedMedicalExpenses t d) -
-      ((gov.irs.deductions.itemized.medical.floor.atDate d) * (positiveAgi t d))))
+      ((irs.deductions.itemized.medical.floor.atDate d) * (positiveAgi t d))))
 
 /-- `misc_deduction.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def miscDeduction (t : TaxUnit) (d : Date) : Rat :=
-  (if (gov.irs.deductions.itemized.misc.applies.atDate d) then (max (0 : Rat)
-      ((totalMiscDeductions t d) - ((gov.irs.deductions.itemized.misc.floor.atDate d) *
+  (if (irs.deductions.itemized.misc.applies.atDate d) then (max (0 : Rat)
+      ((totalMiscDeductions t d) - ((irs.deductions.itemized.misc.floor.atDate d) *
       (positiveAgi t d)))) else 0)
 
 /-- `new_clean_vehicle_credit_potential.py`
@@ -1407,17 +1387,17 @@ def miscDeduction (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def newCleanVehicleCreditPotential (t : TaxUnit) (d : Date) : Rat :=
   (if (newCleanVehicleCreditEligible t d) then
-      ((((gov.irs.credits.clean_vehicle.new.base_amount.atDate d) + (min
-      (((gov.irs.credits.clean_vehicle.new.capacity_bonus.amount.atDate d) * ((ratFloor (max
+      ((((irs.credits.clean_vehicle.new.base_amount.atDate d) + (min
+      (((irs.credits.clean_vehicle.new.capacity_bonus.amount.atDate d) * ((ratFloor (max
       (((t.core.newCleanVehicleBatteryCapacity -
-      (gov.irs.credits.clean_vehicle.new.capacity_bonus.kwh_threshold.atDate d)) + 1) : Rat)
-      0)) : Rat)) : Rat) (gov.irs.credits.clean_vehicle.new.capacity_bonus.max.atDate d))) +
+      (irs.credits.clean_vehicle.new.capacity_bonus.kwh_threshold.atDate d)) + 1) : Rat) 0))
+      : Rat)) : Rat) (irs.credits.clean_vehicle.new.capacity_bonus.max.atDate d))) +
       ((boolToRat (decide (t.core.newCleanVehicleBatteryComponentsMadeInNorthAmerica ≥
-      (gov.irs.credits.clean_vehicle.new.battery_components.threshold.atDate d)))) *
-      (gov.irs.credits.clean_vehicle.new.battery_components.amount.atDate d))) + ((boolToRat
+      (irs.credits.clean_vehicle.new.battery_components.threshold.atDate d)))) *
+      (irs.credits.clean_vehicle.new.battery_components.amount.atDate d))) + ((boolToRat
       (decide (t.core.newCleanVehicleBatteryCriticalMineralsExtractedInTradingPartnerCountry
-      ≥ (gov.irs.credits.clean_vehicle.new.critical_minerals.threshold.atDate d)))) *
-      (gov.irs.credits.clean_vehicle.new.critical_minerals.amount.atDate d))) else 0)
+      ≥ (irs.credits.clean_vehicle.new.critical_minerals.threshold.atDate d)))) *
+      (irs.credits.clean_vehicle.new.critical_minerals.amount.atDate d))) else 0)
 
 /-- `policyengine_us/variables/gov/irs/credits/recovery_rebate_credit/recovery_rebate_credit.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -1433,16 +1413,16 @@ def saversCreditPotential (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def usedCleanVehicleCredit (t : TaxUnit) (d : Date) : Rat :=
   (if (usedCleanVehicleCreditEligible t d) then (min ((t.core.usedCleanVehicleSalePrice *
-      (gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat)
-      (gov.irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
+      (irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat)
+      (irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
 
 /-- `used_clean_vehicle_credit_potential.py`
     in `policyengine_us/variables/gov/irs/credits/clean_vehicle/used/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def usedCleanVehicleCreditPotential (t : TaxUnit) (d : Date) : Rat :=
   (if (usedCleanVehicleCreditEligible t d) then (min ((t.core.usedCleanVehicleSalePrice *
-      (gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat)
-      (gov.irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
+      (irs.credits.clean_vehicle.used.amount.percent_of_sale_price.atDate d)) : Rat)
+      (irs.credits.clean_vehicle.used.amount.max.atDate d)) else 0)
 
 /-- `amt_excluded_deductions.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/`
@@ -1467,9 +1447,9 @@ def ctcArpaAddition (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcPhaseIn (t : TaxUnit) (d : Date) : Rat :=
   (if (decide ((ctcQualifyingChildren t d) <
-      (gov.irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc.atDate
-      d))) then (ctcPhaseInRelevantEarnings t d) else (max ((ctcPhaseInRelevantEarnings t d)
-      : Rat) (max (0 : Rat) ((ctcSocialSecurityTax t d) - (eitc t d)))))
+      (irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc.atDate d)))
+      then (ctcPhaseInRelevantEarnings t d) else (max ((ctcPhaseInRelevantEarnings t d) :
+      Rat) (max (0 : Rat) ((ctcSocialSecurityTax t d) - (eitc t d)))))
 
 /-- `taxable_income_deductions_if_not_itemizing.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/`
@@ -1558,7 +1538,7 @@ def taxableIncomeDeductionsIfItemizing (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/credits/ctc/refundable/refundable_ctc.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def refundableCtc (t : TaxUnit) (d : Date) : Rat :=
-  (if (gov.irs.credits.ctc.refundable.fully_refundable.atDate d) then (min ((max (0 : Rat)
+  (if (irs.credits.ctc.refundable.fully_refundable.atDate d) then (min ((max (0 : Rat)
       ((ctcRefundableMaximum t d) - (ctcPhaseOut t d))) : Rat) (ctc t d)) else (min ((min
       ((ctcRefundableMaximum t d) : Rat) (ctc t d)) : Rat) ((min ((ctc t d) : Rat)
       (t.irs.ctcLimitingTaxLiability + (ctcPhaseIn t d))) - (min ((ctc t d) : Rat)
@@ -1628,16 +1608,16 @@ def taxableIncomeNotItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtSeparateAdditionItemizing (t : TaxUnit) (d : Date) : Rat :=
   ((max (0 : Rat) (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.amount.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.exemption.amount.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.amount.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.amount.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat)
-          ((gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
+          (irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat)
+          ((irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
           (((taxableIncomeItemizing t d) + (amtExcludedDeductionsItemizing t d)) -
-          (gov.irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat
+          (irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat
           (t.core.filingStatus == FilingStatus.SEPARATE)))
 
 /-- `amt_separate_addition.py`
@@ -1645,16 +1625,16 @@ def amtSeparateAdditionItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtSeparateAdditionNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   ((max (0 : Rat) (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.amount.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.exemption.amount.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.amount.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.amount.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat)
-          ((gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
+          (irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat)
+          ((irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
           (((taxableIncomeNotItemizing t d) + (amtExcludedDeductionsNotItemizing t d)) -
-          (gov.irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat
+          (irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat
           (t.core.filingStatus == FilingStatus.SEPARATE)))
 
 /-- `capital_gains_excluded_from_taxable_income.py`
@@ -1664,13 +1644,13 @@ def capitalGainsExcludedFromTaxableIncomeItemizing (t : TaxUnit) (d : Date) : Ra
   ((taxableIncomeItemizing t d) - (max (((taxableIncomeItemizing t d) -
       (netCapitalGain t d)) : Rat) (min
       ((min ((max ((taxableIncomeItemizing t d) : Rat) 0) : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) : Rat)
           ((taxableIncomeItemizing t d) - (adjustedNetCapitalGain t d)))))
 
 /-- `capital_gains_excluded_from_taxable_income.py`
@@ -1681,13 +1661,13 @@ def capitalGainsExcludedFromTaxableIncomeNotItemizing (t : TaxUnit) (d : Date) :
       (netCapitalGain t d)) : Rat) (min ((min
       ((max ((taxableIncomeNotItemizing t d) : Rat) 0) : Rat) (match t.core.filingStatus
       with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) : Rat)
           ((taxableIncomeNotItemizing t d) - (adjustedNetCapitalGain t d)))))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks14.py`
@@ -1734,37 +1714,37 @@ def capitalGainsTaxItemizing (t : TaxUnit) (d : Date) : Rat :=
       d));
   let cg_in_first_bracket := (max (0 : Rat)
       ((min ((max ((taxableIncomeItemizing t d) : Rat) 0) : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) - (max (0 :
-          Rat) ((taxableIncomeItemizing t d) - adjusted_net_cg))));
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) - (max (0 : Rat)
+          ((taxableIncomeItemizing t d) - adjusted_net_cg))));
   let non_cg_taxable_income := (max (0 : Rat) ((taxableIncomeItemizing t d) -
       (capitalGainsExcludedFromTaxableIncomeItemizing t d)));
   let cg_in_second_bracket := (min ((max (0 : Rat) (adjusted_net_cg - cg_in_first_bracket))
       : Rat) (max (0 : Rat)
       ((min ((max ((taxableIncomeItemizing t d) : Rat) 0) : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d))) -
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d))) -
           (non_cg_taxable_income + cg_in_first_bracket))));
-  (((((cg_in_first_bracket * (gov.irs.capital_gains.rates.«1».atDate d)) +
-      (cg_in_second_bracket * (gov.irs.capital_gains.rates.«2».atDate d))) + ((max
-      (((adjusted_net_cg - cg_in_first_bracket) - cg_in_second_bracket) : Rat) 0) *
-      (gov.irs.capital_gains.rates.«3».atDate d))) +
-      ((gov.irs.capital_gains.unrecaptured_s_1250_rate.atDate d) * (max (((min
+  (((((cg_in_first_bracket * (irs.capital_gains.rates.«1».atDate d)) + (cg_in_second_bracket
+      * (irs.capital_gains.rates.«2».atDate d))) + ((max (((adjusted_net_cg -
+      cg_in_first_bracket) - cg_in_second_bracket) : Rat) 0) *
+      (irs.capital_gains.rates.«3».atDate d))) +
+      ((irs.capital_gains.unrecaptured_s_1250_rate.atDate d) * (max (((min
       (t.core.unrecapturedSection1250Gain : Rat) (max (0 : Rat) ((netCapitalGain t d) -
       (sumBy t.members fun p => p.coreP1.qualifiedDividendIncome)))) - (max
       (((non_cg_taxable_income + (netCapitalGain t d)) - (taxableIncomeItemizing t d)) :
       Rat) 0)) : Rat) 0))) + ((capitalGains28PercentRateGain t d) *
-      (gov.irs.capital_gains.other_cg_rate.atDate d)))
+      (irs.capital_gains.other_cg_rate.atDate d)))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/capital_gains_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -1774,49 +1754,49 @@ def capitalGainsTaxNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   let cg_in_first_bracket := (max (0 : Rat) ((min
       ((max ((taxableIncomeNotItemizing t d) : Rat) 0) : Rat) (match t.core.filingStatus
       with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) - (max (0 :
-          Rat) ((taxableIncomeNotItemizing t d) - adjusted_net_cg))));
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) - (max (0 : Rat)
+          ((taxableIncomeNotItemizing t d) - adjusted_net_cg))));
   let non_cg_taxable_income := (max (0 : Rat) ((taxableIncomeNotItemizing t d) -
       (capitalGainsExcludedFromTaxableIncomeNotItemizing t d)));
   let cg_in_second_bracket := (min ((max (0 : Rat) (adjusted_net_cg - cg_in_first_bracket))
       : Rat) (max (0 : Rat) ((min ((max ((taxableIncomeNotItemizing t d) : Rat) 0) : Rat)
       (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d))) -
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d))) -
           (non_cg_taxable_income + cg_in_first_bracket))));
-  (((((cg_in_first_bracket * (gov.irs.capital_gains.rates.«1».atDate d)) +
-      (cg_in_second_bracket * (gov.irs.capital_gains.rates.«2».atDate d))) + ((max
-      (((adjusted_net_cg - cg_in_first_bracket) - cg_in_second_bracket) : Rat) 0) *
-      (gov.irs.capital_gains.rates.«3».atDate d))) +
-      ((gov.irs.capital_gains.unrecaptured_s_1250_rate.atDate d) * (max (((min
+  (((((cg_in_first_bracket * (irs.capital_gains.rates.«1».atDate d)) + (cg_in_second_bracket
+      * (irs.capital_gains.rates.«2».atDate d))) + ((max (((adjusted_net_cg -
+      cg_in_first_bracket) - cg_in_second_bracket) : Rat) 0) *
+      (irs.capital_gains.rates.«3».atDate d))) +
+      ((irs.capital_gains.unrecaptured_s_1250_rate.atDate d) * (max (((min
       (t.core.unrecapturedSection1250Gain : Rat) (max (0 : Rat) ((netCapitalGain t d) -
       (sumBy t.members fun p => p.coreP1.qualifiedDividendIncome)))) - (max
       (((non_cg_taxable_income + (netCapitalGain t d)) - (taxableIncomeNotItemizing t d)) :
       Rat) 0)) : Rat) 0))) + ((capitalGains28PercentRateGain t d) *
-      (gov.irs.capital_gains.other_cg_rate.atDate d)))
+      (irs.capital_gains.other_cg_rate.atDate d)))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks19.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def dwks19Itemizing (t : TaxUnit) (d : Date) : Rat :=
   ((max ((min ((dwks14Itemizing t d) : Rat) (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncomeItemizing t d))) : Rat) (max (0 : Rat) ((taxableIncomeItemizing t d)
           - (dwks10 t d)))) * (boolToRat t.irs.hasQdivOrLtcg))
 
@@ -1824,13 +1804,13 @@ def dwks19Itemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def dwks19NotItemizing (t : TaxUnit) (d : Date) : Rat :=
   ((max ((min ((dwks14NotItemizing t d) : Rat) (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncomeNotItemizing t d))) : Rat) (max (0 : Rat)
           ((taxableIncomeNotItemizing t d) - (dwks10 t d)))) * (boolToRat
           t.irs.hasQdivOrLtcg))
@@ -1842,66 +1822,66 @@ def incomeTaxMainRatesItemizing (t : TaxUnit) (d : Date) : Rat :=
   let taxinc := (max (0 : Rat) ((taxableIncomeItemizing t d) -
       (capitalGainsExcludedFromTaxableIncomeItemizing t d)));
   let bracket_bottom := (max (0 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_3 := (max (bracket_bottom : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_4 := (max (bracket_bottom_3 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«3».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«3».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«3».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«3».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_5 := (max (bracket_bottom_4 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«4».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«4».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«4».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«4».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_6 := (max (bracket_bottom_5 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«5».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«5».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«5».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«5».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_7 := (max (bracket_bottom_6 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«6».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«6».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«6».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«6».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
-  (((((((0 + ((gov.irs.income.bracket.rates.«1».atDate d) * ((min ((max (taxinc : Rat) 0) :
-      Rat) bracket_bottom) - 0))) + ((gov.irs.income.bracket.rates.«2».atDate d) * ((min
-      ((max (taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_3) - bracket_bottom))) +
-      ((gov.irs.income.bracket.rates.«3».atDate d) * ((min ((max (taxinc : Rat)
+          (irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
+  (((((((0 + ((irs.income.bracket.rates.«1».atDate d) * ((min ((max (taxinc : Rat) 0) : Rat)
+      bracket_bottom) - 0))) + ((irs.income.bracket.rates.«2».atDate d) * ((min ((max
+      (taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_3) - bracket_bottom))) +
+      ((irs.income.bracket.rates.«3».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_3) : Rat) bracket_bottom_4) - bracket_bottom_3))) +
-      ((gov.irs.income.bracket.rates.«4».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«4».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_4) : Rat) bracket_bottom_5) - bracket_bottom_4))) +
-      ((gov.irs.income.bracket.rates.«5».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«5».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_5) : Rat) bracket_bottom_6) - bracket_bottom_5))) +
-      ((gov.irs.income.bracket.rates.«6».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«6».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_6) : Rat) bracket_bottom_7) - bracket_bottom_6))) +
-      ((gov.irs.income.bracket.rates.«7».atDate d) * ((max (taxinc : Rat) bracket_bottom_7)
-      - bracket_bottom_7)))
+      ((irs.income.bracket.rates.«7».atDate d) * ((max (taxinc : Rat) bracket_bottom_7) -
+      bracket_bottom_7)))
 
 /-- `income_tax_main_rates.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/before_credits/`
@@ -1910,66 +1890,66 @@ def incomeTaxMainRatesNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   let taxinc := (max (0 : Rat) ((taxableIncomeNotItemizing t d) -
       (capitalGainsExcludedFromTaxableIncomeNotItemizing t d)));
   let bracket_bottom := (max (0 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_3 := (max (bracket_bottom : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_4 := (max (bracket_bottom_3 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«3».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«3».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«3».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«3».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_5 := (max (bracket_bottom_4 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«4».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«4».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«4».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«4».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_6 := (max (bracket_bottom_5 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«5».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«5».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«5».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«5».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_7 := (max (bracket_bottom_6 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«6».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«6».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«6».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«6».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
-  (((((((0 + ((gov.irs.income.bracket.rates.«1».atDate d) * ((min ((max (taxinc : Rat) 0) :
-      Rat) bracket_bottom) - 0))) + ((gov.irs.income.bracket.rates.«2».atDate d) * ((min
-      ((max (taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_3) - bracket_bottom))) +
-      ((gov.irs.income.bracket.rates.«3».atDate d) * ((min ((max (taxinc : Rat)
+          (irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
+  (((((((0 + ((irs.income.bracket.rates.«1».atDate d) * ((min ((max (taxinc : Rat) 0) : Rat)
+      bracket_bottom) - 0))) + ((irs.income.bracket.rates.«2».atDate d) * ((min ((max
+      (taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_3) - bracket_bottom))) +
+      ((irs.income.bracket.rates.«3».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_3) : Rat) bracket_bottom_4) - bracket_bottom_3))) +
-      ((gov.irs.income.bracket.rates.«4».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«4».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_4) : Rat) bracket_bottom_5) - bracket_bottom_4))) +
-      ((gov.irs.income.bracket.rates.«5».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«5».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_5) : Rat) bracket_bottom_6) - bracket_bottom_5))) +
-      ((gov.irs.income.bracket.rates.«6».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«6».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_6) : Rat) bracket_bottom_7) - bracket_bottom_6))) +
-      ((gov.irs.income.bracket.rates.«7».atDate d) * ((max (taxinc : Rat) bracket_bottom_7)
-      - bracket_bottom_7)))
+      ((irs.income.bracket.rates.«7».atDate d) * ((max (taxinc : Rat) bracket_bottom_7) -
+      bracket_bottom_7)))
 
 /-- `amt_exemption.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -1977,27 +1957,26 @@ def incomeTaxMainRatesNotItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtExemptionItemizing (t : TaxUnit) (d : Date) : Rat :=
   let reduced_exemption_amount := (max (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.amount.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.exemption.amount.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.amount.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.amount.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) -
-          ((gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
+          (irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) -
+          ((irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
           ((amtIncomeItemizing t d) - (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.phase_out.start.SINGLE.atDate
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.phase_out.start.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.phase_out.start.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.phase_out.start.SEPARATE.atDate
           d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.phase_out.start.JOINT.atDate d)
-      | FilingStatus.SEPARATE =>
-          (gov.irs.income.amt.exemption.phase_out.start.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE.atDate d)))))));
+          (irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE.atDate d)))))));
   (if (amtKiddieTaxApplies t d) then (min (reduced_exemption_amount : Rat)
-      ((filerAdjustedEarnings t d) + (gov.irs.income.amt.exemption.child.amount.atDate d)))
-      else reduced_exemption_amount)
+      ((filerAdjustedEarnings t d) + (irs.income.amt.exemption.child.amount.atDate d))) else
+      reduced_exemption_amount)
 
 /-- `amt_exemption.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -2005,27 +1984,26 @@ def amtExemptionItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtExemptionNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   let reduced_exemption_amount := (max (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.amount.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.exemption.amount.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.amount.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.amount.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) -
-          ((gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
+          (irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) -
+          ((irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
           ((amtIncomeNotItemizing t d) - (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.phase_out.start.SINGLE.atDate
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.phase_out.start.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.phase_out.start.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.phase_out.start.SEPARATE.atDate
           d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.phase_out.start.JOINT.atDate d)
-      | FilingStatus.SEPARATE =>
-          (gov.irs.income.amt.exemption.phase_out.start.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE.atDate d)))))));
+          (irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE.atDate d)))))));
   (if (amtKiddieTaxApplies t d) then (min (reduced_exemption_amount : Rat)
-      ((filerAdjustedEarnings t d) + (gov.irs.income.amt.exemption.child.amount.atDate d)))
-      else reduced_exemption_amount)
+      ((filerAdjustedEarnings t d) + (irs.income.amt.exemption.child.amount.atDate d))) else
+      reduced_exemption_amount)
 
 /-- `amt_part_iii_required.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/`
@@ -2053,24 +2031,24 @@ def amtPartIiiRequiredNotItemizing (t : TaxUnit) (d : Date) : Bool :=
 def regularTaxBeforeCreditsItemizing (t : TaxUnit) (d : Date) : Rat :=
   let dwks21 := (min ((taxableIncomeItemizing t d) : Rat) (dwks13 t d));
   let dwks16 := (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncomeItemizing t d));
   let dwks22 := (dwks16 - (min ((dwks14Itemizing t d) : Rat) dwks16));
   let dwks28 := (min ((max (0 : Rat) (dwks21 - dwks22)) : Rat) (max (0 : Rat)
       ((min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncomeItemizing t d)) - (min ((dwks19Itemizing t d) : Rat) dwks22))));
   let dwks31 := (dwks21 - (dwks22 + dwks28));
   let dwks37 := (max (0 : Rat)
@@ -2078,73 +2056,72 @@ def regularTaxBeforeCreditsItemizing (t : TaxUnit) (d : Date) : Rat :=
       (max (0 : Rat) (((dwks10 t d) + (dwks19Itemizing t d)) - (taxableIncomeItemizing t d)))));
   let reg_taxinc := (max (0 : Rat) (dwks19Itemizing t d));
   let bracket_bottom := (max (0 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_9 := (max (bracket_bottom : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_10 := (max (bracket_bottom_9 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«3».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«3».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«3».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«3».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_11 := (max (bracket_bottom_10 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«4».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«4».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«4».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«4».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_12 := (max (bracket_bottom_11 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«5».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«5».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«5».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«5».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_13 := (max (bracket_bottom_12 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«6».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«6».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«6».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«6».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
-  (if t.irs.hasQdivOrLtcg then (min ((((((((gov.irs.capital_gains.rates.«2».atDate d) *
-      dwks28) + ((gov.irs.capital_gains.rates.«3».atDate d) * dwks31)) +
-      ((gov.irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d) * dwks37)) +
-      ((gov.irs.income.amt.brackets.lastRate d) * ((taxableIncomeItemizing t d) -
+          (irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
+  (if t.irs.hasQdivOrLtcg then (min ((((((((irs.capital_gains.rates.«2».atDate d) * dwks28)
+      + ((irs.capital_gains.rates.«3».atDate d) * dwks31)) +
+      ((irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d) * dwks37)) +
+      ((irs.income.amt.brackets.lastRate d) * ((taxableIncomeItemizing t d) -
       (((((dwks19Itemizing t d) + dwks22) + dwks28) + dwks31) + dwks37)))) + (((((((0 +
-      ((gov.irs.income.bracket.rates.«1».atDate d) * ((min ((max (reg_taxinc : Rat) 0) :
-      Rat) bracket_bottom) - 0))) + ((gov.irs.income.bracket.rates.«2».atDate d) * ((min
-      ((max (reg_taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_9) - bracket_bottom)))
-      + ((gov.irs.income.bracket.rates.«3».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«1».atDate d) * ((min ((max (reg_taxinc : Rat) 0) : Rat)
+      bracket_bottom) - 0))) + ((irs.income.bracket.rates.«2».atDate d) * ((min ((max
+      (reg_taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_9) - bracket_bottom))) +
+      ((irs.income.bracket.rates.«3».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_9) : Rat) bracket_bottom_10) - bracket_bottom_9))) +
-      ((gov.irs.income.bracket.rates.«4».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«4».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_10) : Rat) bracket_bottom_11) - bracket_bottom_10))) +
-      ((gov.irs.income.bracket.rates.«5».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«5».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_11) : Rat) bracket_bottom_12) - bracket_bottom_11))) +
-      ((gov.irs.income.bracket.rates.«6».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«6».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_12) : Rat) bracket_bottom_13) - bracket_bottom_12))) +
-      ((gov.irs.income.bracket.rates.«7».atDate d) * ((max (reg_taxinc : Rat)
-      bracket_bottom_13) - bracket_bottom_13)))) + ((gov.irs.capital_gains.rates.«1».atDate
-      d) * dwks22)) : Rat) (incomeTaxMainRatesItemizing t d)) else
-      (incomeTaxMainRatesItemizing t d))
+      ((irs.income.bracket.rates.«7».atDate d) * ((max (reg_taxinc : Rat) bracket_bottom_13)
+      - bracket_bottom_13)))) + ((irs.capital_gains.rates.«1».atDate d) * dwks22)) : Rat)
+      (incomeTaxMainRatesItemizing t d)) else (incomeTaxMainRatesItemizing t d))
 
 /-- `regular_tax_before_credits.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/`
@@ -2152,24 +2129,24 @@ def regularTaxBeforeCreditsItemizing (t : TaxUnit) (d : Date) : Rat :=
 def regularTaxBeforeCreditsNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   let dwks21 := (min ((taxableIncomeNotItemizing t d) : Rat) (dwks13 t d));
   let dwks16 := (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncomeNotItemizing t d));
   let dwks22 := (dwks16 - (min ((dwks14NotItemizing t d) : Rat) dwks16));
   let dwks28 := (min ((max (0 : Rat) (dwks21 - dwks22)) : Rat) (max (0 : Rat)
       ((min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncomeNotItemizing t d)) - (min ((dwks19NotItemizing t d) : Rat)
           dwks22))));
   let dwks31 := (dwks21 - (dwks22 + dwks28));
@@ -2178,73 +2155,72 @@ def regularTaxBeforeCreditsNotItemizing (t : TaxUnit) (d : Date) : Rat :=
       (((dwks10 t d) + (dwks19NotItemizing t d)) - (taxableIncomeNotItemizing t d)))));
   let reg_taxinc := (max (0 : Rat) (dwks19NotItemizing t d));
   let bracket_bottom := (max (0 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_9 := (max (bracket_bottom : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_10 := (max (bracket_bottom_9 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«3».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«3».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«3».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«3».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_11 := (max (bracket_bottom_10 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«4».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«4».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«4».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«4».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_12 := (max (bracket_bottom_11 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«5».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«5».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«5».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«5».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_13 := (max (bracket_bottom_12 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«6».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«6».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«6».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«6».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
-  (if t.irs.hasQdivOrLtcg then (min ((((((((gov.irs.capital_gains.rates.«2».atDate d) *
-      dwks28) + ((gov.irs.capital_gains.rates.«3».atDate d) * dwks31)) +
-      ((gov.irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d) * dwks37)) +
-      ((gov.irs.income.amt.brackets.lastRate d) * ((taxableIncomeNotItemizing t d) -
+          (irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
+  (if t.irs.hasQdivOrLtcg then (min ((((((((irs.capital_gains.rates.«2».atDate d) * dwks28)
+      + ((irs.capital_gains.rates.«3».atDate d) * dwks31)) +
+      ((irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d) * dwks37)) +
+      ((irs.income.amt.brackets.lastRate d) * ((taxableIncomeNotItemizing t d) -
       (((((dwks19NotItemizing t d) + dwks22) + dwks28) + dwks31) + dwks37)))) + (((((((0 +
-      ((gov.irs.income.bracket.rates.«1».atDate d) * ((min ((max (reg_taxinc : Rat) 0) :
-      Rat) bracket_bottom) - 0))) + ((gov.irs.income.bracket.rates.«2».atDate d) * ((min
-      ((max (reg_taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_9) - bracket_bottom)))
-      + ((gov.irs.income.bracket.rates.«3».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«1».atDate d) * ((min ((max (reg_taxinc : Rat) 0) : Rat)
+      bracket_bottom) - 0))) + ((irs.income.bracket.rates.«2».atDate d) * ((min ((max
+      (reg_taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_9) - bracket_bottom))) +
+      ((irs.income.bracket.rates.«3».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_9) : Rat) bracket_bottom_10) - bracket_bottom_9))) +
-      ((gov.irs.income.bracket.rates.«4».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«4».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_10) : Rat) bracket_bottom_11) - bracket_bottom_10))) +
-      ((gov.irs.income.bracket.rates.«5».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«5».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_11) : Rat) bracket_bottom_12) - bracket_bottom_11))) +
-      ((gov.irs.income.bracket.rates.«6».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«6».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_12) : Rat) bracket_bottom_13) - bracket_bottom_12))) +
-      ((gov.irs.income.bracket.rates.«7».atDate d) * ((max (reg_taxinc : Rat)
-      bracket_bottom_13) - bracket_bottom_13)))) + ((gov.irs.capital_gains.rates.«1».atDate
-      d) * dwks22)) : Rat) (incomeTaxMainRatesNotItemizing t d)) else
-      (incomeTaxMainRatesNotItemizing t d))
+      ((irs.income.bracket.rates.«7».atDate d) * ((max (reg_taxinc : Rat) bracket_bottom_13)
+      - bracket_bottom_13)))) + ((irs.capital_gains.rates.«1».atDate d) * dwks22)) : Rat)
+      (incomeTaxMainRatesNotItemizing t d)) else (incomeTaxMainRatesNotItemizing t d))
 
 /-- `amt_income_less_exemptions.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/`
@@ -2266,15 +2242,14 @@ def amtIncomeLessExemptionsNotItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtHigherBaseTaxItemizing (t : TaxUnit) (d : Date) : Rat :=
   ((max (0 : Rat) ((amtIncomeLessExemptionsItemizing t d) -
-      ((gov.irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.multiplier.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.multiplier.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.multiplier.SEPARATE.atDate d)
+      ((irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
+      | FilingStatus.SINGLE => (irs.income.amt.multiplier.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.multiplier.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.multiplier.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
-      | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate d))))) *
-          (gov.irs.income.amt.brackets.rateAt d 1))
+          (irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
+      | FilingStatus.SURVIVING_SPOUSE => (irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate
+          d))))) * (irs.income.amt.brackets.rateAt d 1))
 
 /-- `amt_higher_base_tax.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -2282,15 +2257,14 @@ def amtHigherBaseTaxItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtHigherBaseTaxNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   ((max (0 : Rat) ((amtIncomeLessExemptionsNotItemizing t d) -
-      ((gov.irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.multiplier.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.multiplier.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.multiplier.SEPARATE.atDate d)
+      ((irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
+      | FilingStatus.SINGLE => (irs.income.amt.multiplier.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.multiplier.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.multiplier.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
-      | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate d))))) *
-          (gov.irs.income.amt.brackets.rateAt d 1))
+          (irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
+      | FilingStatus.SURVIVING_SPOUSE => (irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate
+          d))))) * (irs.income.amt.brackets.rateAt d 1))
 
 /-- `amt_lower_base_tax.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -2298,15 +2272,14 @@ def amtHigherBaseTaxNotItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtLowerBaseTaxItemizing (t : TaxUnit) (d : Date) : Rat :=
   ((min ((amtIncomeLessExemptionsItemizing t d) : Rat)
-      ((gov.irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.multiplier.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.multiplier.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.multiplier.SEPARATE.atDate d)
+      ((irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
+      | FilingStatus.SINGLE => (irs.income.amt.multiplier.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.multiplier.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.multiplier.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
-      | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate d)))) *
-          (gov.irs.income.amt.brackets.rateAt d 0))
+          (irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
+      | FilingStatus.SURVIVING_SPOUSE => (irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate
+          d)))) * (irs.income.amt.brackets.rateAt d 0))
 
 /-- `amt_lower_base_tax.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -2314,15 +2287,14 @@ def amtLowerBaseTaxItemizing (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtLowerBaseTaxNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   ((min ((amtIncomeLessExemptionsNotItemizing t d) : Rat)
-      ((gov.irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.multiplier.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.multiplier.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.multiplier.SEPARATE.atDate d)
+      ((irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
+      | FilingStatus.SINGLE => (irs.income.amt.multiplier.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.multiplier.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.multiplier.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
-      | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate d)))) *
-          (gov.irs.income.amt.brackets.rateAt d 0))
+          (irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
+      | FilingStatus.SURVIVING_SPOUSE => (irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate
+          d)))) * (irs.income.amt.brackets.rateAt d 0))
 
 /-- `amt_tax_including_cg.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/`
@@ -2334,36 +2306,36 @@ def amtTaxIncludingCgItemizing (t : TaxUnit) (d : Date) : Rat :=
   let smaller_of_income_or_cg := (min ((amtIncomeLessExemptionsItemizing t d) : Rat) (dwks13
       t d));
   let reduced_cg_bracket := (max (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) -
-          (dwks14Itemizing t d)));
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) - (dwks14Itemizing t
+          d)));
   let amount_at_first_rate := (min (smaller_of_income_or_cg : Rat) reduced_cg_bracket);
   let amount_at_second_rate := (min
       ((max (0 : Rat) (smaller_of_income_or_cg - amount_at_first_rate)) : Rat) (max
       (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) -
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) -
           (reduced_cg_bracket + (dwks14Itemizing t d)))));
   let taxed_gains_amount := (amount_at_first_rate + amount_at_second_rate);
   let excess_taxed_gains := (max (0 : Rat) (smaller_of_income_or_cg - taxed_gains_amount));
-  (((((gov.irs.income.amt.brackets.marginalCalc d excess_income) + (amount_at_first_rate *
-      (gov.irs.capital_gains.rates.«1».atDate d))) + (amount_at_second_rate *
-      (gov.irs.capital_gains.rates.«2».atDate d))) + (excess_taxed_gains *
-      (gov.irs.capital_gains.rates.«3».atDate d))) + (if (decide
+  (((((irs.income.amt.brackets.marginalCalc d excess_income) + (amount_at_first_rate *
+      (irs.capital_gains.rates.«1».atDate d))) + (amount_at_second_rate *
+      (irs.capital_gains.rates.«2».atDate d))) + (excess_taxed_gains *
+      (irs.capital_gains.rates.«3».atDate d))) + (if (decide
       (t.core.unrecapturedSection1250Gain = 0)) then 0 else ((max (0 : Rat)
       ((amtIncomeLessExemptionsItemizing t d) - ((excess_income + taxed_gains_amount) +
       excess_taxed_gains))) *
-      (gov.irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d))))
+      (irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d))))
 
 /-- `amt_tax_including_cg.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/`
@@ -2375,36 +2347,36 @@ def amtTaxIncludingCgNotItemizing (t : TaxUnit) (d : Date) : Rat :=
   let smaller_of_income_or_cg := (min ((amtIncomeLessExemptionsNotItemizing t d) : Rat)
       (dwks13 t d));
   let reduced_cg_bracket := (max (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) -
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) -
           (dwks14NotItemizing t d)));
   let amount_at_first_rate := (min (smaller_of_income_or_cg : Rat) reduced_cg_bracket);
   let amount_at_second_rate := (min
       ((max (0 : Rat) (smaller_of_income_or_cg - amount_at_first_rate)) : Rat) (max
       (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) -
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) -
           (reduced_cg_bracket + (dwks14NotItemizing t d)))));
   let taxed_gains_amount := (amount_at_first_rate + amount_at_second_rate);
   let excess_taxed_gains := (max (0 : Rat) (smaller_of_income_or_cg - taxed_gains_amount));
-  (((((gov.irs.income.amt.brackets.marginalCalc d excess_income) + (amount_at_first_rate *
-      (gov.irs.capital_gains.rates.«1».atDate d))) + (amount_at_second_rate *
-      (gov.irs.capital_gains.rates.«2».atDate d))) + (excess_taxed_gains *
-      (gov.irs.capital_gains.rates.«3».atDate d))) + (if (decide
+  (((((irs.income.amt.brackets.marginalCalc d excess_income) + (amount_at_first_rate *
+      (irs.capital_gains.rates.«1».atDate d))) + (amount_at_second_rate *
+      (irs.capital_gains.rates.«2».atDate d))) + (excess_taxed_gains *
+      (irs.capital_gains.rates.«3».atDate d))) + (if (decide
       (t.core.unrecapturedSection1250Gain = 0)) then 0 else ((max (0 : Rat)
       ((amtIncomeLessExemptionsNotItemizing t d) - ((excess_income + taxed_gains_amount) +
       excess_taxed_gains))) *
-      (gov.irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d))))
+      (irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d))))
 
 /-- `amt_base_tax.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -2895,16 +2867,16 @@ def taxableIncome (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtSeparateAddition (t : TaxUnit) (d : Date) : Rat :=
   ((max (0 : Rat) (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.amount.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.exemption.amount.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.amount.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.amount.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat)
-          ((gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
+          (irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) : Rat)
+          ((irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
           (((taxableIncome t d) + (amtExcludedDeductions t d)) -
-          (gov.irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat
+          (irs.income.amt.exemption.separate_limit.atDate d)))))) * (boolToRat
           (t.core.filingStatus == FilingStatus.SEPARATE)))
 
 /-- `capital_gains_excluded_from_taxable_income.py`
@@ -2913,13 +2885,13 @@ def amtSeparateAddition (t : TaxUnit) (d : Date) : Rat :=
 def capitalGainsExcludedFromTaxableIncome (t : TaxUnit) (d : Date) : Rat :=
   ((taxableIncome t d) - (max (((taxableIncome t d) - (netCapitalGain t d)) : Rat)
       (min ((min ((max ((taxableIncome t d) : Rat) 0) : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) : Rat)
           ((taxableIncome t d) - (adjustedNetCapitalGain t d)))))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks14.py`
@@ -2942,49 +2914,49 @@ def capitalGainsTax (t : TaxUnit) (d : Date) : Rat :=
   let adjusted_net_cg := (min ((adjustedNetCapitalGain t d) : Rat) (taxableIncome t d));
   let cg_in_first_bracket := (max (0 : Rat)
       ((min ((max ((taxableIncome t d) : Rat) 0) : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) - (max (0 :
-          Rat) ((taxableIncome t d) - adjusted_net_cg))));
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d))) - (max (0 : Rat)
+          ((taxableIncome t d) - adjusted_net_cg))));
   let non_cg_taxable_income := (max (0 : Rat) ((taxableIncome t d) -
       (capitalGainsExcludedFromTaxableIncome t d)));
   let cg_in_second_bracket := (min ((max (0 : Rat) (adjusted_net_cg - cg_in_first_bracket))
       : Rat) (max (0 : Rat)
       ((min ((max ((taxableIncome t d) : Rat) 0) : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d))) -
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d))) -
           (non_cg_taxable_income + cg_in_first_bracket))));
-  (((((cg_in_first_bracket * (gov.irs.capital_gains.rates.«1».atDate d)) +
-      (cg_in_second_bracket * (gov.irs.capital_gains.rates.«2».atDate d))) + ((max
-      (((adjusted_net_cg - cg_in_first_bracket) - cg_in_second_bracket) : Rat) 0) *
-      (gov.irs.capital_gains.rates.«3».atDate d))) +
-      ((gov.irs.capital_gains.unrecaptured_s_1250_rate.atDate d) * (max (((min
+  (((((cg_in_first_bracket * (irs.capital_gains.rates.«1».atDate d)) + (cg_in_second_bracket
+      * (irs.capital_gains.rates.«2».atDate d))) + ((max (((adjusted_net_cg -
+      cg_in_first_bracket) - cg_in_second_bracket) : Rat) 0) *
+      (irs.capital_gains.rates.«3».atDate d))) +
+      ((irs.capital_gains.unrecaptured_s_1250_rate.atDate d) * (max (((min
       (t.core.unrecapturedSection1250Gain : Rat) (max (0 : Rat) ((netCapitalGain t d) -
       (sumBy t.members fun p => p.coreP1.qualifiedDividendIncome)))) - (max
       (((non_cg_taxable_income + (netCapitalGain t d)) - (taxableIncome t d)) : Rat) 0)) :
       Rat) 0))) + ((capitalGains28PercentRateGain t d) *
-      (gov.irs.capital_gains.other_cg_rate.atDate d)))
+      (irs.capital_gains.other_cg_rate.atDate d)))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks19.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def dwks19 (t : TaxUnit) (d : Date) : Rat :=
   ((max ((min ((dwks14 t d) : Rat) (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncome t d))) : Rat) (max (0 : Rat) ((taxableIncome t d) - (dwks10 t d))))
           * (boolToRat t.irs.hasQdivOrLtcg))
 
@@ -2995,66 +2967,66 @@ def incomeTaxMainRates (t : TaxUnit) (d : Date) : Rat :=
   let taxinc := (max (0 : Rat) ((taxableIncome t d) -
       (capitalGainsExcludedFromTaxableIncome t d)));
   let bracket_bottom := (max (0 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_3 := (max (bracket_bottom : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_4 := (max (bracket_bottom_3 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«3».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«3».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«3».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«3».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_5 := (max (bracket_bottom_4 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«4».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«4».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«4».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«4».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_6 := (max (bracket_bottom_5 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«5».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«5».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«5».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«5».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_7 := (max (bracket_bottom_6 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«6».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«6».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«6».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«6».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
-  (((((((0 + ((gov.irs.income.bracket.rates.«1».atDate d) * ((min ((max (taxinc : Rat) 0) :
-      Rat) bracket_bottom) - 0))) + ((gov.irs.income.bracket.rates.«2».atDate d) * ((min
-      ((max (taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_3) - bracket_bottom))) +
-      ((gov.irs.income.bracket.rates.«3».atDate d) * ((min ((max (taxinc : Rat)
+          (irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
+  (((((((0 + ((irs.income.bracket.rates.«1».atDate d) * ((min ((max (taxinc : Rat) 0) : Rat)
+      bracket_bottom) - 0))) + ((irs.income.bracket.rates.«2».atDate d) * ((min ((max
+      (taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_3) - bracket_bottom))) +
+      ((irs.income.bracket.rates.«3».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_3) : Rat) bracket_bottom_4) - bracket_bottom_3))) +
-      ((gov.irs.income.bracket.rates.«4».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«4».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_4) : Rat) bracket_bottom_5) - bracket_bottom_4))) +
-      ((gov.irs.income.bracket.rates.«5».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«5».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_5) : Rat) bracket_bottom_6) - bracket_bottom_5))) +
-      ((gov.irs.income.bracket.rates.«6».atDate d) * ((min ((max (taxinc : Rat)
+      ((irs.income.bracket.rates.«6».atDate d) * ((min ((max (taxinc : Rat)
       bracket_bottom_6) : Rat) bracket_bottom_7) - bracket_bottom_6))) +
-      ((gov.irs.income.bracket.rates.«7».atDate d) * ((max (taxinc : Rat) bracket_bottom_7)
-      - bracket_bottom_7)))
+      ((irs.income.bracket.rates.«7».atDate d) * ((max (taxinc : Rat) bracket_bottom_7) -
+      bracket_bottom_7)))
 
 /-- `amt_exemption.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -3062,27 +3034,26 @@ def incomeTaxMainRates (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtExemption (t : TaxUnit) (d : Date) : Rat :=
   let reduced_exemption_amount := (max (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.amount.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.exemption.amount.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.amount.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.amount.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) -
-          ((gov.irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
+          (irs.income.amt.exemption.amount.SURVIVING_SPOUSE.atDate d)) -
+          ((irs.income.amt.exemption.phase_out.rate.atDate d) * (max (0 : Rat)
           ((amtIncome t d) - (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.exemption.phase_out.start.SINGLE.atDate
+      | FilingStatus.SINGLE => (irs.income.amt.exemption.phase_out.start.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.exemption.phase_out.start.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.exemption.phase_out.start.SEPARATE.atDate
           d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.exemption.phase_out.start.JOINT.atDate d)
-      | FilingStatus.SEPARATE =>
-          (gov.irs.income.amt.exemption.phase_out.start.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE.atDate d)))))));
+          (irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE.atDate d)))))));
   (if (amtKiddieTaxApplies t d) then (min (reduced_exemption_amount : Rat)
-      ((filerAdjustedEarnings t d) + (gov.irs.income.amt.exemption.child.amount.atDate d)))
-      else reduced_exemption_amount)
+      ((filerAdjustedEarnings t d) + (irs.income.amt.exemption.child.amount.atDate d))) else
+      reduced_exemption_amount)
 
 /-- `amt_part_iii_required.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/`
@@ -3100,24 +3071,24 @@ def amtPartIiiRequired (t : TaxUnit) (d : Date) : Bool :=
 def regularTaxBeforeCredits (t : TaxUnit) (d : Date) : Rat :=
   let dwks21 := (min ((taxableIncome t d) : Rat) (dwks13 t d));
   let dwks16 := (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncome t d));
   let dwks22 := (dwks16 - (min ((dwks14 t d) : Rat) dwks16));
   let dwks28 := (min ((max (0 : Rat) (dwks21 - dwks22)) : Rat) (max (0 : Rat)
       ((min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) : Rat)
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) : Rat)
           (taxableIncome t d)) - (min ((dwks19 t d) : Rat) dwks22))));
   let dwks31 := (dwks21 - (dwks22 + dwks28));
   let dwks37 := (max (0 : Rat)
@@ -3125,72 +3096,72 @@ def regularTaxBeforeCredits (t : TaxUnit) (d : Date) : Rat :=
       (max (0 : Rat) (((dwks10 t d) + (dwks19 t d)) - (taxableIncome t d)))));
   let reg_taxinc := (max (0 : Rat) (dwks19 t d));
   let bracket_bottom := (max (0 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_9 := (max (bracket_bottom : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_10 := (max (bracket_bottom_9 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«3».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«3».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«3».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«3».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«3».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_11 := (max (bracket_bottom_10 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«4».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«4».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«4».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«4».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«4».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_12 := (max (bracket_bottom_11 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«5».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«5».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«5».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«5».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«5».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
+          (irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE.atDate d)));
   let bracket_bottom_13 := (max (bracket_bottom_12 : Rat) (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.bracket.thresholds.«6».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.bracket.thresholds.«6».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.income.bracket.thresholds.«6».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.bracket.thresholds.«6».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.bracket.thresholds.«6».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
-  (if t.irs.hasQdivOrLtcg then (min ((((((((gov.irs.capital_gains.rates.«2».atDate d) *
-      dwks28) + ((gov.irs.capital_gains.rates.«3».atDate d) * dwks31)) +
-      ((gov.irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d) * dwks37)) +
-      ((gov.irs.income.amt.brackets.lastRate d) * ((taxableIncome t d) - (((((dwks19 t d) +
+          (irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE.atDate d)));
+  (if t.irs.hasQdivOrLtcg then (min ((((((((irs.capital_gains.rates.«2».atDate d) * dwks28)
+      + ((irs.capital_gains.rates.«3».atDate d) * dwks31)) +
+      ((irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d) * dwks37)) +
+      ((irs.income.amt.brackets.lastRate d) * ((taxableIncome t d) - (((((dwks19 t d) +
       dwks22) + dwks28) + dwks31) + dwks37)))) + (((((((0 +
-      ((gov.irs.income.bracket.rates.«1».atDate d) * ((min ((max (reg_taxinc : Rat) 0) :
-      Rat) bracket_bottom) - 0))) + ((gov.irs.income.bracket.rates.«2».atDate d) * ((min
-      ((max (reg_taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_9) - bracket_bottom)))
-      + ((gov.irs.income.bracket.rates.«3».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«1».atDate d) * ((min ((max (reg_taxinc : Rat) 0) : Rat)
+      bracket_bottom) - 0))) + ((irs.income.bracket.rates.«2».atDate d) * ((min ((max
+      (reg_taxinc : Rat) bracket_bottom) : Rat) bracket_bottom_9) - bracket_bottom))) +
+      ((irs.income.bracket.rates.«3».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_9) : Rat) bracket_bottom_10) - bracket_bottom_9))) +
-      ((gov.irs.income.bracket.rates.«4».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«4».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_10) : Rat) bracket_bottom_11) - bracket_bottom_10))) +
-      ((gov.irs.income.bracket.rates.«5».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«5».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_11) : Rat) bracket_bottom_12) - bracket_bottom_11))) +
-      ((gov.irs.income.bracket.rates.«6».atDate d) * ((min ((max (reg_taxinc : Rat)
+      ((irs.income.bracket.rates.«6».atDate d) * ((min ((max (reg_taxinc : Rat)
       bracket_bottom_12) : Rat) bracket_bottom_13) - bracket_bottom_12))) +
-      ((gov.irs.income.bracket.rates.«7».atDate d) * ((max (reg_taxinc : Rat)
-      bracket_bottom_13) - bracket_bottom_13)))) + ((gov.irs.capital_gains.rates.«1».atDate
-      d) * dwks22)) : Rat) (incomeTaxMainRates t d)) else (incomeTaxMainRates t d))
+      ((irs.income.bracket.rates.«7».atDate d) * ((max (reg_taxinc : Rat) bracket_bottom_13)
+      - bracket_bottom_13)))) + ((irs.capital_gains.rates.«1».atDate d) * dwks22)) : Rat)
+      (incomeTaxMainRates t d)) else (incomeTaxMainRates t d))
 
 /-- `amt_income_less_exemptions.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/income/`
@@ -3206,15 +3177,14 @@ def amtIncomeLessExemptions (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtHigherBaseTax (t : TaxUnit) (d : Date) : Rat :=
   ((max (0 : Rat) ((amtIncomeLessExemptions t d) -
-      ((gov.irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.multiplier.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.multiplier.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.multiplier.SEPARATE.atDate d)
+      ((irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
+      | FilingStatus.SINGLE => (irs.income.amt.multiplier.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.multiplier.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.multiplier.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
-      | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate d))))) *
-          (gov.irs.income.amt.brackets.rateAt d 1))
+          (irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
+      | FilingStatus.SURVIVING_SPOUSE => (irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate
+          d))))) * (irs.income.amt.brackets.rateAt d 1))
 
 /-- `amt_lower_base_tax.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/
@@ -3222,15 +3192,14 @@ def amtHigherBaseTax (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def amtLowerBaseTax (t : TaxUnit) (d : Date) : Rat :=
   ((min ((amtIncomeLessExemptions t d) : Rat)
-      ((gov.irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.income.amt.multiplier.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.income.amt.multiplier.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.income.amt.multiplier.SEPARATE.atDate d)
+      ((irs.income.amt.brackets.lastThreshold d) * (match t.core.filingStatus with
+      | FilingStatus.SINGLE => (irs.income.amt.multiplier.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.income.amt.multiplier.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.income.amt.multiplier.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
-      | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate d)))) *
-          (gov.irs.income.amt.brackets.rateAt d 0))
+          (irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD.atDate d)
+      | FilingStatus.SURVIVING_SPOUSE => (irs.income.amt.multiplier.SURVIVING_SPOUSE.atDate
+          d)))) * (irs.income.amt.brackets.rateAt d 0))
 
 /-- `amt_tax_including_cg.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/`
@@ -3241,36 +3210,35 @@ def amtTaxIncludingCg (t : TaxUnit) (d : Date) : Rat :=
       (amtIncomeLessExemptions t d))));
   let smaller_of_income_or_cg := (min ((amtIncomeLessExemptions t d) : Rat) (dwks13 t d));
   let reduced_cg_bracket := (max (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«1».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«1».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«1».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«1».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«1».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) - (dwks14 t
-          d)));
+          (irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE.atDate d)) - (dwks14 t d)));
   let amount_at_first_rate := (min (smaller_of_income_or_cg : Rat) reduced_cg_bracket);
   let amount_at_second_rate := (min
       ((max (0 : Rat) (smaller_of_income_or_cg - amount_at_first_rate)) : Rat) (max
       (0 : Rat) ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.thresholds.«2».SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.thresholds.«2».JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.thresholds.«2».SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.thresholds.«2».JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.thresholds.«2».SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) -
+          (irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE.atDate d)) -
           (reduced_cg_bracket + (dwks14 t d)))));
   let taxed_gains_amount := (amount_at_first_rate + amount_at_second_rate);
   let excess_taxed_gains := (max (0 : Rat) (smaller_of_income_or_cg - taxed_gains_amount));
-  (((((gov.irs.income.amt.brackets.marginalCalc d excess_income) + (amount_at_first_rate *
-      (gov.irs.capital_gains.rates.«1».atDate d))) + (amount_at_second_rate *
-      (gov.irs.capital_gains.rates.«2».atDate d))) + (excess_taxed_gains *
-      (gov.irs.capital_gains.rates.«3».atDate d))) + (if (decide
+  (((((irs.income.amt.brackets.marginalCalc d excess_income) + (amount_at_first_rate *
+      (irs.capital_gains.rates.«1».atDate d))) + (amount_at_second_rate *
+      (irs.capital_gains.rates.«2».atDate d))) + (excess_taxed_gains *
+      (irs.capital_gains.rates.«3».atDate d))) + (if (decide
       (t.core.unrecapturedSection1250Gain = 0)) then 0 else ((max (0 : Rat)
       ((amtIncomeLessExemptions t d) - ((excess_income + taxed_gains_amount) +
       excess_taxed_gains))) *
-      (gov.irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d))))
+      (irs.income.amt.capital_gains.capital_gain_excess_tax_rate.atDate d))))
 
 /-- `amt_base_tax.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/alternative_minimum_tax/

@@ -12,76 +12,102 @@ open Lawlib
 
 /-- Illinois determines whether the Health Benefits for Immigrant Adults program is active.
     `gov/states/il/hfs/hbi/eligibility/adult/in_effect.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - HBIA FAQ: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/hbiafaq.html -/
-def gov.states.il.hfs.hbi.eligibility.adult.in_effect : DatedParam Bool :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - HBIA FAQ:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/hbiafaq.html -/
+def states.il.hfs.hbi.eligibility.adult.in_effect : DatedParam Bool :=
   ⟨(⟨2020, 1, 1⟩, false), [(⟨2022, 5, 1⟩, true), (⟨2025, 7, 1⟩, false)]⟩
 
-/-- Illinois limits income to this share of the federal poverty level under the Health Benefits for Immigrant Adults program.
+/-- Illinois limits income to this share of the federal poverty level under the Health Benefits
+    for Immigrant Adults program.
     `gov/states/il/hfs/hbi/eligibility/adult/income_limit.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - Health Benefits for Immigrant Adults: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/healthbenefitsforimmigrantadults.html -/
-def gov.states.il.hfs.hbi.eligibility.adult.income_limit : DatedParam Rate :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - Health Benefits for Immigrant Adults:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/healthbenefitsforimmigrantadults.html -/
+def states.il.hfs.hbi.eligibility.adult.income_limit : DatedParam Rate :=
   ⟨(⟨2022, 1, 1⟩, mkRat 69 50), []⟩
 
-/-- Illinois sets the maximum age to this threshold under the Health Benefits for Immigrant Adults program.
+/-- Illinois sets the maximum age to this threshold under the Health Benefits for Immigrant
+    Adults program.
     `gov/states/il/hfs/hbi/eligibility/adult/max_age.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - Health Benefits for Immigrant Adults: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/healthbenefitsforimmigrantadults.html -/
-def gov.states.il.hfs.hbi.eligibility.adult.max_age : DatedParam Rat :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - Health Benefits for Immigrant Adults:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/healthbenefitsforimmigrantadults.html -/
+def states.il.hfs.hbi.eligibility.adult.max_age : DatedParam Rat :=
   ⟨(⟨2022, 1, 1⟩, 64), []⟩
 
-/-- Illinois sets the minimum age to this threshold under the Health Benefits for Immigrant Adults program.
+/-- Illinois sets the minimum age to this threshold under the Health Benefits for Immigrant
+    Adults program.
     `gov/states/il/hfs/hbi/eligibility/adult/min_age.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - Health Benefits for Immigrant Adults: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/healthbenefitsforimmigrantadults.html -/
-def gov.states.il.hfs.hbi.eligibility.adult.min_age : DatedParam Rat :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - Health Benefits for Immigrant Adults:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants/healthbenefitsforimmigrantadults.html -/
+def states.il.hfs.hbi.eligibility.adult.min_age : DatedParam Rat :=
   ⟨(⟨2022, 5, 1⟩, 55), [(⟨2022, 7, 1⟩, 42)]⟩
 
 /-- Illinois determines whether All Kids immigrant coverage is active.
     `gov/states/il/hfs/hbi/eligibility/child/in_effect.yaml` (policyengine-us).
-    * Illinois HFS - About All Kids: https://hfs.illinois.gov/medicalprograms/allkids/about.html -/
-def gov.states.il.hfs.hbi.eligibility.child.in_effect : DatedParam Bool :=
+    * Illinois HFS - About All Kids:
+      https://hfs.illinois.gov/medicalprograms/allkids/about.html -/
+def states.il.hfs.hbi.eligibility.child.in_effect : DatedParam Bool :=
   ⟨(⟨2006, 1, 1⟩, true), []⟩
 
-/-- Illinois limits income to this share of the federal poverty level for children under the All Kids program.
+/-- Illinois limits income to this share of the federal poverty level for children under the All
+    Kids program.
     `gov/states/il/hfs/hbi/eligibility/child/income_limit.yaml` (policyengine-us).
-    * Illinois HFS - About All Kids: https://hfs.illinois.gov/medicalprograms/allkids/about.html -/
-def gov.states.il.hfs.hbi.eligibility.child.income_limit : DatedParam Rate :=
+    * Illinois HFS - About All Kids:
+      https://hfs.illinois.gov/medicalprograms/allkids/about.html -/
+def states.il.hfs.hbi.eligibility.child.income_limit : DatedParam Rate :=
   ⟨(⟨2006, 1, 1⟩, mkRat 159 50), []⟩
 
 /-- Illinois sets the maximum age to this threshold for children under the All Kids program.
     `gov/states/il/hfs/hbi/eligibility/child/max_age.yaml` (policyengine-us).
-    * Illinois HFS - About All Kids: https://hfs.illinois.gov/medicalprograms/allkids/about.html -/
-def gov.states.il.hfs.hbi.eligibility.child.max_age : DatedParam Rat :=
+    * Illinois HFS - About All Kids:
+      https://hfs.illinois.gov/medicalprograms/allkids/about.html -/
+def states.il.hfs.hbi.eligibility.child.max_age : DatedParam Rat :=
   ⟨(⟨2006, 1, 1⟩, 18), []⟩
 
 /-- Illinois determines whether the Health Benefits for Immigrant Seniors program is active.
     `gov/states/il/hfs/hbi/eligibility/senior/in_effect.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - Health Benefits for Immigrants: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
-def gov.states.il.hfs.hbi.eligibility.senior.in_effect : DatedParam Bool :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - Health Benefits for Immigrants:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
+def states.il.hfs.hbi.eligibility.senior.in_effect : DatedParam Bool :=
   ⟨(⟨2020, 1, 1⟩, false), [(⟨2020, 12, 1⟩, true)]⟩
 
-/-- Illinois limits income to this share of the federal poverty level under the Health Benefits for Immigrant Seniors program.
+/-- Illinois limits income to this share of the federal poverty level under the Health Benefits
+    for Immigrant Seniors program.
     `gov/states/il/hfs/hbi/eligibility/senior/income_limit.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - Health Benefits for Immigrants: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
-def gov.states.il.hfs.hbi.eligibility.senior.income_limit : DatedParam Rate :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - Health Benefits for Immigrants:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
+def states.il.hfs.hbi.eligibility.senior.income_limit : DatedParam Rate :=
   ⟨(⟨2020, 12, 1⟩, 1), []⟩
 
-/-- Illinois sets the minimum age to this threshold under the Health Benefits for Immigrant Seniors program.
+/-- Illinois sets the minimum age to this threshold under the Health Benefits for Immigrant
+    Seniors program.
     `gov/states/il/hfs/hbi/eligibility/senior/min_age.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - Health Benefits for Immigrants: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
-def gov.states.il.hfs.hbi.eligibility.senior.min_age : DatedParam Rat :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - Health Benefits for Immigrants:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
+def states.il.hfs.hbi.eligibility.senior.min_age : DatedParam Rat :=
   ⟨(⟨2020, 12, 1⟩, 65), []⟩
 
-/-- Illinois limits non-exempt resources to this amount per household under the Health Benefits for Immigrant Seniors program.
+/-- Illinois limits non-exempt resources to this amount per household under the Health Benefits
+    for Immigrant Seniors program.
     `gov/states/il/hfs/hbi/eligibility/senior/resource_limit.yaml` (policyengine-us).
-    * Illinois DHS - HBIA and HBIS Policy: https://www.dhs.state.il.us/page.aspx?item=161600
-    * Illinois HFS - Health Benefits for Immigrants: https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
-def gov.states.il.hfs.hbi.eligibility.senior.resource_limit : DatedParam USD :=
+    * Illinois DHS - HBIA and HBIS Policy:
+      https://www.dhs.state.il.us/page.aspx?item=161600
+    * Illinois HFS - Health Benefits for Immigrants:
+      https://hfs.illinois.gov/medicalclients/healthbenefitsforimmigrants.html -/
+def states.il.hfs.hbi.eligibility.senior.resource_limit : DatedParam USD :=
   ⟨(⟨2020, 12, 1⟩, 17500), []⟩
 
 end Lawlib.Parameters

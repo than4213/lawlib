@@ -12,82 +12,488 @@ open Lawlib
 
 /-- Federal taxes included in CBO household income after transfers and taxes.
     `gov/household/cbo_federal_taxes.yaml` (policyengine-us). -/
-def gov.household.cbo_federal_taxes : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["income_tax", "employee_social_security_tax", "employee_medicare_tax", "additional_medicare_tax", "self_employment_tax", "employer_social_security_tax", "employer_medicare_tax", "employer_federal_unemployment_tax", "cbo_corporate_income_tax", "cbo_excise_tax"]), []⟩
+def household.cbo_federal_taxes : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["income_tax",
+      "employee_social_security_tax",
+      "employee_medicare_tax",
+      "additional_medicare_tax",
+      "self_employment_tax",
+      "employer_social_security_tax",
+      "employer_medicare_tax",
+      "employer_federal_unemployment_tax",
+      "cbo_corporate_income_tax",
+      "cbo_excise_tax"]), []⟩
 
 /-- Additional components included in CBO household market income.
     `gov/household/cbo_market_income_additions.yaml` (policyengine-us). -/
-def gov.household.cbo_market_income_additions : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["employer_sponsored_insurance_premiums", "employer_social_security_tax", "employer_medicare_tax", "employer_federal_unemployment_tax"]), []⟩
+def household.cbo_market_income_additions : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["employer_sponsored_insurance_premiums",
+      "employer_social_security_tax",
+      "employer_medicare_tax",
+      "employer_federal_unemployment_tax"]), []⟩
 
 /-- Components removed from PolicyEngine household market income to align with CBO.
     `gov/household/cbo_market_income_subtractions.yaml` (policyengine-us). -/
-def gov.household.cbo_market_income_subtractions : DatedParam (List String) :=
+def household.cbo_market_income_subtractions : DatedParam (List String) :=
   ⟨(⟨0, 1, 1⟩, ["gi_cash_assistance", "ak_permanent_fund_dividend"]), []⟩
 
 /-- Means-tested transfers included in CBO household income after transfers and taxes.
     `gov/household/cbo_means_tested_transfers.yaml` (policyengine-us). -/
-def gov.household.cbo_means_tested_transfers : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["medicaid", "chip", "snap", "spm_unit_capped_housing_subsidy", "ssi", "tanf", "free_school_meals", "reduced_price_school_meals", "spm_unit_energy_subsidy", "general_assistance"]), []⟩
+def household.cbo_means_tested_transfers : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["medicaid",
+      "chip",
+      "snap",
+      "spm_unit_capped_housing_subsidy",
+      "ssi",
+      "tanf",
+      "free_school_meals",
+      "reduced_price_school_meals",
+      "spm_unit_energy_subsidy",
+      "general_assistance"]), []⟩
 
 /-- Social insurance benefits included in CBO household income.
     `gov/household/cbo_social_insurance_benefits.yaml` (policyengine-us). -/
-def gov.household.cbo_social_insurance_benefits : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["social_security", "medicare_gross_cost", "unemployment_compensation", "workers_compensation"]), []⟩
+def household.cbo_social_insurance_benefits : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["social_security",
+      "medicare_gross_cost",
+      "unemployment_compensation",
+      "workers_compensation"]), []⟩
 
-/-- Variables summed into `federal_benefit_cost` — the federal share of benefit expenditures attributed to each person. Extends as programs gain statutory federal/state cost attribution.
+/-- Variables summed into `federal_benefit_cost` — the federal share of benefit expenditures
+    attributed to each person. Extends as programs gain statutory federal/state cost
+    attribution.
     `gov/household/federal_benefit_cost.yaml` (policyengine-us). -/
-def gov.household.federal_benefit_cost : DatedParam (List String) :=
+def household.federal_benefit_cost : DatedParam (List String) :=
   ⟨(⟨2015, 1, 1⟩, ["medicaid_federal_cost", "chip_federal_cost", "msp_federal_cost"]), []⟩
 
 /-- The government counts these sources as household benefits.
     `gov/household/household_benefits.yaml` (policyengine-us). -/
-def gov.household.household_benefits : DatedParam (List String) :=
-  ⟨(⟨2022, 1, 1⟩, ["social_security", "ssi", "snap", "wic", "free_school_meals", "reduced_price_school_meals", "acp", "ebb", "tanf", "high_efficiency_electric_home_rebate", "residential_efficiency_electrification_rebate", "unemployment_compensation", "child_support_received", "workers_compensation", "educational_assistance", "financial_assistance", "survivor_benefits", "head_start", "early_head_start", "ak_energy_relief", "basic_income", "spm_unit_capped_housing_subsidy", "household_state_benefits", "household_health_benefits"]), [(⟨2024, 1, 1⟩, ["social_security", "ssi", "snap", "wic", "free_school_meals", "reduced_price_school_meals", "acp", "ebb", "tanf", "high_efficiency_electric_home_rebate", "residential_efficiency_electrification_rebate", "unemployment_compensation", "child_support_received", "workers_compensation", "educational_assistance", "financial_assistance", "survivor_benefits", "head_start", "early_head_start", "basic_income", "spm_unit_capped_housing_subsidy", "household_state_benefits", "commodity_supplemental_food_program", "household_health_benefits"])]⟩
+def household.household_benefits : DatedParam (List String) :=
+  ⟨(⟨2022, 1, 1⟩, ["social_security",
+      "ssi",
+      "snap",
+      "wic",
+      "free_school_meals",
+      "reduced_price_school_meals",
+      "acp",
+      "ebb",
+      "tanf",
+      "high_efficiency_electric_home_rebate",
+      "residential_efficiency_electrification_rebate",
+      "unemployment_compensation",
+      "child_support_received",
+      "workers_compensation",
+      "educational_assistance",
+      "financial_assistance",
+      "survivor_benefits",
+      "head_start",
+      "early_head_start",
+      "ak_energy_relief",
+      "basic_income",
+      "spm_unit_capped_housing_subsidy",
+      "household_state_benefits",
+      "household_health_benefits"]),
+    [(⟨2024, 1, 1⟩, ["social_security",
+      "ssi",
+      "snap",
+      "wic",
+      "free_school_meals",
+      "reduced_price_school_meals",
+      "acp",
+      "ebb",
+      "tanf",
+      "high_efficiency_electric_home_rebate",
+      "residential_efficiency_electrification_rebate",
+      "unemployment_compensation",
+      "child_support_received",
+      "workers_compensation",
+      "educational_assistance",
+      "financial_assistance",
+      "survivor_benefits",
+      "head_start",
+      "early_head_start",
+      "basic_income",
+      "spm_unit_capped_housing_subsidy",
+      "household_state_benefits",
+      "commodity_supplemental_food_program",
+      "household_health_benefits"])]⟩
 
 /-- The government counts these sources as household benefits.
     `gov/household/household_health_benefits.yaml` (policyengine-us). -/
-def gov.household.household_health_benefits : DatedParam (List String) :=
-  ⟨(⟨2022, 1, 1⟩, ["medicaid_cost", "msp_cost", "chip", "assigned_aca_ptc", "basic_health_program", "co_omnisalud", "or_healthier_oregon_cost"]), []⟩
+def household.household_health_benefits : DatedParam (List String) :=
+  ⟨(⟨2022, 1, 1⟩, ["medicaid_cost",
+      "msp_cost",
+      "chip",
+      "assigned_aca_ptc",
+      "basic_health_program",
+      "co_omnisalud",
+      "or_healthier_oregon_cost"]), []⟩
 
 /-- The government counts these sources as household health out-of-pocket costs.
     `gov/household/household_health_costs.yaml` (policyengine-us). -/
-def gov.household.household_health_costs : DatedParam (List String) :=
+def household.household_health_costs : DatedParam (List String) :=
   ⟨(⟨2022, 1, 1⟩, ["chip_premium", "marketplace_net_premium"]), []⟩
 
 /-- The government counts these sources as benefits paid by local agencies.
     `gov/household/household_local_benefits.yaml` (policyengine-us). -/
-def gov.household.household_local_benefits : DatedParam (List String) :=
+def household.household_local_benefits : DatedParam (List String) :=
   ⟨(⟨2023, 1, 1⟩, ["co_denver_property_tax_relief"]), []⟩
 
 /-- All household refundable credits.
     `gov/household/household_refundable_credits.yaml` (policyengine-us). -/
-def gov.household.household_refundable_credits : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["income_tax_refundable_credits", "al_refundable_credits", "ar_refundable_credits", "az_refundable_credits", "ca_refundable_credits", "co_refundable_credits", "ct_refundable_credits", "dc_refundable_credits", "de_refundable_credits", "ga_refundable_credits", "hi_refundable_credits", "ia_refundable_credits", "id_refundable_credits", "il_refundable_credits", "in_refundable_credits", "ks_refundable_credits", "ky_refundable_credits", "la_refundable_credits", "ma_refundable_credits", "me_refundable_credits", "md_refundable_credits", "mi_refundable_credits", "mn_refundable_credits", "mo_refundable_credits", "ms_refundable_credits", "mt_refundable_credits", "nd_refundable_credits", "ne_refundable_credits", "nh_refundable_credits", "nm_refundable_credits", "nj_refundable_credits", "ny_refundable_credits", "oh_refundable_credits", "ok_refundable_credits", "or_refundable_credits", "pa_refundable_tax_credits", "ri_refundable_credits", "sc_refundable_credits", "wa_refundable_credits", "nyc_refundable_credits", "ut_refundable_credits", "va_refundable_credits", "vt_refundable_credits", "wi_refundable_credits", "wv_refundable_credits"]), []⟩
+def household.household_refundable_credits : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["income_tax_refundable_credits",
+      "al_refundable_credits",
+      "ar_refundable_credits",
+      "az_refundable_credits",
+      "ca_refundable_credits",
+      "co_refundable_credits",
+      "ct_refundable_credits",
+      "dc_refundable_credits",
+      "de_refundable_credits",
+      "ga_refundable_credits",
+      "hi_refundable_credits",
+      "ia_refundable_credits",
+      "id_refundable_credits",
+      "il_refundable_credits",
+      "in_refundable_credits",
+      "ks_refundable_credits",
+      "ky_refundable_credits",
+      "la_refundable_credits",
+      "ma_refundable_credits",
+      "me_refundable_credits",
+      "md_refundable_credits",
+      "mi_refundable_credits",
+      "mn_refundable_credits",
+      "mo_refundable_credits",
+      "ms_refundable_credits",
+      "mt_refundable_credits",
+      "nd_refundable_credits",
+      "ne_refundable_credits",
+      "nh_refundable_credits",
+      "nm_refundable_credits",
+      "nj_refundable_credits",
+      "ny_refundable_credits",
+      "oh_refundable_credits",
+      "ok_refundable_credits",
+      "or_refundable_credits",
+      "pa_refundable_tax_credits",
+      "ri_refundable_credits",
+      "sc_refundable_credits",
+      "wa_refundable_credits",
+      "nyc_refundable_credits",
+      "ut_refundable_credits",
+      "va_refundable_credits",
+      "vt_refundable_credits",
+      "wi_refundable_credits",
+      "wv_refundable_credits"]), []⟩
 
 /-- All household refundable State income tax credits.
     `gov/household/household_refundable_state_credits.yaml` (policyengine-us). -/
-def gov.household.household_refundable_state_credits : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["al_refundable_credits", "ar_refundable_credits", "az_refundable_credits", "ca_refundable_credits", "co_refundable_credits", "ct_refundable_credits", "dc_refundable_credits", "de_refundable_credits", "ga_refundable_credits", "hi_refundable_credits", "ia_refundable_credits", "id_refundable_credits", "il_refundable_credits", "in_refundable_credits", "ks_refundable_credits", "ky_refundable_credits", "la_refundable_credits", "ma_refundable_credits", "me_refundable_credits", "md_refundable_credits", "mi_refundable_credits", "mn_refundable_credits", "mo_refundable_credits", "ms_refundable_credits", "mt_refundable_credits", "nd_refundable_credits", "ne_refundable_credits", "nh_refundable_credits", "nm_refundable_credits", "nj_refundable_credits", "ny_refundable_credits", "oh_refundable_credits", "ok_refundable_credits", "or_refundable_credits", "pa_refundable_tax_credits", "ri_refundable_credits", "sc_refundable_credits", "wa_refundable_credits", "nyc_refundable_credits", "ut_refundable_credits", "va_refundable_credits", "vt_refundable_credits", "wi_refundable_credits", "wv_refundable_credits"]), []⟩
+def household.household_refundable_state_credits : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["al_refundable_credits",
+      "ar_refundable_credits",
+      "az_refundable_credits",
+      "ca_refundable_credits",
+      "co_refundable_credits",
+      "ct_refundable_credits",
+      "dc_refundable_credits",
+      "de_refundable_credits",
+      "ga_refundable_credits",
+      "hi_refundable_credits",
+      "ia_refundable_credits",
+      "id_refundable_credits",
+      "il_refundable_credits",
+      "in_refundable_credits",
+      "ks_refundable_credits",
+      "ky_refundable_credits",
+      "la_refundable_credits",
+      "ma_refundable_credits",
+      "me_refundable_credits",
+      "md_refundable_credits",
+      "mi_refundable_credits",
+      "mn_refundable_credits",
+      "mo_refundable_credits",
+      "ms_refundable_credits",
+      "mt_refundable_credits",
+      "nd_refundable_credits",
+      "ne_refundable_credits",
+      "nh_refundable_credits",
+      "nm_refundable_credits",
+      "nj_refundable_credits",
+      "ny_refundable_credits",
+      "oh_refundable_credits",
+      "ok_refundable_credits",
+      "or_refundable_credits",
+      "pa_refundable_tax_credits",
+      "ri_refundable_credits",
+      "sc_refundable_credits",
+      "wa_refundable_credits",
+      "nyc_refundable_credits",
+      "ut_refundable_credits",
+      "va_refundable_credits",
+      "vt_refundable_credits",
+      "wi_refundable_credits",
+      "wv_refundable_credits"]), []⟩
 
 /-- The government counts these sources as benefits paid by state agencies.
     `gov/household/household_state_benefits.yaml` (policyengine-us). -/
-def gov.household.household_state_benefits : DatedParam (List String) :=
-  ⟨(⟨2023, 1, 1⟩, ["de_ssp", "de_child_care_subsidies", "in_ssp", "ct_ssp", "ga_ssp", "me_ssp", "mo_ssp", "mo_child_care_subsidies", "mt_child_care_subsidies", "ma_state_supplement", "md_paa", "mi_ssp", "mn_msa", "co_state_supplement", "co_oap", "co_child_care_subsidies", "ca_child_care_subsidies", "ca_cvrp", "ca_care", "ca_fera", "ca_la_ez_save", "ca_la_infant_supplement", "ca_la_expectant_parent_payment", "ca_capi", "ca_state_supplement", "al_ssp", "al_child_care_subsidies", "ak_ssp", "az_child_care_subsidies", "fl_oss", "id_aabd", "id_child_care_subsidies", "ky_ssp", "md_child_care_subsidies", "ne_aabd", "ne_child_care_subsidies", "nv_child_care_subsidies", "ok_child_care_subsidies", "sc_child_care_subsidies", "nm_ssi_state_supplement", "sc_ssi_state_supplement", "tx_ssi_state_supplement", "va_child_care_subsidies", "ma_eaedc", "ma_tafdc", "dc_ossp", "ks_sspp", "hi_oss", "wa_ssp", "wa_sfa", "wa_rca", "la_oss", "wa_child_care_subsidies"]), [(⟨2024, 1, 1⟩, ["de_ssp", "de_child_care_subsidies", "in_ssp", "in_child_care_subsidies", "ct_ssp", "ga_ssp", "me_ssp", "mo_ssp", "mo_child_care_subsidies", "mt_child_care_subsidies", "ma_state_supplement", "md_paa", "mi_ssp", "mn_msa", "co_state_supplement", "co_oap", "co_child_care_subsidies", "ca_child_care_subsidies", "ca_cvrp", "ca_care", "ca_fera", "ca_la_ez_save", "ca_la_infant_supplement", "ca_la_expectant_parent_payment", "ca_capi", "ca_state_supplement", "al_ssp", "al_child_care_subsidies", "ak_ssp", "az_child_care_subsidies", "fl_oss", "id_aabd", "id_child_care_subsidies", "ky_ssp", "ga_child_care_subsidies", "md_child_care_subsidies", "ne_aabd", "ne_child_care_subsidies", "nv_child_care_subsidies", "ok_child_care_subsidies", "nm_ssi_state_supplement", "sc_ssi_state_supplement", "tx_ssi_state_supplement", "va_child_care_subsidies", "wv_child_care_subsidies", "nc_scca", "sc_child_care_subsidies", "ma_eaedc", "ma_tafdc", "dc_ossp", "ks_sspp", "hi_oss", "wa_ssp", "wa_sfa", "wa_rca", "la_oss", "ar_child_care_subsidies", "oh_child_care_subsidies", "wa_child_care_subsidies"]), (⟨2026, 1, 1⟩, ["de_ssp", "de_child_care_subsidies", "in_ssp", "in_child_care_subsidies", "ct_ssp", "ga_ssp", "me_ssp", "mo_ssp", "mo_child_care_subsidies", "mt_child_care_subsidies", "ma_state_supplement", "md_paa", "mi_ssp", "mn_msa", "co_state_supplement", "co_oap", "co_child_care_subsidies", "ca_child_care_subsidies", "ca_cvrp", "ca_care", "ca_fera", "ca_la_ez_save", "ca_la_infant_supplement", "ca_la_expectant_parent_payment", "ca_capi", "ca_state_supplement", "al_ssp", "al_child_care_subsidies", "ak_ssp", "az_child_care_subsidies", "fl_oss", "id_aabd", "id_child_care_subsidies", "ky_ssp", "ga_child_care_subsidies", "md_child_care_subsidies", "ne_aabd", "ne_child_care_subsidies", "nv_child_care_subsidies", "ok_child_care_subsidies", "nm_ssi_state_supplement", "sc_ssi_state_supplement", "tx_ssi_state_supplement", "va_child_care_subsidies", "wv_child_care_subsidies", "nc_scca", "sc_child_care_subsidies", "ma_eaedc", "ma_tafdc", "dc_ossp", "ks_sspp", "hi_oss", "wa_ssp", "wa_sfa", "wa_rca", "la_oss", "ar_child_care_subsidies", "oh_child_care_subsidies", "wa_child_care_subsidies", "nj_property_tax_relief"])]⟩
+def household.household_state_benefits : DatedParam (List String) :=
+  ⟨(⟨2023, 1, 1⟩, ["de_ssp",
+      "de_child_care_subsidies",
+      "in_ssp",
+      "ct_ssp",
+      "ga_ssp",
+      "me_ssp",
+      "mo_ssp",
+      "mo_child_care_subsidies",
+      "mt_child_care_subsidies",
+      "ma_state_supplement",
+      "md_paa",
+      "mi_ssp",
+      "mn_msa",
+      "co_state_supplement",
+      "co_oap",
+      "co_child_care_subsidies",
+      "ca_child_care_subsidies",
+      "ca_cvrp",
+      "ca_care",
+      "ca_fera",
+      "ca_la_ez_save",
+      "ca_la_infant_supplement",
+      "ca_la_expectant_parent_payment",
+      "ca_capi",
+      "ca_state_supplement",
+      "al_ssp",
+      "al_child_care_subsidies",
+      "ak_ssp",
+      "az_child_care_subsidies",
+      "fl_oss",
+      "id_aabd",
+      "id_child_care_subsidies",
+      "ky_ssp",
+      "md_child_care_subsidies",
+      "ne_aabd",
+      "ne_child_care_subsidies",
+      "nv_child_care_subsidies",
+      "ok_child_care_subsidies",
+      "sc_child_care_subsidies",
+      "nm_ssi_state_supplement",
+      "sc_ssi_state_supplement",
+      "tx_ssi_state_supplement",
+      "va_child_care_subsidies",
+      "ma_eaedc",
+      "ma_tafdc",
+      "dc_ossp",
+      "ks_sspp",
+      "hi_oss",
+      "wa_ssp",
+      "wa_sfa",
+      "wa_rca",
+      "la_oss",
+      "wa_child_care_subsidies"]),
+    [(⟨2024, 1, 1⟩, ["de_ssp",
+      "de_child_care_subsidies",
+      "in_ssp",
+      "in_child_care_subsidies",
+      "ct_ssp",
+      "ga_ssp",
+      "me_ssp",
+      "mo_ssp",
+      "mo_child_care_subsidies",
+      "mt_child_care_subsidies",
+      "ma_state_supplement",
+      "md_paa",
+      "mi_ssp",
+      "mn_msa",
+      "co_state_supplement",
+      "co_oap",
+      "co_child_care_subsidies",
+      "ca_child_care_subsidies",
+      "ca_cvrp",
+      "ca_care",
+      "ca_fera",
+      "ca_la_ez_save",
+      "ca_la_infant_supplement",
+      "ca_la_expectant_parent_payment",
+      "ca_capi",
+      "ca_state_supplement",
+      "al_ssp",
+      "al_child_care_subsidies",
+      "ak_ssp",
+      "az_child_care_subsidies",
+      "fl_oss",
+      "id_aabd",
+      "id_child_care_subsidies",
+      "ky_ssp",
+      "ga_child_care_subsidies",
+      "md_child_care_subsidies",
+      "ne_aabd",
+      "ne_child_care_subsidies",
+      "nv_child_care_subsidies",
+      "ok_child_care_subsidies",
+      "nm_ssi_state_supplement",
+      "sc_ssi_state_supplement",
+      "tx_ssi_state_supplement",
+      "va_child_care_subsidies",
+      "wv_child_care_subsidies",
+      "nc_scca",
+      "sc_child_care_subsidies",
+      "ma_eaedc",
+      "ma_tafdc",
+      "dc_ossp",
+      "ks_sspp",
+      "hi_oss",
+      "wa_ssp",
+      "wa_sfa",
+      "wa_rca",
+      "la_oss",
+      "ar_child_care_subsidies",
+      "oh_child_care_subsidies",
+      "wa_child_care_subsidies"]),
+     (⟨2026, 1, 1⟩, ["de_ssp",
+      "de_child_care_subsidies",
+      "in_ssp",
+      "in_child_care_subsidies",
+      "ct_ssp",
+      "ga_ssp",
+      "me_ssp",
+      "mo_ssp",
+      "mo_child_care_subsidies",
+      "mt_child_care_subsidies",
+      "ma_state_supplement",
+      "md_paa",
+      "mi_ssp",
+      "mn_msa",
+      "co_state_supplement",
+      "co_oap",
+      "co_child_care_subsidies",
+      "ca_child_care_subsidies",
+      "ca_cvrp",
+      "ca_care",
+      "ca_fera",
+      "ca_la_ez_save",
+      "ca_la_infant_supplement",
+      "ca_la_expectant_parent_payment",
+      "ca_capi",
+      "ca_state_supplement",
+      "al_ssp",
+      "al_child_care_subsidies",
+      "ak_ssp",
+      "az_child_care_subsidies",
+      "fl_oss",
+      "id_aabd",
+      "id_child_care_subsidies",
+      "ky_ssp",
+      "ga_child_care_subsidies",
+      "md_child_care_subsidies",
+      "ne_aabd",
+      "ne_child_care_subsidies",
+      "nv_child_care_subsidies",
+      "ok_child_care_subsidies",
+      "nm_ssi_state_supplement",
+      "sc_ssi_state_supplement",
+      "tx_ssi_state_supplement",
+      "va_child_care_subsidies",
+      "wv_child_care_subsidies",
+      "nc_scca",
+      "sc_child_care_subsidies",
+      "ma_eaedc",
+      "ma_tafdc",
+      "dc_ossp",
+      "ks_sspp",
+      "hi_oss",
+      "wa_ssp",
+      "wa_sfa",
+      "wa_rca",
+      "la_oss",
+      "ar_child_care_subsidies",
+      "oh_child_care_subsidies",
+      "wa_child_care_subsidies",
+      "nj_property_tax_relief"])]⟩
 
 /-- The sum of total tax before refundable credits
     `gov/household/household_tax_before_refundable_credits.yaml` (policyengine-us). -/
-def gov.household.household_tax_before_refundable_credits : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["al_income_tax_before_refundable_credits", "ar_income_tax_before_refundable_credits", "az_income_tax_before_refundable_credits", "ca_income_tax_before_refundable_credits", "co_income_tax_before_refundable_credits", "ct_income_tax_before_refundable_credits", "dc_income_tax_before_refundable_credits", "de_income_tax_before_refundable_credits", "employee_payroll_tax", "flat_tax", "ga_income_tax_before_refundable_credits", "hi_income_tax_before_refundable_credits", "ia_income_tax_before_refundable_credits", "id_income_tax_before_refundable_credits", "income_tax_before_refundable_credits", "il_total_tax", "in_income_tax_before_refundable_credits", "ks_income_tax_before_refundable_credits", "ky_income_tax_before_refundable_credits", "la_income_tax_before_refundable_credits", "me_income_tax_before_refundable_credits", "ma_income_tax_before_refundable_credits", "md_income_tax_before_refundable_credits", "mi_income_tax_before_refundable_credits", "mn_income_tax_before_refundable_credits", "mo_income_tax_before_refundable_credits", "ms_income_tax_before_credits_unit", "mt_income_tax_before_refundable_credits_unit", "nc_income_tax", "nd_income_tax_before_refundable_credits", "ne_income_tax_before_refundable_credits", "nh_income_tax_before_refundable_credits", "nj_income_tax_before_refundable_credits", "nm_income_tax_before_refundable_credits", "ny_income_tax_before_refundable_credits", "oh_income_tax_before_refundable_credits", "or_income_tax_before_refundable_credits", "ok_income_tax_before_refundable_credits", "pa_income_tax", "ri_income_tax_before_refundable_credits", "self_employment_tax", "sc_income_tax_before_refundable_credits", "wa_income_tax_before_refundable_credits", "nyc_income_tax_before_refundable_credits", "ut_income_tax_before_refundable_credits", "va_income_tax_before_refundable_credits", "vt_income_tax_before_refundable_credits", "wi_income_tax_before_refundable_credits", "wv_income_tax_before_refundable_credits"]), []⟩
+def household.household_tax_before_refundable_credits : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["al_income_tax_before_refundable_credits",
+      "ar_income_tax_before_refundable_credits",
+      "az_income_tax_before_refundable_credits",
+      "ca_income_tax_before_refundable_credits",
+      "co_income_tax_before_refundable_credits",
+      "ct_income_tax_before_refundable_credits",
+      "dc_income_tax_before_refundable_credits",
+      "de_income_tax_before_refundable_credits",
+      "employee_payroll_tax",
+      "flat_tax",
+      "ga_income_tax_before_refundable_credits",
+      "hi_income_tax_before_refundable_credits",
+      "ia_income_tax_before_refundable_credits",
+      "id_income_tax_before_refundable_credits",
+      "income_tax_before_refundable_credits",
+      "il_total_tax",
+      "in_income_tax_before_refundable_credits",
+      "ks_income_tax_before_refundable_credits",
+      "ky_income_tax_before_refundable_credits",
+      "la_income_tax_before_refundable_credits",
+      "me_income_tax_before_refundable_credits",
+      "ma_income_tax_before_refundable_credits",
+      "md_income_tax_before_refundable_credits",
+      "mi_income_tax_before_refundable_credits",
+      "mn_income_tax_before_refundable_credits",
+      "mo_income_tax_before_refundable_credits",
+      "ms_income_tax_before_credits_unit",
+      "mt_income_tax_before_refundable_credits_unit",
+      "nc_income_tax",
+      "nd_income_tax_before_refundable_credits",
+      "ne_income_tax_before_refundable_credits",
+      "nh_income_tax_before_refundable_credits",
+      "nj_income_tax_before_refundable_credits",
+      "nm_income_tax_before_refundable_credits",
+      "ny_income_tax_before_refundable_credits",
+      "oh_income_tax_before_refundable_credits",
+      "or_income_tax_before_refundable_credits",
+      "ok_income_tax_before_refundable_credits",
+      "pa_income_tax",
+      "ri_income_tax_before_refundable_credits",
+      "self_employment_tax",
+      "sc_income_tax_before_refundable_credits",
+      "wa_income_tax_before_refundable_credits",
+      "nyc_income_tax_before_refundable_credits",
+      "ut_income_tax_before_refundable_credits",
+      "va_income_tax_before_refundable_credits",
+      "vt_income_tax_before_refundable_credits",
+      "wi_income_tax_before_refundable_credits",
+      "wv_income_tax_before_refundable_credits"]), []⟩
 
 /-- All sources of household market income.
     `gov/household/market_income_sources.yaml` (policyengine-us). -/
-def gov.household.market_income_sources : DatedParam (List String) :=
-  ⟨(⟨0, 1, 1⟩, ["employment_income", "self_employment_income", "sstb_self_employment_income", "partnership_s_corp_income", "gi_cash_assistance", "farm_operations_income", "farm_rent_income", "capital_gains", "interest_income", "rental_income", "dividend_income", "pension_income", "debt_relief", "illicit_income", "retirement_distributions", "miscellaneous_income", "alimony_income", "strike_benefits", "ak_permanent_fund_dividend"]), []⟩
+def household.market_income_sources : DatedParam (List String) :=
+  ⟨(⟨0, 1, 1⟩, ["employment_income",
+      "self_employment_income",
+      "sstb_self_employment_income",
+      "partnership_s_corp_income",
+      "gi_cash_assistance",
+      "farm_operations_income",
+      "farm_rent_income",
+      "capital_gains",
+      "interest_income",
+      "rental_income",
+      "dividend_income",
+      "pension_income",
+      "debt_relief",
+      "illicit_income",
+      "retirement_distributions",
+      "miscellaneous_income",
+      "alimony_income",
+      "strike_benefits",
+      "ak_permanent_fund_dividend"]), []⟩
 
-/-- Variables summed into `state_benefit_cost` — the state-government share of benefit expenditures attributed to each person (distinct from `household_state_benefits`, which sums state-agency-paid standalone benefits like state supplements). Extends as programs gain statutory federal/state cost attribution.
+/-- Variables summed into `state_benefit_cost` — the state-government share of benefit
+    expenditures attributed to each person (distinct from `household_state_benefits`, which sums
+    state-agency-paid standalone benefits like state supplements). Extends as programs gain
+    statutory federal/state cost attribution.
     `gov/household/state_benefit_cost.yaml` (policyengine-us). -/
-def gov.household.state_benefit_cost : DatedParam (List String) :=
+def household.state_benefit_cost : DatedParam (List String) :=
   ⟨(⟨2015, 1, 1⟩, ["medicaid_state_cost", "chip_state_cost", "msp_state_cost"]), []⟩
 
 end Lawlib.Parameters

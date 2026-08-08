@@ -10,16 +10,19 @@ import Lawlib.Core.Scale
 namespace Lawlib.Parameters
 open Lawlib
 
-/-- Texas limits the Lifeline program to individuals with income below this percentage of the federal poverty guidelines.
+/-- Texas limits the Lifeline program to individuals with income below this percentage of the
+    federal poverty guidelines.
     `gov/states/tx/uct/lifeline/fpg_limit.yaml` (policyengine-us).
-    * 16 Tex. Admin. Code § 26.412 - Lifeline Service Program (d)(1): https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-26-412 -/
-def gov.states.tx.uct.lifeline.fpg_limit : DatedParam Rate :=
+    * 16 Tex. Admin. Code § 26.412 - Lifeline Service Program (d)(1):
+      https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-26-412 -/
+def states.tx.uct.lifeline.fpg_limit : DatedParam Rate :=
   ⟨(⟨2014, 1, 1⟩, mkRat 3 2), []⟩
 
 /-- Texas provides an additional Lifeline supplement for eligible individuals of this amount.
     `gov/states/tx/uct/lifeline/supplement.yaml` (policyengine-us).
-    * 16 Tex. Admin. Code § 26.412 - Lifeline Service Program (f)(1)(c): https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-26-412 -/
-def gov.states.tx.uct.lifeline.supplement : DatedParam USD :=
+    * 16 Tex. Admin. Code § 26.412 - Lifeline Service Program (f)(1)(c):
+      https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-26-412 -/
+def states.tx.uct.lifeline.supplement : DatedParam USD :=
   ⟨(⟨2014, 1, 1⟩, mkRat 7 2), []⟩
 
 end Lawlib.Parameters

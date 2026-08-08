@@ -48,642 +48,20 @@ set_option maxRecDepth 8192
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def basicHealthProgramNyAge29DependentChild (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (basicHealthProgramEnrolled t p d) then ((((t.core.stateCode == StateCode.NY) &&
-      (decide ((monthlyAge t p d) ≥
-      (gov.aca.family_tier_dependent_child_age_threshold.atDate d)))) && (decide
-      ((monthlyAge t p d) < (gov.aca.ny_age_29_dependent_child_age_threshold.atDate d)))) &&
+      (decide ((monthlyAge t p d) ≥ (aca.family_tier_dependent_child_age_threshold.atDate d))))
+      && (decide
+      ((monthlyAge t p d) < (aca.ny_age_29_dependent_child_age_threshold.atDate d)))) &&
       (isTaxUnitDependent t p d)) else false)
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/costs/is_medicaid_slcsp_dependent_child.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isMedicaidSlcspDependentChild (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((decide (p.coreP1.age ≤ (gov.aca.slcsp.max_child_age.atDate d))) || ((isTaxUnitDependent
-      t p d) && (decide
-      (p.coreP1.age < (gov.aca.family_tier_dependent_child_age_threshold.atDate d))))) ||
+  (((decide (p.coreP1.age ≤ (aca.slcsp.max_child_age.atDate d))) || ((isTaxUnitDependent t p
+      d) && (decide
+      (p.coreP1.age < (aca.family_tier_dependent_child_age_threshold.atDate d))))) ||
       ((((t.core.stateCode == StateCode.NY) && (isTaxUnitDependent t p d)) && (decide
-      (p.coreP1.age ≥ (gov.aca.family_tier_dependent_child_age_threshold.atDate d)))) &&
-      (decide (p.coreP1.age < (gov.aca.ny_age_29_dependent_child_age_threshold.atDate d)))))
-
-/-- `is_optional_senior_or_disabled_asset_eligible.py`
-    in `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def isOptionalSeniorOrDisabledAssetEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (ExtRat.ltCap (sumBy t.members fun p => (ssiCountableResources t p d)) (if (taxUnitIsJoint
-      t d) then (if t.core.stateCodeStr == "AK" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.AK.atDate
-      d))
-  else if t.core.stateCodeStr == "AL" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.AL.atDate
-      d))
-  else if t.core.stateCodeStr == "AR" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.AR.atDate
-      d))
-  else if t.core.stateCodeStr == "AZ" then
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.AZ.atDate
-      d)
-  else if t.core.stateCodeStr == "CA" then
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.CA.atDate
-      d)
-  else if t.core.stateCodeStr == "CO" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.CO.atDate
-      d))
-  else if t.core.stateCodeStr == "CT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.CT.atDate
-      d))
-  else if t.core.stateCodeStr == "DC" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.DC.atDate
-      d))
-  else if t.core.stateCodeStr == "DE" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.DE.atDate
-      d))
-  else if t.core.stateCodeStr == "FL" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.FL.atDate
-      d))
-  else if t.core.stateCodeStr == "GA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.GA.atDate
-      d))
-  else if t.core.stateCodeStr == "HI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.HI.atDate
-      d))
-  else if t.core.stateCodeStr == "IA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.IA.atDate
-      d))
-  else if t.core.stateCodeStr == "ID" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.ID.atDate
-      d))
-  else if t.core.stateCodeStr == "IL" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.IL.atDate
-      d))
-  else if t.core.stateCodeStr == "IN" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.IN.atDate
-      d))
-  else if t.core.stateCodeStr == "KS" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.KS.atDate
-      d))
-  else if t.core.stateCodeStr == "KY" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.KY.atDate
-      d))
-  else if t.core.stateCodeStr == "LA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.LA.atDate
-      d))
-  else if t.core.stateCodeStr == "MA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.MA.atDate
-      d))
-  else if t.core.stateCodeStr == "MD" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.MD.atDate
-      d))
-  else if t.core.stateCodeStr == "ME" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.ME.atDate
-      d))
-  else if t.core.stateCodeStr == "MI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.MI.atDate
-      d))
-  else if t.core.stateCodeStr == "MN" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.MN.atDate
-      d))
-  else if t.core.stateCodeStr == "MO" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.MO.atDate
-      d))
-  else if t.core.stateCodeStr == "MS" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.MS.atDate
-      d))
-  else if t.core.stateCodeStr == "MT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.MT.atDate
-      d))
-  else if t.core.stateCodeStr == "NC" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.NC.atDate
-      d))
-  else if t.core.stateCodeStr == "ND" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.ND.atDate
-      d))
-  else if t.core.stateCodeStr == "NE" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.NE.atDate
-      d))
-  else if t.core.stateCodeStr == "NH" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.NH.atDate
-      d))
-  else if t.core.stateCodeStr == "NJ" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.NJ.atDate
-      d))
-  else if t.core.stateCodeStr == "NM" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.NM.atDate
-      d))
-  else if t.core.stateCodeStr == "NV" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.NV.atDate
-      d))
-  else if t.core.stateCodeStr == "NY" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.NY.atDate
-      d))
-  else if t.core.stateCodeStr == "OH" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.OH.atDate
-      d))
-  else if t.core.stateCodeStr == "OK" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.OK.atDate
-      d))
-  else if t.core.stateCodeStr == "OR" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.OR.atDate
-      d))
-  else if t.core.stateCodeStr == "PA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.PA.atDate
-      d))
-  else if t.core.stateCodeStr == "RI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.RI.atDate
-      d))
-  else if t.core.stateCodeStr == "SC" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.SC.atDate
-      d))
-  else if t.core.stateCodeStr == "SD" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.SD.atDate
-      d))
-  else if t.core.stateCodeStr == "TN" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.TN.atDate
-      d))
-  else if t.core.stateCodeStr == "TX" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.TX.atDate
-      d))
-  else if t.core.stateCodeStr == "UT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.UT.atDate
-      d))
-  else if t.core.stateCodeStr == "VA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.VA.atDate
-      d))
-  else if t.core.stateCodeStr == "VT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.VT.atDate
-      d))
-  else if t.core.stateCodeStr == "WA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.WA.atDate
-      d))
-  else if t.core.stateCodeStr == "WI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.WI.atDate
-      d))
-  else if t.core.stateCodeStr == "WV" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.WV.atDate
-      d))
-  else (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.couple.WY.atDate
-      d))) else (if t.core.stateCodeStr == "AK" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.AK.atDate
-      d))
-  else if t.core.stateCodeStr == "AL" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.AL.atDate
-      d))
-  else if t.core.stateCodeStr == "AR" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.AR.atDate
-      d))
-  else if t.core.stateCodeStr == "AZ" then
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.AZ.atDate
-      d)
-  else if t.core.stateCodeStr == "CA" then
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.CA.atDate
-      d)
-  else if t.core.stateCodeStr == "CO" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.CO.atDate
-      d))
-  else if t.core.stateCodeStr == "CT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.CT.atDate
-      d))
-  else if t.core.stateCodeStr == "DC" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.DC.atDate
-      d))
-  else if t.core.stateCodeStr == "DE" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.DE.atDate
-      d))
-  else if t.core.stateCodeStr == "FL" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.FL.atDate
-      d))
-  else if t.core.stateCodeStr == "GA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.GA.atDate
-      d))
-  else if t.core.stateCodeStr == "HI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.HI.atDate
-      d))
-  else if t.core.stateCodeStr == "IA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.IA.atDate
-      d))
-  else if t.core.stateCodeStr == "ID" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.ID.atDate
-      d))
-  else if t.core.stateCodeStr == "IL" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.IL.atDate
-      d))
-  else if t.core.stateCodeStr == "IN" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.IN.atDate
-      d))
-  else if t.core.stateCodeStr == "KS" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.KS.atDate
-      d))
-  else if t.core.stateCodeStr == "KY" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.KY.atDate
-      d))
-  else if t.core.stateCodeStr == "LA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.LA.atDate
-      d))
-  else if t.core.stateCodeStr == "MA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.MA.atDate
-      d))
-  else if t.core.stateCodeStr == "MD" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.MD.atDate
-      d))
-  else if t.core.stateCodeStr == "ME" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.ME.atDate
-      d))
-  else if t.core.stateCodeStr == "MI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.MI.atDate
-      d))
-  else if t.core.stateCodeStr == "MN" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.MN.atDate
-      d))
-  else if t.core.stateCodeStr == "MO" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.MO.atDate
-      d))
-  else if t.core.stateCodeStr == "MS" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.MS.atDate
-      d))
-  else if t.core.stateCodeStr == "MT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.MT.atDate
-      d))
-  else if t.core.stateCodeStr == "NC" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.NC.atDate
-      d))
-  else if t.core.stateCodeStr == "ND" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.ND.atDate
-      d))
-  else if t.core.stateCodeStr == "NE" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.NE.atDate
-      d))
-  else if t.core.stateCodeStr == "NH" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.NH.atDate
-      d))
-  else if t.core.stateCodeStr == "NJ" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.NJ.atDate
-      d))
-  else if t.core.stateCodeStr == "NM" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.NM.atDate
-      d))
-  else if t.core.stateCodeStr == "NV" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.NV.atDate
-      d))
-  else if t.core.stateCodeStr == "NY" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.NY.atDate
-      d))
-  else if t.core.stateCodeStr == "OH" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.OH.atDate
-      d))
-  else if t.core.stateCodeStr == "OK" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.OK.atDate
-      d))
-  else if t.core.stateCodeStr == "OR" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.OR.atDate
-      d))
-  else if t.core.stateCodeStr == "PA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.PA.atDate
-      d))
-  else if t.core.stateCodeStr == "RI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.RI.atDate
-      d))
-  else if t.core.stateCodeStr == "SC" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.SC.atDate
-      d))
-  else if t.core.stateCodeStr == "SD" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.SD.atDate
-      d))
-  else if t.core.stateCodeStr == "TN" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.TN.atDate
-      d))
-  else if t.core.stateCodeStr == "TX" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.TX.atDate
-      d))
-  else if t.core.stateCodeStr == "UT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.UT.atDate
-      d))
-  else if t.core.stateCodeStr == "VA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.VA.atDate
-      d))
-  else if t.core.stateCodeStr == "VT" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.VT.atDate
-      d))
-  else if t.core.stateCodeStr == "WA" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.WA.atDate
-      d))
-  else if t.core.stateCodeStr == "WI" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.WI.atDate
-      d))
-  else if t.core.stateCodeStr == "WV" then (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.WV.atDate
-      d))
-  else (ExtRat.fin
-      (gov.hhs.medicaid.eligibility.categories.senior_or_disabled.assets.limit.individual.WY.atDate
-      d)))))
-
-/-- `is_optional_senior_or_disabled_income_eligible.py`
-    in `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def isOptionalSeniorOrDisabledIncomeEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide ((sumBy t.members fun p => p.hhs.medicaidOptionalSeniorOrDisabledCountableIncome)
-      < ((if (taxUnitIsJoint t d) then (if t.core.stateCodeStr == "AK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AK.atDate
-      d
-  else if t.core.stateCodeStr == "AL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AL.atDate
-      d
-  else if t.core.stateCodeStr == "AR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AR.atDate
-      d
-  else if t.core.stateCodeStr == "AZ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AZ.atDate
-      d
-  else if t.core.stateCodeStr == "CA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.CA.atDate
-      d
-  else if t.core.stateCodeStr == "CO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.CO.atDate
-      d
-  else if t.core.stateCodeStr == "CT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.CT.atDate
-      d
-  else if t.core.stateCodeStr == "DC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.DC.atDate
-      d
-  else if t.core.stateCodeStr == "DE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.DE.atDate
-      d
-  else if t.core.stateCodeStr == "FL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.FL.atDate
-      d
-  else if t.core.stateCodeStr == "GA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.GA.atDate
-      d
-  else if t.core.stateCodeStr == "HI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.HI.atDate
-      d
-  else if t.core.stateCodeStr == "IA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.IA.atDate
-      d
-  else if t.core.stateCodeStr == "ID" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.ID.atDate
-      d
-  else if t.core.stateCodeStr == "IL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.IL.atDate
-      d
-  else if t.core.stateCodeStr == "IN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.IN.atDate
-      d
-  else if t.core.stateCodeStr == "KS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.KS.atDate
-      d
-  else if t.core.stateCodeStr == "KY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.KY.atDate
-      d
-  else if t.core.stateCodeStr == "LA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.LA.atDate
-      d
-  else if t.core.stateCodeStr == "MA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MA.atDate
-      d
-  else if t.core.stateCodeStr == "MD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MD.atDate
-      d
-  else if t.core.stateCodeStr == "ME" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.ME.atDate
-      d
-  else if t.core.stateCodeStr == "MI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MI.atDate
-      d
-  else if t.core.stateCodeStr == "MN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MN.atDate
-      d
-  else if t.core.stateCodeStr == "MO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MO.atDate
-      d
-  else if t.core.stateCodeStr == "MS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MS.atDate
-      d
-  else if t.core.stateCodeStr == "MT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MT.atDate
-      d
-  else if t.core.stateCodeStr == "NC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NC.atDate
-      d
-  else if t.core.stateCodeStr == "ND" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.ND.atDate
-      d
-  else if t.core.stateCodeStr == "NE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NE.atDate
-      d
-  else if t.core.stateCodeStr == "NH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NH.atDate
-      d
-  else if t.core.stateCodeStr == "NJ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NJ.atDate
-      d
-  else if t.core.stateCodeStr == "NM" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NM.atDate
-      d
-  else if t.core.stateCodeStr == "NV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NV.atDate
-      d
-  else if t.core.stateCodeStr == "NY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NY.atDate
-      d
-  else if t.core.stateCodeStr == "OH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.OH.atDate
-      d
-  else if t.core.stateCodeStr == "OK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.OK.atDate
-      d
-  else if t.core.stateCodeStr == "OR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.OR.atDate
-      d
-  else if t.core.stateCodeStr == "PA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.PA.atDate
-      d
-  else if t.core.stateCodeStr == "RI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.RI.atDate
-      d
-  else if t.core.stateCodeStr == "SC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.SC.atDate
-      d
-  else if t.core.stateCodeStr == "SD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.SD.atDate
-      d
-  else if t.core.stateCodeStr == "TN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.TN.atDate
-      d
-  else if t.core.stateCodeStr == "TX" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.TX.atDate
-      d
-  else if t.core.stateCodeStr == "UT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.UT.atDate
-      d
-  else if t.core.stateCodeStr == "VA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.VA.atDate
-      d
-  else if t.core.stateCodeStr == "VT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.VT.atDate
-      d
-  else if t.core.stateCodeStr == "WA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WA.atDate
-      d
-  else if t.core.stateCodeStr == "WI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WI.atDate
-      d
-  else if t.core.stateCodeStr == "WV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WV.atDate
-      d
-  else
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WY.atDate
-      d) else (if t.core.stateCodeStr == "AK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AK.atDate
-      d
-  else if t.core.stateCodeStr == "AL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AL.atDate
-      d
-  else if t.core.stateCodeStr == "AR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AR.atDate
-      d
-  else if t.core.stateCodeStr == "AZ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AZ.atDate
-      d
-  else if t.core.stateCodeStr == "CA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.CA.atDate
-      d
-  else if t.core.stateCodeStr == "CO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.CO.atDate
-      d
-  else if t.core.stateCodeStr == "CT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.CT.atDate
-      d
-  else if t.core.stateCodeStr == "DC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.DC.atDate
-      d
-  else if t.core.stateCodeStr == "DE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.DE.atDate
-      d
-  else if t.core.stateCodeStr == "FL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.FL.atDate
-      d
-  else if t.core.stateCodeStr == "GA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.GA.atDate
-      d
-  else if t.core.stateCodeStr == "HI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.HI.atDate
-      d
-  else if t.core.stateCodeStr == "IA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.IA.atDate
-      d
-  else if t.core.stateCodeStr == "ID" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.ID.atDate
-      d
-  else if t.core.stateCodeStr == "IL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.IL.atDate
-      d
-  else if t.core.stateCodeStr == "IN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.IN.atDate
-      d
-  else if t.core.stateCodeStr == "KS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.KS.atDate
-      d
-  else if t.core.stateCodeStr == "KY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.KY.atDate
-      d
-  else if t.core.stateCodeStr == "LA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.LA.atDate
-      d
-  else if t.core.stateCodeStr == "MA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MA.atDate
-      d
-  else if t.core.stateCodeStr == "MD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MD.atDate
-      d
-  else if t.core.stateCodeStr == "ME" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.ME.atDate
-      d
-  else if t.core.stateCodeStr == "MI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MI.atDate
-      d
-  else if t.core.stateCodeStr == "MN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MN.atDate
-      d
-  else if t.core.stateCodeStr == "MO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MO.atDate
-      d
-  else if t.core.stateCodeStr == "MS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MS.atDate
-      d
-  else if t.core.stateCodeStr == "MT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MT.atDate
-      d
-  else if t.core.stateCodeStr == "NC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NC.atDate
-      d
-  else if t.core.stateCodeStr == "ND" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.ND.atDate
-      d
-  else if t.core.stateCodeStr == "NE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NE.atDate
-      d
-  else if t.core.stateCodeStr == "NH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NH.atDate
-      d
-  else if t.core.stateCodeStr == "NJ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NJ.atDate
-      d
-  else if t.core.stateCodeStr == "NM" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NM.atDate
-      d
-  else if t.core.stateCodeStr == "NV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NV.atDate
-      d
-  else if t.core.stateCodeStr == "NY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NY.atDate
-      d
-  else if t.core.stateCodeStr == "OH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.OH.atDate
-      d
-  else if t.core.stateCodeStr == "OK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.OK.atDate
-      d
-  else if t.core.stateCodeStr == "OR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.OR.atDate
-      d
-  else if t.core.stateCodeStr == "PA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.PA.atDate
-      d
-  else if t.core.stateCodeStr == "RI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.RI.atDate
-      d
-  else if t.core.stateCodeStr == "SC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.SC.atDate
-      d
-  else if t.core.stateCodeStr == "SD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.SD.atDate
-      d
-  else if t.core.stateCodeStr == "TN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.TN.atDate
-      d
-  else if t.core.stateCodeStr == "TX" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.TX.atDate
-      d
-  else if t.core.stateCodeStr == "UT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.UT.atDate
-      d
-  else if t.core.stateCodeStr == "VA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.VA.atDate
-      d
-  else if t.core.stateCodeStr == "VT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.VT.atDate
-      d
-  else if t.core.stateCodeStr == "WA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WA.atDate
-      d
-  else if t.core.stateCodeStr == "WI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WI.atDate
-      d
-  else if t.core.stateCodeStr == "WV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WV.atDate
-      d
-  else
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WY.atDate
-      d)) * t.hhs.taxUnitFpg)))
+      (p.coreP1.age ≥ (aca.family_tier_dependent_child_age_threshold.atDate d)))) && (decide
+      (p.coreP1.age < (aca.ny_age_29_dependent_child_age_threshold.atDate d)))))
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_is_tax_dependent.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -691,203 +69,25 @@ def medicaidIsTaxDependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((isTaxUnitDependent t p d) || p.coreP1.claimedAsDependentOnAnotherReturn) ||
       p.hhs.medicaidHasKnownClaimingTaxUnit)
 
-/-- `policyengine_us/variables/gov/hhs/tanf/non_cash/meets_tanf_non_cash_asset_test.py`
-    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
-def meetsTanfNonCashAssetTest (t : TaxUnit) (d : Date) : Bool :=
-  let vehicle_count := (max (t.core.householdVehiclesOwned : Rat) (boolToRat
-      (decide (t.core.householdVehiclesValue > 0))));
-  (ExtRat.leCap ((snapAssets t d) + (if (t.core.stateCodeStr == "TX") then (max
-      ((t.core.householdVehiclesValue - (if (decide (vehicle_count > 0)) then
-      ((gov.hhs.tanf.non_cash.tx_vehicle_exemption.atDate d) + ((max ((vehicle_count - 1) :
-      Rat) 0) * (gov.hhs.tanf.non_cash.tx_additional_vehicle_exemption.atDate d))) else 0))
-      : Rat) 0) else 0)) (if t.core.stateCodeStr == "AK" then
-      (gov.hhs.tanf.non_cash.asset_limit.AK.atDate d)
-  else if t.core.stateCodeStr == "AL" then (gov.hhs.tanf.non_cash.asset_limit.AL.atDate d)
-  else if t.core.stateCodeStr == "AR" then (gov.hhs.tanf.non_cash.asset_limit.AR.atDate d)
-  else if t.core.stateCodeStr == "AZ" then (gov.hhs.tanf.non_cash.asset_limit.AZ.atDate d)
-  else if t.core.stateCodeStr == "CA" then (gov.hhs.tanf.non_cash.asset_limit.CA.atDate d)
-  else if t.core.stateCodeStr == "CO" then (gov.hhs.tanf.non_cash.asset_limit.CO.atDate d)
-  else if t.core.stateCodeStr == "CT" then (gov.hhs.tanf.non_cash.asset_limit.CT.atDate d)
-  else if t.core.stateCodeStr == "DC" then (gov.hhs.tanf.non_cash.asset_limit.DC.atDate d)
-  else if t.core.stateCodeStr == "DE" then (gov.hhs.tanf.non_cash.asset_limit.DE.atDate d)
-  else if t.core.stateCodeStr == "FL" then (gov.hhs.tanf.non_cash.asset_limit.FL.atDate d)
-  else if t.core.stateCodeStr == "GA" then (gov.hhs.tanf.non_cash.asset_limit.GA.atDate d)
-  else if t.core.stateCodeStr == "GU" then (gov.hhs.tanf.non_cash.asset_limit.GU.atDate d)
-  else if t.core.stateCodeStr == "HI" then (gov.hhs.tanf.non_cash.asset_limit.HI.atDate d)
-  else if t.core.stateCodeStr == "IA" then (gov.hhs.tanf.non_cash.asset_limit.IA.atDate d)
-  else if t.core.stateCodeStr == "ID" then (ExtRat.fin
-      (gov.hhs.tanf.non_cash.asset_limit.ID.atDate d))
-  else if t.core.stateCodeStr == "IL" then (gov.hhs.tanf.non_cash.asset_limit.IL.atDate d)
-  else if t.core.stateCodeStr == "IN" then (gov.hhs.tanf.non_cash.asset_limit.IN.atDate d)
-  else if t.core.stateCodeStr == "KS" then (gov.hhs.tanf.non_cash.asset_limit.KS.atDate d)
-  else if t.core.stateCodeStr == "KY" then (gov.hhs.tanf.non_cash.asset_limit.KY.atDate d)
-  else if t.core.stateCodeStr == "LA" then (gov.hhs.tanf.non_cash.asset_limit.LA.atDate d)
-  else if t.core.stateCodeStr == "MA" then (gov.hhs.tanf.non_cash.asset_limit.MA.atDate d)
-  else if t.core.stateCodeStr == "MD" then (gov.hhs.tanf.non_cash.asset_limit.MD.atDate d)
-  else if t.core.stateCodeStr == "ME" then (gov.hhs.tanf.non_cash.asset_limit.ME.atDate d)
-  else if t.core.stateCodeStr == "MI" then (gov.hhs.tanf.non_cash.asset_limit.MI.atDate d)
-  else if t.core.stateCodeStr == "MN" then (gov.hhs.tanf.non_cash.asset_limit.MN.atDate d)
-  else if t.core.stateCodeStr == "MS" then (gov.hhs.tanf.non_cash.asset_limit.MS.atDate d)
-  else if t.core.stateCodeStr == "MT" then (gov.hhs.tanf.non_cash.asset_limit.MT.atDate d)
-  else if t.core.stateCodeStr == "NC" then (gov.hhs.tanf.non_cash.asset_limit.NC.atDate d)
-  else if t.core.stateCodeStr == "ND" then (gov.hhs.tanf.non_cash.asset_limit.ND.atDate d)
-  else if t.core.stateCodeStr == "NE" then (ExtRat.fin
-      (gov.hhs.tanf.non_cash.asset_limit.NE.atDate d))
-  else if t.core.stateCodeStr == "NH" then (gov.hhs.tanf.non_cash.asset_limit.NH.atDate d)
-  else if t.core.stateCodeStr == "NJ" then (gov.hhs.tanf.non_cash.asset_limit.NJ.atDate d)
-  else if t.core.stateCodeStr == "NM" then (gov.hhs.tanf.non_cash.asset_limit.NM.atDate d)
-  else if t.core.stateCodeStr == "NV" then (gov.hhs.tanf.non_cash.asset_limit.NV.atDate d)
-  else if t.core.stateCodeStr == "NY" then (gov.hhs.tanf.non_cash.asset_limit.NY.atDate d)
-  else if t.core.stateCodeStr == "OH" then (gov.hhs.tanf.non_cash.asset_limit.OH.atDate d)
-  else if t.core.stateCodeStr == "OK" then (gov.hhs.tanf.non_cash.asset_limit.OK.atDate d)
-  else if t.core.stateCodeStr == "OR" then (gov.hhs.tanf.non_cash.asset_limit.OR.atDate d)
-  else if t.core.stateCodeStr == "PA" then (gov.hhs.tanf.non_cash.asset_limit.PA.atDate d)
-  else if t.core.stateCodeStr == "RI" then (gov.hhs.tanf.non_cash.asset_limit.RI.atDate d)
-  else if t.core.stateCodeStr == "SC" then (gov.hhs.tanf.non_cash.asset_limit.SC.atDate d)
-  else if t.core.stateCodeStr == "TX" then (ExtRat.fin
-      (gov.hhs.tanf.non_cash.asset_limit.TX.atDate d))
-  else if t.core.stateCodeStr == "UT" then (gov.hhs.tanf.non_cash.asset_limit.UT.atDate d)
-  else if t.core.stateCodeStr == "VA" then (gov.hhs.tanf.non_cash.asset_limit.VA.atDate d)
-  else if t.core.stateCodeStr == "VI" then (gov.hhs.tanf.non_cash.asset_limit.VI.atDate d)
-  else if t.core.stateCodeStr == "VT" then (gov.hhs.tanf.non_cash.asset_limit.VT.atDate d)
-  else if t.core.stateCodeStr == "WA" then (gov.hhs.tanf.non_cash.asset_limit.WA.atDate d)
-  else if t.core.stateCodeStr == "WI" then (gov.hhs.tanf.non_cash.asset_limit.WI.atDate d)
-  else if t.core.stateCodeStr == "WV" then (gov.hhs.tanf.non_cash.asset_limit.WV.atDate d)
-  else (gov.hhs.tanf.non_cash.asset_limit.WY.atDate d)))
-
-/-- `msp_asset_eligible.py`
-    in `policyengine_us/variables/gov/hhs/medicare/savings_programs/eligibility/`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def mspAssetEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (if t.core.stateCodeStr == "AK" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.AK.atDate d
-  else if t.core.stateCodeStr == "AL" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.AL.atDate d
-  else if t.core.stateCodeStr == "AR" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.AR.atDate d
-  else if t.core.stateCodeStr == "AZ" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.AZ.atDate d
-  else if t.core.stateCodeStr == "CA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.CA.atDate d
-  else if t.core.stateCodeStr == "CO" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.CO.atDate d
-  else if t.core.stateCodeStr == "CT" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.CT.atDate d
-  else if t.core.stateCodeStr == "DC" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.DC.atDate d
-  else if t.core.stateCodeStr == "DE" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.DE.atDate d
-  else if t.core.stateCodeStr == "FL" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.FL.atDate d
-  else if t.core.stateCodeStr == "GA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.GA.atDate d
-  else if t.core.stateCodeStr == "HI" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.HI.atDate d
-  else if t.core.stateCodeStr == "IA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.IA.atDate d
-  else if t.core.stateCodeStr == "ID" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.ID.atDate d
-  else if t.core.stateCodeStr == "IL" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.IL.atDate d
-  else if t.core.stateCodeStr == "IN" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.IN.atDate d
-  else if t.core.stateCodeStr == "KS" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.KS.atDate d
-  else if t.core.stateCodeStr == "KY" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.KY.atDate d
-  else if t.core.stateCodeStr == "LA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.LA.atDate d
-  else if t.core.stateCodeStr == "MA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.MA.atDate d
-  else if t.core.stateCodeStr == "MD" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.MD.atDate d
-  else if t.core.stateCodeStr == "ME" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.ME.atDate d
-  else if t.core.stateCodeStr == "MI" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.MI.atDate d
-  else if t.core.stateCodeStr == "MN" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.MN.atDate d
-  else if t.core.stateCodeStr == "MO" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.MO.atDate d
-  else if t.core.stateCodeStr == "MS" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.MS.atDate d
-  else if t.core.stateCodeStr == "MT" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.MT.atDate d
-  else if t.core.stateCodeStr == "NC" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.NC.atDate d
-  else if t.core.stateCodeStr == "ND" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.ND.atDate d
-  else if t.core.stateCodeStr == "NE" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.NE.atDate d
-  else if t.core.stateCodeStr == "NH" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.NH.atDate d
-  else if t.core.stateCodeStr == "NJ" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.NJ.atDate d
-  else if t.core.stateCodeStr == "NM" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.NM.atDate d
-  else if t.core.stateCodeStr == "NV" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.NV.atDate d
-  else if t.core.stateCodeStr == "NY" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.NY.atDate d
-  else if t.core.stateCodeStr == "OH" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.OH.atDate d
-  else if t.core.stateCodeStr == "OK" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.OK.atDate d
-  else if t.core.stateCodeStr == "OR" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.OR.atDate d
-  else if t.core.stateCodeStr == "PA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.PA.atDate d
-  else if t.core.stateCodeStr == "RI" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.RI.atDate d
-  else if t.core.stateCodeStr == "SC" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.SC.atDate d
-  else if t.core.stateCodeStr == "SD" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.SD.atDate d
-  else if t.core.stateCodeStr == "TN" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.TN.atDate d
-  else if t.core.stateCodeStr == "TX" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.TX.atDate d
-  else if t.core.stateCodeStr == "UT" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.UT.atDate d
-  else if t.core.stateCodeStr == "VA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.VA.atDate d
-  else if t.core.stateCodeStr == "VT" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.VT.atDate d
-  else if t.core.stateCodeStr == "WA" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.WA.atDate d
-  else if t.core.stateCodeStr == "WI" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.WI.atDate d
-  else if t.core.stateCodeStr == "WV" then
-      gov.hhs.medicare.savings_programs.eligibility.asset.applies.WV.atDate d
-  else gov.hhs.medicare.savings_programs.eligibility.asset.applies.WY.atDate d) then (decide
-      ((if (spmUnitIsMarried t d) then (if (p.coreP1.isTaxUnitHead ||
-      p.coreP1.isTaxUnitSpouse) then (sumBy t.members fun q => if
-      (q.coreP1.isTaxUnitHead || q.coreP1.isTaxUnitSpouse) then
-      (ssiCountableResources t q d) else 0) else (ssiCountableResources t p d)) else
-      (ssiCountableResources t p d)) ≤ (if (spmUnitIsMarried t d) then
-      (gov.hhs.medicare.savings_programs.eligibility.asset.couple.atDate d) else
-      (gov.hhs.medicare.savings_programs.eligibility.asset.individual.atDate d)))) else
-      true)
-
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/income/msp_fpg.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def mspFpg (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  let individual_fpg := (if t.core.stateGroupStr == "AK" then
-      gov.hhs.fpg.first_person.AK.atDate d
+  let individual_fpg := (if t.core.stateGroupStr == "AK" then hhs.fpg.first_person.AK.atDate
+      d
   else if t.core.stateGroupStr == "CONTIGUOUS_US" then
-      gov.hhs.fpg.first_person.CONTIGUOUS_US.atDate d
-  else if t.core.stateGroupStr == "GU" then gov.hhs.fpg.first_person.GU.atDate d
-  else if t.core.stateGroupStr == "HI" then gov.hhs.fpg.first_person.HI.atDate d
-  else if t.core.stateGroupStr == "PR" then gov.hhs.fpg.first_person.PR.atDate d
-  else gov.hhs.fpg.first_person.VI.atDate d);
+      hhs.fpg.first_person.CONTIGUOUS_US.atDate d
+  else if t.core.stateGroupStr == "GU" then hhs.fpg.first_person.GU.atDate d
+  else if t.core.stateGroupStr == "HI" then hhs.fpg.first_person.HI.atDate d
+  else if t.core.stateGroupStr == "PR" then hhs.fpg.first_person.PR.atDate d
+  else hhs.fpg.first_person.VI.atDate d);
   (if (spmUnitIsMarried t d) then (individual_fpg +
-      (if t.core.stateGroupStr == "AK" then gov.hhs.fpg.additional_person.AK.atDate d
+      (if t.core.stateGroupStr == "AK" then hhs.fpg.additional_person.AK.atDate d
   else if t.core.stateGroupStr == "CONTIGUOUS_US" then
-      gov.hhs.fpg.additional_person.CONTIGUOUS_US.atDate d
-  else if t.core.stateGroupStr == "GU" then gov.hhs.fpg.additional_person.GU.atDate d
-  else if t.core.stateGroupStr == "HI" then gov.hhs.fpg.additional_person.HI.atDate d
-  else if t.core.stateGroupStr == "PR" then gov.hhs.fpg.additional_person.PR.atDate d
-  else gov.hhs.fpg.additional_person.VI.atDate d)) else individual_fpg)
+      hhs.fpg.additional_person.CONTIGUOUS_US.atDate d
+  else if t.core.stateGroupStr == "GU" then hhs.fpg.additional_person.GU.atDate d
+  else if t.core.stateGroupStr == "HI" then hhs.fpg.additional_person.HI.atDate d
+  else if t.core.stateGroupStr == "PR" then hhs.fpg.additional_person.PR.atDate d
+  else hhs.fpg.additional_person.VI.atDate d)) else individual_fpg)
 
 /-- `policyengine_us/variables/gov/hhs/tanf/cash/income/tanf_gross_unearned_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -910,365 +110,46 @@ def tanfGrossUnearnedIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     in `policyengine_us/variables/gov/hhs/basic_health_program/`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def basicHealthProgramFamilyTierDependentChild (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (basicHealthProgramEnrolled t p d) then (((decide ((monthlyAge t p d) ≤
-      (gov.aca.slcsp.max_child_age.atDate d))) || ((isTaxUnitDependent t p d) && (decide
-      ((monthlyAge t p d) < (gov.aca.family_tier_dependent_child_age_threshold.atDate d)))))
+  (if (basicHealthProgramEnrolled t p d) then (((decide
+      ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d))) ||
+      ((isTaxUnitDependent t p d) &&
+      (decide ((monthlyAge t p d) < (aca.family_tier_dependent_child_age_threshold.atDate d)))))
       || (basicHealthProgramNyAge29DependentChild t p d)) else false)
-
-/-- `is_209b_ssi_recipient_income_eligible_for_medicaid.py`
-    in `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def is209bSsiRecipientIncomeEligibleForMedicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((isOptionalSeniorOrDisabledIncomeEligible t p d) || (decide ((sumBy t.members fun p =>
-      (p.hhs.medicaidOptionalSeniorOrDisabledCountableIncome -
-      (medicaidMedicallyNeedyMedicalExpenses t p d))) ≤ ((if (taxUnitIsJoint t d) then (if
-      t.core.stateCodeStr == "AK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AK.atDate
-      d
-  else if t.core.stateCodeStr == "AL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AL.atDate
-      d
-  else if t.core.stateCodeStr == "AR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AR.atDate
-      d
-  else if t.core.stateCodeStr == "AZ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.AZ.atDate
-      d
-  else if t.core.stateCodeStr == "CA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.CA.atDate
-      d
-  else if t.core.stateCodeStr == "CO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.CO.atDate
-      d
-  else if t.core.stateCodeStr == "CT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.CT.atDate
-      d
-  else if t.core.stateCodeStr == "DC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.DC.atDate
-      d
-  else if t.core.stateCodeStr == "DE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.DE.atDate
-      d
-  else if t.core.stateCodeStr == "FL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.FL.atDate
-      d
-  else if t.core.stateCodeStr == "GA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.GA.atDate
-      d
-  else if t.core.stateCodeStr == "HI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.HI.atDate
-      d
-  else if t.core.stateCodeStr == "IA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.IA.atDate
-      d
-  else if t.core.stateCodeStr == "ID" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.ID.atDate
-      d
-  else if t.core.stateCodeStr == "IL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.IL.atDate
-      d
-  else if t.core.stateCodeStr == "IN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.IN.atDate
-      d
-  else if t.core.stateCodeStr == "KS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.KS.atDate
-      d
-  else if t.core.stateCodeStr == "KY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.KY.atDate
-      d
-  else if t.core.stateCodeStr == "LA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.LA.atDate
-      d
-  else if t.core.stateCodeStr == "MA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MA.atDate
-      d
-  else if t.core.stateCodeStr == "MD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MD.atDate
-      d
-  else if t.core.stateCodeStr == "ME" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.ME.atDate
-      d
-  else if t.core.stateCodeStr == "MI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MI.atDate
-      d
-  else if t.core.stateCodeStr == "MN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MN.atDate
-      d
-  else if t.core.stateCodeStr == "MO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MO.atDate
-      d
-  else if t.core.stateCodeStr == "MS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MS.atDate
-      d
-  else if t.core.stateCodeStr == "MT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.MT.atDate
-      d
-  else if t.core.stateCodeStr == "NC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NC.atDate
-      d
-  else if t.core.stateCodeStr == "ND" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.ND.atDate
-      d
-  else if t.core.stateCodeStr == "NE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NE.atDate
-      d
-  else if t.core.stateCodeStr == "NH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NH.atDate
-      d
-  else if t.core.stateCodeStr == "NJ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NJ.atDate
-      d
-  else if t.core.stateCodeStr == "NM" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NM.atDate
-      d
-  else if t.core.stateCodeStr == "NV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NV.atDate
-      d
-  else if t.core.stateCodeStr == "NY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.NY.atDate
-      d
-  else if t.core.stateCodeStr == "OH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.OH.atDate
-      d
-  else if t.core.stateCodeStr == "OK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.OK.atDate
-      d
-  else if t.core.stateCodeStr == "OR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.OR.atDate
-      d
-  else if t.core.stateCodeStr == "PA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.PA.atDate
-      d
-  else if t.core.stateCodeStr == "RI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.RI.atDate
-      d
-  else if t.core.stateCodeStr == "SC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.SC.atDate
-      d
-  else if t.core.stateCodeStr == "SD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.SD.atDate
-      d
-  else if t.core.stateCodeStr == "TN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.TN.atDate
-      d
-  else if t.core.stateCodeStr == "TX" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.TX.atDate
-      d
-  else if t.core.stateCodeStr == "UT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.UT.atDate
-      d
-  else if t.core.stateCodeStr == "VA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.VA.atDate
-      d
-  else if t.core.stateCodeStr == "VT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.VT.atDate
-      d
-  else if t.core.stateCodeStr == "WA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WA.atDate
-      d
-  else if t.core.stateCodeStr == "WI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WI.atDate
-      d
-  else if t.core.stateCodeStr == "WV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WV.atDate
-      d
-  else
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.couple.WY.atDate
-      d) else (if t.core.stateCodeStr == "AK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AK.atDate
-      d
-  else if t.core.stateCodeStr == "AL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AL.atDate
-      d
-  else if t.core.stateCodeStr == "AR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AR.atDate
-      d
-  else if t.core.stateCodeStr == "AZ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.AZ.atDate
-      d
-  else if t.core.stateCodeStr == "CA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.CA.atDate
-      d
-  else if t.core.stateCodeStr == "CO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.CO.atDate
-      d
-  else if t.core.stateCodeStr == "CT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.CT.atDate
-      d
-  else if t.core.stateCodeStr == "DC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.DC.atDate
-      d
-  else if t.core.stateCodeStr == "DE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.DE.atDate
-      d
-  else if t.core.stateCodeStr == "FL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.FL.atDate
-      d
-  else if t.core.stateCodeStr == "GA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.GA.atDate
-      d
-  else if t.core.stateCodeStr == "HI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.HI.atDate
-      d
-  else if t.core.stateCodeStr == "IA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.IA.atDate
-      d
-  else if t.core.stateCodeStr == "ID" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.ID.atDate
-      d
-  else if t.core.stateCodeStr == "IL" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.IL.atDate
-      d
-  else if t.core.stateCodeStr == "IN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.IN.atDate
-      d
-  else if t.core.stateCodeStr == "KS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.KS.atDate
-      d
-  else if t.core.stateCodeStr == "KY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.KY.atDate
-      d
-  else if t.core.stateCodeStr == "LA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.LA.atDate
-      d
-  else if t.core.stateCodeStr == "MA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MA.atDate
-      d
-  else if t.core.stateCodeStr == "MD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MD.atDate
-      d
-  else if t.core.stateCodeStr == "ME" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.ME.atDate
-      d
-  else if t.core.stateCodeStr == "MI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MI.atDate
-      d
-  else if t.core.stateCodeStr == "MN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MN.atDate
-      d
-  else if t.core.stateCodeStr == "MO" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MO.atDate
-      d
-  else if t.core.stateCodeStr == "MS" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MS.atDate
-      d
-  else if t.core.stateCodeStr == "MT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.MT.atDate
-      d
-  else if t.core.stateCodeStr == "NC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NC.atDate
-      d
-  else if t.core.stateCodeStr == "ND" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.ND.atDate
-      d
-  else if t.core.stateCodeStr == "NE" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NE.atDate
-      d
-  else if t.core.stateCodeStr == "NH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NH.atDate
-      d
-  else if t.core.stateCodeStr == "NJ" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NJ.atDate
-      d
-  else if t.core.stateCodeStr == "NM" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NM.atDate
-      d
-  else if t.core.stateCodeStr == "NV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NV.atDate
-      d
-  else if t.core.stateCodeStr == "NY" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.NY.atDate
-      d
-  else if t.core.stateCodeStr == "OH" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.OH.atDate
-      d
-  else if t.core.stateCodeStr == "OK" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.OK.atDate
-      d
-  else if t.core.stateCodeStr == "OR" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.OR.atDate
-      d
-  else if t.core.stateCodeStr == "PA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.PA.atDate
-      d
-  else if t.core.stateCodeStr == "RI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.RI.atDate
-      d
-  else if t.core.stateCodeStr == "SC" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.SC.atDate
-      d
-  else if t.core.stateCodeStr == "SD" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.SD.atDate
-      d
-  else if t.core.stateCodeStr == "TN" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.TN.atDate
-      d
-  else if t.core.stateCodeStr == "TX" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.TX.atDate
-      d
-  else if t.core.stateCodeStr == "UT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.UT.atDate
-      d
-  else if t.core.stateCodeStr == "VA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.VA.atDate
-      d
-  else if t.core.stateCodeStr == "VT" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.VT.atDate
-      d
-  else if t.core.stateCodeStr == "WA" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WA.atDate
-      d
-  else if t.core.stateCodeStr == "WI" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WI.atDate
-      d
-  else if t.core.stateCodeStr == "WV" then
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WV.atDate
-      d
-  else
-      gov.hhs.medicaid.eligibility.categories.senior_or_disabled.income.limit.individual.WY.atDate
-      d)) * t.hhs.taxUnitFpg))))
-
-/-- `is_optional_senior_or_disabled_for_medicaid.py`
-    in `policyengine_us/variables/gov/hhs/medicaid/eligibility/categories/`
-    policyengine-us 1.783.0, entity person, value_type bool. -/
-def isOptionalSeniorOrDisabledForMedicaid (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((p.ssa.isSsiAgedBlindDisabled && (isOptionalSeniorOrDisabledIncomeEligible t p d)) &&
-      (isOptionalSeniorOrDisabledAssetEligible t p d))
 
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_qi_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isQiEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   let fpg := ((mspFpg t p d) / 12);
   ((((isMedicareEligible t p d) && ((decide (p.hhs.mspCountableIncome ≥
-      (fpg * (gov.hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d))))
+      (fpg * (hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d))))
       && (decide (p.hhs.mspCountableIncome <
-      (fpg * (gov.hhs.medicare.savings_programs.eligibility.income.qi.fpl_limit.atDate d))))))
-      && (mspAssetEligible t p d)) && (!p.hhs.isMedicaidEligible))
+      (fpg * (hhs.medicare.savings_programs.eligibility.income.qi.fpl_limit.atDate d))))))
+      && p.hhs.mspAssetEligible) && (!p.hhs.isMedicaidEligible))
 
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_qmb_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isQmbEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((isMedicareEligible t p d) && (decide (p.hhs.mspCountableIncome ≤ (((mspFpg t p d) / 12)
-      * (gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d))))) &&
-      (mspAssetEligible t p d))
+      * (hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d))))) &&
+      p.hhs.mspAssetEligible)
 
 /-- `policyengine_us/variables/gov/hhs/medicare/savings_programs/category/is_slmb_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isSlmbEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   let fpg := ((mspFpg t p d) / 12);
   (((isMedicareEligible t p d) && ((decide (p.hhs.mspCountableIncome > (fpg *
-      (gov.hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d)))) &&
+      (hhs.medicare.savings_programs.eligibility.income.qmb.fpl_limit.atDate d)))) &&
       (decide (p.hhs.mspCountableIncome < (fpg *
-      (gov.hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d)))))) &&
-      (mspAssetEligible t p d))
+      (hhs.medicare.savings_programs.eligibility.income.slmb.fpl_limit.atDate d)))))) &&
+      p.hhs.mspAssetEligible)
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/income/medicaid_non_filer_child_age_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def medicaidNonFilerChildAgeEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((decide (p.coreP1.age < (gov.hhs.medicaid.household.child_age_limit.non_student.atDate
-      d))) || (((gov.hhs.medicaid.household.uses_full_time_student_under_21_rule.atDate d)
-      && (isFullTimeStudent t p d)) && (decide (p.coreP1.age <
-      (gov.hhs.medicaid.household.child_age_limit.student.atDate d)))))
+  ((decide (p.coreP1.age < (hhs.medicaid.household.child_age_limit.non_student.atDate d)))
+      || (((hhs.medicaid.household.uses_full_time_student_under_21_rule.atDate d) &&
+      (isFullTimeStudent t p d)) && (decide (p.coreP1.age <
+      (hhs.medicaid.household.child_age_limit.student.atDate d)))))
 
 /-- `policyengine_us/variables/gov/hhs/medicaid/costs/medicaid_slcsp_family_tier_category.py`
     policyengine-us 1.783.0, entity tax_unit, value_type Enum. -/
@@ -1295,7 +176,7 @@ def medicaidSlcspFamilyTierCategory (t : TaxUnit) (d : Date) : FamilyTierCategor
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def mspIncomeEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide (p.hhs.mspCountableIncome < (((mspFpg t p d) / 12) *
-      (gov.hhs.medicare.savings_programs.eligibility.income.qi.fpl_limit.atDate d))))
+      (hhs.medicare.savings_programs.eligibility.income.qi.fpl_limit.atDate d))))
 
 /-- `basic_health_program_family_tier_category.py`
     in `policyengine_us/variables/gov/hhs/basic_health_program/`
@@ -1308,11 +189,11 @@ def basicHealthProgramFamilyTierCategory (t : TaxUnit) (d : Date) : FamilyTierCa
   let eligible_adult_count := (if has_adult_anchor then non_dependent_adult_count else
       (sumBy t.members fun p => (boolToRat ((basicHealthProgramEnrolled t p d) &&
       (!((basicHealthProgramEnrolled t p d) &&
-      (decide ((monthlyAge t p d) ≤ (gov.aca.slcsp.max_child_age.atDate d)))))))));
+      (decide ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d)))))))));
   let eligible_child_count := (if has_adult_anchor then (sumBy t.members fun p => (boolToRat
       (basicHealthProgramFamilyTierDependentChild t p d))) else (sumBy t.members fun p =>
       (boolToRat ((basicHealthProgramEnrolled t p d) &&
-      (decide ((monthlyAge t p d) ≤ (gov.aca.slcsp.max_child_age.atDate d)))))));
+      (decide ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d)))))));
   (if t.aca.slcspFamilyTierApplies then (if (((t.core.stateCode == StateCode.NY) && (decide
       (eligible_adult_count = 0))) && (decide (eligible_child_count > 0))) then
       FamilyTierCategory.CHILD_ONLY else (if ((decide (eligible_adult_count = 1)) && (decide
@@ -1345,26 +226,26 @@ def mspCategory (t : TaxUnit) (p : Person) (d : Date) : MSPCategory :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def basicHealthProgramFamilyTierMultiplier (t : TaxUnit) (d : Date) : Rat :=
   let in_ny := (t.core.stateCode == StateCode.NY);
-  let one_adult := (if in_ny then (gov.aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
-      (gov.aca.family_tier_ratings.vt.ONE_ADULT.atDate d));
+  let one_adult := (if in_ny then (aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
+      (aca.family_tier_ratings.vt.ONE_ADULT.atDate d));
   (if t.aca.slcspFamilyTierApplies then (((if ((basicHealthProgramFamilyTierCategory t d) ==
       FamilyTierCategory.ONE_ADULT) then one_adult else (if
       ((basicHealthProgramFamilyTierCategory t d) == FamilyTierCategory.TWO_ADULTS) then (if
-      in_ny then (gov.aca.family_tier_ratings.ny.TWO_ADULTS.atDate d) else
-      (gov.aca.family_tier_ratings.vt.TWO_ADULTS.atDate d)) else (if
+      in_ny then (aca.family_tier_ratings.ny.TWO_ADULTS.atDate d) else
+      (aca.family_tier_ratings.vt.TWO_ADULTS.atDate d)) else (if
       ((basicHealthProgramFamilyTierCategory t d) ==
       FamilyTierCategory.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d) else
-      (gov.aca.family_tier_ratings.vt.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
+      (aca.family_tier_ratings.ny.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d) else
+      (aca.family_tier_ratings.vt.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
       ((basicHealthProgramFamilyTierCategory t d) ==
       FamilyTierCategory.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d) else
-      (gov.aca.family_tier_ratings.vt.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d)) else
-      (if ((basicHealthProgramFamilyTierCategory t d) == FamilyTierCategory.CHILD_ONLY) then
-      (if in_ny then (gov.aca.family_tier_ratings.ny.CHILD_ONLY.atDate d) else 0) else
-      0))))) * (if (anyBy t.members fun p => (basicHealthProgramNyAge29DependentChild t p
-      d)) then (gov.aca.ny_age_29_dependent_child_tier_multiplier.atDate d) else 1)) + ((max
-      (((sumBy t.members fun p => (boolToRat ((basicHealthProgramEnrolled t p d) &&
+      (aca.family_tier_ratings.ny.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d) else
+      (aca.family_tier_ratings.vt.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
+      ((basicHealthProgramFamilyTierCategory t d) == FamilyTierCategory.CHILD_ONLY) then (if
+      in_ny then (aca.family_tier_ratings.ny.CHILD_ONLY.atDate d) else 0) else 0))))) * (if
+      (anyBy t.members fun p => (basicHealthProgramNyAge29DependentChild t p d)) then
+      (aca.ny_age_29_dependent_child_tier_multiplier.atDate d) else 1)) + ((max (((sumBy
+      t.members fun p => (boolToRat ((basicHealthProgramEnrolled t p d) &&
       (!(basicHealthProgramFamilyTierDependentChild t p d))))) - 2) : Rat) 0) * one_adult))
       else 0)
 

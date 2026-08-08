@@ -63,8 +63,8 @@ def ssiClaimIsJoint (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def isSsiBlindOrDisabledWorkingStudentExclusionEligible (t : TaxUnit) (p : Person) (d : Date) :
     Rat :=
   (boolToRat (((decide (p.coreP1.age <
-      (gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.age_limit.atDate d)))
-      && (isFullTimeStudent t p d)) && (p.coreP1.isBlind || p.coreP1.isDisabled)))
+      (ssa.ssi.income.exclusions.blind_or_disabled_working_student.age_limit.atDate d))) &&
+      (isFullTimeStudent t p d)) && (p.coreP1.isBlind || p.coreP1.isDisabled)))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_ineligible_spouse.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -79,8 +79,8 @@ def meetsSsiResourceTest (t : TaxUnit) (p : Person) (d : Date) : Bool :=
       p.coreP1.isTaxUnitSpouse) then (sumBy t.members fun q => if (q.coreP1.isTaxUnitHead ||
       q.coreP1.isTaxUnitSpouse) then (ssiCountableResources t q d) else 0) else
       (ssiCountableResources t p d)) else (ssiCountableResources t p d)) ≤ (if
-      (ssiClaimIsJoint t p d) then (gov.ssa.ssi.eligibility.resources.limit.couple.atDate d)
-      else (gov.ssa.ssi.eligibility.resources.limit.individual.atDate d))))
+      (ssiClaimIsJoint t p d) then (ssa.ssi.eligibility.resources.limit.couple.atDate d)
+      else (ssa.ssi.eligibility.resources.limit.individual.atDate d))))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/ssi_couple_computation_applies.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -97,17 +97,16 @@ def ssiCoupleComputationApplies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssiIneligibleChildAllocation (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (max (0 : Rat) ((((boolToRat (isSsiIneligibleChild t p d)) *
-      ((gov.ssa.ssi.amount.couple.atDate d) - (gov.ssa.ssi.amount.individual.atDate d))) *
-      12) - ((ssiEarnedIncome t p d) + (ssiUnearnedIncome t p d))))
+      ((ssa.ssi.amount.couple.atDate d) - (ssa.ssi.amount.individual.atDate d))) * 12) -
+      ((ssiEarnedIncome t p d) + (ssiUnearnedIncome t p d))))
 
 /-- `ssi_ineligible_parent_allocation.py`
     in `policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssiIneligibleParentAllocation (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (((if (decide ((sumBy t.members fun p => (boolToRat (isSsiIneligibleParent t p d))) = 2))
-      then ((gov.ssa.ssi.amount.couple.atDate d) / 2) else
-      (gov.ssa.ssi.amount.individual.atDate d)) * 12) * (boolToRat (isSsiIneligibleParent t
-      p d)))
+      then ((ssa.ssi.amount.couple.atDate d) / 2) else (ssa.ssi.amount.individual.atDate d))
+      * 12) * (boolToRat (isSsiIneligibleParent t p d)))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/is_ssi_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -121,11 +120,9 @@ def isSsiEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssiBlindOrDisabledWorkingStudentExclusion (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (decide ((isSsiBlindOrDisabledWorkingStudentExclusionEligible t p d) ≠ 0)) then (min
-      (((min
-      ((gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.amount.atDate d) :
-      Rat) ((ssiEarnedIncome t p d) / 12)) * 12) : Rat)
-      (gov.ssa.ssi.income.exclusions.blind_or_disabled_working_student.cap.atDate d)) else
-      0)
+      (((min ((ssa.ssi.income.exclusions.blind_or_disabled_working_student.amount.atDate d)
+      : Rat) ((ssiEarnedIncome t p d) / 12)) * 12) : Rat)
+      (ssa.ssi.income.exclusions.blind_or_disabled_working_student.cap.atDate d)) else 0)
 
 /-- `ssi_earned_income_deemed_from_ineligible_spouse.py`
     in `policyengine_us/variables/gov/ssa/ssi/eligibility/income/deemed/
@@ -181,32 +178,29 @@ def ssiUnearnedIncomeDeemedFromIneligibleSpouse (t : TaxUnit) (p : Person) (d : 
 def isSsiSpousalDeemingApplies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (isSsiEligibleIndividual t p d) then (decide
       (((ssiEarnedIncomeDeemedFromIneligibleSpouse t p d)
-  + (ssiUnearnedIncomeDeemedFromIneligibleSpouse t p d)) >
-      (((gov.ssa.ssi.amount.couple.atDate d) - (gov.ssa.ssi.amount.individual.atDate d)) *
-      12))) else false)
+  + (ssiUnearnedIncomeDeemedFromIneligibleSpouse t p d)) > (((ssa.ssi.amount.couple.atDate
+      d) - (ssa.ssi.amount.individual.atDate d)) * 12))) else false)
 
 /-- `policyengine_us/variables/gov/ssa/ssi/ssi_amount_if_eligible.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssiAmountIfEligible (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  let base_amount := (if (isChild t p d) then (gov.ssa.ssi.amount.individual.atDate d) else
-      (if (ssiCoupleComputationApplies t p d) then ((gov.ssa.ssi.amount.couple.atDate d) /
-      2) else (if (isSsiSpousalDeemingApplies t p d) then (gov.ssa.ssi.amount.couple.atDate
-      d) else (gov.ssa.ssi.amount.individual.atDate d))));
+  let base_amount := (if (isChild t p d) then (ssa.ssi.amount.individual.atDate d) else (if
+      (ssiCoupleComputationApplies t p d) then ((ssa.ssi.amount.couple.atDate d) / 2) else
+      (if (isSsiSpousalDeemingApplies t p d) then (ssa.ssi.amount.couple.atDate d) else
+      (ssa.ssi.amount.individual.atDate d))));
   (if (p.ssa.ssiFederalLivingArrangement ==
       SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY) then
-      (gov.ssa.ssi.amount.medical_facility.atDate d) else (if
-      (p.ssa.ssiFederalLivingArrangement ==
-      SSIFederalLivingArrangement.ANOTHER_PERSONS_HOUSEHOLD) then (base_amount * (1 -
-      (gov.ssa.ssi.amount.one_third_reduction_rate.atDate d))) else base_amount))
+      (ssa.ssi.amount.medical_facility.atDate d) else (if (p.ssa.ssiFederalLivingArrangement
+      == SSIFederalLivingArrangement.ANOTHER_PERSONS_HOUSEHOLD) then (base_amount * (1 -
+      (ssa.ssi.amount.one_third_reduction_rate.atDate d))) else base_amount))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ism/ssi_pmv_amount.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssiPmvAmount (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   let pmv_monthly := (((if ((ssiCoupleComputationApplies t p d) ||
-      (isSsiSpousalDeemingApplies t p d)) then (gov.ssa.ssi.amount.couple.atDate d) else
-      (gov.ssa.ssi.amount.individual.atDate d)) *
-      (gov.ssa.ssi.income.ism.pmv_fbr_fraction.atDate d)) +
-      (gov.ssa.ssi.income.exclusions.general.atDate d));
+      (isSsiSpousalDeemingApplies t p d)) then (ssa.ssi.amount.couple.atDate d) else
+      (ssa.ssi.amount.individual.atDate d)) * (ssa.ssi.income.ism.pmv_fbr_fraction.atDate
+      d)) + (ssa.ssi.income.exclusions.general.atDate d));
   ((if (isSsiSpousalDeemingApplies t p d) then (pmv_monthly / 2) else pmv_monthly) * 12)
 
 /-- `ssi_in_kind_support_and_maintenance.py`
@@ -227,8 +221,8 @@ def uncappedSsi (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssiIfTakesUp (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   let benefit := (max (0 : Rat) (uncappedSsi t p d));
-  (if (gov.ssa.ssi.abolish_ssi.atDate d) then 0 else (if (isSsiSpousalDeemingApplies t p d)
-      then (min (benefit : Rat) (gov.ssa.ssi.amount.individual.atDate d)) else benefit))
+  (if (ssa.ssi.abolish_ssi.atDate d) then 0 else (if (isSsiSpousalDeemingApplies t p d) then
+      (min (benefit : Rat) (ssa.ssi.amount.individual.atDate d)) else benefit))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/ssi.py`
     policyengine-us 1.783.0, entity person, value_type float. -/

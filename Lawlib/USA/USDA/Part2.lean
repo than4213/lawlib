@@ -49,7 +49,7 @@ def isSnapWorkRegistrationExemptNonAge (t : TaxUnit) (p : Person) (d : Date) : B
   (((((((p.coreP1.isDisabled || ((isTanfEnrolled t d) &&
       p.usda.isComplyingWithTanfWorkRequirements)) || (anyBy t.members fun p =>
       ((isTaxUnitDependent t p d) && (decide ((monthlyAge t p d) <
-      (gov.usda.snap.work_requirements.general.age_threshold.caring_dependent_child.atDate
+      (usda.snap.work_requirements.general.age_threshold.caring_dependent_child.atDate
       d)))))) || (anyBy t.members fun p => p.coreP1.isIncapableOfSelfCare)) ||
       (isSnapHigherEdStudent t p d)) || (decide (p.states.unemploymentCompensation > 0))) ||
       p.usda.hasAppliedForUnemploymentCompensation) ||
@@ -61,9 +61,9 @@ def isSnapWorkRegistrationExemptNonAge (t : TaxUnit) (p : Person) (d : Date) : B
 def meetsSnapWorkRequirementsPerson (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (decide ((sumBy t.members fun p => (boolToRat (decide ((monthlyAge t p d) < (if
       (isSnapAbawdHr1InEffect t p d) then
-      (gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else
-      (gov.usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6,
-      1⟩)))))) = 0)) then (p.usda.meetsSnapAbawdWorkRequirements &&
+      (usda.snap.work_requirements.abawd.age_threshold.dependent.atDate d) else
+      (usda.snap.work_requirements.abawd.age_threshold.dependent.atDate ⟨2025, 6, 1⟩)))))) =
+      0)) then (p.usda.meetsSnapAbawdWorkRequirements &&
       p.usda.meetsSnapGeneralWorkRequirements) else p.usda.meetsSnapGeneralWorkRequirements)
 
 /-- `policyengine_us/variables/gov/usda/school_meals/school_meal_net_subsidy.py`
@@ -71,7 +71,7 @@ def meetsSnapWorkRequirementsPerson (t : TaxUnit) (p : Person) (d : Date) : Bool
 def schoolMealNetSubsidy (t : TaxUnit) (d : Date) : Rat :=
   (((t.usda.schoolMealDailySubsidy - t.usda.schoolMealPaidDailySubsidy) *
       (sumBy t.members fun p => boolToRat (isInK12School t p d))) *
-      (gov.usda.school_meals.school_days.atDate d))
+      (usda.school_meals.school_days.atDate d))
 
 /-- `policyengine_us/variables/gov/usda/snap/is_snap_excluded_member.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -102,41 +102,42 @@ def snapUnitSize (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def meetsSnapAssetTest (t : TaxUnit) (d : Date) : Bool :=
   (decide ((snapAssets t d) ≤ (if (hasSnapElderlyDisabledMember t d) then
-      (gov.usda.snap.asset_test.limit.elderly_disabled.atDate d) else
-      (gov.usda.snap.asset_test.limit.standard.atDate d))))
+      (usda.snap.asset_test.limit.elderly_disabled.atDate d) else
+      (usda.snap.asset_test.limit.standard.atDate d))))
+
+/-- `policyengine_us/variables/gov/usda/snap/eligibility/meets_snap_gross_income_test.py`
+    policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
+def meetsSnapGrossIncomeTest (t : TaxUnit) (d : Date) : Bool :=
+  ((hasSnapElderlyDisabledMember t d) || (decide
+      ((snapGrossTestIncomeFpgRatio t d) ≤ (usda.snap.income.limit.gross.atDate d))))
 
 /-- `policyengine_us/variables/gov/usda/snap/snap_max_allotment.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snapMaxAllotment (t : TaxUnit) (d : Date) : Rat :=
   ((if t.usda.snapRegionStr == "AK_RURAL_1" then
-      gov.usda.snap.max_allotment.main.AK_RURAL_1.atDate d
-      (min ((snapUnitSize t d) : Rat) 8)
+      usda.snap.max_allotment.main.AK_RURAL_1.atDate d (min ((snapUnitSize t d) : Rat) 8)
   else if t.usda.snapRegionStr == "AK_RURAL_2" then
-      gov.usda.snap.max_allotment.main.AK_RURAL_2.atDate d (min ((snapUnitSize t d) : Rat)
-      8)
+      usda.snap.max_allotment.main.AK_RURAL_2.atDate d (min ((snapUnitSize t d) : Rat) 8)
   else if t.usda.snapRegionStr == "AK_URBAN" then
-      gov.usda.snap.max_allotment.main.AK_URBAN.atDate d (min ((snapUnitSize t d) : Rat) 8)
+      usda.snap.max_allotment.main.AK_URBAN.atDate d (min ((snapUnitSize t d) : Rat) 8)
   else if t.usda.snapRegionStr == "CONTIGUOUS_US" then
-      gov.usda.snap.max_allotment.main.CONTIGUOUS_US.atDate d (min ((snapUnitSize t d) :
-      Rat) 8)
-  else if t.usda.snapRegionStr == "GU" then gov.usda.snap.max_allotment.main.GU.atDate d
-      (min ((snapUnitSize t d) : Rat) 8)
-  else if t.usda.snapRegionStr == "HI" then gov.usda.snap.max_allotment.main.HI.atDate d
-      (min ((snapUnitSize t d) : Rat) 8)
-  else gov.usda.snap.max_allotment.main.VI.atDate d (min ((snapUnitSize t d) : Rat) 8)) +
-      ((max (0 : Rat) ((snapUnitSize t d) - 8)) * (if t.usda.snapRegionStr == "AK_RURAL_1"
-      then gov.usda.snap.max_allotment.additional.AK_RURAL_1.atDate d
+      usda.snap.max_allotment.main.CONTIGUOUS_US.atDate d (min ((snapUnitSize t d) : Rat) 8)
+  else if t.usda.snapRegionStr == "GU" then usda.snap.max_allotment.main.GU.atDate d (min
+      ((snapUnitSize t d) : Rat) 8)
+  else if t.usda.snapRegionStr == "HI" then usda.snap.max_allotment.main.HI.atDate d (min
+      ((snapUnitSize t d) : Rat) 8)
+  else usda.snap.max_allotment.main.VI.atDate d (min ((snapUnitSize t d) : Rat) 8)) + ((max
+      (0 : Rat) ((snapUnitSize t d) - 8)) * (if t.usda.snapRegionStr == "AK_RURAL_1" then
+      usda.snap.max_allotment.additional.AK_RURAL_1.atDate d
   else if t.usda.snapRegionStr == "AK_RURAL_2" then
-      gov.usda.snap.max_allotment.additional.AK_RURAL_2.atDate d
+      usda.snap.max_allotment.additional.AK_RURAL_2.atDate d
   else if t.usda.snapRegionStr == "AK_URBAN" then
-      gov.usda.snap.max_allotment.additional.AK_URBAN.atDate d
+      usda.snap.max_allotment.additional.AK_URBAN.atDate d
   else if t.usda.snapRegionStr == "CONTIGUOUS_US" then
-      gov.usda.snap.max_allotment.additional.CONTIGUOUS_US.atDate d
-  else if t.usda.snapRegionStr == "GU" then gov.usda.snap.max_allotment.additional.GU.atDate
-      d
-  else if t.usda.snapRegionStr == "HI" then gov.usda.snap.max_allotment.additional.HI.atDate
-      d
-  else gov.usda.snap.max_allotment.additional.VI.atDate d)))
+      usda.snap.max_allotment.additional.CONTIGUOUS_US.atDate d
+  else if t.usda.snapRegionStr == "GU" then usda.snap.max_allotment.additional.GU.atDate d
+  else if t.usda.snapRegionStr == "HI" then usda.snap.max_allotment.additional.HI.atDate d
+  else usda.snap.max_allotment.additional.VI.atDate d)))
 
 /-- `snap_prorated_income_fraction.py`
     in `policyengine_us/variables/gov/usda/snap/income/ineligible_members/`
@@ -150,18 +151,16 @@ def snapProratedIncomeFraction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_standard_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snapStandardDeduction (t : TaxUnit) (d : Date) : Rat :=
-  (if t.core.stateGroupStr == "AK" then gov.usda.snap.income.deductions.standard.AK.atDate d
+  (if t.core.stateGroupStr == "AK" then usda.snap.income.deductions.standard.AK.atDate d
       (min ((max ((snapUnitSize t d) : Rat) 1) : Rat) 6)
   else if t.core.stateGroupStr == "CONTIGUOUS_US" then
-      gov.usda.snap.income.deductions.standard.CONTIGUOUS_US.atDate d (min
+      usda.snap.income.deductions.standard.CONTIGUOUS_US.atDate d (min
       ((max ((snapUnitSize t d) : Rat) 1) : Rat) 6)
-  else if t.core.stateGroupStr == "GU" then
-      gov.usda.snap.income.deductions.standard.GU.atDate d (min
-      ((max ((snapUnitSize t d) : Rat) 1) : Rat) 6)
-  else if t.core.stateGroupStr == "HI" then
-      gov.usda.snap.income.deductions.standard.HI.atDate d (min
-      ((max ((snapUnitSize t d) : Rat) 1) : Rat) 6)
-  else gov.usda.snap.income.deductions.standard.VI.atDate d (min
+  else if t.core.stateGroupStr == "GU" then usda.snap.income.deductions.standard.GU.atDate d
+      (min ((max ((snapUnitSize t d) : Rat) 1) : Rat) 6)
+  else if t.core.stateGroupStr == "HI" then usda.snap.income.deductions.standard.HI.atDate d
+      (min ((max ((snapUnitSize t d) : Rat) 1) : Rat) 6)
+  else usda.snap.income.deductions.standard.VI.atDate d (min
       ((max ((snapUnitSize t d) : Rat) 1) : Rat) 6))
 
 /-- `snap_income_counted_share.py`
@@ -195,116 +194,12 @@ def snapExpenseCountedShare (t : TaxUnit) (d : Date) : Rat :=
   (max ((1 - ((sumBy t.members fun p => (1 - (snapIncomeCountedShare t p d))) /
       (max (t.core.spmUnitSize : Rat) 1))) : Rat) 0)
 
-/-- `snap_child_support_gross_income_deduction.py`
-    in `policyengine_us/variables/gov/usda/snap/income/gross/`
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_child_support_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snapChildSupportGrossIncomeDeduction (t : TaxUnit) (d : Date) : Rat :=
-  ((boolToRat (if t.core.stateCodeStr == "AK" then
-      gov.usda.snap.income.deductions.child_support.AK.atDate d
-  else if t.core.stateCodeStr == "AL" then
-      gov.usda.snap.income.deductions.child_support.AL.atDate d
-  else if t.core.stateCodeStr == "AR" then
-      gov.usda.snap.income.deductions.child_support.AR.atDate d
-  else if t.core.stateCodeStr == "AZ" then
-      gov.usda.snap.income.deductions.child_support.AZ.atDate d
-  else if t.core.stateCodeStr == "CA" then
-      gov.usda.snap.income.deductions.child_support.CA.atDate d
-  else if t.core.stateCodeStr == "CO" then
-      gov.usda.snap.income.deductions.child_support.CO.atDate d
-  else if t.core.stateCodeStr == "CT" then
-      gov.usda.snap.income.deductions.child_support.CT.atDate d
-  else if t.core.stateCodeStr == "DC" then
-      gov.usda.snap.income.deductions.child_support.DC.atDate d
-  else if t.core.stateCodeStr == "DE" then
-      gov.usda.snap.income.deductions.child_support.DE.atDate d
-  else if t.core.stateCodeStr == "FL" then
-      gov.usda.snap.income.deductions.child_support.FL.atDate d
-  else if t.core.stateCodeStr == "GA" then
-      gov.usda.snap.income.deductions.child_support.GA.atDate d
-  else if t.core.stateCodeStr == "GU" then
-      gov.usda.snap.income.deductions.child_support.GU.atDate d
-  else if t.core.stateCodeStr == "HI" then
-      gov.usda.snap.income.deductions.child_support.HI.atDate d
-  else if t.core.stateCodeStr == "IA" then
-      gov.usda.snap.income.deductions.child_support.IA.atDate d
-  else if t.core.stateCodeStr == "ID" then
-      gov.usda.snap.income.deductions.child_support.ID.atDate d
-  else if t.core.stateCodeStr == "IL" then
-      gov.usda.snap.income.deductions.child_support.IL.atDate d
-  else if t.core.stateCodeStr == "IN" then
-      gov.usda.snap.income.deductions.child_support.IN.atDate d
-  else if t.core.stateCodeStr == "KS" then
-      gov.usda.snap.income.deductions.child_support.KS.atDate d
-  else if t.core.stateCodeStr == "KY" then
-      gov.usda.snap.income.deductions.child_support.KY.atDate d
-  else if t.core.stateCodeStr == "LA" then
-      gov.usda.snap.income.deductions.child_support.LA.atDate d
-  else if t.core.stateCodeStr == "MA" then
-      gov.usda.snap.income.deductions.child_support.MA.atDate d
-  else if t.core.stateCodeStr == "MD" then
-      gov.usda.snap.income.deductions.child_support.MD.atDate d
-  else if t.core.stateCodeStr == "ME" then
-      gov.usda.snap.income.deductions.child_support.ME.atDate d
-  else if t.core.stateCodeStr == "MI" then
-      gov.usda.snap.income.deductions.child_support.MI.atDate d
-  else if t.core.stateCodeStr == "MN" then
-      gov.usda.snap.income.deductions.child_support.MN.atDate d
-  else if t.core.stateCodeStr == "MO" then
-      gov.usda.snap.income.deductions.child_support.MO.atDate d
-  else if t.core.stateCodeStr == "MS" then
-      gov.usda.snap.income.deductions.child_support.MS.atDate d
-  else if t.core.stateCodeStr == "MT" then
-      gov.usda.snap.income.deductions.child_support.MT.atDate d
-  else if t.core.stateCodeStr == "NC" then
-      gov.usda.snap.income.deductions.child_support.NC.atDate d
-  else if t.core.stateCodeStr == "ND" then
-      gov.usda.snap.income.deductions.child_support.ND.atDate d
-  else if t.core.stateCodeStr == "NE" then
-      gov.usda.snap.income.deductions.child_support.NE.atDate d
-  else if t.core.stateCodeStr == "NH" then
-      gov.usda.snap.income.deductions.child_support.NH.atDate d
-  else if t.core.stateCodeStr == "NJ" then
-      gov.usda.snap.income.deductions.child_support.NJ.atDate d
-  else if t.core.stateCodeStr == "NM" then
-      gov.usda.snap.income.deductions.child_support.NM.atDate d
-  else if t.core.stateCodeStr == "NV" then
-      gov.usda.snap.income.deductions.child_support.NV.atDate d
-  else if t.core.stateCodeStr == "NY" then
-      gov.usda.snap.income.deductions.child_support.NY.atDate d
-  else if t.core.stateCodeStr == "OH" then
-      gov.usda.snap.income.deductions.child_support.OH.atDate d
-  else if t.core.stateCodeStr == "OK" then
-      gov.usda.snap.income.deductions.child_support.OK.atDate d
-  else if t.core.stateCodeStr == "OR" then
-      gov.usda.snap.income.deductions.child_support.OR.atDate d
-  else if t.core.stateCodeStr == "PA" then
-      gov.usda.snap.income.deductions.child_support.PA.atDate d
-  else if t.core.stateCodeStr == "RI" then
-      gov.usda.snap.income.deductions.child_support.RI.atDate d
-  else if t.core.stateCodeStr == "SC" then
-      gov.usda.snap.income.deductions.child_support.SC.atDate d
-  else if t.core.stateCodeStr == "SD" then
-      gov.usda.snap.income.deductions.child_support.SD.atDate d
-  else if t.core.stateCodeStr == "TN" then
-      gov.usda.snap.income.deductions.child_support.TN.atDate d
-  else if t.core.stateCodeStr == "TX" then
-      gov.usda.snap.income.deductions.child_support.TX.atDate d
-  else if t.core.stateCodeStr == "UT" then
-      gov.usda.snap.income.deductions.child_support.UT.atDate d
-  else if t.core.stateCodeStr == "VA" then
-      gov.usda.snap.income.deductions.child_support.VA.atDate d
-  else if t.core.stateCodeStr == "VI" then
-      gov.usda.snap.income.deductions.child_support.VI.atDate d
-  else if t.core.stateCodeStr == "VT" then
-      gov.usda.snap.income.deductions.child_support.VT.atDate d
-  else if t.core.stateCodeStr == "WA" then
-      gov.usda.snap.income.deductions.child_support.WA.atDate d
-  else if t.core.stateCodeStr == "WI" then
-      gov.usda.snap.income.deductions.child_support.WI.atDate d
-  else if t.core.stateCodeStr == "WV" then
-      gov.usda.snap.income.deductions.child_support.WV.atDate d
-  else gov.usda.snap.income.deductions.child_support.WY.atDate d)) *
-      (snapCountableChildSupportExpense t d))
+def snapChildSupportDeduction (t : TaxUnit) (d : Date) : Rat :=
+  (max
+      (((snapCountableChildSupportExpense t d) - t.usda.snapChildSupportGrossIncomeDeduction)
+      : Rat) 0)
 
 /-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_dependent_care_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
@@ -316,13 +211,16 @@ def snapDependentCareDeduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_earned_income_deduction.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def snapEarnedIncomeDeduction (t : TaxUnit) (d : Date) : Rat :=
-  ((snapEarnedIncome t d) * (gov.usda.snap.income.deductions.earned_income.atDate d))
+  ((snapEarnedIncome t d) * (usda.snap.income.deductions.earned_income.atDate d))
 
-/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_child_support_deduction.py`
+/-- `policyengine_us/variables/gov/usda/snap/income/deductions/snap_deductions.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
-def snapChildSupportDeduction (t : TaxUnit) (d : Date) : Rat :=
-  (max
-      (((snapCountableChildSupportExpense t d) - (snapChildSupportGrossIncomeDeduction t d))
-      : Rat) 0)
+def snapDeductions (t : TaxUnit) (d : Date) : Rat :=
+  ((snapStandardDeduction t d)
+  + (snapEarnedIncomeDeduction t d)
+  + (snapDependentCareDeduction t d)
+  + (snapChildSupportDeduction t d)
+  + t.usda.snapExcessMedicalExpenseDeduction
+  + t.usda.snapExcessShelterExpenseDeduction)
 
 end Lawlib.USA

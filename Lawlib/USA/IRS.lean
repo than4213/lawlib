@@ -31,16 +31,15 @@ set_option maxRecDepth 8192
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def additionalStandardDeduction (t : TaxUnit) (d : Date) : Rat :=
   ((match t.core.filingStatus with
-      | FilingStatus.SINGLE =>
-          (gov.irs.deductions.standard.aged_or_blind.amount.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.deductions.standard.aged_or_blind.amount.JOINT.atDate
+      | FilingStatus.SINGLE => (irs.deductions.standard.aged_or_blind.amount.SINGLE.atDate
           d)
+      | FilingStatus.JOINT => (irs.deductions.standard.aged_or_blind.amount.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.deductions.standard.aged_or_blind.amount.SEPARATE.atDate d)
+          (irs.deductions.standard.aged_or_blind.amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.deductions.standard.aged_or_blind.amount.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.deductions.standard.aged_or_blind.amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.deductions.standard.aged_or_blind.amount.SURVIVING_SPOUSE.atDate d)) *
+          (irs.deductions.standard.aged_or_blind.amount.SURVIVING_SPOUSE.atDate d)) *
           t.irs.agedBlindCount)
 
 /-- `alimony_expense_ald.py`
@@ -49,7 +48,7 @@ def additionalStandardDeduction (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def alimonyExpenseAld (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => (p.coreP1.alimonyExpense *
-      (gov.irs.ald.alimony_expense.divorce_year_threshold.atDate d p.coreP1.divorceYear)))
+      (irs.ald.alimony_expense.divorce_year_threshold.atDate d p.coreP1.divorceYear)))
 
 /-- `capital_gains_28_percent_rate_gain.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/`
@@ -64,11 +63,11 @@ def capitalGains28PercentRateGain (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cappedAdvancedMainAirCirculatingFanCredit (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.advancedMainAirCirculatingFanExpenditures *
-      (gov.irs.credits.energy_efficient_home_improvement.rates.property.atDate d)) : Rat)
+      (irs.credits.energy_efficient_home_improvement.rates.property.atDate d)) : Rat)
       (ExtRat.minCap
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property.atDate
+      (irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property.atDate
       d)
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.advanced_main_air_circulating_fan.atDate
+      (irs.credits.energy_efficient_home_improvement.cap.annual.advanced_main_air_circulating_fan.atDate
       d)))
 
 /-- `capped_energy_efficient_central_air_conditioner_credit.py`
@@ -77,11 +76,11 @@ def cappedAdvancedMainAirCirculatingFanCredit (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cappedEnergyEfficientCentralAirConditionerCredit (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.energyEfficientCentralAirConditionerExpenditures *
-      (gov.irs.credits.energy_efficient_home_improvement.rates.property.atDate d)) : Rat)
+      (irs.credits.energy_efficient_home_improvement.rates.property.atDate d)) : Rat)
       (ExtRat.minCap
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property.atDate
+      (irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property.atDate
       d)
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_central_air_conditioner.atDate
+      (irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_central_air_conditioner.atDate
       d)))
 
 /-- `capped_energy_efficient_door_credit.py`
@@ -90,8 +89,8 @@ def cappedEnergyEfficientCentralAirConditionerCredit (t : TaxUnit) (d : Date) : 
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cappedEnergyEfficientDoorCredit (t : TaxUnit) (d : Date) : Rat :=
   (ExtRat.minCap (t.core.energyEfficientDoorExpenditures *
-      (gov.irs.credits.energy_efficient_home_improvement.rates.improvements.atDate d))
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.door.atDate d))
+      (irs.credits.energy_efficient_home_improvement.rates.improvements.atDate d))
+      (irs.credits.energy_efficient_home_improvement.cap.annual.door.atDate d))
 
 /-- `capped_energy_efficient_roof_credit.py`
     in `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/
@@ -99,18 +98,17 @@ def cappedEnergyEfficientDoorCredit (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cappedEnergyEfficientRoofCredit (t : TaxUnit) (d : Date) : Rat :=
   (ExtRat.minCap (t.core.energyEfficientRoofExpenditures *
-      (gov.irs.credits.energy_efficient_home_improvement.rates.improvements.atDate d))
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.roof.atDate d))
+      (irs.credits.energy_efficient_home_improvement.rates.improvements.atDate d))
+      (irs.credits.energy_efficient_home_improvement.cap.annual.roof.atDate d))
 
 /-- `capped_home_energy_audit_credit.py`
     in `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cappedHomeEnergyAuditCredit (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.homeEnergyAuditExpenditures *
-      (gov.irs.credits.energy_efficient_home_improvement.rates.home_energy_audit.atDate d))
-      : Rat)
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.home_energy_audit.atDate
-      d))
+      (irs.credits.energy_efficient_home_improvement.rates.home_energy_audit.atDate d)) :
+      Rat)
+      (irs.credits.energy_efficient_home_improvement.cap.annual.home_energy_audit.atDate d))
 
 /-- `capped_qualified_furnace_or_hot_water_boiler_credit.py`
     in `policyengine_us/variables/gov/irs/credits/energy_efficient_home_improvement/
@@ -118,11 +116,11 @@ def cappedHomeEnergyAuditCredit (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cappedQualifiedFurnaceOrHotWaterBoilerCredit (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.qualifiedFurnaceOrHotWaterBoilerExpenditures *
-      (gov.irs.credits.energy_efficient_home_improvement.rates.property.atDate d)) : Rat)
+      (irs.credits.energy_efficient_home_improvement.rates.property.atDate d)) : Rat)
       (ExtRat.minCap
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property.atDate
+      (irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property.atDate
       d)
-      (gov.irs.credits.energy_efficient_home_improvement.cap.annual.qualified_furnace_or_hot_water_boiler.atDate
+      (irs.credits.energy_efficient_home_improvement.cap.annual.qualified_furnace_or_hot_water_boiler.atDate
       d)))
 
 /-- `charitable_deduction_for_non_itemizers.py`
@@ -131,44 +129,42 @@ def cappedQualifiedFurnaceOrHotWaterBoilerCredit (t : TaxUnit) (d : Date) : Rat 
 def charitableDeductionForNonItemizers (t : TaxUnit) (d : Date) : Rat :=
   (min ((match t.core.filingStatus with
       | FilingStatus.SINGLE =>
-          (gov.irs.deductions.itemized.charity.non_itemizers_amount.SINGLE.atDate d)
+          (irs.deductions.itemized.charity.non_itemizers_amount.SINGLE.atDate d)
       | FilingStatus.JOINT =>
-          (gov.irs.deductions.itemized.charity.non_itemizers_amount.JOINT.atDate d)
+          (irs.deductions.itemized.charity.non_itemizers_amount.JOINT.atDate d)
       | FilingStatus.SEPARATE =>
-          (gov.irs.deductions.itemized.charity.non_itemizers_amount.SEPARATE.atDate d)
+          (irs.deductions.itemized.charity.non_itemizers_amount.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.deductions.itemized.charity.non_itemizers_amount.HEAD_OF_HOUSEHOLD.atDate
-          d)
+          (irs.deductions.itemized.charity.non_itemizers_amount.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.deductions.itemized.charity.non_itemizers_amount.SURVIVING_SPOUSE.atDate
-          d)) : Rat) (sumBy t.members fun p => p.coreP1.charitableCashDonations))
+          (irs.deductions.itemized.charity.non_itemizers_amount.SURVIVING_SPOUSE.atDate d))
+          : Rat) (sumBy t.members fun p => p.coreP1.charitableCashDonations))
 
 /-- `ctc_arpa_phase_out_threshold.py`
     in `policyengine_us/variables/gov/irs/credits/ctc/phase_out/arpa/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcArpaPhaseOutThreshold (t : TaxUnit) (d : Date) : Rat :=
   (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.credits.ctc.phase_out.arpa.threshold.SINGLE.atDate
+      | FilingStatus.SINGLE => (irs.credits.ctc.phase_out.arpa.threshold.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.credits.ctc.phase_out.arpa.threshold.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.credits.ctc.phase_out.arpa.threshold.SEPARATE.atDate
           d)
-      | FilingStatus.JOINT => (gov.irs.credits.ctc.phase_out.arpa.threshold.JOINT.atDate d)
-      | FilingStatus.SEPARATE =>
-          (gov.irs.credits.ctc.phase_out.arpa.threshold.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.ctc.phase_out.arpa.threshold.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.credits.ctc.phase_out.arpa.threshold.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.ctc.phase_out.arpa.threshold.SURVIVING_SPOUSE.atDate d))
+          (irs.credits.ctc.phase_out.arpa.threshold.SURVIVING_SPOUSE.atDate d))
 
 /-- `policyengine_us/variables/gov/irs/credits/ctc/phase_out/ctc_phase_out_threshold.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def ctcPhaseOutThreshold (t : TaxUnit) (d : Date) : Rat :=
   (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.credits.ctc.phase_out.threshold.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.credits.ctc.phase_out.threshold.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.credits.ctc.phase_out.threshold.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.credits.ctc.phase_out.threshold.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.credits.ctc.phase_out.threshold.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.credits.ctc.phase_out.threshold.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.credits.ctc.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.credits.ctc.phase_out.threshold.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.credits.ctc.phase_out.threshold.SURVIVING_SPOUSE.atDate d))
+          (irs.credits.ctc.phase_out.threshold.SURVIVING_SPOUSE.atDate d))
 
 /-- `dividend_income_reduced_by_investment_income.py`
     in `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/`
@@ -203,148 +199,30 @@ def earnedIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 def earnedIncomeLastYear (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (p.coreP1.employmentIncomeLastYear + p.coreP1.selfEmploymentIncomeLastYear)
 
-/-- `employer_federal_unemployment_tax_rate.py`
+/-- `employer_total_federal_unemployment_tax.py`
     in `policyengine_us/variables/gov/irs/tax/payroll/unemployment/`
     policyengine-us 1.783.0, entity person, value_type float. -/
-def employerFederalUnemploymentTaxRate (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.payroll.federal_unemployment.effective_rate.atDate d) + (match t.core.stateCode
-      with
-      | StateCode.AL =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.AL.atDate d)
-      | StateCode.AK =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.AK.atDate d)
-      | StateCode.AZ =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.AZ.atDate d)
-      | StateCode.AR =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.AR.atDate d)
-      | StateCode.CA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.CA.atDate d)
-      | StateCode.CO =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.CO.atDate d)
-      | StateCode.CT =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.CT.atDate d)
-      | StateCode.DE =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.DE.atDate d)
-      | StateCode.FL =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.FL.atDate d)
-      | StateCode.GA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.GA.atDate d)
-      | StateCode.HI =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.HI.atDate d)
-      | StateCode.ID =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.ID.atDate d)
-      | StateCode.IL =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.IL.atDate d)
-      | StateCode.IN =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.IN.atDate d)
-      | StateCode.IA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.IA.atDate d)
-      | StateCode.KS =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.KS.atDate d)
-      | StateCode.KY =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.KY.atDate d)
-      | StateCode.LA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.LA.atDate d)
-      | StateCode.ME =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.ME.atDate d)
-      | StateCode.MD =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MD.atDate d)
-      | StateCode.MA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MA.atDate d)
-      | StateCode.MI =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MI.atDate d)
-      | StateCode.MN =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MN.atDate d)
-      | StateCode.MS =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MS.atDate d)
-      | StateCode.MO =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MO.atDate d)
-      | StateCode.MT =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MT.atDate d)
-      | StateCode.NE =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.NE.atDate d)
-      | StateCode.NV =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.NV.atDate d)
-      | StateCode.NH =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.NH.atDate d)
-      | StateCode.NJ =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.NJ.atDate d)
-      | StateCode.NM =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.NM.atDate d)
-      | StateCode.NY =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.NY.atDate d)
-      | StateCode.NC =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.NC.atDate d)
-      | StateCode.ND =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.ND.atDate d)
-      | StateCode.OH =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.OH.atDate d)
-      | StateCode.OK =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.OK.atDate d)
-      | StateCode.OR =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.OR.atDate d)
-      | StateCode.PA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.PA.atDate d)
-      | StateCode.RI =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.RI.atDate d)
-      | StateCode.SC =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.SC.atDate d)
-      | StateCode.SD =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.SD.atDate d)
-      | StateCode.TN =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.TN.atDate d)
-      | StateCode.TX =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.TX.atDate d)
-      | StateCode.UT =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.UT.atDate d)
-      | StateCode.VT =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.VT.atDate d)
-      | StateCode.VA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.VA.atDate d)
-      | StateCode.WA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.WA.atDate d)
-      | StateCode.WV =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.WV.atDate d)
-      | StateCode.WI =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.WI.atDate d)
-      | StateCode.WY =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.WY.atDate d)
-      | StateCode.DC =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.DC.atDate d)
-      | StateCode.GU =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.GU.atDate d)
-      | StateCode.MP =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.MP.atDate d)
-      | StateCode.PW =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.PW.atDate d)
-      | StateCode.PR =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.PR.atDate d)
-      | StateCode.VI =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.VI.atDate d)
-      | StateCode.AA =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.AA.atDate d)
-      | StateCode.AE =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.AE.atDate d)
-      | StateCode.AP =>
-          (gov.irs.payroll.federal_unemployment.credit_reduction_rate.AP.atDate d)))
+def employerTotalFederalUnemploymentTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (p.irs.employerFederalUnemploymentTaxRate *
+      p.coreP1.employerTotalTaxableEarningsForFederalUnemploymentTax)
 
 /-- `policyengine_us/variables/gov/irs/tax/payroll/medicare/employer_total_medicare_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def employerTotalMedicareTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.payroll.medicare.rate.employer.atDate d) *
+  ((irs.payroll.medicare.rate.employer.atDate d) *
       p.coreP1.employerTotalPayrollTaxGrossWages)
 
 /-- `employer_total_social_security_tax.py`
     in `policyengine_us/variables/gov/irs/tax/payroll/social_security/`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def employerTotalSocialSecurityTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.payroll.social_security.rate.employer.atDate d) *
+  ((irs.payroll.social_security.rate.employer.atDate d) *
       p.coreP1.employerTotalTaxableEarningsForSocialSecurity)
 
 /-- `policyengine_us/variables/gov/irs/tax/estate/estate_tax_before_credits.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def estateTaxBeforeCredits (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (gov.irs.tax.estate.rate.marginalCalc d p.coreP2.taxableEstateValue)
+  (irs.tax.estate.rate.marginalCalc d p.coreP2.taxableEstateValue)
 
 /-- `policyengine_us/variables/gov/irs/income/taxable_income/exemptions/exemptions_count.py`
     policyengine-us 1.783.0, entity tax_unit, value_type int. -/
@@ -373,7 +251,7 @@ def interestDeduction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/tce/is_tce_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isTceEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide (p.coreP1.age ≥ (gov.irs.tce.age_threshold.atDate d)))
+  (decide (p.coreP1.age ≥ (irs.tce.age_threshold.atDate d)))
 
 /-- `itemized_medical_expenses.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/itemizing/`
@@ -388,7 +266,7 @@ def itemizedMedicalExpenses (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def k401CatchUpEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (decide (p.coreP1.age ≥
-      (gov.irs.gross_income.retirement_contributions.catch_up.age_threshold.atDate d)))
+      (irs.gross_income.retirement_contributions.catch_up.age_threshold.atDate d)))
 
 /-- `limited_capital_loss.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/
@@ -396,14 +274,13 @@ def k401CatchUpEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def limitedCapitalLoss (t : TaxUnit) (d : Date) : Rat :=
   (min ((match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.ald.loss.capital.max.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.ald.loss.capital.max.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.ald.loss.capital.max.SEPARATE.atDate d)
-      | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.ald.loss.capital.max.HEAD_OF_HOUSEHOLD.atDate d)
-      | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.ald.loss.capital.max.SURVIVING_SPOUSE.atDate d)) : Rat) (sumBy t.members
-          fun p => p.coreP1.capitalLosses))
+      | FilingStatus.SINGLE => (irs.ald.loss.capital.max.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.ald.loss.capital.max.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.ald.loss.capital.max.SEPARATE.atDate d)
+      | FilingStatus.HEAD_OF_HOUSEHOLD => (irs.ald.loss.capital.max.HEAD_OF_HOUSEHOLD.atDate
+          d)
+      | FilingStatus.SURVIVING_SPOUSE => (irs.ald.loss.capital.max.SURVIVING_SPOUSE.atDate
+          d)) : Rat) (sumBy t.members fun p => p.coreP1.capitalLosses))
 
 /-- `loss_limited_net_capital_gains.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/
@@ -411,13 +288,13 @@ def limitedCapitalLoss (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def lossLimitedNetCapitalGains (t : TaxUnit) (d : Date) : Rat :=
   (max ((0 - (match t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.capital_gains.loss_limit.SINGLE.atDate d)
-      | FilingStatus.JOINT => (gov.irs.capital_gains.loss_limit.JOINT.atDate d)
-      | FilingStatus.SEPARATE => (gov.irs.capital_gains.loss_limit.SEPARATE.atDate d)
+      | FilingStatus.SINGLE => (irs.capital_gains.loss_limit.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.capital_gains.loss_limit.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.capital_gains.loss_limit.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.capital_gains.loss_limit.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.capital_gains.loss_limit.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.capital_gains.loss_limit.SURVIVING_SPOUSE.atDate d))) : Rat)
+          (irs.capital_gains.loss_limit.SURVIVING_SPOUSE.atDate d))) : Rat)
           t.core.netCapitalGains)
 
 /-- `meets_american_opportunity_credit_identification_requirements.py`
@@ -426,7 +303,7 @@ def lossLimitedNetCapitalGains (t : TaxUnit) (d : Date) : Rat :=
 def meetsAmericanOpportunityCreditIdentificationRequirements (t : TaxUnit) (p : Person) (d : Date) :
     Bool :=
   (if
-      (!(gov.irs.credits.education.american_opportunity_credit.eligibility.requires_qualifying_ssn.atDate
+      (!(irs.credits.education.american_opportunity_credit.eligibility.requires_qualifying_ssn.atDate
       d)) then p.coreP1.hasTin else ((p.coreP1.ssnCardType == SSNCardType.CITIZEN) ||
       (p.coreP1.ssnCardType == SSNCardType.NON_CITIZEN_VALID_EAD)))
 
@@ -434,15 +311,15 @@ def meetsAmericanOpportunityCreditIdentificationRequirements (t : TaxUnit) (p : 
     in `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meetsCtcChildIdentificationRequirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (if (gov.irs.credits.ctc.child_ssn_requirement_applies.atDate d) then
-      ((gov.irs.credits.ctc.eligible_ssn_card_type.atDate d).contains
+  (if (irs.credits.ctc.child_ssn_requirement_applies.atDate d) then
+      ((irs.credits.ctc.eligible_ssn_card_type.atDate d).contains
       (SSNCardType.asStr p.coreP1.ssnCardType)) else true)
 
 /-- `meets_ctc_identification_requirements.py`
     in `policyengine_us/variables/gov/irs/credits/ctc/maximum/individual/`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def meetsCtcIdentificationRequirements (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((gov.irs.credits.ctc.eligible_ssn_card_type.atDate d).contains (SSNCardType.asStr
+  ((irs.credits.ctc.eligible_ssn_card_type.atDate d).contains (SSNCardType.asStr
       p.coreP1.ssnCardType))
 
 /-- `meets_eitc_identification_requirements.py`
@@ -458,7 +335,7 @@ def meetsEitcIdentificationRequirements (t : TaxUnit) (p : Person) (d : Date) : 
 def meetsLifetimeLearningCreditIdentificationRequirements (t : TaxUnit) (p : Person) (d : Date) :
     Bool :=
   (if
-      (!(gov.irs.credits.education.lifetime_learning_credit.eligibility.requires_qualifying_ssn.atDate
+      (!(irs.credits.education.lifetime_learning_credit.eligibility.requires_qualifying_ssn.atDate
       d)) then p.coreP1.hasTin else ((p.coreP1.ssnCardType == SSNCardType.CITIZEN) ||
       (p.coreP1.ssnCardType == SSNCardType.NON_CITIZEN_VALID_EAD)))
 
@@ -505,14 +382,14 @@ def qualifiedBusinessIncomeDeductionPerson (t : TaxUnit) (p : Person) (d : Date)
 /-- `policyengine_us/variables/gov/irs/credits/elderly_and_disabled/eligibility.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def qualifiesForElderlyOrDisabledCredit (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((decide (p.coreP1.age ≥ (gov.irs.credits.elderly_or_disabled.age.atDate d))) ||
+  ((decide (p.coreP1.age ≥ (irs.credits.elderly_or_disabled.age.atDate d))) ||
       p.irs.retiredOnTotalDisability)
 
 /-- `refundable_american_opportunity_credit.py`
     in `policyengine_us/variables/gov/irs/credits/education/american_opportunity_credit/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def refundableAmericanOpportunityCredit (t : TaxUnit) (d : Date) : Rat :=
-  ((gov.irs.credits.education.american_opportunity_credit.refundability.atDate d) *
+  ((irs.credits.education.american_opportunity_credit.refundability.atDate d) *
       t.irs.americanOpportunityCredit)
 
 /-- `savers_credit_qualified_contributions.py`
@@ -605,11 +482,11 @@ def taxableSelfEmploymentIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   + p.coreP1.sstbSelfEmploymentIncome
   + p.coreP1.farmOperationsIncome
   + p.coreP1.partnershipSelfEmploymentNetEarnings) * (1 -
-      ((gov.irs.ald.misc.employer_share.atDate d) *
-      ((gov.irs.self_employment.rate.social_security.atDate d) +
-      (gov.irs.self_employment.rate.medicare.atDate d)))));
-  (if (decide (net_sei < (gov.irs.self_employment.net_earnings_exemption.atDate d))) then 0
-      else net_sei)
+      ((irs.ald.misc.employer_share.atDate d) *
+      ((irs.self_employment.rate.social_security.atDate d) +
+      (irs.self_employment.rate.medicare.atDate d)))));
+  (if (decide (net_sei < (irs.self_employment.net_earnings_exemption.atDate d))) then 0 else
+      net_sei)
 
 /-- `tip_income_deduction_occupation_requirement_met.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/deductions/tip_income/`
@@ -651,12 +528,14 @@ def dwks10 (t : TaxUnit) (d : Date) : Rat :=
   + (sumBy t.members fun p => p.coreP1.qualifiedDividendIncome)) : Rat)
       t.core.netCapitalGains)) + (sumBy t.members fun p => p.coreP1.nonSchDCapitalGains)))
 
-/-- `employer_total_federal_unemployment_tax.py`
-    in `policyengine_us/variables/gov/irs/tax/payroll/unemployment/`
+/-- `policyengine_us/variables/gov/irs/tax/payroll/employer_total_payroll_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
-def employerTotalFederalUnemploymentTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((employerFederalUnemploymentTaxRate t p d) *
-      p.coreP1.employerTotalTaxableEarningsForFederalUnemploymentTax)
+def employerTotalPayrollTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((employerTotalSocialSecurityTax t p d)
+  + (employerTotalMedicareTax t p d)
+  + (employerTotalFederalUnemploymentTax t p d)
+  + p.statesTax.employerTotalStatePayrollTax
+  + p.localTax.employerTotalLocalPayrollTax)
 
 /-- `policyengine_us/variables/gov/irs/tax/estate/estate_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -676,8 +555,8 @@ def irsEmploymentIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def k401CatchUpLimit (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (k401CatchUpEligible t p d) then
-      (gov.irs.gross_income.retirement_contributions.catch_up.limit.k401.atDate d
-      p.coreP1.age) else 0)
+      (irs.gross_income.retirement_contributions.catch_up.limit.k401.atDate d p.coreP1.age)
+      else 0)
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/net_investment_income.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -722,24 +601,23 @@ def selfEmployedPensionContributionAld (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/tax/self_employment/self_employment_medicare_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def selfEmploymentMedicareTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.self_employment.rate.medicare.atDate d) * (taxableSelfEmploymentIncome t p d))
+  ((irs.self_employment.rate.medicare.atDate d) * (taxableSelfEmploymentIncome t p d))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/additional_medicare_tax.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def additionalMedicareTax (t : TaxUnit) (d : Date) : Rat :=
-  ((gov.irs.payroll.medicare.additional.rate.atDate d) * (max (0 : Rat)
+  ((irs.payroll.medicare.additional.rate.atDate d) * (max (0 : Rat)
       (((sumBy t.members fun p => (payrollTaxGrossWages t p d))
   + (sumBy t.members fun p => (taxableSelfEmploymentIncome t p d))) - (match
       t.core.filingStatus with
-      | FilingStatus.SINGLE => (gov.irs.payroll.medicare.additional.exclusion.SINGLE.atDate
+      | FilingStatus.SINGLE => (irs.payroll.medicare.additional.exclusion.SINGLE.atDate d)
+      | FilingStatus.JOINT => (irs.payroll.medicare.additional.exclusion.JOINT.atDate d)
+      | FilingStatus.SEPARATE => (irs.payroll.medicare.additional.exclusion.SEPARATE.atDate
           d)
-      | FilingStatus.JOINT => (gov.irs.payroll.medicare.additional.exclusion.JOINT.atDate d)
-      | FilingStatus.SEPARATE =>
-          (gov.irs.payroll.medicare.additional.exclusion.SEPARATE.atDate d)
       | FilingStatus.HEAD_OF_HOUSEHOLD =>
-          (gov.irs.payroll.medicare.additional.exclusion.HEAD_OF_HOUSEHOLD.atDate d)
+          (irs.payroll.medicare.additional.exclusion.HEAD_OF_HOUSEHOLD.atDate d)
       | FilingStatus.SURVIVING_SPOUSE =>
-          (gov.irs.payroll.medicare.additional.exclusion.SURVIVING_SPOUSE.atDate d)))))
+          (irs.payroll.medicare.additional.exclusion.SURVIVING_SPOUSE.atDate d)))))
 
 /-- `policyengine_us/variables/gov/irs/tax/federal_income/capital_gains/dwks13.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -757,74 +635,65 @@ def eitcRelevantInvestmentIncome (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/tax/payroll/medicare/employee_medicare_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def employeeMedicareTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.payroll.medicare.rate.employee.atDate d) * (payrollTaxGrossWages t p d))
+  ((irs.payroll.medicare.rate.employee.atDate d) * (payrollTaxGrossWages t p d))
 
 /-- `policyengine_us/variables/gov/irs/tax/payroll/medicare/employer_medicare_tax.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def employerMedicareTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.payroll.medicare.rate.employer.atDate d) * (payrollTaxGrossWages t p d))
-
-/-- `policyengine_us/variables/gov/irs/tax/payroll/employer_total_payroll_tax.py`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def employerTotalPayrollTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((employerTotalSocialSecurityTax t p d)
-  + (employerTotalMedicareTax t p d)
-  + (employerTotalFederalUnemploymentTax t p d)
-  + p.statesTax.employerTotalStatePayrollTax
-  + p.localTax.employerTotalLocalPayrollTax)
-
-/-- `taxable_earnings_for_federal_unemployment_tax.py`
-    in `policyengine_us/variables/gov/irs/tax/payroll/unemployment/`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def taxableEarningsForFederalUnemploymentTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (min ((payrollTaxGrossWages t p d) : Rat)
-      (gov.irs.payroll.federal_unemployment.taxable_wage_base.atDate d))
-
-/-- `taxable_earnings_for_social_security.py`
-    in `policyengine_us/variables/gov/irs/tax/payroll/social_security/`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def taxableEarningsForSocialSecurity (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (min ((gov.irs.payroll.social_security.cap.atDate d) : Rat) (payrollTaxGrossWages t p d))
-
-/-- `eitc_investment_income_eligible.py`
-    in `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/`
-    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
-def eitcInvestmentIncomeEligible (t : TaxUnit) (d : Date) : Bool :=
-  (decide ((eitcRelevantInvestmentIncome t d) ≤
-      (gov.irs.credits.eitc.phase_out.max_investment_income.atDate d)))
-
-/-- `employee_social_security_tax.py`
-    in `policyengine_us/variables/gov/irs/tax/payroll/social_security/`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def employeeSocialSecurityTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.payroll.social_security.rate.employee.atDate d) *
-      (taxableEarningsForSocialSecurity t p d))
-
-/-- `employer_federal_unemployment_tax.py`
-    in `policyengine_us/variables/gov/irs/tax/payroll/unemployment/`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def employerFederalUnemploymentTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((employerFederalUnemploymentTaxRate t p d) * (taxableEarningsForFederalUnemploymentTax t
-      p d))
-
-/-- `employer_social_security_tax.py`
-    in `policyengine_us/variables/gov/irs/tax/payroll/social_security/`
-    policyengine-us 1.783.0, entity person, value_type float. -/
-def employerSocialSecurityTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.payroll.social_security.rate.employer.atDate d) *
-      (taxableEarningsForSocialSecurity t p d))
+  ((irs.payroll.medicare.rate.employer.atDate d) * (payrollTaxGrossWages t p d))
 
 /-- `policyengine_us/variables/gov/irs/tax/payroll/employer_total_cost_of_employment.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def employerTotalCostOfEmployment (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (p.coreP1.employerTotalPayrollTaxGrossWages + (employerTotalPayrollTax t p d))
 
+/-- `taxable_earnings_for_federal_unemployment_tax.py`
+    in `policyengine_us/variables/gov/irs/tax/payroll/unemployment/`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def taxableEarningsForFederalUnemploymentTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (min ((payrollTaxGrossWages t p d) : Rat)
+      (irs.payroll.federal_unemployment.taxable_wage_base.atDate d))
+
+/-- `taxable_earnings_for_social_security.py`
+    in `policyengine_us/variables/gov/irs/tax/payroll/social_security/`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def taxableEarningsForSocialSecurity (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (min ((irs.payroll.social_security.cap.atDate d) : Rat) (payrollTaxGrossWages t p d))
+
+/-- `eitc_investment_income_eligible.py`
+    in `policyengine_us/variables/gov/irs/credits/earned_income/eligibility/`
+    policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
+def eitcInvestmentIncomeEligible (t : TaxUnit) (d : Date) : Bool :=
+  (decide ((eitcRelevantInvestmentIncome t d) ≤
+      (irs.credits.eitc.phase_out.max_investment_income.atDate d)))
+
+/-- `employee_social_security_tax.py`
+    in `policyengine_us/variables/gov/irs/tax/payroll/social_security/`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def employeeSocialSecurityTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((irs.payroll.social_security.rate.employee.atDate d) * (taxableEarningsForSocialSecurity
+      t p d))
+
+/-- `employer_federal_unemployment_tax.py`
+    in `policyengine_us/variables/gov/irs/tax/payroll/unemployment/`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def employerFederalUnemploymentTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  (p.irs.employerFederalUnemploymentTaxRate * (taxableEarningsForFederalUnemploymentTax t p
+      d))
+
+/-- `employer_social_security_tax.py`
+    in `policyengine_us/variables/gov/irs/tax/payroll/social_security/`
+    policyengine-us 1.783.0, entity person, value_type float. -/
+def employerSocialSecurityTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
+  ((irs.payroll.social_security.rate.employer.atDate d) * (taxableEarningsForSocialSecurity
+      t p d))
+
 /-- `social_security_taxable_self_employment_income.py`
     in `policyengine_us/variables/gov/irs/tax/self_employment/`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def socialSecurityTaxableSelfEmploymentIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (min ((taxableSelfEmploymentIncome t p d) : Rat)
-      ((gov.irs.payroll.social_security.cap.atDate d) -
+      ((irs.payroll.social_security.cap.atDate d) -
       (taxableEarningsForSocialSecurity t p d)))
 
 /-- `policyengine_us/variables/gov/irs/tax/payroll/employee_payroll_tax.py`
@@ -848,7 +717,7 @@ def employerPayrollTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     in `policyengine_us/variables/gov/irs/tax/self_employment/`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def selfEmploymentSocialSecurityTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((gov.irs.self_employment.rate.social_security.atDate d) *
+  ((irs.self_employment.rate.social_security.atDate d) *
       (socialSecurityTaxableSelfEmploymentIncome t p d))
 
 /-- `policyengine_us/variables/gov/irs/tax/payroll/employer_cost_of_employment.py`
@@ -864,17 +733,15 @@ def selfEmploymentTax (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/irs/income/adjusted_earnings.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def adjustedEarnings (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (max (0 : Rat) ((earnedIncome t p d) -
-      (((1 - (gov.irs.ald.misc.self_emp_tax_adj.atDate d)) *
-      (gov.irs.ald.misc.employer_share.atDate d)) * (selfEmploymentTax t p d))))
+  (max (0 : Rat) ((earnedIncome t p d) - (((1 - (irs.ald.misc.self_emp_tax_adj.atDate d)) *
+      (irs.ald.misc.employer_share.atDate d)) * (selfEmploymentTax t p d))))
 
 /-- `self_employment_tax_ald_person.py`
     in `policyengine_us/variables/gov/irs/income/taxable_income/adjusted_gross_income/
         above_the_line_deductions/`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def selfEmploymentTaxAldPerson (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  ((selfEmploymentTax t p d) * (gov.irs.ald.self_employment_tax.percent_deductible.atDate
-      d))
+  ((selfEmploymentTax t p d) * (irs.ald.self_employment_tax.percent_deductible.atDate d))
 
 /-- `policyengine_us/variables/gov/irs/credits/cdcc/head_earned.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

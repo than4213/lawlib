@@ -73,28 +73,27 @@ def pellGrantFormula (t : TaxUnit) (p : Person) (d : Date) : PellGrantFormula :=
 def pellGrantMaxFpgPercentLimit (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (match (pellGrantHouseholdType t p d) with
       | PellGrantHouseholdType.DEPENDENT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.max_pell_limits.DEPENDENT_SINGLE.atDate d)
+          (ed.pell_grant.sai.fpg_fraction.max_pell_limits.DEPENDENT_SINGLE.atDate d)
       | PellGrantHouseholdType.DEPENDENT_NOT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.max_pell_limits.DEPENDENT_NOT_SINGLE.atDate d)
+          (ed.pell_grant.sai.fpg_fraction.max_pell_limits.DEPENDENT_NOT_SINGLE.atDate d)
       | PellGrantHouseholdType.INDEPENDENT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.max_pell_limits.INDEPENDENT_SINGLE.atDate d)
+          (ed.pell_grant.sai.fpg_fraction.max_pell_limits.INDEPENDENT_SINGLE.atDate d)
       | PellGrantHouseholdType.INDEPENDENT_NOT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.max_pell_limits.INDEPENDENT_NOT_SINGLE.atDate
-          d))
+          (ed.pell_grant.sai.fpg_fraction.max_pell_limits.INDEPENDENT_NOT_SINGLE.atDate d))
 
 /-- `policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_available_income.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def pellGrantHeadAvailableIncome (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   ((t.ed.pellGrantPrimaryIncome - p.ed.pellGrantHeadAllowances) * (match
       (pellGrantFormula t p d) with
-      | PellGrantFormula.A => (gov.ed.pell_grant.head.income_assessment_rate.A.atDate d)
-      | PellGrantFormula.B => (gov.ed.pell_grant.head.income_assessment_rate.B.atDate d)
-      | PellGrantFormula.C => (gov.ed.pell_grant.head.income_assessment_rate.C.atDate d)))
+      | PellGrantFormula.A => (ed.pell_grant.head.income_assessment_rate.A.atDate d)
+      | PellGrantFormula.B => (ed.pell_grant.head.income_assessment_rate.B.atDate d)
+      | PellGrantFormula.C => (ed.pell_grant.head.income_assessment_rate.C.atDate d)))
 
 /-- `policyengine_us/variables/gov/ed/pell_grant/dependent/pell_grant_dependent_allowances.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def pellGrantDependentAllowances (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (((gov.ed.pell_grant.dependent.ipa.atDate d) +
+  (((ed.pell_grant.dependent.ipa.atDate d) +
       (0 - (min ((pellGrantHeadAvailableIncome t p d) : Rat) 0))) +
       p.ed.pellGrantDependentOtherAllowances)
 
@@ -105,16 +104,15 @@ def pellGrantMinFpgPercentLimit (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if ((((pellGrantHouseholdType t p d) == PellGrantHouseholdType.INDEPENDENT_SINGLE) ||
       ((pellGrantHouseholdType t p d) == PellGrantHouseholdType.INDEPENDENT_NOT_SINGLE)) &&
       (decide ((taxUnitChildDependents t d) = 0))) then
-      (gov.ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_NOT_PARENT.atDate d)
-      else (match (pellGrantHouseholdType t p d) with
+      (ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_NOT_PARENT.atDate d) else
+      (match (pellGrantHouseholdType t p d) with
       | PellGrantHouseholdType.DEPENDENT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.min_pell_limits.DEPENDENT_SINGLE.atDate d)
+          (ed.pell_grant.sai.fpg_fraction.min_pell_limits.DEPENDENT_SINGLE.atDate d)
       | PellGrantHouseholdType.DEPENDENT_NOT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.min_pell_limits.DEPENDENT_NOT_SINGLE.atDate d)
+          (ed.pell_grant.sai.fpg_fraction.min_pell_limits.DEPENDENT_NOT_SINGLE.atDate d)
       | PellGrantHouseholdType.INDEPENDENT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_SINGLE.atDate d)
+          (ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_SINGLE.atDate d)
       | PellGrantHouseholdType.INDEPENDENT_NOT_SINGLE =>
-          (gov.ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_NOT_SINGLE.atDate
-          d)))
+          (ed.pell_grant.sai.fpg_fraction.min_pell_limits.INDEPENDENT_NOT_SINGLE.atDate d)))
 
 end Lawlib.USA

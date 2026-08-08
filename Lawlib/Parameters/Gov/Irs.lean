@@ -10,1578 +10,2836 @@ import Lawlib.Core.Scale
 namespace Lawlib.Parameters
 open Lawlib
 
-/-- The IRS allows for an above the line deduction for alimony expenses for divorces that occurred in these years.
+/-- The IRS allows for an above the line deduction for alimony expenses for divorces that
+    occurred in these years.
     `gov/irs/ald/alimony_expense/divorce_year_threshold.yaml` (policyengine-us).
-    * IRS Topic no. 452, Alimony and separate maintenance: https://www.irs.gov/taxtopics/tc452 -/
-def gov.irs.ald.alimony_expense.divorce_year_threshold : Scale :=
+    * IRS Topic no. 452, Alimony and separate maintenance:
+      https://www.irs.gov/taxtopics/tc452 -/
+def irs.ald.alimony_expense.divorce_year_threshold : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨0, 1, 1⟩, 1), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2019), []⟩, ⟨(⟨0, 1, 1⟩, 0), []⟩⟩]⟩
 
 /-- Above-the-line deductions from gross income to reach adjusted gross income.
     `gov/irs/ald/deductions.yaml` (policyengine-us).
-    * 26 U.S. Code § 62 - Adjusted gross income defined: https://www.law.cornell.edu/uscode/text/26/62 -/
-def gov.irs.ald.deductions : DatedParam (List String) :=
-  ⟨(⟨2010, 1, 1⟩, ["loss_ald", "self_employment_tax_ald", "student_loan_interest_ald", "early_withdrawal_penalty", "alimony_expense_ald", "educator_expense", "capped_qualified_tuition_expenses_ald", "domestic_production_ald", "health_savings_account_ald", "self_employed_health_insurance_ald", "self_employed_pension_contribution_ald", "traditional_ira_contributions", "qualified_adoption_assistance_expense", "us_bonds_for_higher_ed", "specified_possession_income", "puerto_rico_income"]), [(⟨2018, 1, 1⟩, ["loss_ald", "self_employment_tax_ald", "student_loan_interest_ald", "early_withdrawal_penalty", "alimony_expense_ald", "educator_expense", "capped_qualified_tuition_expenses_ald", "health_savings_account_ald", "self_employed_health_insurance_ald", "self_employed_pension_contribution_ald", "traditional_ira_contributions", "qualified_adoption_assistance_expense", "us_bonds_for_higher_ed", "specified_possession_income", "puerto_rico_income"]), (⟨2021, 1, 1⟩, ["loss_ald", "self_employment_tax_ald", "student_loan_interest_ald", "early_withdrawal_penalty", "alimony_expense_ald", "educator_expense", "health_savings_account_ald", "self_employed_health_insurance_ald", "self_employed_pension_contribution_ald", "traditional_ira_contributions", "qualified_adoption_assistance_expense", "us_bonds_for_higher_ed", "specified_possession_income", "puerto_rico_income"]), (⟨2026, 1, 1⟩, ["loss_ald", "self_employment_tax_ald", "student_loan_interest_ald", "early_withdrawal_penalty", "alimony_expense_ald", "educator_expense", "health_savings_account_ald", "self_employed_health_insurance_ald", "self_employed_pension_contribution_ald", "traditional_ira_contributions", "qualified_adoption_assistance_expense", "us_bonds_for_higher_ed", "specified_possession_income", "puerto_rico_income"])]⟩
+    * 26 U.S. Code § 62 - Adjusted gross income defined:
+      https://www.law.cornell.edu/uscode/text/26/62 -/
+def irs.ald.deductions : DatedParam (List String) :=
+  ⟨(⟨2010, 1, 1⟩, ["loss_ald",
+      "self_employment_tax_ald",
+      "student_loan_interest_ald",
+      "early_withdrawal_penalty",
+      "alimony_expense_ald",
+      "educator_expense",
+      "capped_qualified_tuition_expenses_ald",
+      "domestic_production_ald",
+      "health_savings_account_ald",
+      "self_employed_health_insurance_ald",
+      "self_employed_pension_contribution_ald",
+      "traditional_ira_contributions",
+      "qualified_adoption_assistance_expense",
+      "us_bonds_for_higher_ed",
+      "specified_possession_income",
+      "puerto_rico_income"]),
+    [(⟨2018, 1, 1⟩, ["loss_ald",
+      "self_employment_tax_ald",
+      "student_loan_interest_ald",
+      "early_withdrawal_penalty",
+      "alimony_expense_ald",
+      "educator_expense",
+      "capped_qualified_tuition_expenses_ald",
+      "health_savings_account_ald",
+      "self_employed_health_insurance_ald",
+      "self_employed_pension_contribution_ald",
+      "traditional_ira_contributions",
+      "qualified_adoption_assistance_expense",
+      "us_bonds_for_higher_ed",
+      "specified_possession_income",
+      "puerto_rico_income"]),
+     (⟨2021, 1, 1⟩, ["loss_ald",
+      "self_employment_tax_ald",
+      "student_loan_interest_ald",
+      "early_withdrawal_penalty",
+      "alimony_expense_ald",
+      "educator_expense",
+      "health_savings_account_ald",
+      "self_employed_health_insurance_ald",
+      "self_employed_pension_contribution_ald",
+      "traditional_ira_contributions",
+      "qualified_adoption_assistance_expense",
+      "us_bonds_for_higher_ed",
+      "specified_possession_income",
+      "puerto_rico_income"]),
+     (⟨2026, 1, 1⟩, ["loss_ald",
+      "self_employment_tax_ald",
+      "student_loan_interest_ald",
+      "early_withdrawal_penalty",
+      "alimony_expense_ald",
+      "educator_expense",
+      "health_savings_account_ald",
+      "self_employed_health_insurance_ald",
+      "self_employed_pension_contribution_ald",
+      "traditional_ira_contributions",
+      "qualified_adoption_assistance_expense",
+      "us_bonds_for_higher_ed",
+      "specified_possession_income",
+      "puerto_rico_income"])]⟩
 
 /-- Maximum capital loss deductible from gross income to reach AGI.
     `gov/irs/ald/loss/capital/max.yaml` (policyengine-us).
-    * 26 U.S. Code § 1211 - Limitation on capital losses: https://www.law.cornell.edu/uscode/text/26/1211 -/
-def gov.irs.ald.loss.capital.max.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 1211 - Limitation on capital losses:
+      https://www.law.cornell.edu/uscode/text/26/1211 -/
+def irs.ald.loss.capital.max.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 3000), []⟩
-def gov.irs.ald.loss.capital.max.JOINT : DatedParam USD :=
+def irs.ald.loss.capital.max.JOINT : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 3000), []⟩
-def gov.irs.ald.loss.capital.max.SEPARATE : DatedParam USD :=
+def irs.ald.loss.capital.max.SEPARATE : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 1500), []⟩
-def gov.irs.ald.loss.capital.max.SINGLE : DatedParam USD :=
+def irs.ald.loss.capital.max.SINGLE : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 3000), []⟩
-def gov.irs.ald.loss.capital.max.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.ald.loss.capital.max.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 3000), []⟩
 
 /-- `gov/irs/ald/loss/max.yaml` (policyengine-us). -/
-def gov.irs.ald.loss.max.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 250000), (⟨2019, 1, 1⟩, .fin 255000), (⟨2020, 1, 1⟩, .fin 259000), (⟨2021, 1, 1⟩, .fin 262000), (⟨2022, 1, 1⟩, .fin 270000), (⟨2023, 1, 1⟩, .fin 289000), (⟨2024, 1, 1⟩, .fin 305000)]⟩
+def irs.ald.loss.max.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 250000),
+     (⟨2019, 1, 1⟩, .fin 255000),
+     (⟨2020, 1, 1⟩, .fin 259000),
+     (⟨2021, 1, 1⟩, .fin 262000),
+     (⟨2022, 1, 1⟩, .fin 270000),
+     (⟨2023, 1, 1⟩, .fin 289000),
+     (⟨2024, 1, 1⟩, .fin 305000)]⟩
 
 /-- `gov/irs/ald/loss/max.yaml` (policyengine-us). -/
-def gov.irs.ald.loss.max.JOINT : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 500000), (⟨2019, 1, 1⟩, .fin 510000), (⟨2020, 1, 1⟩, .fin 518000), (⟨2021, 1, 1⟩, .fin 524000), (⟨2022, 1, 1⟩, .fin 540000), (⟨2023, 1, 1⟩, .fin 578000), (⟨2024, 1, 1⟩, .fin 610000)]⟩
+def irs.ald.loss.max.JOINT : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 500000),
+     (⟨2019, 1, 1⟩, .fin 510000),
+     (⟨2020, 1, 1⟩, .fin 518000),
+     (⟨2021, 1, 1⟩, .fin 524000),
+     (⟨2022, 1, 1⟩, .fin 540000),
+     (⟨2023, 1, 1⟩, .fin 578000),
+     (⟨2024, 1, 1⟩, .fin 610000)]⟩
 
 /-- `gov/irs/ald/loss/max.yaml` (policyengine-us). -/
-def gov.irs.ald.loss.max.SEPARATE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 250000), (⟨2019, 1, 1⟩, .fin 255000), (⟨2020, 1, 1⟩, .fin 259000), (⟨2021, 1, 1⟩, .fin 262000), (⟨2022, 1, 1⟩, .fin 270000), (⟨2023, 1, 1⟩, .fin 289000), (⟨2024, 1, 1⟩, .fin 305000)]⟩
+def irs.ald.loss.max.SEPARATE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 250000),
+     (⟨2019, 1, 1⟩, .fin 255000),
+     (⟨2020, 1, 1⟩, .fin 259000),
+     (⟨2021, 1, 1⟩, .fin 262000),
+     (⟨2022, 1, 1⟩, .fin 270000),
+     (⟨2023, 1, 1⟩, .fin 289000),
+     (⟨2024, 1, 1⟩, .fin 305000)]⟩
 
 /-- `gov/irs/ald/loss/max.yaml` (policyengine-us). -/
-def gov.irs.ald.loss.max.SINGLE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 250000), (⟨2019, 1, 1⟩, .fin 255000), (⟨2020, 1, 1⟩, .fin 259000), (⟨2021, 1, 1⟩, .fin 262000), (⟨2022, 1, 1⟩, .fin 270000), (⟨2023, 1, 1⟩, .fin 289000), (⟨2024, 1, 1⟩, .fin 305000)]⟩
+def irs.ald.loss.max.SINGLE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 250000),
+     (⟨2019, 1, 1⟩, .fin 255000),
+     (⟨2020, 1, 1⟩, .fin 259000),
+     (⟨2021, 1, 1⟩, .fin 262000),
+     (⟨2022, 1, 1⟩, .fin 270000),
+     (⟨2023, 1, 1⟩, .fin 289000),
+     (⟨2024, 1, 1⟩, .fin 305000)]⟩
 
 /-- `gov/irs/ald/loss/max.yaml` (policyengine-us). -/
-def gov.irs.ald.loss.max.SURVIVING_SPOUSE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 500000), (⟨2019, 1, 1⟩, .fin 510000), (⟨2020, 1, 1⟩, .fin 518000), (⟨2021, 1, 1⟩, .fin 524000), (⟨2022, 1, 1⟩, .fin 540000), (⟨2023, 1, 1⟩, .fin 578000), (⟨2024, 1, 1⟩, .fin 610000)]⟩
+def irs.ald.loss.max.SURVIVING_SPOUSE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 500000),
+     (⟨2019, 1, 1⟩, .fin 510000),
+     (⟨2020, 1, 1⟩, .fin 518000),
+     (⟨2021, 1, 1⟩, .fin 524000),
+     (⟨2022, 1, 1⟩, .fin 540000),
+     (⟨2023, 1, 1⟩, .fin 578000),
+     (⟨2024, 1, 1⟩, .fin 610000)]⟩
 
 /-- Employer share of self-employment tax that can be deducted from net earnings.
     `gov/irs/ald/misc/employer_share.yaml` (policyengine-us).
-    * 26 U.S. Code § 1402 - Definitions: https://www.law.cornell.edu/uscode/text/26/1402#a_12_B -/
-def gov.irs.ald.misc.employer_share : DatedParam Rate :=
+    * 26 U.S. Code § 1402 - Definitions:
+      https://www.law.cornell.edu/uscode/text/26/1402#a_12_B -/
+def irs.ald.misc.employer_share : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, mkRat 1 2), []⟩
 
 /-- `gov/irs/ald/misc/max_business_losses.yaml` (policyengine-us). -/
-def gov.irs.ald.misc.max_business_losses.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 250000), (⟨2019, 1, 1⟩, .fin 255000), (⟨2026, 1, 1⟩, .fin (mkRat 14176761 50)), (⟨2027, 1, 1⟩, .posInf)]⟩
+def irs.ald.misc.max_business_losses.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 250000),
+     (⟨2019, 1, 1⟩, .fin 255000),
+     (⟨2026, 1, 1⟩, .fin (mkRat 14176761 50)),
+     (⟨2027, 1, 1⟩, .posInf)]⟩
 
 /-- `gov/irs/ald/misc/max_business_losses.yaml` (policyengine-us). -/
-def gov.irs.ald.misc.max_business_losses.JOINT : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 500000), (⟨2019, 1, 1⟩, .fin 510000), (⟨2026, 1, 1⟩, .fin (mkRat 28353521 50)), (⟨2027, 1, 1⟩, .posInf)]⟩
+def irs.ald.misc.max_business_losses.JOINT : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 500000),
+     (⟨2019, 1, 1⟩, .fin 510000),
+     (⟨2026, 1, 1⟩, .fin (mkRat 28353521 50)),
+     (⟨2027, 1, 1⟩, .posInf)]⟩
 
 /-- `gov/irs/ald/misc/max_business_losses.yaml` (policyengine-us). -/
-def gov.irs.ald.misc.max_business_losses.SEPARATE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 250000), (⟨2019, 1, 1⟩, .fin 255000), (⟨2026, 1, 1⟩, .fin (mkRat 14176761 50)), (⟨2027, 1, 1⟩, .posInf)]⟩
+def irs.ald.misc.max_business_losses.SEPARATE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 250000),
+     (⟨2019, 1, 1⟩, .fin 255000),
+     (⟨2026, 1, 1⟩, .fin (mkRat 14176761 50)),
+     (⟨2027, 1, 1⟩, .posInf)]⟩
 
 /-- `gov/irs/ald/misc/max_business_losses.yaml` (policyengine-us). -/
-def gov.irs.ald.misc.max_business_losses.SINGLE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 250000), (⟨2019, 1, 1⟩, .fin 255000), (⟨2026, 1, 1⟩, .fin (mkRat 14176761 50)), (⟨2027, 1, 1⟩, .posInf)]⟩
+def irs.ald.misc.max_business_losses.SINGLE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 250000),
+     (⟨2019, 1, 1⟩, .fin 255000),
+     (⟨2026, 1, 1⟩, .fin (mkRat 14176761 50)),
+     (⟨2027, 1, 1⟩, .posInf)]⟩
 
 /-- `gov/irs/ald/misc/max_business_losses.yaml` (policyengine-us). -/
-def gov.irs.ald.misc.max_business_losses.SURVIVING_SPOUSE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2018, 1, 1⟩, .fin 500000), (⟨2019, 1, 1⟩, .fin 510000), (⟨2026, 1, 1⟩, .fin (mkRat 28353521 50)), (⟨2027, 1, 1⟩, .posInf)]⟩
+def irs.ald.misc.max_business_losses.SURVIVING_SPOUSE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2018, 1, 1⟩, .fin 500000),
+     (⟨2019, 1, 1⟩, .fin 510000),
+     (⟨2026, 1, 1⟩, .fin (mkRat 28353521 50)),
+     (⟨2027, 1, 1⟩, .posInf)]⟩
 
 /-- Adjustment for self-employment tax haircut
     `gov/irs/ald/misc/self_emp_tax_adj.yaml` (policyengine-us). -/
-def gov.irs.ald.misc.self_emp_tax_adj : DatedParam Rate :=
+def irs.ald.misc.self_emp_tax_adj : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, 0), []⟩
 
 /-- Employer share of self-employment tax that can be deducted from net earnings.
     `gov/irs/ald/self_employment_tax/percent_deductible.yaml` (policyengine-us).
-    * 26 U.S. Code § 1402 - Definitions: https://www.law.cornell.edu/uscode/text/26/1402#a_12_B -/
-def gov.irs.ald.self_employment_tax.percent_deductible : DatedParam Rate :=
+    * 26 U.S. Code § 1402 - Definitions:
+      https://www.law.cornell.edu/uscode/text/26/1402#a_12_B -/
+def irs.ald.self_employment_tax.percent_deductible : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, mkRat 1 2), []⟩
 
 /-- IRS caps the student loan interest deduction at this amount, based on filing status.
     `gov/irs/ald/student_loan_interest/cap.yaml` (policyengine-us).
-    * 26 U.S. Code § 221 - Interest on education loans (b)(1): https://www.law.cornell.edu/uscode/text/26/221
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=18
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=18
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=18
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=17
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=20
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=16 -/
-def gov.irs.ald.student_loan_interest.cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 221 - Interest on education loans (b)(1):
+      https://www.law.cornell.edu/uscode/text/26/221
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=18
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=18
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=18
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=17
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=20
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=16 -/
+def irs.ald.student_loan_interest.cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 2500), []⟩
-def gov.irs.ald.student_loan_interest.cap.JOINT : DatedParam USD :=
+def irs.ald.student_loan_interest.cap.JOINT : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 2500), []⟩
-def gov.irs.ald.student_loan_interest.cap.SEPARATE : DatedParam USD :=
+def irs.ald.student_loan_interest.cap.SEPARATE : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 0), []⟩
-def gov.irs.ald.student_loan_interest.cap.SINGLE : DatedParam USD :=
+def irs.ald.student_loan_interest.cap.SINGLE : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 2500), []⟩
-def gov.irs.ald.student_loan_interest.cap.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.ald.student_loan_interest.cap.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 2500), []⟩
 
-/-- IRS excludes the following above the line deductions from the modified adjusted gross income under the student loan interest deduction.
+/-- IRS excludes the following above the line deductions from the modified adjusted gross income
+    under the student loan interest deduction.
     `gov/irs/ald/student_loan_interest/magi/excluded_alds.yaml` (policyengine-us).
-    * 26 U.S. Code § 221 - Interest on education loans (b)(2)(C): https://www.law.cornell.edu/uscode/text/26/221 -/
-def gov.irs.ald.student_loan_interest.magi.excluded_alds : DatedParam (List String) :=
+    * 26 U.S. Code § 221 - Interest on education loans (b)(2)(C):
+      https://www.law.cornell.edu/uscode/text/26/221 -/
+def irs.ald.student_loan_interest.magi.excluded_alds : DatedParam (List String) :=
   ⟨(⟨2002, 1, 1⟩, ["student_loan_interest_ald", "puerto_rico_income"]), []⟩
 
-/-- IRS excludes the following gross income sources from the modified adjusted gross income under the student loan interest deduction.
+/-- IRS excludes the following gross income sources from the modified adjusted gross income
+    under the student loan interest deduction.
     `gov/irs/ald/student_loan_interest/magi/excluded_gross_income_sources.yaml` (policyengine-us).
-    * 26 U.S. Code § 221 - Interest on education loans (b)(2)(C): https://www.law.cornell.edu/uscode/text/26/221 -/
-def gov.irs.ald.student_loan_interest.magi.excluded_gross_income_sources : DatedParam (List String) :=
+    * 26 U.S. Code § 221 - Interest on education loans (b)(2)(C):
+      https://www.law.cornell.edu/uscode/text/26/221 -/
+def irs.ald.student_loan_interest.magi.excluded_gross_income_sources : DatedParam (List String) :=
   ⟨(⟨2002, 1, 1⟩, ["taxable_unemployment_compensation"]), []⟩
 
-/-- IRS consideres the following person level above the line deductions for the modified adjusted gross income computation under the student loan interest deduction.
+/-- IRS consideres the following person level above the line deductions for the modified
+    adjusted gross income computation under the student loan interest deduction.
     `gov/irs/ald/student_loan_interest/magi/person_alds.yaml` (policyengine-us).
-    * 26 U.S. Code § 221 - Interest on education loans (b)(2)(C): https://www.law.cornell.edu/uscode/text/26/221 -/
-def gov.irs.ald.student_loan_interest.magi.person_alds : DatedParam (List String) :=
-  ⟨(⟨2002, 1, 1⟩, ["self_employment_tax_ald", "self_employed_health_insurance_ald", "self_employed_pension_contribution_ald"]), []⟩
+    * 26 U.S. Code § 221 - Interest on education loans (b)(2)(C):
+      https://www.law.cornell.edu/uscode/text/26/221 -/
+def irs.ald.student_loan_interest.magi.person_alds : DatedParam (List String) :=
+  ⟨(⟨2002, 1, 1⟩, ["self_employment_tax_ald",
+      "self_employed_health_insurance_ald",
+      "self_employed_pension_contribution_ald"]), []⟩
 
-/-- IRS reduces the student loan interest deduction for filers with modified adjusted income over this threshold, based on filing status.
+/-- IRS reduces the student loan interest deduction for filers with modified adjusted income
+    over this threshold, based on filing status.
     `gov/irs/ald/student_loan_interest/reduction/divisor.yaml` (policyengine-us).
-    * 26 U.S. Code § 221 - Interest on education loans (b)(1): https://www.law.cornell.edu/uscode/text/26/221
-    * 2021 IRS Publication 970 Tax Benefits for Education: https://www.irs.gov/pub/irs-prior/p970--2021.pdf#page=37
-    * 2022 IRS Publication 970 Tax Benefits for Education: https://www.irs.gov/pub/irs-prior/p970--2022.pdf#page=36
-    * 2023 IRS Publication 970 Tax Benefits for Education: https://www.irs.gov/pub/irs-pdf/p970.pdf#page=36 -/
-def gov.irs.ald.student_loan_interest.reduction.divisor.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 221 - Interest on education loans (b)(1):
+      https://www.law.cornell.edu/uscode/text/26/221
+    * 2021 IRS Publication 970 Tax Benefits for Education:
+      https://www.irs.gov/pub/irs-prior/p970--2021.pdf#page=37
+    * 2022 IRS Publication 970 Tax Benefits for Education:
+      https://www.irs.gov/pub/irs-prior/p970--2022.pdf#page=36
+    * 2023 IRS Publication 970 Tax Benefits for Education:
+      https://www.irs.gov/pub/irs-pdf/p970.pdf#page=36 -/
+def irs.ald.student_loan_interest.reduction.divisor.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 15000), []⟩
-def gov.irs.ald.student_loan_interest.reduction.divisor.JOINT : DatedParam USD :=
+def irs.ald.student_loan_interest.reduction.divisor.JOINT : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 30000), []⟩
-def gov.irs.ald.student_loan_interest.reduction.divisor.SEPARATE : DatedParam USD :=
+def irs.ald.student_loan_interest.reduction.divisor.SEPARATE : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 0), []⟩
-def gov.irs.ald.student_loan_interest.reduction.divisor.SINGLE : DatedParam USD :=
+def irs.ald.student_loan_interest.reduction.divisor.SINGLE : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 15000), []⟩
-def gov.irs.ald.student_loan_interest.reduction.divisor.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.ald.student_loan_interest.reduction.divisor.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2002, 1, 1⟩, 15000), []⟩
 
 /-- `gov/irs/ald/student_loan_interest/reduction/start.yaml` (policyengine-us). -/
-def gov.irs.ald.student_loan_interest.reduction.start.JOINT : DatedParam Rat :=
-  ⟨(⟨2002, 1, 1⟩, 100000), [(⟨2019, 1, 1⟩, 140000), (⟨2022, 1, 1⟩, 145000), (⟨2023, 1, 1⟩, 155000), (⟨2024, 1, 1⟩, 165000), (⟨2025, 1, 1⟩, 170000), (⟨2026, 1, 1⟩, 175000)]⟩
+def irs.ald.student_loan_interest.reduction.start.JOINT : DatedParam Rat :=
+  ⟨(⟨2002, 1, 1⟩, 100000),
+    [(⟨2019, 1, 1⟩, 140000),
+     (⟨2022, 1, 1⟩, 145000),
+     (⟨2023, 1, 1⟩, 155000),
+     (⟨2024, 1, 1⟩, 165000),
+     (⟨2025, 1, 1⟩, 170000),
+     (⟨2026, 1, 1⟩, 175000)]⟩
 
 /-- `gov/irs/ald/student_loan_interest/reduction/start.yaml` (policyengine-us). -/
-def gov.irs.ald.student_loan_interest.reduction.start.SINGLE : DatedParam Rat :=
-  ⟨(⟨2002, 1, 1⟩, 50000), [(⟨2019, 1, 1⟩, 70000), (⟨2023, 1, 1⟩, 75000), (⟨2024, 1, 1⟩, 80000), (⟨2025, 1, 1⟩, 85000), (⟨2026, 1, 1⟩, 85000)]⟩
+def irs.ald.student_loan_interest.reduction.start.SINGLE : DatedParam Rat :=
+  ⟨(⟨2002, 1, 1⟩, 50000),
+    [(⟨2019, 1, 1⟩, 70000),
+     (⟨2023, 1, 1⟩, 75000),
+     (⟨2024, 1, 1⟩, 80000),
+     (⟨2025, 1, 1⟩, 85000),
+     (⟨2026, 1, 1⟩, 85000)]⟩
 
 /-- `gov/irs/ald/student_loan_interest/reduction/start.yaml` (policyengine-us). -/
-def gov.irs.ald.student_loan_interest.reduction.start.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2002, 1, 1⟩, 50000), [(⟨2019, 1, 1⟩, 70000), (⟨2023, 1, 1⟩, 75000), (⟨2024, 1, 1⟩, 80000), (⟨2025, 1, 1⟩, 85000), (⟨2026, 1, 1⟩, 85000)]⟩
+def irs.ald.student_loan_interest.reduction.start.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2002, 1, 1⟩, 50000),
+    [(⟨2019, 1, 1⟩, 70000),
+     (⟨2023, 1, 1⟩, 75000),
+     (⟨2024, 1, 1⟩, 80000),
+     (⟨2025, 1, 1⟩, 85000),
+     (⟨2026, 1, 1⟩, 85000)]⟩
 
 /-- `gov/irs/ald/student_loan_interest/reduction/start.yaml` (policyengine-us). -/
-def gov.irs.ald.student_loan_interest.reduction.start.SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2002, 1, 1⟩, 50000), [(⟨2019, 1, 1⟩, 70000), (⟨2023, 1, 1⟩, 75000), (⟨2024, 1, 1⟩, 80000), (⟨2025, 1, 1⟩, 85000), (⟨2026, 1, 1⟩, 85000)]⟩
+def irs.ald.student_loan_interest.reduction.start.SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2002, 1, 1⟩, 50000),
+    [(⟨2019, 1, 1⟩, 70000),
+     (⟨2023, 1, 1⟩, 75000),
+     (⟨2024, 1, 1⟩, 80000),
+     (⟨2025, 1, 1⟩, 85000),
+     (⟨2026, 1, 1⟩, 85000)]⟩
 
 /-- Capital gains loss limit
     `gov/irs/capital_gains/loss_limit.yaml` (policyengine-us).
-    * IRS Topic No. 409, Capital Gains and Losses: https://www.irs.gov/taxtopics/tc409 -/
-def gov.irs.capital_gains.loss_limit.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * IRS Topic No. 409, Capital Gains and Losses:
+      https://www.irs.gov/taxtopics/tc409 -/
+def irs.capital_gains.loss_limit.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 3000), []⟩
-def gov.irs.capital_gains.loss_limit.JOINT : DatedParam USD :=
+def irs.capital_gains.loss_limit.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 3000), []⟩
-def gov.irs.capital_gains.loss_limit.SEPARATE : DatedParam USD :=
+def irs.capital_gains.loss_limit.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 1500), []⟩
-def gov.irs.capital_gains.loss_limit.SINGLE : DatedParam USD :=
+def irs.capital_gains.loss_limit.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 3000), []⟩
-def gov.irs.capital_gains.loss_limit.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.capital_gains.loss_limit.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 3000), []⟩
 
-/-- Capital gains tax rate applying to special categories of gains (including small business stock and collectibles).
+/-- Capital gains tax rate applying to special categories of gains (including small business
+    stock and collectibles).
     `gov/irs/capital_gains/other_cg_rate.yaml` (policyengine-us).
-    * 26 U.S.C. § 1(h)(1)(F): https://www.law.cornell.edu/uscode/text/26/1#h_1_F -/
-def gov.irs.capital_gains.other_cg_rate : DatedParam Rate :=
+    * 26 U.S.C. § 1(h)(1)(F):
+      https://www.law.cornell.edu/uscode/text/26/1#h_1_F -/
+def irs.capital_gains.other_cg_rate : DatedParam Rate :=
   ⟨(⟨2018, 1, 1⟩, mkRat 7 25), []⟩
 
 /-- The IRS taxes long-term capital gains and qualified dividends at these rates.
     `gov/irs/capital_gains/rates.yaml` (policyengine-us).
-    * 26 U.S. Code § 1(h) - Tax on net capital gain: https://www.law.cornell.edu/uscode/text/26/1#h
-    * 26 U.S. Code § 1(j)(5)(A) - Capital gains rates: https://www.law.cornell.edu/uscode/text/26/1#j_5_A -/
-def gov.irs.capital_gains.rates.«1» : DatedParam Rat :=
+    * 26 U.S. Code § 1(h) - Tax on net capital gain:
+      https://www.law.cornell.edu/uscode/text/26/1#h
+    * 26 U.S. Code § 1(j)(5)(A) - Capital gains rates:
+      https://www.law.cornell.edu/uscode/text/26/1#j_5_A -/
+def irs.capital_gains.rates.«1» : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 0), []⟩
-def gov.irs.capital_gains.rates.«2» : DatedParam Rat :=
+def irs.capital_gains.rates.«2» : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, mkRat 3 20), []⟩
-def gov.irs.capital_gains.rates.«3» : DatedParam Rat :=
+def irs.capital_gains.rates.«3» : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 5), []⟩
 
 /-- `gov/irs/capital_gains/thresholds.yaml` (policyengine-us). -/
-def gov.irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 48600), [(⟨2014, 1, 1⟩, 49400), (⟨2015, 1, 1⟩, 50200), (⟨2016, 1, 1⟩, 50400), (⟨2017, 1, 1⟩, 50800), (⟨2018, 1, 1⟩, 51700), (⟨2019, 1, 1⟩, 52750), (⟨2020, 1, 1⟩, 53600), (⟨2021, 1, 1⟩, 54100), (⟨2022, 1, 1⟩, 55800), (⟨2023, 1, 1⟩, 59750), (⟨2024, 1, 1⟩, 63000), (⟨2025, 1, 1⟩, 64750), (⟨2026, 1, 1⟩, 66200)]⟩
-def gov.irs.capital_gains.thresholds.«1».JOINT : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 72500), [(⟨2014, 1, 1⟩, 73800), (⟨2015, 1, 1⟩, 74900), (⟨2016, 1, 1⟩, 75300), (⟨2017, 1, 1⟩, 75900), (⟨2018, 1, 1⟩, 77200), (⟨2019, 1, 1⟩, 78750), (⟨2020, 1, 1⟩, 80000), (⟨2021, 1, 1⟩, 80800), (⟨2022, 1, 1⟩, 83350), (⟨2023, 1, 1⟩, 89250), (⟨2024, 1, 1⟩, 94050), (⟨2025, 1, 1⟩, 96700), (⟨2026, 1, 1⟩, 98900)]⟩
-def gov.irs.capital_gains.thresholds.«1».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 36250), [(⟨2014, 1, 1⟩, 36900), (⟨2015, 1, 1⟩, 37450), (⟨2016, 1, 1⟩, 37650), (⟨2017, 1, 1⟩, 37950), (⟨2018, 1, 1⟩, 38600), (⟨2019, 1, 1⟩, 39375), (⟨2020, 1, 1⟩, 40000), (⟨2021, 1, 1⟩, 40400), (⟨2022, 1, 1⟩, 41675), (⟨2023, 1, 1⟩, 44625), (⟨2024, 1, 1⟩, 47025), (⟨2025, 1, 1⟩, 48350), (⟨2026, 1, 1⟩, 49450)]⟩
-def gov.irs.capital_gains.thresholds.«1».SINGLE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 36250), [(⟨2014, 1, 1⟩, 36900), (⟨2015, 1, 1⟩, 37450), (⟨2016, 1, 1⟩, 37650), (⟨2017, 1, 1⟩, 37950), (⟨2018, 1, 1⟩, 38600), (⟨2019, 1, 1⟩, 39375), (⟨2020, 1, 1⟩, 40000), (⟨2021, 1, 1⟩, 40400), (⟨2022, 1, 1⟩, 41675), (⟨2023, 1, 1⟩, 44625), (⟨2024, 1, 1⟩, 47025), (⟨2025, 1, 1⟩, 48350), (⟨2026, 1, 1⟩, 49450)]⟩
-def gov.irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 72500), [(⟨2014, 1, 1⟩, 73800), (⟨2015, 1, 1⟩, 74900), (⟨2016, 1, 1⟩, 75300), (⟨2017, 1, 1⟩, 75900), (⟨2018, 1, 1⟩, 77200), (⟨2019, 1, 1⟩, 78750), (⟨2020, 1, 1⟩, 80000), (⟨2021, 1, 1⟩, 80800), (⟨2022, 1, 1⟩, 83350), (⟨2023, 1, 1⟩, 89250), (⟨2024, 1, 1⟩, 94050), (⟨2025, 1, 1⟩, 96700), (⟨2026, 1, 1⟩, 98900)]⟩
+def irs.capital_gains.thresholds.«1».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 48600),
+    [(⟨2014, 1, 1⟩, 49400),
+     (⟨2015, 1, 1⟩, 50200),
+     (⟨2016, 1, 1⟩, 50400),
+     (⟨2017, 1, 1⟩, 50800),
+     (⟨2018, 1, 1⟩, 51700),
+     (⟨2019, 1, 1⟩, 52750),
+     (⟨2020, 1, 1⟩, 53600),
+     (⟨2021, 1, 1⟩, 54100),
+     (⟨2022, 1, 1⟩, 55800),
+     (⟨2023, 1, 1⟩, 59750),
+     (⟨2024, 1, 1⟩, 63000),
+     (⟨2025, 1, 1⟩, 64750),
+     (⟨2026, 1, 1⟩, 66200)]⟩
+def irs.capital_gains.thresholds.«1».JOINT : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 72500),
+    [(⟨2014, 1, 1⟩, 73800),
+     (⟨2015, 1, 1⟩, 74900),
+     (⟨2016, 1, 1⟩, 75300),
+     (⟨2017, 1, 1⟩, 75900),
+     (⟨2018, 1, 1⟩, 77200),
+     (⟨2019, 1, 1⟩, 78750),
+     (⟨2020, 1, 1⟩, 80000),
+     (⟨2021, 1, 1⟩, 80800),
+     (⟨2022, 1, 1⟩, 83350),
+     (⟨2023, 1, 1⟩, 89250),
+     (⟨2024, 1, 1⟩, 94050),
+     (⟨2025, 1, 1⟩, 96700),
+     (⟨2026, 1, 1⟩, 98900)]⟩
+def irs.capital_gains.thresholds.«1».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 36250),
+    [(⟨2014, 1, 1⟩, 36900),
+     (⟨2015, 1, 1⟩, 37450),
+     (⟨2016, 1, 1⟩, 37650),
+     (⟨2017, 1, 1⟩, 37950),
+     (⟨2018, 1, 1⟩, 38600),
+     (⟨2019, 1, 1⟩, 39375),
+     (⟨2020, 1, 1⟩, 40000),
+     (⟨2021, 1, 1⟩, 40400),
+     (⟨2022, 1, 1⟩, 41675),
+     (⟨2023, 1, 1⟩, 44625),
+     (⟨2024, 1, 1⟩, 47025),
+     (⟨2025, 1, 1⟩, 48350),
+     (⟨2026, 1, 1⟩, 49450)]⟩
+def irs.capital_gains.thresholds.«1».SINGLE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 36250),
+    [(⟨2014, 1, 1⟩, 36900),
+     (⟨2015, 1, 1⟩, 37450),
+     (⟨2016, 1, 1⟩, 37650),
+     (⟨2017, 1, 1⟩, 37950),
+     (⟨2018, 1, 1⟩, 38600),
+     (⟨2019, 1, 1⟩, 39375),
+     (⟨2020, 1, 1⟩, 40000),
+     (⟨2021, 1, 1⟩, 40400),
+     (⟨2022, 1, 1⟩, 41675),
+     (⟨2023, 1, 1⟩, 44625),
+     (⟨2024, 1, 1⟩, 47025),
+     (⟨2025, 1, 1⟩, 48350),
+     (⟨2026, 1, 1⟩, 49450)]⟩
+def irs.capital_gains.thresholds.«1».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 72500),
+    [(⟨2014, 1, 1⟩, 73800),
+     (⟨2015, 1, 1⟩, 74900),
+     (⟨2016, 1, 1⟩, 75300),
+     (⟨2017, 1, 1⟩, 75900),
+     (⟨2018, 1, 1⟩, 77200),
+     (⟨2019, 1, 1⟩, 78750),
+     (⟨2020, 1, 1⟩, 80000),
+     (⟨2021, 1, 1⟩, 80800),
+     (⟨2022, 1, 1⟩, 83350),
+     (⟨2023, 1, 1⟩, 89250),
+     (⟨2024, 1, 1⟩, 94050),
+     (⟨2025, 1, 1⟩, 96700),
+     (⟨2026, 1, 1⟩, 98900)]⟩
 
 /-- `gov/irs/capital_gains/thresholds.yaml` (policyengine-us). -/
-def gov.irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 425000), [(⟨2014, 1, 1⟩, 432200), (⟨2015, 1, 1⟩, 439000), (⟨2016, 1, 1⟩, 441000), (⟨2017, 1, 1⟩, 444550), (⟨2018, 1, 1⟩, 452400), (⟨2019, 1, 1⟩, 461700), (⟨2020, 1, 1⟩, 469050), (⟨2021, 1, 1⟩, 473750), (⟨2022, 1, 1⟩, 488500), (⟨2023, 1, 1⟩, 523050), (⟨2024, 1, 1⟩, 551350), (⟨2025, 1, 1⟩, 566700), (⟨2026, 1, 1⟩, 579600)]⟩
-def gov.irs.capital_gains.thresholds.«2».JOINT : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 450000), [(⟨2014, 1, 1⟩, 457600), (⟨2015, 1, 1⟩, 464850), (⟨2016, 1, 1⟩, 466950), (⟨2017, 1, 1⟩, 470700), (⟨2018, 1, 1⟩, 479000), (⟨2019, 1, 1⟩, 488850), (⟨2020, 1, 1⟩, 496600), (⟨2021, 1, 1⟩, 501600), (⟨2022, 1, 1⟩, 517200), (⟨2023, 1, 1⟩, 553850), (⟨2024, 1, 1⟩, 583750), (⟨2025, 1, 1⟩, 600050), (⟨2026, 1, 1⟩, 613700)]⟩
-def gov.irs.capital_gains.thresholds.«2».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 225000), [(⟨2014, 1, 1⟩, 228800), (⟨2015, 1, 1⟩, 232425), (⟨2016, 1, 1⟩, 233475), (⟨2017, 1, 1⟩, 235350), (⟨2018, 1, 1⟩, 239500), (⟨2019, 1, 1⟩, 244425), (⟨2020, 1, 1⟩, 248300), (⟨2021, 1, 1⟩, 250800), (⟨2022, 1, 1⟩, 258600), (⟨2023, 1, 1⟩, 276900), (⟨2024, 1, 1⟩, 291850), (⟨2025, 1, 1⟩, 300000), (⟨2026, 1, 1⟩, 306850)]⟩
-def gov.irs.capital_gains.thresholds.«2».SINGLE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 400000), [(⟨2014, 1, 1⟩, 406750), (⟨2015, 1, 1⟩, 413200), (⟨2016, 1, 1⟩, 415050), (⟨2017, 1, 1⟩, 418400), (⟨2018, 1, 1⟩, 425800), (⟨2019, 1, 1⟩, 434550), (⟨2020, 1, 1⟩, 441450), (⟨2021, 1, 1⟩, 445850), (⟨2022, 1, 1⟩, 459750), (⟨2023, 1, 1⟩, 492300), (⟨2024, 1, 1⟩, 518900), (⟨2025, 1, 1⟩, 533400), (⟨2026, 1, 1⟩, 545500)]⟩
-def gov.irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 450000), [(⟨2014, 1, 1⟩, 457600), (⟨2015, 1, 1⟩, 464850), (⟨2016, 1, 1⟩, 466950), (⟨2017, 1, 1⟩, 470700), (⟨2018, 1, 1⟩, 479000), (⟨2019, 1, 1⟩, 488850), (⟨2020, 1, 1⟩, 496600), (⟨2021, 1, 1⟩, 501600), (⟨2022, 1, 1⟩, 517200), (⟨2023, 1, 1⟩, 553850), (⟨2024, 1, 1⟩, 583750), (⟨2025, 1, 1⟩, 600050), (⟨2026, 1, 1⟩, 613700)]⟩
+def irs.capital_gains.thresholds.«2».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 425000),
+    [(⟨2014, 1, 1⟩, 432200),
+     (⟨2015, 1, 1⟩, 439000),
+     (⟨2016, 1, 1⟩, 441000),
+     (⟨2017, 1, 1⟩, 444550),
+     (⟨2018, 1, 1⟩, 452400),
+     (⟨2019, 1, 1⟩, 461700),
+     (⟨2020, 1, 1⟩, 469050),
+     (⟨2021, 1, 1⟩, 473750),
+     (⟨2022, 1, 1⟩, 488500),
+     (⟨2023, 1, 1⟩, 523050),
+     (⟨2024, 1, 1⟩, 551350),
+     (⟨2025, 1, 1⟩, 566700),
+     (⟨2026, 1, 1⟩, 579600)]⟩
+def irs.capital_gains.thresholds.«2».JOINT : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 450000),
+    [(⟨2014, 1, 1⟩, 457600),
+     (⟨2015, 1, 1⟩, 464850),
+     (⟨2016, 1, 1⟩, 466950),
+     (⟨2017, 1, 1⟩, 470700),
+     (⟨2018, 1, 1⟩, 479000),
+     (⟨2019, 1, 1⟩, 488850),
+     (⟨2020, 1, 1⟩, 496600),
+     (⟨2021, 1, 1⟩, 501600),
+     (⟨2022, 1, 1⟩, 517200),
+     (⟨2023, 1, 1⟩, 553850),
+     (⟨2024, 1, 1⟩, 583750),
+     (⟨2025, 1, 1⟩, 600050),
+     (⟨2026, 1, 1⟩, 613700)]⟩
+def irs.capital_gains.thresholds.«2».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 225000),
+    [(⟨2014, 1, 1⟩, 228800),
+     (⟨2015, 1, 1⟩, 232425),
+     (⟨2016, 1, 1⟩, 233475),
+     (⟨2017, 1, 1⟩, 235350),
+     (⟨2018, 1, 1⟩, 239500),
+     (⟨2019, 1, 1⟩, 244425),
+     (⟨2020, 1, 1⟩, 248300),
+     (⟨2021, 1, 1⟩, 250800),
+     (⟨2022, 1, 1⟩, 258600),
+     (⟨2023, 1, 1⟩, 276900),
+     (⟨2024, 1, 1⟩, 291850),
+     (⟨2025, 1, 1⟩, 300000),
+     (⟨2026, 1, 1⟩, 306850)]⟩
+def irs.capital_gains.thresholds.«2».SINGLE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 400000),
+    [(⟨2014, 1, 1⟩, 406750),
+     (⟨2015, 1, 1⟩, 413200),
+     (⟨2016, 1, 1⟩, 415050),
+     (⟨2017, 1, 1⟩, 418400),
+     (⟨2018, 1, 1⟩, 425800),
+     (⟨2019, 1, 1⟩, 434550),
+     (⟨2020, 1, 1⟩, 441450),
+     (⟨2021, 1, 1⟩, 445850),
+     (⟨2022, 1, 1⟩, 459750),
+     (⟨2023, 1, 1⟩, 492300),
+     (⟨2024, 1, 1⟩, 518900),
+     (⟨2025, 1, 1⟩, 533400),
+     (⟨2026, 1, 1⟩, 545500)]⟩
+def irs.capital_gains.thresholds.«2».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 450000),
+    [(⟨2014, 1, 1⟩, 457600),
+     (⟨2015, 1, 1⟩, 464850),
+     (⟨2016, 1, 1⟩, 466950),
+     (⟨2017, 1, 1⟩, 470700),
+     (⟨2018, 1, 1⟩, 479000),
+     (⟨2019, 1, 1⟩, 488850),
+     (⟨2020, 1, 1⟩, 496600),
+     (⟨2021, 1, 1⟩, 501600),
+     (⟨2022, 1, 1⟩, 517200),
+     (⟨2023, 1, 1⟩, 553850),
+     (⟨2024, 1, 1⟩, 583750),
+     (⟨2025, 1, 1⟩, 600050),
+     (⟨2026, 1, 1⟩, 613700)]⟩
 
 /-- Tax rate on net un-recaptured Section 1250 gains.
     `gov/irs/capital_gains/unrecaptured_s_1250_rate.yaml` (policyengine-us).
-    * 26 U.S.C. § 1(h)(1)(E): https://www.law.cornell.edu/uscode/text/26/1#h_1_E -/
-def gov.irs.capital_gains.unrecaptured_s_1250_rate : DatedParam Rate :=
+    * 26 U.S.C. § 1(h)(1)(E):
+      https://www.law.cornell.edu/uscode/text/26/1#h_1_E -/
+def irs.capital_gains.unrecaptured_s_1250_rate : DatedParam Rate :=
   ⟨(⟨2018, 1, 1⟩, mkRat 1 4), []⟩
 
-/-- The IRS deems a spouse who is a full-time student or incapable of self-care to have at least this earned income for the Child and Dependent Care Credit, depending on the number of qualifying individuals.
+/-- The IRS deems a spouse who is a full-time student or incapable of self-care to have at least
+    this earned income for the Child and Dependent Care Credit, depending on the number of
+    qualifying individuals.
     `gov/irs/credits/cdcc/deemed_earned_income.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(d)(2): https://www.law.cornell.edu/uscode/text/26/21#d_2
-    * 26 CFR § 1.21-2(b)(4): https://www.law.cornell.edu/cfr/text/26/1.21-2 -/
-def gov.irs.credits.cdcc.deemed_earned_income : Scale :=
+    * 26 U.S. Code § 21(d)(2):
+      https://www.law.cornell.edu/uscode/text/26/21#d_2
+    * 26 CFR § 1.21-2(b)(4):
+      https://www.law.cornell.edu/cfr/text/26/1.21-2 -/
+def irs.credits.cdcc.deemed_earned_income : Scale :=
   ⟨[⟨⟨(⟨2003, 1, 1⟩, 0), []⟩, ⟨(⟨2003, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨2003, 1, 1⟩, 1), []⟩, ⟨(⟨2003, 1, 1⟩, 3000), []⟩⟩,
     ⟨⟨(⟨2003, 1, 1⟩, 2), []⟩, ⟨(⟨2003, 1, 1⟩, 6000), []⟩⟩]⟩
 
 /-- The age under which a child qualifies as a dependent for the CDCC.
     `gov/irs/credits/cdcc/eligibility/child_age.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(d)(1)(A): https://www.law.cornell.edu/uscode/text/26/21#d_1_A -/
-def gov.irs.credits.cdcc.eligibility.child_age : DatedParam Rat :=
+    * 26 U.S. Code § 21(d)(1)(A):
+      https://www.law.cornell.edu/uscode/text/26/21#d_1_A -/
+def irs.credits.cdcc.eligibility.child_age : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 13), []⟩
 
 /-- Maximum number of dependents qualifiable for CDCC.
     `gov/irs/credits/cdcc/eligibility/max.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(c): https://www.law.cornell.edu/uscode/text/26/21#c -/
-def gov.irs.credits.cdcc.eligibility.max : DatedParam Rat :=
+    * 26 U.S. Code § 21(c):
+      https://www.law.cornell.edu/uscode/text/26/21#c -/
+def irs.credits.cdcc.eligibility.max : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 2), []⟩
 
 /-- Maximum child and dependent care expenses per dependent.
     `gov/irs/credits/cdcc/max.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(c): https://www.law.cornell.edu/uscode/text/26/21#c
-    * 26 U.S. Code § 21(g)(2): https://www.law.cornell.edu/uscode/text/26/21#g_2 -/
-def gov.irs.credits.cdcc.max : DatedParam USD :=
+    * 26 U.S. Code § 21(c):
+      https://www.law.cornell.edu/uscode/text/26/21#c
+    * 26 U.S. Code § 21(g)(2):
+      https://www.law.cornell.edu/uscode/text/26/21#g_2 -/
+def irs.credits.cdcc.max : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 3000), [(⟨2021, 1, 1⟩, 8000), (⟨2022, 1, 1⟩, 3000)]⟩
 
-/-- The IRS phases the Child and Dependent Care Credit rate out at an amended structure, if this is true.
+/-- The IRS phases the Child and Dependent Care Credit rate out at an amended structure, if this
+    is true.
     `gov/irs/credits/cdcc/phase_out/amended_structure/applies.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.cdcc.phase_out.amended_structure.applies : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.cdcc.phase_out.amended_structure.applies : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2026, 1, 1⟩, true)]⟩
 
-/-- The IRS phases the Child and Dependent Care Credit rate out in increments of adjusted gross income above the second threshold, based on filing status.
+/-- The IRS phases the Child and Dependent Care Credit rate out in increments of adjusted gross
+    income above the second threshold, based on filing status.
     `gov/irs/credits/cdcc/phase_out/amended_structure/second_increment.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_increment.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.cdcc.phase_out.amended_structure.second_increment.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 2000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_increment.JOINT : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_increment.JOINT : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 4000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_increment.SEPARATE : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_increment.SEPARATE : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 2000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_increment.SINGLE : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_increment.SINGLE : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 2000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_increment.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_increment.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 2000), []⟩
 
-/-- The IRS phases the Child and Dependent Care Credit rate out in increments of adjusted gross income above the second threshold to this minimum.
+/-- The IRS phases the Child and Dependent Care Credit rate out in increments of adjusted gross
+    income above the second threshold to this minimum.
     `gov/irs/credits/cdcc/phase_out/amended_structure/second_min.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_min : DatedParam Rate :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.cdcc.phase_out.amended_structure.second_min : DatedParam Rate :=
   ⟨(⟨2026, 1, 1⟩, mkRat 1 5), []⟩
 
-/-- The IRS phases the Child and Dependent Care Credit rate out in increments of adjusted gross income above this second threshold, based on filing status.
+/-- The IRS phases the Child and Dependent Care Credit rate out in increments of adjusted gross
+    income above this second threshold, based on filing status.
     `gov/irs/credits/cdcc/phase_out/amended_structure/second_start.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.cdcc.phase_out.amended_structure.second_start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 75000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_start.JOINT : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_start.JOINT : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 150000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_start.SEPARATE : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_start.SEPARATE : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 75000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_start.SINGLE : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_start.SINGLE : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 75000), []⟩
-def gov.irs.credits.cdcc.phase_out.amended_structure.second_start.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.cdcc.phase_out.amended_structure.second_start.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2026, 1, 1⟩, 75000), []⟩
 
-/-- Child and dependent care credit phase-out increment. Income after the phase-out start(s) reduce the CDCC applicable percentage by the rate for each full or partial increment.
+/-- Child and dependent care credit phase-out increment. Income after the phase-out start(s)
+    reduce the CDCC applicable percentage by the rate for each full or partial increment.
     `gov/irs/credits/cdcc/phase_out/increment.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(a)(2): https://www.law.cornell.edu/uscode/text/26/21#a_2 -/
-def gov.irs.credits.cdcc.phase_out.increment : DatedParam USD :=
+    * 26 U.S. Code § 21(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/21#a_2 -/
+def irs.credits.cdcc.phase_out.increment : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 2000), []⟩
 
 /-- Child and dependent care credit maximum percentage rate.
     `gov/irs/credits/cdcc/phase_out/max.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(a)(2): https://www.law.cornell.edu/uscode/text/26/21#a_2
-    * 26 U.S. Code § 21(g)(3): https://www.law.cornell.edu/uscode/text/26/21#g_3 -/
-def gov.irs.credits.cdcc.phase_out.max : DatedParam Rate :=
-  ⟨(⟨2013, 1, 1⟩, mkRat 7 20), [(⟨2021, 1, 1⟩, mkRat 1 2), (⟨2022, 1, 1⟩, mkRat 7 20), (⟨2026, 1, 1⟩, mkRat 1 2)]⟩
+    * 26 U.S. Code § 21(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/21#a_2
+    * 26 U.S. Code § 21(g)(3):
+      https://www.law.cornell.edu/uscode/text/26/21#g_3 -/
+def irs.credits.cdcc.phase_out.max : DatedParam Rate :=
+  ⟨(⟨2013, 1, 1⟩, mkRat 7 20),
+    [(⟨2021, 1, 1⟩, mkRat 1 2),
+     (⟨2022, 1, 1⟩, mkRat 7 20),
+     (⟨2026, 1, 1⟩, mkRat 1 2)]⟩
 
-/-- Child and dependent care credit phase-out percentage rate floor. The first phase-out does not reduce the childcare credit rate below this percentage.
+/-- Child and dependent care credit phase-out percentage rate floor. The first phase-out does
+    not reduce the childcare credit rate below this percentage.
     `gov/irs/credits/cdcc/phase_out/min.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(a)(2): https://www.law.cornell.edu/uscode/text/26/21#a_2 -/
-def gov.irs.credits.cdcc.phase_out.min : DatedParam Rate :=
+    * 26 U.S. Code § 21(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/21#a_2 -/
+def irs.credits.cdcc.phase_out.min : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 5), [(⟨2026, 1, 1⟩, mkRat 7 20)]⟩
 
-/-- Child and dependent care credit phase-out percentage rate. This is the reduction to the applicable percentage for each full or partial increment beyond which AGI exceeds the phase-out start(s).
+/-- Child and dependent care credit phase-out percentage rate. This is the reduction to the
+    applicable percentage for each full or partial increment beyond which AGI exceeds the
+    phase-out start(s).
     `gov/irs/credits/cdcc/phase_out/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(a)(2): https://www.law.cornell.edu/uscode/text/26/21#a_2 -/
-def gov.irs.credits.cdcc.phase_out.rate : DatedParam Rate :=
+    * 26 U.S. Code § 21(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/21#a_2 -/
+def irs.credits.cdcc.phase_out.rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 100), []⟩
 
 /-- Child & dependent care credit second phase-out start.
     `gov/irs/credits/cdcc/phase_out/second_start.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(g)(4)(B): https://www.law.cornell.edu/uscode/text/26/21#g_4_B -/
-def gov.irs.credits.cdcc.phase_out.second_start : DatedParam ExtRat :=
+    * 26 U.S. Code § 21(g)(4)(B):
+      https://www.law.cornell.edu/uscode/text/26/21#g_4_B -/
+def irs.credits.cdcc.phase_out.second_start : DatedParam ExtRat :=
   ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2021, 1, 1⟩, .fin 400000), (⟨2022, 1, 1⟩, .posInf)]⟩
 
 /-- Child & dependent care credit phase-out AGI start.
     `gov/irs/credits/cdcc/phase_out/start.yaml` (policyengine-us).
-    * 26 U.S. Code § 21(a)(2): https://www.law.cornell.edu/uscode/text/26/21#a_2
-    * 26 U.S. Code § 21(g)(3)(B): https://www.law.cornell.edu/uscode/text/26/21#g_3_B -/
-def gov.irs.credits.cdcc.phase_out.start : DatedParam USD :=
+    * 26 U.S. Code § 21(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/21#a_2
+    * 26 U.S. Code § 21(g)(3)(B):
+      https://www.law.cornell.edu/uscode/text/26/21#g_3_B -/
+def irs.credits.cdcc.phase_out.start : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 15000), [(⟨2021, 1, 1⟩, 125000), (⟨2022, 1, 1⟩, 15000)]⟩
 
 /-- Non-refundable tax credits which precede the Child and Dependent Care Credit.
     `gov/irs/credits/cdcc/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.cdcc.preceding_credits : DatedParam (List String) :=
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.cdcc.preceding_credits : DatedParam (List String) :=
   ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit"]), []⟩
 
 /-- The IRS sets the new clean vehicle credit at this base amount.
     `gov/irs/credits/clean_vehicle/new/base_amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(2): https://www.law.cornell.edu/uscode/text/26/30D#b_2 -/
-def gov.irs.credits.clean_vehicle.new.base_amount : DatedParam USD :=
+    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(2):
+      https://www.law.cornell.edu/uscode/text/26/30D#b_2 -/
+def irs.credits.clean_vehicle.new.base_amount : DatedParam USD :=
   ⟨(⟨2021, 1, 1⟩, 2500), [(⟨2022, 1, 1⟩, 0)]⟩
 
-/-- The IRS provides a credit of this amount for filers purchasing new clean vehicles meeting the battery components requirement.
+/-- The IRS provides a credit of this amount for filers purchasing new clean vehicles meeting
+    the battery components requirement.
     `gov/irs/credits/clean_vehicle/new/battery_components/amount.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=366 -/
-def gov.irs.credits.clean_vehicle.new.battery_components.amount : DatedParam USD :=
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=366 -/
+def irs.credits.clean_vehicle.new.battery_components.amount : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2022, 1, 1⟩, 3750)]⟩
 
-/-- The IRS limits its clean vehicle credit battery component amount to filers purchasing vehicles with this share of battery components (by value) made in North America.
+/-- The IRS limits its clean vehicle credit battery component amount to filers purchasing
+    vehicles with this share of battery components (by value) made in North America.
     `gov/irs/credits/clean_vehicle/new/battery_components/threshold.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=373 -/
-def gov.irs.credits.clean_vehicle.new.battery_components.threshold : DatedParam Rate :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2022, 1, 1⟩, mkRat 1 2), (⟨2024, 1, 1⟩, mkRat 3 5), (⟨2026, 1, 1⟩, mkRat 7 10), (⟨2027, 1, 1⟩, mkRat 4 5), (⟨2028, 1, 1⟩, mkRat 9 10), (⟨2029, 1, 1⟩, 1)]⟩
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=373 -/
+def irs.credits.clean_vehicle.new.battery_components.threshold : DatedParam Rate :=
+  ⟨(⟨0, 1, 1⟩, 0),
+    [(⟨2022, 1, 1⟩, mkRat 1 2),
+     (⟨2024, 1, 1⟩, mkRat 3 5),
+     (⟨2026, 1, 1⟩, mkRat 7 10),
+     (⟨2027, 1, 1⟩, mkRat 4 5),
+     (⟨2028, 1, 1⟩, mkRat 9 10),
+     (⟨2029, 1, 1⟩, 1)]⟩
 
-/-- The IRS enhances its new clean vehicle credit with capacity bonus of this amount per kilowatt-hour in excess of the threshold.
+/-- The IRS enhances its new clean vehicle credit with capacity bonus of this amount per
+    kilowatt-hour in excess of the threshold.
     `gov/irs/credits/clean_vehicle/new/capacity_bonus/amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(3): https://www.law.cornell.edu/uscode/text/26/30D#b_3 -/
-def gov.irs.credits.clean_vehicle.new.capacity_bonus.amount : DatedParam USD :=
+    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(3):
+      https://www.law.cornell.edu/uscode/text/26/30D#b_3 -/
+def irs.credits.clean_vehicle.new.capacity_bonus.amount : DatedParam USD :=
   ⟨(⟨2021, 1, 1⟩, 417), [(⟨2022, 1, 1⟩, 0)]⟩
 
-/-- The IRS provides a capacity bonus for its new clean vehicle credit to filers purchasing vehicles with at least this battery capacity, in kilowatt hours.
+/-- The IRS provides a capacity bonus for its new clean vehicle credit to filers purchasing
+    vehicles with at least this battery capacity, in kilowatt hours.
     `gov/irs/credits/clean_vehicle/new/capacity_bonus/kwh_threshold.yaml` (policyengine-us).
-    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(3): https://www.law.cornell.edu/uscode/text/26/30D#b_3 -/
-def gov.irs.credits.clean_vehicle.new.capacity_bonus.kwh_threshold : DatedParam Rat :=
+    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(3):
+      https://www.law.cornell.edu/uscode/text/26/30D#b_3 -/
+def irs.credits.clean_vehicle.new.capacity_bonus.kwh_threshold : DatedParam Rat :=
   ⟨(⟨2021, 1, 1⟩, 5), []⟩
 
 /-- The IRS caps its new clean vehicle credit capacity bonus at this amount.
     `gov/irs/credits/clean_vehicle/new/capacity_bonus/max.yaml` (policyengine-us).
-    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(3): https://www.law.cornell.edu/uscode/text/26/30D#b_3 -/
-def gov.irs.credits.clean_vehicle.new.capacity_bonus.max : DatedParam USD :=
+    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (b)(3):
+      https://www.law.cornell.edu/uscode/text/26/30D#b_3 -/
+def irs.credits.clean_vehicle.new.capacity_bonus.max : DatedParam USD :=
   ⟨(⟨2021, 1, 1⟩, 5000), [(⟨2022, 1, 1⟩, 0)]⟩
 
-/-- The IRS provides a credit of this amount to filers purchasing new clean vehicles meeting the critical mineral requirement.
+/-- The IRS provides a credit of this amount to filers purchasing new clean vehicles meeting the
+    critical mineral requirement.
     `gov/irs/credits/clean_vehicle/new/critical_minerals/amount.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=366 -/
-def gov.irs.credits.clean_vehicle.new.critical_minerals.amount : DatedParam USD :=
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=366 -/
+def irs.credits.clean_vehicle.new.critical_minerals.amount : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2022, 1, 1⟩, 3750)]⟩
 
-/-- The IRS limits the new clean vehicle tax credit to vehicles with at least this share of battery critical minerals (by value) extracted or processed in a country with which the United States has a free trade agreement in effect, or recycled in North America.
+/-- The IRS limits the new clean vehicle tax credit to vehicles with at least this share of
+    battery critical minerals (by value) extracted or processed in a country with which the
+    United States has a free trade agreement in effect, or recycled in North America.
     `gov/irs/credits/clean_vehicle/new/critical_minerals/threshold.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=371 -/
-def gov.irs.credits.clean_vehicle.new.critical_minerals.threshold : DatedParam Rate :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2022, 1, 1⟩, mkRat 2 5), (⟨2024, 1, 1⟩, mkRat 1 2), (⟨2025, 1, 1⟩, mkRat 3 5), (⟨2026, 1, 1⟩, mkRat 7 10), (⟨2027, 1, 1⟩, mkRat 4 5)]⟩
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=371 -/
+def irs.credits.clean_vehicle.new.critical_minerals.threshold : DatedParam Rate :=
+  ⟨(⟨0, 1, 1⟩, 0),
+    [(⟨2022, 1, 1⟩, mkRat 2 5),
+     (⟨2024, 1, 1⟩, mkRat 1 2),
+     (⟨2025, 1, 1⟩, mkRat 3 5),
+     (⟨2026, 1, 1⟩, mkRat 7 10),
+     (⟨2027, 1, 1⟩, mkRat 4 5)]⟩
 
 /-- The IRS provides the new clean vehicle credit when this is true.
     `gov/irs/credits/clean_vehicle/new/eligibility/in_effect.yaml` (policyengine-us).
-    * 26 U.S.C. § 30D(h): https://www.law.cornell.edu/uscode/text/26/30D#h
-    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70502 (2025): https://www.congress.gov/bill/119th-congress/house-bill/1 -/
-def gov.irs.credits.clean_vehicle.new.eligibility.in_effect : DatedParam Bool :=
+    * 26 U.S.C. § 30D(h):
+      https://www.law.cornell.edu/uscode/text/26/30D#h
+    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70502 (2025):
+      https://www.congress.gov/bill/119th-congress/house-bill/1 -/
+def irs.credits.clean_vehicle.new.eligibility.in_effect : DatedParam Bool :=
   ⟨(⟨2023, 1, 1⟩, true), [(⟨2026, 1, 1⟩, false)]⟩
 
-/-- The IRS limits the new clean vehicle credit to filers with modified adjusted gross income below this threshold in either the current or preceding year.
+/-- The IRS limits the new clean vehicle credit to filers with modified adjusted gross income
+    below this threshold in either the current or preceding year.
     `gov/irs/credits/clean_vehicle/new/eligibility/income_limit.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=382 -/
-def gov.irs.credits.clean_vehicle.new.eligibility.income_limit.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=382 -/
+def irs.credits.clean_vehicle.new.eligibility.income_limit.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 225000)]⟩
-def gov.irs.credits.clean_vehicle.new.eligibility.income_limit.JOINT : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.new.eligibility.income_limit.JOINT : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 300000)]⟩
-def gov.irs.credits.clean_vehicle.new.eligibility.income_limit.SEPARATE : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.new.eligibility.income_limit.SEPARATE : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 150000)]⟩
-def gov.irs.credits.clean_vehicle.new.eligibility.income_limit.SINGLE : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.new.eligibility.income_limit.SINGLE : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 150000)]⟩
-def gov.irs.credits.clean_vehicle.new.eligibility.income_limit.SURVIVING_SPOUSE : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.new.eligibility.income_limit.SURVIVING_SPOUSE : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 300000)]⟩
 
-/-- The IRS limits the new clean vehicle credit to vehicles with at least this battery capacity, in kilowatt hours.
+/-- The IRS limits the new clean vehicle credit to vehicles with at least this battery capacity,
+    in kilowatt hours.
     `gov/irs/credits/clean_vehicle/new/eligibility/min_kwh.yaml` (policyengine-us).
-    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (d)(1)(F)(i): https://www.law.cornell.edu/uscode/text/26/30D#d_1_F_i -/
-def gov.irs.credits.clean_vehicle.new.eligibility.min_kwh : DatedParam Rat :=
+    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (d)(1)(F)(i):
+      https://www.law.cornell.edu/uscode/text/26/30D#d_1_F_i -/
+def irs.credits.clean_vehicle.new.eligibility.min_kwh : DatedParam Rat :=
   ⟨(⟨2021, 1, 1⟩, 4), []⟩
 
 /-- The IRS limits the new clean vehicle credit to vehicles with MSRP below this value.
     `gov/irs/credits/clean_vehicle/new/eligibility/msrp_limit.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=384 -/
-def gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.OTHER : DatedParam ExtRat :=
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=384 -/
+def irs.credits.clean_vehicle.new.eligibility.msrp_limit.OTHER : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2022, 1, 1⟩, .fin 55000)]⟩
-def gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.PICKUP : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.new.eligibility.msrp_limit.PICKUP : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2022, 1, 1⟩, .fin 80000)]⟩
-def gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.SUV : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.new.eligibility.msrp_limit.SUV : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2022, 1, 1⟩, .fin 80000)]⟩
-def gov.irs.credits.clean_vehicle.new.eligibility.msrp_limit.VAN : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.new.eligibility.msrp_limit.VAN : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2022, 1, 1⟩, .fin 80000)]⟩
 
 /-- Non-refundable tax credits which precede the New Clean Vehicle Credit.
     `gov/irs/credits/clean_vehicle/new/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.clean_vehicle.new.preceding_credits : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit", "residential_clean_energy_credit", "energy_efficient_home_improvement_credit", "elderly_disabled_credit"]), []⟩
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.clean_vehicle.new.preceding_credits : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit",
+      "cdcc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit",
+      "residential_clean_energy_credit",
+      "energy_efficient_home_improvement_credit",
+      "elderly_disabled_credit"]), []⟩
 
 /-- The IRS caps the used clean vehicle credit at this amount.
     `gov/irs/credits/clean_vehicle/used/amount/max.yaml` (policyengine-us).
-    * Inflation Reduction Act 13402(b)(1): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=387 -/
-def gov.irs.credits.clean_vehicle.used.amount.max : DatedParam USD :=
+    * Inflation Reduction Act 13402(b)(1):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=387 -/
+def irs.credits.clean_vehicle.used.amount.max : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2023, 1, 1⟩, 4000)]⟩
 
-/-- The IRS provides a tax credit for up to this percentage of a used clean vehicle's purchase price.
+/-- The IRS provides a tax credit for up to this percentage of a used clean vehicle's purchase
+    price.
     `gov/irs/credits/clean_vehicle/used/amount/percent_of_sale_price.yaml` (policyengine-us).
-    * Inflation Reduction Act 13402(b)(2): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=387 -/
-def gov.irs.credits.clean_vehicle.used.amount.percent_of_sale_price : DatedParam Rate :=
+    * Inflation Reduction Act 13402(b)(2):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=387 -/
+def irs.credits.clean_vehicle.used.amount.percent_of_sale_price : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2023, 1, 1⟩, mkRat 3 10)]⟩
 
 /-- The IRS provides the used clean vehicle credit when this is true.
     `gov/irs/credits/clean_vehicle/used/eligibility/in_effect.yaml` (policyengine-us).
-    * 26 U.S.C. § 25E(g): https://www.law.cornell.edu/uscode/text/26/25E#g
-    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70501 (2025): https://www.congress.gov/bill/119th-congress/house-bill/1 -/
-def gov.irs.credits.clean_vehicle.used.eligibility.in_effect : DatedParam Bool :=
+    * 26 U.S.C. § 25E(g):
+      https://www.law.cornell.edu/uscode/text/26/25E#g
+    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70501 (2025):
+      https://www.congress.gov/bill/119th-congress/house-bill/1 -/
+def irs.credits.clean_vehicle.used.eligibility.in_effect : DatedParam Bool :=
   ⟨(⟨2023, 1, 1⟩, true), [(⟨2026, 1, 1⟩, false)]⟩
 
-/-- The IRS limits the used clean vehicle credit to filers with modified adjusted gross income below this threshold in either the current or preceding year.
+/-- The IRS limits the used clean vehicle credit to filers with modified adjusted gross income
+    below this threshold in either the current or preceding year.
     `gov/irs/credits/clean_vehicle/used/eligibility/income_limit.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=395 -/
-def gov.irs.credits.clean_vehicle.used.eligibility.income_limit.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=395 -/
+def irs.credits.clean_vehicle.used.eligibility.income_limit.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 112500)]⟩
-def gov.irs.credits.clean_vehicle.used.eligibility.income_limit.JOINT : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.used.eligibility.income_limit.JOINT : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 150000)]⟩
-def gov.irs.credits.clean_vehicle.used.eligibility.income_limit.SEPARATE : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.used.eligibility.income_limit.SEPARATE : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 75000)]⟩
-def gov.irs.credits.clean_vehicle.used.eligibility.income_limit.SINGLE : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.used.eligibility.income_limit.SINGLE : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 75000)]⟩
-def gov.irs.credits.clean_vehicle.used.eligibility.income_limit.SURVIVING_SPOUSE : DatedParam ExtRat :=
+def irs.credits.clean_vehicle.used.eligibility.income_limit.SURVIVING_SPOUSE : DatedParam ExtRat :=
   ⟨(⟨0, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 150000)]⟩
 
 /-- The IRS limits the used clean vehicle credit to vehicle purchases below this threshold.
     `gov/irs/credits/clean_vehicle/used/eligibility/sale_price_limit.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=390 -/
-def gov.irs.credits.clean_vehicle.used.eligibility.sale_price_limit : DatedParam USD :=
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=390 -/
+def irs.credits.clean_vehicle.used.eligibility.sale_price_limit : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2023, 1, 1⟩, 25000)]⟩
 
 /-- Non-refundable tax credits which precede the Used Clean Vehicle Credit.
     `gov/irs/credits/clean_vehicle/used/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.clean_vehicle.used.preceding_credits : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit", "residential_clean_energy_credit", "energy_efficient_home_improvement_credit", "elderly_disabled_credit", "new_clean_vehicle_credit"]), []⟩
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.clean_vehicle.used.preceding_credits : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit",
+      "cdcc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit",
+      "residential_clean_energy_credit",
+      "energy_efficient_home_improvement_credit",
+      "elderly_disabled_credit",
+      "new_clean_vehicle_credit"]), []⟩
 
-/-- The IRS requires at least one filer with a valid SSN, and any co-filer with an SSN or ITIN, to claim the child portion of the Child Tax Credit if this is true.
+/-- The IRS requires at least one filer with a valid SSN, and any co-filer with an SSN or ITIN,
+    to claim the child portion of the Child Tax Credit if this is true.
     `gov/irs/credits/ctc/adult_ssn_requirement_applies.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.ctc.adult_ssn_requirement_applies : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.ctc.adult_ssn_requirement_applies : DatedParam Bool :=
   ⟨(⟨2018, 1, 1⟩, false), [(⟨2025, 1, 1⟩, true)]⟩
 
 /-- Maximum value of the CTC for adult dependents.
     `gov/irs/credits/ctc/amount/adult_dependent.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(h)(4)(a): https://www.law.cornell.edu/uscode/text/26/24#h_4_A
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.ctc.amount.adult_dependent : DatedParam USD :=
+    * 26 U.S. Code § 24(h)(4)(a):
+      https://www.law.cornell.edu/uscode/text/26/24#h_4_A
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.ctc.amount.adult_dependent : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, 500)]⟩
 
-/-- The IRS provided a higher maximum Child Tax Credit of this amount, depending on the child's age, under the American Rescue Plan Act.
+/-- The IRS provided a higher maximum Child Tax Credit of this amount, depending on the child's
+    age, under the American Rescue Plan Act.
     `gov/irs/credits/ctc/amount/arpa.yaml` (policyengine-us). -/
-def gov.irs.credits.ctc.amount.arpa : Scale :=
-  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2013, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 3600), (⟨2022, 1, 1⟩, 0)]⟩⟩,
-    ⟨⟨(⟨2013, 1, 1⟩, 6), []⟩, ⟨(⟨2013, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 3000), (⟨2022, 1, 1⟩, 0)]⟩⟩]⟩
+def irs.credits.ctc.amount.arpa : Scale :=
+  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2013, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 3600),
+    (⟨2022, 1, 1⟩, 0)]⟩⟩,
+    ⟨⟨(⟨2013, 1, 1⟩, 6), []⟩, ⟨(⟨2013, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 3000),
+    (⟨2022, 1, 1⟩, 0)]⟩⟩]⟩
 
-/-- The IRS caps the American Rescue Plan Act Child Tax Credit expansion by this percentage of the difference in phase-out thresholds between base and ARPA.
+/-- The IRS caps the American Rescue Plan Act Child Tax Credit expansion by this percentage of
+    the difference in phase-out thresholds between base and ARPA.
     `gov/irs/credits/ctc/amount/arpa_expansion_cap_percent_of_threshold_diff.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(i)(4)(C)(i)(II): https://www.law.cornell.edu/uscode/text/26/24#i_4_C_i_II -/
-def gov.irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff : DatedParam Rate :=
+    * U.S.C 26 U.S. Code § 24(i)(4)(C)(i)(II):
+      https://www.law.cornell.edu/uscode/text/26/24#i_4_C_i_II -/
+def irs.credits.ctc.amount.arpa_expansion_cap_percent_of_threshold_diff : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, mkRat 1 20), []⟩
 
 /-- The IRS provides a maximum Child Tax Credit of this amount, depending on the child's age.
     `gov/irs/credits/ctc/amount/base.yaml` (policyengine-us). -/
-def gov.irs.credits.ctc.amount.base : Scale :=
-  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2013, 1, 1⟩, 1000), [(⟨2018, 1, 1⟩, 2000), (⟨2025, 1, 1⟩, 2200), (⟨2027, 1, 1⟩, 2300), (⟨2029, 1, 1⟩, 2400), (⟨2031, 1, 1⟩, 2500), (⟨2033, 1, 1⟩, 2600), (⟨2035, 1, 1⟩, 2700)]⟩⟩,
-    ⟨⟨(⟨2013, 1, 1⟩, 17), [(⟨2021, 1, 1⟩, 18), (⟨2022, 1, 1⟩, 17)]⟩, ⟨(⟨2013, 1, 1⟩, 0), []⟩⟩]⟩
+def irs.credits.ctc.amount.base : Scale :=
+  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2013, 1, 1⟩, 1000),
+    [(⟨2018, 1, 1⟩, 2000),
+     (⟨2025, 1, 1⟩, 2200),
+     (⟨2027, 1, 1⟩, 2300),
+     (⟨2029, 1, 1⟩, 2400),
+     (⟨2031, 1, 1⟩, 2500),
+     (⟨2033, 1, 1⟩, 2600),
+     (⟨2035, 1, 1⟩, 2700)]⟩⟩,
+    ⟨⟨(⟨2013, 1, 1⟩, 17), [(⟨2021, 1, 1⟩, 18),
+    (⟨2022, 1, 1⟩, 17)]⟩, ⟨(⟨2013, 1, 1⟩, 0), []⟩⟩]⟩
 
-/-- The IRS requires a Social Security Number for qualifying children for the Child Tax Credit if this is true.
+/-- The IRS requires a Social Security Number for qualifying children for the Child Tax Credit
+    if this is true.
     `gov/irs/credits/ctc/child_ssn_requirement_applies.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(h)(7): https://www.law.cornell.edu/uscode/text/26/24#h_7
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.ctc.child_ssn_requirement_applies : DatedParam Bool :=
+    * 26 U.S. Code § 24(h)(7):
+      https://www.law.cornell.edu/uscode/text/26/24#h_7
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.ctc.child_ssn_requirement_applies : DatedParam Bool :=
   ⟨(⟨2018, 1, 1⟩, true), []⟩
 
 /-- The IRS limits the child tax credit to filers with one of these SSN Card types.
     `gov/irs/credits/ctc/eligible_ssn_card_type.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.ctc.eligible_ssn_card_type : DatedParam (List String) :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.ctc.eligible_ssn_card_type : DatedParam (List String) :=
   ⟨(⟨2018, 1, 1⟩, ["CITIZEN", "NON_CITIZEN_VALID_EAD"]), []⟩
 
-/-- The IRS reduces the Child Tax Credit by this amount for each increment by which one's income exceeds the phase-out thresholds.
+/-- The IRS reduces the Child Tax Credit by this amount for each increment by which one's income
+    exceeds the phase-out thresholds.
     `gov/irs/credits/ctc/phase_out/amount.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(b)(1): https://www.law.cornell.edu/uscode/text/26/24#b_1 -/
-def gov.irs.credits.ctc.phase_out.amount : DatedParam USD :=
+    * U.S.C 26 U.S. Code § 24(b)(1):
+      https://www.law.cornell.edu/uscode/text/26/24#b_1 -/
+def irs.credits.ctc.phase_out.amount : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 50), []⟩
 
-/-- The IRS reduces the American Rescue Plan Act Child Tax Credit expansion by this amount for each increment by which one's income exceeds the phase-out thresholds.
+/-- The IRS reduces the American Rescue Plan Act Child Tax Credit expansion by this amount for
+    each increment by which one's income exceeds the phase-out thresholds.
     `gov/irs/credits/ctc/phase_out/arpa/amount.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(i)(4)(A): https://www.law.cornell.edu/uscode/text/26/24#i_4_A -/
-def gov.irs.credits.ctc.phase_out.arpa.amount : DatedParam USD :=
+    * U.S.C 26 U.S. Code § 24(i)(4)(A):
+      https://www.law.cornell.edu/uscode/text/26/24#i_4_A -/
+def irs.credits.ctc.phase_out.arpa.amount : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 50), []⟩
 
 /-- The IRS adds a second phase-out when this is in effect.
     `gov/irs/credits/ctc/phase_out/arpa/in_effect.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(i)(4): https://www.law.cornell.edu/uscode/text/26/24#i_4 -/
-def gov.irs.credits.ctc.phase_out.arpa.in_effect : DatedParam Bool :=
+    * U.S.C 26 U.S. Code § 24(i)(4):
+      https://www.law.cornell.edu/uscode/text/26/24#i_4 -/
+def irs.credits.ctc.phase_out.arpa.in_effect : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2021, 1, 1⟩, true), (⟨2022, 1, 1⟩, false)]⟩
 
-/-- The IRS reduces the Child Tax Credit by a certain amount for each of this increment by which one's income exceeds the phase-out thresholds.
+/-- The IRS reduces the Child Tax Credit by a certain amount for each of this increment by which
+    one's income exceeds the phase-out thresholds.
     `gov/irs/credits/ctc/phase_out/arpa/increment.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(b)(1): https://www.law.cornell.edu/uscode/text/26/24#b_1 -/
-def gov.irs.credits.ctc.phase_out.arpa.increment : DatedParam USD :=
+    * U.S.C 26 U.S. Code § 24(b)(1):
+      https://www.law.cornell.edu/uscode/text/26/24#b_1 -/
+def irs.credits.ctc.phase_out.arpa.increment : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 1000), []⟩
 
 /-- Child tax credit phase-out MAGI start for the ARPA CTC expansion
     `gov/irs/credits/ctc/phase_out/arpa/threshold.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(i)(4)(B): https://www.law.cornell.edu/uscode/text/26/24#i_4_B -/
-def gov.irs.credits.ctc.phase_out.arpa.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * U.S.C 26 U.S. Code § 24(i)(4)(B):
+      https://www.law.cornell.edu/uscode/text/26/24#i_4_B -/
+def irs.credits.ctc.phase_out.arpa.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 112500), []⟩
-def gov.irs.credits.ctc.phase_out.arpa.threshold.JOINT : DatedParam USD :=
+def irs.credits.ctc.phase_out.arpa.threshold.JOINT : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 150000), []⟩
-def gov.irs.credits.ctc.phase_out.arpa.threshold.SEPARATE : DatedParam USD :=
+def irs.credits.ctc.phase_out.arpa.threshold.SEPARATE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 75000), []⟩
-def gov.irs.credits.ctc.phase_out.arpa.threshold.SINGLE : DatedParam USD :=
+def irs.credits.ctc.phase_out.arpa.threshold.SINGLE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 75000), []⟩
-def gov.irs.credits.ctc.phase_out.arpa.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.ctc.phase_out.arpa.threshold.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 150000), []⟩
 
-/-- The IRS reduces the American Rescue Plan Act Child Tax Credit expansion by a certain amount for each of this increment by which one's income exceeds the phase-out thresholds.
+/-- The IRS reduces the American Rescue Plan Act Child Tax Credit expansion by a certain amount
+    for each of this increment by which one's income exceeds the phase-out thresholds.
     `gov/irs/credits/ctc/phase_out/increment.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(i)(4)(A): https://www.law.cornell.edu/uscode/text/26/24#i_4_A -/
-def gov.irs.credits.ctc.phase_out.increment : DatedParam USD :=
+    * U.S.C 26 U.S. Code § 24(i)(4)(A):
+      https://www.law.cornell.edu/uscode/text/26/24#i_4_A -/
+def irs.credits.ctc.phase_out.increment : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 1000), []⟩
 
 /-- The IRS phases out the Child Tax Credit for filers with MAGI above these thresholds.
     `gov/irs/credits/ctc/phase_out/threshold.yaml` (policyengine-us).
-    * U.S.C 26 U.S. Code § 24(b)(2): https://www.law.cornell.edu/uscode/text/26/24#b_2
-    * U.S.C 26 U.S. Code § 24(h)(3): https://www.law.cornell.edu/uscode/text/26/24#h_3
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.ctc.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * U.S.C 26 U.S. Code § 24(b)(2):
+      https://www.law.cornell.edu/uscode/text/26/24#b_2
+    * U.S.C 26 U.S. Code § 24(h)(3):
+      https://www.law.cornell.edu/uscode/text/26/24#h_3
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.ctc.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 75000), [(⟨2018, 1, 1⟩, 200000)]⟩
-def gov.irs.credits.ctc.phase_out.threshold.JOINT : DatedParam USD :=
+def irs.credits.ctc.phase_out.threshold.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 110000), [(⟨2018, 1, 1⟩, 400000)]⟩
-def gov.irs.credits.ctc.phase_out.threshold.SEPARATE : DatedParam USD :=
+def irs.credits.ctc.phase_out.threshold.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 55000), [(⟨2018, 1, 1⟩, 200000)]⟩
-def gov.irs.credits.ctc.phase_out.threshold.SINGLE : DatedParam USD :=
+def irs.credits.ctc.phase_out.threshold.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 75000), [(⟨2018, 1, 1⟩, 200000)]⟩
-def gov.irs.credits.ctc.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.ctc.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 75000), [(⟨2018, 1, 1⟩, 400000)]⟩
 
 /-- The IRS makes the Child Tax Credit fully refundable if this is true.
     `gov/irs/credits/ctc/refundable/fully_refundable.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(i)(1): https://www.law.cornell.edu/uscode/text/26/24#i_1 -/
-def gov.irs.credits.ctc.refundable.fully_refundable : DatedParam Bool :=
+    * 26 U.S. Code § 24(i)(1):
+      https://www.law.cornell.edu/uscode/text/26/24#i_1 -/
+def irs.credits.ctc.refundable.fully_refundable : DatedParam Bool :=
   ⟨(⟨2013, 1, 1⟩, false), [(⟨2021, 1, 1⟩, true), (⟨2022, 1, 1⟩, false)]⟩
 
 /-- Maximum refundable amount of the CTC for qualifying children.
     `gov/irs/credits/ctc/refundable/individual_max.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(h)(5)(A) - Child tax credit refundable portion: https://www.law.cornell.edu/uscode/text/26/24#h_5_A
-    * 26 U.S. Code § 24(i)(1) - Inflation adjustment for refundable amount: https://www.law.cornell.edu/uscode/text/26/24#i_1
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=13
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=8
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=9
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=9
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=9
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=9
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=12 -/
-def gov.irs.credits.ctc.refundable.individual_max : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 1000), [(⟨2018, 1, 1⟩, 1400), (⟨2022, 1, 1⟩, 1500), (⟨2023, 1, 1⟩, 1600), (⟨2024, 1, 1⟩, 1700), (⟨2025, 1, 1⟩, 1700), (⟨2026, 1, 1⟩, 1700)]⟩
+    * 26 U.S. Code § 24(h)(5)(A) - Child tax credit refundable portion:
+      https://www.law.cornell.edu/uscode/text/26/24#h_5_A
+    * 26 U.S. Code § 24(i)(1) - Inflation adjustment for refundable amount:
+      https://www.law.cornell.edu/uscode/text/26/24#i_1
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=13
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=8
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=9
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=9
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=9
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=9
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=12 -/
+def irs.credits.ctc.refundable.individual_max : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 1000),
+    [(⟨2018, 1, 1⟩, 1400),
+     (⟨2022, 1, 1⟩, 1500),
+     (⟨2023, 1, 1⟩, 1600),
+     (⟨2024, 1, 1⟩, 1700),
+     (⟨2025, 1, 1⟩, 1700),
+     (⟨2026, 1, 1⟩, 1700)]⟩
 
-/-- Minimum number of qualifying children to increase the refundable Child Tax Credit by Social Security taxes minus the Earned Income Tax Credit.
+/-- Minimum number of qualifying children to increase the refundable Child Tax Credit by Social
+    Security taxes minus the Earned Income Tax Credit.
     `gov/irs/credits/ctc/refundable/phase_in/min_children_for_ss_taxes_minus_eitc.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(d)(1)(B)(i): https://www.law.cornell.edu/uscode/text/26/24#d_1_B_ii -/
-def gov.irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc : DatedParam Rat :=
+    * 26 U.S. Code § 24(d)(1)(B)(i):
+      https://www.law.cornell.edu/uscode/text/26/24#d_1_B_ii -/
+def irs.credits.ctc.refundable.phase_in.min_children_for_ss_taxes_minus_eitc : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 3), []⟩
 
 /-- Additional Child Tax Credit rate
     `gov/irs/credits/ctc/refundable/phase_in/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(d)(1)(B)(i): https://www.law.cornell.edu/uscode/text/26/24#d_1_B_i -/
-def gov.irs.credits.ctc.refundable.phase_in.rate : DatedParam Rate :=
+    * 26 U.S. Code § 24(d)(1)(B)(i):
+      https://www.law.cornell.edu/uscode/text/26/24#d_1_B_i -/
+def irs.credits.ctc.refundable.phase_in.rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 3 20), []⟩
 
 /-- Additional Child Tax Credit income threshold
     `gov/irs/credits/ctc/refundable/phase_in/threshold.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(d)(1)(B)(i): https://www.law.cornell.edu/uscode/text/26/24#d_1_B_i
-    * 26 U.S. Code § 24(h)(6): https://www.law.cornell.edu/uscode/text/26/24#h_6
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.credits.ctc.refundable.phase_in.threshold : DatedParam USD :=
+    * 26 U.S. Code § 24(d)(1)(B)(i):
+      https://www.law.cornell.edu/uscode/text/26/24#d_1_B_i
+    * 26 U.S. Code § 24(h)(6):
+      https://www.law.cornell.edu/uscode/text/26/24#h_6
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.credits.ctc.refundable.phase_in.threshold : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 3000), [(⟨2018, 1, 1⟩, 2500)]⟩
 
-/-- The IRS defines social security taxes under the Child Tax Credit to include the following variables.
+/-- The IRS defines social security taxes under the Child Tax Credit to include the following
+    variables.
     `gov/irs/credits/ctc/refundable/social_security/add.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(d)(2)(A): https://www.law.cornell.edu/uscode/text/26/24#d_2_A -/
-def gov.irs.credits.ctc.refundable.social_security.add : DatedParam (List String) :=
-  ⟨(⟨2018, 1, 1⟩, ["employee_social_security_tax", "employee_medicare_tax", "unreported_payroll_tax", "self_employment_tax_ald", "additional_medicare_tax"]), []⟩
+    * 26 U.S. Code § 24(d)(2)(A):
+      https://www.law.cornell.edu/uscode/text/26/24#d_2_A -/
+def irs.credits.ctc.refundable.social_security.add : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["employee_social_security_tax",
+      "employee_medicare_tax",
+      "unreported_payroll_tax",
+      "self_employment_tax_ald",
+      "additional_medicare_tax"]), []⟩
 
-/-- The IRS defines social security taxes under the Child Tax Credit to exclude the following variables.
+/-- The IRS defines social security taxes under the Child Tax Credit to exclude the following
+    variables.
     `gov/irs/credits/ctc/refundable/social_security/subtract.yaml` (policyengine-us).
-    * 26 U.S. Code § 24(d)(2)(B): https://www.law.cornell.edu/uscode/text/26/24#d_2_B -/
-def gov.irs.credits.ctc.refundable.social_security.subtract : DatedParam (List String) :=
+    * 26 U.S. Code § 24(d)(2)(B):
+      https://www.law.cornell.edu/uscode/text/26/24#d_2_B -/
+def irs.credits.ctc.refundable.social_security.subtract : DatedParam (List String) :=
   ⟨(⟨2018, 1, 1⟩, ["excess_payroll_tax_withheld"]), []⟩
 
 /-- `gov/irs/credits/education/american_opportunity_credit/abolition.yaml` (policyengine-us). -/
-def gov.irs.credits.education.american_opportunity_credit.abolition : DatedParam Bool :=
+def irs.credits.education.american_opportunity_credit.abolition : DatedParam Bool :=
   ⟨(⟨2010, 1, 1⟩, false), []⟩
 
-/-- Value of the maximum American Opportunity Credit, as a marginal rate schedule on tuition expenses
+/-- Value of the maximum American Opportunity Credit, as a marginal rate schedule on tuition
+    expenses
     `gov/irs/credits/education/american_opportunity_credit/amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(b)(1):  -/
-def gov.irs.credits.education.american_opportunity_credit.amount : Scale :=
+    * 26 U.S. Code § 25A(b)(1):
+       -/
+def irs.credits.education.american_opportunity_credit.amount : Scale :=
   ⟨[⟨⟨(⟨2009, 1, 1⟩, 0), []⟩, ⟨(⟨2009, 1, 1⟩, 1), []⟩⟩,
     ⟨⟨(⟨2009, 1, 1⟩, 2000), []⟩, ⟨(⟨2009, 1, 1⟩, mkRat 1 4), []⟩⟩,
     ⟨⟨(⟨2009, 1, 1⟩, 4000), []⟩, ⟨(⟨2009, 1, 1⟩, 0), []⟩⟩]⟩
 
-/-- The IRS requires a Form 1098-T payee statement, or an exception allowed by the Secretary, to claim education credits if this is true.
+/-- The IRS requires a Form 1098-T payee statement, or an exception allowed by the Secretary, to
+    claim education credits if this is true.
     `gov/irs/credits/education/american_opportunity_credit/eligibility/requires_1098_t_or_exception.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(g)(8): https://www.law.cornell.edu/uscode/text/26/25A#g_8
-    * 26 U.S. Code § 25A effective date notes: https://www.law.cornell.edu/uscode/text/26/25A#notes -/
-def gov.irs.credits.education.american_opportunity_credit.eligibility.requires_1098_t_or_exception : DatedParam Bool :=
+    * 26 U.S. Code § 25A(g)(8):
+      https://www.law.cornell.edu/uscode/text/26/25A#g_8
+    * 26 U.S. Code § 25A effective date notes:
+      https://www.law.cornell.edu/uscode/text/26/25A#notes -/
+def irs.credits.education.american_opportunity_credit.eligibility.requires_1098_t_or_exception : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2016, 1, 1⟩, true)]⟩
 
-/-- The IRS requires the employer identification number of the educational institution to claim the American Opportunity Credit if this is true.
+/-- The IRS requires the employer identification number of the educational institution to claim
+    the American Opportunity Credit if this is true.
     `gov/irs/credits/education/american_opportunity_credit/eligibility/requires_institution_ein.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(g)(1)(B): https://www.law.cornell.edu/uscode/text/26/25A#g_1_B
-    * 26 U.S. Code § 25A effective date notes: https://www.law.cornell.edu/uscode/text/26/25A#notes -/
-def gov.irs.credits.education.american_opportunity_credit.eligibility.requires_institution_ein : DatedParam Bool :=
+    * 26 U.S. Code § 25A(g)(1)(B):
+      https://www.law.cornell.edu/uscode/text/26/25A#g_1_B
+    * 26 U.S. Code § 25A effective date notes:
+      https://www.law.cornell.edu/uscode/text/26/25A#notes -/
+def irs.credits.education.american_opportunity_credit.eligibility.requires_institution_ein : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2016, 1, 1⟩, true)]⟩
 
-/-- The IRS requires a qualifying Social Security number, rather than any taxpayer identification number, for American Opportunity Credit identification if this is true.
+/-- The IRS requires a qualifying Social Security number, rather than any taxpayer
+    identification number, for American Opportunity Credit identification if this is true.
     `gov/irs/credits/education/american_opportunity_credit/eligibility/requires_qualifying_ssn.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(g)(1): https://www.law.cornell.edu/uscode/text/26/25A#g_1
-    * 26 U.S. Code § 24(h)(7): https://www.law.cornell.edu/uscode/text/26/24#h_7 -/
-def gov.irs.credits.education.american_opportunity_credit.eligibility.requires_qualifying_ssn : DatedParam Bool :=
+    * 26 U.S. Code § 25A(g)(1):
+      https://www.law.cornell.edu/uscode/text/26/25A#g_1
+    * 26 U.S. Code § 24(h)(7):
+      https://www.law.cornell.edu/uscode/text/26/24#h_7 -/
+def irs.credits.education.american_opportunity_credit.eligibility.requires_qualifying_ssn : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2026, 1, 1⟩, true)]⟩
 
 /-- Non-refundable tax credits which precede the American Opportunity Credit.
     `gov/irs/credits/education/american_opportunity_credit/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.education.american_opportunity_credit.preceding_credits : DatedParam (List String) :=
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.education.american_opportunity_credit.preceding_credits : DatedParam (List String) :=
   ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc"]), []⟩
 
 /-- Percentage of the American Opportunity Credit which is refundable.
     `gov/irs/credits/education/american_opportunity_credit/refundability.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A:  -/
-def gov.irs.credits.education.american_opportunity_credit.refundability : DatedParam Rate :=
+    * 26 U.S. Code § 25A:
+       -/
+def irs.credits.education.american_opportunity_credit.refundability : DatedParam Rate :=
   ⟨(⟨2009, 1, 1⟩, mkRat 2 5), []⟩
 
 /-- `gov/irs/credits/education/lifetime_learning_credit/abolition.yaml` (policyengine-us). -/
-def gov.irs.credits.education.lifetime_learning_credit.abolition : DatedParam Bool :=
+def irs.credits.education.lifetime_learning_credit.abolition : DatedParam Bool :=
   ⟨(⟨2010, 1, 1⟩, false), []⟩
 
-/-- The IRS requires a Form 1098-T payee statement, or an exception allowed by the Secretary, to claim the Lifetime Learning Credit if this is true.
+/-- The IRS requires a Form 1098-T payee statement, or an exception allowed by the Secretary, to
+    claim the Lifetime Learning Credit if this is true.
     `gov/irs/credits/education/lifetime_learning_credit/eligibility/requires_1098_t_or_exception.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(g)(8): https://www.law.cornell.edu/uscode/text/26/25A#g_8
-    * 26 U.S. Code § 25A effective date notes: https://www.law.cornell.edu/uscode/text/26/25A#notes -/
-def gov.irs.credits.education.lifetime_learning_credit.eligibility.requires_1098_t_or_exception : DatedParam Bool :=
+    * 26 U.S. Code § 25A(g)(8):
+      https://www.law.cornell.edu/uscode/text/26/25A#g_8
+    * 26 U.S. Code § 25A effective date notes:
+      https://www.law.cornell.edu/uscode/text/26/25A#notes -/
+def irs.credits.education.lifetime_learning_credit.eligibility.requires_1098_t_or_exception : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2016, 1, 1⟩, true)]⟩
 
-/-- The IRS requires a qualifying Social Security number, rather than any taxpayer identification number, for Lifetime Learning Credit identification if this is true.
+/-- The IRS requires a qualifying Social Security number, rather than any taxpayer
+    identification number, for Lifetime Learning Credit identification if this is true.
     `gov/irs/credits/education/lifetime_learning_credit/eligibility/requires_qualifying_ssn.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(g)(1): https://www.law.cornell.edu/uscode/text/26/25A#g_1
-    * 26 U.S. Code § 24(h)(7): https://www.law.cornell.edu/uscode/text/26/24#h_7 -/
-def gov.irs.credits.education.lifetime_learning_credit.eligibility.requires_qualifying_ssn : DatedParam Bool :=
+    * 26 U.S. Code § 25A(g)(1):
+      https://www.law.cornell.edu/uscode/text/26/25A#g_1
+    * 26 U.S. Code § 24(h)(7):
+      https://www.law.cornell.edu/uscode/text/26/24#h_7 -/
+def irs.credits.education.lifetime_learning_credit.eligibility.requires_qualifying_ssn : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2026, 1, 1⟩, true)]⟩
 
 /-- Maximum expenses for relief under the Lifetime Learning Credit
     `gov/irs/credits/education/lifetime_learning_credit/expense_limit.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(c)(1):  -/
-def gov.irs.credits.education.lifetime_learning_credit.expense_limit : DatedParam USD :=
+    * 26 U.S. Code § 25A(c)(1):
+       -/
+def irs.credits.education.lifetime_learning_credit.expense_limit : DatedParam USD :=
   ⟨(⟨1998, 1, 1⟩, 10000), []⟩
 
 /-- Phase-out start for the Lifetime Learning Credit on AGI (single filers).
     `gov/irs/credits/education/lifetime_learning_credit/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.lifetime_learning_credit.phase_out.start.single : DatedParam USD :=
-  ⟨(⟨2010, 1, 1⟩, 50000), [(⟨2011, 1, 1⟩, 51000), (⟨2012, 1, 1⟩, 52000), (⟨2013, 1, 1⟩, 53000), (⟨2014, 1, 1⟩, 54000), (⟨2015, 1, 1⟩, 55000), (⟨2017, 1, 1⟩, 56000), (⟨2018, 1, 1⟩, 57000), (⟨2019, 1, 1⟩, 58000), (⟨2020, 1, 1⟩, 59000), (⟨2021, 1, 1⟩, 80000)]⟩
+def irs.credits.education.lifetime_learning_credit.phase_out.start.single : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 50000),
+    [(⟨2011, 1, 1⟩, 51000),
+     (⟨2012, 1, 1⟩, 52000),
+     (⟨2013, 1, 1⟩, 53000),
+     (⟨2014, 1, 1⟩, 54000),
+     (⟨2015, 1, 1⟩, 55000),
+     (⟨2017, 1, 1⟩, 56000),
+     (⟨2018, 1, 1⟩, 57000),
+     (⟨2019, 1, 1⟩, 58000),
+     (⟨2020, 1, 1⟩, 59000),
+     (⟨2021, 1, 1⟩, 80000)]⟩
 
 /-- Phase-out start for the Lifetime Learning Credit on AGI (joint filers).
     `gov/irs/credits/education/lifetime_learning_credit/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.lifetime_learning_credit.phase_out.start.joint : DatedParam USD :=
-  ⟨(⟨2010, 1, 1⟩, 100000), [(⟨2011, 1, 1⟩, 102000), (⟨2012, 1, 1⟩, 104000), (⟨2013, 1, 1⟩, 107000), (⟨2014, 1, 1⟩, 108000), (⟨2015, 1, 1⟩, 110000), (⟨2016, 1, 1⟩, 111000), (⟨2017, 1, 1⟩, 112000), (⟨2018, 1, 1⟩, 114000), (⟨2019, 1, 1⟩, 116000), (⟨2020, 1, 1⟩, 118000), (⟨2021, 1, 1⟩, 160000)]⟩
+def irs.credits.education.lifetime_learning_credit.phase_out.start.joint : DatedParam USD :=
+  ⟨(⟨2010, 1, 1⟩, 100000),
+    [(⟨2011, 1, 1⟩, 102000),
+     (⟨2012, 1, 1⟩, 104000),
+     (⟨2013, 1, 1⟩, 107000),
+     (⟨2014, 1, 1⟩, 108000),
+     (⟨2015, 1, 1⟩, 110000),
+     (⟨2016, 1, 1⟩, 111000),
+     (⟨2017, 1, 1⟩, 112000),
+     (⟨2018, 1, 1⟩, 114000),
+     (⟨2019, 1, 1⟩, 116000),
+     (⟨2020, 1, 1⟩, 118000),
+     (⟨2021, 1, 1⟩, 160000)]⟩
 
 /-- Length of the phase-out range for the Lifetime Learning Credit on AGI (single filers).
     `gov/irs/credits/education/lifetime_learning_credit/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.lifetime_learning_credit.phase_out.length.single : DatedParam USD :=
+def irs.credits.education.lifetime_learning_credit.phase_out.length.single : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 10000), []⟩
 
 /-- Length of the phase-out range for the Lifetime Learning Credit on AGI (joint filers).
     `gov/irs/credits/education/lifetime_learning_credit/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.lifetime_learning_credit.phase_out.length.joint : DatedParam USD :=
+def irs.credits.education.lifetime_learning_credit.phase_out.length.joint : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 20000), []⟩
 
 /-- Non-refundable tax credits which precede the Lifetime Learning Credit.
     `gov/irs/credits/education/lifetime_learning_credit/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.education.lifetime_learning_credit.preceding_credits : DatedParam (List String) :=
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.education.lifetime_learning_credit.preceding_credits : DatedParam (List String) :=
   ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit"]), []⟩
 
 /-- Percentage of capped tuition expenses which is credited
     `gov/irs/credits/education/lifetime_learning_credit/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 25A(c)(1):  -/
-def gov.irs.credits.education.lifetime_learning_credit.rate : DatedParam Rate :=
+    * 26 U.S. Code § 25A(c)(1):
+       -/
+def irs.credits.education.lifetime_learning_credit.rate : DatedParam Rate :=
   ⟨(⟨1998, 1, 1⟩, mkRat 1 5), []⟩
 
-/-- Phase-out start for both the American Opportunity Credit and Lifetime Learning Credit on AGI.
+/-- Phase-out start for both the American Opportunity Credit and Lifetime Learning Credit on
+    AGI.
     `gov/irs/credits/education/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.phase_out.start.single : DatedParam USD :=
+def irs.credits.education.phase_out.start.single : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 80000), []⟩
 
-/-- Phase-out start for both the American Opportunity Credit and Lifetime Learning Credit on AGI.
+/-- Phase-out start for both the American Opportunity Credit and Lifetime Learning Credit on
+    AGI.
     `gov/irs/credits/education/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.phase_out.start.joint : DatedParam USD :=
+def irs.credits.education.phase_out.start.joint : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 160000), []⟩
 
-/-- Length of the phase-out for both the American Opportunity Credit and Lifetime Learning Credit on AGI (when excess income totals this amount, the credit is reduced to zero).
+/-- Length of the phase-out for both the American Opportunity Credit and Lifetime Learning
+    Credit on AGI (when excess income totals this amount, the credit is reduced to zero).
     `gov/irs/credits/education/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.phase_out.length.single : DatedParam USD :=
+def irs.credits.education.phase_out.length.single : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 10000), []⟩
 
-/-- Length of the phase-out for both the American Opportunity Credit and Lifetime Learning Credit on AGI (when excess income totals this amount, the credit is reduced to zero).
+/-- Length of the phase-out for both the American Opportunity Credit and Lifetime Learning
+    Credit on AGI (when excess income totals this amount, the credit is reduced to zero).
     `gov/irs/credits/education/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.education.phase_out.length.joint : DatedParam USD :=
+def irs.credits.education.phase_out.length.joint : DatedParam USD :=
   ⟨(⟨2010, 1, 1⟩, 20000), []⟩
 
 /-- The US limits EITC eligibility for filers without children to those below this age.
     `gov/irs/credits/eitc/eligibility/age/max.yaml` (policyengine-us).
-    * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
-    * 26 U.S. Code § 32(n)(2) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#n_2 -/
-def gov.irs.credits.eitc.eligibility.age.max : DatedParam ExtRat :=
+    * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit:
+      https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
+    * 26 U.S. Code § 32(n)(2) - Earned income credit:
+      https://www.law.cornell.edu/uscode/text/26/32#n_2 -/
+def irs.credits.eitc.eligibility.age.max : DatedParam ExtRat :=
   ⟨(⟨2013, 1, 1⟩, .fin 64), [(⟨2021, 1, 1⟩, .posInf), (⟨2022, 1, 1⟩, .fin 64)]⟩
 
-/-- The US limits EITC eligibility for non-student filers without children to those this age or older.
+/-- The US limits EITC eligibility for non-student filers without children to those this age or
+    older.
     `gov/irs/credits/eitc/eligibility/age/min.yaml` (policyengine-us).
-    * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
-    * 26 U.S. Code § 32(n)(1)(A) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#n_1_A -/
-def gov.irs.credits.eitc.eligibility.age.min : DatedParam Rat :=
+    * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit:
+      https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
+    * 26 U.S. Code § 32(n)(1)(A) - Earned income credit:
+      https://www.law.cornell.edu/uscode/text/26/32#n_1_A -/
+def irs.credits.eitc.eligibility.age.min : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 25), [(⟨2021, 1, 1⟩, 19), (⟨2022, 1, 1⟩, 25)]⟩
 
 /-- The US limits EITC eligibility for students without children to those this age or older.
     `gov/irs/credits/eitc/eligibility/age/min_student.yaml` (policyengine-us).
-    * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
-    * 26 U.S. Code § 32(n)(1)(B)(2) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#n_1_A -/
-def gov.irs.credits.eitc.eligibility.age.min_student : DatedParam Rat :=
+    * 26 U.S. Code § 32(c)(1)(A)(ii)(II) - Earned income credit:
+      https://www.law.cornell.edu/uscode/text/26/32#c_1_A_ii_II
+    * 26 U.S. Code § 32(n)(1)(B)(2) - Earned income credit:
+      https://www.law.cornell.edu/uscode/text/26/32#n_1_A -/
+def irs.credits.eitc.eligibility.age.min_student : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 25), [(⟨2021, 1, 1⟩, 24), (⟨2022, 1, 1⟩, 25)]⟩
 
 /-- The US makes married filing separate filers eligible for the EITC when this is true.
     `gov/irs/credits/eitc/eligibility/separate_filer.yaml` (policyengine-us).
-    * 26 U.S. Code § 32(d) - Earned income credit: https://www.law.cornell.edu/uscode/text/26/32#d
-    * American Rescue Plan Act Sec. 9623: https://www.congress.gov/bill/117th-congress/house-bill/1319/text -/
-def gov.irs.credits.eitc.eligibility.separate_filer : DatedParam Bool :=
+    * 26 U.S. Code § 32(d) - Earned income credit:
+      https://www.law.cornell.edu/uscode/text/26/32#d
+    * American Rescue Plan Act Sec. 9623:
+      https://www.congress.gov/bill/117th-congress/house-bill/1319/text -/
+def irs.credits.eitc.eligibility.separate_filer : DatedParam Bool :=
   ⟨(⟨2013, 1, 1⟩, false), [(⟨2021, 1, 1⟩, true)]⟩
 
 /-- The maximum EITC amount.
     `gov/irs/credits/eitc/max.yaml` (policyengine-us).
-    * 26 U.S.C. § 32(b) - Earned Income Credit: https://www.law.cornell.edu/uscode/text/26/32#b
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=14
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=10
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=12
-    * 2018 IRS data release: https://www.irs.gov/pub/irs-drop/rp-17-58.pdf#page=10
-    * 2017 IRS data release: https://www.irs.gov/pub/irs-drop/rp-16-55.pdf#page=11
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.credits.eitc.max : Scale :=
-  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2017, 1, 1⟩, 510), [(⟨2018, 1, 1⟩, 519), (⟨2019, 1, 1⟩, 529), (⟨2020, 1, 1⟩, 538), (⟨2021, 1, 1⟩, 1502), (⟨2022, 1, 1⟩, 560), (⟨2023, 1, 1⟩, 600), (⟨2024, 1, 1⟩, 632), (⟨2025, 1, 1⟩, 649), (⟨2026, 1, 1⟩, 664)]⟩⟩,
-    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 1, 1⟩, 3400), [(⟨2018, 1, 1⟩, 3461), (⟨2019, 1, 1⟩, 3526), (⟨2020, 1, 1⟩, 3584), (⟨2021, 1, 1⟩, 3618), (⟨2022, 1, 1⟩, 3733), (⟨2023, 1, 1⟩, 3995), (⟨2024, 1, 1⟩, 4213), (⟨2025, 1, 1⟩, 4328), (⟨2026, 1, 1⟩, 4427)]⟩⟩,
-    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 1, 1⟩, 5616), [(⟨2018, 1, 1⟩, 5716), (⟨2019, 1, 1⟩, 5828), (⟨2020, 1, 1⟩, 5920), (⟨2021, 1, 1⟩, 5980), (⟨2022, 1, 1⟩, 6164), (⟨2023, 1, 1⟩, 6604), (⟨2024, 1, 1⟩, 6960), (⟨2025, 1, 1⟩, 7152), (⟨2026, 1, 1⟩, 7316)]⟩⟩,
-    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 1, 1⟩, 6318), [(⟨2018, 1, 1⟩, 6431), (⟨2019, 1, 1⟩, 6557), (⟨2020, 1, 1⟩, 6660), (⟨2021, 1, 1⟩, 6728), (⟨2022, 1, 1⟩, 6935), (⟨2023, 1, 1⟩, 7430), (⟨2024, 1, 1⟩, 7830), (⟨2025, 1, 1⟩, 8046), (⟨2026, 1, 1⟩, 8231)]⟩⟩]⟩
+    * 26 U.S.C. § 32(b) - Earned Income Credit:
+      https://www.law.cornell.edu/uscode/text/26/32#b
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=14
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=10
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=12
+    * 2018 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-17-58.pdf#page=10
+    * 2017 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-16-55.pdf#page=11
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024:
+      https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.credits.eitc.max : Scale :=
+  ⟨[⟨⟨(⟨0, 1, 1⟩, 0), []⟩, ⟨(⟨2017, 1, 1⟩, 510),
+    [(⟨2018, 1, 1⟩, 519),
+     (⟨2019, 1, 1⟩, 529),
+     (⟨2020, 1, 1⟩, 538),
+     (⟨2021, 1, 1⟩, 1502),
+     (⟨2022, 1, 1⟩, 560),
+     (⟨2023, 1, 1⟩, 600),
+     (⟨2024, 1, 1⟩, 632),
+     (⟨2025, 1, 1⟩, 649),
+     (⟨2026, 1, 1⟩, 664)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 1, 1⟩, 3400),
+    [(⟨2018, 1, 1⟩, 3461),
+     (⟨2019, 1, 1⟩, 3526),
+     (⟨2020, 1, 1⟩, 3584),
+     (⟨2021, 1, 1⟩, 3618),
+     (⟨2022, 1, 1⟩, 3733),
+     (⟨2023, 1, 1⟩, 3995),
+     (⟨2024, 1, 1⟩, 4213),
+     (⟨2025, 1, 1⟩, 4328),
+     (⟨2026, 1, 1⟩, 4427)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 1, 1⟩, 5616),
+    [(⟨2018, 1, 1⟩, 5716),
+     (⟨2019, 1, 1⟩, 5828),
+     (⟨2020, 1, 1⟩, 5920),
+     (⟨2021, 1, 1⟩, 5980),
+     (⟨2022, 1, 1⟩, 6164),
+     (⟨2023, 1, 1⟩, 6604),
+     (⟨2024, 1, 1⟩, 6960),
+     (⟨2025, 1, 1⟩, 7152),
+     (⟨2026, 1, 1⟩, 7316)]⟩⟩,
+    ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 1, 1⟩, 6318),
+    [(⟨2018, 1, 1⟩, 6431),
+     (⟨2019, 1, 1⟩, 6557),
+     (⟨2020, 1, 1⟩, 6660),
+     (⟨2021, 1, 1⟩, 6728),
+     (⟨2022, 1, 1⟩, 6935),
+     (⟨2023, 1, 1⟩, 7430),
+     (⟨2024, 1, 1⟩, 7830),
+     (⟨2025, 1, 1⟩, 8046),
+     (⟨2026, 1, 1⟩, 8231)]⟩⟩]⟩
 
 /-- Earned income credit phase-in rate.
     `gov/irs/credits/eitc/phase_in_rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 32 - Earned income: https://www.law.cornell.edu/uscode/text/26/32#b_1 -/
-def gov.irs.credits.eitc.phase_in_rate : Scale :=
-  ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 153 2000), [(⟨2021, 1, 1⟩, mkRat 153 1000), (⟨2022, 1, 1⟩, mkRat 153 2000)]⟩⟩,
+    * 26 U.S. Code § 32 - Earned income:
+      https://www.law.cornell.edu/uscode/text/26/32#b_1 -/
+def irs.credits.eitc.phase_in_rate : Scale :=
+  ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 153 2000),
+    [(⟨2021, 1, 1⟩, mkRat 153 1000),
+     (⟨2022, 1, 1⟩, mkRat 153 2000)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 1), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 17 50), []⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 2 5), []⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 3), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 9 20), []⟩⟩]⟩
 
 /-- Extra earned income credit phase-out start AGI for married filing jointly.
     `gov/irs/credits/eitc/phase_out/joint_bonus.yaml` (policyengine-us).
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=15
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=9
-    * IRS data release 2023: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=13
-    * EITC Parameters | TPC: https://www.taxpolicycenter.org/statistics/eitc-parameters
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.credits.eitc.phase_out.joint_bonus : Scale :=
-  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2002, 1, 1⟩, 1000), [(⟨2005, 1, 1⟩, 2000), (⟨2008, 1, 1⟩, 3000), (⟨2009, 1, 1⟩, 5000), (⟨2010, 1, 1⟩, 5010), (⟨2011, 1, 1⟩, 5080), (⟨2012, 1, 1⟩, 5210), (⟨2013, 1, 1⟩, 5340), (⟨2014, 1, 1⟩, 5430), (⟨2015, 1, 1⟩, 5520), (⟨2016, 1, 1⟩, 5550), (⟨2017, 1, 1⟩, 5590), (⟨2018, 1, 1⟩, 5690), (⟨2019, 1, 1⟩, 5800), (⟨2020, 1, 1⟩, 5890), (⟨2021, 1, 1⟩, 5940), (⟨2022, 1, 1⟩, 6130), (⟨2023, 1, 1⟩, 6570), (⟨2024, 1, 1⟩, 6920), (⟨2025, 1, 1⟩, 7110), (⟨2026, 1, 1⟩, 7280), (⟨2027, 1, 1⟩, 7410), (⟨2028, 1, 1⟩, 7570), (⟨2029, 1, 1⟩, 7710), (⟨2030, 1, 1⟩, 7870), (⟨2031, 1, 1⟩, 8020), (⟨2032, 1, 1⟩, 8180), (⟨2033, 1, 1⟩, 8340), (⟨2034, 1, 1⟩, 8510), (⟨2035, 1, 1⟩, 8670)]⟩⟩,
-    ⟨⟨(⟨2013, 1, 1⟩, 1), []⟩, ⟨(⟨2002, 1, 1⟩, 1000), [(⟨2005, 1, 1⟩, 2000), (⟨2008, 1, 1⟩, 3000), (⟨2009, 1, 1⟩, 5000), (⟨2010, 1, 1⟩, 5010), (⟨2011, 1, 1⟩, 5080), (⟨2012, 1, 1⟩, 5210), (⟨2013, 1, 1⟩, 5340), (⟨2014, 1, 1⟩, 5430), (⟨2015, 1, 1⟩, 5520), (⟨2016, 1, 1⟩, 5550), (⟨2017, 1, 1⟩, 5590), (⟨2018, 1, 1⟩, 5700), (⟨2019, 1, 1⟩, 5790), (⟨2020, 1, 1⟩, 5890), (⟨2021, 1, 1⟩, 5950), (⟨2022, 1, 1⟩, 6130), (⟨2023, 1, 1⟩, 6560), (⟨2024, 1, 1⟩, 6920), (⟨2025, 1, 1⟩, 7120), (⟨2026, 1, 1⟩, 7270), (⟨2027, 1, 1⟩, 7420), (⟨2028, 1, 1⟩, 7570), (⟨2029, 1, 1⟩, 7720), (⟨2030, 1, 1⟩, 7870), (⟨2031, 1, 1⟩, 8020), (⟨2032, 1, 1⟩, 8180), (⟨2033, 1, 1⟩, 8340), (⟨2034, 1, 1⟩, 8510), (⟨2035, 1, 1⟩, 8680)]⟩⟩]⟩
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=15
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=9
+    * IRS data release 2023:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=13
+    * EITC Parameters | TPC:
+      https://www.taxpolicycenter.org/statistics/eitc-parameters
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024:
+      https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.credits.eitc.phase_out.joint_bonus : Scale :=
+  ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2002, 1, 1⟩, 1000),
+    [(⟨2005, 1, 1⟩, 2000),
+     (⟨2008, 1, 1⟩, 3000),
+     (⟨2009, 1, 1⟩, 5000),
+     (⟨2010, 1, 1⟩, 5010),
+     (⟨2011, 1, 1⟩, 5080),
+     (⟨2012, 1, 1⟩, 5210),
+     (⟨2013, 1, 1⟩, 5340),
+     (⟨2014, 1, 1⟩, 5430),
+     (⟨2015, 1, 1⟩, 5520),
+     (⟨2016, 1, 1⟩, 5550),
+     (⟨2017, 1, 1⟩, 5590),
+     (⟨2018, 1, 1⟩, 5690),
+     (⟨2019, 1, 1⟩, 5800),
+     (⟨2020, 1, 1⟩, 5890),
+     (⟨2021, 1, 1⟩, 5940),
+     (⟨2022, 1, 1⟩, 6130),
+     (⟨2023, 1, 1⟩, 6570),
+     (⟨2024, 1, 1⟩, 6920),
+     (⟨2025, 1, 1⟩, 7110),
+     (⟨2026, 1, 1⟩, 7280),
+     (⟨2027, 1, 1⟩, 7410),
+     (⟨2028, 1, 1⟩, 7570),
+     (⟨2029, 1, 1⟩, 7710),
+     (⟨2030, 1, 1⟩, 7870),
+     (⟨2031, 1, 1⟩, 8020),
+     (⟨2032, 1, 1⟩, 8180),
+     (⟨2033, 1, 1⟩, 8340),
+     (⟨2034, 1, 1⟩, 8510),
+     (⟨2035, 1, 1⟩, 8670)]⟩⟩,
+    ⟨⟨(⟨2013, 1, 1⟩, 1), []⟩, ⟨(⟨2002, 1, 1⟩, 1000),
+    [(⟨2005, 1, 1⟩, 2000),
+     (⟨2008, 1, 1⟩, 3000),
+     (⟨2009, 1, 1⟩, 5000),
+     (⟨2010, 1, 1⟩, 5010),
+     (⟨2011, 1, 1⟩, 5080),
+     (⟨2012, 1, 1⟩, 5210),
+     (⟨2013, 1, 1⟩, 5340),
+     (⟨2014, 1, 1⟩, 5430),
+     (⟨2015, 1, 1⟩, 5520),
+     (⟨2016, 1, 1⟩, 5550),
+     (⟨2017, 1, 1⟩, 5590),
+     (⟨2018, 1, 1⟩, 5700),
+     (⟨2019, 1, 1⟩, 5790),
+     (⟨2020, 1, 1⟩, 5890),
+     (⟨2021, 1, 1⟩, 5950),
+     (⟨2022, 1, 1⟩, 6130),
+     (⟨2023, 1, 1⟩, 6560),
+     (⟨2024, 1, 1⟩, 6920),
+     (⟨2025, 1, 1⟩, 7120),
+     (⟨2026, 1, 1⟩, 7270),
+     (⟨2027, 1, 1⟩, 7420),
+     (⟨2028, 1, 1⟩, 7570),
+     (⟨2029, 1, 1⟩, 7720),
+     (⟨2030, 1, 1⟩, 7870),
+     (⟨2031, 1, 1⟩, 8020),
+     (⟨2032, 1, 1⟩, 8180),
+     (⟨2033, 1, 1⟩, 8340),
+     (⟨2034, 1, 1⟩, 8510),
+     (⟨2035, 1, 1⟩, 8680)]⟩⟩]⟩
 
 /-- Maximum investment income for EITC.
     `gov/irs/credits/eitc/phase_out/max_investment_income.yaml` (policyengine-us).
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=15
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=10
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
-    * 26 U.S. Code § 32 - Earned income (i)(1): https://www.law.cornell.edu/uscode/text/26/32#i_1
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10 -/
-def gov.irs.credits.eitc.phase_out.max_investment_income : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 3300), [(⟨2014, 1, 1⟩, 3350), (⟨2015, 1, 1⟩, 3400), (⟨2017, 1, 1⟩, 3450), (⟨2018, 1, 1⟩, 3500), (⟨2019, 1, 1⟩, 3600), (⟨2020, 1, 1⟩, 3650), (⟨2021, 1, 1⟩, 10000), (⟨2022, 1, 1⟩, 10300), (⟨2023, 1, 1⟩, 11000), (⟨2024, 1, 1⟩, 11600), (⟨2025, 1, 1⟩, 11950), (⟨2026, 1, 1⟩, 12200)]⟩
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=15
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=10
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
+    * 26 U.S. Code § 32 - Earned income (i)(1):
+      https://www.law.cornell.edu/uscode/text/26/32#i_1
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10 -/
+def irs.credits.eitc.phase_out.max_investment_income : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 3300),
+    [(⟨2014, 1, 1⟩, 3350),
+     (⟨2015, 1, 1⟩, 3400),
+     (⟨2017, 1, 1⟩, 3450),
+     (⟨2018, 1, 1⟩, 3500),
+     (⟨2019, 1, 1⟩, 3600),
+     (⟨2020, 1, 1⟩, 3650),
+     (⟨2021, 1, 1⟩, 10000),
+     (⟨2022, 1, 1⟩, 10300),
+     (⟨2023, 1, 1⟩, 11000),
+     (⟨2024, 1, 1⟩, 11600),
+     (⟨2025, 1, 1⟩, 11950),
+     (⟨2026, 1, 1⟩, 12200)]⟩
 
 /-- Earned income credit phase-out rate.
     `gov/irs/credits/eitc/phase_out/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 32 - Earned income: https://www.law.cornell.edu/uscode/text/26/32#b_1 -/
-def gov.irs.credits.eitc.phase_out.rate : Scale :=
-  ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 153 2000), [(⟨2021, 1, 1⟩, mkRat 153 1000), (⟨2022, 1, 1⟩, mkRat 153 2000)]⟩⟩,
+    * 26 U.S. Code § 32 - Earned income:
+      https://www.law.cornell.edu/uscode/text/26/32#b_1 -/
+def irs.credits.eitc.phase_out.rate : Scale :=
+  ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 153 2000),
+    [(⟨2021, 1, 1⟩, mkRat 153 1000),
+     (⟨2022, 1, 1⟩, mkRat 153 2000)]⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 1), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 799 5000), []⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 1053 5000), []⟩⟩,
     ⟨⟨(⟨1995, 1, 1⟩, 3), []⟩, ⟨(⟨1995, 1, 1⟩, mkRat 1053 5000), []⟩⟩]⟩
 
 /-- The EITC phase-out start.
     `gov/irs/credits/eitc/phase_out/start.yaml` (policyengine-us).
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=15
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=10
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=12
-    * 2018 IRS data release: https://www.irs.gov/pub/irs-drop/rp-17-58.pdf#page=10
-    * 2017 IRS data release: https://www.irs.gov/pub/irs-drop/rp-16-55.pdf#page=11
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.credits.eitc.phase_out.start : Scale :=
-  ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨2017, 1, 1⟩, 8340), [(⟨2018, 1, 1⟩, 8510), (⟨2019, 1, 1⟩, 8650), (⟨2020, 1, 1⟩, 8790), (⟨2021, 1, 1⟩, 11610), (⟨2022, 1, 1⟩, 9160), (⟨2023, 1, 1⟩, 9800), (⟨2024, 1, 1⟩, 10330), (⟨2025, 1, 1⟩, 10620), (⟨2026, 1, 1⟩, 10860), (⟨2027, 1, 1⟩, 11070), (⟨2028, 1, 1⟩, 11290), (⟨2029, 1, 1⟩, 11520), (⟨2030, 1, 1⟩, 11740), (⟨2031, 1, 1⟩, 11980), (⟨2032, 1, 1⟩, 12210), (⟨2033, 1, 1⟩, 12460), (⟨2034, 1, 1⟩, 12700), (⟨2035, 1, 1⟩, 12960)]⟩⟩,
-    ⟨⟨(⟨1995, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩,
-    ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩,
-    ⟨⟨(⟨1995, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 1, 1⟩, 18340), [(⟨2018, 1, 1⟩, 18700), (⟨2019, 1, 1⟩, 19030), (⟨2020, 1, 1⟩, 19330), (⟨2021, 1, 1⟩, 19520), (⟨2022, 1, 1⟩, 20130), (⟨2023, 1, 1⟩, 21560), (⟨2024, 1, 1⟩, 22720), (⟨2025, 1, 1⟩, 23350), (⟨2026, 1, 1⟩, 23890), (⟨2027, 1, 1⟩, 24340), (⟨2028, 1, 1⟩, 24830), (⟨2029, 1, 1⟩, 25320), (⟨2030, 1, 1⟩, 25820), (⟨2031, 1, 1⟩, 26340), (⟨2032, 1, 1⟩, 26860), (⟨2033, 1, 1⟩, 27390), (⟨2034, 1, 1⟩, 27930), (⟨2035, 1, 1⟩, 28490)]⟩⟩]⟩
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=15
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=9
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=10
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=10
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=10
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=10
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=10
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=12
+    * 2018 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-17-58.pdf#page=10
+    * 2017 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-16-55.pdf#page=11
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024:
+      https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.credits.eitc.phase_out.start : Scale :=
+  ⟨[⟨⟨(⟨1995, 1, 1⟩, 0), []⟩, ⟨(⟨2017, 1, 1⟩, 8340),
+    [(⟨2018, 1, 1⟩, 8510),
+     (⟨2019, 1, 1⟩, 8650),
+     (⟨2020, 1, 1⟩, 8790),
+     (⟨2021, 1, 1⟩, 11610),
+     (⟨2022, 1, 1⟩, 9160),
+     (⟨2023, 1, 1⟩, 9800),
+     (⟨2024, 1, 1⟩, 10330),
+     (⟨2025, 1, 1⟩, 10620),
+     (⟨2026, 1, 1⟩, 10860),
+     (⟨2027, 1, 1⟩, 11070),
+     (⟨2028, 1, 1⟩, 11290),
+     (⟨2029, 1, 1⟩, 11520),
+     (⟨2030, 1, 1⟩, 11740),
+     (⟨2031, 1, 1⟩, 11980),
+     (⟨2032, 1, 1⟩, 12210),
+     (⟨2033, 1, 1⟩, 12460),
+     (⟨2034, 1, 1⟩, 12700),
+     (⟨2035, 1, 1⟩, 12960)]⟩⟩,
+    ⟨⟨(⟨1995, 1, 1⟩, 1), []⟩, ⟨(⟨2017, 1, 1⟩, 18340),
+    [(⟨2018, 1, 1⟩, 18700),
+     (⟨2019, 1, 1⟩, 19030),
+     (⟨2020, 1, 1⟩, 19330),
+     (⟨2021, 1, 1⟩, 19520),
+     (⟨2022, 1, 1⟩, 20130),
+     (⟨2023, 1, 1⟩, 21560),
+     (⟨2024, 1, 1⟩, 22720),
+     (⟨2025, 1, 1⟩, 23350),
+     (⟨2026, 1, 1⟩, 23890),
+     (⟨2027, 1, 1⟩, 24340),
+     (⟨2028, 1, 1⟩, 24830),
+     (⟨2029, 1, 1⟩, 25320),
+     (⟨2030, 1, 1⟩, 25820),
+     (⟨2031, 1, 1⟩, 26340),
+     (⟨2032, 1, 1⟩, 26860),
+     (⟨2033, 1, 1⟩, 27390),
+     (⟨2034, 1, 1⟩, 27930),
+     (⟨2035, 1, 1⟩, 28490)]⟩⟩,
+    ⟨⟨(⟨1995, 1, 1⟩, 2), []⟩, ⟨(⟨2017, 1, 1⟩, 18340),
+    [(⟨2018, 1, 1⟩, 18700),
+     (⟨2019, 1, 1⟩, 19030),
+     (⟨2020, 1, 1⟩, 19330),
+     (⟨2021, 1, 1⟩, 19520),
+     (⟨2022, 1, 1⟩, 20130),
+     (⟨2023, 1, 1⟩, 21560),
+     (⟨2024, 1, 1⟩, 22720),
+     (⟨2025, 1, 1⟩, 23350),
+     (⟨2026, 1, 1⟩, 23890),
+     (⟨2027, 1, 1⟩, 24340),
+     (⟨2028, 1, 1⟩, 24830),
+     (⟨2029, 1, 1⟩, 25320),
+     (⟨2030, 1, 1⟩, 25820),
+     (⟨2031, 1, 1⟩, 26340),
+     (⟨2032, 1, 1⟩, 26860),
+     (⟨2033, 1, 1⟩, 27390),
+     (⟨2034, 1, 1⟩, 27930),
+     (⟨2035, 1, 1⟩, 28490)]⟩⟩,
+    ⟨⟨(⟨1995, 1, 1⟩, 3), []⟩, ⟨(⟨2017, 1, 1⟩, 18340),
+    [(⟨2018, 1, 1⟩, 18700),
+     (⟨2019, 1, 1⟩, 19030),
+     (⟨2020, 1, 1⟩, 19330),
+     (⟨2021, 1, 1⟩, 19520),
+     (⟨2022, 1, 1⟩, 20130),
+     (⟨2023, 1, 1⟩, 21560),
+     (⟨2024, 1, 1⟩, 22720),
+     (⟨2025, 1, 1⟩, 23350),
+     (⟨2026, 1, 1⟩, 23890),
+     (⟨2027, 1, 1⟩, 24340),
+     (⟨2028, 1, 1⟩, 24830),
+     (⟨2029, 1, 1⟩, 25320),
+     (⟨2030, 1, 1⟩, 25820),
+     (⟨2031, 1, 1⟩, 26340),
+     (⟨2032, 1, 1⟩, 26860),
+     (⟨2033, 1, 1⟩, 27390),
+     (⟨2034, 1, 1⟩, 27930),
+     (⟨2035, 1, 1⟩, 28490)]⟩⟩]⟩
 
 /-- Age threshold for the elderly or disabled credit eligibility
     `gov/irs/credits/elderly_or_disabled/age.yaml` (policyengine-us).
-    * 26 U.S. Code § 22(b)(1): https://www.law.cornell.edu/uscode/text/26/22 -/
-def gov.irs.credits.elderly_or_disabled.age : DatedParam Rat :=
+    * 26 U.S. Code § 22(b)(1):
+      https://www.law.cornell.edu/uscode/text/26/22 -/
+def irs.credits.elderly_or_disabled.age : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 65), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/amount.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.amount.one_qualified : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.amount.one_qualified : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 5000), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/amount.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.amount.two_qualified : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.amount.two_qualified : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 7500), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/amount.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.amount.separate : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.amount.separate : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 3750), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.phase_out.threshold.SINGLE : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.phase_out.threshold.SINGLE : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 7500), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.phase_out.threshold.JOINT : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.phase_out.threshold.JOINT : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 10000), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.phase_out.threshold.SEPARATE : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.phase_out.threshold.SEPARATE : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 5000), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 7500), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/phase_out.yaml` (policyengine-us). -/
-def gov.irs.credits.elderly_or_disabled.phase_out.threshold.SURVIVING_SPOUSE : DatedParam Rat :=
+def irs.credits.elderly_or_disabled.phase_out.threshold.SURVIVING_SPOUSE : DatedParam Rat :=
   ⟨(⟨2010, 1, 1⟩, 7500), []⟩
 
 /-- `gov/irs/credits/elderly_or_disabled/phase_out.yaml` (policyengine-us).
-    * 26 U.S. Code § 22(c)(3)(D): https://www.law.cornell.edu/uscode/text/26/22#c_3_D -/
-def gov.irs.credits.elderly_or_disabled.phase_out.rate : DatedParam Rate :=
+    * 26 U.S. Code § 22(c)(3)(D):
+      https://www.law.cornell.edu/uscode/text/26/22#c_3_D -/
+def irs.credits.elderly_or_disabled.phase_out.rate : DatedParam Rate :=
   ⟨(⟨2010, 1, 1⟩, mkRat 1 2), []⟩
 
 /-- Non-refundable tax credits which precede the Elderly or Disabled Credit.
     `gov/irs/credits/elderly_or_disabled/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.elderly_or_disabled.preceding_credits : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit", "residential_clean_energy_credit", "energy_efficient_home_improvement_credit"]), []⟩
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.elderly_or_disabled.preceding_credits : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit",
+      "cdcc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit",
+      "residential_clean_energy_credit",
+      "energy_efficient_home_improvement_credit"]), []⟩
 
 /-- Percentage of Section 22 income which forms the elderly or disabled credit
     `gov/irs/credits/elderly_or_disabled/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 22(a): https://www.law.cornell.edu/uscode/text/26/22#a -/
-def gov.irs.credits.elderly_or_disabled.rate : DatedParam Rate :=
+    * 26 U.S. Code § 22(a):
+      https://www.law.cornell.edu/uscode/text/26/22#a -/
+def irs.credits.elderly_or_disabled.rate : DatedParam Rate :=
   ⟨(⟨2010, 1, 1⟩, mkRat 3 20), []⟩
 
-/-- The IRS caps energy efficient home improvement credits on advance main air circulating fans at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on advance main air circulating fans
+    at this amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/advanced_main_air_circulating_fan.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(b)(3)(A): https://www.law.cornell.edu/uscode/text/26/25C#b_3_A
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.advanced_main_air_circulating_fan : DatedParam ExtRat :=
+    * 26 U.S.C. § 25C(b)(3)(A):
+      https://www.law.cornell.edu/uscode/text/26/25C#b_3_A
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.advanced_main_air_circulating_fan : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .fin 50), [(⟨2023, 1, 1⟩, .posInf)]⟩
 
-/-- The IRS caps energy efficient home improvement credits on exterior doors at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on exterior doors at this amount per
+    year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/door.yaml` (policyengine-us).
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.door : DatedParam ExtRat :=
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.door : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 500)]⟩
 
-/-- The IRS caps energy efficient home improvement credits on energy efficient building property at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on energy efficient building property
+    at this amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/energy_efficient_building_property.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(b)(3)(C): https://www.law.cornell.edu/uscode/text/26/25C#b_3_C
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property : DatedParam USD :=
+    * 26 U.S.C. § 25C(b)(3)(C):
+      https://www.law.cornell.edu/uscode/text/26/25C#b_3_C
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_building_property : DatedParam USD :=
   ⟨(⟨2017, 1, 1⟩, 300), [(⟨2023, 1, 1⟩, 600)]⟩
 
-/-- The IRS caps energy efficient home improvement credits on energy efficient central air conditioners at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on energy efficient central air
+    conditioners at this amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/energy_efficient_central_air_conditioner.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(b)(3)(C): https://www.law.cornell.edu/uscode/text/26/25C#b_3_C
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_central_air_conditioner : DatedParam ExtRat :=
+    * 26 U.S.C. § 25C(b)(3)(C):
+      https://www.law.cornell.edu/uscode/text/26/25C#b_3_C
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.energy_efficient_central_air_conditioner : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .posInf), []⟩
 
-/-- The IRS caps energy efficient home improvement credits on heat pumps, heat pump water heaters, and biomass stoves and boilers at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on heat pumps, heat pump water
+    heaters, and biomass stoves and boilers at this amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/heat_pump_heat_pump_water_heater_biomass_stove_boiler.yaml` (policyengine-us).
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.heat_pump_heat_pump_water_heater_biomass_stove_boiler : DatedParam ExtRat :=
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.heat_pump_heat_pump_water_heater_biomass_stove_boiler : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 2000)]⟩
 
-/-- The IRS caps energy efficient home improvement credits on home energy audits at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on home energy audits at this amount
+    per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/home_energy_audit.yaml` (policyengine-us).
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=345 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.home_energy_audit : DatedParam USD :=
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=345 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.home_energy_audit : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2023, 1, 1⟩, 150)]⟩
 
-/-- The IRS caps energy efficient home improvement credits on energy efficient insulation material at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on energy efficient insulation
+    material at this amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/insulation_material.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(b)(3)(C): https://www.law.cornell.edu/uscode/text/26/25C#b_3_C
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.insulation_material : DatedParam ExtRat :=
+    * 26 U.S.C. § 25C(b)(3)(C):
+      https://www.law.cornell.edu/uscode/text/26/25C#b_3_C
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.insulation_material : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .posInf), []⟩
 
-/-- The IRS caps energy efficient home improvement credits on qualified natural gas, propane, or oil furnaces or hot water boilers at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on qualified natural gas, propane, or
+    oil furnaces or hot water boilers at this amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/qualified_furnace_or_hot_water_boiler.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(b)(3)(B): https://www.law.cornell.edu/uscode/text/26/25C#b_3_B
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.qualified_furnace_or_hot_water_boiler : DatedParam ExtRat :=
+    * 26 U.S.C. § 25C(b)(3)(B):
+      https://www.law.cornell.edu/uscode/text/26/25C#b_3_B
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.qualified_furnace_or_hot_water_boiler : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .fin 150), [(⟨2023, 1, 1⟩, .posInf)]⟩
 
-/-- The IRS caps energy efficient home improvement credits on roofs and roof material at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on roofs and roof material at this
+    amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/roof.yaml` (policyengine-us).
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.roof : DatedParam ExtRat :=
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.roof : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .posInf), []⟩
 
-/-- The IRS caps energy efficient total home improvement credits at this amount per year (the cap on heat pumps, heat pump water heaters, and biomass stoves and boilers supersedes this cap).
+/-- The IRS caps energy efficient total home improvement credits at this amount per year (the
+    cap on heat pumps, heat pump water heaters, and biomass stoves and boilers supersedes this
+    cap).
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/total.yaml` (policyengine-us).
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.total : DatedParam ExtRat :=
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.total : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 1200)]⟩
 
-/-- The IRS caps energy efficient home improvement credits on energy efficient windows and skylights at this amount per year.
+/-- The IRS caps energy efficient home improvement credits on energy efficient windows and
+    skylights at this amount per year.
     `gov/irs/credits/energy_efficient_home_improvement/cap/annual/window.yaml` (policyengine-us).
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.annual.window : DatedParam ExtRat :=
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.annual.window : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .posInf), [(⟨2023, 1, 1⟩, .fin 600)]⟩
 
 /-- The IRS caps lifetime energy efficient home improvement credits at this amount.
     `gov/irs/credits/energy_efficient_home_improvement/cap/lifetime/total.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(b)(1): https://www.law.cornell.edu/uscode/text/26/25C#b_1
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.lifetime.total : DatedParam ExtRat :=
+    * 26 U.S.C. § 25C(b)(1):
+      https://www.law.cornell.edu/uscode/text/26/25C#b_1
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.lifetime.total : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .fin 500), [(⟨2023, 1, 1⟩, .posInf)]⟩
 
 /-- The IRS caps lifetime energy efficient home improvement credits on windows at this amount.
     `gov/irs/credits/energy_efficient_home_improvement/cap/lifetime/window.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(b)(2): https://www.law.cornell.edu/uscode/text/26/25C#b_2
-    * Inflation Reduction Act, Part 3, Section 13301 (c): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
-def gov.irs.credits.energy_efficient_home_improvement.cap.lifetime.window : DatedParam ExtRat :=
+    * 26 U.S.C. § 25C(b)(2):
+      https://www.law.cornell.edu/uscode/text/26/25C#b_2
+    * Inflation Reduction Act, Part 3, Section 13301 (c):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=339 -/
+def irs.credits.energy_efficient_home_improvement.cap.lifetime.window : DatedParam ExtRat :=
   ⟨(⟨2017, 1, 1⟩, .fin 200), [(⟨2023, 1, 1⟩, .posInf)]⟩
 
 /-- The IRS provides the energy efficient home improvement tax credit when this is true.
     `gov/irs/credits/energy_efficient_home_improvement/in_effect.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(g): https://www.law.cornell.edu/uscode/text/26/25C#g
-    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70505 (2025): https://www.congress.gov/bill/119th-congress/house-bill/1 -/
-def gov.irs.credits.energy_efficient_home_improvement.in_effect : DatedParam Bool :=
-  ⟨(⟨2006, 1, 1⟩, true), [(⟨2008, 1, 1⟩, false), (⟨2009, 1, 1⟩, true), (⟨2026, 1, 1⟩, false)]⟩
+    * 26 U.S.C. § 25C(g):
+      https://www.law.cornell.edu/uscode/text/26/25C#g
+    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70505 (2025):
+      https://www.congress.gov/bill/119th-congress/house-bill/1 -/
+def irs.credits.energy_efficient_home_improvement.in_effect : DatedParam Bool :=
+  ⟨(⟨2006, 1, 1⟩, true),
+    [(⟨2008, 1, 1⟩, false),
+     (⟨2009, 1, 1⟩, true),
+     (⟨2026, 1, 1⟩, false)]⟩
 
 /-- Non-refundable tax credits which precede the Energy Efficient Home Improvement Credit.
     `gov/irs/credits/energy_efficient_home_improvement/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.energy_efficient_home_improvement.preceding_credits : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit", "residential_clean_energy_credit"]), []⟩
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.energy_efficient_home_improvement.preceding_credits : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit",
+      "cdcc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit",
+      "residential_clean_energy_credit"]), []⟩
 
-/-- The US includes these capped credits in determining the total energy efficient home improvement tax credit.
+/-- The US includes these capped credits in determining the total energy efficient home
+    improvement tax credit.
     `gov/irs/credits/energy_efficient_home_improvement/qualified_expenditures/credits.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(g): https://www.law.cornell.edu/uscode/text/26/25C#c_3
-    * Inflation Reduction Act, Part 3, Section 13301: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=341 -/
-def gov.irs.credits.energy_efficient_home_improvement.qualified_expenditures.credits : DatedParam (List String) :=
-  ⟨(⟨2006, 1, 1⟩, ["capped_energy_efficient_door_credit", "capped_energy_efficient_insulation_credit", "capped_energy_efficient_window_credit", "capped_energy_efficient_roof_credit", "capped_advanced_main_air_circulating_fan_credit", "capped_qualified_furnace_or_hot_water_boiler_credit", "capped_energy_efficient_central_air_conditioner_credit", "capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit", "capped_qualified_furnace_or_hot_water_boiler_credit"]), [(⟨2023, 1, 1⟩, ["capped_energy_efficient_door_credit", "capped_energy_efficient_insulation_credit", "capped_energy_efficient_window_credit", "capped_advanced_main_air_circulating_fan_credit", "capped_qualified_furnace_or_hot_water_boiler_credit", "capped_advanced_main_air_circulating_fan_credit", "capped_energy_efficient_central_air_conditioner_credit", "capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit", "capped_qualified_furnace_or_hot_water_boiler_credit", "capped_home_energy_audit_credit"])]⟩
+    * 26 U.S.C. § 25C(g):
+      https://www.law.cornell.edu/uscode/text/26/25C#c_3
+    * Inflation Reduction Act, Part 3, Section 13301:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=341 -/
+def irs.credits.energy_efficient_home_improvement.qualified_expenditures.credits : DatedParam (List String) :=
+  ⟨(⟨2006, 1, 1⟩, ["capped_energy_efficient_door_credit",
+      "capped_energy_efficient_insulation_credit",
+      "capped_energy_efficient_window_credit",
+      "capped_energy_efficient_roof_credit",
+      "capped_advanced_main_air_circulating_fan_credit",
+      "capped_qualified_furnace_or_hot_water_boiler_credit",
+      "capped_energy_efficient_central_air_conditioner_credit",
+      "capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit",
+      "capped_qualified_furnace_or_hot_water_boiler_credit"]),
+    [(⟨2023, 1, 1⟩, ["capped_energy_efficient_door_credit",
+      "capped_energy_efficient_insulation_credit",
+      "capped_energy_efficient_window_credit",
+      "capped_advanced_main_air_circulating_fan_credit",
+      "capped_qualified_furnace_or_hot_water_boiler_credit",
+      "capped_advanced_main_air_circulating_fan_credit",
+      "capped_energy_efficient_central_air_conditioner_credit",
+      "capped_heat_pump_heat_pump_water_heater_biomass_stove_boiler_credit",
+      "capped_qualified_furnace_or_hot_water_boiler_credit",
+      "capped_home_energy_audit_credit"])]⟩
 
-/-- The US provides a energy efficient home improvement credit for these energy efficiency improvements.
+/-- The US provides a energy efficient home improvement credit for these energy efficiency
+    improvements.
     `gov/irs/credits/energy_efficient_home_improvement/qualified_expenditures/heat_pump_heat_pump_water_heater_biomass_stove_boiler.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(d)(3): https://www.law.cornell.edu/uscode/text/26/25C#d_3
-    * Inflation Reduction Act, Part 3, Section 13301: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=342 -/
-def gov.irs.credits.energy_efficient_home_improvement.qualified_expenditures.heat_pump_heat_pump_water_heater_biomass_stove_boiler : DatedParam (List String) :=
-  ⟨(⟨2006, 1, 1⟩, ["heat_pump", "heat_pump_water_heater"]), [(⟨2023, 1, 1⟩, ["heat_pump", "heat_pump_water_heater", "biomass_stove_boiler"])]⟩
+    * 26 U.S.C. § 25C(d)(3):
+      https://www.law.cornell.edu/uscode/text/26/25C#d_3
+    * Inflation Reduction Act, Part 3, Section 13301:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=342 -/
+def irs.credits.energy_efficient_home_improvement.qualified_expenditures.heat_pump_heat_pump_water_heater_biomass_stove_boiler : DatedParam (List String) :=
+  ⟨(⟨2006, 1, 1⟩, ["heat_pump", "heat_pump_water_heater"]),
+    [(⟨2023, 1, 1⟩, ["heat_pump", "heat_pump_water_heater", "biomass_stove_boiler"])]⟩
 
-/-- The IRS provides an energy efficient home improvement tax credit for this share of home energy audit expenditures.
+/-- The IRS provides an energy efficient home improvement tax credit for this share of home
+    energy audit expenditures.
     `gov/irs/credits/energy_efficient_home_improvement/rates/home_energy_audit.yaml` (policyengine-us).
-    * Inflation Reduction Act, Part 3, Section 13301 (b): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=345 -/
-def gov.irs.credits.energy_efficient_home_improvement.rates.home_energy_audit : DatedParam Rate :=
+    * Inflation Reduction Act, Part 3, Section 13301 (b):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=345 -/
+def irs.credits.energy_efficient_home_improvement.rates.home_energy_audit : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2023, 1, 1⟩, mkRat 3 10)]⟩
 
-/-- The IRS provides an energy efficient home improvement tax credit for this share of qualified energy efficiency improvements.
+/-- The IRS provides an energy efficient home improvement tax credit for this share of qualified
+    energy efficiency improvements.
     `gov/irs/credits/energy_efficient_home_improvement/rates/improvements.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(a)(1): https://www.law.cornell.edu/uscode/text/26/25C#a_1
-    * Inflation Reduction Act, Part 3, Section 13301 (b): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=338 -/
-def gov.irs.credits.energy_efficient_home_improvement.rates.improvements : DatedParam Rate :=
+    * 26 U.S.C. § 25C(a)(1):
+      https://www.law.cornell.edu/uscode/text/26/25C#a_1
+    * Inflation Reduction Act, Part 3, Section 13301 (b):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=338 -/
+def irs.credits.energy_efficient_home_improvement.rates.improvements : DatedParam Rate :=
   ⟨(⟨2017, 1, 1⟩, mkRat 1 10), [(⟨2023, 1, 1⟩, mkRat 3 10)]⟩
 
-/-- The IRS provides an energy efficient home improvement tax credit for this share of residential energy property expenditures.
+/-- The IRS provides an energy efficient home improvement tax credit for this share of
+    residential energy property expenditures.
     `gov/irs/credits/energy_efficient_home_improvement/rates/property.yaml` (policyengine-us).
-    * 26 U.S.C. § 25C(a)(2): https://www.law.cornell.edu/uscode/text/26/25C#a_2
-    * Inflation Reduction Act, Part 3, Section 13301 (b): https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=338 -/
-def gov.irs.credits.energy_efficient_home_improvement.rates.property : DatedParam Rate :=
+    * 26 U.S.C. § 25C(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/25C#a_2
+    * Inflation Reduction Act, Part 3, Section 13301 (b):
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=338 -/
+def irs.credits.energy_efficient_home_improvement.rates.property : DatedParam Rate :=
   ⟨(⟨2017, 1, 1⟩, 1), [(⟨2023, 1, 1⟩, mkRat 3 10)]⟩
 
 /-- The IRS provides this base exclusion amount under the estate tax credit.
     `gov/irs/credits/estate/base.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=18
-    * 26 U.S. Code § 2010 - Unified credit against estate tax - (c)(3)(A): https://www.law.cornell.edu/uscode/text/26/2010
-    * What's New - Estate and Gift Tax - Basic Exclusion Amount for Year of Death: https://www.irs.gov/businesses/small-businesses-self-employed/whats-new-estate-and-gift-tax
-    * 26 CFR 601.602: Tax forms and instructions.: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=18
-    * Instructions for Form 706 (Rev. September 2023) (1977-2023): https://www.irs.gov/pub/irs-pdf/i706.pdf#page=9
-    * Instructions for Form 706 (Rev. September 2022) (1977-2022): https://www.irs.gov/pub/irs-prior/i706--2022.pdf#page=9
-    * Instructions for Form 706 (Rev. September 2021) (1977-2021): https://www.irs.gov/pub/irs-prior/i706--2021.pdf#page=9 -/
-def gov.irs.credits.estate.base : DatedParam USD :=
-  ⟨(⟨1977, 1, 1⟩, 30000), [(⟨1977, 7, 1⟩, 120667), (⟨1978, 1, 1⟩, 134000), (⟨1979, 1, 1⟩, 147333), (⟨1980, 1, 1⟩, 161563), (⟨1981, 1, 1⟩, 175625), (⟨1982, 1, 1⟩, 225000), (⟨1983, 1, 1⟩, 275000), (⟨1984, 1, 1⟩, 325000), (⟨1985, 1, 1⟩, 400000), (⟨1986, 1, 1⟩, 500000), (⟨1987, 1, 1⟩, 600000), (⟨1998, 1, 1⟩, 625000), (⟨1999, 1, 1⟩, 650000), (⟨2000, 1, 1⟩, 675000), (⟨2002, 1, 1⟩, 1000000), (⟨2011, 1, 1⟩, 5000000), (⟨2012, 1, 1⟩, 5120000), (⟨2013, 1, 1⟩, 5250000), (⟨2014, 1, 1⟩, 5340000), (⟨2015, 1, 1⟩, 5430000), (⟨2016, 1, 1⟩, 5450000), (⟨2017, 1, 1⟩, 5490000), (⟨2018, 1, 1⟩, 11180000), (⟨2019, 1, 1⟩, 11400000), (⟨2020, 1, 1⟩, 11580000), (⟨2021, 1, 1⟩, 11700000), (⟨2022, 1, 1⟩, 12060000), (⟨2023, 1, 1⟩, 12920000), (⟨2024, 1, 1⟩, 13610000), (⟨2025, 1, 1⟩, 13990000), (⟨2026, 1, 1⟩, 15000000)]⟩
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=18
+    * 26 U.S. Code § 2010 - Unified credit against estate tax - (c)(3)(A):
+      https://www.law.cornell.edu/uscode/text/26/2010
+    * What's New - Estate and Gift Tax - Basic Exclusion Amount for Year of Death:
+      https://www.irs.gov/businesses/small-businesses-self-employed/whats-new-estate-and-gift-tax
+    * 26 CFR 601.602: Tax forms and instructions.:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=18
+    * Instructions for Form 706 (Rev. September 2023) (1977-2023):
+      https://www.irs.gov/pub/irs-pdf/i706.pdf#page=9
+    * Instructions for Form 706 (Rev. September 2022) (1977-2022):
+      https://www.irs.gov/pub/irs-prior/i706--2022.pdf#page=9
+    * Instructions for Form 706 (Rev. September 2021) (1977-2021):
+      https://www.irs.gov/pub/irs-prior/i706--2021.pdf#page=9 -/
+def irs.credits.estate.base : DatedParam USD :=
+  ⟨(⟨1977, 1, 1⟩, 30000),
+    [(⟨1977, 7, 1⟩, 120667),
+     (⟨1978, 1, 1⟩, 134000),
+     (⟨1979, 1, 1⟩, 147333),
+     (⟨1980, 1, 1⟩, 161563),
+     (⟨1981, 1, 1⟩, 175625),
+     (⟨1982, 1, 1⟩, 225000),
+     (⟨1983, 1, 1⟩, 275000),
+     (⟨1984, 1, 1⟩, 325000),
+     (⟨1985, 1, 1⟩, 400000),
+     (⟨1986, 1, 1⟩, 500000),
+     (⟨1987, 1, 1⟩, 600000),
+     (⟨1998, 1, 1⟩, 625000),
+     (⟨1999, 1, 1⟩, 650000),
+     (⟨2000, 1, 1⟩, 675000),
+     (⟨2002, 1, 1⟩, 1000000),
+     (⟨2011, 1, 1⟩, 5000000),
+     (⟨2012, 1, 1⟩, 5120000),
+     (⟨2013, 1, 1⟩, 5250000),
+     (⟨2014, 1, 1⟩, 5340000),
+     (⟨2015, 1, 1⟩, 5430000),
+     (⟨2016, 1, 1⟩, 5450000),
+     (⟨2017, 1, 1⟩, 5490000),
+     (⟨2018, 1, 1⟩, 11180000),
+     (⟨2019, 1, 1⟩, 11400000),
+     (⟨2020, 1, 1⟩, 11580000),
+     (⟨2021, 1, 1⟩, 11700000),
+     (⟨2022, 1, 1⟩, 12060000),
+     (⟨2023, 1, 1⟩, 12920000),
+     (⟨2024, 1, 1⟩, 13610000),
+     (⟨2025, 1, 1⟩, 13990000),
+     (⟨2026, 1, 1⟩, 15000000)]⟩
 
 /-- Non-refundable tax credits.
     `gov/irs/credits/non_refundable.yaml` (policyengine-us).
-    * 26 U.S. Code Subpart A - Nonrefundable Personal Credits: https://www.law.cornell.edu/uscode/text/26/subtitle-A/chapter-1/subchapter-A/part-IV/subpart-A
-    * 26 U.S. Code § 21 - Expenses for household and dependent care services necessary for gainful employment (g)(1): https://www.law.cornell.edu/uscode/text/26/21#g_1
-    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (c)(2): https://www.law.cornell.edu/uscode/text/26/30D#c_2 -/
-def gov.irs.credits.non_refundable : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["cdcc", "elderly_disabled_credit", "non_refundable_ctc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit", "residential_clean_energy_credit", "energy_efficient_home_improvement_credit"]), [(⟨2021, 1, 1⟩, ["elderly_disabled_credit", "non_refundable_ctc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit", "residential_clean_energy_credit", "energy_efficient_home_improvement_credit", "new_clean_vehicle_credit"]), (⟨2022, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit", "residential_clean_energy_credit", "energy_efficient_home_improvement_credit", "elderly_disabled_credit", "new_clean_vehicle_credit", "used_clean_vehicle_credit", "non_refundable_ctc"])]⟩
+    * 26 U.S. Code Subpart A - Nonrefundable Personal Credits:
+      https://www.law.cornell.edu/uscode/text/26/subtitle-A/chapter-1/subchapter-A/part-IV/subpart-A
+    * 26 U.S. Code § 21 - Expenses for household and dependent care services necessary for
+    gainful employment (g)(1):
+      https://www.law.cornell.edu/uscode/text/26/21#g_1
+    * 26 U.S. Code § 30D - New qualified plug-in electric drive motor vehicles (c)(2):
+      https://www.law.cornell.edu/uscode/text/26/30D#c_2 -/
+def irs.credits.non_refundable : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["cdcc",
+      "elderly_disabled_credit",
+      "non_refundable_ctc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit",
+      "residential_clean_energy_credit",
+      "energy_efficient_home_improvement_credit"]),
+    [(⟨2021, 1, 1⟩, ["elderly_disabled_credit",
+      "non_refundable_ctc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit",
+      "residential_clean_energy_credit",
+      "energy_efficient_home_improvement_credit",
+      "new_clean_vehicle_credit"]),
+     (⟨2022, 1, 1⟩, ["foreign_tax_credit",
+      "cdcc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit",
+      "residential_clean_energy_credit",
+      "energy_efficient_home_improvement_credit",
+      "elderly_disabled_credit",
+      "new_clean_vehicle_credit",
+      "used_clean_vehicle_credit",
+      "non_refundable_ctc"])]⟩
 
 /-- Eligibility for the Premium Tax Credit as a percentage of the federal poverty line.
     `gov/irs/credits/premium_tax_credit/eligibility.yaml` (policyengine-us).
-    * 26 U.S. Code § 36B - Refundable credit for coverage under a qualified health plan: https://www.law.cornell.edu/uscode/text/26/36B -/
-def gov.irs.credits.premium_tax_credit.eligibility : Scale :=
+    * 26 U.S. Code § 36B - Refundable credit for coverage under a qualified health plan:
+      https://www.law.cornell.edu/uscode/text/26/36B -/
+def irs.credits.premium_tax_credit.eligibility : Scale :=
   ⟨[⟨⟨(⟨2015, 1, 1⟩, 0), []⟩, ⟨(⟨2015, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨2015, 1, 1⟩, 1), []⟩, ⟨(⟨2015, 1, 1⟩, 1), []⟩⟩,
     ⟨⟨(⟨2015, 1, 1⟩, 4), []⟩, ⟨(⟨2015, 1, 1⟩, 0), []⟩⟩]⟩
 
 /-- Maximum credit per non-dependent adult.
     `gov/irs/credits/recovery_rebate_credit/arpa/max/adult.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428B(a)(1): https://www.law.cornell.edu/uscode/text/26/6428B#a_1 -/
-def gov.irs.credits.recovery_rebate_credit.arpa.max.adult : DatedParam USD :=
+    * 26 U.S. Code § 6428B(a)(1):
+      https://www.law.cornell.edu/uscode/text/26/6428B#a_1 -/
+def irs.credits.recovery_rebate_credit.arpa.max.adult : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 1400), (⟨2022, 1, 1⟩, 0)]⟩
 
 /-- Maximum credit per dependent.
     `gov/irs/credits/recovery_rebate_credit/arpa/max/dependent.yaml` (policyengine-us).
-    * 26 USC 6428B(a)(2) - Amount of credit: https://www.law.cornell.edu/uscode/text/26/6428B#a_2
-    * 26 USC 6428B(b)(2) - Dependent amount: https://www.law.cornell.edu/uscode/text/26/6428B#b_2 -/
-def gov.irs.credits.recovery_rebate_credit.arpa.max.dependent : DatedParam USD :=
+    * 26 USC 6428B(a)(2) - Amount of credit:
+      https://www.law.cornell.edu/uscode/text/26/6428B#a_2
+    * 26 USC 6428B(b)(2) - Dependent amount:
+      https://www.law.cornell.edu/uscode/text/26/6428B#b_2 -/
+def irs.credits.recovery_rebate_credit.arpa.max.dependent : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 1400), (⟨2022, 1, 1⟩, 0)]⟩
 
 /-- Phase-out length for the third Recovery Rebate Credit.
     `gov/irs/credits/recovery_rebate_credit/arpa/phase_out/length.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428B(c): https://www.law.cornell.edu/uscode/text/26/6428B#c -/
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 6428B(c):
+      https://www.law.cornell.edu/uscode/text/26/6428B#c -/
+def irs.credits.recovery_rebate_credit.arpa.phase_out.length.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 7500), []⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.JOINT : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.length.JOINT : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 10000), []⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.SEPARATE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.length.SEPARATE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 5000), []⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.SINGLE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.length.SINGLE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 5000), []⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.length.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.length.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 5000), []⟩
 
 /-- Phase-out starting threshold for the ARPA Recovery Rebate Credit.
     `gov/irs/credits/recovery_rebate_credit/arpa/phase_out/threshold.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428B(c): https://www.law.cornell.edu/uscode/text/26/6428B#c -/
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 6428B(c):
+      https://www.law.cornell.edu/uscode/text/26/6428B#c -/
+def irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 112500), (⟨2022, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.JOINT : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.JOINT : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 150000), (⟨2022, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SEPARATE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SEPARATE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 75000), (⟨2022, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SINGLE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SINGLE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 75000), (⟨2022, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.arpa.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2021, 1, 1⟩, 75000), (⟨2022, 1, 1⟩, 0)]⟩
 
 /-- Maximum credit per non-dependent adult.
     `gov/irs/credits/recovery_rebate_credit/caa/max/adult.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428A(a)(1): https://www.law.cornell.edu/uscode/text/26/6428A#a_1 -/
-def gov.irs.credits.recovery_rebate_credit.caa.max.adult : DatedParam USD :=
+    * 26 U.S. Code § 6428A(a)(1):
+      https://www.law.cornell.edu/uscode/text/26/6428A#a_1 -/
+def irs.credits.recovery_rebate_credit.caa.max.adult : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 600), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Maximum credit per dependent child.
     `gov/irs/credits/recovery_rebate_credit/caa/max/child.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428A(a)(2): https://www.law.cornell.edu/uscode/text/26/6428A#a_2 -/
-def gov.irs.credits.recovery_rebate_credit.caa.max.child : DatedParam USD :=
+    * 26 U.S. Code § 6428A(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/6428A#a_2 -/
+def irs.credits.recovery_rebate_credit.caa.max.child : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 600), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Phase-out rate for the CAA Recovery Rebate Credit.
     `gov/irs/credits/recovery_rebate_credit/caa/phase_out/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428A(c): https://www.law.cornell.edu/uscode/text/26/6428A#c -/
-def gov.irs.credits.recovery_rebate_credit.caa.phase_out.rate : DatedParam Rate :=
+    * 26 U.S. Code § 6428A(c):
+      https://www.law.cornell.edu/uscode/text/26/6428A#c -/
+def irs.credits.recovery_rebate_credit.caa.phase_out.rate : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, mkRat 1 20), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Phase-out starting threshold for the second Recovery Rebate Credit.
     `gov/irs/credits/recovery_rebate_credit/caa/phase_out/threshold.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428A(c): https://www.law.cornell.edu/uscode/text/26/6428A#c -/
-def gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 6428A(c):
+      https://www.law.cornell.edu/uscode/text/26/6428A#c -/
+def irs.credits.recovery_rebate_credit.caa.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 112500), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.JOINT : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.caa.phase_out.threshold.JOINT : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SEPARATE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SEPARATE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 75000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SINGLE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SINGLE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 75000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.caa.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 75000), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Maximum credit per non-dependent adult.
     `gov/irs/credits/recovery_rebate_credit/cares/max/adult.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428(a)(1): https://www.law.cornell.edu/uscode/text/26/6428#a_1 -/
-def gov.irs.credits.recovery_rebate_credit.cares.max.adult : DatedParam USD :=
+    * 26 U.S. Code § 6428(a)(1):
+      https://www.law.cornell.edu/uscode/text/26/6428#a_1 -/
+def irs.credits.recovery_rebate_credit.cares.max.adult : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 1200), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Maximum credit per dependent child.
     `gov/irs/credits/recovery_rebate_credit/cares/max/child.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428(a)(2): https://www.law.cornell.edu/uscode/text/26/6428#a_2 -/
-def gov.irs.credits.recovery_rebate_credit.cares.max.child : DatedParam USD :=
+    * 26 U.S. Code § 6428(a)(2):
+      https://www.law.cornell.edu/uscode/text/26/6428#a_2 -/
+def irs.credits.recovery_rebate_credit.cares.max.child : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 500), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Phase-out rate for the CARES Recovery Rebate Credit.
     `gov/irs/credits/recovery_rebate_credit/cares/phase_out/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428(c): https://www.law.cornell.edu/uscode/text/26/6428#c -/
-def gov.irs.credits.recovery_rebate_credit.cares.phase_out.rate : DatedParam Rate :=
+    * 26 U.S. Code § 6428(c):
+      https://www.law.cornell.edu/uscode/text/26/6428#c -/
+def irs.credits.recovery_rebate_credit.cares.phase_out.rate : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, mkRat 1 20), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Phase-out starting threshold for the CARES Recovery Rebate Credit.
     `gov/irs/credits/recovery_rebate_credit/cares/phase_out/threshold.yaml` (policyengine-us).
-    * 26 U.S. Code § 6428(c): https://www.law.cornell.edu/uscode/text/26/6428#c -/
-def gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 6428(c):
+      https://www.law.cornell.edu/uscode/text/26/6428#c -/
+def irs.credits.recovery_rebate_credit.cares.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 112500), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.JOINT : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.cares.phase_out.threshold.JOINT : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SEPARATE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SEPARATE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 75000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SINGLE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SINGLE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 75000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.credits.recovery_rebate_credit.cares.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 75000), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Refundable tax credits.
     `gov/irs/credits/refundable.yaml` (policyengine-us).
-    * 26 U.S. Code Subpart C - Refundable Credits: https://www.law.cornell.edu/uscode/text/26/subtitle-A/chapter-1/subchapter-A/part-IV/subpart-C
-    * 26 U.S. Code § 21 - Expenses for household and dependent care services necessary for gainful employment (g)(1): https://www.law.cornell.edu/uscode/text/26/21#g_1 -/
-def gov.irs.credits.refundable : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["eitc", "refundable_american_opportunity_credit", "refundable_ctc", "recovery_rebate_credit", "refundable_payroll_tax_credit"]), [(⟨2021, 1, 1⟩, ["eitc", "refundable_american_opportunity_credit", "refundable_ctc", "recovery_rebate_credit", "refundable_payroll_tax_credit", "cdcc"]), (⟨2022, 1, 1⟩, ["eitc", "refundable_american_opportunity_credit", "refundable_ctc", "recovery_rebate_credit", "refundable_payroll_tax_credit"])]⟩
+    * 26 U.S. Code Subpart C - Refundable Credits:
+      https://www.law.cornell.edu/uscode/text/26/subtitle-A/chapter-1/subchapter-A/part-IV/subpart-C
+    * 26 U.S. Code § 21 - Expenses for household and dependent care services necessary for
+    gainful employment (g)(1):
+      https://www.law.cornell.edu/uscode/text/26/21#g_1 -/
+def irs.credits.refundable : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["eitc",
+      "refundable_american_opportunity_credit",
+      "refundable_ctc",
+      "recovery_rebate_credit",
+      "refundable_payroll_tax_credit"]),
+    [(⟨2021, 1, 1⟩, ["eitc",
+      "refundable_american_opportunity_credit",
+      "refundable_ctc",
+      "recovery_rebate_credit",
+      "refundable_payroll_tax_credit",
+      "cdcc"]),
+     (⟨2022, 1, 1⟩, ["eitc",
+      "refundable_american_opportunity_credit",
+      "refundable_ctc",
+      "recovery_rebate_credit",
+      "refundable_payroll_tax_credit"])]⟩
 
-/-- The IRS provides a tax credit for this share of qualifying residential clean energy expenditures.
+/-- The IRS provides a tax credit for this share of qualifying residential clean energy
+    expenditures.
     `gov/irs/credits/residential_clean_energy/applicable_percentage.yaml` (policyengine-us).
-    * 26 U.S.C. § 25D(g): https://www.law.cornell.edu/uscode/text/26/25D#g
-    * IRS Form 5695 (2021): https://www.irs.gov/pub/irs-pdf/f5695.pdf
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=351
-    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70506 (2025): https://www.congress.gov/bill/119th-congress/house-bill/1 -/
-def gov.irs.credits.residential_clean_energy.applicable_percentage : DatedParam Rate :=
-  ⟨(⟨2017, 1, 1⟩, mkRat 3 10), [(⟨2020, 1, 1⟩, mkRat 13 50), (⟨2022, 1, 1⟩, mkRat 3 10), (⟨2026, 1, 1⟩, 0)]⟩
+    * 26 U.S.C. § 25D(g):
+      https://www.law.cornell.edu/uscode/text/26/25D#g
+    * IRS Form 5695 (2021):
+      https://www.irs.gov/pub/irs-pdf/f5695.pdf
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=351
+    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70506 (2025):
+      https://www.congress.gov/bill/119th-congress/house-bill/1 -/
+def irs.credits.residential_clean_energy.applicable_percentage : DatedParam Rate :=
+  ⟨(⟨2017, 1, 1⟩, mkRat 3 10),
+    [(⟨2020, 1, 1⟩, mkRat 13 50),
+     (⟨2022, 1, 1⟩, mkRat 3 10),
+     (⟨2026, 1, 1⟩, 0)]⟩
 
 /-- Elements of the Residential Clean Energy Credit.
     `gov/irs/credits/residential_clean_energy/elements.yaml` (policyengine-us).
-    * 26 U.S. Code § 25D - Residential energy efficient property (a): https://www.law.cornell.edu/uscode/text/26/25D#a
-    * Inflation Reduction Act: https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=352 -/
-def gov.irs.credits.residential_clean_energy.elements : DatedParam (List String) :=
-  ⟨(⟨2017, 1, 1⟩, ["biomass_stove_boiler_expenditures", "geothermal_heat_pump_property_expenditures", "small_wind_energy_property_expenditures", "solar_electric_property_expenditures", "solar_water_heating_property_expenditures", "fuel_cell_property_expenditures"]), [(⟨2023, 1, 1⟩, ["geothermal_heat_pump_property_expenditures", "small_wind_energy_property_expenditures", "solar_electric_property_expenditures", "solar_water_heating_property_expenditures", "fuel_cell_property_expenditures", "qualified_battery_storage_technology_expenditures"])]⟩
+    * 26 U.S. Code § 25D - Residential energy efficient property (a):
+      https://www.law.cornell.edu/uscode/text/26/25D#a
+    * Inflation Reduction Act:
+      https://www.democrats.senate.gov/imo/media/doc/inflation_reduction_act_of_2022.pdf#page=352 -/
+def irs.credits.residential_clean_energy.elements : DatedParam (List String) :=
+  ⟨(⟨2017, 1, 1⟩, ["biomass_stove_boiler_expenditures",
+      "geothermal_heat_pump_property_expenditures",
+      "small_wind_energy_property_expenditures",
+      "solar_electric_property_expenditures",
+      "solar_water_heating_property_expenditures",
+      "fuel_cell_property_expenditures"]),
+    [(⟨2023, 1, 1⟩, ["geothermal_heat_pump_property_expenditures",
+      "small_wind_energy_property_expenditures",
+      "solar_electric_property_expenditures",
+      "solar_water_heating_property_expenditures",
+      "fuel_cell_property_expenditures",
+      "qualified_battery_storage_technology_expenditures"])]⟩
 
 /-- The IRS caps the tax credit for fuel cell property expenditures at this amount per kilowatt.
     `gov/irs/credits/residential_clean_energy/fuel_cell_cap_per_kw.yaml` (policyengine-us).
-    * 26 U.S.C. § 25D(b)(1): https://www.law.cornell.edu/uscode/text/26/25D#b_1
-    * IRS Form 5695 (2021): https://www.irs.gov/pub/irs-pdf/f5695.pdf -/
-def gov.irs.credits.residential_clean_energy.fuel_cell_cap_per_kw : DatedParam USD :=
+    * 26 U.S.C. § 25D(b)(1):
+      https://www.law.cornell.edu/uscode/text/26/25D#b_1
+    * IRS Form 5695 (2021):
+      https://www.irs.gov/pub/irs-pdf/f5695.pdf -/
+def irs.credits.residential_clean_energy.fuel_cell_cap_per_kw : DatedParam USD :=
   ⟨(⟨2017, 1, 1⟩, 1000), []⟩
 
 /-- Non-refundable tax credits which precede the Residential Clean Energy Credit.
     `gov/irs/credits/residential_clean_energy/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.residential_clean_energy.preceding_credits : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit", "savers_credit"]), []⟩
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.residential_clean_energy.preceding_credits : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit",
+      "cdcc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit",
+      "savers_credit"]), []⟩
 
 /-- The IRS limits the saver's credit to taxpayers at or over to following age.
     `gov/irs/credits/retirement_saving/age_threshold.yaml` (policyengine-us).
-    * 26 U.S. Code § 25B(c)(1): https://www.law.cornell.edu/uscode/text/26/25B#c
-    * IRS | Retirement Savings Contributions Credit (Saver's Credit): https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
-    * Publication 590-A: https://www.irs.gov/pub/irs-pdf/p590a.pdf#page=45
-    * 2018 Publication 590-A: https://www.irs.gov/pub/irs-prior/p590a--2018.pdf#page=47
-    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions: https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1 -/
-def gov.irs.credits.retirement_saving.age_threshold : DatedParam Rat :=
+    * 26 U.S. Code § 25B(c)(1):
+      https://www.law.cornell.edu/uscode/text/26/25B#c
+    * IRS | Retirement Savings Contributions Credit (Saver's Credit):
+      https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
+    * Publication 590-A:
+      https://www.irs.gov/pub/irs-pdf/p590a.pdf#page=45
+    * 2018 Publication 590-A:
+      https://www.irs.gov/pub/irs-prior/p590a--2018.pdf#page=47
+    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions:
+      https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1 -/
+def irs.credits.retirement_saving.age_threshold : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, 18), []⟩
 
 /-- The IRS caps the qualifying contributions at the following amount under the saver's credit.
     `gov/irs/credits/retirement_saving/contributions_cap.yaml` (policyengine-us).
-    * 26 U.S. Code § 25B(a): https://www.law.cornell.edu/uscode/text/26/25B
-    * IRS | Retirement Savings Contributions Credit (Saver's Credit): https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
-    * Publication 590-A: https://www.irs.gov/pub/irs-pdf/p590a.pdf#page=46
-    * 2018 Publication 590-A: https://www.irs.gov/pub/irs-prior/p590a--2018.pdf#page=48
-    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions: https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1 -/
-def gov.irs.credits.retirement_saving.contributions_cap : DatedParam USD :=
+    * 26 U.S. Code § 25B(a):
+      https://www.law.cornell.edu/uscode/text/26/25B
+    * IRS | Retirement Savings Contributions Credit (Saver's Credit):
+      https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
+    * Publication 590-A:
+      https://www.irs.gov/pub/irs-pdf/p590a.pdf#page=46
+    * 2018 Publication 590-A:
+      https://www.irs.gov/pub/irs-prior/p590a--2018.pdf#page=48
+    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions:
+      https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1 -/
+def irs.credits.retirement_saving.contributions_cap : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 2000), []⟩
 
 /-- Non-refundable tax credits which precede the Retirement Savings Credit.
     `gov/irs/credits/retirement_saving/preceding_credits.yaml` (policyengine-us).
-    * IRS Schedule 3, Additional Credits and Payments: https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
-def gov.irs.credits.retirement_saving.preceding_credits : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit", "cdcc", "non_refundable_american_opportunity_credit", "lifetime_learning_credit"]), []⟩
+    * IRS Schedule 3, Additional Credits and Payments:
+      https://www.irs.gov/pub/irs-pdf/f1040s3.pdf -/
+def irs.credits.retirement_saving.preceding_credits : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["foreign_tax_credit",
+      "cdcc",
+      "non_refundable_american_opportunity_credit",
+      "lifetime_learning_credit"]), []⟩
 
-/-- The IRA sums the following elements as qualified retirement savings contributions when computing the saver's credit.
+/-- The IRA sums the following elements as qualified retirement savings contributions when
+    computing the saver's credit.
     `gov/irs/credits/retirement_saving/qualified_retirement_savings_contributions.yaml` (policyengine-us).
-    * 26 U.S. Code § 25B - (d): https://www.law.cornell.edu/uscode/text/26/25B#d_1
-    * 2023 Publication 590-A: https://www.irs.gov/pub/irs-pdf/p590a.pdf#page=45
-    * 2023 Form 8880: https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=2 -/
-def gov.irs.credits.retirement_saving.qualified_retirement_savings_contributions : DatedParam (List String) :=
-  ⟨(⟨2018, 1, 1⟩, ["traditional_ira_contributions", "roth_ira_contributions", "traditional_401k_contributions", "traditional_403b_contributions", "roth_401k_contributions", "roth_403b_contributions", "self_employed_pension_contributions", "able_contributions_person"]), [(⟨2026, 1, 1⟩, ["traditional_ira_contributions", "roth_ira_contributions", "traditional_401k_contributions", "traditional_403b_contributions", "roth_401k_contributions", "roth_403b_contributions", "self_employed_pension_contributions"])]⟩
+    * 26 U.S. Code § 25B - (d):
+      https://www.law.cornell.edu/uscode/text/26/25B#d_1
+    * 2023 Publication 590-A:
+      https://www.irs.gov/pub/irs-pdf/p590a.pdf#page=45
+    * 2023 Form 8880:
+      https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=2 -/
+def irs.credits.retirement_saving.qualified_retirement_savings_contributions : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["traditional_ira_contributions",
+      "roth_ira_contributions",
+      "traditional_401k_contributions",
+      "traditional_403b_contributions",
+      "roth_401k_contributions",
+      "roth_403b_contributions",
+      "self_employed_pension_contributions",
+      "able_contributions_person"]),
+    [(⟨2026, 1, 1⟩, ["traditional_ira_contributions",
+      "roth_ira_contributions",
+      "traditional_401k_contributions",
+      "traditional_403b_contributions",
+      "roth_401k_contributions",
+      "roth_403b_contributions",
+      "self_employed_pension_contributions"])]⟩
 
-/-- IRS multiplies the qualified contributions by the following rate for joint filers under the Saver's Credit, based on adjusted gross income.
+/-- IRS multiplies the qualified contributions by the following rate for joint filers under the
+    Saver's Credit, based on adjusted gross income.
     `gov/irs/credits/retirement_saving/rate/joint.yaml` (policyengine-us).
-    * 26 U.S. Code § 25B(b)(1): https://www.law.cornell.edu/uscode/text/26/25B#b
-    * IRS | Retirement Savings Contributions Credit (Saver's Credit): https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
-    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions: https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1
-    * 2018 Form 8880: https://www.irs.gov/pub/irs-prior/f8880--2018.pdf#page=1
-    * IRS Notice 2023-75, 2024 Amounts Relating to Retirement Plans and IRAs (25B(b)(1)(A)-(D) joint amounts $46,000/$50,000/$76,500): https://www.irs.gov/pub/irs-drop/n-23-75.pdf#page=3
-    * IRS Notice 2024-80, 2025 Amounts Relating to Retirement Plans and IRAs (25B(b)(1)(A)-(D) joint amounts $47,500/$51,000/$79,000): https://www.irs.gov/pub/irs-drop/n-24-80.pdf#page=3
-    * IRS Notice 2025-67, 2026 Amounts Relating to Retirement Plans and IRAs (25B(b)(1)(A)-(D) joint amounts $48,500/$52,500/$80,500): https://www.irs.gov/pub/irs-drop/n-25-67.pdf#page=3 -/
-def gov.irs.credits.retirement_saving.rate.joint : Scale :=
+    * 26 U.S. Code § 25B(b)(1):
+      https://www.law.cornell.edu/uscode/text/26/25B#b
+    * IRS | Retirement Savings Contributions Credit (Saver's Credit):
+      https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
+    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions:
+      https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1
+    * 2018 Form 8880:
+      https://www.irs.gov/pub/irs-prior/f8880--2018.pdf#page=1
+    * IRS Notice 2023-75, 2024 Amounts Relating to Retirement Plans and IRAs (25B(b)(1)(A)-(D)
+    joint amounts $46,000/$50,000/$76,500):
+      https://www.irs.gov/pub/irs-drop/n-23-75.pdf#page=3
+    * IRS Notice 2024-80, 2025 Amounts Relating to Retirement Plans and IRAs (25B(b)(1)(A)-(D)
+    joint amounts $47,500/$51,000/$79,000):
+      https://www.irs.gov/pub/irs-drop/n-24-80.pdf#page=3
+    * IRS Notice 2025-67, 2026 Amounts Relating to Retirement Plans and IRAs (25B(b)(1)(A)-(D)
+    joint amounts $48,500/$52,500/$80,500):
+      https://www.irs.gov/pub/irs-drop/n-25-67.pdf#page=3 -/
+def irs.credits.retirement_saving.rate.joint : Scale :=
   ⟨[⟨⟨(⟨2018, 1, 1⟩, 0), []⟩, ⟨(⟨2018, 1, 1⟩, mkRat 1 2), []⟩⟩,
-    ⟨⟨(⟨2018, 1, 1⟩, 38000), [(⟨2019, 1, 1⟩, 38500), (⟨2020, 1, 1⟩, 39000), (⟨2021, 1, 1⟩, 39500), (⟨2022, 1, 1⟩, 41000), (⟨2023, 1, 1⟩, 43500), (⟨2024, 1, 1⟩, 46000), (⟨2025, 1, 1⟩, 47500), (⟨2026, 1, 1⟩, 48500)]⟩, ⟨(⟨2018, 1, 1⟩, mkRat 1 5), []⟩⟩,
-    ⟨⟨(⟨2018, 1, 1⟩, 41000), [(⟨2019, 1, 1⟩, 41500), (⟨2020, 1, 1⟩, 42500), (⟨2021, 1, 1⟩, 43000), (⟨2022, 1, 1⟩, 44000), (⟨2023, 1, 1⟩, 47500), (⟨2024, 1, 1⟩, 50000), (⟨2025, 1, 1⟩, 51000), (⟨2026, 1, 1⟩, 52500)]⟩, ⟨(⟨2018, 1, 1⟩, mkRat 1 10), []⟩⟩,
-    ⟨⟨(⟨2018, 1, 1⟩, 63000), [(⟨2019, 1, 1⟩, 64000), (⟨2020, 1, 1⟩, 65000), (⟨2021, 1, 1⟩, 66000), (⟨2022, 1, 1⟩, 68000), (⟨2023, 1, 1⟩, 73000), (⟨2024, 1, 1⟩, 76500), (⟨2025, 1, 1⟩, 79000), (⟨2026, 1, 1⟩, 80500)]⟩, ⟨(⟨2018, 1, 1⟩, 0), []⟩⟩]⟩
+    ⟨⟨(⟨2018, 1, 1⟩, 38000),
+    [(⟨2019, 1, 1⟩, 38500),
+     (⟨2020, 1, 1⟩, 39000),
+     (⟨2021, 1, 1⟩, 39500),
+     (⟨2022, 1, 1⟩, 41000),
+     (⟨2023, 1, 1⟩, 43500),
+     (⟨2024, 1, 1⟩, 46000),
+     (⟨2025, 1, 1⟩, 47500),
+     (⟨2026, 1, 1⟩, 48500)]⟩, ⟨(⟨2018, 1, 1⟩, mkRat 1 5), []⟩⟩,
+    ⟨⟨(⟨2018, 1, 1⟩, 41000),
+    [(⟨2019, 1, 1⟩, 41500),
+     (⟨2020, 1, 1⟩, 42500),
+     (⟨2021, 1, 1⟩, 43000),
+     (⟨2022, 1, 1⟩, 44000),
+     (⟨2023, 1, 1⟩, 47500),
+     (⟨2024, 1, 1⟩, 50000),
+     (⟨2025, 1, 1⟩, 51000),
+     (⟨2026, 1, 1⟩, 52500)]⟩, ⟨(⟨2018, 1, 1⟩, mkRat 1 10), []⟩⟩,
+    ⟨⟨(⟨2018, 1, 1⟩, 63000),
+    [(⟨2019, 1, 1⟩, 64000),
+     (⟨2020, 1, 1⟩, 65000),
+     (⟨2021, 1, 1⟩, 66000),
+     (⟨2022, 1, 1⟩, 68000),
+     (⟨2023, 1, 1⟩, 73000),
+     (⟨2024, 1, 1⟩, 76500),
+     (⟨2025, 1, 1⟩, 79000),
+     (⟨2026, 1, 1⟩, 80500)]⟩, ⟨(⟨2018, 1, 1⟩, 0), []⟩⟩]⟩
 
-/-- IRS multiplies the joint threshold of the saver's credit by this rate, based on filing status.
+/-- IRS multiplies the joint threshold of the saver's credit by this rate, based on filing
+    status.
     `gov/irs/credits/retirement_saving/rate/threshold_adjustment.yaml` (policyengine-us).
-    * 26 U.S. Code § 25B(b)(2): https://www.law.cornell.edu/uscode/text/26/25B#b
-    * IRS | Retirement Savings Contributions Credit (Saver's Credit): https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
-    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions: https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1 -/
-def gov.irs.credits.retirement_saving.rate.threshold_adjustment.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+    * 26 U.S. Code § 25B(b)(2):
+      https://www.law.cornell.edu/uscode/text/26/25B#b
+    * IRS | Retirement Savings Contributions Credit (Saver's Credit):
+      https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-savings-contributions-savers-credit
+    * Form 8880 - 2023 Credit for Qualified Retirement Savings Contributions:
+      https://www.irs.gov/pub/irs-pdf/f8880.pdf#page=1 -/
+def irs.credits.retirement_saving.rate.threshold_adjustment.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 3 4), []⟩
-def gov.irs.credits.retirement_saving.rate.threshold_adjustment.JOINT : DatedParam Rat :=
+def irs.credits.retirement_saving.rate.threshold_adjustment.JOINT : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, 1), []⟩
-def gov.irs.credits.retirement_saving.rate.threshold_adjustment.SEPARATE : DatedParam Rat :=
+def irs.credits.retirement_saving.rate.threshold_adjustment.SEPARATE : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 1 2), []⟩
-def gov.irs.credits.retirement_saving.rate.threshold_adjustment.SINGLE : DatedParam Rat :=
+def irs.credits.retirement_saving.rate.threshold_adjustment.SINGLE : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 1 2), []⟩
-def gov.irs.credits.retirement_saving.rate.threshold_adjustment.SURVIVING_SPOUSE : DatedParam Rat :=
+def irs.credits.retirement_saving.rate.threshold_adjustment.SURVIVING_SPOUSE : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 1 2), []⟩
 
 /-- The IRS caps the auto loan interest deduction at the following amount.
     `gov/irs/deductions/auto_loan_interest/cap.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.auto_loan_interest.cap : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.auto_loan_interest.cap : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 10000), []⟩
 
-/-- The IRS deduces the auto loan interest deduction in these increments of adjusted gross income exceeding the threshold.
+/-- The IRS deduces the auto loan interest deduction in these increments of adjusted gross
+    income exceeding the threshold.
     `gov/irs/deductions/auto_loan_interest/phase_out/increment.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.auto_loan_interest.phase_out.increment : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.auto_loan_interest.phase_out.increment : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 1000), []⟩
 
-/-- The IRS reduces the auto loan interest deduction for filers with adjusted gross income above this threshold, based on filing status.
+/-- The IRS reduces the auto loan interest deduction for filers with adjusted gross income above
+    this threshold, based on filing status.
     `gov/irs/deductions/auto_loan_interest/phase_out/start.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.auto_loan_interest.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.auto_loan_interest.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 100000), []⟩
-def gov.irs.deductions.auto_loan_interest.phase_out.start.JOINT : DatedParam USD :=
+def irs.deductions.auto_loan_interest.phase_out.start.JOINT : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 200000), []⟩
-def gov.irs.deductions.auto_loan_interest.phase_out.start.SEPARATE : DatedParam USD :=
+def irs.deductions.auto_loan_interest.phase_out.start.SEPARATE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 100000), []⟩
-def gov.irs.deductions.auto_loan_interest.phase_out.start.SINGLE : DatedParam USD :=
+def irs.deductions.auto_loan_interest.phase_out.start.SINGLE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 100000), []⟩
-def gov.irs.deductions.auto_loan_interest.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.auto_loan_interest.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 200000), []⟩
 
-/-- The IRS reduces the auto loan interest deduction at the following rate for each increment in of adjusted gross income above the threshold.
+/-- The IRS reduces the auto loan interest deduction at the following rate for each increment in
+    of adjusted gross income above the threshold.
     `gov/irs/deductions/auto_loan_interest/phase_out/step.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.auto_loan_interest.phase_out.step : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.auto_loan_interest.phase_out.step : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 200), []⟩
 
 /-- Deductions from taxable income if itemizing.
     `gov/irs/deductions/deductions_if_itemizing.yaml` (policyengine-us). -/
-def gov.irs.deductions.deductions_if_itemizing : DatedParam (List String) :=
-  ⟨(⟨2018, 1, 1⟩, ["qualified_business_income_deduction", "wagering_losses_deduction", "itemized_taxable_income_deductions"]), [(⟨2025, 1, 1⟩, ["qualified_business_income_deduction", "wagering_losses_deduction", "itemized_taxable_income_deductions", "tip_income_deduction", "overtime_income_deduction", "additional_senior_deduction", "auto_loan_interest_deduction"]), (⟨2029, 1, 1⟩, ["qualified_business_income_deduction", "wagering_losses_deduction", "itemized_taxable_income_deductions"])]⟩
+def irs.deductions.deductions_if_itemizing : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["qualified_business_income_deduction",
+      "wagering_losses_deduction",
+      "itemized_taxable_income_deductions"]),
+    [(⟨2025, 1, 1⟩, ["qualified_business_income_deduction",
+      "wagering_losses_deduction",
+      "itemized_taxable_income_deductions",
+      "tip_income_deduction",
+      "overtime_income_deduction",
+      "additional_senior_deduction",
+      "auto_loan_interest_deduction"]),
+     (⟨2029, 1, 1⟩, ["qualified_business_income_deduction",
+      "wagering_losses_deduction",
+      "itemized_taxable_income_deductions"])]⟩
 
 /-- Deductions from taxable income if not itemizing.
     `gov/irs/deductions/deductions_if_not_itemizing.yaml` (policyengine-us). -/
-def gov.irs.deductions.deductions_if_not_itemizing : DatedParam (List String) :=
-  ⟨(⟨2018, 1, 1⟩, ["standard_deduction", "qualified_business_income_deduction", "tuition_and_fees_deduction"]), [(⟨2020, 1, 1⟩, ["charitable_deduction_for_non_itemizers", "standard_deduction", "qualified_business_income_deduction"]), (⟨2025, 1, 1⟩, ["charitable_deduction_for_non_itemizers", "standard_deduction", "qualified_business_income_deduction", "tip_income_deduction", "overtime_income_deduction", "additional_senior_deduction", "auto_loan_interest_deduction"]), (⟨2029, 1, 1⟩, ["charitable_deduction_for_non_itemizers", "standard_deduction", "qualified_business_income_deduction"])]⟩
+def irs.deductions.deductions_if_not_itemizing : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["standard_deduction",
+      "qualified_business_income_deduction",
+      "tuition_and_fees_deduction"]),
+    [(⟨2020, 1, 1⟩, ["charitable_deduction_for_non_itemizers",
+      "standard_deduction",
+      "qualified_business_income_deduction"]),
+     (⟨2025, 1, 1⟩, ["charitable_deduction_for_non_itemizers",
+      "standard_deduction",
+      "qualified_business_income_deduction",
+      "tip_income_deduction",
+      "overtime_income_deduction",
+      "additional_senior_deduction",
+      "auto_loan_interest_deduction"]),
+     (⟨2029, 1, 1⟩, ["charitable_deduction_for_non_itemizers",
+      "standard_deduction",
+      "qualified_business_income_deduction"])]⟩
 
 /-- Casualty expense deduction is active.
     `gov/irs/deductions/itemized/casualty/active.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.casualty.active : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.casualty.active : DatedParam Bool :=
   ⟨(⟨2013, 1, 1⟩, true), [(⟨2018, 1, 1⟩, false)]⟩
 
 /-- Floor (as a fraction of AGI) for deductible casualty loss.
     `gov/irs/deductions/itemized/casualty/floor.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.casualty.floor : DatedParam Rate :=
+def irs.deductions.itemized.casualty.floor : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 10), []⟩
 
 /-- Ceiling (as a decimal fraction of AGI) for all charitable contribution deductions.
     `gov/irs/deductions/itemized/charity/ceiling/all.yaml` (policyengine-us).
-    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts (b)(1)(G)(i): https://www.law.cornell.edu/uscode/text/26/170 -/
-def gov.irs.deductions.itemized.charity.ceiling.all : DatedParam Rate :=
-  ⟨(⟨2013, 1, 1⟩, mkRat 1 2), [(⟨2018, 1, 1⟩, mkRat 3 5), (⟨2020, 1, 1⟩, 1), (⟨2021, 1, 1⟩, mkRat 3 5)]⟩
+    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts (b)(1)(G)(i):
+      https://www.law.cornell.edu/uscode/text/26/170 -/
+def irs.deductions.itemized.charity.ceiling.all : DatedParam Rate :=
+  ⟨(⟨2013, 1, 1⟩, mkRat 1 2),
+    [(⟨2018, 1, 1⟩, mkRat 3 5),
+     (⟨2020, 1, 1⟩, 1),
+     (⟨2021, 1, 1⟩, mkRat 3 5)]⟩
 
 /-- Ceiling (as a fraction of AGI) for noncash charitable contribution deductions.
     `gov/irs/deductions/itemized/charity/ceiling/non_cash.yaml` (policyengine-us).
-    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts (b)(1)(A): https://www.law.cornell.edu/uscode/text/26/170 -/
-def gov.irs.deductions.itemized.charity.ceiling.non_cash : DatedParam Rate :=
+    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts (b)(1)(A):
+      https://www.law.cornell.edu/uscode/text/26/170 -/
+def irs.deductions.itemized.charity.ceiling.non_cash : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 2), []⟩
 
-/-- Ceiling (as a fraction of AGI) for noncash charitable contributions to organizations other than 50-percent limit organizations. Note: 170(b)(1)(D) sets a stricter 20% cap for capital gain property to these organizations, which is not yet modeled separately.
+/-- Ceiling (as a fraction of AGI) for noncash charitable contributions to organizations other
+    than 50-percent limit organizations. Note: 170(b)(1)(D) sets a stricter 20% cap for capital
+    gain property to these organizations, which is not yet modeled separately.
     `gov/irs/deductions/itemized/charity/ceiling/non_cash_to_non_50_pct_org.yaml` (policyengine-us).
-    * 26 U.S. Code 170(b)(1)(B) - General 30% limit for non-50% limit organizations: https://www.law.cornell.edu/uscode/text/26/170#b_1_B
-    * 26 U.S. Code 170(b)(1)(D) - 20% limit for capital gain property to non-50% limit organizations: https://www.law.cornell.edu/uscode/text/26/170#b_1_D -/
-def gov.irs.deductions.itemized.charity.ceiling.non_cash_to_non_50_pct_org : DatedParam Rate :=
+    * 26 U.S. Code 170(b)(1)(B) - General 30% limit for non-50% limit organizations:
+      https://www.law.cornell.edu/uscode/text/26/170#b_1_B
+    * 26 U.S. Code 170(b)(1)(D) - 20% limit for capital gain property to non-50% limit
+    organizations:
+      https://www.law.cornell.edu/uscode/text/26/170#b_1_D -/
+def irs.deductions.itemized.charity.ceiling.non_cash_to_non_50_pct_org : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 3 10), []⟩
 
 /-- The IRS floors the charitable deduction at this percentage of adjusted gross income.
     `gov/irs/deductions/itemized/charity/floor/amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts (b)(1)(H)(I): https://www.law.cornell.edu/uscode/text/26/170 -/
-def gov.irs.deductions.itemized.charity.floor.amount : DatedParam Rate :=
+    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts (b)(1)(H)(I):
+      https://www.law.cornell.edu/uscode/text/26/170 -/
+def irs.deductions.itemized.charity.floor.amount : DatedParam Rate :=
   ⟨(⟨2026, 1, 1⟩, mkRat 1 200), []⟩
 
 /-- The IRS floors the charitable deduction, if this is true.
     `gov/irs/deductions/itemized/charity/floor/applies.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.charity.floor.applies : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.charity.floor.applies : DatedParam Bool :=
   ⟨(⟨2013, 1, 1⟩, false), [(⟨2026, 1, 1⟩, true)]⟩
 
-/-- IRS allows for the following charitable deduction amount for non-itemizers, based on filing status.
+/-- IRS allows for the following charitable deduction amount for non-itemizers, based on filing
+    status.
     `gov/irs/deductions/itemized/charity/non_itemizers_amount.yaml` (policyengine-us).
-    * 2020 Publication 526 Charitable Contributions: https://www.irs.gov/pub/irs-prior/p526--2020.pdf#page=2
-    * 2021 Publication 526 Charitable Contributions: https://www.irs.gov/pub/irs-prior/p526--2021.pdf#page=2
-    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts - (p): https://www.law.cornell.edu/uscode/text/26/170
-    * Expanded tax benefits help individuals and businesses give to charity during 2021; deductions up to $600 available for cash donations by non-itemizers: https://www.irs.gov/newsroom/expanded-tax-benefits-help-individuals-and-businesses-give-to-charity-during-2021-deductions-up-to-600-available-for-cash-donations-by-non-itemizers
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.charity.non_itemizers_amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 300), (⟨2021, 1, 1⟩, 300), (⟨2022, 1, 1⟩, 0), (⟨2026, 1, 1⟩, 1000)]⟩
-def gov.irs.deductions.itemized.charity.non_itemizers_amount.JOINT : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 300), (⟨2021, 1, 1⟩, 600), (⟨2022, 1, 1⟩, 0), (⟨2026, 1, 1⟩, 2000)]⟩
-def gov.irs.deductions.itemized.charity.non_itemizers_amount.SEPARATE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150), (⟨2021, 1, 1⟩, 300), (⟨2022, 1, 1⟩, 0), (⟨2026, 1, 1⟩, 1000)]⟩
-def gov.irs.deductions.itemized.charity.non_itemizers_amount.SINGLE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 300), (⟨2021, 1, 1⟩, 300), (⟨2022, 1, 1⟩, 0), (⟨2026, 1, 1⟩, 1000)]⟩
-def gov.irs.deductions.itemized.charity.non_itemizers_amount.SURVIVING_SPOUSE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 300), (⟨2021, 1, 1⟩, 300), (⟨2022, 1, 1⟩, 0), (⟨2026, 1, 1⟩, 1000)]⟩
+    * 2020 Publication 526 Charitable Contributions:
+      https://www.irs.gov/pub/irs-prior/p526--2020.pdf#page=2
+    * 2021 Publication 526 Charitable Contributions:
+      https://www.irs.gov/pub/irs-prior/p526--2021.pdf#page=2
+    * 26 U.S. Code § 170 - Charitable, etc., contributions and gifts - (p):
+      https://www.law.cornell.edu/uscode/text/26/170
+    * Expanded tax benefits help individuals and businesses give to charity during 2021;
+    deductions up to $600 available for cash donations by non-itemizers:
+      https://www.irs.gov/newsroom/expanded-tax-benefits-help-individuals-and-businesses-give-to-charity-during-2021-deductions-up-to-600-available-for-cash-donations-by-non-itemizers
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.charity.non_itemizers_amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 0),
+    [(⟨2020, 1, 1⟩, 300),
+     (⟨2021, 1, 1⟩, 300),
+     (⟨2022, 1, 1⟩, 0),
+     (⟨2026, 1, 1⟩, 1000)]⟩
+def irs.deductions.itemized.charity.non_itemizers_amount.JOINT : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 0),
+    [(⟨2020, 1, 1⟩, 300),
+     (⟨2021, 1, 1⟩, 600),
+     (⟨2022, 1, 1⟩, 0),
+     (⟨2026, 1, 1⟩, 2000)]⟩
+def irs.deductions.itemized.charity.non_itemizers_amount.SEPARATE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 0),
+    [(⟨2020, 1, 1⟩, 150),
+     (⟨2021, 1, 1⟩, 300),
+     (⟨2022, 1, 1⟩, 0),
+     (⟨2026, 1, 1⟩, 1000)]⟩
+def irs.deductions.itemized.charity.non_itemizers_amount.SINGLE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 0),
+    [(⟨2020, 1, 1⟩, 300),
+     (⟨2021, 1, 1⟩, 300),
+     (⟨2022, 1, 1⟩, 0),
+     (⟨2026, 1, 1⟩, 1000)]⟩
+def irs.deductions.itemized.charity.non_itemizers_amount.SURVIVING_SPOUSE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 0),
+    [(⟨2020, 1, 1⟩, 300),
+     (⟨2021, 1, 1⟩, 300),
+     (⟨2022, 1, 1⟩, 0),
+     (⟨2026, 1, 1⟩, 1000)]⟩
 
-/-- The IRS allows an itemized deduction for interest paid on non-grandfathered home acquisition debt up to this mortgage balance, based on filing status.
+/-- The IRS allows an itemized deduction for interest paid on non-grandfathered home acquisition
+    debt up to this mortgage balance, based on filing status.
     `gov/irs/deductions/itemized/interest/mortgage/cap.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text
-    * 26 U.S. Code § 163 - Interest, (h)(3)(b)(ii): https://www.law.cornell.edu/uscode/text/26/163 -/
-def gov.irs.deductions.itemized.interest.mortgage.cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text
+    * 26 U.S. Code § 163 - Interest, (h)(3)(b)(ii):
+      https://www.law.cornell.edu/uscode/text/26/163 -/
+def irs.deductions.itemized.interest.mortgage.cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), [(⟨2018, 1, 1⟩, 750000)]⟩
-def gov.irs.deductions.itemized.interest.mortgage.cap.JOINT : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.cap.JOINT : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), [(⟨2018, 1, 1⟩, 750000)]⟩
-def gov.irs.deductions.itemized.interest.mortgage.cap.SEPARATE : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.cap.SEPARATE : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 500000), [(⟨2018, 1, 1⟩, 375000)]⟩
-def gov.irs.deductions.itemized.interest.mortgage.cap.SINGLE : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.cap.SINGLE : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), [(⟨2018, 1, 1⟩, 750000)]⟩
-def gov.irs.deductions.itemized.interest.mortgage.cap.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.cap.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), [(⟨2018, 1, 1⟩, 750000)]⟩
 
-/-- The IRS allows an itemized deduction for interest paid on pre-TCJA grandfathered home acquisition debt up to this mortgage balance, based on filing status.
+/-- The IRS allows an itemized deduction for interest paid on pre-TCJA grandfathered home
+    acquisition debt up to this mortgage balance, based on filing status.
     `gov/irs/deductions/itemized/interest/mortgage/pre_tcja_cap.yaml` (policyengine-us).
-    * 26 U.S. Code § 163 - Interest, (h)(3)(F): https://www.law.cornell.edu/uscode/text/26/163 -/
-def gov.irs.deductions.itemized.interest.mortgage.pre_tcja_cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 163 - Interest, (h)(3)(F):
+      https://www.law.cornell.edu/uscode/text/26/163 -/
+def irs.deductions.itemized.interest.mortgage.pre_tcja_cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), []⟩
-def gov.irs.deductions.itemized.interest.mortgage.pre_tcja_cap.JOINT : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.pre_tcja_cap.JOINT : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), []⟩
-def gov.irs.deductions.itemized.interest.mortgage.pre_tcja_cap.SEPARATE : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.pre_tcja_cap.SEPARATE : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 500000), []⟩
-def gov.irs.deductions.itemized.interest.mortgage.pre_tcja_cap.SINGLE : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.pre_tcja_cap.SINGLE : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), []⟩
-def gov.irs.deductions.itemized.interest.mortgage.pre_tcja_cap.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.itemized.interest.mortgage.pre_tcja_cap.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨1900, 1, 1⟩, 1000000), []⟩
 
-/-- Home acquisition debt originated on or before this calendar year is treated as pre-TCJA grandfathered debt for the federal mortgage interest deduction.
+/-- Home acquisition debt originated on or before this calendar year is treated as pre-TCJA
+    grandfathered debt for the federal mortgage interest deduction.
     `gov/irs/deductions/itemized/interest/mortgage/pre_tcja_origination_year.yaml` (policyengine-us).
-    * 26 U.S. Code § 163 - Interest, (h)(3)(F): https://www.law.cornell.edu/uscode/text/26/163 -/
-def gov.irs.deductions.itemized.interest.mortgage.pre_tcja_origination_year : DatedParam Rat :=
+    * 26 U.S. Code § 163 - Interest, (h)(3)(F):
+      https://www.law.cornell.edu/uscode/text/26/163 -/
+def irs.deductions.itemized.interest.mortgage.pre_tcja_origination_year : DatedParam Rat :=
   ⟨(⟨1900, 1, 1⟩, 2017), []⟩
 
-/-- The US limits itemized deductions to this fraction of the excess of adjusted gross income over the applicable amount.
+/-- The US limits itemized deductions to this fraction of the excess of adjusted gross income
+    over the applicable amount.
     `gov/irs/deductions/itemized/limitation/agi_rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 68 - Overall limitation on itemized deductions (a)(1): https://www.law.cornell.edu/uscode/text/26/68#a_1 -/
-def gov.irs.deductions.itemized.limitation.agi_rate : DatedParam ExtRat :=
-  ⟨(⟨2017, 1, 1⟩, .fin (mkRat 3 100)), [(⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin (mkRat 3 100))]⟩
+    * 26 U.S. Code § 68 - Overall limitation on itemized deductions (a)(1):
+      https://www.law.cornell.edu/uscode/text/26/68#a_1 -/
+def irs.deductions.itemized.limitation.agi_rate : DatedParam ExtRat :=
+  ⟨(⟨2017, 1, 1⟩, .fin (mkRat 3 100)),
+    [(⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin (mkRat 3 100))]⟩
 
 /-- `gov/irs/deductions/itemized/limitation/applicable_amount.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.limitation.applicable_amount.JOINT : DatedParam ExtRat :=
-  ⟨(⟨2009, 1, 1⟩, .fin 250200), [(⟨2010, 1, 1⟩, .posInf), (⟨2013, 1, 1⟩, .fin 300000), (⟨2014, 1, 1⟩, .fin 305050), (⟨2015, 1, 1⟩, .fin 309900), (⟨2016, 1, 1⟩, .fin 311300), (⟨2017, 1, 1⟩, .fin 313800), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 407850)]⟩
+def irs.deductions.itemized.limitation.applicable_amount.JOINT : DatedParam ExtRat :=
+  ⟨(⟨2009, 1, 1⟩, .fin 250200),
+    [(⟨2010, 1, 1⟩, .posInf),
+     (⟨2013, 1, 1⟩, .fin 300000),
+     (⟨2014, 1, 1⟩, .fin 305050),
+     (⟨2015, 1, 1⟩, .fin 309900),
+     (⟨2016, 1, 1⟩, .fin 311300),
+     (⟨2017, 1, 1⟩, .fin 313800),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 407850)]⟩
 
 /-- `gov/irs/deductions/itemized/limitation/applicable_amount.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.limitation.applicable_amount.SINGLE : DatedParam ExtRat :=
-  ⟨(⟨2009, 1, 1⟩, .fin 166800), [(⟨2010, 1, 1⟩, .posInf), (⟨2013, 1, 1⟩, .fin 250000), (⟨2014, 1, 1⟩, .fin 254200), (⟨2015, 1, 1⟩, .fin 258250), (⟨2016, 1, 1⟩, .fin 259400), (⟨2017, 1, 1⟩, .fin 261500), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 339850)]⟩
+def irs.deductions.itemized.limitation.applicable_amount.SINGLE : DatedParam ExtRat :=
+  ⟨(⟨2009, 1, 1⟩, .fin 166800),
+    [(⟨2010, 1, 1⟩, .posInf),
+     (⟨2013, 1, 1⟩, .fin 250000),
+     (⟨2014, 1, 1⟩, .fin 254200),
+     (⟨2015, 1, 1⟩, .fin 258250),
+     (⟨2016, 1, 1⟩, .fin 259400),
+     (⟨2017, 1, 1⟩, .fin 261500),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 339850)]⟩
 
 /-- `gov/irs/deductions/itemized/limitation/applicable_amount.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.limitation.applicable_amount.SEPARATE : DatedParam ExtRat :=
-  ⟨(⟨2009, 1, 1⟩, .fin 125100), [(⟨2010, 1, 1⟩, .posInf), (⟨2013, 1, 1⟩, .fin 150000), (⟨2014, 1, 1⟩, .fin 152525), (⟨2015, 1, 1⟩, .fin 154950), (⟨2016, 1, 1⟩, .fin 155650), (⟨2017, 1, 1⟩, .fin 156900), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 203900)]⟩
+def irs.deductions.itemized.limitation.applicable_amount.SEPARATE : DatedParam ExtRat :=
+  ⟨(⟨2009, 1, 1⟩, .fin 125100),
+    [(⟨2010, 1, 1⟩, .posInf),
+     (⟨2013, 1, 1⟩, .fin 150000),
+     (⟨2014, 1, 1⟩, .fin 152525),
+     (⟨2015, 1, 1⟩, .fin 154950),
+     (⟨2016, 1, 1⟩, .fin 155650),
+     (⟨2017, 1, 1⟩, .fin 156900),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 203900)]⟩
 
 /-- `gov/irs/deductions/itemized/limitation/applicable_amount.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.limitation.applicable_amount.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
-  ⟨(⟨2009, 1, 1⟩, .fin 208500), [(⟨2010, 1, 1⟩, .posInf), (⟨2013, 1, 1⟩, .fin 275000), (⟨2014, 1, 1⟩, .fin 279650), (⟨2015, 1, 1⟩, .fin 284050), (⟨2016, 1, 1⟩, .fin 285350), (⟨2017, 1, 1⟩, .fin 287650), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 373850)]⟩
+def irs.deductions.itemized.limitation.applicable_amount.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+  ⟨(⟨2009, 1, 1⟩, .fin 208500),
+    [(⟨2010, 1, 1⟩, .posInf),
+     (⟨2013, 1, 1⟩, .fin 275000),
+     (⟨2014, 1, 1⟩, .fin 279650),
+     (⟨2015, 1, 1⟩, .fin 284050),
+     (⟨2016, 1, 1⟩, .fin 285350),
+     (⟨2017, 1, 1⟩, .fin 287650),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 373850)]⟩
 
 /-- `gov/irs/deductions/itemized/limitation/applicable_amount.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.limitation.applicable_amount.SURVIVING_SPOUSE : DatedParam ExtRat :=
-  ⟨(⟨2009, 1, 1⟩, .fin 250200), [(⟨2010, 1, 1⟩, .posInf), (⟨2013, 1, 1⟩, .fin 300000), (⟨2014, 1, 1⟩, .fin 305050), (⟨2015, 1, 1⟩, .fin 309900), (⟨2016, 1, 1⟩, .fin 311300), (⟨2017, 1, 1⟩, .fin 313800), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 407850)]⟩
+def irs.deductions.itemized.limitation.applicable_amount.SURVIVING_SPOUSE : DatedParam ExtRat :=
+  ⟨(⟨2009, 1, 1⟩, .fin 250200),
+    [(⟨2010, 1, 1⟩, .posInf),
+     (⟨2013, 1, 1⟩, .fin 300000),
+     (⟨2014, 1, 1⟩, .fin 305050),
+     (⟨2015, 1, 1⟩, .fin 309900),
+     (⟨2016, 1, 1⟩, .fin 311300),
+     (⟨2017, 1, 1⟩, .fin 313800),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 407850)]⟩
 
 /-- The itemized deductions limitation applies if this is true.
     `gov/irs/deductions/itemized/limitation/applies.yaml` (policyengine-us).
-    * 26 U.S. Code § 68 - Overall limitation on itemized deductions, (a)(2): https://www.law.cornell.edu/uscode/text/26/68 -/
-def gov.irs.deductions.itemized.limitation.applies : DatedParam Bool :=
-  ⟨(⟨2009, 1, 1⟩, true), [(⟨2010, 1, 1⟩, false), (⟨2013, 1, 1⟩, true), (⟨2018, 1, 1⟩, false), (⟨2026, 1, 1⟩, true)]⟩
+    * 26 U.S. Code § 68 - Overall limitation on itemized deductions, (a)(2):
+      https://www.law.cornell.edu/uscode/text/26/68 -/
+def irs.deductions.itemized.limitation.applies : DatedParam Bool :=
+  ⟨(⟨2009, 1, 1⟩, true),
+    [(⟨2010, 1, 1⟩, false),
+     (⟨2013, 1, 1⟩, true),
+     (⟨2018, 1, 1⟩, false),
+     (⟨2026, 1, 1⟩, true)]⟩
 
-/-- The US limits itemized deductions to this fraction of the amount of the itemized deductions otherwise allowable for such taxable year.
+/-- The US limits itemized deductions to this fraction of the amount of the itemized deductions
+    otherwise allowable for such taxable year.
     `gov/irs/deductions/itemized/limitation/itemized_deduction_rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 68 - Overall limitation on itemized deductions (a)(2): https://www.law.cornell.edu/uscode/text/26/68#a_2 -/
-def gov.irs.deductions.itemized.limitation.itemized_deduction_rate : DatedParam ExtRat :=
-  ⟨(⟨2017, 1, 1⟩, .fin (mkRat 4 5)), [(⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin (mkRat 4 5))]⟩
+    * 26 U.S. Code § 68 - Overall limitation on itemized deductions (a)(2):
+      https://www.law.cornell.edu/uscode/text/26/68#a_2 -/
+def irs.deductions.itemized.limitation.itemized_deduction_rate : DatedParam ExtRat :=
+  ⟨(⟨2017, 1, 1⟩, .fin (mkRat 4 5)),
+    [(⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin (mkRat 4 5))]⟩
 
-/-- The One Big Beautiful Bill Act itemized deductions limitation structure applies, if this is true.
+/-- The One Big Beautiful Bill Act itemized deductions limitation structure applies, if this is
+    true.
     `gov/irs/deductions/itemized/limitation/obbb/applies.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.limitation.obbb.applies : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.limitation.obbb.applies : DatedParam Bool :=
   ⟨(⟨2009, 1, 1⟩, false), [(⟨2026, 1, 1⟩, true)]⟩
 
-/-- The One Big Beautiful Bill Act phases out itemized deductions at this rate of the lesser of the itemized deductions or taxable income above the highest income tax rate threshold.
+/-- The One Big Beautiful Bill Act phases out itemized deductions at this rate of the lesser of
+    the itemized deductions or taxable income above the highest income tax rate threshold.
     `gov/irs/deductions/itemized/limitation/obbb/rate.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.limitation.obbb.rate : DatedParam Rate :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.limitation.obbb.rate : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, mkRat 1081081 20000000), []⟩
 
 /-- Medical expenses over this percentage of AGI are deductible from taxable income.
     `gov/irs/deductions/itemized/medical/floor.yaml` (policyengine-us).
-    * 26 U.S. Code § 213 - Medical, dental, etc., expenses (a): https://www.law.cornell.edu/uscode/text/26/213 -/
-def gov.irs.deductions.itemized.medical.floor : DatedParam Rate :=
+    * 26 U.S. Code § 213 - Medical, dental, etc., expenses (a):
+      https://www.law.cornell.edu/uscode/text/26/213 -/
+def irs.deductions.itemized.medical.floor : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 10), [(⟨2017, 1, 1⟩, mkRat 3 40)]⟩
 
 /-- The miscellaneous itemized deduction applies if this is true.
     `gov/irs/deductions/itemized/misc/applies.yaml` (policyengine-us).
-    * 26 U.S. Code § 67 - 2-percent floor on miscellaneous itemized deductions (g): https://www.law.cornell.edu/uscode/text/26/67#g -/
-def gov.irs.deductions.itemized.misc.applies : DatedParam Bool :=
+    * 26 U.S. Code § 67 - 2-percent floor on miscellaneous itemized deductions (g):
+      https://www.law.cornell.edu/uscode/text/26/67#g -/
+def irs.deductions.itemized.misc.applies : DatedParam Bool :=
   ⟨(⟨2013, 1, 1⟩, true), [(⟨2018, 1, 1⟩, false)]⟩
 
-/-- The US deducts miscellaneous expenses over this percentage of adjusted gross income from taxable income.
+/-- The US deducts miscellaneous expenses over this percentage of adjusted gross income from
+    taxable income.
     `gov/irs/deductions/itemized/misc/floor.yaml` (policyengine-us).
-    * 26 U.S. Code § 67 - 2-percent floor on miscellaneous itemized deductions (a): https://www.law.cornell.edu/uscode/text/26/67 -/
-def gov.irs.deductions.itemized.misc.floor : DatedParam Rate :=
+    * 26 U.S. Code § 67 - 2-percent floor on miscellaneous itemized deductions (a):
+      https://www.law.cornell.edu/uscode/text/26/67 -/
+def irs.deductions.itemized.misc.floor : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 50), []⟩
 
 /-- The US deducts the following expenses under the miscellaneous deduction.
     `gov/irs/deductions/itemized/misc/sources.yaml` (policyengine-us).
-    * 26 U.S. Code § 67 - 2-percent floor on miscellaneous itemized deductions (b): https://www.law.cornell.edu/uscode/text/26/67
-    * 2017 Schedule A Instructions: https://www.irs.gov/pub/irs-prior/i1040sca--2017.pdf#page=12 -/
-def gov.irs.deductions.itemized.misc.sources : DatedParam (List String) :=
+    * 26 U.S. Code § 67 - 2-percent floor on miscellaneous itemized deductions (b):
+      https://www.law.cornell.edu/uscode/text/26/67
+    * 2017 Schedule A Instructions:
+      https://www.irs.gov/pub/irs-prior/i1040sca--2017.pdf#page=12 -/
+def irs.deductions.itemized.misc.sources : DatedParam (List String) :=
   ⟨(⟨2013, 1, 1⟩, ["unreimbursed_business_employee_expenses", "tax_preparation_fees"]), []⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/cap.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.cap.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2014, 1, 1⟩, .posInf), (⟨2015, 1, 1⟩, .posInf), (⟨2016, 1, 1⟩, .posInf), (⟨2017, 1, 1⟩, .posInf), (⟨2018, 1, 1⟩, .fin 10000), (⟨2019, 1, 1⟩, .fin 10000), (⟨2025, 1, 1⟩, .fin 40000), (⟨2026, 1, 1⟩, .fin 40400), (⟨2027, 1, 1⟩, .fin 40804), (⟨2028, 1, 1⟩, .fin 41212), (⟨2029, 1, 1⟩, .fin 41624), (⟨2030, 1, 1⟩, .fin 10000)]⟩
+def irs.deductions.itemized.salt_and_real_estate.cap.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2014, 1, 1⟩, .posInf),
+     (⟨2015, 1, 1⟩, .posInf),
+     (⟨2016, 1, 1⟩, .posInf),
+     (⟨2017, 1, 1⟩, .posInf),
+     (⟨2018, 1, 1⟩, .fin 10000),
+     (⟨2019, 1, 1⟩, .fin 10000),
+     (⟨2025, 1, 1⟩, .fin 40000),
+     (⟨2026, 1, 1⟩, .fin 40400),
+     (⟨2027, 1, 1⟩, .fin 40804),
+     (⟨2028, 1, 1⟩, .fin 41212),
+     (⟨2029, 1, 1⟩, .fin 41624),
+     (⟨2030, 1, 1⟩, .fin 10000)]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/cap.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.cap.JOINT : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2014, 1, 1⟩, .posInf), (⟨2015, 1, 1⟩, .posInf), (⟨2016, 1, 1⟩, .posInf), (⟨2017, 1, 1⟩, .posInf), (⟨2018, 1, 1⟩, .fin 10000), (⟨2019, 1, 1⟩, .fin 10000), (⟨2025, 1, 1⟩, .fin 40000), (⟨2026, 1, 1⟩, .fin 40400), (⟨2027, 1, 1⟩, .fin 40804), (⟨2028, 1, 1⟩, .fin 41212), (⟨2029, 1, 1⟩, .fin 41624), (⟨2030, 1, 1⟩, .fin 10000)]⟩
+def irs.deductions.itemized.salt_and_real_estate.cap.JOINT : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2014, 1, 1⟩, .posInf),
+     (⟨2015, 1, 1⟩, .posInf),
+     (⟨2016, 1, 1⟩, .posInf),
+     (⟨2017, 1, 1⟩, .posInf),
+     (⟨2018, 1, 1⟩, .fin 10000),
+     (⟨2019, 1, 1⟩, .fin 10000),
+     (⟨2025, 1, 1⟩, .fin 40000),
+     (⟨2026, 1, 1⟩, .fin 40400),
+     (⟨2027, 1, 1⟩, .fin 40804),
+     (⟨2028, 1, 1⟩, .fin 41212),
+     (⟨2029, 1, 1⟩, .fin 41624),
+     (⟨2030, 1, 1⟩, .fin 10000)]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/cap.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.cap.SEPARATE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2014, 1, 1⟩, .posInf), (⟨2015, 1, 1⟩, .posInf), (⟨2016, 1, 1⟩, .posInf), (⟨2017, 1, 1⟩, .posInf), (⟨2018, 1, 1⟩, .fin 5000), (⟨2019, 1, 1⟩, .fin 5000), (⟨2025, 1, 1⟩, .fin 20000), (⟨2026, 1, 1⟩, .fin 20200), (⟨2027, 1, 1⟩, .fin 20402), (⟨2028, 1, 1⟩, .fin 20606), (⟨2029, 1, 1⟩, .fin 20812), (⟨2030, 1, 1⟩, .fin 5000)]⟩
+def irs.deductions.itemized.salt_and_real_estate.cap.SEPARATE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2014, 1, 1⟩, .posInf),
+     (⟨2015, 1, 1⟩, .posInf),
+     (⟨2016, 1, 1⟩, .posInf),
+     (⟨2017, 1, 1⟩, .posInf),
+     (⟨2018, 1, 1⟩, .fin 5000),
+     (⟨2019, 1, 1⟩, .fin 5000),
+     (⟨2025, 1, 1⟩, .fin 20000),
+     (⟨2026, 1, 1⟩, .fin 20200),
+     (⟨2027, 1, 1⟩, .fin 20402),
+     (⟨2028, 1, 1⟩, .fin 20606),
+     (⟨2029, 1, 1⟩, .fin 20812),
+     (⟨2030, 1, 1⟩, .fin 5000)]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/cap.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.cap.SINGLE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2014, 1, 1⟩, .posInf), (⟨2015, 1, 1⟩, .posInf), (⟨2016, 1, 1⟩, .posInf), (⟨2017, 1, 1⟩, .posInf), (⟨2018, 1, 1⟩, .fin 10000), (⟨2019, 1, 1⟩, .fin 10000), (⟨2025, 1, 1⟩, .fin 40000), (⟨2026, 1, 1⟩, .fin 40400), (⟨2027, 1, 1⟩, .fin 40804), (⟨2028, 1, 1⟩, .fin 41212), (⟨2029, 1, 1⟩, .fin 41624), (⟨2030, 1, 1⟩, .fin 10000)]⟩
+def irs.deductions.itemized.salt_and_real_estate.cap.SINGLE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2014, 1, 1⟩, .posInf),
+     (⟨2015, 1, 1⟩, .posInf),
+     (⟨2016, 1, 1⟩, .posInf),
+     (⟨2017, 1, 1⟩, .posInf),
+     (⟨2018, 1, 1⟩, .fin 10000),
+     (⟨2019, 1, 1⟩, .fin 10000),
+     (⟨2025, 1, 1⟩, .fin 40000),
+     (⟨2026, 1, 1⟩, .fin 40400),
+     (⟨2027, 1, 1⟩, .fin 40804),
+     (⟨2028, 1, 1⟩, .fin 41212),
+     (⟨2029, 1, 1⟩, .fin 41624),
+     (⟨2030, 1, 1⟩, .fin 10000)]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/cap.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.cap.SURVIVING_SPOUSE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .posInf), [(⟨2014, 1, 1⟩, .posInf), (⟨2015, 1, 1⟩, .posInf), (⟨2016, 1, 1⟩, .posInf), (⟨2017, 1, 1⟩, .posInf), (⟨2018, 1, 1⟩, .fin 10000), (⟨2019, 1, 1⟩, .fin 10000), (⟨2025, 1, 1⟩, .fin 40000), (⟨2026, 1, 1⟩, .fin 40400), (⟨2027, 1, 1⟩, .fin 40804), (⟨2028, 1, 1⟩, .fin 41212), (⟨2029, 1, 1⟩, .fin 41624), (⟨2030, 1, 1⟩, .fin 10000)]⟩
+def irs.deductions.itemized.salt_and_real_estate.cap.SURVIVING_SPOUSE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .posInf),
+    [(⟨2014, 1, 1⟩, .posInf),
+     (⟨2015, 1, 1⟩, .posInf),
+     (⟨2016, 1, 1⟩, .posInf),
+     (⟨2017, 1, 1⟩, .posInf),
+     (⟨2018, 1, 1⟩, .fin 10000),
+     (⟨2019, 1, 1⟩, .fin 10000),
+     (⟨2025, 1, 1⟩, .fin 40000),
+     (⟨2026, 1, 1⟩, .fin 40400),
+     (⟨2027, 1, 1⟩, .fin 40804),
+     (⟨2028, 1, 1⟩, .fin 41212),
+     (⟨2029, 1, 1⟩, .fin 41624),
+     (⟨2030, 1, 1⟩, .fin 10000)]⟩
 
 /-- The IRS floors the SALT deduction at this amount, based on filing status.
     `gov/irs/deductions/itemized/salt_and_real_estate/phase_out/floor/amount.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 10000), []⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.JOINT : DatedParam USD :=
+def irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.JOINT : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 10000), []⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.SEPARATE : DatedParam USD :=
+def irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.SEPARATE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 5000), []⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.SINGLE : DatedParam USD :=
+def irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.SINGLE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 10000), []⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.itemized.salt_and_real_estate.phase_out.floor.amount.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 10000), []⟩
 
 /-- The IRS floors the SALT deduction, if this is true.
     `gov/irs/deductions/itemized/salt_and_real_estate/phase_out/floor/applies.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.floor.applies : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.salt_and_real_estate.phase_out.floor.applies : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2025, 1, 1⟩, true), (⟨2030, 1, 1⟩, false)]⟩
 
 /-- The SALT deduction is phased out based on adjusted gross income, if this is true.
     `gov/irs/deductions/itemized/salt_and_real_estate/phase_out/in_effect.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.in_effect : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.salt_and_real_estate.phase_out.in_effect : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2025, 1, 1⟩, true), (⟨2030, 1, 1⟩, false)]⟩
 
-/-- The IRS phases out the SALT deduction at this rate of adjusted gross income over the phase-out threshold.
+/-- The IRS phases out the SALT deduction at this rate of adjusted gross income over the
+    phase-out threshold.
     `gov/irs/deductions/itemized/salt_and_real_estate/phase_out/rate.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.rate : DatedParam Rate :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.salt_and_real_estate.phase_out.rate : DatedParam Rate :=
   ⟨(⟨2025, 1, 1⟩, mkRat 3 10), []⟩
 
-/-- The IRS phases out the SALT deduction out for filers with adjusted gross income above this amount, based on filing status.
+/-- The IRS phases out the SALT deduction out for filers with adjusted gross income above this
+    amount, based on filing status.
     `gov/irs/deductions/itemized/salt_and_real_estate/phase_out/threshold.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
-  ⟨(⟨2025, 1, 1⟩, 500000), [(⟨2026, 1, 1⟩, 505000), (⟨2027, 1, 1⟩, 510050), (⟨2028, 1, 1⟩, 515151), (⟨2029, 1, 1⟩, 520302)]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.JOINT : DatedParam USD :=
-  ⟨(⟨2025, 1, 1⟩, 500000), [(⟨2026, 1, 1⟩, 505000), (⟨2027, 1, 1⟩, 510050), (⟨2028, 1, 1⟩, 515151), (⟨2029, 1, 1⟩, 520302)]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.SEPARATE : DatedParam USD :=
-  ⟨(⟨2025, 1, 1⟩, 250000), [(⟨2026, 1, 1⟩, 252500), (⟨2027, 1, 1⟩, 255025), (⟨2028, 1, 1⟩, 257575), (⟨2029, 1, 1⟩, 260151)]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.SINGLE : DatedParam USD :=
-  ⟨(⟨2025, 1, 1⟩, 500000), [(⟨2026, 1, 1⟩, 505000), (⟨2027, 1, 1⟩, 510050), (⟨2028, 1, 1⟩, 515151), (⟨2029, 1, 1⟩, 520302)]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
-  ⟨(⟨2025, 1, 1⟩, 500000), [(⟨2026, 1, 1⟩, 505000), (⟨2027, 1, 1⟩, 510050), (⟨2028, 1, 1⟩, 515151), (⟨2029, 1, 1⟩, 520302)]⟩
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+  ⟨(⟨2025, 1, 1⟩, 500000),
+    [(⟨2026, 1, 1⟩, 505000),
+     (⟨2027, 1, 1⟩, 510050),
+     (⟨2028, 1, 1⟩, 515151),
+     (⟨2029, 1, 1⟩, 520302)]⟩
+def irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.JOINT : DatedParam USD :=
+  ⟨(⟨2025, 1, 1⟩, 500000),
+    [(⟨2026, 1, 1⟩, 505000),
+     (⟨2027, 1, 1⟩, 510050),
+     (⟨2028, 1, 1⟩, 515151),
+     (⟨2029, 1, 1⟩, 520302)]⟩
+def irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.SEPARATE : DatedParam USD :=
+  ⟨(⟨2025, 1, 1⟩, 250000),
+    [(⟨2026, 1, 1⟩, 252500),
+     (⟨2027, 1, 1⟩, 255025),
+     (⟨2028, 1, 1⟩, 257575),
+     (⟨2029, 1, 1⟩, 260151)]⟩
+def irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.SINGLE : DatedParam USD :=
+  ⟨(⟨2025, 1, 1⟩, 500000),
+    [(⟨2026, 1, 1⟩, 505000),
+     (⟨2027, 1, 1⟩, 510050),
+     (⟨2028, 1, 1⟩, 515151),
+     (⟨2029, 1, 1⟩, 520302)]⟩
+def irs.deductions.itemized.salt_and_real_estate.phase_out.threshold.SURVIVING_SPOUSE : DatedParam USD :=
+  ⟨(⟨2025, 1, 1⟩, 500000),
+    [(⟨2026, 1, 1⟩, 505000),
+     (⟨2027, 1, 1⟩, 510050),
+     (⟨2028, 1, 1⟩, 515151),
+     (⟨2029, 1, 1⟩, 520302)]⟩
 
 /-- The State and local taxes and real estate tax deduction is limited to the following sources.
     `gov/irs/deductions/itemized/salt_and_real_estate/sources.yaml` (policyengine-us).
-    * 26 U.S. Code § 164 - Taxes (a): https://www.law.cornell.edu/uscode/text/26/164 -/
-def gov.irs.deductions.itemized.salt_and_real_estate.sources : DatedParam (List String) :=
+    * 26 U.S. Code § 164 - Taxes (a):
+      https://www.law.cornell.edu/uscode/text/26/164 -/
+def irs.deductions.itemized.salt_and_real_estate.sources : DatedParam (List String) :=
   ⟨(⟨2013, 1, 1⟩, ["state_and_local_sales_or_income_tax", "real_estate_taxes"]), []⟩
 
-/-- Montana taxes the net long-term capital gains by the following marginal rates for head of household filers, according to the taxable income.
+/-- Montana taxes the net long-term capital gains by the following marginal rates for head of
+    household filers, according to the taxable income.
     `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/income_bracket.yaml` (policyengine-us).
-    * 2023 Montana Form 2 Individual Income Tax Instructions, Net Long-Term Capital Gains Tax Table: https://mtrevenue.gov/wp-content/uploads/dlm_uploads/2023/12/Form_2_2023_Instructions.pdf#page=6
-    * Montana Code Annotated 2023, TITLE 15. TAXATION, CHAPTER 30. INDIVIDUAL INCOME TAX, Part 21. Rate and General Provisions-(2): https://leg.mt.gov/bills/mca/title_0150/chapter_0300/part_0210/section_0030/0150-0300-0210-0030.html -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.income_bracket : ScaleX :=
+    * 2023 Montana Form 2 Individual Income Tax Instructions, Net Long-Term Capital Gains Tax
+    Table:
+      https://mtrevenue.gov/wp-content/uploads/dlm_uploads/2023/12/Form_2_2023_Instructions.pdf#page=6
+    * Montana Code Annotated 2023, TITLE 15. TAXATION, CHAPTER 30. INDIVIDUAL INCOME TAX, Part
+    21. Rate and General Provisions-(2):
+      https://leg.mt.gov/bills/mca/title_0150/chapter_0300/part_0210/section_0030/0150-0300-0210-0030.html -/
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.income_bracket : ScaleX :=
   ⟨[⟨⟨(⟨2024, 1, 1⟩, .negInf), []⟩, ⟨(⟨2024, 1, 1⟩, .fin 1), []⟩⟩,
     ⟨⟨(⟨2024, 1, 1⟩, .fin 20000), []⟩, ⟨(⟨2024, 1, 1⟩, .fin 2), []⟩⟩,
     ⟨⟨(⟨2024, 1, 1⟩, .fin 30000), []⟩, ⟨(⟨2024, 1, 1⟩, .fin 3), []⟩⟩,
@@ -1604,12 +2862,21 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.incom
 
 /-- The IRS counts these sources as income for the optional state sales tax tables.
     `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/income_sources.yaml` (policyengine-us).
-    * Instructions for Schedule A (2024): https://www.irs.gov/instructions/i1040sca#en_US_2024_publink1000131499 -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.income_sources : DatedParam (List String) :=
-  ⟨(⟨2023, 1, 1⟩, ["adjusted_gross_income", "tax_exempt_interest_income", "veterans_benefits", "workers_compensation", "tax_exempt_social_security", "tax_exempt_pension_income", "tax_exempt_retirement_distributions", "tanf", "ssi"]), []⟩
+    * Instructions for Schedule A (2024):
+      https://www.irs.gov/instructions/i1040sca#en_US_2024_publink1000131499 -/
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.income_sources : DatedParam (List String) :=
+  ⟨(⟨2023, 1, 1⟩, ["adjusted_gross_income",
+      "tax_exempt_interest_income",
+      "veterans_benefits",
+      "workers_compensation",
+      "tax_exempt_social_security",
+      "tax_exempt_pension_income",
+      "tax_exempt_retirement_distributions",
+      "tanf",
+      "ssi"]), []⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 365), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 490), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 551), []⟩⟩,
@@ -1629,7 +2896,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1127), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1165), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1384), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 436), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 583), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 654), []⟩⟩,
@@ -1649,7 +2916,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1323), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1367), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1620), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 485), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 646), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 725), []⟩⟩,
@@ -1669,7 +2936,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1456), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1504), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1780), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 523), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 696), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 780), []⟩⟩,
@@ -1689,7 +2956,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1560), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1611), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1905), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 555), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 738), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 826), []⟩⟩,
@@ -1709,7 +2976,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1647), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1700), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2008), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AL.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 600), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 796), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 891), []⟩⟩,
@@ -1731,7 +2998,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2154), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 523), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 696), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 780), []⟩⟩,
@@ -1751,7 +3018,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1560), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1611), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1905), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 555), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 738), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 826), []⟩⟩,
@@ -1771,7 +3038,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1647), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1700), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2008), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 600), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 796), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 891), []⟩⟩,
@@ -1791,7 +3058,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1769), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1826), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2154), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 382), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 547), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 630), []⟩⟩,
@@ -1811,7 +3078,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1469), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1527), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1863), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 428), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 612), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 705), []⟩⟩,
@@ -1831,7 +3098,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1640), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1705), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2080), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AZ.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 458), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 654), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 753), []⟩⟩,
@@ -1853,7 +3120,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2219), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 382), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 547), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 630), []⟩⟩,
@@ -1873,7 +3140,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1469), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1527), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1863), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 428), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 612), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 705), []⟩⟩,
@@ -1893,7 +3160,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1640), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1705), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2080), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 458), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 654), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 753), []⟩⟩,
@@ -1913,7 +3180,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1750), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1819), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2219), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 480), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 686), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 790), []⟩⟩,
@@ -1933,7 +3200,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1833), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1905), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2323), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 498), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 711), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 819), []⟩⟩,
@@ -1953,7 +3220,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1900), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1974), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2407), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AR.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 522), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 746), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 859), []⟩⟩,
@@ -1975,7 +3242,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2523), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 490), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 679), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 774), []⟩⟩,
@@ -1995,7 +3262,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1699), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1762), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2126), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 561), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 776), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 883), []⟩⟩,
@@ -2015,7 +3282,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1926), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1996), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2405), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 607), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 839), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 954), []⟩⟩,
@@ -2035,7 +3302,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2074), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2149), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2587), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 643), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 887), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1008), []⟩⟩,
@@ -2055,7 +3322,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2186), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2266), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2726), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 672), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 926), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1053), []⟩⟩,
@@ -2075,7 +3342,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2278), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2361), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2839), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 712), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 981), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1114), []⟩⟩,
@@ -2097,7 +3364,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2995), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 643), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 887), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1008), []⟩⟩,
@@ -2117,7 +3384,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2186), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2266), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2726), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 672), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 926), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1053), []⟩⟩,
@@ -2137,7 +3404,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2278), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2361), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2839), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 712), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 981), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1114), []⟩⟩,
@@ -2157,7 +3424,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2405), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2492), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2995), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 197), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 275), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 314), []⟩⟩,
@@ -2177,7 +3444,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 699), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 725), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 876), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 228), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 317), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 362), []⟩⟩,
@@ -2197,7 +3464,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 799), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 829), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1000), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CO.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 248), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 345), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 393), []⟩⟩,
@@ -2219,7 +3486,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1082), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 197), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 275), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 314), []⟩⟩,
@@ -2239,7 +3506,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 699), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 725), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 876), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 228), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 317), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 362), []⟩⟩,
@@ -2259,7 +3526,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 799), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 829), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1000), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 248), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 345), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 393), []⟩⟩,
@@ -2279,7 +3546,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 865), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 897), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1082), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 264), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 366), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 417), []⟩⟩,
@@ -2299,7 +3566,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 916), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 950), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1145), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 277), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 384), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 437), []⟩⟩,
@@ -2319,7 +3586,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 958), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 993), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1196), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.CT.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 295), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 409), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 465), []⟩⟩,
@@ -2341,7 +3608,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.C
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1267), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 454), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 651), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 750), []⟩⟩,
@@ -2361,7 +3628,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.F
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1747), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1816), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2215), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 668), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 769), []⟩⟩,
@@ -2381,7 +3648,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.F
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1792), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1863), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2273), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 482), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 690), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 795), []⟩⟩,
@@ -2401,7 +3668,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.F
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1853), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1926), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2350), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 426), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 604), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 693), []⟩⟩,
@@ -2421,7 +3688,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.F
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1581), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1641), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1993), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 478), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 677), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 777), []⟩⟩,
@@ -2441,7 +3708,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.F
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1766), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1834), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2225), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.FL.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 511), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 723), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 830), []⟩⟩,
@@ -2463,7 +3730,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.F
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2375), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 426), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 604), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 693), []⟩⟩,
@@ -2483,7 +3750,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.G
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1581), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1641), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1993), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 478), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 677), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 777), []⟩⟩,
@@ -2503,7 +3770,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.G
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1766), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1834), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2225), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 511), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 723), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 830), []⟩⟩,
@@ -2523,7 +3790,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.G
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1885), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1957), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2375), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 536), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 759), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 870), []⟩⟩,
@@ -2543,7 +3810,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.G
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1975), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2050), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2487), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 556), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 787), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 903), []⟩⟩,
@@ -2563,7 +3830,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.G
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2047), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2125), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2578), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.GA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 584), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 826), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 947), []⟩⟩,
@@ -2585,7 +3852,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.G
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2702), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 418), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 576), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 654), []⟩⟩,
@@ -2605,7 +3872,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.H
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1401), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1451), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1738), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 495), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 680), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 772), []⟩⟩,
@@ -2625,7 +3892,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.H
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1645), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1703), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2037), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 546), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 750), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 851), []⟩⟩,
@@ -2645,7 +3912,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.H
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1808), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1872), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2238), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 587), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 805), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 912), []⟩⟩,
@@ -2665,7 +3932,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.H
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1935), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2003), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2393), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 620), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 850), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 964), []⟩⟩,
@@ -2685,7 +3952,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.H
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2040), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2111), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2522), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.HI.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 667), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 914), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1035), []⟩⟩,
@@ -2707,7 +3974,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.H
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2702), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 587), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 805), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 912), []⟩⟩,
@@ -2727,7 +3994,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1935), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2003), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2393), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 620), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 850), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 964), []⟩⟩,
@@ -2747,7 +4014,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2040), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2111), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2522), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 667), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 914), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1035), []⟩⟩,
@@ -2767,7 +4034,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2187), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2263), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2702), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 570), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 769), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 866), []⟩⟩,
@@ -2787,7 +4054,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1785), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1845), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2196), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 680), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 913), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1026), []⟩⟩,
@@ -2807,7 +4074,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2094), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2164), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2569), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ID.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 754), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1010), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1135), []⟩⟩,
@@ -2829,7 +4096,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2820), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 570), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 769), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 866), []⟩⟩,
@@ -2849,7 +4116,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1785), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1845), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2196), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 680), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 913), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1026), []⟩⟩,
@@ -2869,7 +4136,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2094), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2164), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2569), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 754), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1010), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1135), []⟩⟩,
@@ -2889,7 +4156,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2303), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2379), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2820), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 812), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1087), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1220), []⟩⟩,
@@ -2909,7 +4176,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2465), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2547), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3016), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 861), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1150), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1291), []⟩⟩,
@@ -2929,7 +4196,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2600), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2686), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3178), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IL.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 929), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1240), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1391), []⟩⟩,
@@ -2951,7 +4218,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3407), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 479), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 668), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 763), []⟩⟩,
@@ -2971,7 +4238,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1692), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1755), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2121), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 551), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 767), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 875), []⟩⟩,
@@ -2991,7 +4258,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1933), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2005), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2420), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 598), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 833), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 949), []⟩⟩,
@@ -3011,7 +4278,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2091), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2169), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2616), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 634), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 882), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1006), []⟩⟩,
@@ -3031,7 +4298,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2212), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2293), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2766), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 664), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 923), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1052), []⟩⟩,
@@ -3051,7 +4318,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2310), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2395), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2888), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IN.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 705), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 980), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1116), []⟩⟩,
@@ -3073,7 +4340,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3056), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 634), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 882), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1006), []⟩⟩,
@@ -3093,7 +4360,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2212), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2293), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2766), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 664), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 923), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1052), []⟩⟩,
@@ -3113,7 +4380,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2310), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2395), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2888), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 705), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 980), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1116), []⟩⟩,
@@ -3133,7 +4400,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2447), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2536), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3056), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 430), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 611), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 701), []⟩⟩,
@@ -3153,7 +4420,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1601), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1662), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2019), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 489), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 693), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 796), []⟩⟩,
@@ -3173,7 +4440,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1813), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1882), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2285), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.IA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 527), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 747), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 857), []⟩⟩,
@@ -3195,7 +4462,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.I
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2457), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 430), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 611), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 701), []⟩⟩,
@@ -3215,7 +4482,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1601), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1662), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2019), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 489), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 693), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 796), []⟩⟩,
@@ -3235,7 +4502,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1813), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1882), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2285), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 527), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 747), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 857), []⟩⟩,
@@ -3255,7 +4522,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1950), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2024), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2457), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 556), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 787), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 904), []⟩⟩,
@@ -3275,7 +4542,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2054), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2132), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2587), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 579), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 821), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 942), []⟩⟩,
@@ -3295,7 +4562,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2139), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2220), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2693), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KS.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 612), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 866), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 994), []⟩⟩,
@@ -3317,7 +4584,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2839), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 430), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 616), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 710), []⟩⟩,
@@ -3337,7 +4604,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1657), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1722), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2102), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 483), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 692), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 797), []⟩⟩,
@@ -3357,7 +4624,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1857), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1930), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2355), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 518), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 741), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 853), []⟩⟩,
@@ -3377,7 +4644,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1985), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2063), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2517), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 543), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 777), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 896), []⟩⟩,
@@ -3397,7 +4664,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2082), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2164), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2639), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 565), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 807), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 930), []⟩⟩,
@@ -3417,7 +4684,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2161), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2245), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2738), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.KY.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 593), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 848), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 977), []⟩⟩,
@@ -3439,7 +4706,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.K
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2874), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 543), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 777), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 896), []⟩⟩,
@@ -3459,7 +4726,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.L
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2082), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2164), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2639), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 565), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 807), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 930), []⟩⟩,
@@ -3479,7 +4746,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.L
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2161), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2245), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2738), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 593), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 848), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 977), []⟩⟩,
@@ -3499,7 +4766,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.L
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2268), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2357), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2874), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 320), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 453), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 521), []⟩⟩,
@@ -3519,7 +4786,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.L
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1188), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1234), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1499), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 356), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 504), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 579), []⟩⟩,
@@ -3539,7 +4806,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.L
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1320), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1370), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1663), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.LA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 379), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 537), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 616), []⟩⟩,
@@ -3561,7 +4828,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.L
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1768), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 320), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 453), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 521), []⟩⟩,
@@ -3581,7 +4848,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1188), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1234), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1499), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 356), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 504), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 579), []⟩⟩,
@@ -3601,7 +4868,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1320), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1370), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1663), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 379), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 537), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 616), []⟩⟩,
@@ -3621,7 +4888,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1403), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1457), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1768), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 396), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 561), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 644), []⟩⟩,
@@ -3641,7 +4908,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1522), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1847), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 410), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 581), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 667), []⟩⟩,
@@ -3661,7 +4928,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1516), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1574), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1910), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ME.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 429), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 608), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 698), []⟩⟩,
@@ -3683,7 +4950,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1997), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 346), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 491), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 564), []⟩⟩,
@@ -3703,7 +4970,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1302), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1353), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1651), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 402), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 569), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 652), []⟩⟩,
@@ -3723,7 +4990,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1495), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1553), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1893), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 439), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 620), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 711), []⟩⟩,
@@ -3743,7 +5010,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1623), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1686), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2052), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 468), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 660), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 756), []⟩⟩,
@@ -3763,7 +5030,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1721), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1788), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2175), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 492), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 693), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 793), []⟩⟩,
@@ -3783,7 +5050,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1802), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1871), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2275), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MD.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 525), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 738), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 845), []⟩⟩,
@@ -3805,7 +5072,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2415), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 468), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 660), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 756), []⟩⟩,
@@ -3825,7 +5092,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1721), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1788), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2175), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 492), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 693), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 793), []⟩⟩,
@@ -3845,7 +5112,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1802), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1871), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2275), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 525), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 738), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 845), []⟩⟩,
@@ -3865,7 +5132,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1914), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1987), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2415), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 382), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 532), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 607), []⟩⟩,
@@ -3885,7 +5152,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1342), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1392), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1681), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 428), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 595), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 678), []⟩⟩,
@@ -3905,7 +5172,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1494), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1550), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1871), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 458), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 635), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 724), []⟩⟩,
@@ -3927,7 +5194,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1992), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 382), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 532), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 607), []⟩⟩,
@@ -3947,7 +5214,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1342), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1392), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1681), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 428), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 595), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 678), []⟩⟩,
@@ -3967,7 +5234,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1494), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1550), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1871), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 458), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 635), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 724), []⟩⟩,
@@ -3987,7 +5254,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1592), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1651), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1992), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 480), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 666), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 758), []⟩⟩,
@@ -4007,7 +5274,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1665), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1726), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2082), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 498), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 690), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 786), []⟩⟩,
@@ -4027,7 +5294,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1724), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1788), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2156), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MI.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 522), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 724), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 825), []⟩⟩,
@@ -4049,7 +5316,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2256), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 433), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 627), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 725), []⟩⟩,
@@ -4069,7 +5336,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1724), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1793), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2198), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 473), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 684), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 792), []⟩⟩,
@@ -4089,7 +5356,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1884), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1960), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2402), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 498), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 721), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 834), []⟩⟩,
@@ -4109,7 +5376,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1984), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2064), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2530), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 517), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 747), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 865), []⟩⟩,
@@ -4129,7 +5396,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2059), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2142), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2626), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 531), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 769), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 890), []⟩⟩,
@@ -4149,7 +5416,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2119), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2204), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2702), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MN.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 552), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 798), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 923), []⟩⟩,
@@ -4171,7 +5438,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2806), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 517), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 747), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 865), []⟩⟩,
@@ -4191,7 +5458,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2059), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2142), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2626), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 531), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 769), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 890), []⟩⟩,
@@ -4211,7 +5478,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2119), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2204), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2702), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 552), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 798), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 923), []⟩⟩,
@@ -4231,7 +5498,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2200), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2288), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2806), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 683), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 918), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1032), []⟩⟩,
@@ -4251,7 +5518,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2105), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2176), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2581), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 813), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1089), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1223), []⟩⟩,
@@ -4271,7 +5538,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2474), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2556), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3026), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MS.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 901), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1205), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1352), []⟩⟩,
@@ -4293,7 +5560,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3326), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 683), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 918), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1032), []⟩⟩,
@@ -4313,7 +5580,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2105), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2176), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2581), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 813), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1089), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1223), []⟩⟩,
@@ -4333,7 +5600,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2474), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2556), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3026), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 901), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1205), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1352), []⟩⟩,
@@ -4353,7 +5620,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2723), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2812), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3326), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 970), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1295), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1453), []⟩⟩,
@@ -4373,7 +5640,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2916), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 3011), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3558), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 1028), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1371), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1537), []⟩⟩,
@@ -4393,7 +5660,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 3076), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 3176), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3751), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.MO.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 1108), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1477), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1655), []⟩⟩,
@@ -4415,7 +5682,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.M
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 4021), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 384), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 550), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 633), []⟩⟩,
@@ -4435,7 +5702,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1469), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1527), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1861), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 430), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 615), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 708), []⟩⟩,
@@ -4455,7 +5722,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1642), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1706), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2079), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 460), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 657), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 756), []⟩⟩,
@@ -4475,7 +5742,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1752), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1821), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2218), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 482), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 688), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 793), []⟩⟩,
@@ -4495,7 +5762,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1835), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1907), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2323), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 499), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 714), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 822), []⟩⟩,
@@ -4515,7 +5782,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1903), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1977), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2408), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NE.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 524), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 749), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 862), []⟩⟩,
@@ -4537,7 +5804,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2524), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 482), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 688), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 793), []⟩⟩,
@@ -4557,7 +5824,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1835), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1907), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2323), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 499), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 714), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 822), []⟩⟩,
@@ -4577,7 +5844,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1903), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1977), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2408), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 524), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 749), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 862), []⟩⟩,
@@ -4597,7 +5864,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1994), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2072), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2524), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 647), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 737), []⟩⟩,
@@ -4617,7 +5884,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1624), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1684), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2033), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 533), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 739), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 841), []⟩⟩,
@@ -4637,7 +5904,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1841), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1909), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2301), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NV.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 577), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 799), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 909), []⟩⟩,
@@ -4659,7 +5926,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2476), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 647), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 737), []⟩⟩,
@@ -4679,7 +5946,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1624), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1684), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2033), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 533), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 739), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 841), []⟩⟩,
@@ -4699,7 +5966,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1841), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1909), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2301), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 577), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 799), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 909), []⟩⟩,
@@ -4719,7 +5986,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1983), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2055), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2476), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 611), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 845), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 961), []⟩⟩,
@@ -4739,7 +6006,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2091), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2167), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2609), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 639), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 882), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1003), []⟩⟩,
@@ -4759,7 +6026,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2179), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2258), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2717), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NJ.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 677), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 934), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1062), []⟩⟩,
@@ -4781,7 +6048,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2867), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 401), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 576), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 664), []⟩⟩,
@@ -4801,7 +6068,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1549), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1610), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1965), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 447), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 642), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 740), []⟩⟩,
@@ -4821,7 +6088,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1726), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1794), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2189), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 477), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 684), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 788), []⟩⟩,
@@ -4841,7 +6108,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1838), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1911), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2331), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 499), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 715), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 825), []⟩⟩,
@@ -4861,7 +6128,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1923), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1998), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2438), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 517), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 741), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 854), []⟩⟩,
@@ -4881,7 +6148,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1991), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2069), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2524), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NM.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 541), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 776), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 894), []⟩⟩,
@@ -4903,7 +6170,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2642), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 499), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 715), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 825), []⟩⟩,
@@ -4923,7 +6190,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1923), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1998), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2438), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 517), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 741), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 854), []⟩⟩,
@@ -4943,7 +6210,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1991), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2069), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2524), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 541), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 776), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 894), []⟩⟩,
@@ -4963,7 +6230,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2084), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2166), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2642), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 273), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 392), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 453), []⟩⟩,
@@ -4983,7 +6250,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1061), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1103), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1347), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 296), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 426), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 491), []⟩⟩,
@@ -5003,7 +6270,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1152), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1197), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1462), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NY.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 311), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 447), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 515), []⟩⟩,
@@ -5025,7 +6292,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1535), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 273), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 392), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 453), []⟩⟩,
@@ -5045,7 +6312,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1061), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1103), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1347), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 296), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 426), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 491), []⟩⟩,
@@ -5065,7 +6332,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1152), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1197), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1462), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 311), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 447), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 515), []⟩⟩,
@@ -5085,7 +6352,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1208), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1256), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1535), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 322), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 462), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 533), []⟩⟩,
@@ -5105,7 +6372,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1250), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1300), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1588), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 330), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 474), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 547), []⟩⟩,
@@ -5125,7 +6392,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1284), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1335), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1630), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.NC.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 342), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 491), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 567), []⟩⟩,
@@ -5147,7 +6414,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1688), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 323), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 455), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 521), []⟩⟩,
@@ -5167,7 +6434,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1184), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1230), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1495), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 369), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 519), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 594), []⟩⟩,
@@ -5187,7 +6454,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1344), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1396), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1695), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 399), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 561), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 642), []⟩⟩,
@@ -5207,7 +6474,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1449), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1504), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1825), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 422), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 592), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 678), []⟩⟩,
@@ -5227,7 +6494,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1528), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1586), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1924), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 440), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 618), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 708), []⟩⟩,
@@ -5247,7 +6514,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1592), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1653), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2004), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.ND.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 654), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 748), []⟩⟩,
@@ -5269,7 +6536,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.N
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2115), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 422), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 592), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 678), []⟩⟩,
@@ -5289,7 +6556,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1528), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1586), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1924), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 440), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 618), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 708), []⟩⟩,
@@ -5309,7 +6576,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1592), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1653), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2004), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 654), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 748), []⟩⟩,
@@ -5329,7 +6596,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1681), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1745), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2115), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 424), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 591), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 674), []⟩⟩,
@@ -5349,7 +6616,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1488), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1543), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1862), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 482), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 671), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 764), []⟩⟩,
@@ -5369,7 +6636,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1679), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1741), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2099), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OH.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 520), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 722), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 823), []⟩⟩,
@@ -5391,7 +6658,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2252), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 424), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 591), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 674), []⟩⟩,
@@ -5411,7 +6678,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1488), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1543), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1862), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 482), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 671), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 764), []⟩⟩,
@@ -5431,7 +6698,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1679), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1741), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2099), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 520), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 722), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 823), []⟩⟩,
@@ -5451,7 +6718,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1803), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1870), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2252), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 549), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 762), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 868), []⟩⟩,
@@ -5471,7 +6738,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1897), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1967), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2369), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 572), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 794), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 904), []⟩⟩,
@@ -5491,7 +6758,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1974), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2046), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2463), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.OK.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 605), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 838), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 954), []⟩⟩,
@@ -5513,7 +6780,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.O
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2594), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 392), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 547), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 624), []⟩⟩,
@@ -5533,7 +6800,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.P
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1378), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1429), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1725), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 437), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 609), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 694), []⟩⟩,
@@ -5553,7 +6820,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.P
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1529), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1585), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1912), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 648), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 739), []⟩⟩,
@@ -5573,7 +6840,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.P
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1625), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1685), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2031), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 487), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 678), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 773), []⟩⟩,
@@ -5593,7 +6860,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.P
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1697), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1759), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2120), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 504), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 702), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 800), []⟩⟩,
@@ -5613,7 +6880,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.P
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1755), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1819), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2192), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.PA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 528), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 734), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 837), []⟩⟩,
@@ -5635,7 +6902,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.P
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2290), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 487), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 678), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 773), []⟩⟩,
@@ -5655,7 +6922,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.R
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1697), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1759), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2120), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 504), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 702), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 800), []⟩⟩,
@@ -5675,7 +6942,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.R
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1755), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1819), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2192), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 528), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 734), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 837), []⟩⟩,
@@ -5695,7 +6962,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.R
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1834), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1901), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2290), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 437), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 611), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 697), []⟩⟩,
@@ -5715,7 +6982,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.R
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1551), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1609), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1945), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 492), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 687), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 785), []⟩⟩,
@@ -5735,7 +7002,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.R
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1741), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1806), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2182), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.RI.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 528), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 737), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 841), []⟩⟩,
@@ -5757,7 +7024,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.R
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2334), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 437), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 611), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 697), []⟩⟩,
@@ -5777,7 +7044,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1551), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1609), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1945), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 492), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 687), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 785), []⟩⟩,
@@ -5797,7 +7064,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1741), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1806), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2182), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 528), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 737), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 841), []⟩⟩,
@@ -5817,7 +7084,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1863), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1932), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2334), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 555), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 774), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 883), []⟩⟩,
@@ -5837,7 +7104,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1955), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2027), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2449), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 576), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 804), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 917), []⟩⟩,
@@ -5857,7 +7124,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2029), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2105), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2541), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SC.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 606), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 845), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 964), []⟩⟩,
@@ -5879,7 +7146,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2668), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 434), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 596), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 675), []⟩⟩,
@@ -5899,7 +7166,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1434), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1484), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1775), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 513), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 702), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 795), []⟩⟩,
@@ -5919,7 +7186,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1678), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1737), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2074), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 566), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 773), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 875), []⟩⟩,
@@ -5939,7 +7206,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1842), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1906), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2274), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 607), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 829), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 937), []⟩⟩,
@@ -5959,7 +7226,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1968), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2037), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2429), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 641), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 874), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 989), []⟩⟩,
@@ -5979,7 +7246,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2073), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2145), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2557), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.SD.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 689), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 939), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1061), []⟩⟩,
@@ -6001,7 +7268,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.S
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2736), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 607), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 829), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 937), []⟩⟩,
@@ -6021,7 +7288,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1968), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2037), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2429), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 641), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 874), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 989), []⟩⟩,
@@ -6041,7 +7308,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2073), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2145), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2557), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 689), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 939), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1061), []⟩⟩,
@@ -6061,7 +7328,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2220), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2296), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2736), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 578), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 798), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 907), []⟩⟩,
@@ -6081,7 +7348,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1961), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2032), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2440), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 667), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 920), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1045), []⟩⟩,
@@ -6101,7 +7368,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2245), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2326), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2789), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TN.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 727), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1000), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1136), []⟩⟩,
@@ -6123,7 +7390,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3019), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 578), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 798), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 907), []⟩⟩,
@@ -6143,7 +7410,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1961), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2032), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2440), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 667), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 920), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1045), []⟩⟩,
@@ -6163,7 +7430,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2245), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2326), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2789), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 727), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1000), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1136), []⟩⟩,
@@ -6183,7 +7450,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2433), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2519), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3019), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 772), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1062), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1205), []⟩⟩,
@@ -6203,7 +7470,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2576), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2667), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3195), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 810), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1113), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1263), []⟩⟩,
@@ -6223,7 +7490,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2694), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2789), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3339), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.TX.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 862), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 1184), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1342), []⟩⟩,
@@ -6245,7 +7512,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.T
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3539), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 424), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 582), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 660), []⟩⟩,
@@ -6265,7 +7532,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.U
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1409), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1459), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1747), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 492), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 674), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 764), []⟩⟩,
@@ -6285,7 +7552,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.U
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1620), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1677), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2006), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 538), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 736), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 833), []⟩⟩,
@@ -6305,7 +7572,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.U
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1760), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1822), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2177), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 573), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 783), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 886), []⟩⟩,
@@ -6325,7 +7592,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.U
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1868), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1933), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2308), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 602), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 822), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 930), []⟩⟩,
@@ -6345,7 +7612,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.U
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1956), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2024), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2416), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.UT.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 642), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 876), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 991), []⟩⟩,
@@ -6367,7 +7634,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.U
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2566), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 573), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 783), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 886), []⟩⟩,
@@ -6387,7 +7654,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1868), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1933), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2308), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 602), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 822), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 930), []⟩⟩,
@@ -6407,7 +7674,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1956), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2024), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2416), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 642), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 876), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 991), []⟩⟩,
@@ -6427,7 +7694,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2079), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2152), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2566), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 330), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 534), []⟩⟩,
@@ -6447,7 +7714,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1212), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1259), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1529), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 352), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 498), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 572), []⟩⟩,
@@ -6467,7 +7734,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1304), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1354), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1646), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VT.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 367), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 519), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 596), []⟩⟩,
@@ -6489,7 +7756,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1720), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 330), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 534), []⟩⟩,
@@ -6509,7 +7776,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1212), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1259), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1529), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 352), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 498), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 572), []⟩⟩,
@@ -6529,7 +7796,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1304), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1354), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1646), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 367), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 519), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 596), []⟩⟩,
@@ -6549,7 +7816,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1361), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1414), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1720), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 377), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 534), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 613), []⟩⟩,
@@ -6569,7 +7836,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1404), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1458), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1774), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 385), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 546), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 627), []⟩⟩,
@@ -6589,7 +7856,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1438), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1494), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1818), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.VA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 397), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 563), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 646), []⟩⟩,
@@ -6611,7 +7878,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.V
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1877), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 487), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 686), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 785), []⟩⟩,
@@ -6631,7 +7898,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1768), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1834), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2222), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 554), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 779), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 892), []⟩⟩,
@@ -6651,7 +7918,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2000), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2075), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2512), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 598), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 841), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 962), []⟩⟩,
@@ -6671,7 +7938,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2151), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2232), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2700), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 632), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 887), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1015), []⟩⟩,
@@ -6691,7 +7958,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2266), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2351), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2843), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 659), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 925), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1058), []⟩⟩,
@@ -6711,7 +7978,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2360), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2448), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2960), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WA.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 697), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 978), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1118), []⟩⟩,
@@ -6733,7 +8000,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3121), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 632), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 887), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1015), []⟩⟩,
@@ -6753,7 +8020,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2266), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2351), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2843), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 659), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 925), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1058), []⟩⟩,
@@ -6773,7 +8040,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2360), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2448), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2960), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 697), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 978), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 1118), []⟩⟩,
@@ -6793,7 +8060,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2489), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2582), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3121), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 421), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 608), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 703), []⟩⟩,
@@ -6813,7 +8080,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1671), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1738), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2130), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 478), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 691), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 799), []⟩⟩,
@@ -6833,7 +8100,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1895), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1971), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2414), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WV.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 515), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 744), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 861), []⟩⟩,
@@ -6855,7 +8122,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2599), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 421), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 608), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 703), []⟩⟩,
@@ -6875,7 +8142,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1671), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1738), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2130), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 478), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 691), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 799), []⟩⟩,
@@ -6895,7 +8162,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1895), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1971), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2414), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 515), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 744), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 861), []⟩⟩,
@@ -6915,7 +8182,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2040), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2122), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2599), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 544), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 785), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 908), []⟩⟩,
@@ -6935,7 +8202,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2151), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2237), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2739), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 567), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 818), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 946), []⟩⟩,
@@ -6955,7 +8222,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 2240), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 2330), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2853), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WI.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 599), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 864), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 999), []⟩⟩,
@@ -6977,7 +8244,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 3010), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 286), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 404), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 464), []⟩⟩,
@@ -6997,7 +8264,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1053), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1094), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1327), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 318), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 450), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 516), []⟩⟩,
@@ -7017,7 +8284,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1171), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1216), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1474), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 339), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 480), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 550), []⟩⟩,
@@ -7037,7 +8304,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1246), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1293), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1568), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 355), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 502), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 575), []⟩⟩,
@@ -7057,7 +8324,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1302), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1352), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1639), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 368), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 520), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 596), []⟩⟩,
@@ -7077,7 +8344,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1348), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1399), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1696), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.WY.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 385), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 544), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 624), []⟩⟩,
@@ -7099,7 +8366,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.W
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1773), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
@@ -7119,7 +8386,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
@@ -7139,7 +8406,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
@@ -7159,7 +8426,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
@@ -7179,7 +8446,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
@@ -7199,7 +8466,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.AK.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩,
@@ -7221,7 +8488,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.A
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 0), []⟩⟩]⟩
 
 /-- `gov/irs/deductions/itemized/salt_and_real_estate/state_sales_tax_table/tax.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«1» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«1» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 389), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 556), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 641), []⟩⟩,
@@ -7241,7 +8508,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.D
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1491), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1550), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 1891), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«2» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«2» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 420), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 602), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 693), []⟩⟩,
@@ -7261,7 +8528,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.D
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1614), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1678), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2047), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«3» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«3» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 440), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 630), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 726), []⟩⟩,
@@ -7281,7 +8548,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.D
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1691), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1757), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2144), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«4» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«4» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 454), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 651), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 750), []⟩⟩,
@@ -7301,7 +8568,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.D
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1747), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1816), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2215), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«5» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«5» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 466), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 668), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 769), []⟩⟩,
@@ -7321,7 +8588,7 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.D
     ⟨⟨(⟨0, 1, 1⟩, 17), []⟩, ⟨(⟨2023, 1, 1⟩, 1792), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 18), []⟩, ⟨(⟨2023, 1, 1⟩, 1863), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 19), []⟩, ⟨(⟨2023, 1, 1⟩, 2273), []⟩⟩]⟩
-def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«6» : Scale :=
+def irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.DC.«6» : Scale :=
   ⟨[⟨⟨(⟨0, 1, 1⟩, 1), []⟩, ⟨(⟨2023, 1, 1⟩, 482), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 2), []⟩, ⟨(⟨2023, 1, 1⟩, 690), []⟩⟩,
     ⟨⟨(⟨0, 1, 1⟩, 3), []⟩, ⟨(⟨2023, 1, 1⟩, 795), []⟩⟩,
@@ -7344,1101 +8611,1969 @@ def gov.irs.deductions.itemized.salt_and_real_estate.state_sales_tax_table.tax.D
 
 /-- Deductions from taxable income if itemizing (that are not available if not itemizing).
     `gov/irs/deductions/itemized_deductions.yaml` (policyengine-us). -/
-def gov.irs.deductions.itemized_deductions : DatedParam (List String) :=
-  ⟨(⟨2018, 1, 1⟩, ["charitable_deduction", "interest_deduction", "salt_deduction", "medical_expense_deduction", "casualty_loss_deduction", "misc_deduction"]), [(⟨2020, 1, 1⟩, ["charitable_deduction", "charitable_deduction_for_non_itemizers", "interest_deduction", "salt_deduction", "medical_expense_deduction", "casualty_loss_deduction", "misc_deduction"]), (⟨2022, 1, 1⟩, ["charitable_deduction", "interest_deduction", "salt_deduction", "medical_expense_deduction", "casualty_loss_deduction", "misc_deduction"])]⟩
+def irs.deductions.itemized_deductions : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["charitable_deduction",
+      "interest_deduction",
+      "salt_deduction",
+      "medical_expense_deduction",
+      "casualty_loss_deduction",
+      "misc_deduction"]),
+    [(⟨2020, 1, 1⟩, ["charitable_deduction",
+      "charitable_deduction_for_non_itemizers",
+      "interest_deduction",
+      "salt_deduction",
+      "medical_expense_deduction",
+      "casualty_loss_deduction",
+      "misc_deduction"]),
+     (⟨2022, 1, 1⟩, ["charitable_deduction",
+      "interest_deduction",
+      "salt_deduction",
+      "medical_expense_deduction",
+      "casualty_loss_deduction",
+      "misc_deduction"])]⟩
 
 /-- The IRS caps the overtime income exemption at this amount, based on filing status.
     `gov/irs/deductions/overtime_income/cap.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.overtime_income.cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.overtime_income.cap.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 12500), []⟩
-def gov.irs.deductions.overtime_income.cap.JOINT : DatedParam USD :=
+def irs.deductions.overtime_income.cap.JOINT : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 25000), []⟩
-def gov.irs.deductions.overtime_income.cap.SEPARATE : DatedParam USD :=
+def irs.deductions.overtime_income.cap.SEPARATE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 12500), []⟩
-def gov.irs.deductions.overtime_income.cap.SINGLE : DatedParam USD :=
+def irs.deductions.overtime_income.cap.SINGLE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 12500), []⟩
-def gov.irs.deductions.overtime_income.cap.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.overtime_income.cap.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 12500), []⟩
 
 /-- The IRS limits the overtime income deduction to filers with one of these SSN Card types.
     `gov/irs/deductions/overtime_income/eligible_ssn_card_type.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.overtime_income.eligible_ssn_card_type : DatedParam (List String) :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.overtime_income.eligible_ssn_card_type : DatedParam (List String) :=
   ⟨(⟨2018, 1, 1⟩, ["CITIZEN", "NON_CITIZEN_VALID_EAD"]), []⟩
 
-/-- The IRS phases out the overtime income exemption at the following rate for income above a certain threshold.
+/-- The IRS phases out the overtime income exemption at the following rate for income above a
+    certain threshold.
     `gov/irs/deductions/overtime_income/phase_out/rate.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.overtime_income.phase_out.rate : DatedParam Rate :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.overtime_income.phase_out.rate : DatedParam Rate :=
   ⟨(⟨2025, 1, 1⟩, mkRat 1 10), []⟩
 
-/-- The IRS phases out the overtime income exemption for income above this threshold, based on filing status.
+/-- The IRS phases out the overtime income exemption for income above this threshold, based on
+    filing status.
     `gov/irs/deductions/overtime_income/phase_out/start.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.overtime_income.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.overtime_income.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
-def gov.irs.deductions.overtime_income.phase_out.start.JOINT : DatedParam USD :=
+def irs.deductions.overtime_income.phase_out.start.JOINT : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 300000), []⟩
-def gov.irs.deductions.overtime_income.phase_out.start.SEPARATE : DatedParam USD :=
+def irs.deductions.overtime_income.phase_out.start.SEPARATE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
-def gov.irs.deductions.overtime_income.phase_out.start.SINGLE : DatedParam USD :=
+def irs.deductions.overtime_income.phase_out.start.SINGLE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
-def gov.irs.deductions.overtime_income.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.overtime_income.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
 
 /-- Sources of qualified business income deductions.
     `gov/irs/deductions/qbi/deduction_definition.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(c)(1) - Qualified business income: https://www.law.cornell.edu/uscode/text/26/199A#c_1 -/
-def gov.irs.deductions.qbi.deduction_definition : DatedParam (List String) :=
-  ⟨(⟨2018, 1, 1⟩, ["self_employment_tax_ald_person", "self_employed_health_insurance_ald_person", "self_employed_pension_contribution_ald_person"]), []⟩
+    * 26 U.S. Code § 199A(c)(1) - Qualified business income:
+      https://www.law.cornell.edu/uscode/text/26/199A#c_1 -/
+def irs.deductions.qbi.deduction_definition : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["self_employment_tax_ald_person",
+      "self_employed_health_insurance_ald_person",
+      "self_employed_pension_contribution_ald_person"]), []⟩
 
-/-- The IRS applies a deduction floor of this amount for the Qualified Business Income Deduction, based on qualified business income.
+/-- The IRS applies a deduction floor of this amount for the Qualified Business Income
+    Deduction, based on qualified business income.
     `gov/irs/deductions/qbi/deduction_floor/amount.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.qbi.deduction_floor.amount : ScaleX :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.qbi.deduction_floor.amount : ScaleX :=
   ⟨[⟨⟨(⟨2026, 1, 1⟩, .negInf), []⟩, ⟨(⟨2026, 1, 1⟩, .fin 0), []⟩⟩,
     ⟨⟨(⟨2026, 1, 1⟩, .fin 1000), []⟩, ⟨(⟨2026, 1, 1⟩, .fin 400), []⟩⟩]⟩
 
-/-- The IRS applies a deduction floor for the Qualified Business Income Deduction, if this is true.
+/-- The IRS applies a deduction floor for the Qualified Business Income Deduction, if this is
+    true.
     `gov/irs/deductions/qbi/deduction_floor/in_effect.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.qbi.deduction_floor.in_effect : DatedParam Bool :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.qbi.deduction_floor.in_effect : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2026, 1, 1⟩, true)]⟩
 
 /-- Income sources that count as qualified business income.
     `gov/irs/deductions/qbi/income_definition.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(c)(3)(A) - Qualified business income: https://www.law.cornell.edu/uscode/text/26/199A#c_3_A -/
-def gov.irs.deductions.qbi.income_definition : DatedParam (List String) :=
-  ⟨(⟨2018, 1, 1⟩, ["self_employment_income", "partnership_s_corp_income", "farm_rent_income", "farm_operations_income", "rental_income", "estate_income"]), []⟩
+    * 26 U.S. Code § 199A(c)(3)(A) - Qualified business income:
+      https://www.law.cornell.edu/uscode/text/26/199A#c_3_A -/
+def irs.deductions.qbi.income_definition : DatedParam (List String) :=
+  ⟨(⟨2018, 1, 1⟩, ["self_employment_income",
+      "partnership_s_corp_income",
+      "farm_rent_income",
+      "farm_operations_income",
+      "rental_income",
+      "estate_income"]), []⟩
 
 /-- Alternative QBID cap rate on pass-through business property owned
     `gov/irs/deductions/qbi/max/business_property/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(b)(2)(B)(ii) - Qualified business income: https://www.law.cornell.edu/uscode/text/26/199A#b_2_B_ii -/
-def gov.irs.deductions.qbi.max.business_property.rate : DatedParam Rate :=
+    * 26 U.S. Code § 199A(b)(2)(B)(ii) - Qualified business income:
+      https://www.law.cornell.edu/uscode/text/26/199A#b_2_B_ii -/
+def irs.deductions.qbi.max.business_property.rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, mkRat 1 40)]⟩
 
 /-- Pass-through qualified business income deduction rate.
     `gov/irs/deductions/qbi/max/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(a)(2) - Qualified business income: https://www.law.cornell.edu/uscode/text/26/199A#a_2 -/
-def gov.irs.deductions.qbi.max.rate : DatedParam Rate :=
-  ⟨(⟨2013, 1, 1⟩, 0), [(⟨2014, 1, 1⟩, 0), (⟨2015, 1, 1⟩, 0), (⟨2016, 1, 1⟩, 0), (⟨2017, 1, 1⟩, 0), (⟨2018, 1, 1⟩, mkRat 1 5)]⟩
+    * 26 U.S. Code § 199A(a)(2) - Qualified business income:
+      https://www.law.cornell.edu/uscode/text/26/199A#a_2 -/
+def irs.deductions.qbi.max.rate : DatedParam Rate :=
+  ⟨(⟨2013, 1, 1⟩, 0),
+    [(⟨2014, 1, 1⟩, 0),
+     (⟨2015, 1, 1⟩, 0),
+     (⟨2016, 1, 1⟩, 0),
+     (⟨2017, 1, 1⟩, 0),
+     (⟨2018, 1, 1⟩, mkRat 1 5)]⟩
 
 /-- REIT and PTP income is deducted at this rate under the qualified business income deduction.
     `gov/irs/deductions/qbi/max/reit_ptp_rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(b)(1)(B) - Combined qualified business income amount: https://www.law.cornell.edu/uscode/text/26/199A#b_1_B
-    * IRS Form 8995 Lines 6-9 - REIT and PTP Component: https://www.irs.gov/pub/irs-pdf/f8995.pdf -/
-def gov.irs.deductions.qbi.max.reit_ptp_rate : DatedParam Rate :=
+    * 26 U.S. Code § 199A(b)(1)(B) - Combined qualified business income amount:
+      https://www.law.cornell.edu/uscode/text/26/199A#b_1_B
+    * IRS Form 8995 Lines 6-9 - REIT and PTP Component:
+      https://www.irs.gov/pub/irs-pdf/f8995.pdf -/
+def irs.deductions.qbi.max.reit_ptp_rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, mkRat 1 5)]⟩
 
-/-- Alternative QBID cap rate on pass-through business W-2 wages paid. QBID is capped at this fraction of W-2 wages paid by the pass-through business plus some fraction of business property if pre-QBID taxable income is above the QBID thresholds and the alternative cap is higher than the main wage-only cap.
+/-- Alternative QBID cap rate on pass-through business W-2 wages paid. QBID is capped at this
+    fraction of W-2 wages paid by the pass-through business plus some fraction of business
+    property if pre-QBID taxable income is above the QBID thresholds and the alternative cap is
+    higher than the main wage-only cap.
     `gov/irs/deductions/qbi/max/w2_wages/alt_rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(b)(2)(B)(ii) - Qualified business income: https://www.law.cornell.edu/uscode/text/26/199A#b_2_B_ii -/
-def gov.irs.deductions.qbi.max.w2_wages.alt_rate : DatedParam Rate :=
+    * 26 U.S. Code § 199A(b)(2)(B)(ii) - Qualified business income:
+      https://www.law.cornell.edu/uscode/text/26/199A#b_2_B_ii -/
+def irs.deductions.qbi.max.w2_wages.alt_rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, mkRat 1 4)]⟩
 
 /-- QBID cap rate on pass-through business W-2 wages paid.
     `gov/irs/deductions/qbi/max/w2_wages/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(b)(2)(B)(i) - Qualified business income: https://www.law.cornell.edu/uscode/text/26/199A#b_2_B_i -/
-def gov.irs.deductions.qbi.max.w2_wages.rate : DatedParam Rate :=
+    * 26 U.S. Code § 199A(b)(2)(B)(i) - Qualified business income:
+      https://www.law.cornell.edu/uscode/text/26/199A#b_2_B_i -/
+def irs.deductions.qbi.max.w2_wages.rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, mkRat 1 2)]⟩
 
 /-- Dollar gap between upper and lower threshold of pre-QBID taxable income
     `gov/irs/deductions/qbi/phase_out/length.yaml` (policyengine-us).
-    * 26 U.S. Code § 199A(b)(3)(B) - Qualified business income: https://www.law.cornell.edu/uscode/text/26/199A#b_3_B -/
-def gov.irs.deductions.qbi.phase_out.length.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 199A(b)(3)(B) - Qualified business income:
+      https://www.law.cornell.edu/uscode/text/26/199A#b_3_B -/
+def irs.deductions.qbi.phase_out.length.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 1), [(⟨2018, 1, 1⟩, 50000), (⟨2026, 1, 1⟩, 75000)]⟩
-def gov.irs.deductions.qbi.phase_out.length.JOINT : DatedParam USD :=
+def irs.deductions.qbi.phase_out.length.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 1), [(⟨2018, 1, 1⟩, 100000), (⟨2026, 1, 1⟩, 150000)]⟩
-def gov.irs.deductions.qbi.phase_out.length.SEPARATE : DatedParam USD :=
+def irs.deductions.qbi.phase_out.length.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 1), [(⟨2018, 1, 1⟩, 50000), (⟨2026, 1, 1⟩, 75000)]⟩
-def gov.irs.deductions.qbi.phase_out.length.SINGLE : DatedParam USD :=
+def irs.deductions.qbi.phase_out.length.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 1), [(⟨2018, 1, 1⟩, 50000), (⟨2026, 1, 1⟩, 75000)]⟩
-def gov.irs.deductions.qbi.phase_out.length.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.qbi.phase_out.length.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 1), [(⟨2018, 1, 1⟩, 100000), (⟨2026, 1, 1⟩, 150000)]⟩
 
 /-- Threshold of taxable income (excluding QBID) after which the QBI deduction is phased out.
     `gov/irs/deductions/qbi/phase_out/start.yaml` (policyengine-us).
-    * 26 U.S.C. § 199A(e)(2): https://www.law.cornell.edu/uscode/text/26/199A#e_2
-    * 26 U.S.C. § 1(f)(7): https://www.law.cornell.edu/uscode/text/26/1#f_7
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=21
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=15
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=17
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=16
-    * 2021 IRS data releases: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=16
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=16 -/
-def gov.irs.deductions.qbi.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, 157500), (⟨2019, 1, 1⟩, 160700), (⟨2020, 1, 1⟩, 163300), (⟨2021, 1, 1⟩, 164900), (⟨2022, 1, 1⟩, 170050), (⟨2023, 1, 1⟩, 182100), (⟨2024, 1, 1⟩, 191950), (⟨2025, 1, 1⟩, 197300), (⟨2026, 1, 1⟩, 201750)]⟩
-def gov.irs.deductions.qbi.phase_out.start.JOINT : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, 315000), (⟨2019, 1, 1⟩, 321400), (⟨2020, 1, 1⟩, 326600), (⟨2021, 1, 1⟩, 329800), (⟨2022, 1, 1⟩, 340100), (⟨2023, 1, 1⟩, 364200), (⟨2024, 1, 1⟩, 383900), (⟨2025, 1, 1⟩, 394600), (⟨2026, 1, 1⟩, 403500)]⟩
-def gov.irs.deductions.qbi.phase_out.start.SEPARATE : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, 157500), (⟨2019, 1, 1⟩, 160725), (⟨2020, 1, 1⟩, 163300), (⟨2021, 1, 1⟩, 164925), (⟨2022, 1, 1⟩, 170050), (⟨2023, 1, 1⟩, 182100), (⟨2024, 1, 1⟩, 191950), (⟨2025, 1, 1⟩, 197300), (⟨2026, 1, 1⟩, 201775)]⟩
-def gov.irs.deductions.qbi.phase_out.start.SINGLE : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, 157500), (⟨2019, 1, 1⟩, 160700), (⟨2020, 1, 1⟩, 163300), (⟨2021, 1, 1⟩, 164900), (⟨2022, 1, 1⟩, 170050), (⟨2023, 1, 1⟩, 182100), (⟨2024, 1, 1⟩, 191950), (⟨2025, 1, 1⟩, 197300), (⟨2026, 1, 1⟩, 201750)]⟩
-def gov.irs.deductions.qbi.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 0), [(⟨2018, 1, 1⟩, 315000), (⟨2019, 1, 1⟩, 321400), (⟨2020, 1, 1⟩, 326600), (⟨2021, 1, 1⟩, 329800), (⟨2022, 1, 1⟩, 340100), (⟨2023, 1, 1⟩, 364200), (⟨2024, 1, 1⟩, 383900), (⟨2025, 1, 1⟩, 394600), (⟨2026, 1, 1⟩, 403500)]⟩
+    * 26 U.S.C. § 199A(e)(2):
+      https://www.law.cornell.edu/uscode/text/26/199A#e_2
+    * 26 U.S.C. § 1(f)(7):
+      https://www.law.cornell.edu/uscode/text/26/1#f_7
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=21
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=15
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=17
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=16
+    * 2021 IRS data releases:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=16
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=16 -/
+def irs.deductions.qbi.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 0),
+    [(⟨2018, 1, 1⟩, 157500),
+     (⟨2019, 1, 1⟩, 160700),
+     (⟨2020, 1, 1⟩, 163300),
+     (⟨2021, 1, 1⟩, 164900),
+     (⟨2022, 1, 1⟩, 170050),
+     (⟨2023, 1, 1⟩, 182100),
+     (⟨2024, 1, 1⟩, 191950),
+     (⟨2025, 1, 1⟩, 197300),
+     (⟨2026, 1, 1⟩, 201750)]⟩
+def irs.deductions.qbi.phase_out.start.JOINT : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 0),
+    [(⟨2018, 1, 1⟩, 315000),
+     (⟨2019, 1, 1⟩, 321400),
+     (⟨2020, 1, 1⟩, 326600),
+     (⟨2021, 1, 1⟩, 329800),
+     (⟨2022, 1, 1⟩, 340100),
+     (⟨2023, 1, 1⟩, 364200),
+     (⟨2024, 1, 1⟩, 383900),
+     (⟨2025, 1, 1⟩, 394600),
+     (⟨2026, 1, 1⟩, 403500)]⟩
+def irs.deductions.qbi.phase_out.start.SEPARATE : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 0),
+    [(⟨2018, 1, 1⟩, 157500),
+     (⟨2019, 1, 1⟩, 160725),
+     (⟨2020, 1, 1⟩, 163300),
+     (⟨2021, 1, 1⟩, 164925),
+     (⟨2022, 1, 1⟩, 170050),
+     (⟨2023, 1, 1⟩, 182100),
+     (⟨2024, 1, 1⟩, 191950),
+     (⟨2025, 1, 1⟩, 197300),
+     (⟨2026, 1, 1⟩, 201775)]⟩
+def irs.deductions.qbi.phase_out.start.SINGLE : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 0),
+    [(⟨2018, 1, 1⟩, 157500),
+     (⟨2019, 1, 1⟩, 160700),
+     (⟨2020, 1, 1⟩, 163300),
+     (⟨2021, 1, 1⟩, 164900),
+     (⟨2022, 1, 1⟩, 170050),
+     (⟨2023, 1, 1⟩, 182100),
+     (⟨2024, 1, 1⟩, 191950),
+     (⟨2025, 1, 1⟩, 197300),
+     (⟨2026, 1, 1⟩, 201750)]⟩
+def irs.deductions.qbi.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 0),
+    [(⟨2018, 1, 1⟩, 315000),
+     (⟨2019, 1, 1⟩, 321400),
+     (⟨2020, 1, 1⟩, 326600),
+     (⟨2021, 1, 1⟩, 329800),
+     (⟨2022, 1, 1⟩, 340100),
+     (⟨2023, 1, 1⟩, 364200),
+     (⟨2024, 1, 1⟩, 383900),
+     (⟨2025, 1, 1⟩, 394600),
+     (⟨2026, 1, 1⟩, 403500)]⟩
 
 /-- The IRS provides a deduction for seniors of this amount.
     `gov/irs/deductions/senior_deduction/amount.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act, SEC. 70103: https://www.congress.gov/119/bills/hr1/BILLS-119hr1enr.pdf#page=88 -/
-def gov.irs.deductions.senior_deduction.amount : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act, SEC. 70103:
+      https://www.congress.gov/119/bills/hr1/BILLS-119hr1enr.pdf#page=88 -/
+def irs.deductions.senior_deduction.amount : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 0), [(⟨2025, 1, 1⟩, 6000)]⟩
 
 /-- The IRS limits the senior deduction to individuals with one of these SSN Card types.
     `gov/irs/deductions/senior_deduction/eligible_ssn_card_type.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.senior_deduction.eligible_ssn_card_type : DatedParam (List String) :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.senior_deduction.eligible_ssn_card_type : DatedParam (List String) :=
   ⟨(⟨2018, 1, 1⟩, ["CITIZEN", "NON_CITIZEN_VALID_EAD"]), []⟩
 
-/-- The IRS phases the senior deduction out at this percentage of adjusted gross income for joint filers.
+/-- The IRS phases the senior deduction out at this percentage of adjusted gross income for
+    joint filers.
     `gov/irs/deductions/senior_deduction/phase_out_rate/joint.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.senior_deduction.phase_out_rate.joint : Scale :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.senior_deduction.phase_out_rate.joint : Scale :=
   ⟨[⟨⟨(⟨2018, 1, 1⟩, 0), []⟩, ⟨(⟨2018, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨2018, 1, 1⟩, 150000), [(⟨2025, 1, 1⟩, 150000)]⟩, ⟨(⟨2018, 1, 1⟩, 0), [(⟨2025, 1, 1⟩, mkRat 3 50)]⟩⟩]⟩
 
-/-- The IRS phases the senior deduction out at this percentage of adjusted gross income for non-joint filers.
+/-- The IRS phases the senior deduction out at this percentage of adjusted gross income for
+    non-joint filers.
     `gov/irs/deductions/senior_deduction/phase_out_rate/other.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.senior_deduction.phase_out_rate.other : Scale :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.senior_deduction.phase_out_rate.other : Scale :=
   ⟨[⟨⟨(⟨2018, 1, 1⟩, 0), []⟩, ⟨(⟨2018, 1, 1⟩, 0), []⟩⟩,
     ⟨⟨(⟨2018, 1, 1⟩, 75000), [(⟨2025, 1, 1⟩, 75000)]⟩, ⟨(⟨2018, 1, 1⟩, 0), [(⟨2025, 1, 1⟩, mkRat 3 50)]⟩⟩]⟩
 
 /-- Age at which a person qualifies for the aged standard deduction addition
     `gov/irs/deductions/standard/aged_or_blind/age_threshold.yaml` (policyengine-us). -/
-def gov.irs.deductions.standard.aged_or_blind.age_threshold : DatedParam Rat :=
+def irs.deductions.standard.aged_or_blind.age_threshold : DatedParam Rat :=
   ⟨(⟨1, 1, 1⟩, 65), []⟩
 
 /-- Additional standard deduction for blind and aged
     `gov/irs/deductions/standard/aged_or_blind/amount.yaml` (policyengine-us).
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=18
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=14
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=14
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.deductions.standard.aged_or_blind.amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 1600), [(⟨2019, 1, 1⟩, 1650), (⟨2021, 1, 1⟩, 1700), (⟨2022, 1, 1⟩, 1750), (⟨2023, 1, 1⟩, 1850), (⟨2024, 1, 1⟩, 1950), (⟨2025, 1, 1⟩, 2000), (⟨2026, 1, 1⟩, 2050)]⟩
-def gov.irs.deductions.standard.aged_or_blind.amount.JOINT : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 1300), [(⟨2019, 1, 1⟩, 1300), (⟨2021, 1, 1⟩, 1350), (⟨2022, 1, 1⟩, 1400), (⟨2023, 1, 1⟩, 1500), (⟨2024, 1, 1⟩, 1550), (⟨2025, 1, 1⟩, 1600), (⟨2026, 1, 1⟩, 1650)]⟩
-def gov.irs.deductions.standard.aged_or_blind.amount.SEPARATE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 1300), [(⟨2019, 1, 1⟩, 1300), (⟨2021, 1, 1⟩, 1350), (⟨2022, 1, 1⟩, 1400), (⟨2023, 1, 1⟩, 1500), (⟨2024, 1, 1⟩, 1550), (⟨2025, 1, 1⟩, 1600), (⟨2026, 1, 1⟩, 1650)]⟩
-def gov.irs.deductions.standard.aged_or_blind.amount.SINGLE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 1600), [(⟨2019, 1, 1⟩, 1650), (⟨2021, 1, 1⟩, 1700), (⟨2022, 1, 1⟩, 1750), (⟨2023, 1, 1⟩, 1850), (⟨2024, 1, 1⟩, 1950), (⟨2025, 1, 1⟩, 2000), (⟨2026, 1, 1⟩, 2050)]⟩
-def gov.irs.deductions.standard.aged_or_blind.amount.SURVIVING_SPOUSE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 1300), [(⟨2019, 1, 1⟩, 1300), (⟨2021, 1, 1⟩, 1350), (⟨2022, 1, 1⟩, 1400), (⟨2023, 1, 1⟩, 1500), (⟨2024, 1, 1⟩, 1550), (⟨2025, 1, 1⟩, 1600), (⟨2026, 1, 1⟩, 1650)]⟩
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=18
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=14
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=14
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024:
+      https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.deductions.standard.aged_or_blind.amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 1600),
+    [(⟨2019, 1, 1⟩, 1650),
+     (⟨2021, 1, 1⟩, 1700),
+     (⟨2022, 1, 1⟩, 1750),
+     (⟨2023, 1, 1⟩, 1850),
+     (⟨2024, 1, 1⟩, 1950),
+     (⟨2025, 1, 1⟩, 2000),
+     (⟨2026, 1, 1⟩, 2050)]⟩
+def irs.deductions.standard.aged_or_blind.amount.JOINT : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 1300),
+    [(⟨2019, 1, 1⟩, 1300),
+     (⟨2021, 1, 1⟩, 1350),
+     (⟨2022, 1, 1⟩, 1400),
+     (⟨2023, 1, 1⟩, 1500),
+     (⟨2024, 1, 1⟩, 1550),
+     (⟨2025, 1, 1⟩, 1600),
+     (⟨2026, 1, 1⟩, 1650)]⟩
+def irs.deductions.standard.aged_or_blind.amount.SEPARATE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 1300),
+    [(⟨2019, 1, 1⟩, 1300),
+     (⟨2021, 1, 1⟩, 1350),
+     (⟨2022, 1, 1⟩, 1400),
+     (⟨2023, 1, 1⟩, 1500),
+     (⟨2024, 1, 1⟩, 1550),
+     (⟨2025, 1, 1⟩, 1600),
+     (⟨2026, 1, 1⟩, 1650)]⟩
+def irs.deductions.standard.aged_or_blind.amount.SINGLE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 1600),
+    [(⟨2019, 1, 1⟩, 1650),
+     (⟨2021, 1, 1⟩, 1700),
+     (⟨2022, 1, 1⟩, 1750),
+     (⟨2023, 1, 1⟩, 1850),
+     (⟨2024, 1, 1⟩, 1950),
+     (⟨2025, 1, 1⟩, 2000),
+     (⟨2026, 1, 1⟩, 2050)]⟩
+def irs.deductions.standard.aged_or_blind.amount.SURVIVING_SPOUSE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 1300),
+    [(⟨2019, 1, 1⟩, 1300),
+     (⟨2021, 1, 1⟩, 1350),
+     (⟨2022, 1, 1⟩, 1400),
+     (⟨2023, 1, 1⟩, 1500),
+     (⟨2024, 1, 1⟩, 1550),
+     (⟨2025, 1, 1⟩, 1600),
+     (⟨2026, 1, 1⟩, 1650)]⟩
 
 /-- Federal deduction from AGI if not itemizing.
     `gov/irs/deductions/standard/amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 63(c) - Standard deduction: https://www.law.cornell.edu/uscode/text/26/63#c
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=18
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=14
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.deductions.standard.amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 18000), [(⟨2019, 1, 1⟩, 18350), (⟨2020, 1, 1⟩, 18650), (⟨2021, 1, 1⟩, 18800), (⟨2022, 1, 1⟩, 19400), (⟨2023, 1, 1⟩, 20800), (⟨2024, 1, 1⟩, 21900), (⟨2025, 1, 1⟩, 23625), (⟨2026, 1, 1⟩, 24150)]⟩
-def gov.irs.deductions.standard.amount.JOINT : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 24000), [(⟨2019, 1, 1⟩, 24400), (⟨2020, 1, 1⟩, 24800), (⟨2021, 1, 1⟩, 25100), (⟨2022, 1, 1⟩, 25900), (⟨2023, 1, 1⟩, 27700), (⟨2024, 1, 1⟩, 29200), (⟨2025, 1, 1⟩, 31500), (⟨2026, 1, 1⟩, 32200)]⟩
-def gov.irs.deductions.standard.amount.SEPARATE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 12000), [(⟨2019, 1, 1⟩, 12200), (⟨2020, 1, 1⟩, 12400), (⟨2021, 1, 1⟩, 12550), (⟨2022, 1, 1⟩, 12950), (⟨2023, 1, 1⟩, 13850), (⟨2024, 1, 1⟩, 14600), (⟨2025, 1, 1⟩, 15750), (⟨2026, 1, 1⟩, 16100)]⟩
-def gov.irs.deductions.standard.amount.SINGLE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 12000), [(⟨2019, 1, 1⟩, 12200), (⟨2020, 1, 1⟩, 12400), (⟨2021, 1, 1⟩, 12550), (⟨2022, 1, 1⟩, 12950), (⟨2023, 1, 1⟩, 13850), (⟨2024, 1, 1⟩, 14600), (⟨2025, 1, 1⟩, 15750), (⟨2026, 1, 1⟩, 16100)]⟩
-def gov.irs.deductions.standard.amount.SURVIVING_SPOUSE : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 24000), [(⟨2019, 1, 1⟩, 24400), (⟨2020, 1, 1⟩, 24800), (⟨2021, 1, 1⟩, 25100), (⟨2022, 1, 1⟩, 25900), (⟨2023, 1, 1⟩, 27700), (⟨2024, 1, 1⟩, 29200), (⟨2025, 1, 1⟩, 31500), (⟨2026, 1, 1⟩, 32200)]⟩
+    * 26 U.S. Code § 63(c) - Standard deduction:
+      https://www.law.cornell.edu/uscode/text/26/63#c
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=18
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=14
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024:
+      https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.deductions.standard.amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 18000),
+    [(⟨2019, 1, 1⟩, 18350),
+     (⟨2020, 1, 1⟩, 18650),
+     (⟨2021, 1, 1⟩, 18800),
+     (⟨2022, 1, 1⟩, 19400),
+     (⟨2023, 1, 1⟩, 20800),
+     (⟨2024, 1, 1⟩, 21900),
+     (⟨2025, 1, 1⟩, 23625),
+     (⟨2026, 1, 1⟩, 24150)]⟩
+def irs.deductions.standard.amount.JOINT : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 24000),
+    [(⟨2019, 1, 1⟩, 24400),
+     (⟨2020, 1, 1⟩, 24800),
+     (⟨2021, 1, 1⟩, 25100),
+     (⟨2022, 1, 1⟩, 25900),
+     (⟨2023, 1, 1⟩, 27700),
+     (⟨2024, 1, 1⟩, 29200),
+     (⟨2025, 1, 1⟩, 31500),
+     (⟨2026, 1, 1⟩, 32200)]⟩
+def irs.deductions.standard.amount.SEPARATE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 12000),
+    [(⟨2019, 1, 1⟩, 12200),
+     (⟨2020, 1, 1⟩, 12400),
+     (⟨2021, 1, 1⟩, 12550),
+     (⟨2022, 1, 1⟩, 12950),
+     (⟨2023, 1, 1⟩, 13850),
+     (⟨2024, 1, 1⟩, 14600),
+     (⟨2025, 1, 1⟩, 15750),
+     (⟨2026, 1, 1⟩, 16100)]⟩
+def irs.deductions.standard.amount.SINGLE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 12000),
+    [(⟨2019, 1, 1⟩, 12200),
+     (⟨2020, 1, 1⟩, 12400),
+     (⟨2021, 1, 1⟩, 12550),
+     (⟨2022, 1, 1⟩, 12950),
+     (⟨2023, 1, 1⟩, 13850),
+     (⟨2024, 1, 1⟩, 14600),
+     (⟨2025, 1, 1⟩, 15750),
+     (⟨2026, 1, 1⟩, 16100)]⟩
+def irs.deductions.standard.amount.SURVIVING_SPOUSE : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 24000),
+    [(⟨2019, 1, 1⟩, 24400),
+     (⟨2020, 1, 1⟩, 24800),
+     (⟨2021, 1, 1⟩, 25100),
+     (⟨2022, 1, 1⟩, 25900),
+     (⟨2023, 1, 1⟩, 27700),
+     (⟨2024, 1, 1⟩, 29200),
+     (⟨2025, 1, 1⟩, 31500),
+     (⟨2026, 1, 1⟩, 32200)]⟩
 
 /-- Addition to earned income for the standard deduction if claimed as a dependent
     `gov/irs/deductions/standard/dependent/additional_earned_income.yaml` (policyengine-us).
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf -/
-def gov.irs.deductions.standard.dependent.additional_earned_income : DatedParam USD :=
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf -/
+def irs.deductions.standard.dependent.additional_earned_income : DatedParam USD :=
   ⟨(⟨1, 1, 1⟩, 350), [(⟨2022, 1, 1⟩, 400), (⟨2025, 1, 1⟩, 450)]⟩
 
 /-- Maximum standard deduction for dependents
     `gov/irs/deductions/standard/dependent/amount.yaml` (policyengine-us).
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=18
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=14
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.deductions.standard.dependent.amount : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 1050), [(⟨2019, 1, 1⟩, 1100), (⟨2022, 1, 1⟩, 1150), (⟨2023, 1, 1⟩, 1250), (⟨2024, 1, 1⟩, 1300), (⟨2025, 1, 1⟩, 1350), (⟨2026, 1, 1⟩, 1350)]⟩
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=18
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=12
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=14
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=13
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024:
+      https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.deductions.standard.dependent.amount : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 1050),
+    [(⟨2019, 1, 1⟩, 1100),
+     (⟨2022, 1, 1⟩, 1150),
+     (⟨2023, 1, 1⟩, 1250),
+     (⟨2024, 1, 1⟩, 1300),
+     (⟨2025, 1, 1⟩, 1350),
+     (⟨2026, 1, 1⟩, 1350)]⟩
 
 /-- The IRS caps the tip income exemption at this amount.
     `gov/irs/deductions/tip_income/cap.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.tip_income.cap : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.tip_income.cap : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 25000), []⟩
 
 /-- The IRS limits the tip income deduction to filers with one of these SSN Card types.
     `gov/irs/deductions/tip_income/eligible_ssn_card_type.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.tip_income.eligible_ssn_card_type : DatedParam (List String) :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.tip_income.eligible_ssn_card_type : DatedParam (List String) :=
   ⟨(⟨2018, 1, 1⟩, ["CITIZEN", "NON_CITIZEN_VALID_EAD"]), []⟩
 
-/-- The IRS phases out the tip income exemption at the following rate for income above a certain threshold.
+/-- The IRS phases out the tip income exemption at the following rate for income above a certain
+    threshold.
     `gov/irs/deductions/tip_income/phase_out/rate.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.tip_income.phase_out.rate : DatedParam Rate :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.tip_income.phase_out.rate : DatedParam Rate :=
   ⟨(⟨2025, 1, 1⟩, mkRat 1 10), []⟩
 
-/-- The IRS phases out the tip income exemption for income above this threshold, based on filing status.
+/-- The IRS phases out the tip income exemption for income above this threshold, based on filing
+    status.
     `gov/irs/deductions/tip_income/phase_out/start.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
-def gov.irs.deductions.tip_income.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text -/
+def irs.deductions.tip_income.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
-def gov.irs.deductions.tip_income.phase_out.start.JOINT : DatedParam USD :=
+def irs.deductions.tip_income.phase_out.start.JOINT : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 300000), []⟩
-def gov.irs.deductions.tip_income.phase_out.start.SEPARATE : DatedParam USD :=
+def irs.deductions.tip_income.phase_out.start.SEPARATE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
-def gov.irs.deductions.tip_income.phase_out.start.SINGLE : DatedParam USD :=
+def irs.deductions.tip_income.phase_out.start.SINGLE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
-def gov.irs.deductions.tip_income.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.deductions.tip_income.phase_out.start.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2025, 1, 1⟩, 150000), []⟩
 
-/-- The IRS limits the tuition and fees deduction to joint filers to this amount, based on adjusted gross income.
+/-- The IRS limits the tuition and fees deduction to joint filers to this amount, based on
+    adjusted gross income.
     `gov/irs/deductions/tuition_and_fees/joint.yaml` (policyengine-us).
-    * 2020 Form 8917: https://www.irs.gov/pub/irs-pdf/f8917.pdf#page=2
-    * I.R.C. § 222(b)(2)(B)(ii): https://irc.bloombergtax.com/public/uscode/doc/irc/section_222 -/
-def gov.irs.deductions.tuition_and_fees.joint : ScaleX :=
+    * 2020 Form 8917:
+      https://www.irs.gov/pub/irs-pdf/f8917.pdf#page=2
+    * I.R.C. § 222(b)(2)(B)(ii):
+      https://irc.bloombergtax.com/public/uscode/doc/irc/section_222 -/
+def irs.deductions.tuition_and_fees.joint : ScaleX :=
   ⟨[⟨⟨(⟨2002, 1, 1⟩, .fin 0), []⟩, ⟨(⟨2002, 1, 1⟩, .fin 3000), [(⟨2004, 1, 1⟩, .fin 4000)]⟩⟩,
     ⟨⟨(⟨2002, 1, 1⟩, .fin 130000), []⟩, ⟨(⟨2002, 1, 1⟩, .fin 0), [(⟨2004, 1, 1⟩, .fin 2000)]⟩⟩,
     ⟨⟨(⟨2002, 1, 1⟩, .posInf), [(⟨2004, 1, 1⟩, .fin 160000)]⟩, ⟨(⟨2002, 1, 1⟩, .fin 0), []⟩⟩]⟩
 
-/-- The IRS limits the tuition and fees deduction to non-joint filers to this amount, based on adjusted gross income.
+/-- The IRS limits the tuition and fees deduction to non-joint filers to this amount, based on
+    adjusted gross income.
     `gov/irs/deductions/tuition_and_fees/non_joint.yaml` (policyengine-us).
-    * 2020 Form 8917: https://www.irs.gov/pub/irs-pdf/f8917.pdf#page=2
-    * I.R.C. § 222(b)(2)(B)(ii): https://irc.bloombergtax.com/public/uscode/doc/irc/section_222 -/
-def gov.irs.deductions.tuition_and_fees.non_joint : ScaleX :=
+    * 2020 Form 8917:
+      https://www.irs.gov/pub/irs-pdf/f8917.pdf#page=2
+    * I.R.C. § 222(b)(2)(B)(ii):
+      https://irc.bloombergtax.com/public/uscode/doc/irc/section_222 -/
+def irs.deductions.tuition_and_fees.non_joint : ScaleX :=
   ⟨[⟨⟨(⟨2002, 1, 1⟩, .fin 0), []⟩, ⟨(⟨2002, 1, 1⟩, .fin 3000), [(⟨2004, 1, 1⟩, .fin 4000)]⟩⟩,
     ⟨⟨(⟨2002, 1, 1⟩, .fin 65000), []⟩, ⟨(⟨2002, 1, 1⟩, .fin 0), [(⟨2004, 1, 1⟩, .fin 2000)]⟩⟩,
     ⟨⟨(⟨2002, 1, 1⟩, .posInf), [(⟨2004, 1, 1⟩, .fin 80000)]⟩, ⟨(⟨2002, 1, 1⟩, .fin 0), []⟩⟩]⟩
 
-/-- The IRS permits filers to claim dependents who are non-students if they are younger than this age at the end of the year.
+/-- The IRS permits filers to claim dependents who are non-students if they are younger than
+    this age at the end of the year.
     `gov/irs/dependent/ineligible_age/non_student.yaml` (policyengine-us).
-    * 26 U.S. Code § 152 - Dependent defined: https://www.law.cornell.edu/uscode/text/26/152#c_3_A_i -/
-def gov.irs.dependent.ineligible_age.non_student : DatedParam Rat :=
+    * 26 U.S. Code § 152 - Dependent defined:
+      https://www.law.cornell.edu/uscode/text/26/152#c_3_A_i -/
+def irs.dependent.ineligible_age.non_student : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, 19), []⟩
 
-/-- The IRS permits filers to claim dependents who are full-time students if they are younger than this age at the end of the year.
+/-- The IRS permits filers to claim dependents who are full-time students if they are younger
+    than this age at the end of the year.
     `gov/irs/dependent/ineligible_age/student.yaml` (policyengine-us).
-    * 26 U.S. Code § 152 - Dependent defined: https://www.law.cornell.edu/uscode/text/26/152#c_3_A_ii -/
-def gov.irs.dependent.ineligible_age.student : DatedParam Rat :=
+    * 26 U.S. Code § 152 - Dependent defined:
+      https://www.law.cornell.edu/uscode/text/26/152#c_3_A_ii -/
+def irs.dependent.ineligible_age.student : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, 24), []⟩
 
-/-- The IRS limits the amount of dependent care assistance excludable from gross income to this amount, based on filing status.
+/-- The IRS limits the amount of dependent care assistance excludable from gross income to this
+    amount, based on filing status.
     `gov/irs/gross_income/dependent_care_assistance_programs/reduction_amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 129(a)(2)(A): https://www.law.cornell.edu/uscode/text/26/129#a_2_A
-    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70404 (2025): https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm -/
-def gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 129(a)(2)(A):
+      https://www.law.cornell.edu/uscode/text/26/129#a_2_A
+    * One Big Beautiful Bill Act, Pub. L. No. 119-21, § 70404 (2025):
+      https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm -/
+def irs.gross_income.dependent_care_assistance_programs.reduction_amount.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 5000), [(⟨2026, 1, 1⟩, 7500)]⟩
-def gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.JOINT : DatedParam USD :=
+def irs.gross_income.dependent_care_assistance_programs.reduction_amount.JOINT : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 5000), [(⟨2026, 1, 1⟩, 7500)]⟩
-def gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SEPARATE : DatedParam USD :=
+def irs.gross_income.dependent_care_assistance_programs.reduction_amount.SEPARATE : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 2500), [(⟨2026, 1, 1⟩, 3750)]⟩
-def gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SINGLE : DatedParam USD :=
+def irs.gross_income.dependent_care_assistance_programs.reduction_amount.SINGLE : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 5000), [(⟨2026, 1, 1⟩, 7500)]⟩
-def gov.irs.gross_income.dependent_care_assistance_programs.reduction_amount.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.gross_income.dependent_care_assistance_programs.reduction_amount.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 5000), [(⟨2026, 1, 1⟩, 7500)]⟩
 
 /-- Income sources counted as disqualified earned income.
     `gov/irs/gross_income/disqualified_earned_income.yaml` (policyengine-us).
-    * 26 U.S. Code § 32 - Earned income-(i).(2): https://www.law.cornell.edu/uscode/text/26/32#:~:text=In%20the%20case%20of%20an,exceed%20the%20earned%20income%20amount -/
-def gov.irs.gross_income.disqualified_earned_income : DatedParam (List String) :=
-  ⟨(⟨2021, 1, 1⟩, ["dividend_income", "tax_exempt_interest_income", "interest_income", "rental_income", "capital_gains"]), []⟩
+    * 26 U.S. Code § 32 - Earned income-(i).(2):
+      https://www.law.cornell.edu/uscode/text/26/32#:~:text=In%20the%20case%20of%20an,exceed%20the%20earned%20income%20amount -/
+def irs.gross_income.disqualified_earned_income : DatedParam (List String) :=
+  ⟨(⟨2021, 1, 1⟩, ["dividend_income",
+      "tax_exempt_interest_income",
+      "interest_income",
+      "rental_income",
+      "capital_gains"]), []⟩
 
-/-- Payroll deductions that reduce FICA (Social Security and Medicare) wages without a filing-status-specific cap.
+/-- Payroll deductions that reduce FICA (Social Security and Medicare) wages without a
+    filing-status-specific cap.
     `gov/irs/gross_income/fica_pre_tax_contributions.yaml` (policyengine-us).
-    * IRC §3121(a) — FICA wages definition: https://www.law.cornell.edu/uscode/text/26/3121
-    * IRS Publication 15 (Employer's Tax Guide), Section 5: https://www.irs.gov/publications/p15
-    * IRS cafeteria plan FAQ: https://www.irs.gov/government-entities/federal-state-local-governments/faqs-for-government-entities-regarding-cafeteria-plans -/
-def gov.irs.gross_income.fica_pre_tax_contributions : DatedParam (List String) :=
-  ⟨(⟨2010, 1, 1⟩, ["pre_tax_health_insurance_premiums", "health_savings_account_payroll_contributions"]), []⟩
+    * IRC §3121(a) — FICA wages definition:
+      https://www.law.cornell.edu/uscode/text/26/3121
+    * IRS Publication 15 (Employer's Tax Guide), Section 5:
+      https://www.irs.gov/publications/p15
+    * IRS cafeteria plan FAQ:
+      https://www.irs.gov/government-entities/federal-state-local-governments/faqs-for-government-entities-regarding-cafeteria-plans -/
+def irs.gross_income.fica_pre_tax_contributions : DatedParam (List String) :=
+  ⟨(⟨2010, 1, 1⟩, ["pre_tax_health_insurance_premiums",
+      "health_savings_account_payroll_contributions"]), []⟩
 
-/-- The US subtracts these payroll deductions from wages and salaries when determining the taxable amount.
+/-- The US subtracts these payroll deductions from wages and salaries when determining the
+    taxable amount.
     `gov/irs/gross_income/pre_tax_contributions.yaml` (policyengine-us). -/
-def gov.irs.gross_income.pre_tax_contributions : DatedParam (List String) :=
-  ⟨(⟨2010, 1, 1⟩, ["traditional_401k_contributions", "traditional_403b_contributions", "pre_tax_health_insurance_premiums", "health_savings_account_payroll_contributions"]), []⟩
+def irs.gross_income.pre_tax_contributions : DatedParam (List String) :=
+  ⟨(⟨2010, 1, 1⟩, ["traditional_401k_contributions",
+      "traditional_403b_contributions",
+      "pre_tax_health_insurance_premiums",
+      "health_savings_account_payroll_contributions"]), []⟩
 
 /-- The US limits catch-up pension contributions to individuals this age or older.
     `gov/irs/gross_income/retirement_contributions/catch_up/age_threshold.yaml` (policyengine-us). -/
-def gov.irs.gross_income.retirement_contributions.catch_up.age_threshold : DatedParam Rat :=
+def irs.gross_income.retirement_contributions.catch_up.age_threshold : DatedParam Rat :=
   ⟨(⟨2021, 1, 1⟩, 50), []⟩
 
 /-- The US allows for catch-up IRA contributions of this amount.
     `gov/irs/gross_income/retirement_contributions/catch_up/limit/ira.yaml` (policyengine-us). -/
-def gov.irs.gross_income.retirement_contributions.catch_up.limit.ira : DatedParam USD :=
+def irs.gross_income.retirement_contributions.catch_up.limit.ira : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 1000), [(⟨2024, 1, 1⟩, 1000), (⟨2025, 1, 1⟩, 1000)]⟩
 
 /-- The IRS limits 401(k) catch-up contributions to this amount based on the individual's age.
     `gov/irs/gross_income/retirement_contributions/catch_up/limit/k401.yaml` (policyengine-us).
-    * 26 CFR 1.414(v)-1(c)(2) - Applicable dollar catch-up limit: https://www.law.cornell.edu/cfr/text/26/1.414(v)-1#c_2
-    * 26 USC 414(v)(2)(E) - Increased catch-up contribution limit for individuals aged 60-63: https://www.law.cornell.edu/uscode/text/26/414#v_2_E
-    * IRS announcement - 401(k) limit increases for 2025: https://www.irs.gov/newsroom/401k-limit-increases-to-23500-for-2025-ira-limit-remains-7000
-    * IRS announcement - 401(k) limit increases for 2026: https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500
-    * Cost-of-Living Adjustments for Retirement Items: https://www.irs.gov/pub/irs-tege/cola-table.pdf#page=1 -/
-def gov.irs.gross_income.retirement_contributions.catch_up.limit.k401 : Scale :=
+    * 26 CFR 1.414(v)-1(c)(2) - Applicable dollar catch-up limit:
+      https://www.law.cornell.edu/cfr/text/26/1.414(v)-1#c_2
+    * 26 USC 414(v)(2)(E) - Increased catch-up contribution limit for individuals aged 60-63:
+      https://www.law.cornell.edu/uscode/text/26/414#v_2_E
+    * IRS announcement - 401(k) limit increases for 2025:
+      https://www.irs.gov/newsroom/401k-limit-increases-to-23500-for-2025-ira-limit-remains-7000
+    * IRS announcement - 401(k) limit increases for 2026:
+      https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500
+    * Cost-of-Living Adjustments for Retirement Items:
+      https://www.irs.gov/pub/irs-tege/cola-table.pdf#page=1 -/
+def irs.gross_income.retirement_contributions.catch_up.limit.k401 : Scale :=
   ⟨[⟨⟨(⟨2018, 1, 1⟩, 0), []⟩, ⟨(⟨2018, 1, 1⟩, 0), []⟩⟩,
-    ⟨⟨(⟨2018, 1, 1⟩, 50), []⟩, ⟨(⟨2018, 1, 1⟩, 6000), [(⟨2020, 1, 1⟩, 6500), (⟨2023, 1, 1⟩, 7500), (⟨2024, 1, 1⟩, 7500), (⟨2025, 1, 1⟩, 7500), (⟨2026, 1, 1⟩, 8000)]⟩⟩,
-    ⟨⟨(⟨2018, 1, 1⟩, 60), []⟩, ⟨(⟨2018, 1, 1⟩, 6000), [(⟨2020, 1, 1⟩, 6500), (⟨2023, 1, 1⟩, 7500), (⟨2024, 1, 1⟩, 7500), (⟨2025, 1, 1⟩, 11250), (⟨2026, 1, 1⟩, 11250)]⟩⟩,
-    ⟨⟨(⟨2018, 1, 1⟩, 64), []⟩, ⟨(⟨2018, 1, 1⟩, 6000), [(⟨2020, 1, 1⟩, 6500), (⟨2023, 1, 1⟩, 7500), (⟨2024, 1, 1⟩, 7500), (⟨2025, 1, 1⟩, 7500), (⟨2026, 1, 1⟩, 8000)]⟩⟩]⟩
+    ⟨⟨(⟨2018, 1, 1⟩, 50), []⟩, ⟨(⟨2018, 1, 1⟩, 6000),
+    [(⟨2020, 1, 1⟩, 6500),
+     (⟨2023, 1, 1⟩, 7500),
+     (⟨2024, 1, 1⟩, 7500),
+     (⟨2025, 1, 1⟩, 7500),
+     (⟨2026, 1, 1⟩, 8000)]⟩⟩,
+    ⟨⟨(⟨2018, 1, 1⟩, 60), []⟩, ⟨(⟨2018, 1, 1⟩, 6000),
+    [(⟨2020, 1, 1⟩, 6500),
+     (⟨2023, 1, 1⟩, 7500),
+     (⟨2024, 1, 1⟩, 7500),
+     (⟨2025, 1, 1⟩, 11250),
+     (⟨2026, 1, 1⟩, 11250)]⟩⟩,
+    ⟨⟨(⟨2018, 1, 1⟩, 64), []⟩, ⟨(⟨2018, 1, 1⟩, 6000),
+    [(⟨2020, 1, 1⟩, 6500),
+     (⟨2023, 1, 1⟩, 7500),
+     (⟨2024, 1, 1⟩, 7500),
+     (⟨2025, 1, 1⟩, 7500),
+     (⟨2026, 1, 1⟩, 8000)]⟩⟩]⟩
 
 /-- The US limits annual 401(k) contributions to this amount.
     `gov/irs/gross_income/retirement_contributions/limit/401k.yaml` (policyengine-us). -/
-def gov.irs.gross_income.retirement_contributions.limit.«401k» : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 18500), [(⟨2019, 1, 1⟩, 19000), (⟨2020, 1, 1⟩, 19500), (⟨2022, 1, 1⟩, 20500), (⟨2023, 1, 1⟩, 22500), (⟨2024, 1, 1⟩, 23000), (⟨2025, 1, 1⟩, 23500), (⟨2026, 1, 1⟩, 24500)]⟩
+def irs.gross_income.retirement_contributions.limit.«401k» : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 18500),
+    [(⟨2019, 1, 1⟩, 19000),
+     (⟨2020, 1, 1⟩, 19500),
+     (⟨2022, 1, 1⟩, 20500),
+     (⟨2023, 1, 1⟩, 22500),
+     (⟨2024, 1, 1⟩, 23000),
+     (⟨2025, 1, 1⟩, 23500),
+     (⟨2026, 1, 1⟩, 24500)]⟩
 
 /-- The US limits annual additions to a defined contribution plan to this amount.
     `gov/irs/gross_income/retirement_contributions/limit/annual_additions.yaml` (policyengine-us). -/
-def gov.irs.gross_income.retirement_contributions.limit.annual_additions : DatedParam USD :=
-  ⟨(⟨2018, 1, 1⟩, 55000), [(⟨2019, 1, 1⟩, 56000), (⟨2020, 1, 1⟩, 57000), (⟨2021, 1, 1⟩, 58000), (⟨2022, 1, 1⟩, 61000), (⟨2023, 1, 1⟩, 66000), (⟨2024, 1, 1⟩, 69000), (⟨2025, 1, 1⟩, 70000), (⟨2026, 1, 1⟩, 72000)]⟩
+def irs.gross_income.retirement_contributions.limit.annual_additions : DatedParam USD :=
+  ⟨(⟨2018, 1, 1⟩, 55000),
+    [(⟨2019, 1, 1⟩, 56000),
+     (⟨2020, 1, 1⟩, 57000),
+     (⟨2021, 1, 1⟩, 58000),
+     (⟨2022, 1, 1⟩, 61000),
+     (⟨2023, 1, 1⟩, 66000),
+     (⟨2024, 1, 1⟩, 69000),
+     (⟨2025, 1, 1⟩, 70000),
+     (⟨2026, 1, 1⟩, 72000)]⟩
 
 /-- The US limits annual IRA contributions to this amount.
     `gov/irs/gross_income/retirement_contributions/limit/ira.yaml` (policyengine-us). -/
-def gov.irs.gross_income.retirement_contributions.limit.ira : DatedParam USD :=
+def irs.gross_income.retirement_contributions.limit.ira : DatedParam USD :=
   ⟨(⟨2018, 1, 1⟩, 5500), [(⟨2019, 1, 1⟩, 6000), (⟨2023, 1, 1⟩, 6500), (⟨2024, 1, 1⟩, 7000)]⟩
 
 /-- Income sources counted as gross income for tax purposes.
     `gov/irs/gross_income/sources.yaml` (policyengine-us).
-    * 26 U.S. Code § 61 - Gross income defined: https://www.law.cornell.edu/uscode/text/26/61 -/
-def gov.irs.gross_income.sources : DatedParam (List String) :=
-  ⟨(⟨2010, 1, 1⟩, ["irs_employment_income", "self_employment_income", "sstb_self_employment_income", "partnership_s_corp_income", "farm_operations_income", "farm_rent_income", "other_net_gain_gross_income", "capital_gains", "non_sch_d_capital_gains", "taxable_interest_income", "rental_income", "dividend_income", "taxable_pension_income", "debt_relief", "taxable_unemployment_compensation", "taxable_social_security", "illicit_income", "taxable_retirement_distributions", "taxable_roth_conversions", "miscellaneous_income", "ak_permanent_fund_dividend", "taxable_alimony_income"]), []⟩
+    * 26 U.S. Code § 61 - Gross income defined:
+      https://www.law.cornell.edu/uscode/text/26/61 -/
+def irs.gross_income.sources : DatedParam (List String) :=
+  ⟨(⟨2010, 1, 1⟩, ["irs_employment_income",
+      "self_employment_income",
+      "sstb_self_employment_income",
+      "partnership_s_corp_income",
+      "farm_operations_income",
+      "farm_rent_income",
+      "other_net_gain_gross_income",
+      "capital_gains",
+      "non_sch_d_capital_gains",
+      "taxable_interest_income",
+      "rental_income",
+      "dividend_income",
+      "taxable_pension_income",
+      "debt_relief",
+      "taxable_unemployment_compensation",
+      "taxable_social_security",
+      "illicit_income",
+      "taxable_retirement_distributions",
+      "taxable_roth_conversions",
+      "miscellaneous_income",
+      "ak_permanent_fund_dividend",
+      "taxable_alimony_income"]), []⟩
 
 /-- The IRS provides the following Alternative Minimum Tax (AMT) brackets.
     `gov/irs/income/amt/brackets.yaml` (policyengine-us).
-    * 26 U.S. Code § 55 - Alternative minimum tax imposed (b)(1)(A): https://www.law.cornell.edu/uscode/text/26/55#b_1_A
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=16
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=10
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=12
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=12
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=12
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=12
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=12
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024: https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.income.amt.brackets : Scale :=
+    * 26 U.S. Code § 55 - Alternative minimum tax imposed (b)(1)(A):
+      https://www.law.cornell.edu/uscode/text/26/55#b_1_A
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=16
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=10
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=12
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=12
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=12
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=12
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=12
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Feb 2024:
+      https://www.cbo.gov/system/files/2024-02/53724-2024-02-Tax-Parameters.xlsx
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.income.amt.brackets : Scale :=
   ⟨[⟨⟨(⟨2013, 1, 1⟩, 0), []⟩, ⟨(⟨2013, 1, 1⟩, mkRat 13 50), []⟩⟩,
-    ⟨⟨(⟨2013, 1, 1⟩, 179500), [(⟨2014, 1, 1⟩, 182500), (⟨2015, 1, 1⟩, 185400), (⟨2016, 1, 1⟩, 186300), (⟨2017, 1, 1⟩, 187800), (⟨2018, 1, 1⟩, 191100), (⟨2019, 1, 1⟩, 194800), (⟨2020, 1, 1⟩, 197900), (⟨2021, 1, 1⟩, 199900), (⟨2022, 1, 1⟩, 206100), (⟨2023, 1, 1⟩, 220700), (⟨2024, 1, 1⟩, 232600), (⟨2025, 1, 1⟩, 239100), (⟨2026, 1, 1⟩, 244500), (⟨2027, 1, 1⟩, 249200), (⟨2028, 1, 1⟩, 254200), (⟨2029, 1, 1⟩, 259300), (⟨2030, 1, 1⟩, 264400), (⟨2031, 1, 1⟩, 269600), (⟨2032, 1, 1⟩, 274900), (⟨2033, 1, 1⟩, 280400), (⟨2034, 1, 1⟩, 286000), (⟨2035, 1, 1⟩, 291700)]⟩, ⟨(⟨2013, 1, 1⟩, mkRat 7 25), []⟩⟩]⟩
+    ⟨⟨(⟨2013, 1, 1⟩, 179500),
+    [(⟨2014, 1, 1⟩, 182500),
+     (⟨2015, 1, 1⟩, 185400),
+     (⟨2016, 1, 1⟩, 186300),
+     (⟨2017, 1, 1⟩, 187800),
+     (⟨2018, 1, 1⟩, 191100),
+     (⟨2019, 1, 1⟩, 194800),
+     (⟨2020, 1, 1⟩, 197900),
+     (⟨2021, 1, 1⟩, 199900),
+     (⟨2022, 1, 1⟩, 206100),
+     (⟨2023, 1, 1⟩, 220700),
+     (⟨2024, 1, 1⟩, 232600),
+     (⟨2025, 1, 1⟩, 239100),
+     (⟨2026, 1, 1⟩, 244500),
+     (⟨2027, 1, 1⟩, 249200),
+     (⟨2028, 1, 1⟩, 254200),
+     (⟨2029, 1, 1⟩, 259300),
+     (⟨2030, 1, 1⟩, 264400),
+     (⟨2031, 1, 1⟩, 269600),
+     (⟨2032, 1, 1⟩, 274900),
+     (⟨2033, 1, 1⟩, 280400),
+     (⟨2034, 1, 1⟩, 286000),
+     (⟨2035, 1, 1⟩, 291700)]⟩, ⟨(⟨2013, 1, 1⟩, mkRat 7 25), []⟩⟩]⟩
 
 /-- The IRS multiplies the taxable excess capital gain by this rate.
     `gov/irs/income/amt/capital_gains/capital_gain_excess_tax_rate.yaml` (policyengine-us).
-    * 26 U.S.C. § 55 (2018) §55. Alternative minimum tax imposed (b)(3)(E): https://www.law.cornell.edu/uscode/text/26/55#b_3_E -/
-def gov.irs.income.amt.capital_gains.capital_gain_excess_tax_rate : DatedParam Rate :=
+    * 26 U.S.C. § 55 (2018) §55. Alternative minimum tax imposed (b)(3)(E):
+      https://www.law.cornell.edu/uscode/text/26/55#b_3_E -/
+def irs.income.amt.capital_gains.capital_gain_excess_tax_rate : DatedParam Rate :=
   ⟨(⟨2018, 1, 1⟩, mkRat 1 4), []⟩
 
 /-- `gov/irs/income/amt/exemption/amount.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2011, 1, 1⟩, 50600), [(⟨2013, 1, 1⟩, 51900), (⟨2014, 1, 1⟩, 52800), (⟨2015, 1, 1⟩, 53600), (⟨2016, 1, 1⟩, 53900), (⟨2017, 1, 1⟩, 54300), (⟨2018, 1, 1⟩, 70300), (⟨2019, 1, 1⟩, 71700), (⟨2020, 1, 1⟩, 72900), (⟨2021, 1, 1⟩, 73600), (⟨2022, 1, 1⟩, 75900), (⟨2023, 1, 1⟩, 81300), (⟨2024, 1, 1⟩, 85700), (⟨2025, 1, 1⟩, 88100), (⟨2026, 1, 1⟩, 90100)]⟩
+def irs.income.amt.exemption.amount.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2011, 1, 1⟩, 50600),
+    [(⟨2013, 1, 1⟩, 51900),
+     (⟨2014, 1, 1⟩, 52800),
+     (⟨2015, 1, 1⟩, 53600),
+     (⟨2016, 1, 1⟩, 53900),
+     (⟨2017, 1, 1⟩, 54300),
+     (⟨2018, 1, 1⟩, 70300),
+     (⟨2019, 1, 1⟩, 71700),
+     (⟨2020, 1, 1⟩, 72900),
+     (⟨2021, 1, 1⟩, 73600),
+     (⟨2022, 1, 1⟩, 75900),
+     (⟨2023, 1, 1⟩, 81300),
+     (⟨2024, 1, 1⟩, 85700),
+     (⟨2025, 1, 1⟩, 88100),
+     (⟨2026, 1, 1⟩, 90100)]⟩
 
 /-- `gov/irs/income/amt/exemption/amount.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.amount.JOINT : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 80800), [(⟨2014, 1, 1⟩, 82100), (⟨2015, 1, 1⟩, 83400), (⟨2016, 1, 1⟩, 83800), (⟨2017, 1, 1⟩, 84500), (⟨2018, 1, 1⟩, 109400), (⟨2019, 1, 1⟩, 111700), (⟨2020, 1, 1⟩, 113400), (⟨2021, 1, 1⟩, 114600), (⟨2022, 1, 1⟩, 118100), (⟨2023, 1, 1⟩, 126500), (⟨2024, 1, 1⟩, 133300), (⟨2025, 1, 1⟩, 137000), (⟨2026, 1, 1⟩, 140200)]⟩
+def irs.income.amt.exemption.amount.JOINT : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 80800),
+    [(⟨2014, 1, 1⟩, 82100),
+     (⟨2015, 1, 1⟩, 83400),
+     (⟨2016, 1, 1⟩, 83800),
+     (⟨2017, 1, 1⟩, 84500),
+     (⟨2018, 1, 1⟩, 109400),
+     (⟨2019, 1, 1⟩, 111700),
+     (⟨2020, 1, 1⟩, 113400),
+     (⟨2021, 1, 1⟩, 114600),
+     (⟨2022, 1, 1⟩, 118100),
+     (⟨2023, 1, 1⟩, 126500),
+     (⟨2024, 1, 1⟩, 133300),
+     (⟨2025, 1, 1⟩, 137000),
+     (⟨2026, 1, 1⟩, 140200)]⟩
 
 /-- `gov/irs/income/amt/exemption/amount.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.amount.SEPARATE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 40400), [(⟨2014, 1, 1⟩, 41050), (⟨2015, 1, 1⟩, 41700), (⟨2016, 1, 1⟩, 41900), (⟨2017, 1, 1⟩, 42250), (⟨2018, 1, 1⟩, 54700), (⟨2019, 1, 1⟩, 55850), (⟨2020, 1, 1⟩, 56700), (⟨2021, 1, 1⟩, 57300), (⟨2022, 1, 1⟩, 59050), (⟨2023, 1, 1⟩, 63250), (⟨2024, 1, 1⟩, 66650), (⟨2025, 1, 1⟩, 68500), (⟨2026, 1, 1⟩, 70100)]⟩
+def irs.income.amt.exemption.amount.SEPARATE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 40400),
+    [(⟨2014, 1, 1⟩, 41050),
+     (⟨2015, 1, 1⟩, 41700),
+     (⟨2016, 1, 1⟩, 41900),
+     (⟨2017, 1, 1⟩, 42250),
+     (⟨2018, 1, 1⟩, 54700),
+     (⟨2019, 1, 1⟩, 55850),
+     (⟨2020, 1, 1⟩, 56700),
+     (⟨2021, 1, 1⟩, 57300),
+     (⟨2022, 1, 1⟩, 59050),
+     (⟨2023, 1, 1⟩, 63250),
+     (⟨2024, 1, 1⟩, 66650),
+     (⟨2025, 1, 1⟩, 68500),
+     (⟨2026, 1, 1⟩, 70100)]⟩
 
 /-- `gov/irs/income/amt/exemption/amount.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.amount.SINGLE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 51900), [(⟨2014, 1, 1⟩, 52800), (⟨2015, 1, 1⟩, 53600), (⟨2016, 1, 1⟩, 53900), (⟨2017, 1, 1⟩, 54300), (⟨2018, 1, 1⟩, 70300), (⟨2019, 1, 1⟩, 71700), (⟨2020, 1, 1⟩, 72900), (⟨2021, 1, 1⟩, 73600), (⟨2022, 1, 1⟩, 75900), (⟨2023, 1, 1⟩, 81300), (⟨2024, 1, 1⟩, 85700), (⟨2025, 1, 1⟩, 88100), (⟨2026, 1, 1⟩, 90100)]⟩
+def irs.income.amt.exemption.amount.SINGLE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 51900),
+    [(⟨2014, 1, 1⟩, 52800),
+     (⟨2015, 1, 1⟩, 53600),
+     (⟨2016, 1, 1⟩, 53900),
+     (⟨2017, 1, 1⟩, 54300),
+     (⟨2018, 1, 1⟩, 70300),
+     (⟨2019, 1, 1⟩, 71700),
+     (⟨2020, 1, 1⟩, 72900),
+     (⟨2021, 1, 1⟩, 73600),
+     (⟨2022, 1, 1⟩, 75900),
+     (⟨2023, 1, 1⟩, 81300),
+     (⟨2024, 1, 1⟩, 85700),
+     (⟨2025, 1, 1⟩, 88100),
+     (⟨2026, 1, 1⟩, 90100)]⟩
 
 /-- `gov/irs/income/amt/exemption/amount.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.amount.SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 80800), [(⟨2014, 1, 1⟩, 82100), (⟨2015, 1, 1⟩, 83400), (⟨2016, 1, 1⟩, 83800), (⟨2017, 1, 1⟩, 84500), (⟨2018, 1, 1⟩, 109400), (⟨2019, 1, 1⟩, 111700), (⟨2020, 1, 1⟩, 113400), (⟨2021, 1, 1⟩, 114600), (⟨2022, 1, 1⟩, 118100), (⟨2023, 1, 1⟩, 126500), (⟨2024, 1, 1⟩, 133300), (⟨2025, 1, 1⟩, 137000), (⟨2026, 1, 1⟩, 140200)]⟩
+def irs.income.amt.exemption.amount.SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 80800),
+    [(⟨2014, 1, 1⟩, 82100),
+     (⟨2015, 1, 1⟩, 83400),
+     (⟨2016, 1, 1⟩, 83800),
+     (⟨2017, 1, 1⟩, 84500),
+     (⟨2018, 1, 1⟩, 109400),
+     (⟨2019, 1, 1⟩, 111700),
+     (⟨2020, 1, 1⟩, 113400),
+     (⟨2021, 1, 1⟩, 114600),
+     (⟨2022, 1, 1⟩, 118100),
+     (⟨2023, 1, 1⟩, 126500),
+     (⟨2024, 1, 1⟩, 133300),
+     (⟨2025, 1, 1⟩, 137000),
+     (⟨2026, 1, 1⟩, 140200)]⟩
 
 /-- Child AMT exemption additional income base
     `gov/irs/income/amt/exemption/child/amount.yaml` (policyengine-us).
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=17
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=11
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=11
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=12
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=13
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=12
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-45.pdf#page=12
-    * 2019 IRS data release: https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=15 -/
-def gov.irs.income.amt.exemption.child.amount : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 7150), [(⟨2014, 1, 1⟩, 7250), (⟨2015, 1, 1⟩, 7400), (⟨2016, 1, 1⟩, 7400), (⟨2017, 1, 1⟩, 7500), (⟨2018, 1, 1⟩, 7600), (⟨2019, 1, 1⟩, 7750), (⟨2020, 1, 1⟩, 7900), (⟨2021, 1, 1⟩, 7950), (⟨2022, 1, 1⟩, 8200), (⟨2023, 1, 1⟩, 8800), (⟨2024, 1, 1⟩, 9250), (⟨2025, 1, 1⟩, 9550), (⟨2026, 1, 1⟩, 9750)]⟩
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=17
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=11
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=11
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=12
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=13
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=12
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-45.pdf#page=12
+    * 2019 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-18-57.pdf#page=15 -/
+def irs.income.amt.exemption.child.amount : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 7150),
+    [(⟨2014, 1, 1⟩, 7250),
+     (⟨2015, 1, 1⟩, 7400),
+     (⟨2016, 1, 1⟩, 7400),
+     (⟨2017, 1, 1⟩, 7500),
+     (⟨2018, 1, 1⟩, 7600),
+     (⟨2019, 1, 1⟩, 7750),
+     (⟨2020, 1, 1⟩, 7900),
+     (⟨2021, 1, 1⟩, 7950),
+     (⟨2022, 1, 1⟩, 8200),
+     (⟨2023, 1, 1⟩, 8800),
+     (⟨2024, 1, 1⟩, 9250),
+     (⟨2025, 1, 1⟩, 9550),
+     (⟨2026, 1, 1⟩, 9750)]⟩
 
 /-- AMT exemption phase-out rate
     `gov/irs/income/amt/exemption/phase_out/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 55 - Alternative minimum tax imposed (d)(2): https://www.law.cornell.edu/uscode/text/26/55#d_2
-    * 26 U.S. Code § 55 - Alternative minimum tax imposed (d)(4)(A)(ii)(IV): https://www.law.cornell.edu/uscode/text/26/55#d_4_A_ii_IV -/
-def gov.irs.income.amt.exemption.phase_out.rate : DatedParam Rate :=
+    * 26 U.S. Code § 55 - Alternative minimum tax imposed (d)(2):
+      https://www.law.cornell.edu/uscode/text/26/55#d_2
+    * 26 U.S. Code § 55 - Alternative minimum tax imposed (d)(4)(A)(ii)(IV):
+      https://www.law.cornell.edu/uscode/text/26/55#d_4_A_ii_IV -/
+def irs.income.amt.exemption.phase_out.rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 4), [(⟨2026, 1, 1⟩, mkRat 1 2)]⟩
 
 /-- `gov/irs/income/amt/exemption/phase_out/start.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 115400), [(⟨2014, 1, 1⟩, 117300), (⟨2015, 1, 1⟩, 119200), (⟨2016, 1, 1⟩, 119700), (⟨2017, 1, 1⟩, 120700), (⟨2018, 1, 1⟩, 500000), (⟨2019, 1, 1⟩, 510300), (⟨2020, 1, 1⟩, 518400), (⟨2021, 1, 1⟩, 523600), (⟨2022, 1, 1⟩, 539900), (⟨2023, 1, 1⟩, 578150), (⟨2024, 1, 1⟩, 609350), (⟨2025, 1, 1⟩, 626350), (⟨2026, 1, 1⟩, 500000)]⟩
+def irs.income.amt.exemption.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 115400),
+    [(⟨2014, 1, 1⟩, 117300),
+     (⟨2015, 1, 1⟩, 119200),
+     (⟨2016, 1, 1⟩, 119700),
+     (⟨2017, 1, 1⟩, 120700),
+     (⟨2018, 1, 1⟩, 500000),
+     (⟨2019, 1, 1⟩, 510300),
+     (⟨2020, 1, 1⟩, 518400),
+     (⟨2021, 1, 1⟩, 523600),
+     (⟨2022, 1, 1⟩, 539900),
+     (⟨2023, 1, 1⟩, 578150),
+     (⟨2024, 1, 1⟩, 609350),
+     (⟨2025, 1, 1⟩, 626350),
+     (⟨2026, 1, 1⟩, 500000)]⟩
 
 /-- `gov/irs/income/amt/exemption/phase_out/start.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.phase_out.start.JOINT : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 153900), [(⟨2014, 1, 1⟩, 156500), (⟨2015, 1, 1⟩, 158900), (⟨2016, 1, 1⟩, 159700), (⟨2017, 1, 1⟩, 160900), (⟨2018, 1, 1⟩, 1000000), (⟨2019, 1, 1⟩, 1020600), (⟨2020, 1, 1⟩, 1036800), (⟨2021, 1, 1⟩, 1047200), (⟨2022, 1, 1⟩, 1079800), (⟨2023, 1, 1⟩, 1156300), (⟨2024, 1, 1⟩, 1218700), (⟨2025, 1, 1⟩, 1252700), (⟨2026, 1, 1⟩, 1000000)]⟩
+def irs.income.amt.exemption.phase_out.start.JOINT : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 153900),
+    [(⟨2014, 1, 1⟩, 156500),
+     (⟨2015, 1, 1⟩, 158900),
+     (⟨2016, 1, 1⟩, 159700),
+     (⟨2017, 1, 1⟩, 160900),
+     (⟨2018, 1, 1⟩, 1000000),
+     (⟨2019, 1, 1⟩, 1020600),
+     (⟨2020, 1, 1⟩, 1036800),
+     (⟨2021, 1, 1⟩, 1047200),
+     (⟨2022, 1, 1⟩, 1079800),
+     (⟨2023, 1, 1⟩, 1156300),
+     (⟨2024, 1, 1⟩, 1218700),
+     (⟨2025, 1, 1⟩, 1252700),
+     (⟨2026, 1, 1⟩, 1000000)]⟩
 
 /-- `gov/irs/income/amt/exemption/phase_out/start.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.phase_out.start.SEPARATE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 76950), [(⟨2014, 1, 1⟩, 78250), (⟨2015, 1, 1⟩, 79450), (⟨2016, 1, 1⟩, 79850), (⟨2017, 1, 1⟩, 80450), (⟨2018, 1, 1⟩, 500000), (⟨2019, 1, 1⟩, 510300), (⟨2020, 1, 1⟩, 518400), (⟨2021, 1, 1⟩, 523600), (⟨2022, 1, 1⟩, 539900), (⟨2023, 1, 1⟩, 578150), (⟨2024, 1, 1⟩, 609350), (⟨2025, 1, 1⟩, 626350), (⟨2026, 1, 1⟩, 500000)]⟩
+def irs.income.amt.exemption.phase_out.start.SEPARATE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 76950),
+    [(⟨2014, 1, 1⟩, 78250),
+     (⟨2015, 1, 1⟩, 79450),
+     (⟨2016, 1, 1⟩, 79850),
+     (⟨2017, 1, 1⟩, 80450),
+     (⟨2018, 1, 1⟩, 500000),
+     (⟨2019, 1, 1⟩, 510300),
+     (⟨2020, 1, 1⟩, 518400),
+     (⟨2021, 1, 1⟩, 523600),
+     (⟨2022, 1, 1⟩, 539900),
+     (⟨2023, 1, 1⟩, 578150),
+     (⟨2024, 1, 1⟩, 609350),
+     (⟨2025, 1, 1⟩, 626350),
+     (⟨2026, 1, 1⟩, 500000)]⟩
 
 /-- `gov/irs/income/amt/exemption/phase_out/start.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.phase_out.start.SINGLE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 115400), [(⟨2014, 1, 1⟩, 117300), (⟨2015, 1, 1⟩, 119200), (⟨2016, 1, 1⟩, 119700), (⟨2017, 1, 1⟩, 120700), (⟨2018, 1, 1⟩, 500000), (⟨2019, 1, 1⟩, 510300), (⟨2020, 1, 1⟩, 518400), (⟨2021, 1, 1⟩, 523600), (⟨2022, 1, 1⟩, 539900), (⟨2023, 1, 1⟩, 578150), (⟨2024, 1, 1⟩, 609350), (⟨2025, 1, 1⟩, 626350), (⟨2026, 1, 1⟩, 500000)]⟩
+def irs.income.amt.exemption.phase_out.start.SINGLE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 115400),
+    [(⟨2014, 1, 1⟩, 117300),
+     (⟨2015, 1, 1⟩, 119200),
+     (⟨2016, 1, 1⟩, 119700),
+     (⟨2017, 1, 1⟩, 120700),
+     (⟨2018, 1, 1⟩, 500000),
+     (⟨2019, 1, 1⟩, 510300),
+     (⟨2020, 1, 1⟩, 518400),
+     (⟨2021, 1, 1⟩, 523600),
+     (⟨2022, 1, 1⟩, 539900),
+     (⟨2023, 1, 1⟩, 578150),
+     (⟨2024, 1, 1⟩, 609350),
+     (⟨2025, 1, 1⟩, 626350),
+     (⟨2026, 1, 1⟩, 500000)]⟩
 
 /-- `gov/irs/income/amt/exemption/phase_out/start.yaml` (policyengine-us). -/
-def gov.irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2013, 1, 1⟩, 153900), [(⟨2014, 1, 1⟩, 156500), (⟨2015, 1, 1⟩, 158900), (⟨2016, 1, 1⟩, 159700), (⟨2017, 1, 1⟩, 160900), (⟨2018, 1, 1⟩, 1000000), (⟨2019, 1, 1⟩, 1020600), (⟨2020, 1, 1⟩, 1036800), (⟨2021, 1, 1⟩, 1047200), (⟨2022, 1, 1⟩, 1079800), (⟨2023, 1, 1⟩, 1156300), (⟨2024, 1, 1⟩, 1218700), (⟨2025, 1, 1⟩, 1252700), (⟨2026, 1, 1⟩, 1000000)]⟩
+def irs.income.amt.exemption.phase_out.start.SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2013, 1, 1⟩, 153900),
+    [(⟨2014, 1, 1⟩, 156500),
+     (⟨2015, 1, 1⟩, 158900),
+     (⟨2016, 1, 1⟩, 159700),
+     (⟨2017, 1, 1⟩, 160900),
+     (⟨2018, 1, 1⟩, 1000000),
+     (⟨2019, 1, 1⟩, 1020600),
+     (⟨2020, 1, 1⟩, 1036800),
+     (⟨2021, 1, 1⟩, 1047200),
+     (⟨2022, 1, 1⟩, 1079800),
+     (⟨2023, 1, 1⟩, 1156300),
+     (⟨2024, 1, 1⟩, 1218700),
+     (⟨2025, 1, 1⟩, 1252700),
+     (⟨2026, 1, 1⟩, 1000000)]⟩
 
-/-- AMT exemption phase-out ending AMT taxable income for Married filing Separately. The AMT exemption is entirely disallowed beyond this AMT taxable income level for individuals who are married but filing separately.
+/-- AMT exemption phase-out ending AMT taxable income for Married filing Separately. The AMT
+    exemption is entirely disallowed beyond this AMT taxable income level for individuals who
+    are married but filing separately.
     `gov/irs/income/amt/exemption/separate_limit.yaml` (policyengine-us).
-    * H.R.1 - One Big Beautiful Bill Act: https://www.congress.gov/bill/119th-congress/house-bill/1/text
-    * 2026 IRS data release: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=17
-    * 2025 IRS data release: https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=11
-    * 2024 IRS data release: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=13
-    * 2023 IRS data release: https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=12
-    * 2022 IRS data release: https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=12
-    * 2021 IRS data release: https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=12
-    * 2020 IRS data release: https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=12 -/
-def gov.irs.income.amt.exemption.separate_limit : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 238550), [(⟨2014, 1, 1⟩, 242450), (⟨2015, 1, 1⟩, 246250), (⟨2016, 1, 1⟩, 247450), (⟨2017, 1, 1⟩, 249450), (⟨2018, 1, 1⟩, 718800), (⟨2019, 1, 1⟩, 733700), (⟨2020, 1, 1⟩, 745200), (⟨2021, 1, 1⟩, 752800), (⟨2022, 1, 1⟩, 776100), (⟨2023, 1, 1⟩, 831150), (⟨2024, 1, 1⟩, 875950), (⟨2025, 1, 1⟩, 900350), (⟨2026, 1, 1⟩, 640200)]⟩
+    * H.R.1 - One Big Beautiful Bill Act:
+      https://www.congress.gov/bill/119th-congress/house-bill/1/text
+    * 2026 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-25-32.pdf#page=17
+    * 2025 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-24-40.pdf#page=11
+    * 2024 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-23-34.pdf#page=13
+    * 2023 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-22-38.pdf#page=12
+    * 2022 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-21-45.pdf#page=12
+    * 2021 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-20-45.pdf#page=12
+    * 2020 IRS data release:
+      https://www.irs.gov/pub/irs-drop/rp-19-44.pdf#page=12 -/
+def irs.income.amt.exemption.separate_limit : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 238550),
+    [(⟨2014, 1, 1⟩, 242450),
+     (⟨2015, 1, 1⟩, 246250),
+     (⟨2016, 1, 1⟩, 247450),
+     (⟨2017, 1, 1⟩, 249450),
+     (⟨2018, 1, 1⟩, 718800),
+     (⟨2019, 1, 1⟩, 733700),
+     (⟨2020, 1, 1⟩, 745200),
+     (⟨2021, 1, 1⟩, 752800),
+     (⟨2022, 1, 1⟩, 776100),
+     (⟨2023, 1, 1⟩, 831150),
+     (⟨2024, 1, 1⟩, 875950),
+     (⟨2025, 1, 1⟩, 900350),
+     (⟨2026, 1, 1⟩, 640200)]⟩
 
 /-- The US adds these deductions back when calculating alternative minimum taxable income.
     `gov/irs/income/amt/itemized_deductions_add_back.yaml` (policyengine-us).
-    * 26 U.S. Code § 56 - Adjustments in computing alternative minimum taxable income (b)(1)(A): https://www.law.cornell.edu/uscode/text/26/56#b_1_A -/
-def gov.irs.income.amt.itemized_deductions_add_back : DatedParam (List String) :=
+    * 26 U.S. Code § 56 - Adjustments in computing alternative minimum taxable income (b)(1)(A):
+      https://www.law.cornell.edu/uscode/text/26/56#b_1_A -/
+def irs.income.amt.itemized_deductions_add_back : DatedParam (List String) :=
   ⟨(⟨2013, 1, 1⟩, ["salt_deduction", "misc_deduction"]), []⟩
 
-/-- The IRS multiplies the Alternative Minimum Tax income tax brackets by this rate, based on filing status.
+/-- The IRS multiplies the Alternative Minimum Tax income tax brackets by this rate, based on
+    filing status.
     `gov/irs/income/amt/multiplier.yaml` (policyengine-us).
-    * 26 U.S. Code § 55 - Alternative minimum tax imposed (b)(1)(C): https://www.law.cornell.edu/uscode/text/26/55#b_1_C -/
-def gov.irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+    * 26 U.S. Code § 55 - Alternative minimum tax imposed (b)(1)(C):
+      https://www.law.cornell.edu/uscode/text/26/55#b_1_C -/
+def irs.income.amt.multiplier.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 1), []⟩
-def gov.irs.income.amt.multiplier.JOINT : DatedParam Rat :=
+def irs.income.amt.multiplier.JOINT : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 1), []⟩
-def gov.irs.income.amt.multiplier.SEPARATE : DatedParam Rat :=
+def irs.income.amt.multiplier.SEPARATE : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 2), []⟩
-def gov.irs.income.amt.multiplier.SINGLE : DatedParam Rat :=
+def irs.income.amt.multiplier.SINGLE : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 1), []⟩
-def gov.irs.income.amt.multiplier.SURVIVING_SPOUSE : DatedParam Rat :=
+def irs.income.amt.multiplier.SURVIVING_SPOUSE : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 1), []⟩
 
 /-- Income tax rate by tax bracket.
     `gov/irs/income/bracket.yaml` (policyengine-us).
-    * 26 U.S. Code § 1 - Tax imposed (a-d): https://www.law.cornell.edu/uscode/text/26/1#i -/
-def gov.irs.income.bracket.rates.«1» : DatedParam Rat :=
+    * 26 U.S. Code § 1 - Tax imposed (a-d):
+      https://www.law.cornell.edu/uscode/text/26/1#i -/
+def irs.income.bracket.rates.«1» : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 1 10), []⟩
-def gov.irs.income.bracket.rates.«2» : DatedParam Rat :=
+def irs.income.bracket.rates.«2» : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 3 25), []⟩
-def gov.irs.income.bracket.rates.«3» : DatedParam Rat :=
+def irs.income.bracket.rates.«3» : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 11 50), []⟩
-def gov.irs.income.bracket.rates.«4» : DatedParam Rat :=
+def irs.income.bracket.rates.«4» : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 6 25), []⟩
-def gov.irs.income.bracket.rates.«5» : DatedParam Rat :=
+def irs.income.bracket.rates.«5» : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 8 25), []⟩
-def gov.irs.income.bracket.rates.«6» : DatedParam Rat :=
+def irs.income.bracket.rates.«6» : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 7 20), []⟩
-def gov.irs.income.bracket.rates.«7» : DatedParam Rat :=
+def irs.income.bracket.rates.«7» : DatedParam Rat :=
   ⟨(⟨2018, 1, 1⟩, mkRat 37 100), []⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«1».SINGLE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 9525), [(⟨2019, 1, 1⟩, 9700), (⟨2020, 1, 1⟩, 9875), (⟨2021, 1, 1⟩, 9950), (⟨2022, 1, 1⟩, 10275), (⟨2023, 1, 1⟩, 11000), (⟨2024, 1, 1⟩, 11600), (⟨2025, 1, 1⟩, 11925), (⟨2026, 1, 1⟩, 12400)]⟩
+def irs.income.bracket.thresholds.«1».SINGLE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 9525),
+    [(⟨2019, 1, 1⟩, 9700),
+     (⟨2020, 1, 1⟩, 9875),
+     (⟨2021, 1, 1⟩, 9950),
+     (⟨2022, 1, 1⟩, 10275),
+     (⟨2023, 1, 1⟩, 11000),
+     (⟨2024, 1, 1⟩, 11600),
+     (⟨2025, 1, 1⟩, 11925),
+     (⟨2026, 1, 1⟩, 12400)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«1».JOINT : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 19050), [(⟨2019, 1, 1⟩, 19400), (⟨2020, 1, 1⟩, 19750), (⟨2021, 1, 1⟩, 19900), (⟨2022, 1, 1⟩, 20550), (⟨2023, 1, 1⟩, 22000), (⟨2024, 1, 1⟩, 23200), (⟨2025, 1, 1⟩, 23850), (⟨2026, 1, 1⟩, 24800)]⟩
+def irs.income.bracket.thresholds.«1».JOINT : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 19050),
+    [(⟨2019, 1, 1⟩, 19400),
+     (⟨2020, 1, 1⟩, 19750),
+     (⟨2021, 1, 1⟩, 19900),
+     (⟨2022, 1, 1⟩, 20550),
+     (⟨2023, 1, 1⟩, 22000),
+     (⟨2024, 1, 1⟩, 23200),
+     (⟨2025, 1, 1⟩, 23850),
+     (⟨2026, 1, 1⟩, 24800)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«1».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 9525), [(⟨2019, 1, 1⟩, 9700), (⟨2020, 1, 1⟩, 9875), (⟨2021, 1, 1⟩, 9950), (⟨2022, 1, 1⟩, 10275), (⟨2023, 1, 1⟩, 11000), (⟨2024, 1, 1⟩, 11600), (⟨2025, 1, 1⟩, 11925), (⟨2026, 1, 1⟩, 12400)]⟩
+def irs.income.bracket.thresholds.«1».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 9525),
+    [(⟨2019, 1, 1⟩, 9700),
+     (⟨2020, 1, 1⟩, 9875),
+     (⟨2021, 1, 1⟩, 9950),
+     (⟨2022, 1, 1⟩, 10275),
+     (⟨2023, 1, 1⟩, 11000),
+     (⟨2024, 1, 1⟩, 11600),
+     (⟨2025, 1, 1⟩, 11925),
+     (⟨2026, 1, 1⟩, 12400)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 13600), [(⟨2019, 1, 1⟩, 13850), (⟨2020, 1, 1⟩, 14100), (⟨2021, 1, 1⟩, 14200), (⟨2022, 1, 1⟩, 14650), (⟨2023, 1, 1⟩, 15700), (⟨2024, 1, 1⟩, 16550), (⟨2025, 1, 1⟩, 17000), (⟨2026, 1, 1⟩, 17700)]⟩
+def irs.income.bracket.thresholds.«1».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 13600),
+    [(⟨2019, 1, 1⟩, 13850),
+     (⟨2020, 1, 1⟩, 14100),
+     (⟨2021, 1, 1⟩, 14200),
+     (⟨2022, 1, 1⟩, 14650),
+     (⟨2023, 1, 1⟩, 15700),
+     (⟨2024, 1, 1⟩, 16550),
+     (⟨2025, 1, 1⟩, 17000),
+     (⟨2026, 1, 1⟩, 17700)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 19050), [(⟨2019, 1, 1⟩, 19400), (⟨2020, 1, 1⟩, 19750), (⟨2021, 1, 1⟩, 19900), (⟨2022, 1, 1⟩, 20550), (⟨2023, 1, 1⟩, 22000), (⟨2024, 1, 1⟩, 23200), (⟨2025, 1, 1⟩, 23850), (⟨2026, 1, 1⟩, 24800)]⟩
+def irs.income.bracket.thresholds.«1».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 19050),
+    [(⟨2019, 1, 1⟩, 19400),
+     (⟨2020, 1, 1⟩, 19750),
+     (⟨2021, 1, 1⟩, 19900),
+     (⟨2022, 1, 1⟩, 20550),
+     (⟨2023, 1, 1⟩, 22000),
+     (⟨2024, 1, 1⟩, 23200),
+     (⟨2025, 1, 1⟩, 23850),
+     (⟨2026, 1, 1⟩, 24800)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«2».SINGLE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 38700), [(⟨2019, 1, 1⟩, 39475), (⟨2020, 1, 1⟩, 40125), (⟨2021, 1, 1⟩, 40525), (⟨2022, 1, 1⟩, 41775), (⟨2023, 1, 1⟩, 44725), (⟨2024, 1, 1⟩, 47150), (⟨2025, 1, 1⟩, 48475), (⟨2026, 1, 1⟩, 50400)]⟩
+def irs.income.bracket.thresholds.«2».SINGLE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 38700),
+    [(⟨2019, 1, 1⟩, 39475),
+     (⟨2020, 1, 1⟩, 40125),
+     (⟨2021, 1, 1⟩, 40525),
+     (⟨2022, 1, 1⟩, 41775),
+     (⟨2023, 1, 1⟩, 44725),
+     (⟨2024, 1, 1⟩, 47150),
+     (⟨2025, 1, 1⟩, 48475),
+     (⟨2026, 1, 1⟩, 50400)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«2».JOINT : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 77400), [(⟨2019, 1, 1⟩, 78950), (⟨2020, 1, 1⟩, 80250), (⟨2021, 1, 1⟩, 81050), (⟨2022, 1, 1⟩, 83550), (⟨2023, 1, 1⟩, 89450), (⟨2024, 1, 1⟩, 94300), (⟨2025, 1, 1⟩, 96950), (⟨2026, 1, 1⟩, 100800)]⟩
+def irs.income.bracket.thresholds.«2».JOINT : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 77400),
+    [(⟨2019, 1, 1⟩, 78950),
+     (⟨2020, 1, 1⟩, 80250),
+     (⟨2021, 1, 1⟩, 81050),
+     (⟨2022, 1, 1⟩, 83550),
+     (⟨2023, 1, 1⟩, 89450),
+     (⟨2024, 1, 1⟩, 94300),
+     (⟨2025, 1, 1⟩, 96950),
+     (⟨2026, 1, 1⟩, 100800)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«2».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 38700), [(⟨2019, 1, 1⟩, 39475), (⟨2020, 1, 1⟩, 40125), (⟨2021, 1, 1⟩, 40525), (⟨2022, 1, 1⟩, 41775), (⟨2023, 1, 1⟩, 44725), (⟨2024, 1, 1⟩, 47150), (⟨2025, 1, 1⟩, 48475), (⟨2026, 1, 1⟩, 50400)]⟩
+def irs.income.bracket.thresholds.«2».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 38700),
+    [(⟨2019, 1, 1⟩, 39475),
+     (⟨2020, 1, 1⟩, 40125),
+     (⟨2021, 1, 1⟩, 40525),
+     (⟨2022, 1, 1⟩, 41775),
+     (⟨2023, 1, 1⟩, 44725),
+     (⟨2024, 1, 1⟩, 47150),
+     (⟨2025, 1, 1⟩, 48475),
+     (⟨2026, 1, 1⟩, 50400)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 51800), [(⟨2019, 1, 1⟩, 52850), (⟨2020, 1, 1⟩, 53700), (⟨2021, 1, 1⟩, 54200), (⟨2022, 1, 1⟩, 55900), (⟨2023, 1, 1⟩, 59850), (⟨2024, 1, 1⟩, 63100), (⟨2025, 1, 1⟩, 64850), (⟨2026, 1, 1⟩, 67450)]⟩
+def irs.income.bracket.thresholds.«2».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 51800),
+    [(⟨2019, 1, 1⟩, 52850),
+     (⟨2020, 1, 1⟩, 53700),
+     (⟨2021, 1, 1⟩, 54200),
+     (⟨2022, 1, 1⟩, 55900),
+     (⟨2023, 1, 1⟩, 59850),
+     (⟨2024, 1, 1⟩, 63100),
+     (⟨2025, 1, 1⟩, 64850),
+     (⟨2026, 1, 1⟩, 67450)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 77400), [(⟨2019, 1, 1⟩, 78950), (⟨2020, 1, 1⟩, 80250), (⟨2021, 1, 1⟩, 81050), (⟨2022, 1, 1⟩, 83550), (⟨2023, 1, 1⟩, 89450), (⟨2024, 1, 1⟩, 94300), (⟨2025, 1, 1⟩, 96950), (⟨2026, 1, 1⟩, 100800)]⟩
+def irs.income.bracket.thresholds.«2».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 77400),
+    [(⟨2019, 1, 1⟩, 78950),
+     (⟨2020, 1, 1⟩, 80250),
+     (⟨2021, 1, 1⟩, 81050),
+     (⟨2022, 1, 1⟩, 83550),
+     (⟨2023, 1, 1⟩, 89450),
+     (⟨2024, 1, 1⟩, 94300),
+     (⟨2025, 1, 1⟩, 96950),
+     (⟨2026, 1, 1⟩, 100800)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«3».SINGLE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 82500), [(⟨2019, 1, 1⟩, 84200), (⟨2020, 1, 1⟩, 85525), (⟨2021, 1, 1⟩, 86375), (⟨2022, 1, 1⟩, 89075), (⟨2023, 1, 1⟩, 95375), (⟨2024, 1, 1⟩, 100525), (⟨2025, 1, 1⟩, 103350), (⟨2026, 1, 1⟩, 105700)]⟩
+def irs.income.bracket.thresholds.«3».SINGLE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 82500),
+    [(⟨2019, 1, 1⟩, 84200),
+     (⟨2020, 1, 1⟩, 85525),
+     (⟨2021, 1, 1⟩, 86375),
+     (⟨2022, 1, 1⟩, 89075),
+     (⟨2023, 1, 1⟩, 95375),
+     (⟨2024, 1, 1⟩, 100525),
+     (⟨2025, 1, 1⟩, 103350),
+     (⟨2026, 1, 1⟩, 105700)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«3».JOINT : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 165000), [(⟨2019, 1, 1⟩, 168400), (⟨2020, 1, 1⟩, 171050), (⟨2021, 1, 1⟩, 172750), (⟨2022, 1, 1⟩, 178150), (⟨2023, 1, 1⟩, 190750), (⟨2024, 1, 1⟩, 201050), (⟨2025, 1, 1⟩, 206700), (⟨2026, 1, 1⟩, 211400)]⟩
+def irs.income.bracket.thresholds.«3».JOINT : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 165000),
+    [(⟨2019, 1, 1⟩, 168400),
+     (⟨2020, 1, 1⟩, 171050),
+     (⟨2021, 1, 1⟩, 172750),
+     (⟨2022, 1, 1⟩, 178150),
+     (⟨2023, 1, 1⟩, 190750),
+     (⟨2024, 1, 1⟩, 201050),
+     (⟨2025, 1, 1⟩, 206700),
+     (⟨2026, 1, 1⟩, 211400)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«3».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 82500), [(⟨2019, 1, 1⟩, 84200), (⟨2020, 1, 1⟩, 85525), (⟨2021, 1, 1⟩, 86375), (⟨2022, 1, 1⟩, 89075), (⟨2023, 1, 1⟩, 95375), (⟨2024, 1, 1⟩, 100525), (⟨2025, 1, 1⟩, 103350), (⟨2026, 1, 1⟩, 105700)]⟩
+def irs.income.bracket.thresholds.«3».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 82500),
+    [(⟨2019, 1, 1⟩, 84200),
+     (⟨2020, 1, 1⟩, 85525),
+     (⟨2021, 1, 1⟩, 86375),
+     (⟨2022, 1, 1⟩, 89075),
+     (⟨2023, 1, 1⟩, 95375),
+     (⟨2024, 1, 1⟩, 100525),
+     (⟨2025, 1, 1⟩, 103350),
+     (⟨2026, 1, 1⟩, 105700)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 82500), [(⟨2019, 1, 1⟩, 84200), (⟨2020, 1, 1⟩, 85500), (⟨2021, 1, 1⟩, 86350), (⟨2022, 1, 1⟩, 89050), (⟨2023, 1, 1⟩, 95350), (⟨2024, 1, 1⟩, 100500), (⟨2025, 1, 1⟩, 103350), (⟨2026, 1, 1⟩, 105700)]⟩
+def irs.income.bracket.thresholds.«3».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 82500),
+    [(⟨2019, 1, 1⟩, 84200),
+     (⟨2020, 1, 1⟩, 85500),
+     (⟨2021, 1, 1⟩, 86350),
+     (⟨2022, 1, 1⟩, 89050),
+     (⟨2023, 1, 1⟩, 95350),
+     (⟨2024, 1, 1⟩, 100500),
+     (⟨2025, 1, 1⟩, 103350),
+     (⟨2026, 1, 1⟩, 105700)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 165000), [(⟨2019, 1, 1⟩, 168400), (⟨2020, 1, 1⟩, 171050), (⟨2021, 1, 1⟩, 172750), (⟨2022, 1, 1⟩, 178150), (⟨2023, 1, 1⟩, 190750), (⟨2024, 1, 1⟩, 201050), (⟨2025, 1, 1⟩, 206700), (⟨2026, 1, 1⟩, 211400)]⟩
+def irs.income.bracket.thresholds.«3».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 165000),
+    [(⟨2019, 1, 1⟩, 168400),
+     (⟨2020, 1, 1⟩, 171050),
+     (⟨2021, 1, 1⟩, 172750),
+     (⟨2022, 1, 1⟩, 178150),
+     (⟨2023, 1, 1⟩, 190750),
+     (⟨2024, 1, 1⟩, 201050),
+     (⟨2025, 1, 1⟩, 206700),
+     (⟨2026, 1, 1⟩, 211400)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«4».SINGLE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 157500), [(⟨2019, 1, 1⟩, 160725), (⟨2020, 1, 1⟩, 163300), (⟨2021, 1, 1⟩, 164925), (⟨2022, 1, 1⟩, 170050), (⟨2023, 1, 1⟩, 182100), (⟨2024, 1, 1⟩, 191950), (⟨2025, 1, 1⟩, 197300), (⟨2026, 1, 1⟩, 201775)]⟩
+def irs.income.bracket.thresholds.«4».SINGLE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 157500),
+    [(⟨2019, 1, 1⟩, 160725),
+     (⟨2020, 1, 1⟩, 163300),
+     (⟨2021, 1, 1⟩, 164925),
+     (⟨2022, 1, 1⟩, 170050),
+     (⟨2023, 1, 1⟩, 182100),
+     (⟨2024, 1, 1⟩, 191950),
+     (⟨2025, 1, 1⟩, 197300),
+     (⟨2026, 1, 1⟩, 201775)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«4».JOINT : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 315000), [(⟨2019, 1, 1⟩, 321450), (⟨2020, 1, 1⟩, 326600), (⟨2021, 1, 1⟩, 329850), (⟨2022, 1, 1⟩, 340100), (⟨2023, 1, 1⟩, 364200), (⟨2024, 1, 1⟩, 383900), (⟨2025, 1, 1⟩, 394600), (⟨2026, 1, 1⟩, 403550)]⟩
+def irs.income.bracket.thresholds.«4».JOINT : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 315000),
+    [(⟨2019, 1, 1⟩, 321450),
+     (⟨2020, 1, 1⟩, 326600),
+     (⟨2021, 1, 1⟩, 329850),
+     (⟨2022, 1, 1⟩, 340100),
+     (⟨2023, 1, 1⟩, 364200),
+     (⟨2024, 1, 1⟩, 383900),
+     (⟨2025, 1, 1⟩, 394600),
+     (⟨2026, 1, 1⟩, 403550)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«4».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 157500), [(⟨2019, 1, 1⟩, 160725), (⟨2020, 1, 1⟩, 163300), (⟨2021, 1, 1⟩, 164925), (⟨2022, 1, 1⟩, 170050), (⟨2023, 1, 1⟩, 182100), (⟨2024, 1, 1⟩, 191950), (⟨2025, 1, 1⟩, 197300), (⟨2026, 1, 1⟩, 201775)]⟩
+def irs.income.bracket.thresholds.«4».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 157500),
+    [(⟨2019, 1, 1⟩, 160725),
+     (⟨2020, 1, 1⟩, 163300),
+     (⟨2021, 1, 1⟩, 164925),
+     (⟨2022, 1, 1⟩, 170050),
+     (⟨2023, 1, 1⟩, 182100),
+     (⟨2024, 1, 1⟩, 191950),
+     (⟨2025, 1, 1⟩, 197300),
+     (⟨2026, 1, 1⟩, 201775)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 157500), [(⟨2019, 1, 1⟩, 160700), (⟨2020, 1, 1⟩, 163300), (⟨2021, 1, 1⟩, 164900), (⟨2022, 1, 1⟩, 170050), (⟨2023, 1, 1⟩, 182100), (⟨2024, 1, 1⟩, 191950), (⟨2025, 1, 1⟩, 197300), (⟨2026, 1, 1⟩, 201750)]⟩
+def irs.income.bracket.thresholds.«4».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 157500),
+    [(⟨2019, 1, 1⟩, 160700),
+     (⟨2020, 1, 1⟩, 163300),
+     (⟨2021, 1, 1⟩, 164900),
+     (⟨2022, 1, 1⟩, 170050),
+     (⟨2023, 1, 1⟩, 182100),
+     (⟨2024, 1, 1⟩, 191950),
+     (⟨2025, 1, 1⟩, 197300),
+     (⟨2026, 1, 1⟩, 201750)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 315000), [(⟨2019, 1, 1⟩, 321450), (⟨2020, 1, 1⟩, 326600), (⟨2021, 1, 1⟩, 329850), (⟨2022, 1, 1⟩, 340100), (⟨2023, 1, 1⟩, 364200), (⟨2024, 1, 1⟩, 383900), (⟨2025, 1, 1⟩, 394600), (⟨2026, 1, 1⟩, 403550)]⟩
+def irs.income.bracket.thresholds.«4».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 315000),
+    [(⟨2019, 1, 1⟩, 321450),
+     (⟨2020, 1, 1⟩, 326600),
+     (⟨2021, 1, 1⟩, 329850),
+     (⟨2022, 1, 1⟩, 340100),
+     (⟨2023, 1, 1⟩, 364200),
+     (⟨2024, 1, 1⟩, 383900),
+     (⟨2025, 1, 1⟩, 394600),
+     (⟨2026, 1, 1⟩, 403550)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«5».SINGLE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 200000), [(⟨2019, 1, 1⟩, 204100), (⟨2020, 1, 1⟩, 207350), (⟨2021, 1, 1⟩, 209425), (⟨2022, 1, 1⟩, 215950), (⟨2023, 1, 1⟩, 231250), (⟨2024, 1, 1⟩, 243725), (⟨2025, 1, 1⟩, 250525), (⟨2026, 1, 1⟩, 256225)]⟩
+def irs.income.bracket.thresholds.«5».SINGLE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 200000),
+    [(⟨2019, 1, 1⟩, 204100),
+     (⟨2020, 1, 1⟩, 207350),
+     (⟨2021, 1, 1⟩, 209425),
+     (⟨2022, 1, 1⟩, 215950),
+     (⟨2023, 1, 1⟩, 231250),
+     (⟨2024, 1, 1⟩, 243725),
+     (⟨2025, 1, 1⟩, 250525),
+     (⟨2026, 1, 1⟩, 256225)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«5».JOINT : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 400000), [(⟨2019, 1, 1⟩, 408200), (⟨2020, 1, 1⟩, 414700), (⟨2021, 1, 1⟩, 418850), (⟨2022, 1, 1⟩, 431900), (⟨2023, 1, 1⟩, 462500), (⟨2024, 1, 1⟩, 487450), (⟨2025, 1, 1⟩, 501050), (⟨2026, 1, 1⟩, 512450)]⟩
+def irs.income.bracket.thresholds.«5».JOINT : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 400000),
+    [(⟨2019, 1, 1⟩, 408200),
+     (⟨2020, 1, 1⟩, 414700),
+     (⟨2021, 1, 1⟩, 418850),
+     (⟨2022, 1, 1⟩, 431900),
+     (⟨2023, 1, 1⟩, 462500),
+     (⟨2024, 1, 1⟩, 487450),
+     (⟨2025, 1, 1⟩, 501050),
+     (⟨2026, 1, 1⟩, 512450)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«5».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 200000), [(⟨2019, 1, 1⟩, 204100), (⟨2020, 1, 1⟩, 207350), (⟨2021, 1, 1⟩, 209425), (⟨2022, 1, 1⟩, 215950), (⟨2023, 1, 1⟩, 231250), (⟨2024, 1, 1⟩, 243725), (⟨2025, 1, 1⟩, 250525), (⟨2026, 1, 1⟩, 256225)]⟩
+def irs.income.bracket.thresholds.«5».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 200000),
+    [(⟨2019, 1, 1⟩, 204100),
+     (⟨2020, 1, 1⟩, 207350),
+     (⟨2021, 1, 1⟩, 209425),
+     (⟨2022, 1, 1⟩, 215950),
+     (⟨2023, 1, 1⟩, 231250),
+     (⟨2024, 1, 1⟩, 243725),
+     (⟨2025, 1, 1⟩, 250525),
+     (⟨2026, 1, 1⟩, 256225)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 200000), [(⟨2019, 1, 1⟩, 204100), (⟨2020, 1, 1⟩, 207350), (⟨2021, 1, 1⟩, 209400), (⟨2022, 1, 1⟩, 215950), (⟨2023, 1, 1⟩, 231250), (⟨2024, 1, 1⟩, 243700), (⟨2025, 1, 1⟩, 250500), (⟨2026, 1, 1⟩, 256200)]⟩
+def irs.income.bracket.thresholds.«5».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 200000),
+    [(⟨2019, 1, 1⟩, 204100),
+     (⟨2020, 1, 1⟩, 207350),
+     (⟨2021, 1, 1⟩, 209400),
+     (⟨2022, 1, 1⟩, 215950),
+     (⟨2023, 1, 1⟩, 231250),
+     (⟨2024, 1, 1⟩, 243700),
+     (⟨2025, 1, 1⟩, 250500),
+     (⟨2026, 1, 1⟩, 256200)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 400000), [(⟨2019, 1, 1⟩, 408200), (⟨2020, 1, 1⟩, 414700), (⟨2021, 1, 1⟩, 418850), (⟨2022, 1, 1⟩, 431900), (⟨2023, 1, 1⟩, 462500), (⟨2024, 1, 1⟩, 487450), (⟨2025, 1, 1⟩, 501050), (⟨2026, 1, 1⟩, 512450)]⟩
+def irs.income.bracket.thresholds.«5».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 400000),
+    [(⟨2019, 1, 1⟩, 408200),
+     (⟨2020, 1, 1⟩, 414700),
+     (⟨2021, 1, 1⟩, 418850),
+     (⟨2022, 1, 1⟩, 431900),
+     (⟨2023, 1, 1⟩, 462500),
+     (⟨2024, 1, 1⟩, 487450),
+     (⟨2025, 1, 1⟩, 501050),
+     (⟨2026, 1, 1⟩, 512450)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«6».SINGLE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 500000), [(⟨2019, 1, 1⟩, 510300), (⟨2020, 1, 1⟩, 518400), (⟨2021, 1, 1⟩, 523600), (⟨2022, 1, 1⟩, 539000), (⟨2023, 1, 1⟩, 578125), (⟨2024, 1, 1⟩, 609350), (⟨2025, 1, 1⟩, 626350), (⟨2026, 1, 1⟩, 640600)]⟩
+def irs.income.bracket.thresholds.«6».SINGLE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 500000),
+    [(⟨2019, 1, 1⟩, 510300),
+     (⟨2020, 1, 1⟩, 518400),
+     (⟨2021, 1, 1⟩, 523600),
+     (⟨2022, 1, 1⟩, 539000),
+     (⟨2023, 1, 1⟩, 578125),
+     (⟨2024, 1, 1⟩, 609350),
+     (⟨2025, 1, 1⟩, 626350),
+     (⟨2026, 1, 1⟩, 640600)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«6».JOINT : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 600000), [(⟨2019, 1, 1⟩, 612350), (⟨2020, 1, 1⟩, 622050), (⟨2021, 1, 1⟩, 628300), (⟨2022, 1, 1⟩, 647850), (⟨2023, 1, 1⟩, 693750), (⟨2024, 1, 1⟩, 731200), (⟨2025, 1, 1⟩, 751600), (⟨2026, 1, 1⟩, 768700)]⟩
+def irs.income.bracket.thresholds.«6».JOINT : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 600000),
+    [(⟨2019, 1, 1⟩, 612350),
+     (⟨2020, 1, 1⟩, 622050),
+     (⟨2021, 1, 1⟩, 628300),
+     (⟨2022, 1, 1⟩, 647850),
+     (⟨2023, 1, 1⟩, 693750),
+     (⟨2024, 1, 1⟩, 731200),
+     (⟨2025, 1, 1⟩, 751600),
+     (⟨2026, 1, 1⟩, 768700)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«6».SEPARATE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 300000), [(⟨2019, 1, 1⟩, 306175), (⟨2020, 1, 1⟩, 311025), (⟨2021, 1, 1⟩, 314150), (⟨2022, 1, 1⟩, 323925), (⟨2023, 1, 1⟩, 346875), (⟨2024, 1, 1⟩, 365600), (⟨2025, 1, 1⟩, 375800), (⟨2026, 1, 1⟩, 384350)]⟩
+def irs.income.bracket.thresholds.«6».SEPARATE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 300000),
+    [(⟨2019, 1, 1⟩, 306175),
+     (⟨2020, 1, 1⟩, 311025),
+     (⟨2021, 1, 1⟩, 314150),
+     (⟨2022, 1, 1⟩, 323925),
+     (⟨2023, 1, 1⟩, 346875),
+     (⟨2024, 1, 1⟩, 365600),
+     (⟨2025, 1, 1⟩, 375800),
+     (⟨2026, 1, 1⟩, 384350)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 500000), [(⟨2019, 1, 1⟩, 510300), (⟨2020, 1, 1⟩, 518400), (⟨2021, 1, 1⟩, 523600), (⟨2022, 1, 1⟩, 539900), (⟨2023, 1, 1⟩, 578100), (⟨2024, 1, 1⟩, 609350), (⟨2025, 1, 1⟩, 626350), (⟨2026, 1, 1⟩, 640600)]⟩
+def irs.income.bracket.thresholds.«6».HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 500000),
+    [(⟨2019, 1, 1⟩, 510300),
+     (⟨2020, 1, 1⟩, 518400),
+     (⟨2021, 1, 1⟩, 523600),
+     (⟨2022, 1, 1⟩, 539900),
+     (⟨2023, 1, 1⟩, 578100),
+     (⟨2024, 1, 1⟩, 609350),
+     (⟨2025, 1, 1⟩, 626350),
+     (⟨2026, 1, 1⟩, 640600)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE : DatedParam Rat :=
-  ⟨(⟨2018, 1, 1⟩, 600000), [(⟨2019, 1, 1⟩, 612350), (⟨2020, 1, 1⟩, 622050), (⟨2021, 1, 1⟩, 628300), (⟨2022, 1, 1⟩, 647850), (⟨2023, 1, 1⟩, 693750), (⟨2024, 1, 1⟩, 731200), (⟨2025, 1, 1⟩, 751600), (⟨2026, 1, 1⟩, 768700)]⟩
+def irs.income.bracket.thresholds.«6».SURVIVING_SPOUSE : DatedParam Rat :=
+  ⟨(⟨2018, 1, 1⟩, 600000),
+    [(⟨2019, 1, 1⟩, 612350),
+     (⟨2020, 1, 1⟩, 622050),
+     (⟨2021, 1, 1⟩, 628300),
+     (⟨2022, 1, 1⟩, 647850),
+     (⟨2023, 1, 1⟩, 693750),
+     (⟨2024, 1, 1⟩, 731200),
+     (⟨2025, 1, 1⟩, 751600),
+     (⟨2026, 1, 1⟩, 768700)]⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«7».SINGLE : DatedParam ExtRat :=
+def irs.income.bracket.thresholds.«7».SINGLE : DatedParam ExtRat :=
   ⟨(⟨2018, 1, 1⟩, .posInf), []⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«7».JOINT : DatedParam ExtRat :=
+def irs.income.bracket.thresholds.«7».JOINT : DatedParam ExtRat :=
   ⟨(⟨2018, 1, 1⟩, .posInf), []⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«7».SEPARATE : DatedParam ExtRat :=
+def irs.income.bracket.thresholds.«7».SEPARATE : DatedParam ExtRat :=
   ⟨(⟨2018, 1, 1⟩, .posInf), []⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«7».HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+def irs.income.bracket.thresholds.«7».HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
   ⟨(⟨2018, 1, 1⟩, .posInf), []⟩
 
 /-- `gov/irs/income/bracket.yaml` (policyengine-us). -/
-def gov.irs.income.bracket.thresholds.«7».SURVIVING_SPOUSE : DatedParam ExtRat :=
+def irs.income.bracket.thresholds.«7».SURVIVING_SPOUSE : DatedParam ExtRat :=
   ⟨(⟨2018, 1, 1⟩, .posInf), []⟩
 
 /-- IRS reduces the excludable disability income by this amount.
     `gov/irs/income/disability_income_exclusion/amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 105 (d)(3) (1976): https://tile.loc.gov/storage-services/service/ll/uscode/uscode1976-00702/uscode1976-007026001/uscode1976-007026001.pdf#page=118 -/
-def gov.irs.income.disability_income_exclusion.amount : DatedParam USD :=
+    * 26 U.S. Code § 105 (d)(3) (1976):
+      https://tile.loc.gov/storage-services/service/ll/uscode/uscode1976-00702/uscode1976-007026001/uscode1976-007026001.pdf#page=118 -/
+def irs.income.disability_income_exclusion.amount : DatedParam USD :=
   ⟨(⟨1976, 1, 1⟩, 15000), []⟩
 
 /-- IRS caps the disability exclusion to this amount per disabled person.
     `gov/irs/income/disability_income_exclusion/cap.yaml` (policyengine-us).
-    * 26 U.S. Code § 105 (d)(3) (1976): https://tile.loc.gov/storage-services/service/ll/uscode/uscode1976-00702/uscode1976-007026001/uscode1976-007026001.pdf#page=118 -/
-def gov.irs.income.disability_income_exclusion.cap : DatedParam USD :=
+    * 26 U.S. Code § 105 (d)(3) (1976):
+      https://tile.loc.gov/storage-services/service/ll/uscode/uscode1976-00702/uscode1976-007026001/uscode1976-007026001.pdf#page=118 -/
+def irs.income.disability_income_exclusion.cap : DatedParam USD :=
   ⟨(⟨1976, 1, 1⟩, 5200), []⟩
 
-/-- Personal and dependent exemption amount under IRC 151(d). TCJA set the deduction to $0 from 2018 (made permanent by OBBB), but the underlying amount continues to be inflation-adjusted and published in annual Rev. Proc. for other provisions that reference it, such as the qualifying relative gross income test under IRC 152(d)(1)(B). The deduction suspension is represented separately in gov.irs.income.exemption.suspended.
+/-- Personal and dependent exemption amount under IRC 151(d). TCJA set the deduction to $0 from
+    2018 (made permanent by OBBB), but the underlying amount continues to be inflation-adjusted
+    and published in annual Rev. Proc. for other provisions that reference it, such as the
+    qualifying relative gross income test under IRC 152(d)(1)(B). The deduction suspension is
+    represented separately in gov.irs.income.exemption.suspended.
     `gov/irs/income/exemption/amount.yaml` (policyengine-us).
-    * 26 U.S. Code § 151(d)(1) - Exemption amount: https://www.law.cornell.edu/uscode/text/26/151#d_1
-    * IRS Notice 2018-70 - Guidance on qualifying relative exemption amount: https://www.irs.gov/pub/irs-drop/n-18-70.pdf -/
-def gov.irs.income.exemption.amount : DatedParam USD :=
-  ⟨(⟨2013, 1, 1⟩, 3900), [(⟨2014, 1, 1⟩, 3950), (⟨2015, 1, 1⟩, 4000), (⟨2016, 1, 1⟩, 4050), (⟨2017, 1, 1⟩, 4050), (⟨2018, 1, 1⟩, 4150), (⟨2019, 1, 1⟩, 4200), (⟨2020, 1, 1⟩, 4300), (⟨2021, 1, 1⟩, 4300), (⟨2022, 1, 1⟩, 4400), (⟨2023, 1, 1⟩, 4700), (⟨2024, 1, 1⟩, 5050), (⟨2025, 1, 1⟩, 5200), (⟨2026, 1, 1⟩, 5300)]⟩
+    * 26 U.S. Code § 151(d)(1) - Exemption amount:
+      https://www.law.cornell.edu/uscode/text/26/151#d_1
+    * IRS Notice 2018-70 - Guidance on qualifying relative exemption amount:
+      https://www.irs.gov/pub/irs-drop/n-18-70.pdf -/
+def irs.income.exemption.amount : DatedParam USD :=
+  ⟨(⟨2013, 1, 1⟩, 3900),
+    [(⟨2014, 1, 1⟩, 3950),
+     (⟨2015, 1, 1⟩, 4000),
+     (⟨2016, 1, 1⟩, 4050),
+     (⟨2017, 1, 1⟩, 4050),
+     (⟨2018, 1, 1⟩, 4150),
+     (⟨2019, 1, 1⟩, 4200),
+     (⟨2020, 1, 1⟩, 4300),
+     (⟨2021, 1, 1⟩, 4300),
+     (⟨2022, 1, 1⟩, 4400),
+     (⟨2023, 1, 1⟩, 4700),
+     (⟨2024, 1, 1⟩, 5050),
+     (⟨2025, 1, 1⟩, 5200),
+     (⟨2026, 1, 1⟩, 5300)]⟩
 
-/-- The US classifies as exempt from overtime salaried individuals working in computer science related positions if they have an hourly salary level of or above this value.
+/-- The US classifies as exempt from overtime salaried individuals working in computer science
+    related positions if they have an hourly salary level of or above this value.
     `gov/irs/income/exemption/overtime/computer_salary_threshold.yaml` (policyengine-us).
-    * 29 CFR § 541.600(f): https://www.law.cornell.edu/cfr/text/29/541.600#f -/
-def gov.irs.income.exemption.overtime.computer_salary_threshold : DatedParam USD :=
+    * 29 CFR § 541.600(f):
+      https://www.law.cornell.edu/cfr/text/29/541.600#f -/
+def irs.income.exemption.overtime.computer_salary_threshold : DatedParam USD :=
   ⟨(⟨2014, 1, 1⟩, mkRat 2763 100), []⟩
 
-/-- The US classifies as exempt from overtime salaried individuals if they have an annual salary level of or above this value.
+/-- The US classifies as exempt from overtime salaried individuals if they have an annual salary
+    level of or above this value.
     `gov/irs/income/exemption/overtime/hce_salary_threshold.yaml` (policyengine-us).
-    * FLSA Exemption for Executive, Administrative, and Professional (EAP) Employees  Title 29 CFR Part 541: https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-A/part-541
-    * 2019 DOL final rule (84 FR 51230) setting the HCE threshold to $107,432 effective 2020-01-01: https://www.federalregister.gov/documents/2019/09/27/2019-20353/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and
-    * 2024 DOL final rule that raised HCE to $132,964 (2024-07-01) and $151,164 (2025-01-01) before being vacated: https://www.dol.gov/agencies/whd/overtime/salary-levels
-    * Texas v. U.S. Dept. of Labor (E.D. Tex. Nov 15, 2024), vacating the 2024 DOL overtime rule nationwide: https://www.sidley.com/en/insights/newsupdates/2024/12/us-district-court-vacates-dol-final-rule-on-flsa-overtime-exemptions -/
-def gov.irs.income.exemption.overtime.hce_salary_threshold : DatedParam USD :=
-  ⟨(⟨2004, 1, 1⟩, 100000), [(⟨2020, 1, 1⟩, 107432), (⟨2024, 7, 1⟩, 132964), (⟨2024, 11, 15⟩, 107432)]⟩
+    * FLSA Exemption for Executive, Administrative, and Professional (EAP) Employees Title 29
+    CFR Part 541:
+      https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-A/part-541
+    * 2019 DOL final rule (84 FR 51230) setting the HCE threshold to $107,432 effective
+    2020-01-01:
+      https://www.federalregister.gov/documents/2019/09/27/2019-20353/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and
+    * 2024 DOL final rule that raised HCE to $132,964 (2024-07-01) and $151,164 (2025-01-01)
+    before being vacated:
+      https://www.dol.gov/agencies/whd/overtime/salary-levels
+    * Texas v. U.S. Dept. of Labor (E.D. Tex. Nov 15, 2024), vacating the 2024 DOL overtime rule
+    nationwide:
+      https://www.sidley.com/en/insights/newsupdates/2024/12/us-district-court-vacates-dol-final-rule-on-flsa-overtime-exemptions -/
+def irs.income.exemption.overtime.hce_salary_threshold : DatedParam USD :=
+  ⟨(⟨2004, 1, 1⟩, 100000),
+    [(⟨2020, 1, 1⟩, 107432),
+     (⟨2024, 7, 1⟩, 132964),
+     (⟨2024, 11, 15⟩, 107432)]⟩
 
-/-- The US requires employers to pay qualified employees overtime for hours worked in excess of this value.
+/-- The US requires employers to pay qualified employees overtime for hours worked in excess of
+    this value.
     `gov/irs/income/exemption/overtime/hours_threshold.yaml` (policyengine-us).
-    * 29 U.S. Code § 207: https://www.law.cornell.edu/uscode/text/29/207
-    * Department of Labor. Wage and Hour Division. 29 CFR Part 541: https://www.federalregister.gov/documents/2024/04/26/2024-08038/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and -/
-def gov.irs.income.exemption.overtime.hours_threshold : DatedParam Rat :=
+    * 29 U.S. Code § 207:
+      https://www.law.cornell.edu/uscode/text/29/207
+    * Department of Labor. Wage and Hour Division. 29 CFR Part 541:
+      https://www.federalregister.gov/documents/2024/04/26/2024-08038/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and -/
+def irs.income.exemption.overtime.hours_threshold : DatedParam Rat :=
   ⟨(⟨2014, 1, 1⟩, 40), []⟩
 
-/-- The US requires employers to pay qualified employees this percentage of the normal hourly wage for overtime hours worked.
+/-- The US requires employers to pay qualified employees this percentage of the normal hourly
+    wage for overtime hours worked.
     `gov/irs/income/exemption/overtime/rate_multiplier.yaml` (policyengine-us).
-    * 29 U.S. Code § 207: https://www.law.cornell.edu/uscode/text/29/207
-    * Department of Labor. Wage and Hour Division. 29 CFR Part 541: https://www.federalregister.gov/documents/2024/04/26/2024-08038/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and -/
-def gov.irs.income.exemption.overtime.rate_multiplier : DatedParam Rate :=
+    * 29 U.S. Code § 207:
+      https://www.law.cornell.edu/uscode/text/29/207
+    * Department of Labor. Wage and Hour Division. 29 CFR Part 541:
+      https://www.federalregister.gov/documents/2024/04/26/2024-08038/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and -/
+def irs.income.exemption.overtime.rate_multiplier : DatedParam Rate :=
   ⟨(⟨2024, 1, 1⟩, mkRat 3 2), []⟩
 
-/-- The US classifies as exempt from overtime individuals employed in a "bona fide executive, administrative, or professional capacity" and other generally exempt occupations if they have a weekly salary level of or above this value.
+/-- The US classifies as exempt from overtime individuals employed in a "bona fide executive,
+    administrative, or professional capacity" and other generally exempt occupations if they
+    have a weekly salary level of or above this value.
     `gov/irs/income/exemption/overtime/salary_basis_threshold.yaml` (policyengine-us).
-    * 29 CFR § 541.600: https://www.law.cornell.edu/cfr/text/29/541.600
-    * FLSA Exemption for Executive, Administrative, and Professional (EAP) Employees  Title 29 CFR Part 541: https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-A/part-541
-    * 2019 DOL final rule (84 FR 51230) setting the salary basis threshold to $684/week effective 2020-01-01: https://www.federalregister.gov/documents/2019/09/27/2019-20353/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and
-    * 2024 DOL final rule that raised the threshold to $844/week (2024-07-01) and $1,128/week (2025-01-01) before being vacated: https://www.dol.gov/agencies/whd/overtime/salary-levels
-    * Texas v. U.S. Dept. of Labor (E.D. Tex. Nov 15, 2024), vacating the 2024 DOL overtime rule nationwide: https://www.sidley.com/en/insights/newsupdates/2024/12/us-district-court-vacates-dol-final-rule-on-flsa-overtime-exemptions -/
-def gov.irs.income.exemption.overtime.salary_basis_threshold : DatedParam USD :=
+    * 29 CFR § 541.600:
+      https://www.law.cornell.edu/cfr/text/29/541.600
+    * FLSA Exemption for Executive, Administrative, and Professional (EAP) Employees Title 29
+    CFR Part 541:
+      https://www.ecfr.gov/current/title-29/subtitle-B/chapter-V/subchapter-A/part-541
+    * 2019 DOL final rule (84 FR 51230) setting the salary basis threshold to $684/week
+    effective 2020-01-01:
+      https://www.federalregister.gov/documents/2019/09/27/2019-20353/defining-and-delimiting-the-exemptions-for-executive-administrative-professional-outside-sales-and
+    * 2024 DOL final rule that raised the threshold to $844/week (2024-07-01) and $1,128/week
+    (2025-01-01) before being vacated:
+      https://www.dol.gov/agencies/whd/overtime/salary-levels
+    * Texas v. U.S. Dept. of Labor (E.D. Tex. Nov 15, 2024), vacating the 2024 DOL overtime rule
+    nationwide:
+      https://www.sidley.com/en/insights/newsupdates/2024/12/us-district-court-vacates-dol-final-rule-on-flsa-overtime-exemptions -/
+def irs.income.exemption.overtime.salary_basis_threshold : DatedParam USD :=
   ⟨(⟨2004, 1, 1⟩, 455), [(⟨2020, 1, 1⟩, 684), (⟨2024, 7, 1⟩, 844), (⟨2024, 11, 15⟩, 684)]⟩
 
 /-- Personal exemption phase-out rate
     `gov/irs/income/exemption/phase_out/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 151 - Allowance of deductions for personal exemptions (d)(3)(B): https://www.law.cornell.edu/uscode/text/26/151#d_3_B -/
-def gov.irs.income.exemption.phase_out.rate : DatedParam Rate :=
+    * 26 U.S. Code § 151 - Allowance of deductions for personal exemptions (d)(3)(B):
+      https://www.law.cornell.edu/uscode/text/26/151#d_3_B -/
+def irs.income.exemption.phase_out.rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 1 50), []⟩
 
 /-- Personal exemption phase-out starting income
     `gov/irs/income/exemption/phase_out/start.yaml` (policyengine-us).
-    * 26 U.S. Code § 151 - Allowance of deductions for personal exemptions (d)(3)(B): https://www.law.cornell.edu/uscode/text/26/151#d_3_B
-    * 26 U.S. Code § 68 - Overall limitation on itemized deductions (b)(1): https://www.law.cornell.edu/uscode/text/26/68#b_1
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/data/budget-economic-data -/
-def gov.irs.income.exemption.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .fin 275000), [(⟨2014, 1, 1⟩, .fin 279650), (⟨2015, 1, 1⟩, .fin 284050), (⟨2016, 1, 1⟩, .fin 285350), (⟨2017, 1, 1⟩, .fin 287650), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 373850)]⟩
-def gov.irs.income.exemption.phase_out.start.JOINT : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .fin 300000), [(⟨2014, 1, 1⟩, .fin 305050), (⟨2015, 1, 1⟩, .fin 309900), (⟨2016, 1, 1⟩, .fin 311300), (⟨2017, 1, 1⟩, .fin 313800), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 407850)]⟩
-def gov.irs.income.exemption.phase_out.start.SEPARATE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .fin 150000), [(⟨2014, 1, 1⟩, .fin 152525), (⟨2015, 1, 1⟩, .fin 154950), (⟨2016, 1, 1⟩, .fin 155650), (⟨2017, 1, 1⟩, .fin 156900), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 203900)]⟩
-def gov.irs.income.exemption.phase_out.start.SINGLE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .fin 250000), [(⟨2014, 1, 1⟩, .fin 254200), (⟨2015, 1, 1⟩, .fin 258250), (⟨2016, 1, 1⟩, .fin 259400), (⟨2017, 1, 1⟩, .fin 261500), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 339850)]⟩
-def gov.irs.income.exemption.phase_out.start.SURVIVING_SPOUSE : DatedParam ExtRat :=
-  ⟨(⟨2013, 1, 1⟩, .fin 300000), [(⟨2014, 1, 1⟩, .fin 305050), (⟨2015, 1, 1⟩, .fin 309900), (⟨2016, 1, 1⟩, .fin 311300), (⟨2017, 1, 1⟩, .fin 313800), (⟨2018, 1, 1⟩, .posInf), (⟨2026, 1, 1⟩, .fin 407850)]⟩
+    * 26 U.S. Code § 151 - Allowance of deductions for personal exemptions (d)(3)(B):
+      https://www.law.cornell.edu/uscode/text/26/151#d_3_B
+    * 26 U.S. Code § 68 - Overall limitation on itemized deductions (b)(1):
+      https://www.law.cornell.edu/uscode/text/26/68#b_1
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/data/budget-economic-data -/
+def irs.income.exemption.phase_out.start.HEAD_OF_HOUSEHOLD : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .fin 275000),
+    [(⟨2014, 1, 1⟩, .fin 279650),
+     (⟨2015, 1, 1⟩, .fin 284050),
+     (⟨2016, 1, 1⟩, .fin 285350),
+     (⟨2017, 1, 1⟩, .fin 287650),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 373850)]⟩
+def irs.income.exemption.phase_out.start.JOINT : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .fin 300000),
+    [(⟨2014, 1, 1⟩, .fin 305050),
+     (⟨2015, 1, 1⟩, .fin 309900),
+     (⟨2016, 1, 1⟩, .fin 311300),
+     (⟨2017, 1, 1⟩, .fin 313800),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 407850)]⟩
+def irs.income.exemption.phase_out.start.SEPARATE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .fin 150000),
+    [(⟨2014, 1, 1⟩, .fin 152525),
+     (⟨2015, 1, 1⟩, .fin 154950),
+     (⟨2016, 1, 1⟩, .fin 155650),
+     (⟨2017, 1, 1⟩, .fin 156900),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 203900)]⟩
+def irs.income.exemption.phase_out.start.SINGLE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .fin 250000),
+    [(⟨2014, 1, 1⟩, .fin 254200),
+     (⟨2015, 1, 1⟩, .fin 258250),
+     (⟨2016, 1, 1⟩, .fin 259400),
+     (⟨2017, 1, 1⟩, .fin 261500),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 339850)]⟩
+def irs.income.exemption.phase_out.start.SURVIVING_SPOUSE : DatedParam ExtRat :=
+  ⟨(⟨2013, 1, 1⟩, .fin 300000),
+    [(⟨2014, 1, 1⟩, .fin 305050),
+     (⟨2015, 1, 1⟩, .fin 309900),
+     (⟨2016, 1, 1⟩, .fin 311300),
+     (⟨2017, 1, 1⟩, .fin 313800),
+     (⟨2018, 1, 1⟩, .posInf),
+     (⟨2026, 1, 1⟩, .fin 407850)]⟩
 
 /-- Personal exemption phase-out step size
     `gov/irs/income/exemption/phase_out/step_size.yaml` (policyengine-us).
-    * 26 U.S. Code § 151 - Allowance of deductions for personal exemptions (d)(3)(B): https://www.law.cornell.edu/uscode/text/26/151#d_3_B -/
-def gov.irs.income.exemption.phase_out.step_size.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 151 - Allowance of deductions for personal exemptions (d)(3)(B):
+      https://www.law.cornell.edu/uscode/text/26/151#d_3_B -/
+def irs.income.exemption.phase_out.step_size.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 2500), []⟩
-def gov.irs.income.exemption.phase_out.step_size.JOINT : DatedParam USD :=
+def irs.income.exemption.phase_out.step_size.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 2500), []⟩
-def gov.irs.income.exemption.phase_out.step_size.SEPARATE : DatedParam USD :=
+def irs.income.exemption.phase_out.step_size.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 1250), []⟩
-def gov.irs.income.exemption.phase_out.step_size.SINGLE : DatedParam USD :=
+def irs.income.exemption.phase_out.step_size.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 2500), []⟩
-def gov.irs.income.exemption.phase_out.step_size.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.income.exemption.phase_out.step_size.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 2500), []⟩
 
-/-- Whether the personal exemption deduction is suspended. TCJA suspended it for 2018-2025 under IRC 151(d)(5)(A). OBBB made the suspension permanent. The underlying exemption amount in gov.irs.income.exemption.amount continues to be inflation-adjusted for other provisions that reference IRC 151(d).
+/-- Whether the personal exemption deduction is suspended. TCJA suspended it for 2018-2025 under
+    IRC 151(d)(5)(A). OBBB made the suspension permanent. The underlying exemption amount in
+    gov.irs.income.exemption.amount continues to be inflation-adjusted for other provisions that
+    reference IRC 151(d).
     `gov/irs/income/exemption/suspended.yaml` (policyengine-us).
-    * 26 U.S. Code § 151(d)(5)(A) - Exemption amount is zero: https://www.law.cornell.edu/uscode/text/26/151#d_5_A -/
-def gov.irs.income.exemption.suspended : DatedParam Bool :=
+    * 26 U.S. Code § 151(d)(5)(A) - Exemption amount is zero:
+      https://www.law.cornell.edu/uscode/text/26/151#d_5_A -/
+def irs.income.exemption.suspended : DatedParam Bool :=
   ⟨(⟨2013, 1, 1⟩, false), [(⟨2018, 1, 1⟩, true)]⟩
 
 /-- The exemption for traditional IRA distributions is limited to filers above this age.
     `gov/irs/income/exemption/traditional_distribution/age_threshold.yaml` (policyengine-us).
-    * Internal Revenue Services - IRA withdrawal rules: https://www.irs.gov/newsroom/what-if-i-withdraw-money-from-my-ira#:~:text=Generally%2C%20early%20withdrawal%20from%20an,premium%20after%20a%20job%20loss.
-    * Publication 590-B (2022), Distributions from Individual Retirement Arrangements (IRAs) - Traditional IRAs - What Acts Result in Penalties or Additional Taxes? - Early Distributions - Age 59½ Rule - After age 59½ and before age 72: https://www.irs.gov/publications/p590b#en_US_2022_publink100090242 -/
-def gov.irs.income.exemption.traditional_distribution.age_threshold : DatedParam USD :=
+    * Internal Revenue Services - IRA withdrawal rules:
+      https://www.irs.gov/newsroom/what-if-i-withdraw-money-from-my-ira#:~:text=Generally%2C%20early%20withdrawal%20from%20an,premium%20after%20a%20job%20loss.
+    * Publication 590-B (2022), Distributions from Individual Retirement Arrangements (IRAs) -
+    Traditional IRAs - What Acts Result in Penalties or Additional Taxes? - Early Distributions
+    - Age 59½ Rule - After age 59½ and before age 72:
+      https://www.irs.gov/publications/p590b#en_US_2022_publink100090242 -/
+def irs.income.exemption.traditional_distribution.age_threshold : DatedParam USD :=
   ⟨(⟨2021, 1, 1⟩, mkRat 119 2), []⟩
 
-/-- The Internal Revenue Service requires married dependents whose spouse itemizes deductions on a separate return to file when gross income is at least this amount.
+/-- The Internal Revenue Service requires married dependents whose spouse itemizes deductions on
+    a separate return to file when gross income is at least this amount.
     `gov/irs/income/filing_requirement/dependent/spouse_itemizes_threshold.yaml` (policyengine-us).
-    * IRS Publication 501 (2014), Table 2. 2014 Filing Requirements for Dependents: https://www.irs.gov/pub/irs-prior/p501--2014.pdf#page=4
-    * IRS Publication 501 (2024), Table 2. 2024 Filing Requirements for Dependents: https://www.irs.gov/publications/p501 -/
-def gov.irs.income.filing_requirement.dependent.spouse_itemizes_threshold : DatedParam USD :=
+    * IRS Publication 501 (2014), Table 2. 2014 Filing Requirements for Dependents:
+      https://www.irs.gov/pub/irs-prior/p501--2014.pdf#page=4
+    * IRS Publication 501 (2024), Table 2. 2024 Filing Requirements for Dependents:
+      https://www.irs.gov/publications/p501 -/
+def irs.income.filing_requirement.dependent.spouse_itemizes_threshold : DatedParam USD :=
   ⟨(⟨2014, 1, 1⟩, 5), []⟩
 
 /-- Income sources counted as net investment income.
     `gov/irs/investment/income/sources.yaml` (policyengine-us).
-    * Instructions for Form 8960, Net Investment Income Tax: https://www.irs.gov/pub/irs-pdf/i8960.pdf -/
-def gov.irs.investment.income.sources : DatedParam (List String) :=
-  ⟨(⟨2013, 1, 1⟩, ["taxable_interest_income", "dividend_income", "rental_income", "loss_limited_net_capital_gains", "non_sch_d_capital_gains"]), []⟩
+    * Instructions for Form 8960, Net Investment Income Tax:
+      https://www.irs.gov/pub/irs-pdf/i8960.pdf -/
+def irs.investment.income.sources : DatedParam (List String) :=
+  ⟨(⟨2013, 1, 1⟩, ["taxable_interest_income",
+      "dividend_income",
+      "rental_income",
+      "loss_limited_net_capital_gains",
+      "non_sch_d_capital_gains"]), []⟩
 
 /-- Net Investment Income Tax rate
     `gov/irs/investment/net_investment_income_tax/rate.yaml` (policyengine-us). -/
-def gov.irs.investment.net_investment_income_tax.rate : DatedParam USD :=
+def irs.investment.net_investment_income_tax.rate : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, mkRat 19 500), []⟩
 
 /-- `gov/irs/investment/net_investment_income_tax/threshold.yaml` (policyengine-us). -/
-def gov.irs.investment.net_investment_income_tax.threshold.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
+def irs.investment.net_investment_income_tax.threshold.HEAD_OF_HOUSEHOLD : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 200000), []⟩
 
 /-- `gov/irs/investment/net_investment_income_tax/threshold.yaml` (policyengine-us). -/
-def gov.irs.investment.net_investment_income_tax.threshold.JOINT : DatedParam Rat :=
+def irs.investment.net_investment_income_tax.threshold.JOINT : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 250000), []⟩
 
 /-- `gov/irs/investment/net_investment_income_tax/threshold.yaml` (policyengine-us). -/
-def gov.irs.investment.net_investment_income_tax.threshold.SEPARATE : DatedParam Rat :=
+def irs.investment.net_investment_income_tax.threshold.SEPARATE : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 125000), []⟩
 
 /-- `gov/irs/investment/net_investment_income_tax/threshold.yaml` (policyengine-us). -/
-def gov.irs.investment.net_investment_income_tax.threshold.SINGLE : DatedParam Rat :=
+def irs.investment.net_investment_income_tax.threshold.SINGLE : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 200000), []⟩
 
 /-- `gov/irs/investment/net_investment_income_tax/threshold.yaml` (policyengine-us). -/
-def gov.irs.investment.net_investment_income_tax.threshold.SURVIVING_SPOUSE : DatedParam Rat :=
+def irs.investment.net_investment_income_tax.threshold.SURVIVING_SPOUSE : DatedParam Rat :=
   ⟨(⟨2013, 1, 1⟩, 250000), []⟩
 
-/-- Additional FUTA credit-reduction rate by jurisdiction. Values are zero unless the U.S. Department of Labor lists the jurisdiction as a credit-reduction jurisdiction for that year.
-    `gov/irs/payroll/federal_unemployment/credit_reduction_rate.yaml` (policyengine-us).
-    * Historical FUTA Credit Reductions: https://oui.doleta.gov/unemploy/docs/reduced_credit_states_2010-2025.xlsx -/
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.AA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.AE : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.AK : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.AL : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.AP : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.AR : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.AZ : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2012, 1, 1⟩, mkRat 3 1000)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.CA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, mkRat 3 250), (⟨2015, 1, 1⟩, mkRat 3 200), (⟨2016, 1, 1⟩, mkRat 9 500), (⟨2017, 1, 1⟩, mkRat 21 1000), (⟨2018, 1, 1⟩, 0), (⟨2022, 1, 1⟩, mkRat 3 1000), (⟨2023, 1, 1⟩, mkRat 3 500), (⟨2024, 1, 1⟩, mkRat 9 1000), (⟨2025, 1, 1⟩, mkRat 3 250)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.CO : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.CT : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, mkRat 17 1000), (⟨2015, 1, 1⟩, mkRat 21 1000), (⟨2016, 1, 1⟩, 0), (⟨2022, 1, 1⟩, mkRat 3 1000)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.DC : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.DE : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2012, 1, 1⟩, mkRat 3 1000), (⟨2013, 1, 1⟩, mkRat 3 500)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.FL : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.GA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.GU : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.HI : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.IA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.ID : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.IL : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, 0), (⟨2022, 1, 1⟩, mkRat 3 1000)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.IN : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2010, 1, 1⟩, mkRat 3 1000), (⟨2011, 1, 1⟩, mkRat 3 500), (⟨2012, 1, 1⟩, mkRat 9 1000), (⟨2013, 1, 1⟩, mkRat 3 250), (⟨2014, 1, 1⟩, mkRat 3 200), (⟨2015, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.KS : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.KY : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, mkRat 3 250), (⟨2015, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.LA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MD : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.ME : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MI : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2010, 1, 1⟩, mkRat 3 500), (⟨2011, 1, 1⟩, mkRat 9 1000), (⟨2012, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MN : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MO : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MP : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MS : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.MT : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.NC : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, mkRat 3 250), (⟨2015, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.ND : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.NE : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.NH : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.NJ : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.NM : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.NV : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.NY : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, mkRat 3 250), (⟨2015, 1, 1⟩, 0), (⟨2022, 1, 1⟩, mkRat 3 1000), (⟨2023, 1, 1⟩, mkRat 3 500), (⟨2024, 1, 1⟩, mkRat 9 1000), (⟨2025, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.OH : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, mkRat 3 250), (⟨2015, 1, 1⟩, mkRat 3 200), (⟨2016, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.OK : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.OR : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.PA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.PR : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.PW : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.RI : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.SC : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2010, 1, 1⟩, mkRat 3 1000), (⟨2011, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.SD : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.TN : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.TX : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.UT : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.VA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.VI : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 200), (⟨2013, 1, 1⟩, mkRat 3 250), (⟨2014, 1, 1⟩, mkRat 3 250), (⟨2015, 1, 1⟩, mkRat 3 200), (⟨2016, 1, 1⟩, mkRat 9 500), (⟨2017, 1, 1⟩, mkRat 21 1000), (⟨2018, 1, 1⟩, mkRat 3 125), (⟨2019, 1, 1⟩, mkRat 27 1000), (⟨2020, 1, 1⟩, mkRat 3 100), (⟨2021, 1, 1⟩, mkRat 33 1000), (⟨2022, 1, 1⟩, mkRat 9 250), (⟨2023, 1, 1⟩, mkRat 39 1000), (⟨2024, 1, 1⟩, mkRat 21 500), (⟨2025, 1, 1⟩, mkRat 9 200)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.VT : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2012, 1, 1⟩, mkRat 3 1000), (⟨2013, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.WA : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.WI : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), [(⟨2011, 1, 1⟩, mkRat 3 1000), (⟨2012, 1, 1⟩, mkRat 3 500), (⟨2013, 1, 1⟩, mkRat 9 1000), (⟨2014, 1, 1⟩, 0)]⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.WV : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-def gov.irs.payroll.federal_unemployment.credit_reduction_rate.WY : DatedParam Rat :=
-  ⟨(⟨0, 1, 1⟩, 0), []⟩
-
-/-- Effective base FUTA rate before any credit-reduction add-on, assuming wages are subject to state unemployment tax and state taxes are paid on time.
+/-- Effective base FUTA rate before any credit-reduction add-on, assuming wages are subject to
+    state unemployment tax and state taxes are paid on time.
     `gov/irs/payroll/federal_unemployment/effective_rate.yaml` (policyengine-us).
-    * Instructions for Form 940 (2025): https://www.irs.gov/pub/irs-pdf/i940.pdf#page=6
-    * FUTA Credit Reductions: https://oui.doleta.gov/unemploy/futa_credit.asp -/
-def gov.irs.payroll.federal_unemployment.effective_rate : DatedParam Rate :=
+    * Instructions for Form 940 (2025):
+      https://www.irs.gov/pub/irs-pdf/i940.pdf#page=6
+    * FUTA Credit Reductions:
+      https://oui.doleta.gov/unemploy/futa_credit.asp -/
+def irs.payroll.federal_unemployment.effective_rate : DatedParam Rate :=
   ⟨(⟨0, 1, 1⟩, mkRat 3 500), []⟩
 
 /-- Maximum annual wages per worker subject to the Federal Unemployment Tax Act (FUTA).
     `gov/irs/payroll/federal_unemployment/taxable_wage_base.yaml` (policyengine-us).
-    * Instructions for Form 940 (2025): https://www.irs.gov/pub/irs-pdf/i940.pdf#page=6 -/
-def gov.irs.payroll.federal_unemployment.taxable_wage_base : DatedParam USD :=
+    * Instructions for Form 940 (2025):
+      https://www.irs.gov/pub/irs-pdf/i940.pdf#page=6 -/
+def irs.payroll.federal_unemployment.taxable_wage_base : DatedParam USD :=
   ⟨(⟨0, 1, 1⟩, 7000), []⟩
 
-/-- Earnings exclusion above which the Additional Medicare Tax is levied (same for wages and self-employment earnings)
+/-- Earnings exclusion above which the Additional Medicare Tax is levied (same for wages and
+    self-employment earnings)
     `gov/irs/payroll/medicare/additional/exclusion.yaml` (policyengine-us).
-    * 26 U.S. Code § 3101 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/3101#b_2
-    * 26 U.S. Code § 1401 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/1401#b_2 -/
-def gov.irs.payroll.medicare.additional.exclusion.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 3101 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/3101#b_2
+    * 26 U.S. Code § 1401 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/1401#b_2 -/
+def irs.payroll.medicare.additional.exclusion.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 200000), []⟩
-def gov.irs.payroll.medicare.additional.exclusion.JOINT : DatedParam USD :=
+def irs.payroll.medicare.additional.exclusion.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 250000), []⟩
-def gov.irs.payroll.medicare.additional.exclusion.SEPARATE : DatedParam USD :=
+def irs.payroll.medicare.additional.exclusion.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 125000), []⟩
-def gov.irs.payroll.medicare.additional.exclusion.SINGLE : DatedParam USD :=
+def irs.payroll.medicare.additional.exclusion.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 200000), []⟩
-def gov.irs.payroll.medicare.additional.exclusion.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.payroll.medicare.additional.exclusion.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 200000), []⟩
 
 /-- Additional Medicare Tax rate (same for wages and self-employment earnings).
     `gov/irs/payroll/medicare/additional/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 3101 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/3101#b_2
-    * 26 U.S. Code § 1401 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/1401#b_2 -/
-def gov.irs.payroll.medicare.additional.rate : DatedParam Rate :=
+    * 26 U.S. Code § 3101 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/3101#b_2
+    * 26 U.S. Code § 1401 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/1401#b_2 -/
+def irs.payroll.medicare.additional.rate : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 9 1000), []⟩
 
 /-- Employee-side Medicare FICA rate.
     `gov/irs/payroll/medicare/rate/employee.yaml` (policyengine-us).
-    * 26 U.S. Code § 3101 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/3101#b_1 -/
-def gov.irs.payroll.medicare.rate.employee : DatedParam Rate :=
+    * 26 U.S. Code § 3101 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/3101#b_1 -/
+def irs.payroll.medicare.rate.employee : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 29 2000), []⟩
 
 /-- Employer-side Medicare FICA rate.
     `gov/irs/payroll/medicare/rate/employer.yaml` (policyengine-us).
-    * 26 U.S. Code § 3111 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/3111#b -/
-def gov.irs.payroll.medicare.rate.employer : DatedParam Rate :=
+    * 26 U.S. Code § 3111 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/3111#b -/
+def irs.payroll.medicare.rate.employer : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 29 2000), []⟩
 
-/-- Individual earnings below this amount are subjected to Social Security (OASDI) payroll tax. This parameter is indexed by the rate of growth in average wages, not by the price inflation rate.
+/-- Individual earnings below this amount are subjected to Social Security (OASDI) payroll tax.
+    This parameter is indexed by the rate of growth in average wages, not by the price inflation
+    rate.
     `gov/irs/payroll/social_security/cap.yaml` (policyengine-us).
-    * 42 U.S.C. § 430(b): https://www.law.cornell.edu/uscode/text/42/430#b
-    * 26 U.S.C. § 3121(a)(1): https://www.law.cornell.edu/uscode/text/26/3121#a_1
-    * Contribution And Benefit Base: https://www.ssa.gov/oact/cola/cbb.html
-    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025: https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
-def gov.irs.payroll.social_security.cap : DatedParam USD :=
-  ⟨(⟨1937, 1, 1⟩, 3000), [(⟨1951, 1, 1⟩, 3600), (⟨1955, 1, 1⟩, 4200), (⟨1959, 1, 1⟩, 4800), (⟨1966, 1, 1⟩, 6600), (⟨1968, 1, 1⟩, 7800), (⟨1972, 1, 1⟩, 9000), (⟨1973, 1, 1⟩, 10800), (⟨1974, 1, 1⟩, 13200), (⟨1975, 1, 1⟩, 14100), (⟨1976, 1, 1⟩, 15300), (⟨1977, 1, 1⟩, 16500), (⟨1978, 1, 1⟩, 17700), (⟨1979, 1, 1⟩, 22900), (⟨1980, 1, 1⟩, 25900), (⟨1981, 1, 1⟩, 29700), (⟨1982, 1, 1⟩, 32400), (⟨1983, 1, 1⟩, 35700), (⟨1984, 1, 1⟩, 37800), (⟨1985, 1, 1⟩, 39600), (⟨1986, 1, 1⟩, 42000), (⟨1987, 1, 1⟩, 43800), (⟨1988, 1, 1⟩, 45000), (⟨1989, 1, 1⟩, 48000), (⟨1990, 1, 1⟩, 51300), (⟨1991, 1, 1⟩, 53400), (⟨1992, 1, 1⟩, 55500), (⟨1993, 1, 1⟩, 57600), (⟨1994, 1, 1⟩, 60600), (⟨1995, 1, 1⟩, 61200), (⟨1996, 1, 1⟩, 62700), (⟨1997, 1, 1⟩, 65400), (⟨1998, 1, 1⟩, 68400), (⟨1999, 1, 1⟩, 72600), (⟨2000, 1, 1⟩, 76200), (⟨2001, 1, 1⟩, 80400), (⟨2002, 1, 1⟩, 84900), (⟨2003, 1, 1⟩, 87000), (⟨2004, 1, 1⟩, 87900), (⟨2005, 1, 1⟩, 90000), (⟨2006, 1, 1⟩, 94200), (⟨2007, 1, 1⟩, 97500), (⟨2008, 1, 1⟩, 102000), (⟨2009, 1, 1⟩, 106800), (⟨2012, 1, 1⟩, 110100), (⟨2013, 1, 1⟩, 113700), (⟨2014, 1, 1⟩, 117000), (⟨2015, 1, 1⟩, 118500), (⟨2016, 1, 1⟩, 118500), (⟨2017, 1, 1⟩, 127200), (⟨2018, 1, 1⟩, 128400), (⟨2019, 1, 1⟩, 132900), (⟨2020, 1, 1⟩, 137700), (⟨2021, 1, 1⟩, 142800), (⟨2022, 1, 1⟩, 147000), (⟨2023, 1, 1⟩, 160200), (⟨2024, 1, 1⟩, 168600), (⟨2025, 1, 1⟩, 176100), (⟨2026, 1, 1⟩, 184500)]⟩
+    * 42 U.S.C. § 430(b):
+      https://www.law.cornell.edu/uscode/text/42/430#b
+    * 26 U.S.C. § 3121(a)(1):
+      https://www.law.cornell.edu/uscode/text/26/3121#a_1
+    * Contribution And Benefit Base:
+      https://www.ssa.gov/oact/cola/cbb.html
+    * CBO Tax Parameters and Effective Marginal Tax Rates | Jan 2025:
+      https://www.cbo.gov/system/files/2025-01/53724-2025-01-Tax-Parameters.xlsx -/
+def irs.payroll.social_security.cap : DatedParam USD :=
+  ⟨(⟨1937, 1, 1⟩, 3000),
+    [(⟨1951, 1, 1⟩, 3600),
+     (⟨1955, 1, 1⟩, 4200),
+     (⟨1959, 1, 1⟩, 4800),
+     (⟨1966, 1, 1⟩, 6600),
+     (⟨1968, 1, 1⟩, 7800),
+     (⟨1972, 1, 1⟩, 9000),
+     (⟨1973, 1, 1⟩, 10800),
+     (⟨1974, 1, 1⟩, 13200),
+     (⟨1975, 1, 1⟩, 14100),
+     (⟨1976, 1, 1⟩, 15300),
+     (⟨1977, 1, 1⟩, 16500),
+     (⟨1978, 1, 1⟩, 17700),
+     (⟨1979, 1, 1⟩, 22900),
+     (⟨1980, 1, 1⟩, 25900),
+     (⟨1981, 1, 1⟩, 29700),
+     (⟨1982, 1, 1⟩, 32400),
+     (⟨1983, 1, 1⟩, 35700),
+     (⟨1984, 1, 1⟩, 37800),
+     (⟨1985, 1, 1⟩, 39600),
+     (⟨1986, 1, 1⟩, 42000),
+     (⟨1987, 1, 1⟩, 43800),
+     (⟨1988, 1, 1⟩, 45000),
+     (⟨1989, 1, 1⟩, 48000),
+     (⟨1990, 1, 1⟩, 51300),
+     (⟨1991, 1, 1⟩, 53400),
+     (⟨1992, 1, 1⟩, 55500),
+     (⟨1993, 1, 1⟩, 57600),
+     (⟨1994, 1, 1⟩, 60600),
+     (⟨1995, 1, 1⟩, 61200),
+     (⟨1996, 1, 1⟩, 62700),
+     (⟨1997, 1, 1⟩, 65400),
+     (⟨1998, 1, 1⟩, 68400),
+     (⟨1999, 1, 1⟩, 72600),
+     (⟨2000, 1, 1⟩, 76200),
+     (⟨2001, 1, 1⟩, 80400),
+     (⟨2002, 1, 1⟩, 84900),
+     (⟨2003, 1, 1⟩, 87000),
+     (⟨2004, 1, 1⟩, 87900),
+     (⟨2005, 1, 1⟩, 90000),
+     (⟨2006, 1, 1⟩, 94200),
+     (⟨2007, 1, 1⟩, 97500),
+     (⟨2008, 1, 1⟩, 102000),
+     (⟨2009, 1, 1⟩, 106800),
+     (⟨2012, 1, 1⟩, 110100),
+     (⟨2013, 1, 1⟩, 113700),
+     (⟨2014, 1, 1⟩, 117000),
+     (⟨2015, 1, 1⟩, 118500),
+     (⟨2016, 1, 1⟩, 118500),
+     (⟨2017, 1, 1⟩, 127200),
+     (⟨2018, 1, 1⟩, 128400),
+     (⟨2019, 1, 1⟩, 132900),
+     (⟨2020, 1, 1⟩, 137700),
+     (⟨2021, 1, 1⟩, 142800),
+     (⟨2022, 1, 1⟩, 147000),
+     (⟨2023, 1, 1⟩, 160200),
+     (⟨2024, 1, 1⟩, 168600),
+     (⟨2025, 1, 1⟩, 176100),
+     (⟨2026, 1, 1⟩, 184500)]⟩
 
 /-- Employee-side Social Security payroll tax rate
     `gov/irs/payroll/social_security/rate/employee.yaml` (policyengine-us).
-    * 26 U.S. Code § 3101 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/3101#a -/
-def gov.irs.payroll.social_security.rate.employee : DatedParam Rate :=
+    * 26 U.S. Code § 3101 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/3101#a -/
+def irs.payroll.social_security.rate.employee : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 31 500), []⟩
 
 /-- Employer-side Social Security payroll tax rate
     `gov/irs/payroll/social_security/rate/employer.yaml` (policyengine-us).
-    * 26 U.S. Code § 3111 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/3111#a -/
-def gov.irs.payroll.social_security.rate.employer : DatedParam Rate :=
+    * 26 U.S. Code § 3111 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/3111#a -/
+def irs.payroll.social_security.rate.employer : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 31 500), []⟩
 
 /-- Minimum self-employment net earnings to have to pay self-employment tax.
     `gov/irs/self_employment/net_earnings_exemption.yaml` (policyengine-us).
-    * 26 U.S. Code § 1402 - Definitions: https://www.law.cornell.edu/uscode/text/26/1402#b_2 -/
-def gov.irs.self_employment.net_earnings_exemption : DatedParam USD :=
+    * 26 U.S. Code § 1402 - Definitions:
+      https://www.law.cornell.edu/uscode/text/26/1402#b_2 -/
+def irs.self_employment.net_earnings_exemption : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 400), []⟩
 
 /-- Self-employment Medicare tax rate.
     `gov/irs/self_employment/rate/medicare.yaml` (policyengine-us).
-    * 26 U.S. Code § 1401 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/1401#b_1 -/
-def gov.irs.self_employment.rate.medicare : DatedParam Rate :=
+    * 26 U.S. Code § 1401 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/1401#b_1 -/
+def irs.self_employment.rate.medicare : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 29 1000), []⟩
 
 /-- Self-employment Social Security tax rate
     `gov/irs/self_employment/rate/social_security.yaml` (policyengine-us).
-    * 26 U.S. Code § 1401 - Rate of tax: https://www.law.cornell.edu/uscode/text/26/1401#a -/
-def gov.irs.self_employment.rate.social_security : DatedParam Rate :=
+    * 26 U.S. Code § 1401 - Rate of tax:
+      https://www.law.cornell.edu/uscode/text/26/1401#a -/
+def irs.self_employment.rate.social_security : DatedParam Rate :=
   ⟨(⟨2013, 1, 1⟩, mkRat 31 250), []⟩
 
-/-- The United States includes this fraction of Social Security benefits for determining taxability.
+/-- The United States includes this fraction of Social Security benefits for determining
+    taxability.
     `gov/irs/social_security/taxability/combined_income_ss_fraction.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(b)(1): https://www.law.cornell.edu/uscode/text/26/86#b_1
-    * IRS Publication 915 - Social Security and Equivalent Railroad Retirement Benefits: https://www.irs.gov/publications/p915 -/
-def gov.irs.social_security.taxability.combined_income_ss_fraction : DatedParam Rate :=
+    * 26 U.S. Code § 86(b)(1):
+      https://www.law.cornell.edu/uscode/text/26/86#b_1
+    * IRS Publication 915 - Social Security and Equivalent Railroad Retirement Benefits:
+      https://www.irs.gov/publications/p915 -/
+def irs.social_security.taxability.combined_income_ss_fraction : DatedParam Rate :=
   ⟨(⟨1984, 1, 1⟩, mkRat 1 2), []⟩
 
 /-- Above-the-line deductions reverted to reach social-security-related MAGI from AGI.
     `gov/irs/social_security/taxability/income/revoked_deductions.yaml` (policyengine-us).
-    * 26 U.S. Code § 86 - Social security and tier 1 railroad retirement benefits: https://www.law.cornell.edu/uscode/text/26/86 -/
-def gov.irs.social_security.taxability.income.revoked_deductions : DatedParam (List String) :=
-  ⟨(⟨2010, 1, 1⟩, ["taxable_social_security", "us_bonds_for_higher_ed", "qualified_adoption_assistance_expense", "student_loan_interest_ald", "specified_possession_income", "puerto_rico_income"]), []⟩
+    * 26 U.S. Code § 86 - Social security and tier 1 railroad retirement benefits:
+      https://www.law.cornell.edu/uscode/text/26/86 -/
+def irs.social_security.taxability.income.revoked_deductions : DatedParam (List String) :=
+  ⟨(⟨2010, 1, 1⟩, ["taxable_social_security",
+      "us_bonds_for_higher_ed",
+      "qualified_adoption_assistance_expense",
+      "student_loan_interest_ald",
+      "specified_possession_income",
+      "puerto_rico_income"]), []⟩
 
-/-- Social Security benefits are taxable at this maximum rate for taxpayers with combined income above the adjusted base threshold.
+/-- Social Security benefits are taxable at this maximum rate for taxpayers with combined income
+    above the adjusted base threshold.
     `gov/irs/social_security/taxability/rate/additional/benefit_cap.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(a)(2)(B): https://www.law.cornell.edu/uscode/text/26/86#a_2_B -/
-def gov.irs.social_security.taxability.rate.additional.benefit_cap : DatedParam Rate :=
+    * 26 U.S. Code § 86(a)(2)(B):
+      https://www.law.cornell.edu/uscode/text/26/86#a_2_B -/
+def irs.social_security.taxability.rate.additional.benefit_cap : DatedParam Rate :=
   ⟨(⟨1993, 1, 1⟩, mkRat 17 20), []⟩
 
-/-- The IRS includes this portion of the difference between adjusted base and base thresholds when calculating tier 2 Social Security taxability.
+/-- The IRS includes this portion of the difference between adjusted base and base thresholds
+    when calculating tier 2 Social Security taxability.
     `gov/irs/social_security/taxability/rate/additional/bracket.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(a)(2)(A)(ii): https://www.law.cornell.edu/uscode/text/26/86#a_2_A_ii -/
-def gov.irs.social_security.taxability.rate.additional.bracket : DatedParam Rate :=
+    * 26 U.S. Code § 86(a)(2)(A)(ii):
+      https://www.law.cornell.edu/uscode/text/26/86#a_2_A_ii -/
+def irs.social_security.taxability.rate.additional.bracket : DatedParam Rate :=
   ⟨(⟨1984, 1, 1⟩, mkRat 1 2), []⟩
 
-/-- The IRS taxes Social Security benefits at this rate applied to the excess of combined income over the adjusted base threshold for taxpayers in the second tier.
+/-- The IRS taxes Social Security benefits at this rate applied to the excess of combined income
+    over the adjusted base threshold for taxpayers in the second tier.
     `gov/irs/social_security/taxability/rate/additional/excess.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(a)(2)(A)(i): https://www.law.cornell.edu/uscode/text/26/86#a_2_A_i -/
-def gov.irs.social_security.taxability.rate.additional.excess : DatedParam Rate :=
+    * 26 U.S. Code § 86(a)(2)(A)(i):
+      https://www.law.cornell.edu/uscode/text/26/86#a_2_A_i -/
+def irs.social_security.taxability.rate.additional.excess : DatedParam Rate :=
   ⟨(⟨1993, 1, 1⟩, mkRat 17 20), []⟩
 
-/-- Social Security benefits are taxable at this rate for taxpayers with combined income between the base and adjusted base thresholds.
+/-- Social Security benefits are taxable at this rate for taxpayers with combined income between
+    the base and adjusted base thresholds.
     `gov/irs/social_security/taxability/rate/base/benefit_cap.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(a)(1)(A): https://www.law.cornell.edu/uscode/text/26/86#a_1_A -/
-def gov.irs.social_security.taxability.rate.base.benefit_cap : DatedParam Rate :=
+    * 26 U.S. Code § 86(a)(1)(A):
+      https://www.law.cornell.edu/uscode/text/26/86#a_1_A -/
+def irs.social_security.taxability.rate.base.benefit_cap : DatedParam Rate :=
   ⟨(⟨1984, 1, 1⟩, mkRat 1 2), []⟩
 
-/-- The IRS taxes Social Security benefits at this rate applied to the excess of combined income over the base threshold for taxpayers in the first tier.
+/-- The IRS taxes Social Security benefits at this rate applied to the excess of combined income
+    over the base threshold for taxpayers in the first tier.
     `gov/irs/social_security/taxability/rate/base/excess.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(a)(1)(B): https://www.law.cornell.edu/uscode/text/26/86#a_1_B -/
-def gov.irs.social_security.taxability.rate.base.excess : DatedParam Rate :=
+    * 26 U.S. Code § 86(a)(1)(B):
+      https://www.law.cornell.edu/uscode/text/26/86#a_1_B -/
+def irs.social_security.taxability.rate.base.excess : DatedParam Rate :=
   ⟨(⟨1984, 1, 1⟩, mkRat 1 2), []⟩
 
-/-- The IRS taxes Social Security benefits at the additional rate, for filers with modified adjusted gross income between above the additional threshold, by filing status.
+/-- The IRS taxes Social Security benefits at the additional rate, for filers with modified
+    adjusted gross income between above the additional threshold, by filing status.
     `gov/irs/social_security/taxability/threshold/adjusted_base/main.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(c)(2): https://www.law.cornell.edu/uscode/text/26/86#c_2 -/
-def gov.irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 86(c)(2):
+      https://www.law.cornell.edu/uscode/text/26/86#c_2 -/
+def irs.social_security.taxability.threshold.adjusted_base.main.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 34000), []⟩
-def gov.irs.social_security.taxability.threshold.adjusted_base.main.JOINT : DatedParam USD :=
+def irs.social_security.taxability.threshold.adjusted_base.main.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 44000), []⟩
-def gov.irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE : DatedParam USD :=
+def irs.social_security.taxability.threshold.adjusted_base.main.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 34000), []⟩
-def gov.irs.social_security.taxability.threshold.adjusted_base.main.SINGLE : DatedParam USD :=
+def irs.social_security.taxability.threshold.adjusted_base.main.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 34000), []⟩
-def gov.irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.social_security.taxability.threshold.adjusted_base.main.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 34000), []⟩
 
-/-- The IRS taxes Social Security benefits at the additional rate, for cohabitating married filing separately filers with modified adjusted gross income above this threshold.
+/-- The IRS taxes Social Security benefits at the additional rate, for cohabitating married
+    filing separately filers with modified adjusted gross income above this threshold.
     `gov/irs/social_security/taxability/threshold/adjusted_base/separate_cohabitating.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(c)(2)(C): https://www.law.cornell.edu/uscode/text/26/86#c_2_C -/
-def gov.irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating : DatedParam USD :=
+    * 26 U.S. Code § 86(c)(2)(C):
+      https://www.law.cornell.edu/uscode/text/26/86#c_2_C -/
+def irs.social_security.taxability.threshold.adjusted_base.separate_cohabitating : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), []⟩
 
-/-- The IRS taxes Social Security benefits at the base rate, for filers with modified adjusted gross income between this threshold and the respective additional threshold, by filing status.
+/-- The IRS taxes Social Security benefits at the base rate, for filers with modified adjusted
+    gross income between this threshold and the respective additional threshold, by filing
+    status.
     `gov/irs/social_security/taxability/threshold/base/main.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(c)(1): https://www.law.cornell.edu/uscode/text/26/86#c_1 -/
-def gov.irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+    * 26 U.S. Code § 86(c)(1):
+      https://www.law.cornell.edu/uscode/text/26/86#c_1 -/
+def irs.social_security.taxability.threshold.base.main.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 25000), []⟩
-def gov.irs.social_security.taxability.threshold.base.main.JOINT : DatedParam USD :=
+def irs.social_security.taxability.threshold.base.main.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 32000), []⟩
-def gov.irs.social_security.taxability.threshold.base.main.SEPARATE : DatedParam USD :=
+def irs.social_security.taxability.threshold.base.main.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 25000), []⟩
-def gov.irs.social_security.taxability.threshold.base.main.SINGLE : DatedParam USD :=
+def irs.social_security.taxability.threshold.base.main.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 25000), []⟩
-def gov.irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.social_security.taxability.threshold.base.main.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 25000), []⟩
 
-/-- The IRS taxes Social Security benefits at the base rate, for cohabitating married filing separately filers with modified adjusted gross income between this threshold and the respective additional threshold.
+/-- The IRS taxes Social Security benefits at the base rate, for cohabitating married filing
+    separately filers with modified adjusted gross income between this threshold and the
+    respective additional threshold.
     `gov/irs/social_security/taxability/threshold/base/separate_cohabitating.yaml` (policyengine-us).
-    * 26 U.S. Code § 86(c)(1)(C): https://www.law.cornell.edu/uscode/text/26/86#c_1_C -/
-def gov.irs.social_security.taxability.threshold.base.separate_cohabitating : DatedParam USD :=
+    * 26 U.S. Code § 86(c)(1)(C):
+      https://www.law.cornell.edu/uscode/text/26/86#c_1_C -/
+def irs.social_security.taxability.threshold.base.separate_cohabitating : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), []⟩
 
 /-- The IRS taxes estate at the following rates.
     `gov/irs/tax/estate/rate.yaml` (policyengine-us).
-    * 26 U.S. Code § 2001 - Imposition and rate of tax - (c): https://www.law.cornell.edu/uscode/text/26/2001#b_1
-    * Instructions for Form 706 (Rev. September 2023): https://www.irs.gov/pub/irs-pdf/i706.pdf#page=6
-    * Instructions for Form 706 (Rev. September 2022): https://www.irs.gov/pub/irs-prior/i706--2022.pdf#page=6
-    * Instructions for Form 706 (Rev. September 2021): https://www.irs.gov/pub/irs-prior/i706--2021.pdf#page=6 -/
-def gov.irs.tax.estate.rate : Scale :=
+    * 26 U.S. Code § 2001 - Imposition and rate of tax - (c):
+      https://www.law.cornell.edu/uscode/text/26/2001#b_1
+    * Instructions for Form 706 (Rev. September 2023):
+      https://www.irs.gov/pub/irs-pdf/i706.pdf#page=6
+    * Instructions for Form 706 (Rev. September 2022):
+      https://www.irs.gov/pub/irs-prior/i706--2022.pdf#page=6
+    * Instructions for Form 706 (Rev. September 2021):
+      https://www.irs.gov/pub/irs-prior/i706--2021.pdf#page=6 -/
+def irs.tax.estate.rate : Scale :=
   ⟨[⟨⟨(⟨2017, 1, 1⟩, 0), []⟩, ⟨(⟨2017, 1, 1⟩, mkRat 9 50), []⟩⟩,
     ⟨⟨(⟨2017, 1, 1⟩, 10000), []⟩, ⟨(⟨2017, 1, 1⟩, mkRat 1 5), []⟩⟩,
     ⟨⟨(⟨2017, 1, 1⟩, 20000), []⟩, ⟨(⟨2017, 1, 1⟩, mkRat 11 50), []⟩⟩,
@@ -8452,42 +10587,50 @@ def gov.irs.tax.estate.rate : Scale :=
     ⟨⟨(⟨2017, 1, 1⟩, 750000), []⟩, ⟨(⟨2017, 1, 1⟩, mkRat 39 100), []⟩⟩,
     ⟨⟨(⟨2017, 1, 1⟩, 1000000), []⟩, ⟨(⟨2017, 1, 1⟩, mkRat 2 5), []⟩⟩]⟩
 
-/-- IRS provides free tax assistance under the Tax Counseling for the Elderly (TCE) grant program for individuals this age or older.
+/-- IRS provides free tax assistance under the Tax Counseling for the Elderly (TCE) grant
+    program for individuals this age or older.
     `gov/irs/tce/age_threshold.yaml` (policyengine-us).
-    * IRS Tax Counseling for the Elderly: https://www.irs.gov/individuals/tax-counseling-for-the-elderly
-    * IRS Publication 1101 (Rev. 4-2024), Application Package and Guidelines for Managing a TCE Program: https://www.irs.gov/pub/irs-pdf/p1101.pdf#page=7 -/
-def gov.irs.tce.age_threshold : DatedParam Rat :=
+    * IRS Tax Counseling for the Elderly:
+      https://www.irs.gov/individuals/tax-counseling-for-the-elderly
+    * IRS Publication 1101 (Rev. 4-2024), Application Package and Guidelines for Managing a TCE
+    Program:
+      https://www.irs.gov/pub/irs-pdf/p1101.pdf#page=7 -/
+def irs.tce.age_threshold : DatedParam Rat :=
   ⟨(⟨2023, 1, 1⟩, 60), []⟩
 
 /-- Unemployment Insurance exemption amount
     `gov/irs/unemployment_compensation/exemption/amount.yaml` (policyengine-us). -/
-def gov.irs.unemployment_compensation.exemption.amount : DatedParam USD :=
+def irs.unemployment_compensation.exemption.amount : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 10200), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Unemployment Insurance exemption cutoff
     `gov/irs/unemployment_compensation/exemption/cutoff.yaml` (policyengine-us). -/
-def gov.irs.unemployment_compensation.exemption.cutoff.HEAD_OF_HOUSEHOLD : DatedParam USD :=
+def irs.unemployment_compensation.exemption.cutoff.HEAD_OF_HOUSEHOLD : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.unemployment_compensation.exemption.cutoff.JOINT : DatedParam USD :=
+def irs.unemployment_compensation.exemption.cutoff.JOINT : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.unemployment_compensation.exemption.cutoff.SEPARATE : DatedParam USD :=
+def irs.unemployment_compensation.exemption.cutoff.SEPARATE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.unemployment_compensation.exemption.cutoff.SINGLE : DatedParam USD :=
+def irs.unemployment_compensation.exemption.cutoff.SINGLE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150000), (⟨2021, 1, 1⟩, 0)]⟩
-def gov.irs.unemployment_compensation.exemption.cutoff.SURVIVING_SPOUSE : DatedParam USD :=
+def irs.unemployment_compensation.exemption.cutoff.SURVIVING_SPOUSE : DatedParam USD :=
   ⟨(⟨2013, 1, 1⟩, 0), [(⟨2020, 1, 1⟩, 150000), (⟨2021, 1, 1⟩, 0)]⟩
 
 /-- Uprating index for IRS tax parameters (December 1999 = 100%).
     `gov/irs/uprating.yaml` (policyengine-us). -/
-def gov.irs.uprating : DatedParam Rate :=
+def irs.uprating : DatedParam Rate :=
   ⟨(⟨2010, 1, 1⟩, 1), []⟩
 
-/-- The IRS extends the Volunteer Income Tax Assistance (VITA) program to filers with gross income at or below this amount.
+/-- The IRS extends the Volunteer Income Tax Assistance (VITA) program to filers with gross
+    income at or below this amount.
     `gov/irs/vita/eligibility/income_limit.yaml` (policyengine-us).
-    * Free tax return preparation for qualifying taxpayers: https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers
-    * Free tax return preparation assistance - 2022: https://www.tax.ny.gov/pit/file/vita.htm
-    * Volunteer Income Tax Assistance (VITA) - Free Income Tax Preparation 2023: https://www.fairfaxcounty.gov/familyservices/employment-and-training/volunteer-income-tax-assistance -/
-def gov.irs.vita.eligibility.income_limit : DatedParam USD :=
+    * Free tax return preparation for qualifying taxpayers:
+      https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers
+    * Free tax return preparation assistance - 2022:
+      https://www.tax.ny.gov/pit/file/vita.htm
+    * Volunteer Income Tax Assistance (VITA) - Free Income Tax Preparation 2023:
+      https://www.fairfaxcounty.gov/familyservices/employment-and-training/volunteer-income-tax-assistance -/
+def irs.vita.eligibility.income_limit : DatedParam USD :=
   ⟨(⟨2022, 1, 1⟩, 58000), [(⟨2023, 1, 1⟩, 64000)]⟩
 
 end Lawlib.Parameters

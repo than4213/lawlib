@@ -40,16 +40,16 @@ set_option maxRecDepth 8192
 /-- `policyengine_us/variables/gov/hud/is_hud_elderly_disabled_family.py`
     policyengine-us 1.783.0, entity spm_unit, value_type bool. -/
 def isHudElderlyDisabledFamily (t : TaxUnit) (d : Date) : Bool :=
-  (anyBy t.members fun p => (((decide
-      (p.coreP1.age ≥ (gov.hud.elderly_age_threshold.atDate d))) || p.coreP1.isDisabled) &&
-      (!(isChild t p d))))
+  (anyBy t.members fun p =>
+      (((decide (p.coreP1.age ≥ (hud.elderly_age_threshold.atDate d))) || p.coreP1.isDisabled)
+      && (!(isChild t p d))))
 
 /-- `policyengine_us/variables/gov/hud/income/hud_countable_earned_income.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def hudCountableEarnedIncome (t : TaxUnit) (d : Date) : Rat :=
   (sumBy t.members fun p => ((((hudEarnedIncome t p d) - ((max ((hudEarnedIncome t p d) :
       Rat) 0) * (boolToRat (isChild t p d)))) - ((max (((max ((hudEarnedIncome t p d) : Rat)
-      0) - (gov.hud.adjusted_income.deductions.dependent.amount.atDate d)) : Rat) 0) *
+      0) - (hud.adjusted_income.deductions.dependent.amount.atDate d)) : Rat) 0) *
       (boolToRat ((p.hud.isHudDependent && (isFullTimeStudent t p d)) && (!(isChild t p
       d)))))) * (boolToRat (!p.coreP1.isInFosterCare))))
 

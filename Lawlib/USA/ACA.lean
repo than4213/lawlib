@@ -35,7 +35,7 @@ def isAcaEshiEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/aca/eligibility/is_aca_ptc_immigration_status_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isAcaPtcImmigrationStatusEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (!((gov.aca.ineligible_immigration_statuses.atDate d).contains
+  (!((aca.ineligible_immigration_statuses.atDate d).contains
       (ImmigrationStatus.asStr p.coreP1.immigrationStatus)))
 
 /-- `policyengine_us/variables/gov/aca/person_receives_aca.py`

@@ -33,14 +33,14 @@ def broadbandCostAfterLifeline (t : TaxUnit) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def acp (t : TaxUnit) (d : Date) : Rat :=
   (if t.fcc.isAcpEligible then (min (((if t.core.isOnTribalLand then
-      (gov.fcc.acp.amount.tribal.atDate d) else (gov.fcc.acp.amount.standard.atDate d)) *
-      12) : Rat) (broadbandCostAfterLifeline t d)) else 0)
+      (fcc.acp.amount.tribal.atDate d) else (fcc.acp.amount.standard.atDate d)) * 12) : Rat)
+      (broadbandCostAfterLifeline t d)) else 0)
 
 /-- `policyengine_us/variables/gov/fcc/ebb/ebb.py`
     policyengine-us 1.783.0, entity spm_unit, value_type float. -/
 def ebb (t : TaxUnit) (d : Date) : Rat :=
   (if t.fcc.isEbbEligible then (min (((if t.core.isOnTribalLand then
-      (gov.fcc.ebb.amount.tribal.atDate d) else (gov.fcc.ebb.amount.standard.atDate d)) *
-      12) : Rat) (broadbandCostAfterLifeline t d)) else 0)
+      (fcc.ebb.amount.tribal.atDate d) else (fcc.ebb.amount.standard.atDate d)) * 12) : Rat)
+      (broadbandCostAfterLifeline t d)) else 0)
 
 end Lawlib.USA

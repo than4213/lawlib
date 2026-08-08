@@ -506,36 +506,6 @@ def MedicaidGroup.asStr : MedicaidGroup → String
   | .AGED_DISABLED => "AGED_DISABLED"
   | .NONE => "NONE"
 
-inductive MedicaidSSIRecipientStateClassification where
-  | SECTION_1634
-  | SSI_CRITERIA
-  | SECTION_209B
-  | UNKNOWN
-deriving Repr, DecidableEq, BEq
-
-instance : Lean.FromJson MedicaidSSIRecipientStateClassification where
-  fromJson? j := do
-    match (← j.getStr?) with
-    | "SECTION_1634" => pure .SECTION_1634
-    | "SSI_CRITERIA" => pure .SSI_CRITERIA
-    | "SECTION_209B" => pure .SECTION_209B
-    | "UNKNOWN" => pure .UNKNOWN
-    | s => throw s!"unknown MedicaidSSIRecipientStateClassification: {s}"
-
-instance : Lean.ToJson MedicaidSSIRecipientStateClassification where
-  toJson x := match x with
-    | .SECTION_1634 => Lean.Json.str "SECTION_1634"
-    | .SSI_CRITERIA => Lean.Json.str "SSI_CRITERIA"
-    | .SECTION_209B => Lean.Json.str "SECTION_209B"
-    | .UNKNOWN => Lean.Json.str "UNKNOWN"
-
-/-- PolicyEngine's `decode_to_str` view. -/
-def MedicaidSSIRecipientStateClassification.asStr : MedicaidSSIRecipientStateClassification → String
-  | .SECTION_1634 => "SECTION_1634"
-  | .SSI_CRITERIA => "SSI_CRITERIA"
-  | .SECTION_209B => "SECTION_209B"
-  | .UNKNOWN => "UNKNOWN"
-
 inductive NewElectricVehicleClassification where
   | VAN
   | SUV
@@ -677,36 +647,6 @@ def Race.asStr : Race → String
   | .BLACK => "BLACK"
   | .HISPANIC => "HISPANIC"
   | .OTHER => "OTHER"
-
-inductive SNAPUtilityAllowanceType where
-  | SUA
-  | LUA
-  | IUA
-  | NONE
-deriving Repr, DecidableEq, BEq
-
-instance : Lean.FromJson SNAPUtilityAllowanceType where
-  fromJson? j := do
-    match (← j.getStr?) with
-    | "SUA" => pure .SUA
-    | "LUA" => pure .LUA
-    | "IUA" => pure .IUA
-    | "NONE" => pure .NONE
-    | s => throw s!"unknown SNAPUtilityAllowanceType: {s}"
-
-instance : Lean.ToJson SNAPUtilityAllowanceType where
-  toJson x := match x with
-    | .SUA => Lean.Json.str "SUA"
-    | .LUA => Lean.Json.str "LUA"
-    | .IUA => Lean.Json.str "IUA"
-    | .NONE => Lean.Json.str "NONE"
-
-/-- PolicyEngine's `decode_to_str` view. -/
-def SNAPUtilityAllowanceType.asStr : SNAPUtilityAllowanceType → String
-  | .SUA => "SUA"
-  | .LUA => "LUA"
-  | .IUA => "IUA"
-  | .NONE => "NONE"
 
 inductive SPMUnitTenureType where
   | OWNER_WITH_MORTGAGE

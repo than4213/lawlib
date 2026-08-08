@@ -10,13 +10,21 @@ import Lawlib.Core.Scale
 namespace Lawlib.Parameters
 open Lawlib
 
-/-- Hawaii implements the HR1 changes to Able-Bodied Adult Without Dependents work requirements under the Supplemental Nutrition Assistance Program when this is true.
+/-- Hawaii implements the HR1 changes to Able-Bodied Adult Without Dependents work requirements
+    under the Supplemental Nutrition Assistance Program when this is true.
     `gov/states/hi/dhs/snap/work_requirements/abawd/hr1_in_effect.yaml` (policyengine-us).
-    * Hawaii Department of Human Services news release, Federal SNAP Work Requirement Changes to Begin (October 17, 2025): https://humanservices.hawaii.gov/federal-snap-work-requirement-changes-to-begin-department-of-human-services-offers-guidance-and-resources/
-    * Hawaii Department of Human Services, Changes to Able-Bodied Adult Work Requirements for SNAP - FAQs: https://humanservices.hawaii.gov/changes-to-able-bodied-adult-work-requirements-for-snap-faqs/
-    * Public Law 119-21, Section 10102(a) - Modifications to SNAP ABAWD Requirements: https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81
-    * USDA FNS SNAP Provisions of the One Big Beautiful Bill Act of 2025, ABAWD Waivers Implementation Memorandum (October 3, 2025): https://www.fns.usda.gov/snap/obbb-ABAWD-Waivers-Implementation-Memo -/
-def gov.states.hi.dhs.snap.work_requirements.abawd.hr1_in_effect : DatedParam Bool :=
+    * Hawaii Department of Human Services news release, Federal SNAP Work Requirement Changes to
+    Begin (October 17, 2025):
+      https://humanservices.hawaii.gov/federal-snap-work-requirement-changes-to-begin-department-of-human-services-offers-guidance-and-resources/
+    * Hawaii Department of Human Services, Changes to Able-Bodied Adult Work Requirements for
+    SNAP - FAQs:
+      https://humanservices.hawaii.gov/changes-to-able-bodied-adult-work-requirements-for-snap-faqs/
+    * Public Law 119-21, Section 10102(a) - Modifications to SNAP ABAWD Requirements:
+      https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81
+    * USDA FNS SNAP Provisions of the One Big Beautiful Bill Act of 2025, ABAWD Waivers
+    Implementation Memorandum (October 3, 2025):
+      https://www.fns.usda.gov/snap/obbb-ABAWD-Waivers-Implementation-Memo -/
+def states.hi.dhs.snap.work_requirements.abawd.hr1_in_effect : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2025, 11, 1⟩, true)]⟩
 
 end Lawlib.Parameters

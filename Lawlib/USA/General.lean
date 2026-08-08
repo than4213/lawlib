@@ -342,7 +342,7 @@ def isChild (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 /-- `policyengine_us/variables/household/demographic/person/is_citizen_or_legal_immigrant.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isCitizenOrLegalImmigrant (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((gov.dhs.immigration.qualified_noncitizen_status.atDate d).contains
+  (((dhs.immigration.qualified_noncitizen_status.atDate d).contains
       (ImmigrationStatus.asStr p.coreP1.immigrationStatus)) || (p.coreP1.immigrationStatus
       == ImmigrationStatus.CITIZEN))
 
@@ -563,8 +563,8 @@ def ageGroup (t : TaxUnit) (p : Person) (d : Date) : AgeGroup :=
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isQualifyingChildDependent (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (if (isTaxUnitDependent t p d) then (decide (p.coreP1.age < (if (isFullTimeStudent t p d)
-      then (gov.irs.dependent.ineligible_age.student.atDate d) else
-      (gov.irs.dependent.ineligible_age.non_student.atDate d)))) else false)
+      then (irs.dependent.ineligible_age.student.atDate d) else
+      (irs.dependent.ineligible_age.non_student.atDate d)))) else false)
 
 /-- `policyengine_us/variables/household/demographic/tax_unit/taxpayer_has_itin.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/

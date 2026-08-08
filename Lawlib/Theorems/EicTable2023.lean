@@ -58,11 +58,11 @@ def rhu (q : Rat) : Nat :=
 /-- The reverse-engineered 2023 EIC table generator. -/
 def tableModel (g : Group) (n : Nat) (lo hi : Nat) : Option Nat :=
   let nn : Rat := n
-  let maxA := Parameters.gov.irs.credits.eitc.max.atDate d2023 nn
-  let pin := Parameters.gov.irs.credits.eitc.phase_in_rate.atDate d2023 nn
-  let po := Parameters.gov.irs.credits.eitc.phase_out.rate.atDate d2023 nn
-  let start := Parameters.gov.irs.credits.eitc.phase_out.start.atDate d2023 nn
-    + (if g = .joint then Parameters.gov.irs.credits.eitc.phase_out.joint_bonus.atDate d2023 nn else 0)
+  let maxA := Parameters.irs.credits.eitc.max.atDate d2023 nn
+  let pin := Parameters.irs.credits.eitc.phase_in_rate.atDate d2023 nn
+  let po := Parameters.irs.credits.eitc.phase_out.rate.atDate d2023 nn
+  let start := Parameters.irs.credits.eitc.phase_out.start.atDate d2023 nn
+    + (if g = .joint then Parameters.irs.credits.eitc.phase_out.joint_bonus.atDate d2023 nn else 0)
   let E := phaseoutEnd g n
   let lor : Rat := lo
   let hir : Rat := hi

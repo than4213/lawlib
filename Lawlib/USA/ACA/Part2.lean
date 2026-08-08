@@ -43,18 +43,17 @@ set_option maxRecDepth 8192
 /-- `policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_multiplier.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def slcspAgeCurveMultiplier (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (if (t.core.stateCodeStr == "AL") then (gov.aca.age_curves.al.atDate d (monthlyAge t p d))
-      else (if (t.core.stateCodeStr == "DC") then (gov.aca.age_curves.dc.atDate d
-      (monthlyAge t p d)) else (if (t.core.stateCodeStr == "MA") then
-      (gov.aca.age_curves.ma.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr ==
-      "MN") then (gov.aca.age_curves.mn.atDate d (monthlyAge t p d)) else (if
-      (t.core.stateCodeStr == "MS") then (gov.aca.age_curves.ms.atDate d (monthlyAge t p d))
-      else (if (t.core.stateCodeStr == "NY") then (gov.aca.age_curves.ny.atDate d
-      (monthlyAge t p d)) else (if (t.core.stateCodeStr == "OR") then
-      (gov.aca.age_curves.or.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr ==
-      "UT") then (gov.aca.age_curves.ut.atDate d (monthlyAge t p d)) else (if
-      (t.core.stateCodeStr == "VT") then (gov.aca.age_curves.vt.atDate d) else
-      (gov.aca.age_curves.default.atDate d (monthlyAge t p d)))))))))))
+  (if (t.core.stateCodeStr == "AL") then (aca.age_curves.al.atDate d (monthlyAge t p d))
+      else (if (t.core.stateCodeStr == "DC") then (aca.age_curves.dc.atDate d (monthlyAge t
+      p d)) else (if (t.core.stateCodeStr == "MA") then (aca.age_curves.ma.atDate d
+      (monthlyAge t p d)) else (if (t.core.stateCodeStr == "MN") then
+      (aca.age_curves.mn.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr == "MS")
+      then (aca.age_curves.ms.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr ==
+      "NY") then (aca.age_curves.ny.atDate d (monthlyAge t p d)) else (if
+      (t.core.stateCodeStr == "OR") then (aca.age_curves.or.atDate d (monthlyAge t p d))
+      else (if (t.core.stateCodeStr == "UT") then (aca.age_curves.ut.atDate d (monthlyAge t
+      p d)) else (if (t.core.stateCodeStr == "VT") then (aca.age_curves.vt.atDate d) else
+      (aca.age_curves.default.atDate d (monthlyAge t p d)))))))))))
 
 /-- `qualifying_non_marketplace_health_coverage_type_count_at_interview.py`
     in `policyengine_us/variables/gov/aca/eligibility/`
@@ -98,32 +97,31 @@ def paysAcaPremium (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   + boolToRat (isMedicareEligible t p d)
   + boolToRat p.statesOr.orHealthierOregonEligible
   + boolToRat (hasQualifyingNonMarketplaceHealthCoverageAtInterview t p d)) = 0))) &&
-      ((decide (p.coreP1.age > (gov.aca.slcsp.max_child_age.atDate d))) || (decide
-      (p.aca.acaChildIndex ≤ (gov.aca.max_child_count.atDate d)))))
+      ((decide (p.coreP1.age > (aca.slcsp.max_child_age.atDate d))) || (decide
+      (p.aca.acaChildIndex ≤ (aca.max_child_count.atDate d)))))
 
 /-- `policyengine_us/variables/gov/aca/slspc/is_aca_ny_age_29_dependent_child.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isAcaNyAge29DependentChild (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((((paysAcaPremium t p d) && (t.core.stateCode == StateCode.NY)) && ((decide
-      ((monthlyAge t p d) ≥ (gov.aca.family_tier_dependent_child_age_threshold.atDate d)))
-      && (decide
-      ((monthlyAge t p d) < (gov.aca.ny_age_29_dependent_child_age_threshold.atDate d)))))
-      && (isTaxUnitDependent t p d))
+      ((monthlyAge t p d) ≥ (aca.family_tier_dependent_child_age_threshold.atDate d))) &&
+      (decide
+      ((monthlyAge t p d) < (aca.ny_age_29_dependent_child_age_threshold.atDate d))))) &&
+      (isTaxUnitDependent t p d))
 
 /-- `policyengine_us/variables/gov/aca/lcbp/lcbp_age_curve_amount_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def lcbpAgeCurveAmountPerson (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (if (paysAcaPremium t p d) then ((t.aca.lcbpAge0 * (if (t.core.stateCodeStr == "AL") then
-      (gov.aca.age_curves.al.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr ==
-      "DC") then (gov.aca.age_curves.dc.atDate d (monthlyAge t p d)) else (if
-      (t.core.stateCodeStr == "MA") then (gov.aca.age_curves.ma.atDate d (monthlyAge t p d))
-      else (if (t.core.stateCodeStr == "MN") then (gov.aca.age_curves.mn.atDate d
-      (monthlyAge t p d)) else (if (t.core.stateCodeStr == "MS") then
-      (gov.aca.age_curves.ms.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr ==
-      "OR") then (gov.aca.age_curves.or.atDate d (monthlyAge t p d)) else (if
-      (t.core.stateCodeStr == "UT") then (gov.aca.age_curves.ut.atDate d (monthlyAge t p d))
-      else (gov.aca.age_curves.default.atDate d (monthlyAge t p d)))))))))) * (boolToRat
-      (slcspAgeCurveApplies t d))) else 0)
+      (aca.age_curves.al.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr == "DC")
+      then (aca.age_curves.dc.atDate d (monthlyAge t p d)) else (if (t.core.stateCodeStr ==
+      "MA") then (aca.age_curves.ma.atDate d (monthlyAge t p d)) else (if
+      (t.core.stateCodeStr == "MN") then (aca.age_curves.mn.atDate d (monthlyAge t p d))
+      else (if (t.core.stateCodeStr == "MS") then (aca.age_curves.ms.atDate d (monthlyAge t
+      p d)) else (if (t.core.stateCodeStr == "OR") then (aca.age_curves.or.atDate d
+      (monthlyAge t p d)) else (if (t.core.stateCodeStr == "UT") then
+      (aca.age_curves.ut.atDate d (monthlyAge t p d)) else (aca.age_curves.default.atDate d
+      (monthlyAge t p d)))))))))) * (boolToRat (slcspAgeCurveApplies t d))) else 0)
 
 /-- `policyengine_us/variables/gov/aca/ptc/selected_marketplace_plan_actuarial_value.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
@@ -131,8 +129,8 @@ def selectedMarketplacePlanActuarialValue (t : TaxUnit) (d : Date) : Rat :=
   (if (t.aca.takesUpAcaIfEligible &&
       (decide ((sumBy t.members fun p => (boolToRat (paysAcaPremium t p d))) > 0))) then (if
       (t.aca.selectedMarketplacePlanCategory == MarketplacePlanCategory.BRONZE) then
-      (gov.aca.metal_actuarial_value.bronze.atDate d) else
-      (gov.aca.metal_actuarial_value.silver.atDate d)) else 0)
+      (aca.metal_actuarial_value.bronze.atDate d) else
+      (aca.metal_actuarial_value.silver.atDate d)) else 0)
 
 /-- `policyengine_us/variables/gov/aca/slspc/slcsp_age_curve_amount_person.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -143,9 +141,10 @@ def slcspAgeCurveAmountPerson (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/aca/slspc/is_aca_family_tier_dependent_child.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isAcaFamilyTierDependentChild (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((paysAcaPremium t p d) && (((decide ((monthlyAge t p d) ≤
-      (gov.aca.slcsp.max_child_age.atDate d))) || ((isTaxUnitDependent t p d) && (decide
-      ((monthlyAge t p d) < (gov.aca.family_tier_dependent_child_age_threshold.atDate d)))))
+  ((paysAcaPremium t p d) && (((decide
+      ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d))) ||
+      ((isTaxUnitDependent t p d) &&
+      (decide ((monthlyAge t p d) < (aca.family_tier_dependent_child_age_threshold.atDate d)))))
       || (isAcaNyAge29DependentChild t p d)))
 
 /-- `policyengine_us/variables/gov/aca/lcbp/lcbp_family_tier_category.py`
@@ -157,11 +156,11 @@ def lcbpFamilyTierCategory (t : TaxUnit) (d : Date) : FamilyTierCategory :=
   let eligible_adult_count := (if has_adult_anchor then non_dependent_adult_count else
       (sumBy t.members fun p => (boolToRat ((paysAcaPremium t p d) &&
       (!((paysAcaPremium t p d) &&
-      (decide ((monthlyAge t p d) ≤ (gov.aca.slcsp.max_child_age.atDate d)))))))));
+      (decide ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d)))))))));
   let eligible_child_count := (if has_adult_anchor then (sumBy t.members fun p => (boolToRat
       (isAcaFamilyTierDependentChild t p d))) else (sumBy t.members fun p => (boolToRat
       ((paysAcaPremium t p d) &&
-      (decide ((monthlyAge t p d) ≤ (gov.aca.slcsp.max_child_age.atDate d)))))));
+      (decide ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d)))))));
   (if t.aca.slcspFamilyTierApplies then (if (((t.core.stateCodeStr == "NY") && (decide
       (eligible_adult_count = 0))) && (decide (eligible_child_count > 0))) then
       FamilyTierCategory.CHILD_ONLY else (if ((decide (eligible_adult_count = 1)) && (decide
@@ -184,11 +183,11 @@ def slcspFamilyTierCategory (t : TaxUnit) (d : Date) : FamilyTierCategory :=
   let eligible_adult_count := (if has_adult_anchor then non_dependent_adult_count else
       (sumBy t.members fun p => (boolToRat ((paysAcaPremium t p d) &&
       (!((paysAcaPremium t p d) &&
-      (decide ((monthlyAge t p d) ≤ (gov.aca.slcsp.max_child_age.atDate d)))))))));
+      (decide ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d)))))))));
   let eligible_child_count := (if has_adult_anchor then (sumBy t.members fun p => (boolToRat
       (isAcaFamilyTierDependentChild t p d))) else (sumBy t.members fun p => (boolToRat
       ((paysAcaPremium t p d) &&
-      (decide ((monthlyAge t p d) ≤ (gov.aca.slcsp.max_child_age.atDate d)))))));
+      (decide ((monthlyAge t p d) ≤ (aca.slcsp.max_child_age.atDate d)))))));
   (if t.aca.slcspFamilyTierApplies then (if (((t.core.stateCodeStr == "NY") && (decide
       (eligible_adult_count = 0))) && (decide (eligible_child_count > 0))) then
       FamilyTierCategory.CHILD_ONLY else (if ((decide (eligible_adult_count = 1)) && (decide
@@ -208,51 +207,49 @@ def lcbpFamilyTierMultiplier (t : TaxUnit) (d : Date) : Rat :=
   let in_ny := (t.core.stateCode == StateCode.NY);
   (if t.aca.slcspFamilyTierApplies then (((if ((lcbpFamilyTierCategory t d) ==
       FamilyTierCategory.ONE_ADULT) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
-      (gov.aca.family_tier_ratings.vt.ONE_ADULT.atDate d)) else (if ((lcbpFamilyTierCategory
-      t d) == FamilyTierCategory.TWO_ADULTS) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.TWO_ADULTS.atDate d) else
-      (gov.aca.family_tier_ratings.vt.TWO_ADULTS.atDate d)) else (if
-      ((lcbpFamilyTierCategory t d) ==
-      FamilyTierCategory.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d) else
-      (gov.aca.family_tier_ratings.vt.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
+      (aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
+      (aca.family_tier_ratings.vt.ONE_ADULT.atDate d)) else (if ((lcbpFamilyTierCategory t
+      d) == FamilyTierCategory.TWO_ADULTS) then (if in_ny then
+      (aca.family_tier_ratings.ny.TWO_ADULTS.atDate d) else
+      (aca.family_tier_ratings.vt.TWO_ADULTS.atDate d)) else (if ((lcbpFamilyTierCategory t
+      d) == FamilyTierCategory.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
+      (aca.family_tier_ratings.ny.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d) else
+      (aca.family_tier_ratings.vt.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
       ((lcbpFamilyTierCategory t d) ==
       FamilyTierCategory.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d) else
-      (gov.aca.family_tier_ratings.vt.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d)) else
-      (if (((lcbpFamilyTierCategory t d) == FamilyTierCategory.CHILD_ONLY) && in_ny) then
-      (gov.aca.family_tier_ratings.ny.CHILD_ONLY.atDate d) else 0))))) * (if (anyBy
-      t.members fun p => (isAcaNyAge29DependentChild t p d)) then
-      (gov.aca.ny_age_29_dependent_child_tier_multiplier.atDate d) else 1)) + ((max (((sumBy
+      (aca.family_tier_ratings.ny.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d) else
+      (aca.family_tier_ratings.vt.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
+      (((lcbpFamilyTierCategory t d) == FamilyTierCategory.CHILD_ONLY) && in_ny) then
+      (aca.family_tier_ratings.ny.CHILD_ONLY.atDate d) else 0))))) * (if (anyBy t.members
+      fun p => (isAcaNyAge29DependentChild t p d)) then
+      (aca.ny_age_29_dependent_child_tier_multiplier.atDate d) else 1)) + ((max (((sumBy
       t.members fun p => (boolToRat ((paysAcaPremium t p d) &&
       (!(isAcaFamilyTierDependentChild t p d))))) - 2) : Rat) 0) * (if in_ny then
-      (gov.aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
-      (gov.aca.family_tier_ratings.vt.ONE_ADULT.atDate d)))) else 0)
+      (aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
+      (aca.family_tier_ratings.vt.ONE_ADULT.atDate d)))) else 0)
 
 /-- `policyengine_us/variables/gov/aca/slspc/slcsp_family_tier_multiplier.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def slcspFamilyTierMultiplier (t : TaxUnit) (d : Date) : Rat :=
   let in_ny := (t.core.stateCode == StateCode.NY);
-  let one_adult := (if in_ny then (gov.aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
-      (gov.aca.family_tier_ratings.vt.ONE_ADULT.atDate d));
+  let one_adult := (if in_ny then (aca.family_tier_ratings.ny.ONE_ADULT.atDate d) else
+      (aca.family_tier_ratings.vt.ONE_ADULT.atDate d));
   (if t.aca.slcspFamilyTierApplies then (((if ((slcspFamilyTierCategory t d) ==
       FamilyTierCategory.ONE_ADULT) then one_adult else (if ((slcspFamilyTierCategory t d)
       == FamilyTierCategory.TWO_ADULTS) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.TWO_ADULTS.atDate d) else
-      (gov.aca.family_tier_ratings.vt.TWO_ADULTS.atDate d)) else (if
-      ((slcspFamilyTierCategory t d) ==
-      FamilyTierCategory.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d) else
-      (gov.aca.family_tier_ratings.vt.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
+      (aca.family_tier_ratings.ny.TWO_ADULTS.atDate d) else
+      (aca.family_tier_ratings.vt.TWO_ADULTS.atDate d)) else (if ((slcspFamilyTierCategory t
+      d) == FamilyTierCategory.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
+      (aca.family_tier_ratings.ny.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d) else
+      (aca.family_tier_ratings.vt.ONE_ADULT_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
       ((slcspFamilyTierCategory t d) ==
       FamilyTierCategory.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN) then (if in_ny then
-      (gov.aca.family_tier_ratings.ny.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d) else
-      (gov.aca.family_tier_ratings.vt.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d)) else
-      (if ((slcspFamilyTierCategory t d) == FamilyTierCategory.CHILD_ONLY) then (if in_ny
-      then (gov.aca.family_tier_ratings.ny.CHILD_ONLY.atDate d) else 0) else 0))))) * (if
-      (anyBy t.members fun p => (isAcaNyAge29DependentChild t p d)) then
-      (gov.aca.ny_age_29_dependent_child_tier_multiplier.atDate d) else 1)) + ((max (((sumBy
+      (aca.family_tier_ratings.ny.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d) else
+      (aca.family_tier_ratings.vt.TWO_ADULTS_AND_ONE_OR_MORE_CHILDREN.atDate d)) else (if
+      ((slcspFamilyTierCategory t d) == FamilyTierCategory.CHILD_ONLY) then (if in_ny then
+      (aca.family_tier_ratings.ny.CHILD_ONLY.atDate d) else 0) else 0))))) * (if (anyBy
+      t.members fun p => (isAcaNyAge29DependentChild t p d)) then
+      (aca.ny_age_29_dependent_child_tier_multiplier.atDate d) else 1)) + ((max (((sumBy
       t.members fun p => (boolToRat ((paysAcaPremium t p d) &&
       (!(isAcaFamilyTierDependentChild t p d))))) - 2) : Rat) 0) * one_adult)) else 0)
 

@@ -39,6 +39,7 @@ import Lawlib.USA.FCC.Part3
 import Lawlib.USA.ED.Part3
 import Lawlib.USA.USDA.Part3
 import Lawlib.USA.HHS.Part3
+import Lawlib.USA.ED.Part4
 import Lawlib.USA.ACA.Part4
 import Lawlib.USA.HHS.Part4
 

@@ -39,10 +39,6 @@ import Lawlib.USA.FCC.Part3
 import Lawlib.USA.ED.Part3
 import Lawlib.USA.USDA.Part3
 import Lawlib.USA.HHS.Part3
-import Lawlib.USA.ACA.Part4
-import Lawlib.USA.HHS.Part4
-import Lawlib.USA.IRS.Part5
-import Lawlib.USA.USDA.Part5
 
 namespace Lawlib.USA
 open Lawlib
@@ -57,31 +53,30 @@ set_option maxRecDepth 8192
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def pellGrantSimplifiedFormulaApplies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   (((decide (t.ed.pellGrantPrimaryIncome <
-      (gov.ed.pell_grant.efc.simplified.income_limit.atDate d))) && (decide
-      ((((snap t d) * 12)
+      (ed.pell_grant.efc.simplified.income_limit.atDate d))) && (decide ((((snap t d) * 12)
   + (schoolMealNetSubsidy t d)
   + (tanf t d)
   + ((wic t p d) * 12)
   + boolToRat (medicaidEnrolled t p d)
-  + ((ssi t p d) * 12)) > 0))) && (gov.ed.pell_grant.efc.simplified.applies.atDate d))
+  + ((ssi t p d) * 12)) > 0))) && (ed.pell_grant.efc.simplified.applies.atDate d))
 
 /-- `pell_grant_head_contribution_from_assets.py`
     in `policyengine_us/variables/gov/ed/pell_grant/head/`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def pellGrantContributionFromAssets (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (((pellGrantHeadAssets t d) * (match (pellGrantFormula t p d) with
-      | PellGrantFormula.A => (gov.ed.pell_grant.head.asset_assessment_rate.A.atDate d)
-      | PellGrantFormula.B => (gov.ed.pell_grant.head.asset_assessment_rate.B.atDate d)
-      | PellGrantFormula.C => (gov.ed.pell_grant.head.asset_assessment_rate.C.atDate d))) *
+      | PellGrantFormula.A => (ed.pell_grant.head.asset_assessment_rate.A.atDate d)
+      | PellGrantFormula.B => (ed.pell_grant.head.asset_assessment_rate.B.atDate d)
+      | PellGrantFormula.C => (ed.pell_grant.head.asset_assessment_rate.C.atDate d))) *
           (boolToRat (!(pellGrantSimplifiedFormulaApplies t p d))))
 
 /-- `policyengine_us/variables/gov/ed/pell_grant/dependent/pell_grant_dependent_contribution.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def pellGrantDependentContribution (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (((p.ed.pellGrantDependentAvailableIncome - (pellGrantDependentAllowances t p d)) *
-      (gov.ed.pell_grant.dependent.income_assessment_rate.atDate d)) +
+      (ed.pell_grant.dependent.income_assessment_rate.atDate d)) +
       ((p.ed.pellGrantCountableAssets *
-      (gov.ed.pell_grant.dependent.asset_assessment_rate.atDate d)) * (boolToRat
+      (ed.pell_grant.dependent.asset_assessment_rate.atDate d)) * (boolToRat
       (!(pellGrantSimplifiedFormulaApplies t p d)))))
 
 /-- `policyengine_us/variables/gov/ed/pell_grant/head/pell_grant_head_contribution.py`
@@ -91,10 +86,10 @@ def pellGrantHeadContribution (t : TaxUnit) (p : Person) (d : Date) : Rat :=
       (pellGrantContributionFromAssets t p d));
   let total := (if ((pellGrantFormula t p d) == PellGrantFormula.B) then
       adjusted_available_income else (if (decide (adjusted_available_income ≥ 0)) then
-      (gov.ed.pell_grant.head.marginal_rate.marginalCalc d adjusted_available_income) else
-      (max ((adjusted_available_income * (gov.ed.pell_grant.head.negative_rate.atDate d)) :
-      Rat) (gov.ed.pell_grant.head.min_contribution.atDate d))));
-  (if (gov.ed.pell_grant.uses_sai.atDate d) then total else (if
+      (ed.pell_grant.head.marginal_rate.marginalCalc d adjusted_available_income) else (max
+      ((adjusted_available_income * (ed.pell_grant.head.negative_rate.atDate d)) : Rat)
+      (ed.pell_grant.head.min_contribution.atDate d))));
+  (if (ed.pell_grant.uses_sai.atDate d) then total else (if
       (decide ((pellGrantDependentsInCollege t d) > 0)) then
       (total / (pellGrantDependentsInCollege t d)) else 0))
 
@@ -102,7 +97,7 @@ def pellGrantHeadContribution (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def pellGrantEfc (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   let automatic_zero := (decide (t.ed.pellGrantPrimaryIncome ≤
-      (gov.ed.pell_grant.efc.automatic_zero.atDate d)));
+      (ed.pell_grant.efc.automatic_zero.atDate d)));
   (if ((pellGrantFormula t p d) == PellGrantFormula.A) then (if automatic_zero then 0 else
       (max (0 : Rat) ((pellGrantHeadContribution t p d) +
       (pellGrantDependentContribution t p d)))) else (if ((pellGrantFormula t p d) ==
@@ -117,7 +112,7 @@ def pellGrantSai (t : TaxUnit) (p : Person) (d : Date) : Rat :=
       ((boolToRat ((pellGrantFormula t p d) == PellGrantFormula.A)) *
       (pellGrantDependentContribution t p d))) : Rat) (if ((pellGrantEligibilityType t p d)
       == PellGrantEligibilityType.MAXIMUM) then 0 else
-      (gov.ed.pell_grant.sai.limits.max_sai.atDate d))) : Rat)
-      (gov.ed.pell_grant.sai.limits.min_sai.atDate d))
+      (ed.pell_grant.sai.limits.max_sai.atDate d))) : Rat)
+      (ed.pell_grant.sai.limits.min_sai.atDate d))
 
 end Lawlib.USA

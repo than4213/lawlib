@@ -27,7 +27,7 @@ set_option maxRecDepth 8192
 def cappedElectricHeatPumpClothesDryerRebate (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.electricHeatPumpClothesDryerExpenditures *
       t.doe.highEfficiencyElectricHomeRebatePercentCovered) : Rat)
-      (gov.doe.high_efficiency_electric_home_rebate.cap.electric_heat_pump_clothes_dryer.atDate
+      (doe.high_efficiency_electric_home_rebate.cap.electric_heat_pump_clothes_dryer.atDate
       d))
 
 /-- `capped_electric_load_service_center_upgrade_rebate.py`
@@ -36,7 +36,7 @@ def cappedElectricHeatPumpClothesDryerRebate (t : TaxUnit) (d : Date) : Rat :=
 def cappedElectricLoadServiceCenterUpgradeRebate (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.electricLoadServiceCenterUpgradeExpenditures *
       t.doe.highEfficiencyElectricHomeRebatePercentCovered) : Rat)
-      (gov.doe.high_efficiency_electric_home_rebate.cap.electric_load_service_center_upgrade.atDate
+      (doe.high_efficiency_electric_home_rebate.cap.electric_load_service_center_upgrade.atDate
       d))
 
 /-- `capped_electric_stove_cooktop_range_or_oven_rebate.py`
@@ -45,7 +45,7 @@ def cappedElectricLoadServiceCenterUpgradeRebate (t : TaxUnit) (d : Date) : Rat 
 def cappedElectricStoveCooktopRangeOrOvenRebate (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.electricStoveCooktopRangeOrOvenExpenditures *
       t.doe.highEfficiencyElectricHomeRebatePercentCovered) : Rat)
-      (gov.doe.high_efficiency_electric_home_rebate.cap.electric_stove_cooktop_range_or_oven.atDate
+      (doe.high_efficiency_electric_home_rebate.cap.electric_stove_cooktop_range_or_oven.atDate
       d))
 
 /-- `capped_electric_wiring_rebate.py`
@@ -54,14 +54,14 @@ def cappedElectricStoveCooktopRangeOrOvenRebate (t : TaxUnit) (d : Date) : Rat :
 def cappedElectricWiringRebate (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.electricWiringExpenditures *
       t.doe.highEfficiencyElectricHomeRebatePercentCovered) : Rat)
-      (gov.doe.high_efficiency_electric_home_rebate.cap.electric_wiring.atDate d))
+      (doe.high_efficiency_electric_home_rebate.cap.electric_wiring.atDate d))
 
 /-- `capped_heat_pump_rebate.py`
     in `policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def cappedHeatPumpRebate (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.heatPumpExpenditures * t.doe.highEfficiencyElectricHomeRebatePercentCovered)
-      : Rat) (gov.doe.high_efficiency_electric_home_rebate.cap.heat_pump.atDate d))
+      : Rat) (doe.high_efficiency_electric_home_rebate.cap.heat_pump.atDate d))
 
 /-- `capped_heat_pump_water_heater_rebate.py`
     in `policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/`
@@ -69,7 +69,7 @@ def cappedHeatPumpRebate (t : TaxUnit) (d : Date) : Rat :=
 def cappedHeatPumpWaterHeaterRebate (t : TaxUnit) (d : Date) : Rat :=
   (min ((t.core.heatPumpWaterHeaterExpenditures *
       t.doe.highEfficiencyElectricHomeRebatePercentCovered) : Rat)
-      (gov.doe.high_efficiency_electric_home_rebate.cap.heat_pump_water_heater.atDate d))
+      (doe.high_efficiency_electric_home_rebate.cap.heat_pump_water_heater.atDate d))
 
 /-- `capped_insulation_air_sealing_ventilation_rebate.py`
     in `policyengine_us/variables/gov/doe/high_efficiency_electric_home_rebate/`
@@ -78,7 +78,7 @@ def cappedInsulationAirSealingVentilationRebate (t : TaxUnit) (d : Date) : Rat :
   (min (((t.core.energyEfficientInsulationExpenditures +
       t.core.airSealingVentilationExpenditures) *
       t.doe.highEfficiencyElectricHomeRebatePercentCovered) : Rat)
-      (gov.doe.high_efficiency_electric_home_rebate.cap.insulation_air_sealing_ventilation.atDate
+      (doe.high_efficiency_electric_home_rebate.cap.insulation_air_sealing_ventilation.atDate
       d))
 
 end Lawlib.USA

@@ -39,6 +39,7 @@ import Lawlib.USA.FCC.Part3
 import Lawlib.USA.ED.Part3
 import Lawlib.USA.USDA.Part3
 import Lawlib.USA.HHS.Part3
+import Lawlib.USA.ED.Part4
 
 namespace Lawlib.USA
 open Lawlib
@@ -62,39 +63,39 @@ def acaMagiFraction (t : TaxUnit) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/aca/eligibility/aca_ptc_below_fpl_immigration_exception.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def acaPtcBelowFplImmigrationException (t : TaxUnit) (d : Date) : Bool :=
-  (((gov.aca.below_fpl_immigration_exception_in_effect.atDate d) && (decide
+  (((aca.below_fpl_immigration_exception_in_effect.atDate d) && (decide
       ((acaMagiFraction t d) < 1))) && (anyBy t.members fun p =>
       (((!(p.coreP1.immigrationStatus == ImmigrationStatus.CITIZEN)) &&
       (isAcaPtcImmigrationStatusEligible t p d)) &&
-      (!(isMedicaidImmigrationStatusEligible t p d)))))
+      (!p.hhs.isMedicaidImmigrationStatusEligible))))
 
 /-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_eligible.py`
     policyengine-us 1.783.0, entity tax_unit, value_type bool. -/
 def marketplaceCsrEligible (t : TaxUnit) (d : Date) : Bool :=
   (((decide ((sumBy t.members fun p => (boolToRat (personReceivesAca t p d))) > 0)) &&
       (t.aca.selectedMarketplacePlanCategory == MarketplacePlanCategory.SILVER)) && (decide
-      ((acaMagiFraction t d) ≤ (gov.aca.csr.income_threshold.maximum.atDate d))))
+      ((acaMagiFraction t d) ≤ (aca.csr.income_threshold.maximum.atDate d))))
 
 /-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_category.py`
     policyengine-us 1.783.0, entity tax_unit, value_type Enum. -/
 def marketplaceCsrCategory (t : TaxUnit) (d : Date) : MarketplaceCSRCategory :=
   (if ((marketplaceCsrEligible t d) && (decide ((acaMagiFraction t d) ≤
-      (gov.aca.csr.income_threshold.highest_av_maximum.atDate d)))) then
+      (aca.csr.income_threshold.highest_av_maximum.atDate d)))) then
       MarketplaceCSRCategory.AV_94 else (if ((marketplaceCsrEligible t d) && (decide
-      ((acaMagiFraction t d) ≤ (gov.aca.csr.income_threshold.middle_av_maximum.atDate d))))
-      then MarketplaceCSRCategory.AV_87 else (if ((marketplaceCsrEligible t d) &&
-      (decide ((acaMagiFraction t d) ≤ (gov.aca.csr.income_threshold.maximum.atDate d))))
-      then MarketplaceCSRCategory.AV_73 else MarketplaceCSRCategory.NONE)))
+      ((acaMagiFraction t d) ≤ (aca.csr.income_threshold.middle_av_maximum.atDate d)))) then
+      MarketplaceCSRCategory.AV_87 else (if ((marketplaceCsrEligible t d) &&
+      (decide ((acaMagiFraction t d) ≤ (aca.csr.income_threshold.maximum.atDate d)))) then
+      MarketplaceCSRCategory.AV_73 else MarketplaceCSRCategory.NONE)))
 
 /-- `policyengine_us/variables/gov/aca/csr/marketplace_csr_actuarial_value.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/
 def marketplaceCsrActuarialValue (t : TaxUnit) (d : Date) : Rat :=
   (if (marketplaceCsrEligible t d) then (if ((marketplaceCsrCategory t d) ==
-      MarketplaceCSRCategory.AV_94) then (gov.aca.csr.actuarial_value.highest.atDate d) else
-      (if ((marketplaceCsrCategory t d) == MarketplaceCSRCategory.AV_87) then
-      (gov.aca.csr.actuarial_value.middle.atDate d) else (if
+      MarketplaceCSRCategory.AV_94) then (aca.csr.actuarial_value.highest.atDate d) else (if
+      ((marketplaceCsrCategory t d) == MarketplaceCSRCategory.AV_87) then
+      (aca.csr.actuarial_value.middle.atDate d) else (if
       ((marketplaceCsrCategory t d) == MarketplaceCSRCategory.AV_73) then
-      (gov.aca.csr.actuarial_value.lowest.atDate d) else 0))) else 0)
+      (aca.csr.actuarial_value.lowest.atDate d) else 0))) else 0)
 
 /-- `policyengine_us/variables/gov/aca/csr/marketplace_effective_actuarial_value.py`
     policyengine-us 1.783.0, entity tax_unit, value_type float. -/

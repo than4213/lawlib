@@ -10,10 +10,14 @@ import Lawlib.Core.Scale
 namespace Lawlib.Parameters
 open Lawlib
 
-/-- The US requires each employer to pay each of its employees the following federal minimum wage rate.
+/-- The US requires each employer to pay each of its employees the following federal minimum
+    wage rate.
     `gov/dol/minimum_wage.yaml` (policyengine-us).
-    * 29 U.S. Code § 206 - Minimum wage: https://www.law.cornell.edu/uscode/text/29/206 -/
-def gov.dol.minimum_wage : DatedParam USD :=
-  ⟨(⟨2007, 7, 24⟩, mkRat 146 25), [(⟨2008, 7, 24⟩, mkRat 131 20), (⟨2009, 7, 24⟩, mkRat 29 4)]⟩
+    * 29 U.S. Code § 206 - Minimum wage:
+      https://www.law.cornell.edu/uscode/text/29/206 -/
+def dol.minimum_wage : DatedParam USD :=
+  ⟨(⟨2007, 7, 24⟩, mkRat 146 25),
+    [(⟨2008, 7, 24⟩, mkRat 131 20),
+     (⟨2009, 7, 24⟩, mkRat 29 4)]⟩
 
 end Lawlib.Parameters

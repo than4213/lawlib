@@ -10,11 +10,14 @@ import Lawlib.Core.Scale
 namespace Lawlib.Parameters
 open Lawlib
 
-/-- California implements the HR1 changes to Able-Bodied Adult Without Dependents work requirements under the Supplemental Nutrition Assistance Program when this is true.
+/-- California implements the HR1 changes to Able-Bodied Adult Without Dependents work
+    requirements under the Supplemental Nutrition Assistance Program when this is true.
     `gov/states/ca/cdss/snap/work_requirements/abawd/hr1_in_effect.yaml` (policyengine-us).
-    * California All County Letter No. 25-93: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-93.pdf#page=3
-    * Public Law 119-21, Section 10102(a) - Modifications to SNAP ABAWD Requirements: https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81 -/
-def gov.states.ca.cdss.snap.work_requirements.abawd.hr1_in_effect : DatedParam Bool :=
+    * California All County Letter No. 25-93:
+      https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-93.pdf#page=3
+    * Public Law 119-21, Section 10102(a) - Modifications to SNAP ABAWD Requirements:
+      https://www.congress.gov/119/plaws/publ21/PLAW-119publ21.pdf#page=81 -/
+def states.ca.cdss.snap.work_requirements.abawd.hr1_in_effect : DatedParam Bool :=
   ⟨(⟨0, 1, 1⟩, false), [(⟨2026, 6, 1⟩, true)]⟩
 
 end Lawlib.Parameters

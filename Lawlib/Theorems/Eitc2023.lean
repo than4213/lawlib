@@ -112,17 +112,17 @@ macro "eitc_normalize" : tactic =>
       sumBy, anyBy, boolToRat, trap]
     simp +decide [DatedParam.atDate, DatedParam.atDate.go, Scale.atDate,
       ExtRat.leCap,
-      Parameters.gov.irs.dependent.ineligible_age.student,
-      Parameters.gov.irs.dependent.ineligible_age.non_student,
-      Parameters.gov.irs.credits.eitc.max,
-      Parameters.gov.irs.credits.eitc.phase_in_rate,
-      Parameters.gov.irs.credits.eitc.phase_out.rate,
-      Parameters.gov.irs.credits.eitc.phase_out.start,
-      Parameters.gov.irs.credits.eitc.phase_out.joint_bonus,
-      Parameters.gov.irs.credits.eitc.phase_out.max_investment_income,
-      Parameters.gov.irs.credits.eitc.eligibility.age.min,
-      Parameters.gov.irs.credits.eitc.eligibility.age.min_student,
-      Parameters.gov.irs.credits.eitc.eligibility.age.max,
+      Parameters.irs.dependent.ineligible_age.student,
+      Parameters.irs.dependent.ineligible_age.non_student,
+      Parameters.irs.credits.eitc.max,
+      Parameters.irs.credits.eitc.phase_in_rate,
+      Parameters.irs.credits.eitc.phase_out.rate,
+      Parameters.irs.credits.eitc.phase_out.start,
+      Parameters.irs.credits.eitc.phase_out.joint_bonus,
+      Parameters.irs.credits.eitc.phase_out.max_investment_income,
+      Parameters.irs.credits.eitc.eligibility.age.min,
+      Parameters.irs.credits.eitc.eligibility.age.min_student,
+      Parameters.irs.credits.eitc.eligibility.age.max,
       d2023]
     norm_num [Rat.mkRat_eq_div]))
 

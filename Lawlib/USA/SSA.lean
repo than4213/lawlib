@@ -25,16 +25,16 @@ set_option maxRecDepth 8192
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_aged.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isSsiAged (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide (p.coreP1.age ≥ (gov.ssa.ssi.eligibility.aged_threshold.atDate d)))
+  (decide (p.coreP1.age ≥ (ssa.ssi.eligibility.aged_threshold.atDate d)))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_qualified_noncitizen.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def isSsiQualifiedNoncitizen (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (((gov.ssa.ssi.eligibility.status.qualified_noncitizen_status.atDate d).contains
+  (((ssa.ssi.eligibility.status.qualified_noncitizen_status.atDate d).contains
       (ImmigrationStatus.asStr p.coreP1.immigrationStatus)) &&
       ((!(p.coreP1.immigrationStatus == ImmigrationStatus.LEGAL_PERMANENT_RESIDENT)) ||
       (decide (p.coreP1.ssiQualifyingQuartersEarnings ≥
-      (gov.ssa.ssi.income.sources.qualifying_quarters_threshold.atDate d)))))
+      (ssa.ssi.income.sources.qualifying_quarters_threshold.atDate d)))))
 
 /-- `policyengine_us/variables/gov/ssa/ss/social_security.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -47,7 +47,7 @@ def socialSecurity (t : TaxUnit) (p : Person) (d : Date) : Rat :=
 /-- `policyengine_us/variables/gov/ssa/social_security/ss_aime_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ssAimeEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide (p.coreP1.age ≥ (gov.ssa.social_security.aime.minimum_age_for_earnings.atDate d)))
+  (decide (p.coreP1.age ≥ (ssa.social_security.aime.minimum_age_for_earnings.atDate d)))
 
 /-- `policyengine_us/variables/gov/ssa/social_security/ss_claiming_age.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -58,13 +58,13 @@ def ssClaimingAge (t : TaxUnit) (p : Person) (d : Date) : Rat :=
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssCoveredEarningsThisYear (t : TaxUnit) (p : Person) (d : Date) : Rat :=
   (min ((p.coreP1.employmentIncome + p.coreP2.totalSelfEmploymentIncome) : Rat)
-      (gov.ssa.social_security.wage_base.atDate d))
+      (ssa.social_security.wage_base.atDate d))
 
 /-- `policyengine_us/variables/gov/ssa/social_security/ss_pia.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
 def ssPia (t : TaxUnit) (p : Person) (d : Date) : Rat :=
-  (((ratFloor ((gov.ssa.social_security.pia.formula_factors.marginalCalc d p.ssa.ssAime) *
-      10)) : Rat) / 10)
+  (((ratFloor ((ssa.social_security.pia.formula_factors.marginalCalc d p.ssa.ssAime) * 10))
+      : Rat) / 10)
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/resources/ssi_countable_resources.py`
     policyengine-us 1.783.0, entity person, value_type float. -/
@@ -92,8 +92,7 @@ def ssiMaritalBothEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 def ssiPmvApplies (t : TaxUnit) (p : Person) (d : Date) : Bool :=
   ((p.ssa.ssiFederalLivingArrangement == SSIFederalLivingArrangement.OWN_HOUSEHOLD) &&
       ((p.ssa.ssiReceivesOutsideShelterSupport || p.ssa.ssiReceivesShelterFromOthersInHousehold)
-      ||
-      (p.ssa.ssiReceivesFoodFromOthers && (gov.ssa.ssi.income.ism.food_counts.atDate d))))
+      || (p.ssa.ssiReceivesFoodFromOthers && (ssa.ssi.income.ism.food_counts.atDate d))))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/status/is_ssi_eligible_spouse.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
@@ -103,13 +102,12 @@ def isSsiEligibleSpouse (t : TaxUnit) (p : Person) (d : Date) : Bool :=
 /-- `policyengine_us/variables/gov/ssa/social_security/ss_retirement_eligible.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ssRetirementEligible (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  (decide ((ssClaimingAge t p d) ≥
-      (gov.ssa.social_security.minimum_retirement_age.atDate d)))
+  (decide ((ssClaimingAge t p d) ≥ (ssa.social_security.minimum_retirement_age.atDate d)))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_engaged_in_sga.py`
     policyengine-us 1.783.0, entity person, value_type bool. -/
 def ssiEngagedInSga (t : TaxUnit) (p : Person) (d : Date) : Bool :=
-  ((decide (((ssiEarnedIncome t p d) / 12) > (gov.ssa.sga.non_blind.atDate d))) &&
+  ((decide (((ssiEarnedIncome t p d) / 12) > (ssa.sga.non_blind.atDate d))) &&
       (!p.coreP1.isBlind))
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/income/ssi_unearned_income.py`
@@ -164,11 +162,10 @@ def ssEarningsTestReduction (t : TaxUnit) (p : Person) (d : Date) : Rat :=
       ((p.coreP1.age + 1) ≥ fra_years)));
   (if (ssEarningsTestApplicable t p d) then (min (((max (0 : Rat)
       ((p.coreP1.employmentIncome + p.coreP2.totalSelfEmploymentIncome) - (if year_of_fra
-      then (gov.ssa.social_security.earnings_test.exempt_amount_year_of_fra.atDate d) else
-      (gov.ssa.social_security.earnings_test.exempt_amount_under_fra.atDate d)))) * (if
-      year_of_fra then
-      (gov.ssa.social_security.earnings_test.reduction_rate_year_of_fra.atDate d) else
-      (gov.ssa.social_security.earnings_test.reduction_rate_under_fra.atDate d))) : Rat)
+      then (ssa.social_security.earnings_test.exempt_amount_year_of_fra.atDate d) else
+      (ssa.social_security.earnings_test.exempt_amount_under_fra.atDate d)))) * (if
+      year_of_fra then (ssa.social_security.earnings_test.reduction_rate_year_of_fra.atDate
+      d) else (ssa.social_security.earnings_test.reduction_rate_under_fra.atDate d))) : Rat)
       (ssRetirementBenefitBeforeEarningsTest t p d)) else 0)
 
 /-- `policyengine_us/variables/gov/ssa/ssi/eligibility/status/ssi_category.py`

@@ -12,8 +12,15 @@ open Lawlib
 
 /-- The United States considers these statuses as qualified noncitizens under federal law.
     `gov/dhs/immigration/qualified_noncitizen_status.yaml` (policyengine-us).
-    * 8 U.S. Code § 1641 - Definitions: https://www.law.cornell.edu/uscode/text/8/1641 -/
-def gov.dhs.immigration.qualified_noncitizen_status : DatedParam (List String) :=
-  ⟨(⟨1996, 8, 22⟩, ["LEGAL_PERMANENT_RESIDENT", "REFUGEE", "ASYLEE", "DEPORTATION_WITHHELD", "CUBAN_HAITIAN_ENTRANT", "CONDITIONAL_ENTRANT", "PAROLED_ONE_YEAR"]), []⟩
+    * 8 U.S. Code § 1641 - Definitions:
+      https://www.law.cornell.edu/uscode/text/8/1641 -/
+def dhs.immigration.qualified_noncitizen_status : DatedParam (List String) :=
+  ⟨(⟨1996, 8, 22⟩, ["LEGAL_PERMANENT_RESIDENT",
+      "REFUGEE",
+      "ASYLEE",
+      "DEPORTATION_WITHHELD",
+      "CUBAN_HAITIAN_ENTRANT",
+      "CONDITIONAL_ENTRANT",
+      "PAROLED_ONE_YEAR"]), []⟩
 
 end Lawlib.Parameters

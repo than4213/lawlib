@@ -52,7 +52,6 @@ structure Person_Core_p1 where
   childcareHoursPerDay : Rat := 0
   childcareProviderTypeGroup : ChildcareProviderTypeGroup := .DCC_SACC
   claimedAsDependentOnAnotherReturn : Bool := false
-  countDaysPostpartum : Rat := 0
   cpsRace : Rat := 0
   currentPregnancies : Rat := 0
   debtRelief : Rat := 0
@@ -158,6 +157,7 @@ structure Person_Core_p1 where
   sstbSelfEmploymentIncome : Rat := 0
   sstbSelfEmploymentIncomeBeforeLsr : Rat := 0
   stockAssets : Rat := 0
+  strikeBenefits : Rat := 0
 deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
@@ -185,7 +185,6 @@ instance : Lean.FromJson Person_Core_p1 where
     childcareHoursPerDay := (j.getObjValAs? Rat "childcare_hours_per_day").toOption.getD 0,
     childcareProviderTypeGroup := (j.getObjValAs? ChildcareProviderTypeGroup "childcare_provider_type_group").toOption.getD .DCC_SACC,
     claimedAsDependentOnAnotherReturn := (j.getObjValAs? Bool "claimed_as_dependent_on_another_return").toOption.getD false,
-    countDaysPostpartum := (j.getObjValAs? Rat "count_days_postpartum").toOption.getD 0,
     cpsRace := (j.getObjValAs? Rat "cps_race").toOption.getD 0,
     currentPregnancies := (j.getObjValAs? Rat "current_pregnancies").toOption.getD 0,
     debtRelief := (j.getObjValAs? Rat "debt_relief").toOption.getD 0,
@@ -290,10 +289,10 @@ instance : Lean.FromJson Person_Core_p1 where
     ssnCardType := (j.getObjValAs? SSNCardType "ssn_card_type").toOption.getD .CITIZEN,
     sstbSelfEmploymentIncome := (j.getObjValAs? Rat "sstb_self_employment_income").toOption.getD 0,
     sstbSelfEmploymentIncomeBeforeLsr := (j.getObjValAs? Rat "sstb_self_employment_income_before_lsr").toOption.getD 0,
-    stockAssets := (j.getObjValAs? Rat "stock_assets").toOption.getD 0 }
+    stockAssets := (j.getObjValAs? Rat "stock_assets").toOption.getD 0,
+    strikeBenefits := (j.getObjValAs? Rat "strike_benefits").toOption.getD 0 }
 
 structure Person_Core_p2 where
-  strikeBenefits : Rat := 0
   survivorBenefits : Rat := 0
   taxExemptInterestIncome : Rat := 0
   taxPreparationFees : Rat := 0
@@ -313,13 +312,11 @@ structure Person_Core_p2 where
   veteransBenefits : Rat := 0
   wasInFosterCare : Bool := false
   weeklyHoursWorkedBeforeLsr : Rat := 0
-  yearsSinceUsEntry : Rat := 0
 deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
 instance : Lean.FromJson Person_Core_p2 where
   fromJson? j := return {
-    strikeBenefits := (j.getObjValAs? Rat "strike_benefits").toOption.getD 0,
     survivorBenefits := (j.getObjValAs? Rat "survivor_benefits").toOption.getD 0,
     taxExemptInterestIncome := (j.getObjValAs? Rat "tax_exempt_interest_income").toOption.getD 0,
     taxPreparationFees := (j.getObjValAs? Rat "tax_preparation_fees").toOption.getD 0,
@@ -338,8 +335,7 @@ instance : Lean.FromJson Person_Core_p2 where
     usBondsForHigherEd := (j.getObjValAs? Rat "us_bonds_for_higher_ed").toOption.getD 0,
     veteransBenefits := (j.getObjValAs? Rat "veterans_benefits").toOption.getD 0,
     wasInFosterCare := (j.getObjValAs? Bool "was_in_foster_care").toOption.getD false,
-    weeklyHoursWorkedBeforeLsr := (j.getObjValAs? Rat "weekly_hours_worked_before_lsr").toOption.getD 0,
-    yearsSinceUsEntry := (j.getObjValAs? Rat "years_since_us_entry").toOption.getD 0 }
+    weeklyHoursWorkedBeforeLsr := (j.getObjValAs? Rat "weekly_hours_worked_before_lsr").toOption.getD 0 }
 
 structure Person_Ed where
   isFederalWorkStudyParticipant : Bool := false
@@ -363,6 +359,7 @@ structure Person_Hhs where
   chipFederalShare : Rat := 0
   grossMedicarePartBPremium : Rat := 0
   hasEmergencyMedicalCondition : Bool := false
+  isAdultForMedicaidFc : Bool := false
   isBasicHealthProgramEligible : Bool := false
   isChipEligibleChild : Bool := false
   isChipEligibleStandardPregnantPerson : Bool := false
@@ -370,7 +367,16 @@ structure Person_Hhs where
   isHeadStartEligible : Bool := false
   isInfantForMedicaidFc : Bool := false
   isMedicaidEligible : Bool := false
+  isMedicaidImmigrationStatusEligible : Bool := false
   isMedicaidIneligibleDueToWorkRequirement : Bool := false
+  isOptionalSeniorOrDisabledAssetEligible : Bool := false
+  isOptionalSeniorOrDisabledIncomeEligible : Bool := false
+  isParentForMedicaidNfc : Bool := false
+  isPregnantForMedicaidFc : Bool := false
+  isPregnantForMedicaidNfc : Bool := false
+  isSsiRecipientForMedicaid : Bool := false
+  isYoungAdultForMedicaidFc : Bool := false
+  isYoungChildForMedicaidFc : Bool := false
   medicaidAdjustedGrossIncomePerson : Rat := 0
   medicaidCategory : MedicaidCategory := .NONE
   medicaidCommunityEngagementCommunityServiceHours : Rat := 0
@@ -381,13 +387,14 @@ structure Person_Hhs where
   medicaidHasKnownClaimingTaxUnit : Bool := false
   medicaidHomeEquityLimitFamilyException : Bool := false
   medicaidIncomeLevel : Rat := 0
-  medicaidOptionalSeniorOrDisabledCountableIncome : Rat := 0
+  medicaidParentIncomeLimit : Rat := 0
   medicaidPersonIsRequiredToFile : Bool := false
   medicaidSlcspCostIndex : Rat := 0
   medicaidSlcspStateAverageCostIndex : Rat := 0
   medicaidTaxDependentExceptionNonCustodialParent : Bool := false
   medicareQuartersOfCoverage : Rat := 0
   monthsReceivingSocialSecurityDisability : Rat := 0
+  mspAssetEligible : Bool := false
   mspCost : Rat := 0
   mspCountableIncome : Rat := 0
   mspFederalCost : Rat := 0
@@ -398,8 +405,6 @@ structure Person_Hhs where
   receivesMedicaid : Bool := false
   takesUpBasicHealthProgramIfEligible : Bool := false
   takesUpChipIfEligible : Bool := false
-  takesUpEarlyHeadStartIfEligible : Bool := false
-  takesUpHeadStartIfEligible : Bool := false
   takesUpMedicaidIfEligible : Bool := false
   takesUpMedicareIfEligible : Bool := false
   tanfPerson : Rat := 0
@@ -412,6 +417,7 @@ instance : Lean.FromJson Person_Hhs where
     chipFederalShare := (j.getObjValAs? Rat "chip_federal_share").toOption.getD 0,
     grossMedicarePartBPremium := (j.getObjValAs? Rat "gross_medicare_part_b_premium").toOption.getD 0,
     hasEmergencyMedicalCondition := (j.getObjValAs? Bool "has_emergency_medical_condition").toOption.getD false,
+    isAdultForMedicaidFc := (j.getObjValAs? Bool "is_adult_for_medicaid_fc").toOption.getD false,
     isBasicHealthProgramEligible := (j.getObjValAs? Bool "is_basic_health_program_eligible").toOption.getD false,
     isChipEligibleChild := (j.getObjValAs? Bool "is_chip_eligible_child").toOption.getD false,
     isChipEligibleStandardPregnantPerson := (j.getObjValAs? Bool "is_chip_eligible_standard_pregnant_person").toOption.getD false,
@@ -419,7 +425,16 @@ instance : Lean.FromJson Person_Hhs where
     isHeadStartEligible := (j.getObjValAs? Bool "is_head_start_eligible").toOption.getD false,
     isInfantForMedicaidFc := (j.getObjValAs? Bool "is_infant_for_medicaid_fc").toOption.getD false,
     isMedicaidEligible := (j.getObjValAs? Bool "is_medicaid_eligible").toOption.getD false,
+    isMedicaidImmigrationStatusEligible := (j.getObjValAs? Bool "is_medicaid_immigration_status_eligible").toOption.getD false,
     isMedicaidIneligibleDueToWorkRequirement := (j.getObjValAs? Bool "is_medicaid_ineligible_due_to_work_requirement").toOption.getD false,
+    isOptionalSeniorOrDisabledAssetEligible := (j.getObjValAs? Bool "is_optional_senior_or_disabled_asset_eligible").toOption.getD false,
+    isOptionalSeniorOrDisabledIncomeEligible := (j.getObjValAs? Bool "is_optional_senior_or_disabled_income_eligible").toOption.getD false,
+    isParentForMedicaidNfc := (j.getObjValAs? Bool "is_parent_for_medicaid_nfc").toOption.getD false,
+    isPregnantForMedicaidFc := (j.getObjValAs? Bool "is_pregnant_for_medicaid_fc").toOption.getD false,
+    isPregnantForMedicaidNfc := (j.getObjValAs? Bool "is_pregnant_for_medicaid_nfc").toOption.getD false,
+    isSsiRecipientForMedicaid := (j.getObjValAs? Bool "is_ssi_recipient_for_medicaid").toOption.getD false,
+    isYoungAdultForMedicaidFc := (j.getObjValAs? Bool "is_young_adult_for_medicaid_fc").toOption.getD false,
+    isYoungChildForMedicaidFc := (j.getObjValAs? Bool "is_young_child_for_medicaid_fc").toOption.getD false,
     medicaidAdjustedGrossIncomePerson := (j.getObjValAs? Rat "medicaid_adjusted_gross_income_person").toOption.getD 0,
     medicaidCategory := (j.getObjValAs? MedicaidCategory "medicaid_category").toOption.getD .NONE,
     medicaidCommunityEngagementCommunityServiceHours := (j.getObjValAs? Rat "medicaid_community_engagement_community_service_hours").toOption.getD 0,
@@ -430,13 +445,14 @@ instance : Lean.FromJson Person_Hhs where
     medicaidHasKnownClaimingTaxUnit := (j.getObjValAs? Bool "medicaid_has_known_claiming_tax_unit").toOption.getD false,
     medicaidHomeEquityLimitFamilyException := (j.getObjValAs? Bool "medicaid_home_equity_limit_family_exception").toOption.getD false,
     medicaidIncomeLevel := (j.getObjValAs? Rat "medicaid_income_level").toOption.getD 0,
-    medicaidOptionalSeniorOrDisabledCountableIncome := (j.getObjValAs? Rat "medicaid_optional_senior_or_disabled_countable_income").toOption.getD 0,
+    medicaidParentIncomeLimit := (j.getObjValAs? Rat "medicaid_parent_income_limit").toOption.getD 0,
     medicaidPersonIsRequiredToFile := (j.getObjValAs? Bool "medicaid_person_is_required_to_file").toOption.getD false,
     medicaidSlcspCostIndex := (j.getObjValAs? Rat "medicaid_slcsp_cost_index").toOption.getD 0,
     medicaidSlcspStateAverageCostIndex := (j.getObjValAs? Rat "medicaid_slcsp_state_average_cost_index").toOption.getD 0,
     medicaidTaxDependentExceptionNonCustodialParent := (j.getObjValAs? Bool "medicaid_tax_dependent_exception_non_custodial_parent").toOption.getD false,
     medicareQuartersOfCoverage := (j.getObjValAs? Rat "medicare_quarters_of_coverage").toOption.getD 0,
     monthsReceivingSocialSecurityDisability := (j.getObjValAs? Rat "months_receiving_social_security_disability").toOption.getD 0,
+    mspAssetEligible := (j.getObjValAs? Bool "msp_asset_eligible").toOption.getD false,
     mspCost := (j.getObjValAs? Rat "msp_cost").toOption.getD 0,
     mspCountableIncome := (j.getObjValAs? Rat "msp_countable_income").toOption.getD 0,
     mspFederalCost := (j.getObjValAs? Rat "msp_federal_cost").toOption.getD 0,
@@ -447,8 +463,6 @@ instance : Lean.FromJson Person_Hhs where
     receivesMedicaid := (j.getObjValAs? Bool "receives_medicaid").toOption.getD false,
     takesUpBasicHealthProgramIfEligible := (j.getObjValAs? Bool "takes_up_basic_health_program_if_eligible").toOption.getD false,
     takesUpChipIfEligible := (j.getObjValAs? Bool "takes_up_chip_if_eligible").toOption.getD false,
-    takesUpEarlyHeadStartIfEligible := (j.getObjValAs? Bool "takes_up_early_head_start_if_eligible").toOption.getD false,
-    takesUpHeadStartIfEligible := (j.getObjValAs? Bool "takes_up_head_start_if_eligible").toOption.getD false,
     takesUpMedicaidIfEligible := (j.getObjValAs? Bool "takes_up_medicaid_if_eligible").toOption.getD false,
     takesUpMedicareIfEligible := (j.getObjValAs? Bool "takes_up_medicare_if_eligible").toOption.getD false,
     tanfPerson := (j.getObjValAs? Rat "tanf_person").toOption.getD 0 }
@@ -466,6 +480,7 @@ structure Person_Irs where
   americanOpportunityCreditClaimedPriorYears : Rat := 0
   attendsEligibleEducationalInstitutionForAmericanOpportunityCredit : Bool := false
   attendsEligibleEducationalInstitutionForLifetimeLearningCredit : Bool := false
+  employerFederalUnemploymentTaxRate : Rat := 0
   estateTaxCredit : Rat := 0
   hasAmericanOpportunityCredit1098TOrException : Bool := false
   hasAmericanOpportunityCreditInstitutionEin : Bool := false
@@ -487,6 +502,7 @@ instance : Lean.FromJson Person_Irs where
     americanOpportunityCreditClaimedPriorYears := (j.getObjValAs? Rat "american_opportunity_credit_claimed_prior_years").toOption.getD 0,
     attendsEligibleEducationalInstitutionForAmericanOpportunityCredit := (j.getObjValAs? Bool "attends_eligible_educational_institution_for_american_opportunity_credit").toOption.getD false,
     attendsEligibleEducationalInstitutionForLifetimeLearningCredit := (j.getObjValAs? Bool "attends_eligible_educational_institution_for_lifetime_learning_credit").toOption.getD false,
+    employerFederalUnemploymentTaxRate := (j.getObjValAs? Rat "employer_federal_unemployment_tax_rate").toOption.getD 0,
     estateTaxCredit := (j.getObjValAs? Rat "estate_tax_credit").toOption.getD 0,
     hasAmericanOpportunityCredit1098TOrException := (j.getObjValAs? Bool "has_american_opportunity_credit_1098_t_or_exception").toOption.getD false,
     hasAmericanOpportunityCreditInstitutionEin := (j.getObjValAs? Bool "has_american_opportunity_credit_institution_ein").toOption.getD false,
@@ -581,7 +597,6 @@ structure Person_States_ca where
   caSnapImmigrationStatusEligible : Bool := false
   caWdpEligible : Bool := false
   caWdpPremium : Rat := 0
-  isCaMedicaidImmigrationStatusEligible : Bool := false
 deriving Repr, Lean.ToJson
 
 /-- Tolerant decoder: every field defaults, so callers send only what they set. -/
@@ -589,8 +604,7 @@ instance : Lean.FromJson Person_States_ca where
   fromJson? j := return {
     caSnapImmigrationStatusEligible := (j.getObjValAs? Bool "ca_snap_immigration_status_eligible").toOption.getD false,
     caWdpEligible := (j.getObjValAs? Bool "ca_wdp_eligible").toOption.getD false,
-    caWdpPremium := (j.getObjValAs? Rat "ca_wdp_premium").toOption.getD 0,
-    isCaMedicaidImmigrationStatusEligible := (j.getObjValAs? Bool "is_ca_medicaid_immigration_status_eligible").toOption.getD false }
+    caWdpPremium := (j.getObjValAs? Rat "ca_wdp_premium").toOption.getD 0 }
 
 structure Person_States_il where
   ilHbiEligible : Bool := false
@@ -645,21 +659,11 @@ instance : Lean.FromJson Person_States_tx where
   fromJson? j := return {
     txDtaCsfpIncomeEligible := (j.getObjValAs? Bool "tx_dta_csfp_income_eligible").toOption.getD false }
 
-structure Person_States_va where
-  vaMedicaidLifcIncomeLimit : Rat := 0
-deriving Repr, Lean.ToJson
-
-/-- Tolerant decoder: every field defaults, so callers send only what they set. -/
-instance : Lean.FromJson Person_States_va where
-  fromJson? j := return {
-    vaMedicaidLifcIncomeLimit := (j.getObjValAs? Rat "va_medicaid_lifc_income_limit").toOption.getD 0 }
-
 structure Person_Usda where
   hasAppliedForUnemploymentCompensation : Bool := false
   isComplyingWithTanfWorkRequirements : Bool := false
   isInSubstanceUseTreatmentProgram : Bool := false
   isSnapEmploymentTrainingStudent : Bool := false
-  isSnapGrossTestFullIncomeCountAlien : Bool := false
   isSnapProratedIncomeMember : Bool := false
   isSnapWorkIncentiveStudent : Bool := false
   isUsdaDisabled : Bool := false
@@ -673,7 +677,7 @@ structure Person_Usda where
   takesUpWicIfEligible : Bool := false
   wicBreastfeedingInfantCount : Rat := 0
   wicCategory : WICCategory := .NONE
-  wicFoodPackageStr : String := ""
+  wicIfTakesUp : Rat := 0
   wicInfantFeedingCategory : WICInfantFeedingCategory := .AVERAGE
 deriving Repr, Lean.ToJson
 
@@ -684,7 +688,6 @@ instance : Lean.FromJson Person_Usda where
     isComplyingWithTanfWorkRequirements := (j.getObjValAs? Bool "is_complying_with_tanf_work_requirements").toOption.getD false,
     isInSubstanceUseTreatmentProgram := (j.getObjValAs? Bool "is_in_substance_use_treatment_program").toOption.getD false,
     isSnapEmploymentTrainingStudent := (j.getObjValAs? Bool "is_snap_employment_training_student").toOption.getD false,
-    isSnapGrossTestFullIncomeCountAlien := (j.getObjValAs? Bool "is_snap_gross_test_full_income_count_alien").toOption.getD false,
     isSnapProratedIncomeMember := (j.getObjValAs? Bool "is_snap_prorated_income_member").toOption.getD false,
     isSnapWorkIncentiveStudent := (j.getObjValAs? Bool "is_snap_work_incentive_student").toOption.getD false,
     isUsdaDisabled := (j.getObjValAs? Bool "is_usda_disabled").toOption.getD false,
@@ -698,7 +701,7 @@ instance : Lean.FromJson Person_Usda where
     takesUpWicIfEligible := (j.getObjValAs? Bool "takes_up_wic_if_eligible").toOption.getD false,
     wicBreastfeedingInfantCount := (j.getObjValAs? Rat "wic_breastfeeding_infant_count").toOption.getD 0,
     wicCategory := (j.getObjValAs? WICCategory "wic_category").toOption.getD .NONE,
-    wicFoodPackageStr := (j.getObjValAs? String "wic_food_package_str").toOption.getD "",
+    wicIfTakesUp := (j.getObjValAs? Rat "wic_if_takes_up").toOption.getD 0,
     wicInfantFeedingCategory := (j.getObjValAs? WICInfantFeedingCategory "wic_infant_feeding_category").toOption.getD .AVERAGE }
 
 structure Person where
@@ -719,7 +722,6 @@ structure Person where
   statesOr : Person_States_or := {}
   statesTax : Person_States_tax := {}
   statesTx : Person_States_tx := {}
-  statesVa : Person_States_va := {}
   usda : Person_Usda := {}
 deriving Repr, Lean.ToJson
 
@@ -743,7 +745,6 @@ instance : Lean.FromJson Person where
     statesOr := (j.getObjValAs? Person_States_or "states_or").toOption.getD {},
     statesTax := (j.getObjValAs? Person_States_tax "states_tax").toOption.getD {},
     statesTx := (j.getObjValAs? Person_States_tx "states_tx").toOption.getD {},
-    statesVa := (j.getObjValAs? Person_States_va "states_va").toOption.getD {},
     usda := (j.getObjValAs? Person_Usda "usda").toOption.getD {} }
 
 structure TaxUnit_Aca where
@@ -779,7 +780,6 @@ structure TaxUnit_Core where
   broadbandCost : Rat := 0
   childcareExpenses : Rat := 0
   cohabitatingSpouses : Bool := false
-  countDistinctUtilityExpenses : Rat := 0
   electricHeatPumpClothesDryerExpenditures : Rat := 0
   electricLoadServiceCenterUpgradeExpenditures : Rat := 0
   electricStoveCooktopRangeOrOvenExpenditures : Rat := 0
@@ -790,14 +790,11 @@ structure TaxUnit_Core where
   energyEfficientRoofExpenditures : Rat := 0
   filingStatus : FilingStatus := .SINGLE
   form4972LumpsumDistributions : Rat := 0
-  hasHeatingCoolingExpense : Bool := false
   heatPumpExpenditures : Rat := 0
   heatPumpWaterHeaterExpenditures : Rat := 0
   homeEnergyAuditExpenditures : Rat := 0
   householdVehiclesOwned : Rat := 0
-  householdVehiclesValue : Rat := 0
   householdWeight : Rat := 0
-  housingCost : Rat := 0
   isHomeless : Bool := false
   isOnTribalLand : Bool := false
   isSro : Bool := false
@@ -838,7 +835,6 @@ instance : Lean.FromJson TaxUnit_Core where
     broadbandCost := (j.getObjValAs? Rat "broadband_cost").toOption.getD 0,
     childcareExpenses := (j.getObjValAs? Rat "childcare_expenses").toOption.getD 0,
     cohabitatingSpouses := (j.getObjValAs? Bool "cohabitating_spouses").toOption.getD false,
-    countDistinctUtilityExpenses := (j.getObjValAs? Rat "count_distinct_utility_expenses").toOption.getD 0,
     electricHeatPumpClothesDryerExpenditures := (j.getObjValAs? Rat "electric_heat_pump_clothes_dryer_expenditures").toOption.getD 0,
     electricLoadServiceCenterUpgradeExpenditures := (j.getObjValAs? Rat "electric_load_service_center_upgrade_expenditures").toOption.getD 0,
     electricStoveCooktopRangeOrOvenExpenditures := (j.getObjValAs? Rat "electric_stove_cooktop_range_or_oven_expenditures").toOption.getD 0,
@@ -849,14 +845,11 @@ instance : Lean.FromJson TaxUnit_Core where
     energyEfficientRoofExpenditures := (j.getObjValAs? Rat "energy_efficient_roof_expenditures").toOption.getD 0,
     filingStatus := (j.getObjValAs? FilingStatus "filing_status").toOption.getD .SINGLE,
     form4972LumpsumDistributions := (j.getObjValAs? Rat "form_4972_lumpsum_distributions").toOption.getD 0,
-    hasHeatingCoolingExpense := (j.getObjValAs? Bool "has_heating_cooling_expense").toOption.getD false,
     heatPumpExpenditures := (j.getObjValAs? Rat "heat_pump_expenditures").toOption.getD 0,
     heatPumpWaterHeaterExpenditures := (j.getObjValAs? Rat "heat_pump_water_heater_expenditures").toOption.getD 0,
     homeEnergyAuditExpenditures := (j.getObjValAs? Rat "home_energy_audit_expenditures").toOption.getD 0,
     householdVehiclesOwned := (j.getObjValAs? Rat "household_vehicles_owned").toOption.getD 0,
-    householdVehiclesValue := (j.getObjValAs? Rat "household_vehicles_value").toOption.getD 0,
     householdWeight := (j.getObjValAs? Rat "household_weight").toOption.getD 0,
-    housingCost := (j.getObjValAs? Rat "housing_cost").toOption.getD 0,
     isHomeless := (j.getObjValAs? Bool "is_homeless").toOption.getD false,
     isOnTribalLand := (j.getObjValAs? Bool "is_on_tribal_land").toOption.getD false,
     isSro := (j.getObjValAs? Bool "is_sro").toOption.getD false,
@@ -921,6 +914,9 @@ structure TaxUnit_Hhs where
   hhsSmi : Rat := 0
   medicaidWorkingDisabledBuyInPremium : Rat := 0
   meetsCcdfActivityTest : Bool := false
+  meetsTanfNonCashAssetTest : Bool := false
+  meetsTanfNonCashGrossIncomeTest : Bool := false
+  meetsTanfNonCashNetIncomeTest : Bool := false
   receivesTanf : Bool := false
   spmUnitTotalCcdfCopay : Rat := 0
   takesUpTanfIfEligible : Bool := false
@@ -933,6 +929,9 @@ instance : Lean.FromJson TaxUnit_Hhs where
     hhsSmi := (j.getObjValAs? Rat "hhs_smi").toOption.getD 0,
     medicaidWorkingDisabledBuyInPremium := (j.getObjValAs? Rat "medicaid_working_disabled_buy_in_premium").toOption.getD 0,
     meetsCcdfActivityTest := (j.getObjValAs? Bool "meets_ccdf_activity_test").toOption.getD false,
+    meetsTanfNonCashAssetTest := (j.getObjValAs? Bool "meets_tanf_non_cash_asset_test").toOption.getD false,
+    meetsTanfNonCashGrossIncomeTest := (j.getObjValAs? Bool "meets_tanf_non_cash_gross_income_test").toOption.getD false,
+    meetsTanfNonCashNetIncomeTest := (j.getObjValAs? Bool "meets_tanf_non_cash_net_income_test").toOption.getD false,
     receivesTanf := (j.getObjValAs? Bool "receives_tanf").toOption.getD false,
     spmUnitTotalCcdfCopay := (j.getObjValAs? Rat "spm_unit_total_ccdf_copay").toOption.getD 0,
     takesUpTanfIfEligible := (j.getObjValAs? Bool "takes_up_tanf_if_eligible").toOption.getD false,
@@ -1701,16 +1700,19 @@ structure TaxUnit_Usda where
   receivesSnap : Bool := false
   schoolMealDailySubsidy : Rat := 0
   schoolMealPaidDailySubsidy : Rat := 0
+  snapChildSupportGrossIncomeDeduction : Rat := 0
   snapEmergencyAllotment : Rat := 0
+  snapExcessMedicalExpenseDeduction : Rat := 0
+  snapExcessShelterExpenseDeduction : Rat := 0
   snapFpg : Rat := 0
+  snapGrossTestIncome : Rat := 0
   snapIndividualUtilityAllowance : Rat := 0
   snapLimitedUtilityAllowance : Rat := 0
   snapMinAllotment : Rat := 0
   snapRegionStr : String := ""
   snapSelfEmploymentExpenseDeduction : Rat := 0
   snapStandardUtilityAllowance : Rat := 0
-  snapStateUsingStandardUtilityAllowance : Bool := false
-  snapUtilityRegionStr : String := ""
+  stateHasUniversalFreeSchoolMeals : Bool := false
   takesUpSnapIfEligible : Bool := false
   wicIncomeLimit : Rat := 0
 deriving Repr, Lean.ToJson
@@ -1722,16 +1724,19 @@ instance : Lean.FromJson TaxUnit_Usda where
     receivesSnap := (j.getObjValAs? Bool "receives_snap").toOption.getD false,
     schoolMealDailySubsidy := (j.getObjValAs? Rat "school_meal_daily_subsidy").toOption.getD 0,
     schoolMealPaidDailySubsidy := (j.getObjValAs? Rat "school_meal_paid_daily_subsidy").toOption.getD 0,
+    snapChildSupportGrossIncomeDeduction := (j.getObjValAs? Rat "snap_child_support_gross_income_deduction").toOption.getD 0,
     snapEmergencyAllotment := (j.getObjValAs? Rat "snap_emergency_allotment").toOption.getD 0,
+    snapExcessMedicalExpenseDeduction := (j.getObjValAs? Rat "snap_excess_medical_expense_deduction").toOption.getD 0,
+    snapExcessShelterExpenseDeduction := (j.getObjValAs? Rat "snap_excess_shelter_expense_deduction").toOption.getD 0,
     snapFpg := (j.getObjValAs? Rat "snap_fpg").toOption.getD 0,
+    snapGrossTestIncome := (j.getObjValAs? Rat "snap_gross_test_income").toOption.getD 0,
     snapIndividualUtilityAllowance := (j.getObjValAs? Rat "snap_individual_utility_allowance").toOption.getD 0,
     snapLimitedUtilityAllowance := (j.getObjValAs? Rat "snap_limited_utility_allowance").toOption.getD 0,
     snapMinAllotment := (j.getObjValAs? Rat "snap_min_allotment").toOption.getD 0,
     snapRegionStr := (j.getObjValAs? String "snap_region_str").toOption.getD "",
     snapSelfEmploymentExpenseDeduction := (j.getObjValAs? Rat "snap_self_employment_expense_deduction").toOption.getD 0,
     snapStandardUtilityAllowance := (j.getObjValAs? Rat "snap_standard_utility_allowance").toOption.getD 0,
-    snapStateUsingStandardUtilityAllowance := (j.getObjValAs? Bool "snap_state_using_standard_utility_allowance").toOption.getD false,
-    snapUtilityRegionStr := (j.getObjValAs? String "snap_utility_region_str").toOption.getD "",
+    stateHasUniversalFreeSchoolMeals := (j.getObjValAs? Bool "state_has_universal_free_school_meals").toOption.getD false,
     takesUpSnapIfEligible := (j.getObjValAs? Bool "takes_up_snap_if_eligible").toOption.getD false,
     wicIncomeLimit := (j.getObjValAs? Rat "wic_income_limit").toOption.getD 0 }
 
